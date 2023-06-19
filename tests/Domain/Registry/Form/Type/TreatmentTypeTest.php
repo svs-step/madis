@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Registry\Form\Type;
 
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
-use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\User\Model\Collectivity;
@@ -36,6 +35,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -111,7 +111,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'dataOrigin'                        => TextType::class,
             'recipientCategory'                 => TextareaType::class,
             'contractors'                       => EntityType::class,
-            'delay'                             => DelayType::class,
+            'shelfLifes'                        => CollectionType::class,
             'securityAccessControl'             => ComplexChoiceType::class,
             'securityTracability'               => ComplexChoiceType::class,
             'securitySaving'                    => ComplexChoiceType::class,
@@ -133,7 +133,6 @@ class TreatmentTypeTest extends FormTypeHelper
             'securityEntitledPersons'           => CheckboxType::class,
             'securityOpenAccounts'              => CheckboxType::class,
             'securitySpecificitiesDelivered'    => CheckboxType::class,
-            'ultimateFate'                      => DictionaryType::class,
             'otherCollectingMethod'             => TextType::class,
             'legalMentions'                     => CheckboxType::class,
             'consentRequest'                    => CheckboxType::class,
@@ -178,7 +177,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'dataOrigin'                        => TextType::class,
             'recipientCategory'                 => TextareaType::class,
             'contractors'                       => EntityType::class,
-            'delay'                             => DelayType::class,
+            'shelfLifes'                        => CollectionType::class,
             'securityAccessControl'             => ComplexChoiceType::class,
             'securityTracability'               => ComplexChoiceType::class,
             'securitySaving'                    => ComplexChoiceType::class,
@@ -200,7 +199,6 @@ class TreatmentTypeTest extends FormTypeHelper
             'securityEntitledPersons'           => CheckboxType::class,
             'securityOpenAccounts'              => CheckboxType::class,
             'securitySpecificitiesDelivered'    => CheckboxType::class,
-            'ultimateFate'                      => DictionaryType::class,
             'otherCollectingMethod'             => TextType::class,
             'legalMentions'                     => CheckboxType::class,
             'consentRequest'                    => CheckboxType::class,

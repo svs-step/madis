@@ -14,7 +14,7 @@ final class Version20230619075239 extends AbstractMigration
 {
     protected $oldquestions;
 
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return 'Set conformite traitement questions order';
     }
@@ -25,17 +25,16 @@ final class Version20230619075239 extends AbstractMigration
         $this->oldquestions = $this->getData('SELECT * FROM conformite_traitement_question ORDER BY position ASC');
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         foreach ($this->oldquestions as $k => $question) {
-            $this->addSql('UPDATE conformite_traitement_question SET position="' . ($k+1) . '" WHERE id="' . $question['id'] . '"');
+            $this->addSql('UPDATE conformite_traitement_question SET position="' . ($k + 1) . '" WHERE id="' . $question['id'] . '"');
         }
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
-
     }
 
     private function getData(string $sql): array

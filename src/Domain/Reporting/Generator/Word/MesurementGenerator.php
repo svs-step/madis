@@ -29,7 +29,6 @@ use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\Mesurement;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Element\Table;
-use PhpOffice\PhpWord\SimpleType\Jc;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
 
 class MesurementGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
@@ -62,7 +61,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         uasort($data, [$this, 'sortMesurementByPriority']);
 
         $appliedMesurement = [];
-        $actionPlan = [];
+        $actionPlan        = [];
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
                 $appliedMesurement[] = [
@@ -96,12 +95,12 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
 
         $section->addTextBreak();
 
-        $section->addText("Nombre d’actions de protection affectées par type de registre :");
+        $section->addText('Nombre d’actions de protection affectées par type de registre :');
         $this->ActionTypeTable($section, $data);
-
     }
 
-    private function ActionTypeTable($section, $data){
+    private function ActionTypeTable($section, $data)
+    {
         $tableActionType = $section->addTable($this->tableStyleConformite);
         $tableActionType->addRow(null, ['tblHeader' => true, 'cantSplit' => true]);
         $cell = $tableActionType->addCell(6000, $this->cellHeadStyle);
@@ -109,18 +108,18 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $cell = $tableActionType->addCell(3000, $this->cellHeadStyle);
         $cell->addText('Nombre d’actions de protection affectées', $this->textHeadStyle);
 
-        $cntTreatment = 0;
+        $cntTreatment   = 0;
         $cntContractors = 0;
-        $cntViolations = 0;
-        $cntRequests = 0;
-        foreach($data as $item){
-            $cntTreatment = $item->getTreatments() ? $cntTreatment + count($item->getTreatments()) : $cntTreatment;
+        $cntViolations  = 0;
+        $cntRequests    = 0;
+        foreach ($data as $item) {
+            $cntTreatment   = $item->getTreatments() ? $cntTreatment + count($item->getTreatments()) : $cntTreatment;
             $cntContractors = $item->getContractors() ? $cntContractors + count($item->getContractors()) : $cntContractors;
-            $cntViolations = $item->getViolations() ? $cntViolations + count($item->getViolations()) : $cntViolations;
-            $cntRequests = $item->getRequests() ? $cntRequests + count($item->getRequests()) : $cntRequests;
+            $cntViolations  = $item->getViolations() ? $cntViolations + count($item->getViolations()) : $cntViolations;
+            $cntRequests    = $item->getRequests() ? $cntRequests + count($item->getRequests()) : $cntRequests;
         }
         $arrayTypes = [['type' => 'Traitement', 'count' => $cntTreatment], ['type' => 'Sous-traitants', 'count' => $cntContractors], ['type' => 'Violations de donnéest', 'count' => $cntViolations], ['type' => 'Demandes', 'count' => $cntRequests]];
-        foreach($arrayTypes as $item){
+        foreach ($arrayTypes as $item) {
             $tableActionType->addRow();
             $cell = $tableActionType->addCell(6000);
             $cell->addText($item['type']);
@@ -129,8 +128,9 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         }
     }
 
-    public function ProtectionActionAppliedAnnexeTable($section, $data){
-        $section->addTitle('Liste des actions de protection mises en place',2);
+    public function ProtectionActionAppliedAnnexeTable($section, $data)
+    {
+        $section->addTitle('Liste des actions de protection mises en place', 2);
         $appliedMesurement = [];
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
@@ -143,8 +143,8 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $this->ProtectionActionAppliedTable($section, $appliedMesurement);
     }
 
-    public function ProtectionActionAppliedTable($section, $appliedMesurement){
-
+    public function ProtectionActionAppliedTable($section, $appliedMesurement)
+    {
         $tableProtectionActionApplied = $section->addTable($this->tableStyleConformite);
         $tableProtectionActionApplied->addRow(null, ['tblHeader' => true, 'cantSplit' => true]);
         $cell = $tableProtectionActionApplied->addCell(1500, $this->cellHeadStyle);
@@ -152,8 +152,8 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $cell = $tableProtectionActionApplied->addCell(7500, $this->cellHeadStyle);
         $cell->addText('Action', $this->textHeadStyle);
 
-        if ($appliedMesurement){
-            foreach ($appliedMesurement as $line){
+        if ($appliedMesurement) {
+            foreach ($appliedMesurement as $line) {
                 $tableProtectionActionApplied->addRow(400, ['exactHeight' => true, 'cantsplit' => true]);
                 $cell1 = $tableProtectionActionApplied->addCell(1500);
                 $cell1->addText($line[0], [], ['alignment' => 'center']);
@@ -163,8 +163,8 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         }
     }
 
-    private function ActionPlanTable($section, $actionPlan){
-
+    private function ActionPlanTable($section, $actionPlan)
+    {
         $tableActionPlan = $section->addTable($this->tableStyleConformite);
         $tableActionPlan->addRow(null, ['tblHeader' => true, 'cantSplit' => true]);
         $cell = $tableActionPlan->addCell(1000, $this->cellHeadStyle);
@@ -178,9 +178,9 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $cell = $tableActionPlan->addCell(1500, $this->cellHeadStyle);
         $cell->addText('Observations', $this->textHeadStyle);
 
-        if ($actionPlan){
-            foreach ($actionPlan as $line){
-                $tableActionPlan->addRow(null,['cantSplit' => true]);
+        if ($actionPlan) {
+            foreach ($actionPlan as $line) {
+                $tableActionPlan->addRow(null, ['cantSplit' => true]);
                 $cell1 = $tableActionPlan->addCell(1000, ['bgColor' => $line['style']['bgColor']]);
                 $cell1->addText($line['data'][0]);
                 $cell2 = $tableActionPlan->addCell(2000);
@@ -195,12 +195,13 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         }
     }
 
-    private function ColorCellPriority($priority){
-        $returned_value = match($priority){
-            'low' => 'ffff80',
+    private function ColorCellPriority($priority)
+    {
+        $returned_value = match ($priority) {
+            'low'    => 'ffff80',
             'normal' => 'fac9ad',
-            'high' => 'ffa7a7',
-            '' => 'ffffff',
+            'high'   => 'ffa7a7',
+            ''       => 'ffffff',
         };
 
         return $returned_value;

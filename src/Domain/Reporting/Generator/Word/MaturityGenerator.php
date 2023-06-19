@@ -82,13 +82,13 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         ];
 
         $table = $section->addTable($tableStyleConformite);
-        $row  = $table->addRow(null, ['valign' => 'center', 'tblHeader' => true, 'cantsplit' => true]);
-        $cell = $row->addCell(750, ['bgColor' => '3c8dbc', 'valign' => 'center']);
-        $cell->addText('Pratique',['bold' => true, 'color' => 'ffffff']);
-        $cell = $row->addCell(null, ['bgColor' => '3c8dbc', 'gridSpan' => 2, 'valign' => 'center', ]);
+        $row   = $table->addRow(null, ['valign' => 'center', 'tblHeader' => true, 'cantsplit' => true]);
+        $cell  = $row->addCell(750, ['bgColor' => '3c8dbc', 'valign' => 'center']);
+        $cell->addText('Pratique', ['bold' => true, 'color' => 'ffffff']);
+        $cell = $row->addCell(null, ['bgColor' => '3c8dbc', 'gridSpan' => 2, 'valign' => 'center']);
         $cell->addText('Critère d\'appréciation', ['bold' => true, 'color' => 'ffffff']);
 
-        $row  = $table->addRow(null,['cantsplit' => true]);
+        $row  = $table->addRow(null, ['cantsplit' => true]);
         $cell = $row->addCell(750, ['bgColor' => 'ffb3b3', 'valign' => 'center']);
         $cell->addText('0');
         $cell = $row->addCell(1250);
@@ -144,7 +144,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             }
         }
         $table = $section->addTable(['unit' => TblWidth::PERCENT, 'width' => 5000]);
-        $row   = $table->addRow(null,['cantsplit' => true]);
+        $row   = $table->addRow(null, ['cantsplit' => true]);
         if (!empty($serie2)) {
             $cell = $row->addCell(2500);
             if (isset($data['old'])) {
@@ -154,31 +154,30 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $cell = $row->addCell(2500);
         $cell->addText("{$data['new']}", ['align' => 'right', 'color' => '3c8dbc']);
 
-
         $tablebis = $section->addTable($tableStyleConformite);
-        $row  = $tablebis->addRow(null, ['valign' => 'center', 'tblHeader' => true, 'cantsplit' => true]);
+        $row      = $tablebis->addRow(null, ['valign' => 'center', 'tblHeader' => true, 'cantsplit' => true]);
+        $cell     = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center']);
+        $cell->addText('Domaines', ['bold' => true, 'color' => 'ffffff']);
         $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center']);
-        $cell->addText('Domaines',['bold' => true, 'color' => 'ffffff']);
-        $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center', ]);
         if (isset($data['old'])) {
             $cell->addText($data['old']->getCreatedAt()->format('d/m/Y'), ['bold' => true, 'color' => 'ffffff']);
         }
-        $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center', ]);
+        $cell = $row->addCell(2000, ['bgColor' => '3c8dbc', 'valign' => 'center']);
         $cell->addText($data['new']->getCreatedAt()->format('d/m/Y'), ['bold' => true, 'color' => 'ffffff']);
 
         $i = 0;
-        foreach ($domainsName as $domain){
+        foreach ($domainsName as $domain) {
             $row  = $tablebis->addRow(null, ['valign' => 'center', 'cantsplit' => true]);
-            $cell = $row->addCell(2000, ['valign' => 'center', ]);
+            $cell = $row->addCell(2000, ['valign' => 'center']);
             $cell->addText($domain, []);
-            $cell = $row->addCell(2000, ['valign' => 'center', ]);
+            $cell = $row->addCell(2000, ['valign' => 'center']);
             $cell->addText($serie1[$i], []);
 
-            $cell = $row->addCell(2000, ['valign' => 'center', ]);
+            $cell = $row->addCell(2000, ['valign' => 'center']);
             if (isset($serie2[$i])) {
                 $cell->addText($serie2[$i], []);
             }
-            $i++;
+            ++$i;
         }
     }
 

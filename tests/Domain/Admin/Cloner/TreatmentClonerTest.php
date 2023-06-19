@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Admin\Cloner;
 
 use App\Domain\Admin\Cloner\TreatmentCloner;
-use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
 use App\Domain\Registry\Model;
 use App\Domain\User\Model as UserModel;
 use App\Tests\Utils\ReflectionTrait;
@@ -86,11 +85,12 @@ class TreatmentClonerTest extends TestCase
         $this->assertNull($cloned->getDataCategoryOther());
         $this->assertNull($cloned->getDataOrigin());
         $this->assertNull($cloned->getRecipientCategory());
-        $delay = $cloned->getDelay();
-        $this->assertInstanceOf(Model\Embeddable\Delay::class, $delay);
-        $this->assertNull($delay->getNumber());
-        $this->assertNull($delay->getPeriod());
-        $this->assertNull($delay->getComment());
+        $delays = $cloned->getShelfLifes();
+
+        foreach ($delays as $delay) {
+            $this->assertInstanceOf(Model\ShelfLife::class, $delay);
+        }
+
         $securityAccessControl = $cloned->getSecurityAccessControl();
         $this->assertInstanceOf(Model\Embeddable\ComplexChoice::class, $securityAccessControl);
         $this->assertFalse($securityAccessControl->isCheck());
@@ -122,7 +122,6 @@ class TreatmentClonerTest extends TestCase
         $this->assertNull($cloned->getAuthor());
         $this->assertNull($cloned->getCollectingMethod());
         $this->assertNull($cloned->getEstimatedConcernedPeople());
-        $this->assertNull($cloned->getUltimateFate());
         $this->assertEquals($collectivity, $cloned->getCollectivity());
         $this->assertEquals($referent, $cloned->getClonedFrom());
     }
@@ -153,10 +152,7 @@ class TreatmentClonerTest extends TestCase
         $referent->setDataCategoryOther('data category other');
         $referent->setDataOrigin('data origin');
         $referent->setRecipientCategory('recipient category');
-        $delay = $referent->getDelay();
-        $delay->setNumber(2);
-        $delay->setPeriod(DelayPeriodDictionary::PERIOD_DAY);
-        $delay->setComment('delay comment');
+
         $securityAccessControl = $referent->getSecurityAccessControl();
         $securityAccessControl->setCheck(true);
         $securityAccessControl->setComment('comment');
@@ -183,7 +179,6 @@ class TreatmentClonerTest extends TestCase
         $referent->setAuthor('foo');
         $referent->setCollectingMethod(['bar']);
         $referent->setEstimatedConcernedPeople(1);
-        $referent->setUltimateFate('baz');
 
         /** @var Model\Treatment $cloned */
         $cloned = $this->invokeMethod(
@@ -205,12 +200,6 @@ class TreatmentClonerTest extends TestCase
         $this->assertEquals($referent->getDataCategoryOther(), $cloned->getDataCategoryOther());
         $this->assertEquals($referent->getDataOrigin(), $cloned->getDataOrigin());
         $this->assertEquals($referent->getRecipientCategory(), $cloned->getRecipientCategory());
-
-        $referentDelay = $referent->getDelay();
-        $clonedDelay   = $cloned->getDelay();
-        $this->assertEquals($referentDelay->getNumber(), $clonedDelay->getNumber());
-        $this->assertEquals($referentDelay->getPeriod(), $clonedDelay->getPeriod());
-        $this->assertEquals($referentDelay->getComment(), $clonedDelay->getComment());
 
         $referentSecurityAccessControl = $referent->getSecurityAccessControl();
         $clonedSecurityAccessControl   = $cloned->getSecurityAccessControl();
@@ -248,7 +237,6 @@ class TreatmentClonerTest extends TestCase
         $this->assertEquals($referent->getAuthor(), $cloned->getAuthor());
         $this->assertEquals($referent->getCollectingMethod(), $cloned->getCollectingMethod());
         $this->assertEquals($referent->getEstimatedConcernedPeople(), $cloned->getEstimatedConcernedPeople());
-        $this->assertEquals($referent->getUltimateFate(), $cloned->getUltimateFate());
         $this->assertEquals($collectivity, $cloned->getCollectivity());
         $this->assertEquals($referent, $cloned->getClonedFrom());
     }

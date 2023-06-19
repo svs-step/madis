@@ -27,8 +27,6 @@ namespace App\Domain\Registry\Form\Type;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Tool;
-use App\Domain\User\Model\Collectivity;
-use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
@@ -65,9 +63,9 @@ class ToolType extends AbstractType
         $tool = $options['data'] ?? null;
         $builder
             ->add('name', TextType::class, [
-                'label'       => 'registry.tool.form.name',
-                'required'    => true,
-                'attr'        => [
+                'label'    => 'registry.tool.form.name',
+                'required' => true,
+                'attr'     => [
                     'maxlength' => 255,
                 ],
                 'constraints' => [
@@ -140,7 +138,7 @@ class ToolType extends AbstractType
 
                     return $qb;
                 },
-                'attr'          => [
+                'attr' => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],

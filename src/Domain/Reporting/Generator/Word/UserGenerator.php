@@ -48,24 +48,16 @@ class UserGenerator extends AbstractGenerator implements ImpressionGeneratorInte
             $entityManager
         );
 
-        $this->translator = $translator;
+        $this->translator    = $translator;
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSyntheticView(Section $section, array $data, bool $forOverviewReport = false): void
     {
-
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addDetailedView(Section $section, array $data): void
     {
-
     }
 
     public function Userlist(Section $section)
@@ -74,9 +66,9 @@ class UserGenerator extends AbstractGenerator implements ImpressionGeneratorInte
 
         $users = $this->entityManager->getRepository(User::class)->findBy(['collectivity' => $collectivity]);
 
-        $section->addTitle('Liste des utilisateurs',2);
+        $section->addTitle('Liste des utilisateurs', 2);
         $userAnnexListTable = $section->addTable($this->tableStyle);
-        $userAnnexListTable->addRow(null, array('tblHeader' => true, 'cantsplit' => true));
+        $userAnnexListTable->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
         $cell = $userAnnexListTable->addCell(1500, $this->cellHeadStyle);
         $cell->addText('Prénom', $this->textHeadStyle);
         $cell = $userAnnexListTable->addCell(1500, $this->cellHeadStyle);
@@ -86,7 +78,7 @@ class UserGenerator extends AbstractGenerator implements ImpressionGeneratorInte
         $cell = $userAnnexListTable->addCell(1000, $this->cellHeadStyle);
         $cell->addText('Actif', $this->textHeadStyle);
 
-        foreach($users as $item){
+        foreach ($users as $item) {
             $userAnnexListTable->addRow(400, ['exactHeight' => true, 'cantsplit' => true]);
             $cell = $userAnnexListTable->addCell(1500);
             $cell->addText($item->getFirstName());

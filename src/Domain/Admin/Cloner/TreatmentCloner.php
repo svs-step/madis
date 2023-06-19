@@ -75,8 +75,15 @@ class TreatmentCloner extends AbstractCloner
         $treatment->setDataCategoryOther($referent->getDataCategoryOther());
         $treatment->setDataOrigin($referent->getDataOrigin());
         $treatment->setRecipientCategory($referent->getRecipientCategory());
-        if (null !== $referent->getDelay()) {
-            $treatment->setDelay($referent->getDelay());
+        if ($referent->getShelfLifes()) {
+            foreach ($referent->getShelfLifes() as $sl) {
+                /** @var RegistryModel\ShelfLife $sl */
+                $newsl = new RegistryModel\ShelfLife();
+                $newsl->setName($sl->getName());
+                $newsl->setDuration($sl->getDuration());
+                $newsl->setUltimateFate($sl->getUltimateFate());
+                $newsl->setTreatment($treatment);
+            }
         }
         if (null !== $referent->getSecurityAccessControl()) {
             $treatment->setSecurityAccessControl($referent->getSecurityAccessControl());

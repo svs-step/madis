@@ -124,9 +124,9 @@ abstract class AbstractGenerator implements GeneratorInterface
         $document->addTitleStyle(
             1,
             [
-                'allCaps'   => true,
-                'bold'      => true,
-                'size'      => 16,
+                'allCaps' => true,
+                'bold'    => true,
+                'size'    => 16,
             ],
             [
                 'pageBreakBefore' => false,
@@ -161,7 +161,6 @@ abstract class AbstractGenerator implements GeneratorInterface
                 'spaceAfter'      => 250,
             ]
         );
-
     }
 
     /**
@@ -236,7 +235,7 @@ abstract class AbstractGenerator implements GeneratorInterface
             ['size' => 12]
         );
 
-        //CNIL
+        // CNIL
         $section->addText(
             'Déclaration CNIL',
             ['bold'        => true, 'size' => 15],
@@ -249,7 +248,7 @@ abstract class AbstractGenerator implements GeneratorInterface
         );
 
         $section->addText(
-            'Date de désignation : ' ."{$this->getDate(new \DateTimeImmutable(), 'd/m/Y')}",
+            'Date de désignation : ' . "{$this->getDate(new \DateTimeImmutable(), 'd/m/Y')}",
             ['size' => 12]
         );
     }
@@ -358,10 +357,10 @@ abstract class AbstractGenerator implements GeneratorInterface
 
     protected function addTable(Section $section, array $data = [], bool $header = false, string $orientation = self::TABLE_ORIENTATION_HORIZONTAL): void
     {
-        $table = $section->addTable($this->tableStyle);
+        $table        = $section->addTable($this->tableStyle);
         $headersTable = $data[0];
-        $table->addRow(null, array('tblHeader' => true, 'cantsplit' => true));
-        foreach ($headersTable as $element){
+        $table->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
+        foreach ($headersTable as $element) {
             $cell = $table->addCell(2500, $this->cellHeadStyle);
             $cell->addText($element, $this->textHeadStyle);
         }

@@ -91,7 +91,7 @@ class ProofType extends AbstractType
                 'required'    => false,
                 'constraints' => [
                     new File([
-                        'maxSize'   => $this->maxSize,
+                        'maxSize' => $this->maxSize,
 //                        'mimeTypesMessage' => 'registry_proof.document_file.file',
                         'mimeTypes' => [
                             // JPG / PNG
@@ -118,7 +118,7 @@ class ProofType extends AbstractType
                             'application/vnd.ms-powerpoint',
                             'application/vnd.openxmlformats-officedocument.presentationml.presentation',
                         ],
-                        'groups'    => ['default'],
+                        'groups' => ['default'],
                     ]),
                 ],
             ])
@@ -145,7 +145,7 @@ class ProofType extends AbstractType
 
                     return $qb;
                 },
-                'choice_label'  => function (Model\Treatment $object) {
+                'choice_label' => function (Model\Treatment $object) {
                     return $this->formatInactiveObjectLabel($object);
                 },
                 'attr' => [
@@ -153,9 +153,9 @@ class ProofType extends AbstractType
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_traitement',
                 ],
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => false,
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
             ])
             ->add('contractors', EntityType::class, [
                 'label'         => 'registry.proof.form.contractors',
@@ -172,9 +172,9 @@ class ProofType extends AbstractType
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_contractors',
                 ],
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => false,
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
             ])
             ->add('mesurements', EntityType::class, [
                 'label'         => 'registry.proof.form.mesurements',
@@ -191,9 +191,9 @@ class ProofType extends AbstractType
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_action_protection',
                 ],
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => false,
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
             ])
             ->add('requests', EntityType::class, [
                 'label'         => 'registry.proof.form.requests',
@@ -213,7 +213,7 @@ class ProofType extends AbstractType
 
                     return $qb;
                 },
-                'choice_label'  => function (Model\Request $object) {
+                'choice_label' => function (Model\Request $object) {
                     return $this->formatArchivedObjectLabel($object);
                 },
                 'attr' => [
@@ -221,9 +221,9 @@ class ProofType extends AbstractType
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_demande_personne',
                 ],
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => false,
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
             ])
             ->add('violations', EntityType::class, [
                 'label'         => 'registry.proof.form.violations',
@@ -242,7 +242,7 @@ class ProofType extends AbstractType
 
                     return $qb;
                 },
-                'choice_label'  => function (Model\Violation $object) {
+                'choice_label' => function (Model\Violation $object) {
                     return $this->formatArchivedObjectLabel($object);
                 },
                 'attr' => [
@@ -250,9 +250,9 @@ class ProofType extends AbstractType
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_violation',
                 ],
-                'required'      => false,
-                'multiple'      => true,
-                'expanded'      => false,
+                'required' => false,
+                'multiple' => true,
+                'expanded' => false,
             ])
         ;
 
@@ -279,7 +279,7 @@ class ProofType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
+                'attr' => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],

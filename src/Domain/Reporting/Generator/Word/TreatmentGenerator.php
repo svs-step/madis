@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Generator\Word;
 
-use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
@@ -112,7 +111,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
         $textrun = $section->addTextRun();
         $textrun->addText('Une version de ces traitements et à valeur de preuve ');
-        $textrun->addLink('listTreatments','figure en annexe.',['underline' => 'single'],[], true);
+        $textrun->addLink('listTreatments', 'figure en annexe.', ['underline' => 'single'], [], true);
 
         $section->addTitle('Analyse du registre des traitements', 2);
         $section->addText("Il y a aujourd’hui {$nbTreatments} traitements de données à caractère personnel inventoriés");
@@ -131,11 +130,11 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $categories,
             $chartData,
             [
-                'height' => Converter::cmToEmu(6),
-                'width'  => Converter::cmToEmu(9),
-                'alignmant'=>'left',
-                'wrappingStyle'=>'square',
-                'positioning' => 'absolute'
+                'height'        => Converter::cmToEmu(6),
+                'width'         => Converter::cmToEmu(9),
+                'alignmant'     => 'left',
+                'wrappingStyle' => 'square',
+                'positioning'   => 'absolute',
             ]
         );
         $cell = $chartTable->addCell(4000);
@@ -155,7 +154,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addListItem("{$security['update']} sont mis à jour");
 
         $section->addText('Par ailleurs des mesures de protection ont été mises en place sur les X traitements non informatisés.');
-
     }
 
     public function addSyntheticView(Section $section, array $data, bool $forOverviewReport = false): void
@@ -288,9 +286,9 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             ];
 
             // "Délai de conservation"
-            if (count($treatment->getShelfLifes()) > 0){
-                foreach($treatment->getShelfLifes() as $delay){
-                    $detailsData[3][1][] = $delay->name .' - '. $delay->duration .' - '. TreatmentUltimateFateDictionary::getUltimateFates()[$delay->ultimateFate]."\n" ;
+            if (count($treatment->getShelfLifes()) > 0) {
+                foreach ($treatment->getShelfLifes() as $delay) {
+                    $detailsData[3][1][] = $delay->name . ' - ' . $delay->duration . ' - ' . TreatmentUltimateFateDictionary::getUltimateFates()[$delay->ultimateFate] . "\n";
                 }
             } else {
                 $detailsData[3][1][] = '';
@@ -482,11 +480,12 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         }
     }
 
-    public function TreatmentAnnexeList($section, $data){
+    public function TreatmentAnnexeList($section, $data)
+    {
         $section->addBookmark('listTreatments');
-        $section->addTitle('Liste des traitements',2);
+        $section->addTitle('Liste des traitements', 2);
         $treatmentAnnexListTable = $section->addTable($this->tableStyle);
-        $treatmentAnnexListTable->addRow(null, array('tblHeader' => true, 'cantsplit' => true));
+        $treatmentAnnexListTable->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
         $cell = $treatmentAnnexListTable->addCell(3000, $this->cellHeadStyle);
         $cell->addText('Nom', $this->textHeadStyle);
         $cell = $treatmentAnnexListTable->addCell(2000, $this->cellHeadStyle);
@@ -496,7 +495,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $cell = $treatmentAnnexListTable->addCell(2000, $this->cellHeadStyle);
         $cell->addText('Mesures de sécurité et confidentialité', $this->textHeadStyle);
 
-        foreach($data as $item){
+        foreach ($data as $item) {
             $treatmentAnnexListTable->addRow(null, ['cantsplit' => true]);
             $cell = $treatmentAnnexListTable->addCell(3000);
             $cell->addText($item->getName());
@@ -506,22 +505,22 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $cell->addText($item->getDataOrigin());
             $cell = $treatmentAnnexListTable->addCell(2000);
             $cell->addListItem('Controle d\'accès', null, ['color' => $this->IsMesureOk($item->getSecurityAccessControl())], [], ['spaceAfter' => 0]);
-            $cell->addListItem('Traçabilité', null,  ['color' => $this->IsMesureOk($item->getSecurityTracability())], [], ['spaceAfter' => 0]);
+            $cell->addListItem('Traçabilité', null, ['color' => $this->IsMesureOk($item->getSecurityTracability())], [], ['spaceAfter' => 0]);
             $cell->addListItem('Sauvegarde', null, ['color' => $this->IsMesureOk($item->getSecuritySaving())], [], ['spaceAfter' => 0]);
             $cell->addListItem('Mise à jour', null, ['color' => $this->IsMesureOk($item->getSecurityUpdate())], [], ['spaceAfter' => 0]);
         }
     }
 
-    public function RiskTreatmentAnnexeList($riskAipdSection, $treatments){
-
+    public function RiskTreatmentAnnexeList($riskAipdSection, $treatments)
+    {
         $riskAipdSection->addBookmark('AipdRisks');
-        $riskAipdSection->addTitle('Liste des traitements à risques',2);
+        $riskAipdSection->addTitle('Liste des traitements à risques', 2);
         $RiskTreatmentAnnexListTable = $riskAipdSection->addTable($this->tableStyle);
-        $RiskTreatmentAnnexListTable->addRow(3000, array('tblHeader' => true, 'cantsplit' => true, ));
+        $RiskTreatmentAnnexListTable->addRow(3000, ['tblHeader' => true, 'cantsplit' => true]);
 
         $CellsStyle = [
-            "bgColor" => "3c8dbc",
-            'vAlign' => 'bottom',
+            'bgColor' => '3c8dbc',
+            'vAlign'  => 'bottom',
         ];
 
         $cell = $RiskTreatmentAnnexListTable->addCell(3000, $CellsStyle);
@@ -544,12 +543,12 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             'AIPD requise'];
 
         $verticalStyle = [
-            "bgColor" => "3c8dbc",
-            "textDirection" => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR,
-            "vAlign" => 'center',
+            'bgColor'       => '3c8dbc',
+            'textDirection' => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR,
+            'vAlign'        => 'center',
         ];
-        foreach($titles as $title){
-            if ($title === ''){
+        foreach ($titles as $title) {
+            if ('' === $title) {
                 $cell = $RiskTreatmentAnnexListTable->addCell(10, ['borderTopColor' => 'ffffff', 'borderTopSize' => 2, 'borderBottomColor' => 'ffffff', 'borderBottomSize' => 2]);
                 $cell->addText($title);
             } else {
@@ -558,24 +557,24 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             }
         }
 
-        foreach($treatments as $item) {
-            $cnt_sensible = 0;
-            $sensibleDatas = [];
-            $specificTreatments = [];
-            $item->isSystematicMonitoring() ? $specificTreatments[] =  'Surveillance systématique' : null;
-            $item->isLargeScaleCollection() ? $specificTreatments[] =  'Collecte à large échelle' : null;
-            $item->isVulnerablePeople() ? $specificTreatments[] = 'Personnes vulnérables' : null;
-            $item->isDataCrossing() ? $specificTreatments[] = 'Croisement de données' : null;
-            $item->isEvaluationOrRating() ? $specificTreatments[] = 'Évaluation ou notation' : null;
+        foreach ($treatments as $item) {
+            $cnt_sensible                                                        = 0;
+            $sensibleDatas                                                       = [];
+            $specificTreatments                                                  = [];
+            $item->isSystematicMonitoring() ? $specificTreatments[]              = 'Surveillance systématique' : null;
+            $item->isLargeScaleCollection() ? $specificTreatments[]              = 'Collecte à large échelle' : null;
+            $item->isVulnerablePeople() ? $specificTreatments[]                  = 'Personnes vulnérables' : null;
+            $item->isDataCrossing() ? $specificTreatments[]                      = 'Croisement de données' : null;
+            $item->isEvaluationOrRating() ? $specificTreatments[]                = 'Évaluation ou notation' : null;
             $item->isAutomatedDecisionsWithLegalEffect() ? $specificTreatments[] = 'Décisions automatisées avec effet' : null;
-            $item->isAutomaticExclusionService() ? $specificTreatments[] = "Exclusion automatique d'un service" : null;
-            $item->isInnovativeUse() ? $specificTreatments[] = 'Usage innovant' : null;
+            $item->isAutomaticExclusionService() ? $specificTreatments[]         = "Exclusion automatique d'un service" : null;
+            $item->isInnovativeUse() ? $specificTreatments[]                     = 'Usage innovant' : null;
 
             $cnt_categories = count(array_filter($specificTreatments));
 
-            foreach($item->getDataCategories() as $category){
-                if ($category->isSensible()){
-                    $cnt_sensible++;
+            foreach ($item->getDataCategories() as $category) {
+                if ($category->isSensible()) {
+                    ++$cnt_sensible;
                 }
             }
 
@@ -586,38 +585,39 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             foreach ($item->getDataCategories() as $category) {
                 $cell->addListItem($category->getName(), null, ['size' => 8], [], ['spaceAfter' => 0]);
             }
-            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $cnt_sensible > 0 ? 'ffa7a7': null, 'valign' => 'center']);
-            $cell->addText($cnt_sensible > 0 ? 'Oui': '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isSystematicMonitoring() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $cnt_sensible > 0 ? 'ffa7a7' : null, 'valign' => 'center']);
+            $cell->addText($cnt_sensible > 0 ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isSystematicMonitoring() ? 'ffa7a7' : null, 'valign' => 'center']);
             $cell->addText($item->isSystematicMonitoring() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isLargeScaleCollection() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isLargeScaleCollection() ? 'ffa7a7' : null, 'valign' => 'center']);
             $cell->addText($item->isLargeScaleCollection() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isVulnerablePeople() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isVulnerablePeople() ? 'ffa7a7' : null, 'valign' => 'center']);
             $cell->addText($item->isVulnerablePeople() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isDataCrossing() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isDataCrossing() ? 'ffa7a7' : null, 'valign' => 'center']);
             $cell->addText($item->isDataCrossing() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isEvaluationOrRating() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isEvaluationOrRating() ? 'ffa7a7' : null, 'valign' => 'center']);
             $cell->addText($item->isEvaluationOrRating() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isAutomatedDecisionsWithLegalEffect() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isAutomatedDecisionsWithLegalEffect() ? 'ffa7a7' : null, 'valign' => 'center']);
             $cell->addText($item->isAutomatedDecisionsWithLegalEffect() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isAutomaticExclusionService() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isAutomaticExclusionService() ? 'ffa7a7' : null, 'valign' => 'center']);
             $cell->addText($item->isAutomaticExclusionService() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isInnovativeUse() ? 'ffa7a7': null, 'valign' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isInnovativeUse() ? 'ffa7a7' : null, 'valign' => 'center']);
             $cell->addText($item->isInnovativeUse() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            //todo mettte CNIL
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isInnovativeUse() ? 'ffa7a7': null, 'valign' => 'center']);
+            // todo mettte CNIL
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isInnovativeUse() ? 'ffa7a7' : null, 'valign' => 'center']);
             $cell->addText($item->isInnovativeUse() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => $item->isExemptAIPD() ? 'bce292' : 'ffa7a7', 'valign' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isExemptAIPD() ? 'bce292' : 'ffa7a7', 'valign' => 'center']);
             $cell->addText($item->isExemptAIPD() ? 'Oui' : 'Non', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
             $cell = $RiskTreatmentAnnexListTable->addCell(10, ['borderTopColor' => 'ffffff', 'borderTopSize' => 2, 'borderBottomColor' => 'ffffff', 'borderBottomSize' => 2]);
             $cell->addText('');
-            $cell = $RiskTreatmentAnnexListTable->addCell(null,['bgColor' => (($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1 || ($cnt_sensible>2)) ? 'bce292' : 'ffa7a7', 'valign' => 'center']);
-            $cell->addText((($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories >1 || ($cnt_sensible>2)) ? 'Oui' : 'Non', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => (($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories > 1 || ($cnt_sensible > 2)) ? 'bce292' : 'ffa7a7', 'valign' => 'center']);
+            $cell->addText((($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories > 1 || ($cnt_sensible > 2)) ? 'Oui' : 'Non', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
         }
         $riskAipdSection->addPageBreak();
     }
 
-    private function IsMesureOk($data){
-        return $data->isCheck() ? 'bce292':'ffa7a7';
+    private function IsMesureOk($data)
+    {
+        return $data->isCheck() ? 'bce292' : 'ffa7a7';
     }
 }

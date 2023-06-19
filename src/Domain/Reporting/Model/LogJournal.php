@@ -4,7 +4,6 @@ namespace App\Domain\Reporting\Model;
 
 use App\Domain\Reporting\Dictionary\LogJournalActionDictionary;
 use App\Domain\User\Model\Collectivity;
-use App\Domain\User\Model\User;
 use Ramsey\Uuid\Uuid;
 
 /**

@@ -131,12 +131,12 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         $section->addListItem('12. Gérer les opérations du SMDCP');
 
         $this->average = 0;
-        $tableData = $this->getConformitesTable($conformites);
+        $tableData     = $this->getConformitesTable($conformites);
 
-        $section->addText('Le graphique représente la situation au '.date('d/m/Y').'. Sur l’ensemble des processus, la moyenne est de '.round($this->average, 2).'/5. A chaque processus, des propositions d’améliorations sont faites puis retranscrites dans le plan de progrès.');
+        $section->addText('Le graphique représente la situation au ' . date('d/m/Y') . '. Sur l’ensemble des processus, la moyenne est de ' . round($this->average, 2) . '/5. A chaque processus, des propositions d’améliorations sont faites puis retranscrites dans le plan de progrès.');
 
         $section->addChart('column', $this->extractConformiteProcessus($evaluation), $scores, $style);
-        
+
         $tableStyleConformite = [
             'borderColor' => '006699',
             'borderSize'  => 6,
@@ -145,7 +145,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
             'width'       => 100 * 50,
         ];
         $tableOrganisationConformite = $section->addTable($tableStyleConformite);
-        $tableOrganisationConformite->addRow(null, array('tblHeader' => true, 'cantsplit' => true));
+        $tableOrganisationConformite->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
         $cell = $tableOrganisationConformite->addCell(2000, $this->cellHeadStyle);
         $cell->addText('Pilote', $this->textHeadStyle);
         $cell = $tableOrganisationConformite->addCell(4500, $this->cellHeadStyle);
@@ -153,13 +153,13 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         $cell = $tableOrganisationConformite->addCell(1500, $this->cellHeadStyle);
         $cell->addText('Conformité', $this->textHeadStyle);
 
-        foreach ($tableData as $line){
-            $tableOrganisationConformite->addRow(null,['cantsplit' => true]);
+        foreach ($tableData as $line) {
+            $tableOrganisationConformite->addRow(null, ['cantsplit' => true]);
             $cell1 = $tableOrganisationConformite->addCell(2000);
             $cell1->addText($line[0]);
             $cell2 = $tableOrganisationConformite->addCell(4500);
             $cell2->addText($line[1]);
-            $cell3 = $tableOrganisationConformite->addCell(1500, ['align'=> 'center','bgColor' => $line[2]['style']['bgColor']]);
+            $cell3 = $tableOrganisationConformite->addCell(1500, ['align' => 'center', 'bgColor' => $line[2]['style']['bgColor']]);
             $cell3->addText($line[2]['content']['text'], ['bold' => true], ['align' => 'center']);
         }
     }

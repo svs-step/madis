@@ -224,11 +224,10 @@ class OverviewGenerator extends AbstractGenerator
             $section->addListItem('Le référent opérationnel continue de mettre à jour le registre avec les éventuels nouveaux sous-traitants.');
             $section->addListItem('Le comité génère un bilan chaque année et met en place les mesures correctives adéquates.');
         }
-        $section->addText("Le responsable du traitement atteste avoir pris connaissance de l’ensemble des documents, approuve le bilan et s’engage à mettre en œuvre le plan d’action.");
+        $section->addText('Le responsable du traitement atteste avoir pris connaissance de l’ensemble des documents, approuve le bilan et s’engage à mettre en œuvre le plan d’action.');
         $section->addText('Signature du responsable du traitement');
         $section->addTextBreak(3);
         $section->addPageBreak();
-
     }
 
     public function generateAnnexeMention($document, Section $section, array $treatments = [], array $violations = [], array $mesurements = []): void
@@ -250,5 +249,4 @@ class OverviewGenerator extends AbstractGenerator
         $protectionActionSection = $document->addSection(['orientation' => 'portrait']);
         $this->mesurementGenerator->ProtectionActionAppliedAnnexeTable($protectionActionSection, $mesurements);
     }
-
 }

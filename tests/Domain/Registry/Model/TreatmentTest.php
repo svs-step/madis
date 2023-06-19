@@ -28,7 +28,6 @@ use App\Application\Traits\Model\CollectivityTrait;
 use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
-use App\Domain\Registry\Model\Embeddable\Delay;
 use App\Domain\Registry\Model\Treatment;
 use PHPUnit\Framework\TestCase;
 use Ramsey\Uuid\UuidInterface;
@@ -50,7 +49,7 @@ class TreatmentTest extends TestCase
         $this->assertInstanceOf(ComplexChoice::class, $model->getConcernedPeopleOther());
         $this->assertEquals([], $model->getDataCategories());
         $this->assertEquals([], $model->getContractors());
-        $this->assertInstanceOf(Delay::class, $model->getDelay());
+        $this->assertEquals([], $model->getShelfLifes());
         $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityAccessControl());
         $this->assertInstanceOf(ComplexChoice::class, $model->getSecurityTracability());
         $this->assertInstanceOf(ComplexChoice::class, $model->getSecuritySaving());

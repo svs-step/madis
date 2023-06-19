@@ -61,7 +61,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                 ViolationCauseDictionary::getNatures()[$violation->getCause()],
                 ViolationGravityDictionary::getGravities()[$violation->getGravity()],
                 'test CNIL',
-                'test Concernes'
+                'test Concernes',
             ];
         }
 
@@ -69,13 +69,12 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
 
         $section->addText("Un registre des violations de données à caractère personnel est tenu à jour par '{$collectivity}'.");
 
-        if ($nbTotal === 0){
-            $section->addText("Un modèle de registre des violations de données est opérationnel et tenu à jour. A ce jour, il n’y a pas eu de violations de données à caractère personnel.");
+        if (0 === $nbTotal) {
+            $section->addText('Un modèle de registre des violations de données est opérationnel et tenu à jour. A ce jour, il n’y a pas eu de violations de données à caractère personnel.');
         } else {
-            if ($nbTotal === 1){
+            if (1 === $nbTotal) {
                 $section->addText("Il y a eu {$nbTotal} violation de données à caractère personnel.");
-            }
-            else {
+            } else {
                 $section->addText("Il y a eu {$nbTotal} violations de données à caractère personnel.");
             }
             $violationTable = $section->addTable($this->tableStyle);
@@ -85,40 +84,38 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                 ['name' => 'Nature', 'width' => 1500, 'merge' => 'restart'],
                 ['name' => 'Cause', 'width' => 1500, 'merge' => 'restart'],
                 ['name' => 'Niveau de gravité', 'width' => 1500, 'merge' => 'restart'],
-                ['name' => 'Notification', 'width' => 3000, 'merge' => null]
+                ['name' => 'Notification', 'width' => 3000, 'merge' => null],
             ];
-            foreach ($ViolationNames as $item){
-                $cell = $violationTable->addCell($item['width'],["bgColor" => "3c8dbc", 'vMerge' => $item['merge']]);
-                if ($item['name'] === 'Notification'){
+            foreach ($ViolationNames as $item) {
+                $cell = $violationTable->addCell($item['width'], ['bgColor' => '3c8dbc', 'vMerge' => $item['merge']]);
+                if ('Notification' === $item['name']) {
                     $cell->getStyle()->setGridSpan(2);
                 }
-                $cell->addText($item['name'], $this->textHeadStyle );
+                $cell->addText($item['name'], $this->textHeadStyle);
             }
             $violationTable->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
-            $violationTable->addCell(1000,['vMerge' => 'continue']);
-            $violationTable->addCell(1500,['vMerge' => 'continue']);
-            $violationTable->addCell(1500,['vMerge' => 'continue']);
-            $violationTable->addCell(1500,['vMerge' => 'continue']);
-            $cell = $violationTable->addCell(1500, ["bgColor" => "3c8dbc", 'vAlign' => 'center']);
+            $violationTable->addCell(1000, ['vMerge' => 'continue']);
+            $violationTable->addCell(1500, ['vMerge' => 'continue']);
+            $violationTable->addCell(1500, ['vMerge' => 'continue']);
+            $violationTable->addCell(1500, ['vMerge' => 'continue']);
+            $cell = $violationTable->addCell(1500, ['bgColor' => '3c8dbc', 'vAlign' => 'center']);
             $cell->addText('CNIL', $this->textHeadStyle);
-            $cell = $violationTable->addCell(1500, ["bgColor" => "3c8dbc", 'vAlign' => 'center']);
+            $cell = $violationTable->addCell(1500, ['bgColor' => '3c8dbc', 'vAlign' => 'center']);
             $cell->addText('Concernés', $this->textHeadStyle);
 
-
-            foreach ($tableData as $key => $row){
+            foreach ($tableData as $key => $row) {
                 $violationTable->addRow(null, ['cantsplit' => true]);
-                foreach ($row as $cellItem){
-                    $cell = $violationTable->addCell($key === 0 ? 1000 : 1500);
-                    if (is_array($cellItem)){
-                        foreach($cellItem as $item){
-                            $cell->addListItem($item, (int)null, [], [], ['spaceAfter' => 0]);
+                foreach ($row as $cellItem) {
+                    $cell = $violationTable->addCell(0 === $key ? 1000 : 1500);
+                    if (is_array($cellItem)) {
+                        foreach ($cellItem as $item) {
+                            $cell->addListItem($item, (int) null, [], [], ['spaceAfter' => 0]);
                         }
                     } else {
                         $cell->addText($cellItem);
                     }
                 }
             }
-
         }
     }
 
@@ -290,8 +287,9 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
         return $translatedValues;
     }
 
-    public function AnnexeList($section, $violations){
-        $section->addTitle('Liste des violations de données',2);
+    public function AnnexeList($section, $violations)
+    {
+        $section->addTitle('Liste des violations de données', 2);
         $tableViolationAnnexeApplied = $section->addTable($this->tableStyle);
         $tableViolationAnnexeApplied->addRow(null, ['tblHeader' => true, 'cantSplit' => true]);
         $cell = $tableViolationAnnexeApplied->addCell(1000, $this->cellHeadStyle);
@@ -305,21 +303,21 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
         $cell = $tableViolationAnnexeApplied->addCell(2000, $this->cellHeadStyle);
         $cell->addText('Traitements associés', $this->textHeadStyle);
 
-        foreach ($violations as $line){
+        foreach ($violations as $line) {
             $tableViolationAnnexeApplied->addRow(null, ['cantSplit' => true]);
             $cell = $tableViolationAnnexeApplied->addCell(1000);
-            $date = !$line->isInProgress() ? $line->getDate()->format('d/m/Y') : $line->getDate()->format('d/m/Y').' (En cours)';
+            $date = !$line->isInProgress() ? $line->getDate()->format('d/m/Y') : $line->getDate()->format('d/m/Y') . ' (En cours)';
             $cell->addText($date);
             $cell = $tableViolationAnnexeApplied->addCell(1000);
             $cell->addText($line->getCommunicationPrecision());
             $cell = $tableViolationAnnexeApplied->addCell(2000);
             $cell->addText($line->getNotificationDetails());
             $cell = $tableViolationAnnexeApplied->addCell(2000);
-            foreach($line->getContractors() as $item){
+            foreach ($line->getContractors() as $item) {
                 $cell->addListItem($item->getName(), null, [], [], ['spaceAfter' => 0]);
             }
             $cell = $tableViolationAnnexeApplied->addCell(2000);
-            foreach($line->getTreatments() as $item){
+            foreach ($line->getTreatments() as $item) {
                 $cell->addListItem($item->getName(), null, [], [], ['spaceAfter' => 0]);
             }
         }

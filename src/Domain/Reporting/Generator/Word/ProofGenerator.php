@@ -26,7 +26,6 @@ namespace App\Domain\Reporting\Generator\Word;
 
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Model\Proof;
-use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpWord\Element\Section;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
@@ -49,24 +48,16 @@ class ProofGenerator extends AbstractGenerator implements ImpressionGeneratorInt
             $entityManager
         );
 
-        $this->translator = $translator;
+        $this->translator    = $translator;
         $this->entityManager = $entityManager;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addSyntheticView(Section $section, array $data, bool $forOverviewReport = false): void
     {
-
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function addDetailedView(Section $section, array $data): void
     {
-
     }
 
     public function Prooflist(Section $section)
@@ -75,9 +66,9 @@ class ProofGenerator extends AbstractGenerator implements ImpressionGeneratorInt
 
         $proofs = $this->entityManager->getRepository(Proof::class)->findBy(['collectivity' => $collectivity]);
 
-        $section->addTitle('Liste des preuves',2);
+        $section->addTitle('Liste des preuves', 2);
         $proofAnnexListTable = $section->addTable($this->tableStyle);
-        $proofAnnexListTable->addRow(null, array('tblHeader' => true, 'cantsplit' => true));
+        $proofAnnexListTable->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
         $cell = $proofAnnexListTable->addCell(2500, $this->cellHeadStyle);
         $cell->addText('Nom du document', $this->textHeadStyle);
         $cell = $proofAnnexListTable->addCell(2500, $this->cellHeadStyle);
@@ -85,8 +76,7 @@ class ProofGenerator extends AbstractGenerator implements ImpressionGeneratorInt
         $cell = $proofAnnexListTable->addCell(2500, $this->cellHeadStyle);
         $cell->addText('Date de dépôt', $this->textHeadStyle);
 
-
-        foreach($proofs as $item){
+        foreach ($proofs as $item) {
             $proofAnnexListTable->addRow(null, ['cantsplit' => true]);
             $cell = $proofAnnexListTable->addCell(2500);
             $cell->addText($item->getName());

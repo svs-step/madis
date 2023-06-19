@@ -104,7 +104,7 @@ class ViolationType extends AbstractType
 
                     return $qb;
                 },
-                'required'      => false,
+                'required' => false,
             ]);
         }
         /** @var User $user */
@@ -261,10 +261,10 @@ class ViolationType extends AbstractType
                         ->setParameter(':collectivity', $collectivity)
                         ->orderBy('s.name', 'ASC');
                 },
-                'required'      => false,
-                'expanded'      => false,
-                'multiple'      => true,
-                'attr'          => [
+                'required' => false,
+                'expanded' => false,
+                'multiple' => true,
+                'attr'     => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
