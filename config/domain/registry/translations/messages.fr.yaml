@@ -116,6 +116,7 @@ registry:
             list: Liste des outils et supports
             create: Création
             show: Visualiser
+            edit: Edition
         form:
             name: Nom
             type: Type
@@ -150,7 +151,7 @@ registry:
             show: Visualiser un logiciel ou support
         action:
             new: Nouveau logiciel ou support
-            edit: Editer
+            edit: Modifier
             delete: Supprimer
             submit: Sauvegarder
             back_to_list: Retour à la liste
@@ -534,9 +535,9 @@ registry:
             shelflife_name: Nom
             shelflife_duration: Durée
             shelflife_ultimate_fate: Sort final
-            software: Logiciel
             statut: Statut
             systematic_monitoring: Surveillance systématique
+            software: Logiciels et supports
             tools: Logiciels et supports
             ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
@@ -574,7 +575,7 @@ registry:
             responsable_traitement: Responsable traitement
             saving: Sauvegarde
             specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
-            software: Logiciel
+            software: Logiciels et supports
             tracability: Traçabilité
             updated_at: Date de modification
             update: Mise à jour
@@ -641,7 +642,7 @@ registry:
             security_update: Mise à jour
             service: Service
             shelfLife: Délai de conservation
-            software: Logiciel
+            software: Logiciels et supports
             statut: Statut
             ultimate_fate: Sort final
             systematic_monitoring: Surveillance systématique
@@ -657,7 +658,7 @@ registry:
             consent_request_format: Format de la demande du consentement
             exempt_aipd: Est exempté d'AIPD
             exempt_AIPD: Est exempté d'AIPD
-            tools: Logiciel
+            tools: Logiciels et supports
 
             preconization_dpo: Préconisations
         title:

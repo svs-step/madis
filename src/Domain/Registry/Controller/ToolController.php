@@ -293,12 +293,8 @@ class ToolController extends CRUDController
             $this->router->generate('registry_tool_delete', ['id' => $tool->getId()]) .
             '"><i class="fa fa-trash"></i> ' .
             $this->translator->trans('registry.tool.action.delete')
-            . '</a>' . '
-            <a href="' .
-            $this->router->generate('registry_tool_pdf', ['id' => $tool->getId()]) .
-            '"><i class="fa fa-print"></i> ' .
-            $this->translator->trans('registry.tool.action.print')
-            . '</a>';
+            . '</a>'
+        ;
     }
 
     /**

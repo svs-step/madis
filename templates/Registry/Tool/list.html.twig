@@ -51,19 +51,19 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body" style="overflow-x: auto">
-                    <table id="table" class="table table-bordered table-hover" style="clear: both">
+                <div class="box-body" style="overflow-x: auto;min-height:800px">
+                    <table id="table" class="table table-bordered table-hover" style="clear: both;">
                         <thead>
                         <tr>
-                            <th>
+                            <th scope="col" >
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>
+                                <th scope="col" >
                                     <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
                                 </th>
                             {% endif %}
-                            <th>
+                            <th scope="col" >
                                 <select class="form-control" id="search_type" style="width: 100%;">
                                     <option value="">Type</option>
                                     {% for key, subject in dictionary('registry_tool_type') %}
@@ -71,108 +71,108 @@
                                     {% endfor %}
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col" >
                                 <input class="form-control" type="text" id="search_editor" placeholder="Editeur" style="width: 100%;">
                             </th>
-                            <th>
+                            <th scope="col" >
                                 <select class="form-control" id="search_archival" style="width: 100%;">
                                     <option value="">Archivage</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col" >
                                 <select class="form-control" id="search_encrypted" style="width: 100%;">
                                     <option value="">Chiffrement</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col" >
                                 <select class="form-control" id="search_access_control" style="width: 100%;">
                                     <option value="">Contrôle d'accès</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col" >
                                 <select class="form-control" id="search_update" style="width: 100%;">
                                     <option value="">Mise à jour</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col" >
                                 <select class="form-control" id="search_backup" style="width: 100%;">
                                     <option value="">Sauvegarde</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col" >
                                 <select class="form-control" id="search_deletion" style="width: 100%;">
                                     <option value="">Suppression</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col" >
                                 <select class="form-control" id="search_tracking" style="width: 100%;">
                                     <option value="">Traçabilité</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col" >
                                 <select class="form-control" id="search_has_comment" style="width: 100%;">
                                     <option value="">A un commentaire</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col" >
                                 <select class="form-control" id="search_other" style="width: 100%;">
                                     <option value="">Autre</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>
-                                <input class="datepicker form-control" type="text" id="search_created_at" placeholder="Date" style="width: 100%;">
+                            <th scope="col" ></th>
+                            <th scope="col" ></th>
+                            <th scope="col" ></th>
+                            <th scope="col" ></th>
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                             </th>
-                            <th>
-                                <input class="datepicker form-control" type="text" id="search_updated_at" placeholder="Date" style="width: 100%;">
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                             </th>
-                            <th></th>
+                            <th scope="col" ></th>
                         </tr>
                         <tr>
-                            <th>{{ 'registry.tool.list.name'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.name'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                            <th>{{ 'registry.tool.list.collectivity'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.collectivity'|trans }}</th>
                             {% endif %}
-                            <th>{{ 'registry.tool.list.type'|trans }}</th>
-                            <th>{{ 'registry.tool.list.editor'|trans }}</th>
-                            <th>{{ 'registry.tool.list.archival'|trans }}</th>
-                            <th>{{ 'registry.tool.list.encrypted'|trans }}</th>
-                            <th>{{ 'registry.tool.list.access_control'|trans }}</th>
-                            <th>{{ 'registry.tool.list.update'|trans }}</th>
-                            <th>{{ 'registry.tool.list.backup'|trans }}</th>
-                            <th>{{ 'registry.tool.list.deletion'|trans }}</th>
-                            <th>{{ 'registry.tool.list.tracking'|trans }}</th>
-                            <th>{{ 'registry.tool.list.has_comment'|trans }}</th>
-                            <th>{{ 'registry.tool.list.other'|trans }}</th>
-                            <th>{{ 'registry.tool.list.treatments'|trans }}</th>
-                            <th>{{ 'registry.tool.list.contractors'|trans }}</th>
-                            <th>{{ 'registry.tool.list.proofs'|trans }}</th>
-                            <th>{{ 'registry.tool.list.mesurements'|trans }}</th>
-                            <th>{{ 'registry.tool.list.created_at'|trans }}</th>
-                            <th>{{ 'registry.tool.list.updated_at'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.type'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.editor'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.archival'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.encrypted'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.access_control'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.update'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.backup'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.deletion'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.tracking'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.has_comment'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.other'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.treatments'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.contractors'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.proofs'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.mesurements'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.created_at'|trans }}</th>
+                            <th scope="col" >{{ 'registry.tool.list.updated_at'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
-                                <th>{{ 'label.actions'|trans }}</th>
+                                <th scope="col" >{{ 'label.actions'|trans }}</th>
                             {% endif %}
                         </tr>
                         </thead>
@@ -265,6 +265,13 @@
         $(document).ready(function() {
             $('#table_filter').hide();
             var oTable = $('#table').DataTable();
+            $('#search_created_at').show('slide',function(){
+                $('input#search_created_at').val('');
+            });
+            $('#search_updated_at').show('slide',function(){
+                $('input#search_updated_at').val('');
+            });
+            
             $('#search_nom').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;
             }));

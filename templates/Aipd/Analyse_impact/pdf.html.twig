@@ -1056,7 +1056,14 @@
                                 <td>{{ traitement.estimatedConcernedPeople }}</td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.software'|trans }}</strong></td>
+                                <td><strong>
+
+                                        {% if traitement.collectivity.hasModuleTools %}
+                                            {{ 'registry.treatment.show.tools'|trans }}
+                                        {% else %}
+                                            {{ 'registry.treatment.show.software'|trans }}
+                                        {% endif %}
+                                    </strong></td>
                                 <td>
                                     {% if traitement.collectivity.hasModuleTools %}
                                         {{ traitement.tools|map(t => t.name)|join(', ') }}

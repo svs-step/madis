@@ -464,10 +464,20 @@
                             <td>{{ object.estimatedConcernedPeople }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.software'|trans }}</strong></td>
+                            <td><strong>{% if object.collectivity.hasModuleTools %}
+                                    {{ 'registry.treatment.show.software'|trans }}
+                                    {% else %}
+                                        {{ 'registry.treatment.show.tools'|trans }}
+                                    {% endif %}</strong></td>
                             <td>
                                 {% if object.collectivity.hasModuleTools %}
-                                {{ object.tools|map(t => t.name)|join(', ') }}
+                                    <ul>
+                                        {% for tool in object.tools %}
+                                            <li><a href="{{ url('registry_tool_show', {'id': tool.id}) }}">{{ tool.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+
+{#                                {{ object.tools|map(t => t.name)|join(', ') }}#}
                                 {% else %}
                                 {{ object.software }}
                                 {% endif %}
@@ -665,10 +675,6 @@
 
             {# Mesurements #}
             {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
-            {% if object.collectivity.isHasModuleTools %}
-                {# Tools#}
-                {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
-            {% endif %}
 
             {% if object.collectivity.hasModuleConformiteTraitement and object.ExemptAIPD == false %}
                 <div class="box box-solid box-success">
