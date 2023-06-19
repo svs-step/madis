@@ -86,10 +86,6 @@ class TreatmentCompletion extends AbstractCompletion
             ++$points;
         }
 
-        if ($object->getDelay()->getNumber() || $object->getDelay()->getComment()) {
-            ++$points;
-        }
-
         return $points;
     }
 

@@ -30,7 +30,6 @@ use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
-use App\Domain\Registry\Model\Embeddable\Delay;
 use App\Domain\Reporting\Model\LoggableSubject;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
@@ -123,6 +122,11 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $dataCategories;
 
     /**
+     * @var ShelfLife[]|iterable
+     */
+    private $shelfLifes;
+
+    /**
      * FR: Autres catégories.
      *
      * @var string|null
@@ -151,11 +155,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
      * @var iterable
      */
     private $contractors;
-
-    /**
-     * @var Delay
-     */
-    private $delay;
 
     /**
      * FR: Contrôle d'accès (mesure de sécurité).
@@ -386,13 +385,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $estimatedConcernedPeople;
 
     /**
-     * FR: Sort final (Détails).
-     *
-     * @var string|null
-     */
-    private $ultimateFate;
-
-    /**
      * @var ConformiteTraitement|null
      */
     private $conformiteTraitement;
@@ -458,9 +450,9 @@ class Treatment implements LoggableSubject, CollectivityRelated
     {
         $this->id                                = Uuid::uuid4();
         $this->paperProcessing                   = false;
+        $this->shelfLifes                        = [];
         $this->dataCategories                    = [];
         $this->contractors                       = [];
-        $this->delay                             = new Delay();
         $this->securityAccessControl             = new ComplexChoice();
         $this->securityTracability               = new ComplexChoice();
         $this->securitySaving                    = new ComplexChoice();
@@ -664,6 +656,33 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->dataCategories = $dataCategories;
     }
 
+    public function getShelfLifes(): iterable
+    {
+        return $this->shelfLifes;
+    }
+
+    public function setShelfLifes(iterable $shelfLifes): void
+    {
+        $this->shelfLifes = $shelfLifes;
+    }
+
+    public function addShelfLife(ShelfLife $shelfLife): void
+    {
+        $this->shelfLifes[] = $shelfLife;
+        $shelfLife->setTreatment($this);
+    }
+
+    public function removeShelfLife(ShelfLife $shelfLife)
+    {
+        $key = \array_search($shelfLife, iterable_to_array($this->shelfLifes), true);
+
+        if (false === $key) {
+            return;
+        }
+
+        unset($this->shelfLifes[$key]);
+    }
+
     public function getDataCategoryOther(): ?string
     {
         return $this->dataCategoryOther;
@@ -716,16 +735,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function getContractors(): iterable
     {
         return $this->contractors;
-    }
-
-    public function getDelay(): Delay
-    {
-        return $this->delay;
-    }
-
-    public function setDelay(Delay $delay): void
-    {
-        $this->delay = $delay;
     }
 
     public function getSecurityAccessControl(): ComplexChoice
@@ -1061,16 +1070,6 @@ class Treatment implements LoggableSubject, CollectivityRelated
     public function setSecuritySpecificitiesDelivered(bool $securitySpecificitiesDelivered): void
     {
         $this->securitySpecificitiesDelivered = $securitySpecificitiesDelivered;
-    }
-
-    public function getUltimateFate(): ?string
-    {
-        return $this->ultimateFate;
-    }
-
-    public function setUltimateFate(?string $ultimateFate): void
-    {
-        $this->ultimateFate = $ultimateFate;
     }
 
     public function isInnovativeUse(): bool

@@ -65,9 +65,9 @@ class ToolType extends AbstractType
         $tool = $options['data'] ?? null;
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'registry.tool.form.name',
-                'required' => true,
-                'attr'     => [
+                'label'       => 'registry.tool.form.name',
+                'required'    => true,
+                'attr'        => [
                     'maxlength' => 255,
                 ],
                 'constraints' => [
@@ -140,7 +140,7 @@ class ToolType extends AbstractType
 
                     return $qb;
                 },
-                'attr' => [
+                'attr'          => [
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],

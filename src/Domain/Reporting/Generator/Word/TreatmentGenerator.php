@@ -266,7 +266,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 ],
                 4 => [
                     'Sort final',
-                    !\is_null($treatment->getUltimateFate()) ? TreatmentUltimateFateDictionary::getUltimateFates()[$treatment->getUltimateFate()] : '',
+                    '',
                 ],
                 5 => [
                     'Origine des données',
@@ -293,14 +293,13 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             ];
 
             // "Délai de conservation"
-            $delayContent = '';
-            if (null !== $treatment->getDelay()->getComment()) {
-                $delayContent = $treatment->getDelay()->getComment();
-            } elseif (null !== $treatment->getDelay()->getPeriod()) {
-                $period       = DelayPeriodDictionary::getPeriods()[$treatment->getDelay()->getPeriod()];
-                $delayContent = "{$treatment->getDelay()->getNumber()} {$period}";
+            if (count($treatment->getShelfLifes()) > 0){
+                foreach($treatment->getShelfLifes() as $delay){
+                    $detailsData[3][1][] = $delay->name .' - '. $delay->duration .' - '. TreatmentUltimateFateDictionary::getUltimateFates()[$delay->ultimateFate]."\n" ;
+                }
+            } else {
+                $detailsData[3][1][] = '';
             }
-            $detailsData[3][] = $delayContent;
 
             $categoryData = [
                 [

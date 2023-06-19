@@ -26,8 +26,8 @@ class ImportModeleType extends AbstractType
                 'label'       => 'Sélectionner un fichier XML à importer',
                 'constraints' => [
                     new File([
-                        'maxSize'   => $this->maxSize,
-                        'mimeTypes' => [
+                        'maxSize'          => $this->maxSize,
+                        'mimeTypes'        => [
                             'application/xml',
                             'text/xml',
                         ],
