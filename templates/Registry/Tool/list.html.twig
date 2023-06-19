@@ -265,13 +265,15 @@
         $(document).ready(function() {
             $('#table_filter').hide();
             var oTable = $('#table').DataTable();
+            $('input#search_created_at').val('');
+            $('input#search_updated_at').val('');
             $('#search_created_at').show('slide',function(){
                 $('input#search_created_at').val('');
             });
             $('#search_updated_at').show('slide',function(){
                 $('input#search_updated_at').val('');
             });
-            
+
             $('#search_nom').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;
             }));
