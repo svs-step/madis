@@ -49,7 +49,7 @@ class Question
 
     private bool $option;
 
-    private string $optionReason;
+    private ?string $optionReason;
 
     /**
      * @var Domain|null
@@ -72,8 +72,9 @@ class Question
      */
     public function __construct()
     {
-        $this->id      = Uuid::uuid4();
-        $this->answers = new ArrayCollection();
+        $this->id           = Uuid::uuid4();
+        $this->answers      = new ArrayCollection();
+        $this->optionReason = null;
     }
 
     public function __clone()
