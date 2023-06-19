@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% set bodyClass = 'documentation_document list' %}
-{% set menuItem = 'documentation_document' %}
+{% set menuItem = 'documentation' %}
 
 {% set activeCategories = [] %}
 
@@ -187,8 +187,8 @@
                             <td>
                                 {{ object.categories|map(c => "#{c.name}") | join(', ') }}
                             </td>
-                            <td>{{ object.createdAt|date('d/m/Y') }}</td>
-                            <td>{{ object.updatedAt|date('d/m/Y') }}</td>
+                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
 
                             <td>
                                 {% if is_granted('ROLE_ADMIN') %}
@@ -266,7 +266,7 @@
             {"data": "category"},
             {"data": "created_at", "visible" : false},
             {"data": "updated_at", "visible" : false},
-            {"data": "actions", "orderable": false},
+            {"data": "actions", "orderable": false, "class": 'noVis'},
         ],
 
         order: [[0,'desc'],[6,'desc']],

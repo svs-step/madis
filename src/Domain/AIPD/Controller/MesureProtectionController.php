@@ -86,14 +86,16 @@ class MesureProtectionController extends CRUDController
         $reponse = $this->getBaseDataTablesResponse($request, $mesures);
         /** @var ModeleMesureProtection $mesure */
         foreach ($mesures as $mesure) {
+            /** @var ModeleMesureProtection $m */
+            $m                 = $mesure[0];
             $reponse['data'][] = [
-                'nom'                => $mesure[0]->getNom(),
-                'nomCourt'           => $mesure[0]->getNomCourt(),
-                'detail'             => $mesure[0]->getDetail(),
-                'poidsVraisemblance' => $mesure[0]->getPoidsVraisemblance(),
-                'poidsGravite'       => $mesure[0]->getPoidsGravite(),
-                'createdAt'          => $mesure[0]->getCreatedAt() ? date_format($mesure[0]->getCreatedAt(), 'd-m-Y H:i:s') : null,
-                'updatedAt'          => $mesure[0]->getUpdatedAt() ? date_format($mesure[0]->getUpdatedAt(), 'd-m-Y H:i:s') : null,
+                'nom'                => $m->getNom(),
+                'nomCourt'           => $m->getNomCourt(),
+                'detail'             => $m->getDetail(),
+                'poidsVraisemblance' => $m->getPoidsVraisemblance(),
+                'poidsGravite'       => $m->getPoidsGravite(),
+                'createdAt'          => $m->getCreatedAt() && $m->getCreatedAt()->format('Y') > 0 ? $m->getCreatedAt()->format('d-m-Y H:i') : '',
+                'updatedAt'          => $m->getUpdatedAt() && $m->getUpdatedAt()->format('Y') > 0 ? $m->getUpdatedAt()->format('d-m-Y H:i') : '',
                 'actions'            => $this->generateActionCellContent($mesure['id']),
             ];
         }

@@ -11,7 +11,7 @@ use Ramsey\Uuid\UuidInterface;
 
 class AbstractMesureProtection
 {
-    use HistoryTrait;
+    //    use HistoryTrait;
     /**
      * @Serializer\Accessor(getter="getIdString",setter="setIdFromString")
      *
@@ -30,6 +30,8 @@ class AbstractMesureProtection
      * @var \DateTimeImmutable|null
      *
      * @Serializer\Type("DateTimeImmutable")
+     *
+     * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
 
@@ -37,6 +39,8 @@ class AbstractMesureProtection
      * @var \DateTimeImmutable|null
      *
      * @Serializer\Type("DateTimeImmutable")
+     *
+     * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
 
@@ -133,5 +137,25 @@ class AbstractMesureProtection
     public function setPoidsGravite(int $poidsGravite): void
     {
         $this->poidsGravite = $poidsGravite;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }
