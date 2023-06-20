@@ -161,7 +161,7 @@ class ViolationController extends CRUDController
         $users    = $this->getResults($request, $criteria);
         $reponse  = $this->getBaseDataTablesResponse($request, $users, $criteria);
 
-        $yes = '<span class="badge bg-orange">' . $this->translator->trans('label.yes') . '</span>';
+        $yes = '<span class="badge bg-red">' . $this->translator->trans('label.yes') . '</span>';
         $no  = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
 
         /** @var Model\Violation $violation */

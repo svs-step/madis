@@ -456,28 +456,28 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             ];
 
             $section->addTitle('Informations générales', 3);
-            $this->addTable($section, $generalInformationsData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $generalInformationsData, false, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Détails - Personnes concernées', 3);
-            $this->addTable($section, $concernedPeopleData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $concernedPeopleData, false, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Détails', 3);
-            $this->addTable($section, $detailsData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $detailsData, false, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Catégorie de données', 3);
-            $this->addTable($section, $categoryData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $categoryData, false, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Destination', 3);
-            $this->addTable($section, $goalData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $goalData, false, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Mesures de sécurité et confidentialité', 3);
-            $this->addTable($section, $securityData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $securityData, false, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Traitement spécifique', 3);
-            $this->addTable($section, $specificData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $specificData, false, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Historique', 3);
-            $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $historyData, false, self::TABLE_ORIENTATION_VERTICAL);
         }
     }
 

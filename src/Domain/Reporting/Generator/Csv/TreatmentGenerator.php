@@ -25,7 +25,6 @@ namespace App\Domain\Reporting\Generator\Csv;
 
 use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
 use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
-use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
@@ -304,9 +303,6 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getEstimatedConcernedPeople(),
             $treatment->getSoftware(),
             $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
-            $treatment->getDelay()->getNumber(),
-            !\is_null($treatment->getDelay()->getPeriod()) && array_key_exists($treatment->getDelay()->getPeriod(), DelayPeriodDictionary::getPeriods()) ? DelayPeriodDictionary::getPeriods()[$treatment->getDelay()->getPeriod()] : $treatment->getDelay()->getPeriod(),
-            $treatment->getDelay()->getComment(),
             $treatment->getDataOrigin(),
             !\is_null($treatment->getCollectingMethod()) ? join(', ', array_map(function ($cm) {
                 return array_key_exists($cm, TreatmentCollectingMethodDictionary::getMethods()) ? TreatmentCollectingMethodDictionary::getMethods()[$cm] : $cm;

@@ -26,9 +26,9 @@
                             <td><strong>{{ 'registry.violation.show.in_progress'|trans }}</strong></td>
                             <td>
                                 {% if object.inProgress %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-red">{{ 'label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-red">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>

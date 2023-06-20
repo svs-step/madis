@@ -165,17 +165,17 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $section->addTitle((string) $violation, 2);
 
-            $cellDate   = [];
-            $cellDate[] = $this->getDate($violation->getDate(), 'd/m/Y');
-            if ($violation->isInProgress()) {
-                $cellDate[] = '(Toujours en cours)';
-            }
-            $natures = join(', ', array_map(function ($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n; }, (array) $violation->getViolationNatures()));
+            $cellDate = $this->getDate($violation->getDate(), 'd/m/Y');
 
+            $natures                = join(', ', array_map(function ($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n; }, (array) $violation->getViolationNatures()));
             $generalInformationData = [
                 [
                     'Date de la violation',
                     $cellDate,
+                ],
+                [
+                    'Violation en cours',
+                    $violation->isInProgress() ? 'Oui' : 'Non',
                 ],
                 [
                     'Natures de la violation',
@@ -244,10 +244,6 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $historyData = [
                 [
-                    'Créateur',
-                    strval($violation->getCreator()),
-                ],
-                [
                     'Date de création',
                     $this->getDate($violation->getCreatedAt()),
                 ],
@@ -255,16 +251,20 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
                     'Date de modification',
                     $this->getDate($violation->getUpdatedAt()),
                 ],
+                [
+                    'Modifié par',
+                    $violation->getUpdatedBy(),
+                ],
             ];
 
             $section->addTitle('Informations sur la violation', 3);
-            $this->addTable($section, $generalInformationData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $generalInformationData, false, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Conséquences de la violation', 3);
-            $this->addTable($section, $consequenceData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $consequenceData, false, self::TABLE_ORIENTATION_VERTICAL);
 
             $section->addTitle('Historique', 3);
-            $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $historyData, false, self::TABLE_ORIENTATION_VERTICAL);
         }
     }
 
