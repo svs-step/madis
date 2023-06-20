@@ -97,8 +97,12 @@
                             <th scope="col">
                                 <input class="form-control" type="text" id="search_responsable_action" placeholder="Responsable" style="width: 100%;">
                             </th>
-                            <th scope="col"></th>
-                            <th scope="col"></th>
+                            <th scope="col">
+                                <input class="form-control" type="text" id="search_description" placeholder="Description" style="width: 100%;">
+                            </th>
+                            <th scope="col">
+                                <input class="form-control" type="text" id="search_observation" placeholder="Observation" style="width: 100%;">
+                            </th>
                             <th scope="col" style="min-width:130px;position:relative;">
                                 <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                             </th>
@@ -154,8 +158,8 @@
             {"data": "charge"},
             {"data": "priorite"},
             {"data": "responsable_action"},
-            {"data": "description", "visible": false, "orderable": false},
-            {"data": "observation", "visible": false, "orderable": false},
+            {"data": "description", "visible": false, "orderable": true},
+            {"data": "observation", "visible": false, "orderable": true},
             {"data": "createdAt", "visible": false},
             {"data": "updatedAt", "visible": false},
             {"data": "actions", "orderable": false, "className": "noVis", "visible": actionIsVisible},
@@ -238,6 +242,12 @@
                 });
                 $('#search_responsable_action').keyup($.debounce(250, function () {
                     oTable.column('6').search($(this).val()).draw();
+                }));
+                $('#search_description').keyup($.debounce(250, function () {
+                    oTable.column('7').search($(this).val()).draw();
+                }));
+                $('#search_observation').keyup($.debounce(250, function () {
+                    oTable.column('8').search($(this).val()).draw();
                 }));
                 $('#search_created_at').off('change');
                 $('#search_created_at').change(function () {

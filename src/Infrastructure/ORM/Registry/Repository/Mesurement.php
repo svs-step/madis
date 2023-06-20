@@ -273,6 +273,12 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 case 'responsable_action':
                     $this->addWhereClause($queryBuilder, 'manager', '%' . $search . '%', 'LIKE');
                     break;
+                case 'observation':
+                    $this->addWhereClause($queryBuilder, 'comment', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'description':
+                    $this->addWhereClause($queryBuilder, $columnName, '%' . $search . '%', 'LIKE');
+                    break;
                 case 'createdAt':
                     if (is_string($search)) {
                         $queryBuilder->andWhere('o.createdAt BETWEEN :created_start_date AND :created_finish_date')
@@ -305,6 +311,12 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
                 break;
             case 'charge':
                 $queryBuilder->addOrderBy('o.charge', $orderDir);
+                break;
+            case 'description':
+                $queryBuilder->addOrderBy('o.description', $orderDir);
+                break;
+            case 'observation':
+                $queryBuilder->addOrderBy('o.comment', $orderDir);
                 break;
             case 'collectivite':
                 $queryBuilder->addOrderBy('collectivite.name', $orderDir);
