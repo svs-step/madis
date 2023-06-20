@@ -101,6 +101,7 @@ class NotificationEventSubscriber implements EventSubscriber
         /** @var User|null $user */
         $user = $this->security->getUser();
 
+
         if (isset($user) && is_object($user) && User::class === get_class($user) && $user->isNotGeneratesNotifications()) {
             // User does not generate notifications, exit now
             return;
@@ -113,6 +114,7 @@ class NotificationEventSubscriber implements EventSubscriber
             if (!in_array($class, $this->classes) || Request::class === $class || AnalyseImpact::class === $class) {
                 continue;
             }
+
 
             $this->createNotifications($entity, 'create', $em);
         }
@@ -449,6 +451,10 @@ class NotificationEventSubscriber implements EventSubscriber
 
         if ('notification.modules.aipd' === $notification->getModule() && ('notifications.actions.state_change' === $notification->getAction() || 'notification.actions.state_change' === $notification->getAction())) {
             return $notification->getObject()->statut;
+        }
+
+        if ('notification.modules.document' === $notification->getModule()) {
+            return $notification->getObject()->typeName;
         }
 
         if ('notifications.actions.validation' === $notification->getAction() || 'notification.actions.validation' === $notification->getAction()) {

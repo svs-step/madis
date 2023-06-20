@@ -54,7 +54,7 @@ class NotificationExtension extends AbstractExtension
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Document::class]) {
             $sentence .= ' Nouveau document déposé par le DPD&nbsp;';
         }
-        
+
         switch ($notification->getAction()) {
             case 'notifications.actions.late_request':
             case 'notification.actions.late_request':

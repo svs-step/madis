@@ -16,13 +16,13 @@ notifications:
         maturity: Indices de maturité
     actions:
         delete: Suppression
-        create: Création
+        create: Ajout
         update: Modification
         late_action: ""
         late_request: Rappel automatique
         late_survey: Rappel automatique
         no_login: Inactif
-        validation: Validation
+        validation: Validation nécéssaire
         treatment_needs_aipd: Nécéssité de faire une AIPD
         state_change: Changement d'étape
     subject:
