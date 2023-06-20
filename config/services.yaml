@@ -89,6 +89,7 @@ services:
         arguments:
             $translator: '@translator'
             $router: '@router'
+            $security: '@Symfony\Component\Security\Core\Security'
             $requestDays: '%env(APP_REQUEST_NOTIFICATION_DELAY_DAYS)%'
             $surveyDays: '%env(APP_SURVEY_NOTIFICATION_DELAY_DAYS)%'
 

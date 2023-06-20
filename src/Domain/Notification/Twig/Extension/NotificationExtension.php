@@ -9,10 +9,12 @@ use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\Notification as NotificationModel;
 use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
+use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Violation;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Security;
 use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
@@ -22,14 +24,16 @@ class NotificationExtension extends AbstractExtension
     protected TranslatorInterface $translator;
     protected RouterInterface $router;
     protected \App\Domain\Notification\Repository\Notification $repository;
+    protected Security $security;
 
     protected string $requestDays;
     protected string $surveyDays;
 
-    public function __construct(TranslatorInterface $translator, RouterInterface $router, \App\Domain\Notification\Repository\Notification $repository, string $requestDays, string $surveyDays)
+    public function __construct(TranslatorInterface $translator, RouterInterface $router, Security $security, \App\Domain\Notification\Repository\Notification $repository, string $requestDays, string $surveyDays)
     {
         $this->translator  = $translator;
         $this->router      = $router;
+        $this->security    = $security;
         $this->repository  = $repository;
         $this->requestDays = $requestDays;
         $this->surveyDays  = $surveyDays;
@@ -45,7 +49,7 @@ class NotificationExtension extends AbstractExtension
 
     public function getSentence(Notification $notification): string
     {
-        $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ';
+        $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong>';
 
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Document::class]) {
             $sentence .= ' Nouveau document déposé par le DPD&nbsp;';
@@ -62,7 +66,7 @@ class NotificationExtension extends AbstractExtension
                 break;
             case 'notifications.actions.late_survey':
             case 'notification.actions.late_survey':
-                $sentence .= $this->translator->trans('notifications.sentence.late_survey', [
+                $sentence .= ' ' . $this->translator->trans('notifications.sentence.late_survey', [
                     '%days%' => $this->surveyDays,
                 ]) . ' ';
                 break;
@@ -77,14 +81,15 @@ class NotificationExtension extends AbstractExtension
                 if ($notification->getModule() !== 'notification.modules.' . NotificationModel::MODULES[Document::class]) {
                     $sentence .= $this->translator->trans($notification->getAction()) . ' ';
                 }
+                if ($notification->getModule() !== 'notification.modules.action_plan') {
+                    $sentence .= '&nbsp;: ' ;
+                }
                 $link = $this->getObjectLink($notification);
                 if ($this->repository->objectExists($notification)) {
-                    $sentence .= '&nbsp;: ' .
-                        '<a href="' . $link . '">' . $notification->getName() . '</a> '
+                    $sentence .= '<a href="' . $link . '">' . $notification->getName() . '</a> '
                     ;
                 } else {
-                    $sentence .= ' : ' .
-                        '<span>' . $notification->getName() . '</span> '
+                    $sentence .= '<span>' . $notification->getName() . '</span> '
                     ;
                 }
         }
@@ -104,8 +109,11 @@ class NotificationExtension extends AbstractExtension
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Proof::class]) {
             $sentence .= '<strong>(' . ProofTypeDictionary::getTypes()[$notification->getObject()->type] . ')</strong> ';
         }
+        if ($notification->getModule() === 'notification.modules.action_plan') {
+            $sentence .= ' pour le <strong>' . (new \DateTime($notification->getObject()->planificationDate))->format('d/m/Y') . '</strong> est en retard ';
+        }
 
-        if ($notification->getCollectivity()) {
+        if ($notification->getCollectivity() && $this->security->isGranted('ROLE_REFERENT')) {
             $sentence .= $this->translator->trans('label.par') . ' <strong>' . $notification->getCollectivity()->getName() . '</strong>';
         }
 
@@ -117,6 +125,9 @@ class NotificationExtension extends AbstractExtension
         try {
             if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.validation' === $notification->getAction()) {
                 return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+            if ('notification.modules.aipd' === $notification->getModule() && 'notifications.actions.treatment_needs_aipd' === $notification->getAction()) {
+                return $this->router->generate('registry_conformite_traitement_start_aipd', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
             }
             if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.state_change' === $notification->getAction()) {
                 return $this->router->generate('aipd_analyse_impact_evaluation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);

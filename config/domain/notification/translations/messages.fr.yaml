@@ -16,13 +16,13 @@ notifications:
         maturity: Indices de maturité
     actions:
         delete: Suppression
-        create: Création
+        create: Ajout
         update: Modification
-        late_action: Rappel automatique
+        late_action: ""
         late_request: Rappel automatique
         late_survey: Rappel automatique
         no_login: Inactif
-        validation: Validation
+        validation: Validation nécéssaire
         treatment_needs_aipd: Nécéssité de faire une AIPD
         state_change: Changement d'étape
     subject:
@@ -33,6 +33,7 @@ notifications:
         late_action: Retard %date%
     sentence:
         late_request: La demande de %name% n'a pas été traitée depuis au moins %days% jours depuis la date de la dernière modification
+        late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
 notification:
     module: Notifications
     state:
