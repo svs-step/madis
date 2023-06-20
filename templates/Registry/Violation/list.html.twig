@@ -36,30 +36,30 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('registry_violation_create') }}" class="btn btn-default">
+                    <a aria-label="{{ 'registry.violation.action.new'|trans }}" href="{{ path('registry_violation_create') }}" class="btn btn-default">
                         <i class="fa fa-plus"></i>
                         {{ 'registry.violation.action.new'|trans }}
                     </a>
                     {% endif %}
                     {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a href="{{ path('registry_violation_report') }}" class="btn btn-default">
+                    <a aria-label="{{ 'registry.violation.action.report'|trans }}" href="{{ path('registry_violation_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.violation.action.report'|trans }}
                     </a>
                     {% endif %}
                     {% if app.request.query.get('archive') == 'true' %}
-                        <a href="{{ path('registry_violation_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                        <a aria-label="{{ 'registry.violation.action.not_archived'|trans }}" href="{{ path('registry_violation_list', {'archive' : 'false'}) }}" class="btn btn-default">
                             <i class="fa fa-trash"></i>
                             {{ 'registry.violation.action.not_archived'|trans }}
                         </a>
                     {% else %}
-                        <a href="{{ path('registry_violation_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                        <a aria-label="{{ 'registry.violation.action.archived'|trans }}" href="{{ path('registry_violation_list', {'archive' : 'true'}) }}" class="btn btn-default">
                             <i class="fa fa-trash"></i>
                             {{ 'registry.violation.action.archived'|trans }}
                         </a>
                     {% endif %}
                     {% if category and category.documents|length > 0 %}
-                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                             <i class="far fa-file"></i>
                             {{ 'documentation.document.link.button'|trans }}
                         </a>
@@ -73,23 +73,23 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <div id="custom-buttons" style="float:left">
-                        <a id="print-all"  href="" class="dt-button buttons-collection buttons-colvis">
+                    <div style="float:left">
+                        <a id="print-all" style="float:left" href="{{ path('registry_violation_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Imprimer
                         </a>
                     </div>
-                    <table id="table" class="table table-bordered table-hover">
+                    <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_date" placeholder="Date de violation" style="z-index:10;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                            </th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
                                 </th>
                             {% endif %}
-                            <th>
-                                <input class="datepicker form-control" type="text" id="search_date" placeholder="Date de violation" style="width: 100%;">
-                            </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_nature" style="width: 100%;">
                                     <option value="">Nature</option>
                                     {% for key, subject in dictionary('registry_violation_nature') %}
@@ -97,7 +97,14 @@
                                     {% endfor %}
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
+                                <select class="form-control" id="search_inProgress" style="width: 100%;">
+                                    <option value="">En cours</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
+                                </select>
+                            </th>
+                            <th scope="col">
                                 <select class="form-control" id="search_cause" style="width: 100%;">
                                     <option value="">Cause</option>
                                     {% for key, subject in dictionary('registry_violation_cause') %}
@@ -105,7 +112,7 @@
                                     {% endfor %}
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_gravity" style="width: 100%;">
                                     <option value="">Gravité</option>
                                     {% for key, subject in dictionary('registry_violation_gravity') %}
@@ -113,17 +120,35 @@
                                     {% endfor %}
                                 </select>
                             </th>
-                            <th></th>
+                            <th scope="col">
+                                <select class="form-control" id="search_notification" style="width: 100%;">
+                                    <option value="">Notification</option>
+                                    {% for key, subject in dictionary('registry_violation_notification_list') %}
+                                        <option value="{{ key }}">{{ subject }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 100%;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                            </th>
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 100%;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                            </th>
+                            <th scope="col"></th>
                         </tr>
                         <tr>
+                            <th scope="col">{{ 'registry.violation.list.date'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>{{ 'registry.violation.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'registry.violation.list.collectivity'|trans }}</th>
                             {%  endif %}
-                            <th>{{ 'registry.violation.list.date'|trans }}</th>
-                            <th>{{ 'registry.violation.list.violation_nature'|trans }}</th>
-                            <th>{{ 'registry.violation.list.cause'|trans }}</th>
-                            <th>{{ 'registry.violation.list.gravity'|trans }}</th>
-                            <th>{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'registry.violation.list.violation_nature'|trans }}</th>
+                            <th scope="col">{{ 'registry.violation.list.in_progress'|trans }}</th>
+                            <th scope="col">{{ 'registry.violation.list.cause'|trans }}</th>
+                            <th scope="col">{{ 'registry.violation.list.gravity'|trans }}</th>
+                            <th scope="col">{{ 'registry.violation.list.notification'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.violation.list.created_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.violation.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>
@@ -149,20 +174,28 @@
     {% endif %}
 
     {% set cols = [
-        {"data": "date"},
+        {"data": "date", "className": "noVis"},
         {"data": "nature"},
+        {"data": "inProgress"},
         {"data": "cause"},
         {"data": "gravity"},
+        {"data": "notification"},
+        {"data": "createdAt", "visible": false},
+        {"data": "updatedAt", "visible": false},
         {"data": "actions", "className": "noVis", "orderable": false, "visible": actionIsVisible},
     ] %}
 
     {% if is_granted('ROLE_REFERENT') %}
         {% set cols = [
+            {"data": "date", "className": "noVis"},
             {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
-            {"data": "date"},
             {"data": "nature"},
+            {"data": "inProgress"},
             {"data": "cause"},
             {"data": "gravity"},
+            {"data": "notification"},
+            {"data": "createdAt", "visible": false},
+            {"data": "updatedAt", "visible": false},
             {"data": "actions", "className": "noVis", "orderable": false, "visible": actionIsVisible},
         ] %}
     {% endif %}
@@ -195,29 +228,60 @@
                 }
             });
 
-            $('#search_collectivite').off('keyup');
-            $('#search_collectivite').keyup($.debounce(250, function(){
-                oTable.column('0').search($(this).val()).draw() ;
-            }));
+            $('#search_created_at').show('slide',function(){
+                $('input#search_created_at').val('');
+            });
+            $('#search_updated_at').show('slide',function(){
+                $('input#search_updated_at').val('');
+            });
+            $('#search_date').show('slide',function(){
+                $('input#search_date').val('');
+            });
+
 
             $('#search_date').off('change');
             $('#search_date').change(function(){
-                oTable.column(col).search($(this).val()).draw() ;
+                oTable.column('0').search($(this).val()).draw() ;
             });
+
+            $('#search_collectivite').off('keyup');
+            $('#search_collectivite').keyup($.debounce(250, function(){
+                oTable.column(col).search($(this).val()).draw() ;
+            }));
 
             $('#search_nature').off('change');
             $('#search_nature').change(function(){
                 oTable.column(col + 1).search($(this).val()).draw() ;
             });
 
+            $('#search_inProgress').off('change');
+            $('#search_inProgress').change(function(){
+                oTable.column(col + 2).search($(this).val()).draw() ;
+            });
+
             $('#search_cause').off('change');
             $('#search_cause').change(function(){
-                oTable.column(col +2).search($(this).val()).draw() ;
+                oTable.column(col +3).search($(this).val()).draw() ;
             });
 
             $('#search_gravity').off('change');
             $('#search_gravity').change(function(){
-                oTable.column(col + 3).search($(this).val()).draw() ;
+                oTable.column(col + 4).search($(this).val()).draw() ;
+            });
+
+            $('#search_notification').off('change');
+            $('#search_notification').change(function(){
+                oTable.column(col + 5).search($(this).val()).draw() ;
+            });
+
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column(col + 6).search($(this).val()).draw();
+            });
+
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
+                oTable.column(col + 7).search($(this).val()).draw();
             });
         }
 

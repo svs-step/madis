@@ -1,4 +1,9 @@
-{% set submitValue = submitValue|default('action.submit'|trans) %}
+{% if form.vars.value.createdAt.timestamp is defined %}
+    {% set submitValue = submitValue|default('documentation.document.action.edit_submit'|trans) %}
+{% else %}
+    {% set submitValue = submitValue|default('documentation.document.action.new_submit'|trans) %}
+{% endif %}
+
 {{ form_errors(form) }}
 {{ form_start(form) }}
 <div class="col-md-6">
@@ -22,7 +27,7 @@
             <div class="form-group">
                 <div class="col-sm-2 text-right"><label>Existant</label></div>
                 <div class="col-sm-10">
-                    <a href="{{ object.url }}" target="_blank">{{ object.name }}</a>
+                    <a aria-label="{{ object.name }}" href="{{ object.url }}" target="_blank">{{ object.name }}</a>
                 </div>
             </div>
                 {% endif %}
@@ -64,7 +69,7 @@
             </h3>
         </div>
         <div class="box-body no-padding">
-            <table class="table">
+            <table role="presentation" class="table">
                 <tbody>
                 {% if form.vars.value.creator is defined and form.vars.value.creator and form.vars.value.creator.fullName %}
                 <tr>
@@ -108,7 +113,7 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
+                <a aria-label="{{ 'documentation.document.action.back_to_list'|trans }}" href="{{ path('documentation_document_list') }}" class="btn btn-default">
                     {{ 'documentation.document.action.back_to_list'|trans }}
                 </a>
                 <input id="create-document" type="submit" class="btn btn-primary" value="{{ submitValue }}">

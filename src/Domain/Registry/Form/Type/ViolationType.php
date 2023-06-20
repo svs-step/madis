@@ -35,6 +35,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -106,6 +107,9 @@ class ViolationType extends AbstractType
                 'required' => false,
             ]);
         }
+        /** @var User $user */
+        $user = $this->security->getUser();
+
         $builder
             ->add('inProgress', CheckboxType::class, [
                 'label'    => 'registry.violation.form.in_progress',
@@ -128,7 +132,7 @@ class ViolationType extends AbstractType
                 'multiple' => true,
                 'attr'     => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'title' => 'placeholder.multiple_select_origine_data',
                 ],
             ])
             ->add('cause', DictionaryType::class, [
@@ -144,7 +148,7 @@ class ViolationType extends AbstractType
                 'multiple' => true,
                 'attr'     => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'title' => 'placeholder.multiple_select_nature_data',
                 ],
             ])
             ->add('concernedPeopleCategories', DictionaryType::class, [
@@ -154,7 +158,7 @@ class ViolationType extends AbstractType
                 'multiple' => true,
                 'attr'     => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'title' => 'placeholder.multiple_select_categorie_personne',
                 ],
             ])
             ->add('nbAffectedRows', IntegerType::class, [
@@ -176,7 +180,7 @@ class ViolationType extends AbstractType
                 'multiple' => true,
                 'attr'     => [
                     'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'title' => 'placeholder.multiple_select_nature_impact',
                 ],
             ])
             ->add('gravity', DictionaryType::class, [
@@ -241,8 +245,9 @@ class ViolationType extends AbstractType
                 'expanded' => false,
                 'multiple' => true,
                 'attr'     => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_traitement_associe',
                 ],
             ])
             ->add('contractors', EntityType::class, [
@@ -263,6 +268,10 @@ class ViolationType extends AbstractType
                     'class' => 'selectpicker',
                     'title' => 'placeholder.multiple_select',
                 ],
+            ])
+            ->add('updatedBy', HiddenType::class, [
+                'required' => false,
+                'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
             ])
         ;
     }

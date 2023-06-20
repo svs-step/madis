@@ -184,9 +184,33 @@ class ToolController extends CRUDController
 
     protected function getLabelAndKeysArray(): array
     {
+        if ($this->isGranted('ROLE_REFERENT')) {
+            return [
+                'name',
+                'collectivity',
+                'type',
+                'editor',
+                'archival',
+                'encrypted',
+                'access_control',
+                'update',
+                'backup',
+                'deletion',
+                'tracking',
+                'has_comment',
+                'other',
+                'treatments',
+                'contractors',
+                'proofs',
+                'mesurements',
+                'createdAt',
+                'updatedAt',
+                'actions',
+            ];
+        }
+
         return [
             'name',
-            'collectivity',
             'type',
             'editor',
             'archival',

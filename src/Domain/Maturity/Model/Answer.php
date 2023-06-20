@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Model;
 
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
@@ -31,36 +32,30 @@ class Answer
 {
     /**
      * @var UuidInterface
+     *
+     * @Serializer\Exclude
      */
     private $id;
 
-    /**
-     * @var string|null
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var int|null
-     */
-    private $position;
+    private int $position;
 
-    /**
-     * @var string|null
-     */
-    private $recommendation;
+    private ?string $recommendation;
 
-    /**
-     * @var string|null
-     */
-    private $response;
+    private ?string $response;
 
     /**
      * @var Question|null
+     *
+     * @Serializer\Exclude
      */
     private $question;
 
     /**
      * @var Survey[]|iterable
+     *
+     * @Serializer\Exclude
      */
     private $surveys;
 
@@ -77,17 +72,22 @@ class Answer
         $this->recommendation = '';
     }
 
+    public function deserialize(): void
+    {
+        $this->id = Uuid::uuid4();
+    }
+
     public function getId(): UuidInterface
     {
         return $this->id;
     }
 
-    public function getResponse(): ?int
+    public function getResponse(): ?string
     {
         return $this->response;
     }
 
-    public function setResponse(?int $response): void
+    public function setResponse(?string $response): void
     {
         $this->response = $response;
     }

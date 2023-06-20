@@ -178,19 +178,21 @@ class SurveyController extends CRUDController
 
         if ($form->isSubmitted()) {
             $data = $request->request->all();
-            foreach ($data['survey']['questions'] as $questionId => $question) {
-                if (isset($question['option'])) {
-                    // Create new OptionalAnswer
-                    $opa = new Model\OptionalAnswer();
-                    $q   = $this->entityManager->getRepository(Model\Question::class)->find($questionId);
-                    $opa->setQuestion($q);
-                    $opa->setReason($question['optionReason']);
-                    $this->entityManager->persist($opa);
-                    $object->addOptionalAnswer($opa);
-                } else {
-                    foreach ($question['answers'] as $answerId) {
-                        $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
-                        $object->addAnswer($answer);
+            if (isset($data['survey']['questions'])) {
+                foreach ($data['survey']['questions'] as $questionId => $question) {
+                    if (isset($question['option'])) {
+                        // Create new OptionalAnswer
+                        $opa = new Model\OptionalAnswer();
+                        $q   = $this->entityManager->getRepository(Model\Question::class)->find($questionId);
+                        $opa->setQuestion($q);
+                        $opa->setReason($question['optionReason']);
+                        $this->entityManager->persist($opa);
+                        $object->addOptionalAnswer($opa);
+                    } else {
+                        foreach ($question['answers'] as $answerId) {
+                            $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
+                            $object->addAnswer($answer);
+                        }
                     }
                 }
             }
@@ -238,26 +240,28 @@ class SurveyController extends CRUDController
             $object->setAnswers([]);
 
             $data = $request->request->all();
-            foreach ($data['survey']['questions'] as $questionId => $question) {
-                // Remove optional answer if one exists
-                $q              = $this->entityManager->getRepository(Model\Question::class)->find($questionId);
-                $optionalAnswer = $this->entityManager->getRepository(Model\OptionalAnswer::class)->findOneBy(['question' => $q, 'survey' => $object]);
-                if ($optionalAnswer) {
-                    $this->entityManager->remove($optionalAnswer);
-                }
-                if (isset($question['option'])) {
-                    // Create new OptionalAnswer
-                    $opa = new Model\OptionalAnswer();
+            if (isset($data['survey']['questions'])) {
+                foreach ($data['survey']['questions'] as $questionId => $question) {
+                    // Remove optional answer if one exists
+                    $q              = $this->entityManager->getRepository(Model\Question::class)->find($questionId);
+                    $optionalAnswer = $this->entityManager->getRepository(Model\OptionalAnswer::class)->findOneBy(['question' => $q, 'survey' => $object]);
+                    if ($optionalAnswer) {
+                        $this->entityManager->remove($optionalAnswer);
+                    }
+                    if (isset($question['option'])) {
+                        // Create new OptionalAnswer
+                        $opa = new Model\OptionalAnswer();
 
-                    $opa->setQuestion($q);
-                    $opa->setReason($question['optionReason']);
-                    $this->entityManager->persist($opa);
-                    $object->addOptionalAnswer($opa);
-                } else {
-                    foreach ($question['answers'] as $answerId) {
-                        /** @var Model\Answer $answer */
-                        $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
-                        $object->addAnswer($answer);
+                        $opa->setQuestion($q);
+                        $opa->setReason($question['optionReason']);
+                        $this->entityManager->persist($opa);
+                        $object->addOptionalAnswer($opa);
+                    } else {
+                        foreach ($question['answers'] as $answerId) {
+                            /** @var Model\Answer $answer */
+                            $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
+                            $object->addAnswer($answer);
+                        }
                     }
                 }
             }

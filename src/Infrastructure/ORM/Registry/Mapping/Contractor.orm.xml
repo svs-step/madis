@@ -18,6 +18,7 @@
         <field name="maintainsTreatmentRegister" column="maintains_treatment_register" type="boolean"/>
         <field name="sendingDataOutsideEu" column="sending_data_outside_eu" type="boolean"/>
         <field name="hasDpo" column="has_dpo" type="boolean"/>
+        <field name="updatedBy" column="updated_by" type="text" nullable="true"/>
 
         <embedded name="address" class="App\Domain\Registry\Model\Embeddable\Address" column-prefix="address_"/>
         <embedded name="dpo" class="App\Domain\User\Model\Embeddable\Contact" column-prefix="dpo_"/>
@@ -35,6 +36,7 @@
         </many-to-one>
 
         <many-to-many field="mesurements" target-entity="App\Domain\Registry\Model\Mesurement" mapped-by="contractors"/>
+        <many-to-many field="tools" target-entity="App\Domain\Registry\Model\Tool" mapped-by="contractors"/>
 
         <!-- Traits -->
         <many-to-one field="collectivity" target-entity="App\Domain\User\Model\Collectivity">

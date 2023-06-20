@@ -26,19 +26,19 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('registry_contractor_create') }}" class="btn btn-default">
+                    <a aria-label="{{ 'registry.contractor.action.new'|trans }}" href="{{ path('registry_contractor_create') }}" class="btn btn-default">
                         <i class="fa fa-plus"></i>
                         {{ 'registry.contractor.action.new'|trans }}
                     </a>
                     {% endif %}
                     {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a href="{{ path('registry_contractor_report') }}" class="btn btn-default">
+                    <a aria-label="{{ 'registry.contractor.action.report'|trans }}" href="{{ path('registry_contractor_report') }}" class="btn btn-default">
                         <i class="fa fa-clipboard-list"></i>
                         {{ 'registry.contractor.action.report'|trans }}
                     </a>
                     {% endif %}
                     {% if category and category.documents|length > 0%}
-                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                             <i class="far fa-file"></i>
                             {{ 'documentation.document.link.button'|trans }}
                         </a>
@@ -53,66 +53,72 @@
             <div class="box box-solid">
                 <div class="box-body">
                     <div id="custom-buttons" style="float:left">
-                        {% if app.user.roles[0] != 'ROLE_PREVIEW' %}
-                            <a id="delete-all" href="" class="dt-button buttons-collection buttons-colvis">
-                                Supprimer
-                            </a>
-                        {% endif %}
-                        <a id="print-all" href="" class="dt-button buttons-collection buttons-colvis">
+                        <a aria-label="Supprimer" id="delete-all"  href="{{ path('registry_contractor_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            Supprimer
+                        </a>
+                        <a aria-label="Imprimer" id="print-all"  href="{{ path('registry_contractor_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             Imprimer
                         </a>
                     </div>
-                    <table id="table" class="table table-bordered table-hover">
+                    <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th>
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
                                 </th>
                             {% endif %}
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_clauses" style="width: 100%;">
                                     <option value="">Clauses</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_adoption" style="width: 100%;">
                                     <option value="">Sécurité</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_registre" style="width: 100%;">
                                     <option value="">Registre</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th>
+                            <th scope="col">
                                 <select class="form-control" id="search_hors_eu" style="width: 100%;">
                                     <option value="">Hors UE</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                            </th>
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                            </th>
                         </tr>
                         <tr>
-                            <th>{{ 'registry.contractor.list.name'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.list.name'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>{{ 'registry.contractor.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'registry.contractor.list.collectivity'|trans }}</th>
                             {% endif %}
-                            <th>{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
-                            <th>{{ 'registry.contractor.list.adopted_security_features'|trans }}</th>
-                            <th>{{ 'registry.contractor.list.maintains_treatment_register'|trans }}</th>
-                            <th>{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.list.adopted_security_features'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.list.maintains_treatment_register'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.contractor.list.created_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.contractor.list.updated_at'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
-                                <th>{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'label.actions'|trans }}</th>
                             {% endif %}
                         </tr>
                         </thead>
@@ -143,6 +149,8 @@
         {"data": "element_securite"},
         {"data": "registre_traitements"},
         {"data": "donnees_hors_eu"},
+        {"data": "createdAt", "visible": false},
+        {"data": "updatedAt", "visible": false},
         {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
     ]
     %}
@@ -155,6 +163,8 @@
             {"data": "element_securite"},
             {"data": "registre_traitements"},
             {"data": "donnees_hors_eu"},
+            {"data": "createdAt", "visible": false},
+            {"data": "updatedAt", "visible": false},
             {"data": "actions", "className": "noVis", "visible": actionIsVisible, "orderable": false},
         ]
         %}
@@ -190,12 +200,20 @@
                     printButton.attr("href", printLink);
                     printButton.removeClass("disabled");
                 } else {
-                    deleteButton.addClass("disabled"); 
+                    deleteButton.addClass("disabled");
                     deleteButton.removeAttr("href");
                     printButton.addClass("disabled");
                     printButton.removeAttr("href");
                 }
             });
+
+            $('#search_created_at').show('slide',function(){
+                $('input#search_created_at').val('');
+            });
+            $('#search_updated_at').show('slide',function(){
+                $('input#search_updated_at').val('');
+            });
+
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
@@ -226,11 +244,28 @@
             $('#search_hors_eu').change(function(){
                 oTable.column(col + 4).search($(this).val()).draw() ;
             });
+
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
+                oTable.column(col + 5).search($(this).val()).draw() ;
+            });
+
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column(col + 6).search($(this).val()).draw() ;
+            });
         }
 
         $(document).ready(function() {
             $('#table_filter').hide();
             setEvents();
+
+            let columnButton = $("button.dt-button > span:contains('Colonnes')").parent();
+            $( "#custom-buttons" ).prepend( columnButton.css("float", "left").css("margin-right", "0.5em"));
+
+            let exportButton = $("button.dt-button > span:contains('Exporter')").parent();
+            $("#delete-all").before(exportButton.css("bottom", "17px") );
+
         } );
         $('#table').on('column-visibility.dt', function() {
             setEvents();

@@ -93,6 +93,16 @@
             delete options.addcheckbox;
         }
 
+        if ( options.addSubstr ) {
+            options.columnDefs = [{
+                targets: options.addSubstr,
+                searchable: false,
+                orderable: false,
+                render: substrColRenderFunction,
+            }];
+
+            delete options.addSubstr;
+        }
         var fullData = [];
 
         var strip = function ( str ) {
@@ -145,7 +155,12 @@
                 var visible = api.columns().visible();
                 console.log('api.ajax', api.ajax.params())
                 var params = api.ajax.params();
+
                 params.columns = params.columns.filter(function(c, i) { return visible[i] })
+                if (options.excludeId) {
+                    params.columns = params.columns.filter( (c) => c.data !== "id")
+                }
+
                 var exportBody = getFullData(params);
 
                 console.log('full data', exportBody)
@@ -153,8 +168,6 @@
                 d.body.push.apply(d.body, exportBody);
             })
         } catch { }
-
-        console.log('datatable options', options);
 
         $('#table').DataTable(options);
 
@@ -167,19 +180,25 @@
         })
 
         var oTable = $('#table').DataTable();
+
+        console.log('oTable', oTable);
         $('#delete-all').on('click', function(event) {
             event.stopPropagation();
             let data = oTable.rows().data().toArray().map(row => row.id);
-            $('#delete-all').attr('href', function(index, href) {
-                let param = `ids=${data}`;
-                if (href.charAt(href.length - 1) === '?')
-                    return href + param;
-                else if (href.indexOf('?') > 0)
-                    return href + '&' + param;
-                else
-                    return href + '?' + param;
-            });
-            event = event.originalEvent;
+            try {
+                $('#delete-all').attr('href', function(index, href) {
+                    let param = `ids=${data}`;
+                    if (href.charAt(href.length - 1) === '?')
+                        return href + param;
+                    else if (href.indexOf('?') > 0)
+                        return href + '&' + param;
+                    else
+                        return href + '?' + param;
+                });
+                event = event.originalEvent;
+            } catch {
+                console.log()
+            }
         })
         $('#archive-all').on('click', function(event) {
             event.stopPropagation();
@@ -198,15 +217,20 @@
         $('#print-all').on('click', function(event) {
             event.stopPropagation();
             let data = oTable.rows().data().toArray().map(row => row.id);
-            $('#print-all').attr('href', function(index, href) {
-                let param = `ids=${data}`;
-                if (href.charAt(href.length - 1) === '?')
-                    return href + param;
-                else if (href.indexOf('?') > 0)
-                    return href + '&' + param;
-                else
-                    return href + '?' + param;
-            });
+            try {
+                $('#print-all').attr('href', function(index, href) {
+                    let param = `ids=${data}`;
+                    if (href.charAt(href.length - 1) === '?')
+                        return href + param;
+                    else if (href.indexOf('?') > 0)
+                        return href + '&' + param;
+                    else
+                        return href + '?' + param;
+                });
+            } catch {
+                console.log()
+            }
+
             event = event.originalEvent;
         })
     });

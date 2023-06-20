@@ -26,7 +26,6 @@ namespace App\Domain\Reporting\Generator\Word;
 
 use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
 use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
-use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\ConformiteTraitement\Reponse;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Treatment;
@@ -200,7 +199,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                     $this->getDate($conformiteTraitement->getCreatedAt()),
                 ],
                 [
-                    'Dernière mise à jour',
+                    'Date de modification',
                     $this->getDate($conformiteTraitement->getUpdatedAt()),
                 ],
             ];

@@ -6,7 +6,6 @@ namespace App\Tests\Functional\Symfony\EventSubscriber\Kernel;
 
 use App\Domain\Reporting\Model\LogJournal;
 use App\Domain\Reporting\Repository\LogJournal as LogJournalRepository;
-use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use Hautelook\AliceBundle\PhpUnit\RecreateDatabaseTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

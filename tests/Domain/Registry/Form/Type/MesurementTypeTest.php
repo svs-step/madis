@@ -33,6 +33,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -79,6 +80,7 @@ class MesurementTypeTest extends FormTypeHelper
             'treatments'        => EntityType::class,
             'violations'        => EntityType::class,
             'requests'          => EntityType::class,
+            'updatedBy'         => HiddenType::class,
         ];
 
         $this->formType->buildForm($this->prophesizeBuilder($builder), ['data' => $mesurement]);

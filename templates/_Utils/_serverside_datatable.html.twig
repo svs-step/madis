@@ -1,26 +1,49 @@
 <script>
-
-    {% set dataTableOptions = dataTableOptions|merge({
-        language: {
-            buttons: {
-                colvis: "Colonnes"
+    {% if dataTableOptions.excludeId is defined %}
+        {% set dataTableOptions = dataTableOptions|merge({
+            language: {
+                buttons: {
+                    colvis: "Colonnes"
+                },
             },
-        },
-        buttons: [
-            {
-                extend: "colvis",
-                columns: ":not(.noVis)"
+            buttons: [
+                {
+                    extend: "colvis",
+                    columns: ":not(.noVis)"
+                },
+                {
+                    extend: "excelHtml5",
+                    text: 'Exporter',
+                    exportOptions: {
+                        autoFilter: true,
+                        columns:  [':visible :not(:last-child) :not(:first-child)'],
+                    }
+                },
+            ],
+        }) %}
+    {% else %}
+        {% set dataTableOptions = dataTableOptions|merge({
+            language: {
+                buttons: {
+                    colvis: "Colonnes"
+                },
             },
-            {
-                extend: "excelHtml5",
-                text: 'Exporter',
-                exportOptions: {
-                    autoFilter: true,
-                    columns:  [':visible :not(:last-child)'],
-                }
-            },
-        ],
-    }) %}
+            buttons: [
+                {
+                    extend: "colvis",
+                    columns: ":not(.noVis)"
+                },
+                {
+                    extend: "excelHtml5",
+                    text: 'Exporter',
+                    exportOptions: {
+                        autoFilter: true,
+                        columns:  [':visible :not(:last-child)'],
+                    }
+                },
+            ],
+        }) %}
+    {% endif %}
 </script>
 
 {{ include('_Utils/_serverside_datatable_base.html.twig') }}

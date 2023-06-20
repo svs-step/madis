@@ -37,4 +37,11 @@ CREATE USER madis@'localhost' IDENTIFIED BY 'ThisIsAStrengthPassword111!';
 GRANT ALL PRIVILEGES ON madis.* TO 'madis'@'localhost';
 ```
 
+Enfin, modifiez votre fichier `/etc/my.cnf` en y ajoutant ou remplaçant les lignes suivantes :
+
+```
+[mysqld]
+sql_mode=STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+```
+
 Votre BDD est maintenant opérationnelle. Tentez de vous connecter en ligne de commande via mysql -u madis -p. Si vous réussissez à vous connecter, tout est en place.

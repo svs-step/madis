@@ -108,6 +108,89 @@ APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <
 - Inversion des couleurs du graphique des sous-traitants #297
 - Mise à jour de librairies suite à des vulnérabilités découvertes ou des changements de propriété (dont #380)
 
+## [2.0] - 2022-12-13
+### Changement
+- Mise à jour vers Symfony 5.4 et PHP 8.1
+- Mise à jour vers nodejs 18
+- Ajout du système de notifications
+- Ajout de la connexion SSO
+
+## [1.10] - 2022-04-15
+### Changement
+- Ajout du module Espace Documentaire
+
+## [1.9] - 2022-03-25
+### Changement
+- Incorporation de tout le module AIPD : Modèle d'analyse, Mesure protection et Analyse d'impact
+
+## [1.8.14] - 2022-03-25
+### Changement
+- Correction d'un bug sur le champs service dans la conformité des traitements
+- Correction d'un bug permettant d'afficher les boutons d'actions pour un lecteur
+- Correction d'un bug où des propriétés des actions de protections n'étaient pas dupliquées
+- Correction d'un bug déconnectant l'utilisateur lors d'une tentative de modification de son propre profil
+- Correction d'un bug empêchant de se connecter en tant que user avec des services supprimés
+
+
+## [1.8.10] - 2022-03-14
+### Changement
+- Modification des services pour afficher tous les services aux utilisateurs n'appartenant à aucun
+
+## [1.8.8] - 2022-03-10
+### Changement
+- Correction d'un bug empêchant l'administrateur de se connecter en un utilisateur d'une collectivités comportant des services supprimés
+
+## [1.8.7] - 2022-03-04
+### Changement
+- Correction d'un bug affichant tous les services de la collectivité lors de la création d'éléments sans prise en compte des services de l'utilisateur
+- Correction d'un bug empêchant les utilisateurs sans service de supprimer les services des éléments
+- Correction d'une erreur 500 lors de la duplication d'éléments
+- Correction d'un bug empêchant d'affecter des services lors de la création d'un utilisateur si la collectivité n'est pas celle par défaut du formulaire
+
+## [1.8.6] - 2022-02-17
+### Changement
+- Correction d'un bug entraînant la multiplication du nombre d'éléments dupliqués
+- Correction d'un bug affichant toujours les services comme inactifs lors de la modification d'une collectivité, empêchant de les désactiver 
+
+## [1.8.5] - 2022-02-15
+### Changement
+- Correction d'un bug affichant les services dans les éléments d'une collectivité n'ayant pas de services
+
+## [1.8.4] - 2022-02-14
+### Changement
+- Correction d'une erreur entraînant la multiplication des éléments dupliqués
+- Correction d'un bug affichant tous les services de toutes les collectivités sur certains éléments
+- Ajout de la possibilité pour un utilisateur sans service de modifier tous les éléments de sa collectivité quelque soit le service
+- Renommage "publique" en "public"
+
+## [1.8.3] - 2022-02-02
+### Changement
+- Correction d'une erreur empêchant l'affichage de la liste des traitements
+
+## [1.8.2] - 2022-01-27
+### Changement
+- Correction d'un bug rendant incorrect le nombre d'élément affiché dans le texte des tableaux #391
+- Correction d'un bug permettant de rediriger vers un lien externe lorsqu'une balise était ajouté dans le nom d'un élément #392
+
+## [1.8.1] - 2022-01-17
+### Changement
+- Corrections de diverses erreur mineures
+- Registre public : suppression des liens
+
+## [1.8] - 2022-01-05
+### Changement
+- Ajout des webservices
+- Ajout du registre grand public
+- Nombreuses améliorations ergonomiques diverses
+- Nombreuses corrections et améliorations mineures
+
+## [1.7.13] - 2021-12-22
+### Changement
+- Correction d'un bug concernant le calcul de l'indice de maturité #337
+- Augmentation de la limite du nombre de caractère de la justification de refus des demandes #338
+- Inversion des couleurs du graphique des sous-traitants #297
+- Mise à jour de librairies suite à des vulnérabilités découvertes ou des changements de propriété (dont #380)
+
 ## [1.7.12] - 2021-01-05
 ### Changement
 - Correction d'un bug empêchant la suppression d'une action de protection ou d'un sous-traitant pour lesquels il existe un duplicat

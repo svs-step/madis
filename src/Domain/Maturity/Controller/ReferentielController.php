@@ -27,15 +27,18 @@ namespace App\Domain\Maturity\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Maturity\Form\Type\ImportModeleType;
 use App\Domain\Maturity\Form\Type\ModeleReferentielRightsType;
 use App\Domain\Maturity\Form\Type\ReferentielType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
 use Doctrine\ORM\EntityManagerInterface;
+use JMS\Serializer\SerializerBuilder;
 use Knp\Snappy\Pdf;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
@@ -187,7 +190,9 @@ class ReferentielController extends CRUDController
                 $newQ->setPosition($q->getPosition());
                 $newQ->setName($q->getName());
                 $newQ->setOption($q->getOption());
-                $newQ->setOptionReason($q->getOptionReason());
+                if ($q->getOption()) {
+                    $newQ->setOptionReason($q->getOptionReason());
+                }
                 $newQ->setWeight($q->getWeight());
                 $newQ->setDomain($d);
                 $this->entityManager->persist($newQ);
@@ -231,13 +236,9 @@ class ReferentielController extends CRUDController
             if (false !== $key) {
                 unset($toRemove[$key]);
             }
-            /** @var Model\Domain $domain */
-            if (is_null($domain->getPosition())) {
-                $domain->setPosition($k);
-            }
-            if (is_null($domain->getColor())) {
-                $domain->setColor($colors[$k % 4]);
-            }
+            /* @var Model\Domain $domain */
+            $domain->setPosition($k);
+            $domain->setColor($colors[$k % 4]);
 
             // get all existing questions
             $toRemoveQuestions = $this->entityManager->getRepository(Model\Question::class)->findBy(['domain' => $domain]);
@@ -249,9 +250,8 @@ class ReferentielController extends CRUDController
                 if (false !== $key) {
                     unset($toRemoveQuestions[$key]);
                 }
-                if (is_null($question->getPosition())) {
-                    $question->setPosition($n);
-                }
+
+                $question->setPosition($n);
                 $question->setDomain($domain);
 
                 // get all existing Answers
@@ -263,9 +263,8 @@ class ReferentielController extends CRUDController
                     if (false !== $key) {
                         unset($toRemoveAnswers[$key]);
                     }
-                    if (is_null($answer->getPosition())) {
-                        $answer->setPosition($l);
-                    }
+
+                    $answer->setPosition($l);
                     $answer->setQuestion($question);
                 }
 
@@ -313,8 +312,8 @@ class ReferentielController extends CRUDController
             $reponse['data'][] = [
                 'name'        => $referentiel->getName(),
                 'description' => $referentiel->getDescription(),
-                'createdAt'   => date_format($referentiel->getCreatedAt(), 'd-m-Y'),
-                'updatedAt'   => date_format($referentiel->getUpdatedAt(), 'd-m-Y'),
+                'createdAt'   => date_format($referentiel->getCreatedAt(), 'd-m-Y H:i'),
+                'updatedAt'   => date_format($referentiel->getUpdatedAt(), 'd-m-Y H:i'),
                 'actions'     => $this->generateActionCellContent($referentiel),
             ];
         }
@@ -347,7 +346,7 @@ class ReferentielController extends CRUDController
                 <i class="fa fa-clone"></i>' .
             $this->translator->trans('action.duplicate') .
             '</a>' .
-            '<a href="' . $this->router->generate('maturity_referentiel_edit', ['id' => $id]) . '">
+            '<a href="' . $this->router->generate('maturity_referentiel_export', ['id' => $id]) . '">
                 <i class="fa fa-file-code"></i>' .
             $this->translator->trans('action.export') .
             '</a>' .
@@ -391,5 +390,68 @@ class ReferentielController extends CRUDController
         return $this->render('Maturity/Referentiel/rights.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    public function exportAction(string $id)
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+        /** @var Model\Referentiel $toExport */
+        $toExport = clone $object;
+
+        $serializer = SerializerBuilder::create()->build();
+        $xml        = $serializer->serialize($toExport, 'xml');
+
+        $response    = new Response($xml);
+        $disposition = $response->headers->makeDisposition(
+            ResponseHeaderBag::DISPOSITION_ATTACHMENT,
+            self::formatToFileCompliant($object->getName()) . '.xml'
+        );
+
+        $response->headers->set('Content-Disposition', $disposition);
+
+        return $response;
+    }
+
+    public function importAction(Request $request)
+    {
+        $form = $this->createForm(ImportModeleType::class);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $content    = file_get_contents($form->getData()['file']->getPathname());
+            $serializer = SerializerBuilder::create()->build();
+            /** @var Model\Referentiel $object */
+            $object = $serializer->deserialize($content, Model\Referentiel::class, 'xml');
+            $object->deserialize();
+            // dd($object);
+            // $object->setDomains($domain);
+
+            $object->setCreatedAt(new \DateTimeImmutable());
+            $object->setName('(import) ' . $object->getName());
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'import', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('import'), [
+            'form' => $form->createView(),
+        ]);
+    }
+
+    private static function formatToFileCompliant(string $string)
+    {
+        $unwanted_array = [
+            'Š' => 'S', 'š' => 's', 'Ž' => 'Z', 'ž' => 'z', 'À' => 'A', 'Á' => 'A', 'Â' => 'A', 'Ã' => 'A', 'Ä' => 'A', 'Å' => 'A', 'Æ' => 'A', 'Ç' => 'C', 'È' => 'E', 'É' => 'E',
+            'Ê' => 'E', 'Ë' => 'E', 'Ì' => 'I', 'Í' => 'I', 'Î' => 'I', 'Ï' => 'I', 'Ñ' => 'N', 'Ò' => 'O', 'Ó' => 'O', 'Ô' => 'O', 'Õ' => 'O', 'Ö' => 'O', 'Ø' => 'O', 'Ù' => 'U',
+            'Ú' => 'U', 'Û' => 'U', 'Ü' => 'U', 'Ý' => 'Y', 'Þ' => 'B', 'ß' => 'Ss', 'à' => 'a', 'á' => 'a', 'â' => 'a', 'ã' => 'a', 'ä' => 'a', 'å' => 'a', 'æ' => 'a', 'ç' => 'c',
+            'è' => 'e', 'é' => 'e', 'ê' => 'e', 'ë' => 'e', 'ì' => 'i', 'í' => 'i', 'î' => 'i', 'ï' => 'i', 'ð' => 'o', 'ñ' => 'n', 'ò' => 'o', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o',
+            'ö' => 'o', 'ø' => 'o', 'ù' => 'u', 'ú' => 'u', 'û' => 'u', 'ý' => 'y', 'þ' => 'b', 'ÿ' => 'y',
+        ];
+
+        return strtr($string, $unwanted_array);
     }
 }

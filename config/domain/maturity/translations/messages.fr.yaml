@@ -3,6 +3,8 @@ maturity:
         action:
             back_to_list: Retour à la liste
             new: Nouvel indice de maturité
+            new_submit: Créer l'indice de maturité
+            edit_submit: Modifier l'indice de maturité
             referentiel: Choisir ce référentiel
         breadcrumb:
             create: Nouvel indice de maturité
@@ -18,6 +20,7 @@ maturity:
             collectivity: Structure
             created_at: Date de création
             score: Score
+            updated_at: Date de modification
             referentiel: Référentiel
         title:
             create: Nouvel indice de maturité
@@ -29,6 +32,7 @@ maturity:
         action:
             back_to_list: Retour à la liste
             new: Nouveau référentiel
+            import: Importer un référentiel
         breadcrumb:
             create: Nouveau référentiel
             edit: Modifier le référentiel
@@ -39,6 +43,7 @@ maturity:
                 create: Référentiel "%object%" créé avec succès
                 edit: Référentiel "%object%" modifié avec succès
                 delete: Référentiel "%object%" supprimé avec succès
+                import: Référentiel "%object%" importé avec succès
                 duplicate: Référentiel "%object%" dupliqué avec succès
                 rights: Droits sauvegardés avec succès
         list:
@@ -52,6 +57,7 @@ maturity:
             list: Liste des référentiels
             delete: Supprimer un référentiel
             rights: Modifier les droits
+            import: Importer un référentiel
         form:
             referentiel_name: Nom du référentiel
             name: Nom de la section

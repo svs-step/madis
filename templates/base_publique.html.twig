@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr-FR">
 
 <head>
     <meta charset="utf-8">
@@ -39,7 +39,7 @@
 
     <div class="wrapper">
 
-        <div class="content-wrapper public">
+        <main class="content-wrapper public">
             <section class="content-header">
                 {% block body_head %}{% endblock %}
                 {% block breadcrumb %}{% endblock %}
@@ -49,7 +49,7 @@
                 {{ include('_flashbag.html.twig') }}
                 {% block body %}{% endblock %}
             </section>
-        </div>
+        </main>
 
         <div class="footer-public">
             {{ include('_footer.html.twig') }}

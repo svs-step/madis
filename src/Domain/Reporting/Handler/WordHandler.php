@@ -401,7 +401,7 @@ class WordHandler
      *
      * @param array $treatments treatments to use for generation conformite traitement
      *
-     *@throws \Exception
+     * @throws \Exception
      * @throws \PhpOffice\PhpWord\Exception\Exception
      *
      * @return Response The generated Word file

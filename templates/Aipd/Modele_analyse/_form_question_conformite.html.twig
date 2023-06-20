@@ -1,10 +1,10 @@
-<table class="table">
+<table role="presentation" class="table">
     <tr>
-        <th>Label</th>
-        <th>Justification obligatoire</th>
-        <th>Texte en cas de conformité</th>
-        <th>Texte en cas de non-conformité mineure</th>
-        <th>Texte en cas de non-conformité majeure</th>
+        <th scope="col">Label</th>
+        <th scope="col">Justification obligatoire</th>
+        <th scope="col">Texte en cas de conformité</th>
+        <th scope="col">Texte en cas de non-conformité mineure</th>
+        <th scope="col">Texte en cas de non-conformité majeure</th>
     </tr>
 
     {% for question in form.questionConformites|sort((a, b) => a.vars.value.position > b.vars.value.position) %}

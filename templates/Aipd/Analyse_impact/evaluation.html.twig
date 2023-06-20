@@ -37,10 +37,10 @@
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.analyse_impact.values.evaluation.description_conformite'|trans }}</h3></div>
                 <div class="box-body">
-                    <table class="table table-bordered">
+                    <table role="presentation" class="table table-bordered">
                         <tr>
-                            <th>{{ 'aipd.critere_principe_fondamental.table.label'|trans }}</th>
-                            <th style="width: 25%;">{{ 'aipd.critere_principe_fondamental.table.conformite'|trans }}</th>
+                            <th scope="col">{{ 'aipd.critere_principe_fondamental.table.label'|trans }}</th>
+                            <th scope="col" style="width: 25%;">{{ 'aipd.critere_principe_fondamental.table.conformite'|trans }}</th>
                         </tr>
                         {% for critere in analyseImpact.criterePrincipeFondamentaux %}
                         <tr>
@@ -50,10 +50,10 @@
                         {% endfor %}
                     </table>
                     <hr style="border: 0"/>
-                    <table class="table table-bordered">
+                    <table role="presentation" class="table table-bordered">
                         <tr>
-                            <th>{{ 'registry.conformite_traitement.form.question'|trans }}</th>
-                            <th style="width: 25%">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
+                            <th scope="col">{{ 'registry.conformite_traitement.form.question'|trans }}</th>
+                            <th scope="col" style="width: 25%">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
                         </tr>
                         {% for question in analyseImpact.questionConformites|sort((a, b) => a.position >= b.position) %}
                             <tr>
@@ -82,11 +82,11 @@
             <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</h3></div>
                 <div class="box-body">
-                    <table class="table table-bordered">
+                    <table role="presentation" class="table table-bordered">
                         <tr>
-                            <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
-                            <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
-                            <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
+                            <th scope="col">{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
+                            <th scope="col" style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
+                            <th scope="col" style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
                         </tr>
                         {% for scenario in analyseImpact.scenarioMenaces %}
                             <tr>
@@ -104,9 +104,9 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
-                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
-                    <a href="{{ path('aipd_analyse_impact_validation', {'id': analyseImpact.id}) }}" class="btn btn-primary">{{ 'aipd.analyse_impact.action.validation'|trans }}</a>
-                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-info">{{ 'action.draft'|trans }}</a>
+                    <a aria-label="{{ 'action.back_to_list'|trans }}" href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                    <a aria-label="{{ 'aipd.analyse_impact.action.validation'|trans }}" href="{{ path('aipd_analyse_impact_validation', {'id': analyseImpact.id}) }}" class="btn btn-primary">{{ 'aipd.analyse_impact.action.validation'|trans }}</a>
+                    <a aria-label="{{ 'action.draft'|trans }}" href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-info">{{ 'action.draft'|trans }}</a>
                 </div>
             </div>
         </div>
@@ -197,6 +197,7 @@
     </script>
 
     {{ encore_entry_script_tags('js/evaluation') }}
+
 
 
 {% endblock %}

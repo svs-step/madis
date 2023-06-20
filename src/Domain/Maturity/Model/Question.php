@@ -25,50 +25,45 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
+/**
+ * @Serializer\ExclusionPolicy("none")
+ */
 class Question
 {
     /**
      * @var UuidInterface
+     *
+     * @Serializer\Exclude
      */
     private $id;
 
-    /**
-     * @var string|null
-     */
-    private $name;
+    private string $name;
 
-    /**
-     * @var int|null
-     */
-    private $position;
+    private int $position;
 
-    /**
-     * @var int|null
-     */
-    private $weight;
+    private int $weight;
 
-    /**
-     * @var bool|null
-     */
-    private $option;
+    private bool $option;
 
-    /**
-     * @var string|null
-     */
-    private $optionReason;
+    private ?string $optionReason;
 
     /**
      * @var Domain|null
+     *
+     * @Serializer\Exclude
      */
     private $domain;
 
     /**
-     * @var iterable|null
+     * @var Answer[]|array
+     *
+     * @Serializer\Type("array<App\Domain\Maturity\Model\Answer>")
      */
-    private $answers;
+    public $answers;
 
     /**
      * Question constructor.
@@ -77,8 +72,44 @@ class Question
      */
     public function __construct()
     {
-        $this->id      = Uuid::uuid4();
-        $this->answers = new ArrayCollection();
+        $this->id           = Uuid::uuid4();
+        $this->answers      = new ArrayCollection();
+        $this->optionReason = null;
+    }
+
+    public function __clone()
+    {
+        $this->id = null;
+
+        $answers = [];
+        foreach ($this->answers as $answer) {
+            $answers[] = clone $answer;
+        }
+        $this->answers = $answers;
+    }
+
+    public function deserialize(): void
+    {
+        $this->id = Uuid::uuid4();
+        if (isset($this->answers)) {
+            foreach ($this->answers as $answer) {
+                $answer->deserialize();
+                $answer->setQuestion($this);
+            }
+        }
+    }
+
+    public function __toString(): string
+    {
+        if (\is_null($this->getName())) {
+            return '';
+        }
+
+        if (\mb_strlen($this->getName()) > 85) {
+            return \mb_substr($this->getName(), 0, 85) . '...';
+        }
+
+        return $this->getName();
     }
 
     public function getId(): UuidInterface

@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Model;
 
+use App\Application\Traits\Model\HistoryTrait;
 use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
 
 class AbstractMesureProtection
 {
+    //    use HistoryTrait;
     /**
      * @Serializer\Accessor(getter="getIdString",setter="setIdFromString")
      *
@@ -23,6 +25,24 @@ class AbstractMesureProtection
     private string $detail;
     private int $poidsVraisemblance;
     private int $poidsGravite;
+
+    /**
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
+     *
+     * @Gedmo\Timestampable(on="create")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
+     *
+     * @Gedmo\Timestampable(on="update")
+     */
+    private $updatedAt;
 
     public function __construct()
     {
@@ -117,5 +137,25 @@ class AbstractMesureProtection
     public function setPoidsGravite(int $poidsGravite): void
     {
         $this->poidsGravite = $poidsGravite;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeImmutable $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

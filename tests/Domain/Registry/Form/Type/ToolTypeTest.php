@@ -38,6 +38,7 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class ToolTypeTest extends FormTypeHelper
 {
@@ -48,9 +49,12 @@ class ToolTypeTest extends FormTypeHelper
      */
     private $formType;
 
+    private $security;
+
     protected function setUp(): void
     {
-        $this->formType = new ToolType();
+        $this->security = $this->prophesize(Security::class);
+        $this->formType = new ToolType($this->security->reveal());
     }
 
     public function testInstanceOf()
@@ -71,6 +75,7 @@ class ToolTypeTest extends FormTypeHelper
             'description'        => TextareaType::class,
             'other_info'         => TextareaType::class,
             'editor'             => TextType::class,
+            'manager'            => TextType::class,
             'contractors'        => EntityType::class,
             'prod_date'          => DateType::class,
             'country_type'       => ChoiceType::class,

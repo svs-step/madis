@@ -45,12 +45,16 @@ class Referentiel
     private ?string $description;
 
     /**
-     * @var iterable|Domain[]
+     * @var array|Domain[]
+     *
+     * @Serializer\Type("array<App\Domain\Maturity\Model\Domain>")
      */
     private $domains;
 
     /**
-     * @var iterable
+     * @var Maturity
+     *
+     * @Serializer\Exclude
      */
     private $maturity;
 
@@ -75,12 +79,48 @@ class Referentiel
      */
     private ?string $optionRightSelection = null;
 
+    /**
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
+     */
+    private $createdAt;
+
+    /**
+     * @var \DateTimeImmutable|null
+     *
+     * @Serializer\Type("DateTimeImmutable")
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         $this->id                          = Uuid::uuid4();
         $this->domains                     = new ArrayCollection();
         $this->authorizedCollectivities    = new ArrayCollection();
         $this->authorizedCollectivityTypes = new ArrayCollection();
+    }
+
+    public function __clone()
+    {
+        $this->id                       = null;
+        $this->authorizedCollectivities = null;
+
+        $domains = [];
+        foreach ($this->domains as $domain) {
+            $domains[] = clone $domain;
+        }
+
+        $this->domains = $domains;
+    }
+
+    public function deserialize(): void
+    {
+        $this->id = Uuid::uuid4();
+        foreach ($this->domains as $domain) {
+            $domain->deserialize();
+            $domain->setReferentiel($this);
+        }
     }
 
     public function __toString(): string
@@ -161,25 +201,22 @@ class Referentiel
         $this->authorizedCollectivityTypes = $authorizedCollectivityTypes;
     }
 
-    public function getDomains(): iterable
+    public function getDomains()
     {
         return $this->domains;
     }
 
-    /**
-     * @param Domain[]|iterable $domains
-     */
-    public function setDomains(iterable $domains): void
+    public function setDomains($domains): void
     {
         $this->domains = $domains;
     }
 
-    public function getMaturity(): iterable
+    public function getMaturity()
     {
         return $this->maturity;
     }
 
-    public function setMaturity(iterable $maturity): void
+    public function setMaturity(Maturity $maturity): void
     {
         $this->maturity = $maturity;
     }

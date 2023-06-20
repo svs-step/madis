@@ -1260,7 +1260,7 @@
                             <ul>
                                 {% for violation in activeViolations %}
                                     <li>
-                                        {{ violation.date|date('d/m/Y') }} | {{ violation.violationNatures|map((v) => v|dictionary('registry_violation_nature'))|join(', ') }}
+                                        {{ violation.date|date('d/m/Y') }} | {{ violation.violationNatures|map(n => ("label.violation_" ~ n)|trans)|join(', ') }}
                                     </li>
                                 {% endfor %}
                             </ul>

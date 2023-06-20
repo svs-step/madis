@@ -21,7 +21,7 @@ class ModeleAnalyseExtension extends AbstractExtension
     public function getCriteres(FormView $formView)
     {
         $criteres = [];
-        foreach ($formView->children  as $formViewCritere) {
+        foreach ($formView->children as $formViewCritere) {
             $critere = $formViewCritere->vars['value'];
             if (!$critere instanceof CriterePrincipeFondamental) {
                 continue;

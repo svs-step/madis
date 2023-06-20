@@ -21,7 +21,7 @@
                                         {% endfor %}
                                         <div class="text-bold" style="margin-bottom: 15px;">{{ 'registry.conformite_organisation.form.actions_protection'|trans }}</div>
                                         {{ form_widget(conformite.actionProtections) }}
-                                        <button id="{{ conformite.actionProtections.vars.id }}_add_button" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ conformite.actionProtections.vars.id }}">
+                                        <button id="{{ conformite.actionProtections.vars.id }}_add_button" aria-label="Ajouter une action de protection" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ conformite.actionProtections.vars.id }}">
                                             <span class="fa fa-plus-circle"></span>
                                         </button>
                                     {% endfor %}
