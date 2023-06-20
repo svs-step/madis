@@ -121,8 +121,9 @@ class ViolationType extends AbstractType
                 'expanded' => false,
                 'multiple' => true,
                 'attr'     => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select',
                 ],
             ])
             ->add('origins', DictionaryType::class, [
@@ -131,8 +132,9 @@ class ViolationType extends AbstractType
                 'expanded' => false,
                 'multiple' => true,
                 'attr'     => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select_origine_data',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_origine_data',
                 ],
             ])
             ->add('cause', DictionaryType::class, [
@@ -147,8 +149,9 @@ class ViolationType extends AbstractType
                 'expanded' => false,
                 'multiple' => true,
                 'attr'     => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select_nature_data',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_nature_data',
                 ],
             ])
             ->add('concernedPeopleCategories', DictionaryType::class, [
@@ -157,8 +160,9 @@ class ViolationType extends AbstractType
                 'expanded' => false,
                 'multiple' => true,
                 'attr'     => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select_categorie_personne',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_categorie_personne',
                 ],
             ])
             ->add('nbAffectedRows', IntegerType::class, [
@@ -179,8 +183,9 @@ class ViolationType extends AbstractType
                 'expanded' => false,
                 'multiple' => true,
                 'attr'     => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select_nature_impact',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_nature_impact',
                 ],
             ])
             ->add('gravity', DictionaryType::class, [
@@ -265,8 +270,9 @@ class ViolationType extends AbstractType
                 'expanded' => false,
                 'multiple' => true,
                 'attr'     => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select',
                 ],
             ])
             ->add('updatedBy', HiddenType::class, [
