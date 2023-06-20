@@ -9,7 +9,6 @@ use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\Notification as NotificationModel;
 use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
-use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Violation;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
@@ -81,8 +80,8 @@ class NotificationExtension extends AbstractExtension
                 if ($notification->getModule() !== 'notification.modules.' . NotificationModel::MODULES[Document::class]) {
                     $sentence .= $this->translator->trans($notification->getAction()) . ' ';
                 }
-                if ($notification->getModule() !== 'notification.modules.action_plan') {
-                    $sentence .= '&nbsp;: ' ;
+                if ('notification.modules.action_plan' !== $notification->getModule()) {
+                    $sentence .= '&nbsp;: ';
                 }
                 $link = $this->getObjectLink($notification);
                 if ($this->repository->objectExists($notification)) {
@@ -109,7 +108,7 @@ class NotificationExtension extends AbstractExtension
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Proof::class]) {
             $sentence .= '<strong>(' . ProofTypeDictionary::getTypes()[$notification->getObject()->type] . ')</strong> ';
         }
-        if ($notification->getModule() === 'notification.modules.action_plan') {
+        if ('notification.modules.action_plan' === $notification->getModule()) {
             $sentence .= ' pour le <strong>' . (new \DateTime($notification->getObject()->planificationDate))->format('d/m/Y') . '</strong> est en retard ';
         }
 

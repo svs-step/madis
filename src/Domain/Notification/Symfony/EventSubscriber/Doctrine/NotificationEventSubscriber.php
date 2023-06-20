@@ -101,7 +101,6 @@ class NotificationEventSubscriber implements EventSubscriber
         /** @var User|null $user */
         $user = $this->security->getUser();
 
-
         if (isset($user) && is_object($user) && User::class === get_class($user) && $user->isNotGeneratesNotifications()) {
             // User does not generate notifications, exit now
             return;
@@ -114,7 +113,6 @@ class NotificationEventSubscriber implements EventSubscriber
             if (!in_array($class, $this->classes) || Request::class === $class || AnalyseImpact::class === $class) {
                 continue;
             }
-
 
             $this->createNotifications($entity, 'create', $em);
         }
