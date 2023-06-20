@@ -358,13 +358,15 @@ abstract class AbstractGenerator implements GeneratorInterface
     protected function addTable(Section $section, array $data = [], bool $header = false, string $orientation = self::TABLE_ORIENTATION_HORIZONTAL): void
     {
         $table        = $section->addTable($this->tableStyle);
-        $headersTable = $data[0];
-        $table->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
-        foreach ($headersTable as $element) {
-            $cell = $table->addCell(2500, $this->cellHeadStyle);
-            $cell->addText($element, $this->textHeadStyle);
+        if($header){
+            $headersTable = $data[0];
+            $table->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
+            foreach ($headersTable as $element) {
+                $cell = $table->addCell(2500, $this->cellHeadStyle);
+                $cell->addText($element, $this->textHeadStyle);
+            }
+            unset($data[0]);
         }
-        unset($data[0]);
 
         foreach ($data as $nbLine => $line) {
             $table->addRow(null, ['cantsplit' => true]);
@@ -380,35 +382,41 @@ abstract class AbstractGenerator implements GeneratorInterface
                         $cell->addText($item, $this->textHeadStyle);
                     }
                 } else {
-                    /* If a style for the cell is specified, it bypass the line style */
-                    $cell    = $table->addCell(5000 / \count($lineData), $col['style'] ?? $lineStyle);
-                    $textrun = $cell->addTextRun();
-                    foreach ($col['content'] ?? $col as $key => $item) {
-                        if (0 != $key) {
-                            $textrun->addTextBreak();
-                        }
-
-                        // If item is simple text, there is no other configuration
-                        if (!\is_array($item)) {
-                            $textrun->addText($item);
-                            continue;
-                        }
-
-                        /* If item is array, there is 2 possibility :
-                            - this is an array of item to display in a single cell
-                            - there is additionnal configuration */
-                        if (isset($item['array']) && null !== $item['array']) {
-                            foreach ($item['array'] as $subItemKey => $subItem) {
-                                $textrun->addText($subItem);
-                                if ($subItemKey !== count($item['array']) - 1) {
-                                    $textrun->addTextBreak(2);
-                                }
+                    if($nbCol === 0 && !$header){
+                        $cell = $table->addCell(2500, $this->cellHeadStyle);
+                        $cell->addText($col[$nbCol], $this->textHeadStyle);
+                    }
+                    else {
+                        /* If a style for the cell is specified, it bypass the line style */
+                        $cell    = $table->addCell(5000 / \count($lineData), $col['style'] ?? $lineStyle);
+                        $textrun = $cell->addTextRun();
+                        foreach ($col['content'] ?? $col as $key => $item) {
+                            if (0 != $key) {
+                                $textrun->addTextBreak();
                             }
-                        } else {
-                            $textrun->addText(
-                                $item['text'] ?? '',
-                                $item['style'] ?? []
-                            );
+
+                            // If item is simple text, there is no other configuration
+                            if (!\is_array($item)) {
+                                $textrun->addText($item);
+                                continue;
+                            }
+
+                            /* If item is array, there is 2 possibility :
+                                - this is an array of item to display in a single cell
+                                - there is additionnal configuration */
+                            if (isset($item['array']) && null !== $item['array']) {
+                                foreach ($item['array'] as $subItemKey => $subItem) {
+                                    $textrun->addText($subItem);
+                                    if ($subItemKey !== count($item['array']) - 1) {
+                                        $textrun->addTextBreak(2);
+                                    }
+                                }
+                            } else {
+                                $textrun->addText(
+                                    $item['text'] ?? '',
+                                    $item['style'] ?? []
+                                );
+                            }
                         }
                     }
                 }
