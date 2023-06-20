@@ -34,6 +34,7 @@ use PhpOffice\PhpWord\SimpleType\TblWidth;
 class MesurementGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
     protected $tableStyleConformite;
+
     /**
      * Global overview : Information to display for mesurement in overview report.
      */

@@ -172,7 +172,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $cntAipdRealised = 0;
         foreach ($data as $treatment) {
             $conformite = $treatment->getConformiteTraitement();
-            $aipd = null;
+            $aipd       = null;
             if ($conformite) {
                 $aipd = $conformite->getLastAnalyseImpact();
             }
