@@ -425,7 +425,7 @@ registry:
             reason: Motif
             state: État de la demande
             state_rejection_reason: Motifs du refus
-            updated_at: Date de dernière modification
+            updated_at: Date de modification
             updated_by: Modifié par
         tab:
             answer: Réponse
@@ -762,7 +762,7 @@ registry:
             notification_details: Précisions sur les notifications
             origins: Origine de la perte de données
             potential_impacts_nature: Nature des impacts potentiels pour les personnes
-            updated_at: Date de dernière modification
+            updated_at: Date de modification
             updated_by: Modifié par
             violation_nature: Nature de la violation
         tab:

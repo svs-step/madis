@@ -33,6 +33,7 @@ aipd:
         action:
             new: Nouvelle mesure
             back_to_list: Retour à la liste
+            new_submit : Enregistrer
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
