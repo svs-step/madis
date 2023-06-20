@@ -90,6 +90,7 @@ registry:
         title:
             create: Créer un sous-traitant
             delete: Supprimer un sous-traitant
+            delete_many: Supprimer des sous-traitants
             edit: Modifier un sous-traitant
             list: Liste des sous-traitants
             show: Visualiser un sous-traitant
