@@ -169,6 +169,11 @@ class Tool implements LoggableSubject, CollectivityRelated
     private $update;
 
     /**
+     * @var string|null
+     */
+    private $updatedBy;
+
+    /**
      * FR: Sauvegarde.
      *
      * @var ComplexChoice
@@ -490,5 +495,15 @@ class Tool implements LoggableSubject, CollectivityRelated
         return join(', ', array_map(function ($object) {
             return $object->getName();
         }, (array) $data));
+    }
+
+    public function getUpdatedBy(): ?string
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?string $updatedBy): void
+    {
+        $this->updatedBy = $updatedBy;
     }
 }
