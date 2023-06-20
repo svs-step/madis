@@ -113,10 +113,11 @@ registry:
             eu: Autre pays de l’Union Européenne ou pays adéquats
             other: Pays d’hébergement de la donnée
         breadcrumb:
-            list: Liste des outils et supports
-            create: Création
-            show: Visualiser
-            edit: Edition
+            list: Liste des logiciels et supports
+            create: Créer
+            show: Visualiser "%name%"
+            edit: Modifier "%name%"
+            delete: Supprimer "%name%"
         form:
             name: Nom
             type: Type
