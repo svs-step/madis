@@ -226,8 +226,8 @@
                                     <tr>
                                         <th scope="col">{{ 'registry.mesurement.list.name'|trans }}</th>
                                         <th scope="col">{{ 'registry.mesurement.list.planification_date'|trans }}</th>
-                                        <th scope="col">{{ 'registry.mesurement.list.manager'|trans }}</th>
                                         <th scope="col">{{ 'registry.mesurement.list.priority'|trans }}</th>
+                                        <th scope="col">{{ 'registry.mesurement.list.manager'|trans }}</th>
                                         <th scope="col">{{ 'label.action_link'|trans }}</th>
 
                                     </tr>
@@ -244,7 +244,6 @@
                                         <tr>
                                             <td>{{ action.name }}</td>
                                             <td>{{ action.planificationDate|date('d/m/Y') }}</td>
-                                            <td>{{ action.manager }}</td>
                                             <td>
                                                 {% set key = action.priority %}
                                                 {% if key is not null %}
@@ -257,6 +256,7 @@
                                                     {% endif %}
                                                 {% endif %}
                                             </td>
+                                            <td>{{ action.manager }}</td>
                                             <td>
                                                 <a aria-label="Chercher" href="/actions-de-protection/visualiser/{{ action.id }}" ><i class="fas fa-search"></i></a>
                                             </td>
