@@ -280,8 +280,9 @@ class ProofType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select',
                 ],
             ]);
         }

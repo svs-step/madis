@@ -313,8 +313,9 @@ class TreatmentType extends AbstractType
                 'multiple'    => true,
                 'placeholder' => 'placeholder.precision',
                 'attr'        => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select_moyen_collecte',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select_moyen_collecte',
                 ],
             ])
             ->add('estimatedConcernedPeople', IntegerType::class, [
@@ -410,8 +411,9 @@ class TreatmentType extends AbstractType
                     ;
                 },
                 'attr' => [
-                    'class' => 'selectpicker',
-                    'title' => 'placeholder.multiple_select',
+                    'class'            => 'selectpicker',
+                    'data-live-search' => 'true',
+                    'title'            => 'placeholder.multiple_select',
                 ],
             ]);
         } else {
