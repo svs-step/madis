@@ -18,7 +18,7 @@ notifications:
         delete: Suppression
         create: Création
         update: Modification
-        late_action: Rappel automatique
+        late_action: ""
         late_request: Rappel automatique
         late_survey: Rappel automatique
         no_login: Inactif
