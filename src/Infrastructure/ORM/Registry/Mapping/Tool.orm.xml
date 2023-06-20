@@ -65,6 +65,7 @@
         <field name="updatedAt" column="updated_at" type="datetime_immutable">
             <gedmo:timestampable on="update"/>
         </field>
+        <field name="updatedBy" column="updated_by" type="text" nullable="true"/>
     </entity>
 
 </doctrine-mapping>

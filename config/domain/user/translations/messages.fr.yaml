@@ -126,7 +126,7 @@ user:
             services: Services
             siren: SIREN
             type: Type
-            updated_at: Date de dernière modification
+            updated_at: Date de modification
             updated_by: Modifié par
             website: Site internet
             finess_geo: FINESS Géo

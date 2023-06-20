@@ -153,10 +153,6 @@ class CollectivityType extends AbstractType
                     'label'    => 'user.collectivity.form.is_services_enabled',
                     'required' => false,
                 ])
-                ->add('updatedBy', HiddenType::class, [
-                    'required' => false,
-                    'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
-                ])
             ;
         }
 
@@ -212,6 +208,10 @@ class CollectivityType extends AbstractType
                 'attr'     => [
                     'placeholder' => 'user.collectivity.form.placeholder.website',
                 ],
+            ])
+            ->add('updatedBy', HiddenType::class, [
+                'required' => false,
+                'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
             ])
         ;
     }

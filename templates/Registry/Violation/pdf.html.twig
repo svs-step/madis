@@ -89,12 +89,6 @@
                 <div class="box-body no-padding">
                     <table role="presentation" class="table">
                         <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.creator'|trans }}</strong></td>
-                            <td>
-                                {{ object.creator }}
-                            </td>
-                        </tr>
                         {% if is_granted('ROLE_ADMIN') %}
                             <tr>
                                 <td><strong>{{ 'registry.violation.show.collectivity'|trans }}</strong></td>

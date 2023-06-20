@@ -1007,7 +1007,7 @@ Plusieurs indicateurs sont disponibles :
 Il est possible d'exporter certaines informations au format Excel :
 
 * « **Exporter les structures** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion ; ...) ainsi que les informations comprises dans le [module conformité de la structure](#module-conformite-de-la-structure) ;
-* « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#le-registre-des-traitements) (Statut actif/inactif ; Date de dernière modification...) ainsi que les informations comprises dans le [module conformité des traitements](#module-conformite-des-traitements) ;
+* « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#le-registre-des-traitements) (Statut actif/inactif ; Date de modification...) ainsi que les informations comprises dans le [module conformité des traitements](#module-conformite-des-traitements) ;
 * « **Exporter les sous-traitants** » : Export comprenant toutes les informations enregistrées dans le [registre des sous-traitants](#le-registre-des-sous-traitants) (Nom du sous-traitant ; Clauses vérifiées ; Traitements associés ; ...) ;
 * « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#les-actions-de-protection) et dans le [plan d'actions](#plan-dactions) (Nom de l'action ; Statut ; Échéance ; ...).
 

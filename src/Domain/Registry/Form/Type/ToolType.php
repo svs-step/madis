@@ -34,6 +34,7 @@ use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -59,6 +60,9 @@ class ToolType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        /** @var User $user */
+        $user = $this->security->getUser();
+
         /** @var Tool $tool */
         $tool = $options['data'] ?? null;
         $builder
@@ -206,6 +210,10 @@ class ToolType extends AbstractType
             ->add('other', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.form.other',
                 'required' => false,
+            ])
+            ->add('updatedBy', HiddenType::class, [
+                'required' => false,
+                'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
             ])
         ;
     }

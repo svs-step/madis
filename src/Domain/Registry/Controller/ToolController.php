@@ -265,6 +265,7 @@ class ToolController extends CRUDController
                 'createdAt'      => $tool->getCreatedAt()->format('d-m-Y H:i:s'),
                 'updatedAt'      => $tool->getUpdatedAt()->format('d-m-Y H:i:s'),
                 'actions'        => $this->generateActionCell($tool),
+                'updatedBy'      => $tool->getUpdatedBy(),
             ];
         }
 
