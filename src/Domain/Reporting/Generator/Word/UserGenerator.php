@@ -45,7 +45,6 @@ class UserGenerator extends AbstractGenerator implements ImpressionGeneratorInte
         parent::__construct(
             $userProvider,
             $parameterBag,
-            $entityManager
         );
 
         $this->translator    = $translator;

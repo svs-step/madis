@@ -15,6 +15,8 @@ use PhpOffice\PhpWord\SimpleType\TblWidth;
 
 class ConformiteOrganisationGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
+    protected $average;
+
     public function addSyntheticView(Section $section, array $data): void
     {
         /*  Not used anymore in this generator since it's useless
@@ -166,6 +168,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
 
     private function getConformitesTable(array $conformites): array
     {
+        $tableData = [];
         foreach ($conformites as $conformite) {
             $this->average += $conformite->getConformite();
             switch (true) {

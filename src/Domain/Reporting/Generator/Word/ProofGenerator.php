@@ -45,7 +45,6 @@ class ProofGenerator extends AbstractGenerator implements ImpressionGeneratorInt
         parent::__construct(
             $userProvider,
             $parameterBag,
-            $entityManager
         );
 
         $this->translator    = $translator;

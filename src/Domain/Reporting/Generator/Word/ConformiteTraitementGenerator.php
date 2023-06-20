@@ -125,7 +125,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $nonConformesMajeurs = array_key_exists('Non-conformité majeure', $countTypes) ? $countTypes['Non-conformité majeure'] : 0;
         $NonEvalues          = array_key_exists('Non évalué', $countTypes) ? $countTypes['Non évalué'] : 0;
 
-        $section->addText('Sur les ' . count($tableData) - 1 . ' traitements :');
+        $section->addText('Sur les ' . (count($tableData) - 1) . ' traitements :');
         $section->addListItem('Conformes : ' . $conformes);
         $section->addListItem('Non-conformité mineure : ' . $nonConformesMineurs);
         $section->addListItem('Non-conformité majeure : ' . $nonConformesMajeurs);
@@ -172,7 +172,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $cntAipdRealised = 0;
         foreach ($data as $treatment) {
             $conformite = $treatment->getConformiteTraitement();
-
+            $aipd = null;
             if ($conformite) {
                 $aipd = $conformite->getLastAnalyseImpact();
             }
