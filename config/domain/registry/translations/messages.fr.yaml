@@ -678,7 +678,7 @@ registry:
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
           dpo_message: Préconisations DPO
-          statut_dpo: Statut et préconisations DPO
+          statut_dpo: Statut et préconisations DPD
 
     violation:
         action:
