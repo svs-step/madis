@@ -90,7 +90,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'public'                            => CheckboxType::class,
             'name'                              => TextType::class,
             'exempt_AIPD'                       => CheckboxType::class,
-            //'service'                           => EntityType::class,
+            'service'                           => EntityType::class,
             'goal'                              => TextareaType::class,
             'manager'                           => TextType::class,
             'software'                          => TextType::class,
