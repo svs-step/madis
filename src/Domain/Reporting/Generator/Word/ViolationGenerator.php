@@ -167,7 +167,7 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $cellDate = $this->getDate($violation->getDate(), 'd/m/Y');
 
-            $natures = join(', ', array_map(function ($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n; }, (array) $violation->getViolationNatures()));
+            $natures                = join(', ', array_map(function ($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n; }, (array) $violation->getViolationNatures()));
             $generalInformationData = [
                 [
                     'Date de la violation',
@@ -266,7 +266,6 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             $section->addTitle('Historique', 3);
             $this->addTable($section, $historyData, false, self::TABLE_ORIENTATION_VERTICAL);
         }
-
     }
 
     private function translateWithDictionary(array $dictionaryData = [], $value = null): array

@@ -25,7 +25,6 @@ namespace App\Domain\Reporting\Generator\Csv;
 
 use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
 use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
-use App\Domain\Registry\Dictionary\DelayPeriodDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;

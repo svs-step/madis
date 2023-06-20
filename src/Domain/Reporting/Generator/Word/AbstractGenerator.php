@@ -357,8 +357,8 @@ abstract class AbstractGenerator implements GeneratorInterface
 
     protected function addTable(Section $section, array $data = [], bool $header = false, string $orientation = self::TABLE_ORIENTATION_HORIZONTAL): void
     {
-        $table        = $section->addTable($this->tableStyle);
-        if($header){
+        $table = $section->addTable($this->tableStyle);
+        if ($header) {
             $headersTable = $data[0];
             $table->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
             foreach ($headersTable as $element) {
@@ -382,11 +382,10 @@ abstract class AbstractGenerator implements GeneratorInterface
                         $cell->addText($item, $this->textHeadStyle);
                     }
                 } else {
-                    if($nbCol === 0 && !$header){
+                    if (0 === $nbCol && !$header) {
                         $cell = $table->addCell(2500, $this->cellHeadStyle);
                         $cell->addText($col[$nbCol], $this->textHeadStyle);
-                    }
-                    else {
+                    } else {
                         /* If a style for the cell is specified, it bypass the line style */
                         $cell    = $table->addCell(5000 / \count($lineData), $col['style'] ?? $lineStyle);
                         $textrun = $cell->addTextRun();
