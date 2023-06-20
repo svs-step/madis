@@ -100,9 +100,9 @@ registry:
     tool:
         flashbag:
             success:
-                create: Outil ou support "%object%" créé avec succès
-                delete: Outil ou support "%object%" supprimé avec succès
-                edit: Outil ou support "%object%" modifié avec succès
+                create: Logiciel ou support "%object%" créé avec succès
+                delete: Logiciel ou support "%object%" supprimé avec succès
+                edit: Logiciel ou support "%object%" modifié avec succès
         type:
             not_null: Vous devez choisir le type
         name:
