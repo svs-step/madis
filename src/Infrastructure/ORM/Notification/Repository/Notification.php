@@ -28,6 +28,7 @@ use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
 use App\Domain\Notification\Model;
 use App\Domain\Notification\Repository;
+use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
@@ -358,6 +359,8 @@ class Notification extends CRUDRepository implements Repository\Notification
 
         if ('action_plan' === $moduleName) {
             $objectClass = Mesurement::class;
+        } else if ('aipd' === $moduleName && 'notifications.actions.treatment_needs_aipd' === $notification->getAction()) {
+            $objectClass = ConformiteTraitement::class;
         } else {
             $objectClass = array_flip(\App\Domain\Notification\Model\Notification::MODULES)[$moduleName];
         }

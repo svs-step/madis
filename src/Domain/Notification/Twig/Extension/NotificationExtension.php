@@ -66,7 +66,7 @@ class NotificationExtension extends AbstractExtension
                 break;
             case 'notifications.actions.late_survey':
             case 'notification.actions.late_survey':
-                $sentence .= $this->translator->trans('notifications.sentence.late_survey', [
+                $sentence .= ' ' . $this->translator->trans('notifications.sentence.late_survey', [
                     '%days%' => $this->surveyDays,
                 ]) . ' ';
                 break;
@@ -125,6 +125,9 @@ class NotificationExtension extends AbstractExtension
         try {
             if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.validation' === $notification->getAction()) {
                 return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+            if ('notification.modules.aipd' === $notification->getModule() && 'notifications.actions.treatment_needs_aipd' === $notification->getAction()) {
+                return $this->router->generate('registry_conformite_traitement_start_aipd', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
             }
             if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.state_change' === $notification->getAction()) {
                 return $this->router->generate('aipd_analyse_impact_evaluation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
