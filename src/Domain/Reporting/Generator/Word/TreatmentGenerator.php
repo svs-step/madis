@@ -173,10 +173,11 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 'Gestionnaire',
             ],
         ];
+        /** @var Treatment $treatment */
         // Add content
         foreach ($data as $treatment) {
             $tableData[] = [
-                $treatment->getName(),
+                $treatment->getName() . ('draft' === $treatment->getStatut() ? ' (Brouillon)' : ''),
                 $treatment->getManager() ?? $this->parameterBag->get('APP_DEFAULT_REFERENT'),
             ];
         }
