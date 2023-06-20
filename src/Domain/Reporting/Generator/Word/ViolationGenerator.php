@@ -166,15 +166,16 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
             $section->addTitle((string) $violation, 2);
 
             $cellDate = $this->getDate($violation->getDate(), 'd/m/Y');
-            if ($violation->isInProgress()) {
-                $cellDate  .= ' (Toujours en cours)';
-            }
 
             $natures = join(', ', array_map(function ($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n; }, (array) $violation->getViolationNatures()));
             $generalInformationData = [
                 [
                     'Date de la violation',
                     $cellDate,
+                ],
+                [
+                    'Violation en cours',
+                    $violation->isInProgress() ? 'Oui' : 'Non',
                 ],
                 [
                     'Natures de la violation',
