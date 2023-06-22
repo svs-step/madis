@@ -56,6 +56,11 @@
         </one-to-many>
         <field name="dpoMessage" column="dpo_message" type="text" nullable="true"/>
         <field name="otherCollectingMethod" column="other_collecting_method" type="text" nullable="true"/>
+        <field name="legalMentions" column="legal_mentions" type="boolean" nullable="true">
+            <options>
+                <option name="default">0</option>
+            </options>
+        </field>
 
         <embedded name="securityAccessControl" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_access_control_"/>
         <embedded name="securityTracability" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_tracability_"/>
