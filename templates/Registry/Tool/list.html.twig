@@ -267,6 +267,16 @@
             var oTable = $('#table').DataTable();
             $('input#search_created_at').val('');
             $('input#search_updated_at').val('');
+            $('#table').on( 'column-visibility.dt', function ( e, settings, column, state ) {
+                console.log('column', column)
+                if (column === 'createdAt' && state) {
+                    $('input#search_created_at').val('');
+                }
+                if (column === 'updatedAt' && state) {
+                    $('input#search_updated_at').val('');
+                }
+            } );
+
             $('#search_created_at').show('slide',function(){
                 $('input#search_created_at').val('');
             });
@@ -281,7 +291,6 @@
                 oTable.column('1').search($(this).val()).draw() ;
             }));
             $('#search_type').change(function(){
-                console.log($(this).val())
                 oTable.column(1+col).search($(this).val()).draw() ;
             });
             $('#search_editor').keyup($.debounce(250, function(){
