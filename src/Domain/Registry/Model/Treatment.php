@@ -473,6 +473,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
         $this->completion                        = 0;
         $this->template                          = false;
         $this->proofs                            = [];
+        $this->legalMentions                     = false;
         $this->concernedPeopleParticular         = new ComplexChoice();
         $this->concernedPeopleUser               = new ComplexChoice();
         $this->concernedPeopleUsager             = new ComplexChoice();
