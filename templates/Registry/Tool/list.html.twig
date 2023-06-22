@@ -269,10 +269,10 @@
             $('input#search_updated_at').val('');
             $('#table').on( 'column-visibility.dt', function ( e, settings, column, state ) {
                 console.log('column', column)
-                if (column === 17 && state) {
+                if (column === 16+col && state) {
                     $('input#search_created_at').val('');
                 }
-                if (column === 18 && state) {
+                if (column === 17+col && state) {
                     $('input#search_updated_at').val('');
                 }
             } );
@@ -323,10 +323,12 @@
             $('#search_other').change(function(){
                 oTable.column(11+col).search($(this).val()).draw() ;
             });
-            $('#search_created_at').change(function(){
+            $(document).on('change', '#search_created_at', function(){
+                console.log('createdat changed',$(this).val() )
                 oTable.column(16+col).search($(this).val()).draw();
             });
-            $('#search_updated_at').change(function(){
+            $(document).on('change', '#search_updated_at', function(){
+                console.log('updatedat changed',$(this).val() )
                 oTable.column(17+col).search($(this).val()).draw();
             });
         } );
