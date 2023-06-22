@@ -269,10 +269,10 @@
             $('input#search_updated_at').val('');
             $('#table').on( 'column-visibility.dt', function ( e, settings, column, state ) {
                 console.log('column', column)
-                if (column === 'createdAt' && state) {
+                if (column === 17 && state) {
                     $('input#search_created_at').val('');
                 }
-                if (column === 'updatedAt' && state) {
+                if (column === 18 && state) {
                     $('input#search_updated_at').val('');
                 }
             } );
