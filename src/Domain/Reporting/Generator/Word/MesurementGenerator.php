@@ -120,7 +120,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             $cntViolations  = $item->getViolations() ? $cntViolations + count($item->getViolations()) : $cntViolations;
             $cntRequests    = $item->getRequests() ? $cntRequests + count($item->getRequests()) : $cntRequests;
         }
-        $arrayTypes = [['type' => 'Traitement', 'count' => $cntTreatment], ['type' => 'Sous-traitants', 'count' => $cntContractors], ['type' => 'Violations de donnéest', 'count' => $cntViolations], ['type' => 'Demandes', 'count' => $cntRequests]];
+        $arrayTypes = [['type' => 'Traitements', 'count' => $cntTreatment], ['type' => 'Sous-traitants', 'count' => $cntContractors], ['type' => 'Violations de données', 'count' => $cntViolations], ['type' => 'Demandes', 'count' => $cntRequests]];
         foreach ($arrayTypes as $item) {
             $tableActionType->addRow();
             $cell = $tableActionType->addCell(6000);
