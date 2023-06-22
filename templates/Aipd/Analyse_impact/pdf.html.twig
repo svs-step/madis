@@ -284,14 +284,11 @@
             <div class="separator"></div>
             <table class="table table-bordered">
                 <tr>
-                    <td class="table-bluecell">Durée de conservation</td>
+                    <td class="table-bluecell">Délais de conservation</td>
                     <td>
-                        {% if not object.conformiteTraitement.traitement.delay.otherDelay %}
-                            {{ object.conformiteTraitement.traitement.delay.number }}
-                            {{ object.conformiteTraitement.traitement.delay.period|dictionary('registry_delay_period') }}
-                        {% else %}
-                            {{ object.conformiteTraitement.traitement.delay.comment }}
-                        {% endif %}
+                        {% for duration in object.conformiteTraitement.traitement.shelfLifes %}
+                            {{ duration.name }} - {{ duration.duration }} - {{ duration.ultimateFate }} <br/>
+                        {% endfor %}
                     </td>
                 </tr>
             </table>
@@ -1085,16 +1082,12 @@
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.delay'|trans }}</strong></td>
                                 <td>
-                                    {% if traitement.delay.number and traitement.delay.period %}
-                                        {{ traitement.delay.number }} {{ traitement.delay.period|dictionary('registry_delay_period') }}
-                                    {% elseif traitement.delay.otherDelay %}
-                                        {{ traitement.delay.comment }}
-                                    {% endif %}
+                                    <ul>
+                                        {% for duration in traitement.shelfLifes %}
+                                            <li>{{ duration.name }} - {{ duration.duration }} - {{ duration.ultimateFate }} </li>
+                                        {% endfor %}
+                                    </ul>
                                 </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.ultimate_fate'|trans }}</strong></td>
-                                <td>{% if traitement.ultimateFate is not null %}{{ traitement.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% endif %}</td>
                             </tr>
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
@@ -1416,7 +1409,7 @@
                             </tr>
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.updated_by'|trans }}</strong></td>
-                                <td>{{ object.updatedBy }}</td>
+                                <td>{{ traitement.updatedBy }}</td>
                             </tr>
                             </tbody>
                         </table>
@@ -1547,13 +1540,12 @@
                 scales: {
                     yAxes: [{
                         gridLines: {
-                            offsetGridLines: true
+                            offsetGridLines: true,
                         },
                         ticks : {
-                            beginAtZero: true,
                             stepSize: 1,
                             min: 0,
-                            max: 3,
+                            max: 4,
                         },
                         scaleLabel: {
                             display: true,
@@ -1565,10 +1557,9 @@
                             offsetGridLines: true
                         },
                         ticks : {
-                            beginAtZero: true,
                             stepSize: 1,
                             min: 0,
-                            max: 3,
+                            max: 4,
                         },
                         scaleLabel: {
                             display: true,
@@ -1639,23 +1630,23 @@
             dispoVraisemblance = vraisemblance > dispoVraisemblance ? vraisemblance : dispoVraisemblance;
             // P(x,y) => si x>0,6 alors x=x-0,5 si y>0,6 alors y=y-0,5
             // https://gitlab.adullact.net/soluris/madis/-/issues/635
-            dispoGravity = dispoGravity > 0.6 ? dispoGravity - 0.5 : dispoGravity
-            dispoVraisemblance = dispoVraisemblance > 0.6 ? dispoVraisemblance - 0.5 : dispoVraisemblance
+            //dispoGravity = dispoGravity > 0.6 ? dispoGravity - 0.5 : dispoGravity
+            //dispoVraisemblance = dispoVraisemblance > 0.6 ? dispoVraisemblance - 0.5 : dispoVraisemblance
         {% endif %}
         {% if (scenario.isIntegrite) %}
             integrityGravity = gravite > integrityGravity ? gravite : integrityGravity;
             integrityVraisemblance = vraisemblance > integrityVraisemblance ? vraisemblance : integrityVraisemblance;
             // P(x,y) => si x>0,6 alors x=x-0,5 si y>0,6 alors y=y-0,5
             // https://gitlab.adullact.net/soluris/madis/-/issues/635
-            integrityGravity = integrityGravity > 0.6 ? integrityGravity - 0.5 : integrityGravity
-            integrityVraisemblance = integrityVraisemblance > 0.6 ? integrityVraisemblance - 0.5 : integrityVraisemblance
+            //integrityGravity = integrityGravity > 0.6 ? integrityGravity - 0.5 : integrityGravity
+            //integrityVraisemblance = integrityVraisemblance > 0.6 ? integrityVraisemblance - 0.5 : integrityVraisemblance
         {% endif %}
         {% if (scenario.isConfidentialite) %}
             confidentialityGravity = gravite > confidentialityGravity ? gravite : confidentialityGravity;
             confidentialityVraisemblance = vraisemblance > confidentialityVraisemblance ? vraisemblance : confidentialityVraisemblance;
 
-            confidentialityGravity = confidentialityGravity > 0.6 ? confidentialityGravity - 0.5 : confidentialityGravity
-            confidentialityVraisemblance = confidentialityVraisemblance > 0.6 ? confidentialityVraisemblance - 0.5 : confidentialityVraisemblance
+            //confidentialityGravity = confidentialityGravity > 0.6 ? confidentialityGravity - 0.5 : confidentialityGravity
+            //confidentialityVraisemblance = confidentialityVraisemblance > 0.6 ? confidentialityVraisemblance - 0.5 : confidentialityVraisemblance
         {% endif %}
 
         {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}
