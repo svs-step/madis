@@ -410,7 +410,7 @@ class AnalyseImpactController extends CRUDController
                 }
             }
         }
-
+        //dd($object);
         return new PdfResponse(
             $this->pdf->getOutputFromHtml(
                 $this->renderView($this->getTemplatingBasePath('pdf'), [

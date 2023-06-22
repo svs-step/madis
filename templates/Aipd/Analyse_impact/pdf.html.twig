@@ -284,14 +284,11 @@
             <div class="separator"></div>
             <table class="table table-bordered">
                 <tr>
-                    <td class="table-bluecell">Durée de conservation</td>
+                    <td class="table-bluecell">Délais de conservation</td>
                     <td>
-                        {% if not object.conformiteTraitement.traitement.delay.otherDelay %}
-                            {{ object.conformiteTraitement.traitement.delay.number }}
-                            {{ object.conformiteTraitement.traitement.delay.period|dictionary('registry_delay_period') }}
-                        {% else %}
-                            {{ object.conformiteTraitement.traitement.delay.comment }}
-                        {% endif %}
+                        {% for duration in object.conformiteTraitement.traitement.shelfLifes %}
+                            {{ duration.name }} - {{ duration.duration }} - {{ duration.ultimateFate }} <br/>
+                        {% endfor %}
                     </td>
                 </tr>
             </table>
@@ -1085,11 +1082,11 @@
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.delay'|trans }}</strong></td>
                                 <td>
-                                    {% if traitement.delay.number and traitement.delay.period %}
-                                        {{ traitement.delay.number }} {{ traitement.delay.period|dictionary('registry_delay_period') }}
-                                    {% elseif traitement.delay.otherDelay %}
-                                        {{ traitement.delay.comment }}
-                                    {% endif %}
+                                    <ul>
+                                        {% for duration in traitement.shelfLifes %}
+                                            <li>{{ duration.name }} - {{ duration.duration }} - {{ duration.ultimateFate }} </li>
+                                        {% endfor %}
+                                    </ul>
                                 </td>
                             </tr>
                             <tr>
@@ -1416,7 +1413,7 @@
                             </tr>
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.updated_by'|trans }}</strong></td>
-                                <td>{{ object.updatedBy }}</td>
+                                <td>{{ traitement.updatedBy }}</td>
                             </tr>
                             </tbody>
                         </table>
