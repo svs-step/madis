@@ -1540,13 +1540,12 @@
                 scales: {
                     yAxes: [{
                         gridLines: {
-                            offsetGridLines: true
+                            offsetGridLines: true,
                         },
                         ticks : {
-                            beginAtZero: true,
                             stepSize: 1,
                             min: 0,
-                            max: 3,
+                            max: 4,
                         },
                         scaleLabel: {
                             display: true,
@@ -1558,10 +1557,9 @@
                             offsetGridLines: true
                         },
                         ticks : {
-                            beginAtZero: true,
                             stepSize: 1,
                             min: 0,
-                            max: 3,
+                            max: 4,
                         },
                         scaleLabel: {
                             display: true,
@@ -1632,23 +1630,23 @@
             dispoVraisemblance = vraisemblance > dispoVraisemblance ? vraisemblance : dispoVraisemblance;
             // P(x,y) => si x>0,6 alors x=x-0,5 si y>0,6 alors y=y-0,5
             // https://gitlab.adullact.net/soluris/madis/-/issues/635
-            dispoGravity = dispoGravity > 0.6 ? dispoGravity - 0.5 : dispoGravity
-            dispoVraisemblance = dispoVraisemblance > 0.6 ? dispoVraisemblance - 0.5 : dispoVraisemblance
+            //dispoGravity = dispoGravity > 0.6 ? dispoGravity - 0.5 : dispoGravity
+            //dispoVraisemblance = dispoVraisemblance > 0.6 ? dispoVraisemblance - 0.5 : dispoVraisemblance
         {% endif %}
         {% if (scenario.isIntegrite) %}
             integrityGravity = gravite > integrityGravity ? gravite : integrityGravity;
             integrityVraisemblance = vraisemblance > integrityVraisemblance ? vraisemblance : integrityVraisemblance;
             // P(x,y) => si x>0,6 alors x=x-0,5 si y>0,6 alors y=y-0,5
             // https://gitlab.adullact.net/soluris/madis/-/issues/635
-            integrityGravity = integrityGravity > 0.6 ? integrityGravity - 0.5 : integrityGravity
-            integrityVraisemblance = integrityVraisemblance > 0.6 ? integrityVraisemblance - 0.5 : integrityVraisemblance
+            //integrityGravity = integrityGravity > 0.6 ? integrityGravity - 0.5 : integrityGravity
+            //integrityVraisemblance = integrityVraisemblance > 0.6 ? integrityVraisemblance - 0.5 : integrityVraisemblance
         {% endif %}
         {% if (scenario.isConfidentialite) %}
             confidentialityGravity = gravite > confidentialityGravity ? gravite : confidentialityGravity;
             confidentialityVraisemblance = vraisemblance > confidentialityVraisemblance ? vraisemblance : confidentialityVraisemblance;
 
-            confidentialityGravity = confidentialityGravity > 0.6 ? confidentialityGravity - 0.5 : confidentialityGravity
-            confidentialityVraisemblance = confidentialityVraisemblance > 0.6 ? confidentialityVraisemblance - 0.5 : confidentialityVraisemblance
+            //confidentialityGravity = confidentialityGravity > 0.6 ? confidentialityGravity - 0.5 : confidentialityGravity
+            //confidentialityVraisemblance = confidentialityVraisemblance > 0.6 ? confidentialityVraisemblance - 0.5 : confidentialityVraisemblance
         {% endif %}
 
         {%  set rr = getScenarioMenaceImpactResiduel(scenario) %}
