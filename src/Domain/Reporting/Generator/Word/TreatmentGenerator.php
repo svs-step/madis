@@ -253,7 +253,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                     $treatment->getEstimatedConcernedPeople(),
                 ],
                 1 => [
-                    'Logiciel',
+                    'Logiciels et supports',
                     \is_string($treatment->getToolsString()) ? $treatment->getToolsString() : null,
                 ],
                 2 => [
