@@ -46,6 +46,7 @@ class PublicConfiguration
             'template',
             'completion',
             'conformiteTraitement',
+            'delay',
         ],
     ];
 
@@ -135,7 +136,11 @@ class PublicConfiguration
             $this->_initMappedObject();
         }
 
-        return $this->mappedObject->$name;
+        if (property_exists($this->mappedObject, $name)) {
+            return $this->mappedObject->$name;
+        }
+
+        return null;
     }
 
     public function __set(string $name, $value)
