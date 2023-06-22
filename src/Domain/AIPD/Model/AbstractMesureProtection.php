@@ -8,6 +8,7 @@ use App\Application\Traits\Model\HistoryTrait;
 use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 class AbstractMesureProtection
 {
