@@ -91,7 +91,6 @@ class TreatmentGenerator extends AbstractGenerator
             $this->treatmentSpecificHeaders(),
             $this->treatmentProofHeaders(),
             $this->treatmentConformiteHeaders(),
-            $this->treatmentShelfLifeHeaders(),
         );
         $data = [$headers];
 
@@ -114,11 +113,10 @@ class TreatmentGenerator extends AbstractGenerator
                 $this->initializeTreatmentSpecific($treatment),
                 $this->initializeTreatmentProof($treatment),
                 $this->initializeTreatmentConformite($treatment),
-                $this->initializeShelfLife($treatment),
             );
             array_push($data, $extract);
         }
-        dd($data);
+        //dd($data);
         return $data;
     }
 
@@ -186,6 +184,7 @@ class TreatmentGenerator extends AbstractGenerator
             !\is_null($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
             $legalBasisJustification,
             $observation,
+            $treatment->isExemptAIPD() ? $yes : $no,
             $treatment->getPublic() ? $yes : $no,
             $treatment->getDpoMessage(),
         ];
@@ -223,7 +222,7 @@ class TreatmentGenerator extends AbstractGenerator
     {
         return [
             $treatment->getRecipientCategory(),
-            implode(' - ', \iterable_to_array($treatment->getContractors())),
+            implode(' - ', \iterable_to_array($treatment->getContractors())) ? : '',
         ];
     }
 
@@ -241,7 +240,7 @@ class TreatmentGenerator extends AbstractGenerator
     private function initializeTreatmentHistoric(\App\Domain\Registry\Model\Treatment $treatment): array
     {
         return [
-            strval($treatment->getCreator()),
+            $treatment->getCreator(),
             $this->getDate($treatment->getCreatedAt()),
             $this->getDate($treatment->getUpdatedAt()),
         ];
@@ -272,9 +271,9 @@ class TreatmentGenerator extends AbstractGenerator
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.estimated_concerned_people'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.software'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.paper_processing'),
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Nombre',
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Période',
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Commentaire',
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Durée',
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Nom',
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Sort final',
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.data_origin'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.collecting_method'),
         ];
@@ -284,6 +283,20 @@ class TreatmentGenerator extends AbstractGenerator
     {
         $yes = $this->translator->trans('label.yes');
         $no  = $this->translator->trans('label.no');
+
+        $shelfLifes = $treatment->getShelfLifes();
+
+        $duration = '';
+        $name = '';
+        $ultimateFate = '';
+
+        if (count($shelfLifes) > 0) {
+            foreach ($shelfLifes as $key => $shelfLife) {
+                $duration .= $key+1 . ': ' . $shelfLife->duration . '| ';
+                $name .= $key+1 . ': ' . $shelfLife->name . '| ';
+                $ultimateFate .= $key+1 . ': ' . $shelfLife->ultimateFate . '| ';
+            }
+        }
 
         return [
             $treatment->getConcernedPeopleParticular()->isCheck() ? $yes : $no,
@@ -305,6 +318,9 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getEstimatedConcernedPeople(),
             $treatment->getSoftware(),
             $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
+            $duration ? substr($duration,0,-2) : '',
+            $name ? substr($name,0,-2) : '',
+            $ultimateFate ? substr($ultimateFate,0,-2) : '',
             $treatment->getDataOrigin(),
             !\is_null($treatment->getCollectingMethod()) ? join(', ', array_map(function ($cm) {
                 return array_key_exists($cm, TreatmentCollectingMethodDictionary::getMethods()) ? TreatmentCollectingMethodDictionary::getMethods()[$cm] : $cm;
@@ -463,36 +479,6 @@ class TreatmentGenerator extends AbstractGenerator
             }
 
             $data[] = 'Non-conforme majeure';
-        }
-
-        return $data;
-    }
-
-    private function treatmentShelfLifeHeaders(){
-        return [
-            'Détails - Délai de conservation - Durée',
-            'Détails - Délai de conservation - Nom',
-            'Détails - Délai de conservation - Sort final'
-        ];
-    }
-
-    private function initializeShelfLife(\App\Domain\Registry\Model\Treatment $treatment): array
-    {
-        $shelfLifes = $treatment->getShelfLifes();
-
-        if (count($shelfLifes) > 0){
-            foreach ($shelfLifes as $key => $shelfLife){
-                $duration       = $key .': '. $shelfLife->duration .'| ';
-                $name           = $key .': '. $shelfLife->name .'| ';
-                $ultimateFate   = $key .': '. $shelfLife->ultimateFate .'| ';
-            }
-            $data = [
-                substr($duration,0,-2),
-                substr($name,0,-2),
-                substr($ultimateFate,0,-2)
-            ];
-        } else {
-            $data[] = '';
         }
 
         return $data;
