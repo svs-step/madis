@@ -292,9 +292,9 @@ class TreatmentGenerator extends AbstractGenerator
 
         if (count($shelfLifes) > 0) {
             foreach ($shelfLifes as $key => $shelfLife) {
-                $duration .= $key+1 . ': ' . $shelfLife->duration . '| ';
-                $name .= $key+1 . ': ' . $shelfLife->name . '| ';
-                $ultimateFate .= $key+1 . ': ' . $shelfLife->ultimateFate . '| ';
+                $duration .= $key+1 . ': ' . $shelfLife->duration . " \r\n";
+                $name .= $key+1 . ': ' . $shelfLife->name . "\r\n";
+                $ultimateFate .= $key+1 . ': ' . $shelfLife->ultimateFate . "\r\n";
             }
         }
 
@@ -318,9 +318,9 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getEstimatedConcernedPeople(),
             $treatment->getSoftware(),
             $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
-            $duration ? substr($duration,0,-2) : '',
-            $name ? substr($name,0,-2) : '',
-            $ultimateFate ? substr($ultimateFate,0,-2) : '',
+            $duration,
+            $name,
+            $ultimateFate,
             $treatment->getDataOrigin(),
             !\is_null($treatment->getCollectingMethod()) ? join(', ', array_map(function ($cm) {
                 return array_key_exists($cm, TreatmentCollectingMethodDictionary::getMethods()) ? TreatmentCollectingMethodDictionary::getMethods()[$cm] : $cm;
