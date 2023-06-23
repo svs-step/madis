@@ -90,7 +90,8 @@ class TreatmentGenerator extends AbstractGenerator
             $this->treatmentSecurityHeaders(),
             $this->treatmentSpecificHeaders(),
             $this->treatmentProofHeaders(),
-            $this->treatmentConformiteHeaders()
+            $this->treatmentConformiteHeaders(),
+            $this->treatmentShelfLifeHeaders(),
         );
         $data = [$headers];
 
@@ -112,11 +113,12 @@ class TreatmentGenerator extends AbstractGenerator
                 $this->initializeTreatmentSecurity($treatment),
                 $this->initializeTreatmentSpecific($treatment),
                 $this->initializeTreatmentProof($treatment),
-                $this->initializeTreatmentConformite($treatment)
+                $this->initializeTreatmentConformite($treatment),
+                $this->initializeShelfLife($treatment),
             );
             array_push($data, $extract);
         }
-
+        dd($data);
         return $data;
     }
 
@@ -461,6 +463,36 @@ class TreatmentGenerator extends AbstractGenerator
             }
 
             $data[] = 'Non-conforme majeure';
+        }
+
+        return $data;
+    }
+
+    private function treatmentShelfLifeHeaders(){
+        return [
+            'Détails - Délai de conservation - Durée',
+            'Détails - Délai de conservation - Nom',
+            'Détails - Délai de conservation - Sort final'
+        ];
+    }
+
+    private function initializeShelfLife(\App\Domain\Registry\Model\Treatment $treatment): array
+    {
+        $shelfLifes = $treatment->getShelfLifes();
+
+        if (count($shelfLifes) > 0){
+            foreach ($shelfLifes as $key => $shelfLife){
+                $duration       = $key .': '. $shelfLife->duration .'| ';
+                $name           = $key .': '. $shelfLife->name .'| ';
+                $ultimateFate   = $key .': '. $shelfLife->ultimateFate .'| ';
+            }
+            $data = [
+                substr($duration,0,-2),
+                substr($name,0,-2),
+                substr($ultimateFate,0,-2)
+            ];
+        } else {
+            $data[] = '';
         }
 
         return $data;
