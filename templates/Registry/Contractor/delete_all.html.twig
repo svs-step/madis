@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% set bodyClass = 'registry_treatment delete' %}
-{% set menuItem = 'registry_treatment' %}
+{% set bodyClass = 'registry_contractor delete' %}
+{% set menuItem = 'registry_contractor' %}
 
 {% block title %}{{ 'registry.treatment.title.delete'|trans }} - {{ parent() }}{% endblock %}
 
@@ -28,7 +28,7 @@
                     Souhaitez vous vraiment supprimer {{ objects_length }} sous-traitant{{objects_length > 1 ? 's' : '' }} ?
                 </div>
                 <div class="box-footer">
-                    <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
+                    <a href="{{ path('registry_contractor_list') }}" class="btn btn-default">
                         {{ 'registry.contractor.action.back_to_list'|trans }}
                     </a>
                     <a href="{{ path('registry_contractor_delete_all_confirm', { 'ids': ids }) }}" class="btn btn-primary">
