@@ -285,15 +285,15 @@ class TreatmentGenerator extends AbstractGenerator
         $yes = $this->translator->trans('label.yes');
         $no  = $this->translator->trans('label.no');
 
-        $treatmentDurations = [];
-        $treatmentNames = [];
+        $treatmentDurations     = [];
+        $treatmentNames         = [];
         $treatmentUltimateFates = [];
 
         /** @var ShelfLife $sl */
         foreach ($treatment->getShelfLifes() as $k => $sl) {
-            $treatmentDurations[] = ($k+1) . ': ' . $sl->getDuration();
-            $treatmentNames[] = ($k+1) . ': ' . $sl->getName();
-            $treatmentUltimateFates[] = ($k+1) . ': ' . $sl->getUltimateFate();
+            $treatmentDurations[]     = ($k + 1) . ': ' . $sl->getDuration();
+            $treatmentNames[]         = ($k + 1) . ': ' . $sl->getName();
+            $treatmentUltimateFates[] = ($k + 1) . ': ' . $sl->getUltimateFate();
         }
 
         return [
