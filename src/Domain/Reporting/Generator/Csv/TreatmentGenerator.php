@@ -30,6 +30,7 @@ use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Model\Mesurement;
+use App\Domain\Registry\Model\ShelfLife;
 use App\Domain\User\Repository\Collectivity;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement\Question;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
@@ -185,6 +186,7 @@ class TreatmentGenerator extends AbstractGenerator
             $legalBasisJustification,
             $observation,
             $treatment->getPublic() ? $yes : $no,
+            $treatment->getExemptAIPD() ? $yes : $no,
             $treatment->getDpoMessage(),
         ];
     }
@@ -270,9 +272,9 @@ class TreatmentGenerator extends AbstractGenerator
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.estimated_concerned_people'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.software'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.paper_processing'),
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Nombre',
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Période',
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Commentaire',
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Durée',
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Nom',
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Sort final',
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.data_origin'),
             $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.collecting_method'),
         ];
@@ -282,6 +284,17 @@ class TreatmentGenerator extends AbstractGenerator
     {
         $yes = $this->translator->trans('label.yes');
         $no  = $this->translator->trans('label.no');
+
+        $treatmentDurations = [];
+        $treatmentNames = [];
+        $treatmentUltimateFates = [];
+
+        /** @var ShelfLife $sl */
+        foreach ($treatment->getShelfLifes() as $k => $sl) {
+            $treatmentDurations[] = ($k+1) . ': ' . $sl->getDuration();
+            $treatmentNames[] = ($k+1) . ': ' . $sl->getName();
+            $treatmentUltimateFates[] = ($k+1) . ': ' . $sl->getUltimateFate();
+        }
 
         return [
             $treatment->getConcernedPeopleParticular()->isCheck() ? $yes : $no,
@@ -303,6 +316,9 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getEstimatedConcernedPeople(),
             $treatment->getSoftware(),
             $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
+            join("\n", $treatmentDurations),
+            join("\n", $treatmentNames),
+            join("\n", $treatmentUltimateFates),
             $treatment->getDataOrigin(),
             !\is_null($treatment->getCollectingMethod()) ? join(', ', array_map(function ($cm) {
                 return array_key_exists($cm, TreatmentCollectingMethodDictionary::getMethods()) ? TreatmentCollectingMethodDictionary::getMethods()[$cm] : $cm;
