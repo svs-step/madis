@@ -226,10 +226,10 @@ class UserController extends CRUDController
                 'roles'        => $roles,
                 'moreInfos'    => $infos,
                 'actif'        => $actif,
-                'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i:s') : null,
+                'connexion'    => !\is_null($user->getLastLogin()) ? $user->getLastLogin()->setTimezone($europeTimezone)->format('Y-m-d H:i') : null,
                 'services'     => $services,
-                'createdAt'    => $user->getCreatedAt() ? date_format($user->getCreatedAt(), 'd-m-Y H:i:s') : null,
-                'updatedAt'    => $user->getUpdatedAt() ? date_format($user->getUpdatedAt(), 'd-m-Y H:i:s') : null,
+                'createdAt'    => $user->getCreatedAt() ? date_format($user->getCreatedAt(), 'd-m-Y H:i') : null,
+                'updatedAt'    => $user->getUpdatedAt() ? date_format($user->getUpdatedAt(), 'd-m-Y H:i') : null,
                 'actions'      => $this->getActionCellsContent($user),
             ];
         }

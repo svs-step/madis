@@ -170,9 +170,9 @@ class NotificationController extends CRUDController
                     'name'         => $nameHtml,
                     'object'       => $notification->getSubject(),
                     'collectivity' => $this->authorizationChecker->isGranted('ROLE_REFERENT') && $notification->getCollectivity() ? $notification->getCollectivity()->getName() : '',
-                    'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
+                    'date'         => date_format($notification->getCreatedAt(), 'd-m-Y H:i'),
                     'user'         => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
-                    'read_date'    => $notification->getReadAt() ? $notification->getReadAt()->format('d-m-Y H:i:s') : '',
+                    'read_date'    => $notification->getReadAt() ? $notification->getReadAt()->format('d-m-Y H:i') : '',
                     'read_by'      => $notification->getReadBy() ? $notification->getReadBy()->__toString() : '',
                     'actions'      => $this->generateActionCellContent($notification),
                 ];
@@ -187,7 +187,7 @@ class NotificationController extends CRUDController
                     'action'  => $this->translator->trans($notification->getAction()),
                     'name'    => $nameHtml,
                     'object'  => $notification->getSubject(),
-                    'date'    => date_format($notification->getCreatedAt(), 'd-m-Y H:i:s'),
+                    'date'    => date_format($notification->getCreatedAt(), 'd-m-Y H:i'),
                     'user'    => $notification->getCreatedBy() ? $notification->getCreatedBy()->__toString() : '',
                     'actions' => $this->generateActionCellContent($notification),
                 ];
