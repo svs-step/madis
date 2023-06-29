@@ -22,7 +22,9 @@ final class Version20230628092846 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('UPDATE registry_violation SET notification = "no_notif" where notification IS NULL');    }
+        $this->addSql('UPDATE registry_violation SET notification = "no_notif" where notification IS NULL');
+        $this->addSql('UPDATE registry_violation SET notification = "no_notif" where notification = "none"');
+    }
 
     public function down(Schema $schema) : void
     {

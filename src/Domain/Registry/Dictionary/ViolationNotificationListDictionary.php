@@ -46,7 +46,7 @@ class ViolationNotificationListDictionary extends SimpleDictionary
     public static function getNotificationsList()
     {
         return [
-            self::NOTIFICATION_NOTHING      => 'Aucune notification',
+            self::NOTIFICATION_NOTHING      => 'Aucune notification à envoyer',
             self::NOTIFICATION_CROSS_BORDER => 'Notification transfrontalière',
             self::NOTIFICATION_CNIL         => 'Notification à la CNIL',
             self::NOTIFICATION_OTHER        => 'Notification à une autre autorité',
