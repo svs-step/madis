@@ -66,6 +66,7 @@
                 <option name="default">0</option>
             </options>
         </field>
+        <field name="consentRequestFormat" column="consent_request_format" type="text" nullable="true"/>
 
         <embedded name="securityAccessControl" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_access_control_"/>
         <embedded name="securityTracability" class="App\Domain\Registry\Model\Embeddable\ComplexChoice" column-prefix="security_tracability_"/>
