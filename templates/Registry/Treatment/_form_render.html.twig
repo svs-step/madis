@@ -29,6 +29,28 @@
         $('.draft').on('click',function(){
             $('#treatment_statut').val('draft');
         })
+
+        if (!$("input[id='treatment_legalBasis_1']").is(':checked')){
+            $("label[for='treatment_consentRequest']").hide();
+            $("label[for='treatment_consentRequestFormat']").hide();
+            $("#treatment_consentRequestFormat").hide();
+            $("#treatment_consentRequestFormat").val('');
+            $("#treatment_consentRequest").prop('checked',false);
+        }
+
+        $("input[name='treatment[legalBasis]']").on('change',function(){
+            if($(this).val() === 'consent'){
+                $("label[for='treatment_consentRequest']").show();
+                $("label[for='treatment_consentRequestFormat']").show();
+                $("#treatment_consentRequestFormat").show();
+            } else {
+                $("label[for='treatment_consentRequest']").hide();
+                $("label[for='treatment_consentRequestFormat']").hide();
+                $("#treatment_consentRequestFormat").hide();
+                $("#treatment_consentRequestFormat").val('');
+                $("#treatment_consentRequest").prop('checked',false);
+            }
+        })
     });
 </script>
 
