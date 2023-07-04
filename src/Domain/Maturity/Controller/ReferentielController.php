@@ -189,8 +189,8 @@ class ReferentielController extends CRUDController
                 $newQ = new Model\Question();
                 $newQ->setPosition($q->getPosition());
                 $newQ->setName($q->getName());
-                $newQ->setOption($q->getOption());
-                if ($q->getOption()) {
+                $newQ->setOptional($q->getOptional());
+                if ($q->getOptional()) {
                     $newQ->setOptionReason($q->getOptionReason());
                 }
                 $newQ->setWeight($q->getWeight());

@@ -28,10 +28,7 @@ use App\Domain\User\Model\User;
 
 trait CreatorTrait
 {
-    /**
-     * @var User|null
-     */
-    private ?User $creator;
+    private ?User $creator = null;
 
     /**
      * @return User

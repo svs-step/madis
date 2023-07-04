@@ -24,7 +24,6 @@ declare(strict_types=1);
 
 namespace App\Domain\Documentation\Model;
 
-use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\Documentation\Dictionary\DocumentTypeDictionary;
 use App\Domain\User\Model\User;
