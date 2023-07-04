@@ -106,21 +106,21 @@
         <li class="header">Rapports</li>
         <ul class="sidebar-menu">
             <li {% if menuItem == 'maturity_survey' %}class="active"{% endif %}>
-                <a href="{{ path('maturity_survey_list') }}">
+                <a aria-label="{{ 'sidebar_menu.maturity_survey'|trans }}" href="{{ path('maturity_survey_list') }}">
                     <i class="fa fa-chart-bar"></i>
                     <span>{{ 'sidebar_menu.maturity_survey'|trans }}</span>
                 </a>
             </li>
             {% if is_granted('ROLE_ADMIN') %}
                 <li {% if menuItem == 'maturity_referentiel' %}class="active"{% endif %}>
-                    <a href="{{ path('maturity_referentiel_list') }}">
+                    <a aria-label="{{ 'sidebar_menu.maturity_referentiel'|trans }}" href="{{ path('maturity_referentiel_list') }}">
                         <i class="fa fa-chart-bar"></i>
                         <span>{{ 'sidebar_menu.maturity_referentiel'|trans }}</span>
                     </a>
                 </li>
             {% endif %}
             <li {% if menuItem == 'reporting_review' %}class="active"{% endif %}>
-                <a href="{{ path('reporting_review_index', {'id': app.user.collectivity.id}) }}">
+                <a aria-label="{{ 'sidebar_menu.reporting_review'|trans }}" href="{{ path('reporting_review_index', {'id': app.user.collectivity.id}) }}">
                     <i class="fa fa-clipboard-list"></i>
                     <span>{{ 'sidebar_menu.reporting_review'|trans }}</span>
                 </a>
