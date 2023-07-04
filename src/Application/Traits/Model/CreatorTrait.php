@@ -31,7 +31,7 @@ trait CreatorTrait
     /**
      * @var User|null
      */
-    private $creator;
+    private ?User $creator;
 
     /**
      * @return User
@@ -41,7 +41,7 @@ trait CreatorTrait
         return $this->creator;
     }
 
-    public function setCreator(User $creator): void
+    public function setCreator(?User $creator): void
     {
         $this->creator = $creator;
     }

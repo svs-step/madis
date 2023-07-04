@@ -246,7 +246,7 @@ class ToolController extends CRUDController
             $reponse['data'][] = [
                 'id'             => $tool->getId(),
                 'name'           => $this->generateShowLink($tool),
-                'collectivity'   => $this->authorizationChecker->isGranted('ROLE_REFERENT') ? $tool->getCollectivity()->getName() : '',
+                'collectivity'   => $this->authorizationChecker->isGranted('ROLE_REFERENT') && $tool->getCollectivity() ? $tool->getCollectivity()->getName() : '',
                 'type'           => ToolTypeDictionary::getTypes()[$tool->getType()],
                 'editor'         => $tool->getEditor(),
                 'archival'       => $tool->getArchival()->isCheck() ? $yes : $no,

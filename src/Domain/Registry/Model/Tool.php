@@ -228,6 +228,7 @@ class Tool implements LoggableSubject, CollectivityRelated
         $this->update         = new ComplexChoice();
         $this->access_control = new ComplexChoice();
         $this->encrypted      = new ComplexChoice();
+        $this->creator        = null;
     }
 
     public function __toString(): string
