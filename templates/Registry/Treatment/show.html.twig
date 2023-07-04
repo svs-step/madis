@@ -481,12 +481,15 @@
                                 {% endif %}
                             </td>
                         </tr>
+                    </table>
+                    <table>
+                        <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.shelfLife'|trans }}</strong></td>
-                            <td>
+                            <td class="col-sm-2" style="vertical-align: top; padding-left: 10px"><strong>{{ 'registry.treatment.show.shelfLife'|trans }}</strong></td>
+                            <td class="col-sm-10">
                                 {% for method in object.shelfLifes %}
                                     <div class="box box-default">
-                                        <div class="box-body">
+                                        <div class="box-body ">
                                             <table class="table">
                                                 <tbody>
                                                 <tr>
@@ -508,6 +511,10 @@
                                 {% endfor %}
                             </td>
                         </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
                             <td>{{ object.dataOrigin }}</td>

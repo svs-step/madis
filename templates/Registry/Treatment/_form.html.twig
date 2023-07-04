@@ -43,25 +43,27 @@
                 </div>
             </div>
         {% else %}
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.statut_dpo'|trans }}</h3></div>
-                <div class="box-body">
-                    <table role="presentation" class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.statut'|trans }}</strong></td>
-                            <td>
-                                {{ object.statut ? object.statut|dictionary('treatment_statut') : '' }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.preconization_dpo'|trans }}</strong></td>
-                            <td>{{ object.dpoMessage }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+            {% if object.name %}
+                <div class="box box-solid">
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.statut_dpo'|trans }}</h3></div>
+                    <div class="box-body">
+                        <table role="presentation" class="table">
+                            <tbody>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.statut'|trans }}</strong></td>
+                                <td>
+                                    {{ object.statut ? object.statut|dictionary('treatment_statut') : '' }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'registry.treatment.show.preconization_dpo'|trans }}</strong></td>
+                                <td>{{ object.dpoMessage }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
+            {% endif %}
         {% endif %}
 
         {# GENERAL INFORMATIONS #}
