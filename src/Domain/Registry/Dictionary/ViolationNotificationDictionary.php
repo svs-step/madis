@@ -28,7 +28,7 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class ViolationNotificationDictionary extends SimpleDictionary
 {
-    public const NOTIFICATION_NOTHING      = 'none';
+    public const NOTIFICATION_NOTHING      = 'no_notif';
     public const NOTIFICATION_CROSS_BORDER = 'cross_border';
     public const NOTIFICATION_CNIL         = 'cnil';
     public const NOTIFICATION_OTHER        = 'other';
@@ -46,7 +46,7 @@ class ViolationNotificationDictionary extends SimpleDictionary
     public static function getNotifications()
     {
         return [
-            self::NOTIFICATION_NOTHING      => 'Aucune notification',
+            self::NOTIFICATION_NOTHING      => 'Aucune notification à envoyer',
             self::NOTIFICATION_CROSS_BORDER => 'Cette notification concerne un traitement transfrontalier ciblant des personnes de différents états membres',
             self::NOTIFICATION_CNIL         => 'La violation a ou va être notifiée à la CNIL',
             self::NOTIFICATION_OTHER        => 'La violation a ou va être notifiée à une autre autorité en charge de la protection des données',

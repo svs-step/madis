@@ -6,7 +6,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_2:
         processus: '@processus_1'
         position: 2
-        nom: "La structure a identifié son DPO ou son référent DPO. Dans les deux cas, il dispose des compétences nécessaires et/ou a reçu une formation. Sa mission est reconnue, positionnée et légitimée dans la structure. Il existe une fiche de mission qui formalise ses rôles responsabilités et précise les temps et ressources alloués. Lorsque les tâches du DPO sont réparties sur plusieurs personnes, la répartition des activités est claire."
+        nom: "La structure a identifié son DPD et/ou son référent DPD. Dans les deux cas, il dispose des compétences nécessaires et/ou a reçu une formation. Sa mission est reconnue, positionnée et légitimée dans l'organisme. Il existe une fiche de mission qui formalise son rôle, ses responsabilités et précise le temps et les ressources qui lui sont allouées. Lorsque les tâches du DPD sont réparties entre plusieurs personnes, cette répartition est claire."
     conformite_organisation_question_3:
         processus: '@processus_1'
         position: 3
@@ -18,22 +18,19 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_5:
         processus: '@processus_2'
         position: 1
-        nom: "La structure dispose d'un registre des traitements. Le registre renseigne sur les critères minimum précisé à l'article 30 du règlement : nom du responsable du traitement et du DPO, les finalités du traitement, les catégories de personnes concernées et les catégories de DCP, les catégories de destinataires, les transferts de données à caractère personnel vers un pays tiers, les délais prévus pour l'effacement, une description générale des mesures de sécurité."
+        nom: "La structure dispose d'un registre des traitements. Le registre renseigne sur les critères minimum précisés à l'article 30 du règlement : nom du responsable du traitement et du DPD, les finalités du traitement, les catégories de personnes concernées et les catégories de DCP, les catégories de destinataires, les transferts de données à caractère personnel vers un pays tiers, les délais de conservation, une description générale des mesures de sécurité."
     conformite_organisation_question_6:
         processus: '@processus_2'
         position: 2
-        nom: "A chaque traitement est associé un gestionnaire.
-          Tout nouveau traitement est signalé par le gestionnaire au DPO ou au référent DPO pour mise à jour du registre.
-          Tout traitement ultérieur est porté à la connaissance du DPO ou du référent DPO pour avis puis partagé par la gouvernance."
+        nom: "A chaque traitement est associé un gestionnaire. Tout nouveau traitement est signalé par le gestionnaire au DPD ou au référent DPD pour mise à jour du registre. Tout traitement ultérieur est porté à la connaissance du DPD ou du référent DPD pour avis puis partagé par la gouvernance."
     conformite_organisation_question_7:
         processus: '@processus_2'
         position: 3
-        nom: "Le DPO ou le référent DPO peut disposer d'une cartographie des flux de données mettant en évidence les points de collecte des données et les échanges inter-application et/ou avec les parties prenantes externes."
+        nom: "Le DPD ou le référent DPD peut disposer d'une cartographie des flux de données mettant en évidence les points de collecte des données et les échanges inter-application et/ou avec les parties prenantes externes."
     conformite_organisation_question_8:
         processus: '@processus_2'
         position: 4
-        nom: "La structure dispose des connaissances nécessaires pour gérer  les transferts de Données à Caractère Personnel, transfrontaliers UE, vers des pays tiers ou des organisations internationales .L'inventaire de ces transferts est tenu à jour.
-              (Lien sur la protection des données dans le monde : <a target=\"_blank\" href=\"https://www.cnil.fr/fr/la-protection-des-donnees-dans-le-monde\">https://www.cnil.fr/fr/la-protection-des-donnees-dans-le-monde</a>)"
+        nom: "La structure dispose des connaissances nécessaires pour gérer les transferts de données à caractère personnel transfrontaliers dans l'UE, vers des pays tiers ou des organisations internationales. L'inventaire de ces transferts est tenu à jour. "
     conformite_organisation_question_9:
         processus: '@processus_3'
         position: 1
@@ -71,12 +68,11 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_17:
         processus: '@processus_5'
         position: 1
-        nom: "L'organisation partage une méthode de gestion de projet.  Le lancement d'un projet traitant de DCP implique: une information préalable auprès du DPO ou du référent DPO. La note de cadrage qui définit la licéité du traitement, précise  les droits que la personne concernée pourra exercer et renseigne sur la finalité, la minimisation des données, la limitation des durées de conservation."
+        nom: "L'organisation partage une méthode de gestion de projet. Le lancement d'un projet traitant de DCP implique une information préalable auprès du DPD ou du référent DPD. La note de cadrage définit la licéité du traitement, précise les droits que la personne concernée pourra exercer et renseigne sur la finalité, la minimisation des données, la limitation des durées de conservation."
     conformite_organisation_question_18:
         processus: '@processus_5'
         position: 2
-        nom: "Une étude sécurité est réalisée pour définir les mesures techniques et organisationnelles qui préserveront la disponibilité, l'intégrité et la confidentialité des données.
-              Les données de test sont anonymisées."
+        nom: "Une étude de la sécurité est réalisée pour définir les mesures techniques et organisationnelles qui préserveront la disponibilité, l'intégrité et la confidentialité des données. Les données de test sont anonymisées."
     conformite_organisation_question_19:
         processus: '@processus_5'
         position: 3
@@ -84,11 +80,11 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_20:
         processus: '@processus_5'
         position: 4
-        nom: "La procédure de livraison du projet permet au DPO ou référent DPO de vérifier qu'il est conforme à la règlementation et que les procédures visant à permettre à la personne concernée d'exercer ses droits sont opérationnelles."
+        nom: "La procédure de livraison du projet permet au DPD ou référent DPD de vérifier qu'il est conforme à la règlementation et que les procédures visant à permettre à la personne concernée d'exercer ses droits sont opérationnelles."
     conformite_organisation_question_21:
         processus: '@processus_6'
         position: 1
-        nom: "La structure dispose d'un document (Politique de sécurité du système d'information - PSSI) qui rassemble l'ensemble des mesures de sécurité appliquées."
+        nom: "La structure  dispose d'un document (Politique de sécurité du système d'information - PSSI) qui rassemble l'ensemble des mesures de sécurité appliquées."
     conformite_organisation_question_22:
         processus: '@processus_6'
         position: 2
@@ -96,7 +92,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_23:
         processus: '@processus_6'
         position: 3
-        nom: "La structure est organisée pour détecter et gérer les incidents de sécurité. Les incidents sont historisés et partagés avec le DPO pour déterminer s'il s'agit d'une violation de données."
+        nom: "La structure est organisée pour détecter et gérer les incidents de sécurité. Les incidents sont historisés et partagés avec le DPD pour déterminer s'il s'agit d'une violation de données."
     conformite_organisation_question_24:
         processus: '@processus_6'
         position: 4
@@ -153,7 +149,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_34:
         processus: '@processus_7'
         position: 1
-        nom: "L'organisation dispose d'une méthode formalisée d'analyse de risque : Outillage de la CNIL ou d'une autre autorité : ISO 31000, ISO 27005, AMDEC, EBIOS, HAZOP,HACCP, MEHARI, qu'elle saurait utiliser pour réaliser l'analyse d'impacts sur la protection des données"
+        nom: "La structure  dispose d'une méthode formalisée d'analyse de risque notamment celle proposée par la CNIL. Si d'autres méthodes de sécurité globale existent, elles peuvent être mise en cohérence avec la protection des données (ISO 31000, ISO 27005, ISO 27000,EBIOS, HAZOP,HACCP, MEHARI). Dans ce cas, une vigilence devra être apportée car ces dernières ne couvrent pas l'ensemble des mesures permettant la protection des données (par exemple au niveau juridique)."
     conformite_organisation_question_35:
         processus: '@processus_7'
         position: 2
@@ -161,24 +157,23 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_36:
         processus: '@processus_7'
         position: 3
-        nom: "Conformément à l'article 35 et aux lignes directrices PIA, les nouveaux traitements de DCP \"à risque élevé\" de type activités de contrôle des personnes, évaluations systématiques font l'objet d'une analyse.
-              La structure a pris connaissance du document \"liste-traitements-avec-aipd-requise\" publié par la CNIL."
+        nom: "Conformément à l'article 35 du RGPD et aux lignes directrices portant sur le PIA/AIPD , les nouveaux traitements de DCP &quot;à risque élevé&quot; pour les droits et libertés des personnes comme par exemple de contrôle des personnes, d'évaluations systématiques font l'objet d'une analyse d'impact. La structure a pris connaissance des listes pour lesquelles les analyses sont obligatoires ou non publié pa rla CNIL. Dans le cas ou le traitement ne figure pas sur cette liste , elle applique la règle des critères determinants l'analyse (Cf.Infographie &quot;Dois-je faire une AIPD&quot;)"
     conformite_organisation_question_37:
         processus: '@processus_7'
         position: 4
-        nom: "Les résultats des analyses sont documentés, partagés avec le DPO ou le référent DPO. Ils font l'objet d'un plan de traitement formalisé et approuvé par le responsable de traitement. Le DPO contrôle la réalisation du plan de traitement."
+        nom: "Les résultats des analyses sont documentés, partagés avec le DPD ou le référent DPD. Ils font l'objet d'un plan d'action formalisé et approuvé par le responsable de traitement. Le DPO ou référent RGPD contrôle la réalisation du plan de traitement."
     conformite_organisation_question_38:
         processus: '@processus_8'
         position: 1
-        nom: "Le DPO ou le référent DPO peut justifier de ses connaissances en matière juridique. Il dispose de canaux d'information pour maintenir à jour ses connaissances : abonnement newsletter CNIL, ouvrages spécialisés, associations compétentes, participation à des séminaires."
+        nom: "Le DPD ou le référent DPD peut justifier de ses connaissances en matière juridique. Il dispose de canaux d'information pour maintenir à jour ses connaissances."
     conformite_organisation_question_39:
         processus: '@processus_8'
         position: 2
-        nom: "Les catégories de collaborateurs directement impliqués dans les traitements de DCP bénéficient de formations ou des sensibilisations spécifiques centrées sur les principes qui les concernent : gestion du consentement, privacy by design, privacy by default, protection contre les traitements non autorisés, exactitude, gestion des droits, violation de données..."
+        nom: "Les catégories de collaborateurs directement impliqués dans les traitements de DCP bénéficient de formations ou des sensibilisations spécifiques centrées sur les principes qui les concernent : gestion du consentement, privacy by design, privacy by default, protection contre les traitements non autorisés, exactitude, gestion des droits, violation de données."
     conformite_organisation_question_40:
         processus: '@processus_8'
         position: 3
-        nom: "Un plan de formation est  établi lorsque la ressource nécessite d'acquérir de nouvelles connaissances pour avoir la compétence attendue : chef de projet privacy by design, gestionnaire de risque, gestionnaire de contrat."
+        nom: "Un plan de formation est établi lorsque le projet nécessite d'acquérir de nouvelles connaissances pour avoir la compétence attendue : chef de projet privacy by design, gestionnaire de risque, gestionnaire de contrat."
     conformite_organisation_question_41:
         processus: '@processus_8'
         position: 4
@@ -186,11 +181,11 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_42:
         processus: '@processus_9'
         position: 1
-        nom: "La structure veille de manière récurrente sur les évolutions de la réglementation comme par exemple: le transfert de données hors UE, les icônes normalisés, les spécificités nationales pour le seuil d'âge des mineurs, le consentement parental pour les données hors ligne, la publication de nouveaux codes de conduite, les certifications ou encore les labels."
+        nom: "La structure veille de manière récurrente sur les évolutions de la réglementation, les spécificités nationales comme par exemple le seuil d'âge des mineurs, le consentement parental pour les données hors ligne, la publication de nouveaux codes de conduite, les certifications ou encore les labels."
     conformite_organisation_question_43:
         processus: '@processus_9'
         position: 2
-        nom: "La structure a clairement identifié une expertise juridique interne ou externe, spécialisée dans le RGPD et ses périmètres connexes comme par exemple les spécifications juridiques locales."
+        nom: "La structure  a clairement identifié une expertise juridique interne ou externe, spécialisée dans le RGPD et ses périmètres connexes comme par exemple les spécifications juridiques locales."
     conformite_organisation_question_44:
         processus: '@processus_9'
         position: 3
@@ -198,15 +193,15 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_45:
         processus: '@processus_9'
         position: 4
-        nom: "Conformément à de multiples articles du RGPD, en cas de violation avérée, la structure est organisée pour analyser et notifier l'incident auprès de l'autorité de contrôle au plus tard dans les 72 h, et si nécessaire en informer les personnes concernées. Elle serait en capacité de produire un bilan décrivant les circonstances, la chronologie, les dommages et leurs conséquences, les actions correctives décidées. Il existe un registre des violations."
+        nom: "Conformément à de multiples articles du RGPD, en cas de violation avérée, la structure  est organisée pour analyser et notifier l'incident auprès de l'autorité de contrôle au plus tard dans les 72 h, et si nécessaire en informer les personnes concernées. Elle serait en capacité de produire un bilan décrivant les circonstances, la chronologie, les dommages et leurs conséquences, les actions correctives décidées. Il existe un registre des violations."
     conformite_organisation_question_46:
         processus: '@processus_10'
         position: 1
-        nom: "Conformément à l'article 32, de manière régulière, la structure teste, analyse, et évalue l'efficacité des mesures techniques et organisationnelles, pour assurer la sécurité du traitement. Les mesures de sécurité en prévention de la violation de données à caractère personnel sont contrôlées régulièrement et en cas de violation de données."
+        nom: "Conformément à l'article 32 du RGPD, l'organisation teste, analyse, et évalue l'efficacité des mesures techniques et organisationnelles, pour assurer la sécurité du traitement. Les mesures de sécurité en prévention de la violation de données à caractère personnel sont contrôlées régulièrement et sont aplliquées en cas de violation de données."
     conformite_organisation_question_47:
         processus: '@processus_10'
         position: 2
-        nom: "Les évaluations internes sont réalisées par le DPO ou le référent DPO. Lorsque l'évaluation est réalisée par une autre personne physique ou morale, les critères d'évaluation sont définis en collaboration avec le DPO ou le référent DPO."
+        nom: "Les évaluations internes sont réalisées par le DPD ou le référent DPD. Lorsque l'évaluation est réalisée par une autre personne physique ou morale, les critères d'évaluation sont définis en collaboration avec le DPD ou le référent DPD."
     conformite_organisation_question_48:
         processus: '@processus_10'
         position: 3
@@ -214,19 +209,19 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_49:
         processus: '@processus_10'
         position: 4
-        nom: "Tout rapport d'évaluation ou d'audit fait l'objet d'un plan d'action correctif et préventif dont la réalisation est contrôlée par le DPO ou le référent DPO. Ces rapports sont intégrés dans le bilan annuel du DPO ou du référent DPO."
+        nom: "Tout rapport d'évaluation ou d'audit fait l'objet d'un plan d'action correctif et préventif dont la réalisation est contrôlée par le DPD ou le référent DPD. Ces rapports sont intégrés dans le bilan annuel du DPD ou du référent DPD."
     conformite_organisation_question_50:
         processus: '@processus_11'
         position: 1
-        nom: "Il existe un processus de gestion de la documentation applicable au RGPD et comprenant a minima : une organisation du stockage, des règles de marquage, nommage et versioning."
+        nom: "Il existe un processus de gestion de la documentation applicable au RGPD et comprenant a minima : une organisation du stockage, des règles de marquage, de nommage et de  versioning."
     conformite_organisation_question_51:
         processus: '@processus_11'
         position: 2
-        nom: "Le DPO ou le référent DPO a établi une  liste des documents  à produire comme par exemple  : politique générale de protection des données, politique de gestion des données,  compte rendu de gouvernance, registre des traitements, procédures relative à l'exercice des droits de la personne concernée, modèle de cadrage d'un projet Privacy by design, poltique de sécurité. "
+        nom: "Le DPD ou le référent DPD a établi une liste des documents à produire comme par exemple : politique générale de protection des données, politique de gestion des données, compte rendu de gouvernance, registre des traitements, procédures relative à l'exercice des droits de la personne concernée, modèle de cadrage d'un projet Privacy by design, politique de sécurité."
     conformite_organisation_question_52:
         processus: '@processus_11'
         position: 3
-        nom: "Conformément à l'article 47, les groupes d'organisations engagées dans une activité conjointe ayant définis des codes de conduite doivent préciser la procédure de validation et de révision de leur contenu par le responsable du traitement."
+        nom: "Conformément à l'article 47  du RGPD , les groupes de collectivités engagées dans une activité publique conjointe ayant définis des codes de conduite, ou des règles  contraignantes doivent préciser la procédure de validation et de révision de leur contenu par le responsable du traitement."
     conformite_organisation_question_53:
         processus: '@processus_11'
         position: 4
@@ -234,17 +229,16 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_54:
         processus: '@processus_12'
         position: 1
-        nom: "Il existe une cartographie des processus de gestion des données mentionnant les objectifs, les rôles et responsabilités, les activités et les éléments de sortie.
-              Si le DPO ou le référent DPO ne réalise pas les activités des processus, il les coordonne et les contrôle."
+        nom: "S'il existe déjà une organisation interne basée sur les processus, elle communiquée au DPD pour qu'il adapte l'accompagnement. La cartographie des processus de gestion des données détaille les éléments d'entrées et de sorties et mentionne les objectifs, les rôles et responsabilités, les activités."
     conformite_organisation_question_55:
         processus: '@processus_12'
         position: 2
-        nom: "L'ensemble des plans d'action, plan de traitement, plan de progrès sont consolidés dans un tableau unique afin de s'assurer de leur réalisation."
+        nom: "L'ensemble des actions sont consolidées dans un seul et même tableau afin de s'assurer de leure réalisation."
     conformite_organisation_question_56:
         processus: '@processus_12'
         position: 3
-        nom: "Le DPO ou le référent DPO a défini un tableau de bord comprend des indicateurs permettent d'apprécier la conformité au règlement et les progrès réalisés. Les indicateurs sont simples à comprendre et partageable avec les membres de la gouvernance. Exemple d'indicateurs : maturité des processus du système de gestion, ratio d'actions réalisées et à réaliser, ratio nombre de traitement interne/sous-traités."
+        nom: "Le DPD ou le référent DPD  a mis en place un tableau de bord qui comprend des indicateurs permettant de mesurer la conformité au règlement et les progrès réalisés.Les indicateurs sont simples à comprendre et partageable avec les membres de la gouvernance. Exemple d'indicateurs : maturité des processus du système de gestion, ratio d'actions réalisées et à réaliser, ratio nombre de traitement interne/sous-traités."
     conformite_organisation_question_57:
         processus: '@processus_12'
         position: 4
-        nom: "Conformément aux lignes directrices DPO, le DPO ou le référent DPO produit un bilan annuel (Rapport annuel) partagé avec la structure de gouvernance et validé par le responsable du traitement..Ce rapport comprend entre autre : bilan de conformité des traitements, bilan des opérations de sensibilisation, bilan des PIA, bilan de plan de progrès."
+        nom: "Conformément aux lignes directrices relatifs au DPD, le DPD ou le référent DPD produit un bilan annuel (Rapport annuel) partagé avec la structure de gouvernance et validé par le responsable du traitement.Ce rapport comprend entre autre : bilan de conformité des traitements, bilan des opérations de sensibilisation, bilan des PIA, bilan de plan d'actions."

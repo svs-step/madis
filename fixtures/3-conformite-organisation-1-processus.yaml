@@ -3,9 +3,10 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         nom: "Responsabilités"
         couleur: danger
         position: 1
-        description: "Définir et communiquer aux personnes concernées la politique générale de protection des données de l'entreprise
-                      Définir, mettre en œuvre et réexaminer la politique de gestion des données (Processus, ressources, mesures)
-                      S’assurer que la politique de gestion des données est communiquée, comprise et appliquée au sein de l’entreprise"
+        description: "Définir et communiquer aux personnes concernées la politique générale de protection des données de la structure.
+                      Définir, mettre en œuvre et réexaminer la politique de gestion des données (processus, ressources, mesures).
+                      S'assurer que la politique de gestion des données est communiquée, comprise et appliquée au sein de la structure."
+
     processus_2:
         nom: "Traitements et transferts de données"
         couleur: info
@@ -36,7 +37,8 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         nom: "Gestion des mesures de sécurité"
         couleur: info #TODO Temp, need more info
         position: 6
-        description: "En relation avec la fonction sécurité de l'information de l'entreprise, mettre en œuvre les mesures de protection sélectionnées afin de répondre aux objectifs de disponibilité, d’intégrité et de confidentialité des DCP.
+        description: "En relation avec le service sécurité de l'information de l'entreprise, mettre en œuvre les mesures de protection sélectionnées afin de répondre aux objectifs de disponibilité,
+                      d’intégrité et de confidentialité des données à caractère personnel.
                       Détecter les incidents de sécurité pouvant avoir pour conséquence une violation de données"
 
     processus_7:
@@ -49,8 +51,9 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         nom: "Sensibiliser, former et communiquer"
         couleur: info #TODO Temp, need more info
         position: 8
-        description: "S'assurer que le personnel à qui ont été affectées les responsabilités définies dans le SMDCP, a les compétences nécessaires pour exécuter les tâches requises.
-                      S'assurer que tout le personnel approprié a conscience de la pertinence et de l'importance de ses activités liées aux traitements des DCP."
+        description: "S'assurer que le personnel à qui ont été affectées les responsabilités définies dans le SMDCP (Système de management de la protection des données),
+                     a les compétences nécessaires pour exécuter les tâches requises. S'assurer que tout le personnel approprié a conscience de la pertinence et de l'importance
+                     de ses activités liées aux traitements des DCP."
 
     processus_9:
         nom: "Exigences, sollicitations, violations, poursuites"
@@ -64,11 +67,11 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         nom: "Évaluer et auditer"
         couleur: info #TODO Temp, need more info
         position: 10
-        description: "A intervalles réguliers, vérifier que le SMDCP est conforme à la politique définie.
+        description: "A intervalles réguliers, vérifier que le Système de management de la protection des données est conforme à la politique définie.
                       Apporter la preuve que les traitements effectués par le responsable du traitement et les sous-traitants sont conformes au règlement"
 
     processus_11:
-        nom: "Gérer de la documentation et des preuves"
+        nom: "Gestion de la documentation et des preuves"
         couleur: info #TODO Temp, need more info
         position: 11
         description: "Gérer le patrimoine documentaire attaché à la protection des données
@@ -78,5 +81,5 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         nom: "Piloter le SMDCP"
         couleur: info #TODO Temp, need more info
         position: 12
-        description: "Disposer d'indicateurs pour piloter l'efficacité des processus du  SMDCP.
+        description: "Disposer d'indicateurs pour piloter l'efficacité des processus du SMDCP.
                       Produire le bilan (rapport) annuel"
