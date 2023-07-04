@@ -41,7 +41,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class Document
 {
     use HistoryTrait;
-    use CreatorTrait;
     /**
      * @ORM\Id()
      *

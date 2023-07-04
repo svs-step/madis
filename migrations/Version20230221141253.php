@@ -37,7 +37,7 @@ final class Version20230221141253 extends AbstractMigration
         $this->addSql('ALTER TABLE maturity_domain ADD referentiel_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\'');
         $this->addSql('ALTER TABLE maturity_domain ADD CONSTRAINT FK_E88F40BD805DB139 FOREIGN KEY (referentiel_id) REFERENCES maturity_referentiel (id)');
         $this->addSql('CREATE INDEX IDX_E88F40BD805DB139 ON maturity_domain (referentiel_id)');
-        $this->addSql('ALTER TABLE maturity_question ADD position INT NOT NULL, ADD `option` TINYINT(1) NOT NULL, ADD option_reason VARCHAR(255) DEFAULT NULL, CHANGE domain_id domain_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\'');
+        $this->addSql('ALTER TABLE maturity_question ADD position INT NOT NULL, ADD `optional` TINYINT(1) NOT NULL, ADD option_reason VARCHAR(255) DEFAULT NULL, CHANGE domain_id domain_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\'');
         $this->addSql('ALTER TABLE maturity_survey ADD referentiel_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', CHANGE collectivity_id collectivity_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\', CHANGE creator_id creator_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:uuid)\'');
         $this->addSql('ALTER TABLE maturity_survey ADD CONSTRAINT FK_E279C54A805DB139 FOREIGN KEY (referentiel_id) REFERENCES maturity_referentiel (id)');
         $this->addSql('CREATE UNIQUE INDEX UNIQ_E279C54A805DB139 ON maturity_survey (referentiel_id)');

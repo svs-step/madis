@@ -11,7 +11,7 @@
 
         <field name="name" column="name"/>
         <field name="position" column="position" type="integer"/>
-        <field name="option" column="option" type="boolean"/>
+        <field name="optional" column="optional" type="boolean"/>
         <field name="weight" column="weight" type="integer"/>
         <field name="optionReason" column="option_reason" nullable="true" type="string"/>
 

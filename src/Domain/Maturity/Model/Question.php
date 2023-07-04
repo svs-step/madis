@@ -47,7 +47,7 @@ class Question
 
     private int $weight;
 
-    private bool $option;
+    private bool $optional;
 
     private ?string $optionReason;
 
@@ -162,14 +162,14 @@ class Question
         $this->weight = $weight;
     }
 
-    public function getOption(): ?bool
+    public function getOptional(): ?bool
     {
-        return $this->option;
+        return $this->optional;
     }
 
-    public function setOption(?bool $option): void
+    public function setOptional(?bool $optional): void
     {
-        $this->option = $option;
+        $this->optional = $optional;
     }
 
     public function getOptionReason(): ?string
