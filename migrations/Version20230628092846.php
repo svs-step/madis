@@ -12,22 +12,21 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20230628092846 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return '';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('UPDATE registry_violation SET notification = "no_notif" where notification IS NULL');
         $this->addSql('UPDATE registry_violation SET notification = "no_notif" where notification = "none"');
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
-
     }
 }

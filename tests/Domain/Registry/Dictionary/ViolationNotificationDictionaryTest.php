@@ -46,7 +46,7 @@ class ViolationNotificationDictionaryTest extends TestCase
     public function testDictionary()
     {
         $data = [
-            ViolationNotificationDictionary::NOTIFICATION_NOTHING      => 'Aucune notification',
+            ViolationNotificationDictionary::NOTIFICATION_NOTHING      => 'Aucune notification à envoyer',
             ViolationNotificationDictionary::NOTIFICATION_CROSS_BORDER => 'Cette notification concerne un traitement transfrontalier ciblant des personnes de différents états membres',
             ViolationNotificationDictionary::NOTIFICATION_CNIL         => 'La violation a ou va être notifiée à la CNIL',
             ViolationNotificationDictionary::NOTIFICATION_OTHER        => 'La violation a ou va être notifiée à une autre autorité en charge de la protection des données',
