@@ -1,4 +1,3 @@
-{% set submitValue = submitValue|default('action.submit'|trans) %}
 {% if form.vars.value.createdAt.timestamp is defined %}
     {% set submitValue = submitValue|default('registry.conformite_organisation.action.edit_submit'|trans) %}
 {% else %}

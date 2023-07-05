@@ -155,7 +155,8 @@ registry:
             new: Nouveau logiciel ou support
             edit: Modifier
             delete: Supprimer
-            submit: Sauvegarder
+            new_submit: Créer le logiciel ou support
+            edit_submit: Modifier le logiciel ou support
             back_to_list: Retour à la liste
             print_all: Générer une impression
             print: Imprimer
