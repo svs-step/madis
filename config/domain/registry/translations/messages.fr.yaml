@@ -478,6 +478,7 @@ registry:
             report: Générer une impression
             new_submit: Créer l'évaluation du traitement
             edit_submit: Modifier l'évaluation du traitement
+            edit_config_submit: Modifier la configuration
             draft: Enregistrer le brouillon
         breadcrumb:
             create: Créer
@@ -644,7 +645,7 @@ registry:
             security_tracability: Traçabilité
             security_update: Mise à jour
             service: Service
-            shelfLife: Délai de conservation
+            shelf_lifes: Délai de conservation
             software: Logiciels et supports
             statut: Statut
             ultimate_fate: Sort final

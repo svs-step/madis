@@ -26,7 +26,7 @@
 
 {% block body %}
 
-    {% set submitValue = submitValue|default('action.submit'|trans) %}
+    {% set submitValue = submitValue|default('registry.treatment.action.edit_config_submit'|trans) %}
 
     {{ form_start(form) }}
     {{ form_widget(form._token) }}
@@ -154,7 +154,7 @@
                     {{ form_row(form.tools) }}
                     {{ form_row(form.paperProcessing) }}
 
-                    {{ form_row(form.delay) }}
+                    {{ form_row(form.shelfLifes) }}
 
                     {{ form_row(form.dataOrigin) }}
                     {{ form_row(form.collectingMethod) }}

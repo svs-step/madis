@@ -50,6 +50,8 @@ user:
             back_to_list: Retour à la liste
             back_to_show: Retour à la visualisation
             new: Nouvelle structure
+            edit_submit: Modifier la structure
+            new_submit: Créer la structure
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
@@ -229,6 +231,8 @@ user:
             back_to_list: Retour à la liste
             new: Nouvel utilisateur
             not_archived: Voir les utilisateurs non archivés
+            edit_submit: Modifier l'utilisateur
+            new_submit: Créer l'utilisateur
         breadcrumb:
             list: Liste des utilisateurs
             create: Créer
