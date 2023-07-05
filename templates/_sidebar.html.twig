@@ -148,7 +148,7 @@
                     <li  {% if menuItem == 'registry_conformite_organisation' %}class="active"{% endif %}>
                         <a aria-label="Conformité" href="{{ path('registry_conformite_organisation_list') }}">
                             <i class="fa fa-clipboard-list"></i>
-                            <span>Conformité de la structure</span>
+                            <span>{{ 'sidebar_menu.conformite_structure'|trans }}</span>
                         </a>
                     </li>
                 {% endif %}

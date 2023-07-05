@@ -29,7 +29,9 @@
                 <span>{{ 'sidebar_menu.dashboard'|trans }}</span>
             </a>
             <ul>
-                <li><a aria-label="Notifications" href="{{ path('notification_notification_list') }}">Centre de notifications</a></li>
+                {% if app_activate_notifications is same as "true" %}
+                    <li><a aria-label="Notifications" href="{{ path('notification_notification_list') }}">Centre de notifications</a></li>
+                {% endif %}
                 <li><a aria-label="{{ 'sidebar_menu.registry_treatments'|trans }}" href="{{ path('registry_treatment_list') }}">
                     <span>Liste des traitements (Actif)</span>
                     </a>
@@ -49,6 +51,11 @@
                 <li><a aria-label="{{ 'sidebar_menu.registry_contractors'|trans }}" href="{{ path('registry_contractor_list') }}">
                     <span>Liste des sous-traitants</span>
                 </a></li>
+                {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleTools == true %}
+                    <li><a aria-label="{{ 'sidebar_menu.registry_tools'|trans }}" href="{{ path('registry_tool_list') }}">
+                            <span>Liste des logiciels et supports</span>
+                        </a></li>
+                {% endif %}
                 <li><a aria-label="{{ 'sidebar_menu.registry_requests'|trans }}" href="{{ path('registry_request_list') }}">
                     <span>Liste des demandes (Non archivés)</span>
                     </a>
@@ -91,21 +98,7 @@
                     </li>
                     <li>
                         <a aria-label="{{ 'sidebar_menu.aipd_mesure_protection'|trans }}" href="{{ path('aipd_mesure_protection_list') }}">
-                            <span>{{ 'sidebar_menu.aipd_mesure_protection'|trans }}</span>
-                        </a>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement == true %}
-                    <li>
-                        <a aria-label="{{ 'sidebar_menu.aipd_analyse_impact'|trans }}" href="{{ path('aipd_analyse_impact_list') }}">
-                            <span>{{ 'sidebar_menu.aipd_analyse_impact'|trans }}</span>
-                        </a>
-                    </li>
-                {% endif %}
-                {% if is_granted('ROLE_ADMIN') %}
-                    <li>
-                        <a aria-label="{{ 'sidebar_menu.aipd_modele'|trans }}" href="{{ path('aipd_modele_analyse_list') }}">
-                            <span>Liste des modèles d'analyse</span>
+                            <span>Liste des mesures de protection</span>
                         </a>
                     </li>
                 {% endif %}
@@ -121,6 +114,13 @@
                         <span>Liste des indices de maturité</span>
                     </a>
                 </li>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li>
+                        <a aria-label="{{ 'sidebar_menu.maturity_referentiel'|trans }}" href="{{ path('maturity_referentiel_list') }}">
+                            <span>{{ 'sidebar_menu.maturity_referentiel'|trans }}</span>
+                        </a>
+                    </li>
+                {% endif %}
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement %}
                 <li>
                     <a aria-label="{{ 'sidebar_menu.conformite_traitements'|trans }}" href="{{ path('registry_conformite_traitement_list') }}">
@@ -131,7 +131,7 @@
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteOrganisation %}
                     <li>
                         <a aria-label="Conformité" href="{{ path('registry_conformite_organisation_list') }}">
-                            <span>Conformité de l'organisation</span>
+                            <span>{{ 'sidebar_menu.conformite_structure'|trans }}</span>
                         </a>
                     </li>
                 {% endif %}
