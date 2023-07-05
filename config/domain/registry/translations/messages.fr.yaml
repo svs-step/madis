@@ -295,8 +295,8 @@ registry:
             show: Visualiser une action de protection
         modal:
           cancel: Annuler la création
-          create: Créer
-          title: Ajouter une action de protection
+          create: Créer l'action de protection
+          title: Créer une action de protection
 
     proof:
         action:
@@ -476,8 +476,8 @@ registry:
             inactive: Voir les traitements inactifs
             new: Nouveau traitement
             report: Générer une impression
-            new_submit: Créer le traitement
-            edit_submit: Modifier le traitement
+            new_submit: Créer l'évaluation du traitement
+            edit_submit: Modifier l'évaluation du traitement
             draft: Enregistrer le brouillon
         breadcrumb:
             create: Créer
