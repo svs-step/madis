@@ -50,10 +50,10 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
         $nbTotal = \count($data);
 
         foreach ($data as $violation) {
-            $cellDate   = [];
-            $cellDate[] = $this->getDate($violation->getDate(), 'd/m/Y');
+
+            $cellDate = $this->getDate($violation->getDate(), 'd/m/Y');
             if ($violation->isInProgress()) {
-                $cellDate[] = '(Toujours en cours)';
+                $cellDate .= '(Toujours en cours)';
             }
             $tableData[] = [
                 $cellDate,
@@ -135,11 +135,11 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
 
         foreach ($data as $violation) {
             /** @var Violation $violation */
-            $cellDate   = [];
-            $cellDate[] = $this->getDate($violation->getDate(), 'd/m/Y');
+            $cellDate = $this->getDate($violation->getDate(), 'd/m/Y');
             if ($violation->isInProgress()) {
-                $cellDate[] = '(Toujours en cours)';
+                $cellDate .= '(Toujours en cours)';
             }
+
             $natures     = join(', ', array_map(function ($n) { return ViolationNatureDictionary::getNatures()[$n] ?? $n; }, (array) $violation->getViolationNatures()));
             $tableData[] = [
                 $cellDate,

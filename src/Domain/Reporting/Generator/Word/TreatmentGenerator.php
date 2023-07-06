@@ -153,7 +153,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addListItem("{$security['saving']} sont sauvegardés");
         $section->addListItem("{$security['update']} sont mis à jour");
 
-        $section->addText('Par ailleurs des mesures de protection ont été mises en place sur les X traitements non informatisés.');
+        $section->addText('Par ailleurs des mesures de protection ont été mises en place sur les '.$nbTreatments - $digitalisation['digital'].' traitements non informatisés.');
     }
 
     public function addSyntheticView(Section $section, array $data, bool $forOverviewReport = false): void
