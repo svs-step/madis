@@ -4,6 +4,8 @@ aipd:
             import: Importer un modèle
             new: Nouveau modèle
             back_to_list: Retour à la liste
+            new_submit: Créer le modèle
+            edit_submit: Modifier le modèle
         title:
             create: Créer un modèle
             edit: Modifier un modèle
@@ -33,7 +35,8 @@ aipd:
         action:
             new: Nouvelle mesure
             back_to_list: Retour à la liste
-            new_submit : Enregistrer
+            new_submit : Créer la mesure
+            edit_submit : Modifier la mesure
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"

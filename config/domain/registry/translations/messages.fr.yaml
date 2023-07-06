@@ -155,7 +155,8 @@ registry:
             new: Nouveau logiciel ou support
             edit: Modifier
             delete: Supprimer
-            submit: Sauvegarder
+            new_submit: Créer le logiciel ou support
+            edit_submit: Modifier le logiciel ou support
             back_to_list: Retour à la liste
             print_all: Générer une impression
             print: Imprimer
@@ -294,8 +295,8 @@ registry:
             show: Visualiser une action de protection
         modal:
           cancel: Annuler la création
-          create: Créer
-          title: Ajouter une action de protection
+          create: Créer l'action de protection
+          title: Créer une action de protection
 
     proof:
         action:
@@ -475,8 +476,9 @@ registry:
             inactive: Voir les traitements inactifs
             new: Nouveau traitement
             report: Générer une impression
-            new_submit: Créer le traitement
-            edit_submit: Modifier le traitement
+            new_submit: Créer l'évaluation du traitement
+            edit_submit: Modifier l'évaluation du traitement
+            edit_config_submit: Modifier la configuration
             draft: Enregistrer le brouillon
         breadcrumb:
             create: Créer
@@ -643,7 +645,7 @@ registry:
             security_tracability: Traçabilité
             security_update: Mise à jour
             service: Service
-            shelfLife: Délai de conservation
+            shelf_lifes: Délai de conservation
             software: Logiciels et supports
             statut: Statut
             ultimate_fate: Sort final

@@ -24,7 +24,6 @@ action:
     submit: Enregistrer
     new_submit: Créer
     edit_submit: Modifier
-    submit_treatment : Créer le traitement
     unarchive: Rétablir
     validate: Valider
 
@@ -99,6 +98,7 @@ sidebar_menu:
   aipd_analyse_impact: Analyse d'impacts
   configuration_treatments: Configuration des traitements
   conformite_traitements: Conformité des traitements
+  conformite_structure: Conformité de la structure
   dashboard: Tableau de bord
   documentation: Espace documentaire
   maturity_survey: Indice de maturité
