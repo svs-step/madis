@@ -38,7 +38,47 @@ body > div.banner-impersonate {
 .sidebar-menu, .main-sidebar .user-panel, .sidebar-menu>li.header {
     font-size: 14px;
 }
+.sidebar-mini.sidebar-collapse .main-sidebar > .sidebar > .sidebar-menu li.header:hover {
+  overflow: visible;
+  > .sidebar-menu > li:hover > a > span {
+    display: block !important;
+    position: absolute;
+    width: 200px;
+    left: 32px;
+    top: 0;
+    margin-left: -3px;
+    padding: 12px 5px 12px 20px;
+    background-color: inherit;
+  }
+}
 
+.sidebar-mini.sidebar-collapse .sidebar-menu > li:not(.treeview) > a > span {
+  border-bottom-right-radius: 4px;
+}
+
+
+.sidebar-mini.sidebar-collapse .main-sidebar > .sidebar > .sidebar-menu li.header{
+  display:block !important;
+  > span {
+    display:none !important;
+  }
+  > .sidebar-menu > li > a {
+    padding: 12px 5px 12px 0 !important;
+  }
+  > ul {
+    display:block !important;
+    width:20px;
+    > li > a {
+      padding: 12px 5px 12px 0 !important;
+    }
+  }
+}
+
+.sidebar-mini .main-sidebar > .sidebar > .sidebar-menu li.header {
+  > .sidebar-menu > li > a {
+    padding: 12px 5px 12px 0 !important;
+  }
+}
 /* Skiplinks */
 .skiplinks {
   position: absolute;

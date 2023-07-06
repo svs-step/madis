@@ -9,7 +9,8 @@
         </li>
 
         {# REGISTRIES #}
-        <li class="header">Registres
+        <li class="header">
+            <span>Registres</span>
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'registry_treatment' %}class="active"{% endif %}>
                     <a aria-label="{{ 'sidebar_menu.registry_treatments'|trans }}" href="{{ path('registry_treatment_list') }}">
@@ -46,7 +47,8 @@
             </ul>
         </li>
         {# PROOF #}
-        <li class="header">Preuves
+        <li class="header">
+            <span>Preuves</span>
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'registry_proof' %}class="active"{% endif %}>
                     <a aria-label="{{ 'sidebar_menu.registry_proofs'|trans }}" href="{{ path('registry_proof_list') }}">
@@ -57,7 +59,8 @@
             </ul>
         </li>
         {# ACTIONS #}
-        <li class="header">Actions
+        <li class="header">
+            <span>Actions</span>
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'registry_mesurement' %}class="active"{% endif %}>
                     <a aria-label="{{ 'sidebar_menu.registry_mesurements'|trans }}" href="{{ path('registry_mesurement_list') }}">
@@ -75,7 +78,8 @@
         </li>
         {# AIPD #}
         {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement == true %}
-        <li class="header">Analyse d'impact
+        <li class="header">
+            <span>Analyse d'impact</span>
             <ul class="sidebar-menu">{% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <li {% if menuItem == 'aipd_modele_analyse' %}class="active"{% endif %}>
@@ -102,7 +106,8 @@
         </li>
         {% endif %}
         {# REPORTING #}
-        <li class="header">Rapports
+        <li class="header">
+            <span>Rapports</span>
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'maturity_survey' %}class="active"{% endif %}>
                     <a aria-label="{{ 'sidebar_menu.maturity_survey'|trans }}" href="{{ path('maturity_survey_list') }}">
@@ -128,7 +133,8 @@
         </li>
         {# CONFORMITE #}
         {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement == true or app.user.collectivity.hasModuleConformiteOrganisation == true %}
-            <li class="header">Conformité
+            <li class="header">
+                <span>Conformité</span>
                 <ul class="sidebar-menu">
                     {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement %}
                         <li {% if menuItem == 'registry_conformite_traitement' %}class="active"{% endif %}>
@@ -151,7 +157,8 @@
         {% endif %}
         {# CONFIGURATION #}
         {% if is_granted('ROLE_ADMIN') %}
-            <li class="header">Configuration
+            <li class="header">
+                <span>Configuration</span>
                 <ul class="sidebar-menu">
                     {% if is_granted('ROLE_ADMIN') %}
                         <li {% if menuItem == 'registry_treatment_configuration' %}class="active"{% endif %}>
@@ -165,7 +172,8 @@
             </li>
         {% endif %}
         {# DOCUMENTATION #}
-        <li class="header">Centre d'aide
+        <li class="header">
+            <span>Centre d'aide</span>
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'documentation' %}class="active"{% endif %}>
                     <a aria-label="{{ 'sidebar_menu.documentation'|trans }}" href="{{ path('documentation_document_index') }}">
@@ -176,7 +184,8 @@
             </ul>
         </li>
         {# ADMINISTRATION #}
-        <li class="header">Espace d'administration
+        <li class="header">
+            <span>Espace d'administration</span>
             <ul class="sidebar-menu">
                 {% if is_granted('ROLE_REFERENT') %}
                     {# Referent is not allowed to duplicate#}
