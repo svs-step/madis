@@ -34,7 +34,7 @@ class Keycloak extends AbstractProvider
      * https://tools.ietf.org/html/draft-ietf-jose-json-web-algorithms-40
      * for a list of spec-compliant algorithms.
      */
-    public ?string  $encryptionAlgorithm = null;
+    public ?string $encryptionAlgorithm = null;
 
     /**
      * Encryption key.

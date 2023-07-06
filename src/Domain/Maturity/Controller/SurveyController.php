@@ -70,7 +70,7 @@ class SurveyController extends CRUDController
 
     protected Repository\Question $questionRepository;
 
-    private Repository\Referentiel  $referentielRepository;
+    private Repository\Referentiel $referentielRepository;
     private $router;
     private RequestStack $requestStack;
 
