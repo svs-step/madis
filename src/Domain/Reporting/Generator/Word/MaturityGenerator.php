@@ -144,7 +144,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             }
         }
         $table = $section->addTable(['unit' => TblWidth::PERCENT, 'width' => 5000]);
-        $row   = $table->addRow(null, ['cantsplit' => true]);
+        $row   = $table->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
         if (!empty($serie2)) {
             $cell = $row->addCell(2500);
             if (isset($data['old'])) {

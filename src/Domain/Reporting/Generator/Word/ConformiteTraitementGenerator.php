@@ -445,7 +445,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
         // Affichage du header du tableau
         $tableSyntheticAnnexeList = $section->addTable($this->tableStyle);
-        $tableSyntheticAnnexeList->addRow();
+        $tableSyntheticAnnexeList->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
         $cell = $tableSyntheticAnnexeList->addCell(1000, ['bgColor' => '3c8dbc', 'vMerge' => 'restart', 'vAlign' => 'bottom']);
         $cell->addText('Traitements', $this->textHeadStyle);
 
