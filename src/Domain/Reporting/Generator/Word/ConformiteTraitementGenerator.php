@@ -187,7 +187,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
         $section->addText("Une analyse d’impact sur la protection des données est une étude, qui doit être réalisée si possible en amont du projet, sur des traitements contenant des critères susceptibles d'engendrer un risque élevé pour les droits et libertés des personnes concernées. ");
         if (0 === $cntAipdRealised) {
-            $section->addText('A ce jour, il n’y a pas eu d’Analyse d’impact réalisées.');
+            $section->addText('À ce jour, il n’y a pas eu d’Analyse d’impact réalisées.');
         }
 
         $textrun = $section->addTextRun();
@@ -298,7 +298,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             'favorable'         => 'Favorable',
             'defavorable'       => 'Défavorable',
             'pas_de_reponse'    => 'Pas de reponse',
-            'favorable_reserve' => 'Favorable avec reserve',
+            'favorable_reserve' => 'Favorable avec réserve',
         };
 
         return $return_value;

@@ -557,7 +557,7 @@ registry:
                 archive: Traitement "%object%" archivé avec succès
         list:
             sensitive_data: Données sensibles
-            access_control: Controle d'accès
+            access_control: Contrôle d'accès
             active: Statut
             author: En tant que
             collectivity: Structure

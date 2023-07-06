@@ -122,7 +122,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         $section->addListItem('1. Organiser la conformité');
         $section->addListItem('2. Gérer les exigences et les poursuites');
         $section->addListItem('3. Gérer les sous-traitants de DCP');
-        $section->addListItem('4. Evaluer et auditer');
+        $section->addListItem('4. Évaluer et auditer');
         $section->addListItem('5. Gérer les traitements');
         $section->addListItem('6. Sensibiliser, former, communiquer');
         $section->addListItem('7. Gérer les risques et les impacts sur la vie privée');
@@ -135,7 +135,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         $this->average = 0;
         $tableData     = $this->getConformitesTable($conformites);
 
-        $section->addText('Le graphique représente la situation au ' . date('d/m/Y') . '. Sur l’ensemble des processus, la moyenne est de ' . round($this->average, 2) . '/5. A chaque processus, des propositions d’améliorations sont faites puis retranscrites dans le plan de progrès.');
+        $section->addText('Le graphique représente la situation au ' . date('d/m/Y') . '. Sur l’ensemble des processus, la moyenne est de ' . round($this->average, 2) . '/5. À chaque processus, des propositions d’améliorations sont faites puis retranscrites dans le plan de progrès.');
 
         $section->addChart('column', $this->extractConformiteProcessus($evaluation), $scores, $style);
 
