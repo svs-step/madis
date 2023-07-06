@@ -55,8 +55,8 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             [
                 'Traitement',
                 'Gestionnaire',
-                'Conformité',
                 'Date de révision de la conformité',
+                'Conformité',
             ],
         ];
 
@@ -317,8 +317,8 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             [
                 'Traitement',
                 'Gestionnaire',
-                'Conformité',
                 'Date de révision de la conformité',
+                'Conformité',
             ],
         ];
 
@@ -335,8 +335,8 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             $tableData[] = [
                 $treatment->getName(),
                 $treatment->getManager(),
-                ConformiteTraitementLevelDictionary::getConformites()[$level],
                 $this->getDate($date, 'd/m/Y'),
+                ConformiteTraitementLevelDictionary::getConformites()[$level],
             ];
         }
 
