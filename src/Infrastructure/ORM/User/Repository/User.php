@@ -317,7 +317,7 @@ class User extends CRUDRepository implements Repository\User
                 $qb->expr()->isNull('o.createdAt'),
                 'o.createdAt < :monthsAgo'
             ))
-            ->setParameter('monthsAgo', $monthsAgo->format('Y-m-d H:i:s'))
+            ->setParameter('monthsAgo', $monthsAgo->format('Y-m-d H:i'))
             ->getQuery();
 
         return $query->getResult()

@@ -23,7 +23,7 @@ final class Version20230602065458 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
         $id = Uuid::uuid4();
-        $this->addSql('INSERT INTO maturity_referentiel(id, name, description, created_at, updated_at) VALUES (?, ?, ?, ?, ?)', [$id, 'Indice de maturité', null, date_create()->format('Y-m-d H:i:s'), date_create()->format('Y-m-d H:i:s')]);
+        $this->addSql('INSERT INTO maturity_referentiel(id, name, description, created_at, updated_at) VALUES (?, ?, ?, ?, ?)', [$id, 'Indice de maturité', null, date_create()->format('Y-m-d H:i'), date_create()->format('Y-m-d H:i')]);
         $this->addSql('UPDATE maturity_domain SET referentiel_id=? WHERE referentiel_id IS NULL', [$id]);
         $this->addSql('UPDATE maturity SET referentiel_id=? WHERE referentiel_id IS NULL', [$id]);
         $this->addSql('UPDATE maturity_survey SET referentiel_id=? WHERE referentiel_id IS NULL', [$id]);

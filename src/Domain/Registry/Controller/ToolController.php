@@ -262,8 +262,8 @@ class ToolController extends CRUDController
                 'contractors'    => Model\Tool::generateLinkedDataColumn($tool->getContractors()),
                 'proofs'         => Model\Tool::generateLinkedDataColumn($tool->getProofs()),
                 'mesurements'    => Model\Tool::generateLinkedDataColumn($tool->getMesurements()),
-                'createdAt'      => $tool->getCreatedAt()->format('d-m-Y H:i:s'),
-                'updatedAt'      => $tool->getUpdatedAt()->format('d-m-Y H:i:s'),
+                'createdAt'      => $tool->getCreatedAt()->format('d-m-Y H:i'),
+                'updatedAt'      => $tool->getUpdatedAt()->format('d-m-Y H:i'),
                 'actions'        => $this->generateActionCell($tool),
                 'updatedBy'      => $tool->getUpdatedBy(),
             ];
