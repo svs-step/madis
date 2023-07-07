@@ -102,7 +102,7 @@ class RequestType extends AbstractType
 
                         return $qb;
                     },
-                    'required' => false,
+                    'required'      => false,
                 ])
             ;
         }
@@ -180,14 +180,14 @@ class RequestType extends AbstractType
                         ->setParameter(':collectivity', $collectivity)
                         ->orderBy('s.name', 'ASC');
                 },
-                'attr' => [
+                'attr'          => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_traitement_associe',
                 ],
-                'required' => false,
-                'multiple' => true,
-                'expanded' => false,
+                'required'      => false,
+                'multiple'      => true,
+                'expanded'      => false,
             ])
             ->add('updatedBy', HiddenType::class, [
                 'required' => false,

@@ -30,7 +30,6 @@ use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Model\Mesurement;
-use App\Domain\Registry\Model\ShelfLife;
 use App\Domain\User\Repository\Collectivity;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement\Question;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
@@ -117,7 +116,7 @@ class TreatmentGenerator extends AbstractGenerator
             );
             array_push($data, $extract);
         }
-        //dd($data);
+        // dd($data);
         return $data;
     }
 
@@ -224,7 +223,7 @@ class TreatmentGenerator extends AbstractGenerator
     {
         return [
             $treatment->getRecipientCategory(),
-            implode(' - ', \iterable_to_array($treatment->getContractors())) ? : '',
+            implode(' - ', \iterable_to_array($treatment->getContractors())) ?: '',
         ];
     }
 
@@ -288,15 +287,15 @@ class TreatmentGenerator extends AbstractGenerator
 
         $shelfLifes = $treatment->getShelfLifes();
 
-        $duration = '';
-        $name = '';
+        $duration     = '';
+        $name         = '';
         $ultimateFate = '';
 
         if (count($shelfLifes) > 0) {
             foreach ($shelfLifes as $key => $shelfLife) {
-                $duration .= $key+1 . ': ' . $shelfLife->duration . " \r\n";
-                $name .= $key+1 . ': ' . $shelfLife->name . "\r\n";
-                $ultimateFate .= $key+1 . ': ' . $shelfLife->ultimateFate . "\r\n";
+                $duration .= $key + 1 . ': ' . $shelfLife->duration . " \r\n";
+                $name .= $key + 1 . ': ' . $shelfLife->name . "\r\n";
+                $ultimateFate .= $key + 1 . ': ' . $shelfLife->ultimateFate . "\r\n";
             }
         }
 

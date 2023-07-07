@@ -72,7 +72,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
                 ];
             } elseif (!\is_null($mesurement->getPlanificationDate()) && MesurementStatusDictionary::STATUS_NOT_APPLIED === $mesurement->getStatus()) {
                 $actionPlan[] = [
-                    'data' => [
+                    'data'  => [
                         $mesurement->getPriority(),
                         $mesurement->getName(),
                         $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',

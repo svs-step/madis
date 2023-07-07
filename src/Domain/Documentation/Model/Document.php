@@ -42,7 +42,6 @@ class Document
     use HistoryTrait;
     /**
      * @ORM\Id()
-     *
      * @ORM\Column(type="uuid")
      *
      * @var UuidInterface
@@ -115,7 +114,6 @@ class Document
 
     /**
      * @ORM\ManyToMany(targetEntity="Category", inversedBy="documents")
-     *
      * @ORM\JoinTable(name="document_categories",
      *      joinColumns={@ORM\JoinColumn(name="category_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="document_id", referencedColumnName="id")}
@@ -127,7 +125,6 @@ class Document
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Domain\User\Model\User", inversedBy="favoriteDocuments")
-     *
      * @ORM\JoinTable(name="user_favorite_documents",
      *      joinColumns={@ORM\JoinColumn(name="document_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")}
@@ -139,7 +136,6 @@ class Document
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Domain\User\Model\User", cascade={"persist"})
-     *
      * @ORM\JoinColumn(onDelete="SET NULL")
      *
      * @var User|null
