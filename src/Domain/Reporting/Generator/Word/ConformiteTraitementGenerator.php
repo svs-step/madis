@@ -33,6 +33,7 @@ use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Element\Table;
 use PhpOffice\PhpWord\Shared\Converter;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
+use PhpOffice\PhpWord\Style\ListItem;
 
 class ConformiteTraitementGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
@@ -89,16 +90,17 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         }
 
         $section->addText('Les 10 critères suivants correspondent aux principes fondamentaux du RGPD et ont fait l’objet d’une évaluation :');
-        $section->addListItem('1. Finalités');
-        $section->addListItem('2. Licéité');
-        $section->addListItem('3. Minimisation des données');
-        $section->addListItem('4. Qualité des données');
-        $section->addListItem('5. Durée de conservation');
-        $section->addListItem('6. Information des personnes concernées');
-        $section->addListItem('7. Recueil de consentement');
-        $section->addListItem('8. Exercice des différents droits');
-        $section->addListItem('9. Sous-traitance');
-        $section->addListItem('10. Transferts en dehors de l’union européenne');
+        $listStyle = array('listType'=>ListItem::TYPE_NUMBER);
+        $section->addListItem('Finalités', 0, null, $listStyle);
+        $section->addListItem('Licéité', 0, null, $listStyle);
+        $section->addListItem('Minimisation des données', 0, null, $listStyle);
+        $section->addListItem('Qualité des données', 0, null, $listStyle);
+        $section->addListItem('Durée de conservation', 0, null, $listStyle);
+        $section->addListItem('Information des personnes concernées', 0, null, $listStyle);
+        $section->addListItem('Recueil de consentement', 0, null, $listStyle);
+        $section->addListItem('Exercice des différents droits', 0, null, $listStyle);
+        $section->addListItem('Sous-traitance', 0, null, $listStyle);
+        $section->addListItem('Transferts en dehors de l’union européenne', 0, null, $listStyle);
 
         $textrun = $section->addTextRun();
         $textrun->addText('Une synthèse de l’analyse de la conformité des traitements et à valeur de preuve ');

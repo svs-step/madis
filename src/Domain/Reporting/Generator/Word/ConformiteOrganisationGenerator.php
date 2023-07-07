@@ -12,6 +12,7 @@ use App\Domain\User\Dictionary\ContactCivilityDictionary;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
 use PhpOffice\PhpWord\SimpleType\TblWidth;
+use PhpOffice\PhpWord\Style\ListItem;
 
 class ConformiteOrganisationGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
@@ -114,23 +115,24 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         ];
 
         $section->addTitle('Analyse de la conformité de la structure', 2);
-
+        $listStyle = array('listType'=>ListItem::TYPE_NUMBER_NESTED);
+        $section->listItemCounterReset($listStyle, 0);
         $section->addText('Afin de répondre aux objectifs du RGPD, la gestion des DCP est structurée en 12 processus dont les objectifs sont définis dans le document figurant en annexe et à valeur de preuve.');
         $section->addText('Chacun des 12 processus est évalué annuellement et selon l’échelle de maturité ci-après.');
         $section->addText('Lorsque cela est nécessaire une ou plusieurs actions de progrès sont proposées au responsable du traitement pour validation et mise en opération.');
         $section->addText('Liste des 12 processus :');
-        $section->addListItem('1. Organiser la conformité');
-        $section->addListItem('2. Gérer les exigences et les poursuites');
-        $section->addListItem('3. Gérer les sous-traitants de DCP');
-        $section->addListItem('4. Évaluer et auditer');
-        $section->addListItem('5. Gérer les traitements');
-        $section->addListItem('6. Sensibiliser, former, communiquer');
-        $section->addListItem('7. Gérer les risques et les impacts sur la vie privée');
-        $section->addListItem('8. Gérer les droits des personnes concernées');
-        $section->addListItem('9. Gérer les violations de DCP');
-        $section->addListItem('10. Gérer la protection des DCP');
-        $section->addListItem('11. Gérer la documentation et les preuves');
-        $section->addListItem('12. Gérer les opérations du SMDCP');
+        $section->addListItem('Organiser la conformité', 0, null, $listStyle);
+        $section->addListItem('Gérer les exigences et les poursuites', 0, null, $listStyle);
+        $section->addListItem('Gérer les sous-traitants de DCP', 0, null, $listStyle);
+        $section->addListItem('Évaluer et auditer', 0, null, $listStyle);
+        $section->addListItem('Gérer les traitements', 0, null, $listStyle);
+        $section->addListItem('Sensibiliser, former, communiquer', 0, null, $listStyle);
+        $section->addListItem('Gérer les risques et les impacts sur la vie privée', 0, null, $listStyle);
+        $section->addListItem('Gérer les droits des personnes concernées', 0, null, $listStyle);
+        $section->addListItem('Gérer les violations de DCP', 0, null, $listStyle);
+        $section->addListItem('Gérer la protection des DCP', 0, null, $listStyle);
+        $section->addListItem('Gérer la documentation et les preuves', 0, null, $listStyle);
+        $section->addListItem('Gérer les opérations du SMDCP', 0, null, $listStyle);
 
         $this->average = 0;
         $tableData     = $this->getConformitesTable($conformites);
