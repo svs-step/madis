@@ -86,8 +86,10 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             }
         }
 
-        $section->addTitle('Actions de protection mises en place', 2);
-        $section->addText("Afin de protéger les données à caractère personnel, '{$collectivity}' a mis en place des actions de protection. Une liste exhaustive des actions de protection mises en place figure en annexe. Ci-dessous, les 20 dernières actions :");
+        $textrun = $section->addTextRun();
+        $textrun->addText("Afin de protéger les données à caractère personnel, '{$collectivity}' a mis en place des actions de protection. Une ");
+        $textrun->addLink('ActionsImplemented', 'liste exhaustive des actions de protection mises en place', ['underline' => 'single'], [], true);
+        $textrun->addText(" figure en annexe. Ci-dessous, les 20 dernières actions :");
 
         $this->ProtectionActionAppliedTable($section, $appliedMesurement);
 
@@ -132,6 +134,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
 
     public function ProtectionActionAppliedAnnexeTable($section, $data)
     {
+        $section->addBookmark('ActionsImplemented');
         $section->addTitle('Liste des actions de protection mises en place', 2);
         $appliedMesurement = [];
         foreach ($data as $mesurement) {
@@ -155,7 +158,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $cell->addText('Action', $this->textHeadStyle);
 
         if ($appliedMesurement) {
-            foreach ($appliedMesurement as $line) {
+            foreach (array_slice($appliedMesurement,0,20) as $line) {
                 $tableProtectionActionApplied->addRow(400, ['exactHeight' => true, 'cantsplit' => true]);
                 $cell1 = $tableProtectionActionApplied->addCell(1500);
                 $cell1->addText($line[0], [], ['alignment' => 'center']);
