@@ -10,6 +10,7 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="name" column="name" length="80"/>
+        <field name="description" column="description" type="text" nullable="true"/>
         <field name="color" column="color" length="20"/>
         <field name="position" column="position" type="smallint"/>
 
