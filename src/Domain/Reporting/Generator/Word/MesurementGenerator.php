@@ -187,7 +187,13 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             foreach ($actionPlan as $line) {
                 $tableActionPlan->addRow(null, ['cantSplit' => true]);
                 $cell1 = $tableActionPlan->addCell(1000, ['bgColor' => $line['style']['bgColor']]);
-                $cell1->addText($line['data'][0]);
+                $priority = match($line['data'][0]){
+                    'low' => 'Basse',
+                    'normal' => 'Normale',
+                    'high' => 'Haute',
+                    null => 'Aucune',
+                };
+                $cell1->addText($priority, ['bold'  => true]);
                 $cell2 = $tableActionPlan->addCell(2000);
                 $cell2->addText($line['data'][1]);
                 $cell1 = $tableActionPlan->addCell(1000);
