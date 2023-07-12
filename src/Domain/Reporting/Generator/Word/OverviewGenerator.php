@@ -232,21 +232,27 @@ class OverviewGenerator extends AbstractGenerator
 
     public function generateAnnexeMention($document, Section $section, array $treatments = [], array $violations = [], array $mesurements = []): void
     {
-        $section->addTitle('ANNEXES');
-        $this->proofGenerator->ProofList($section);
+        $section->addTitle('Annexes');
+
         $AnnexeTreatmentListSection = $document->addSection(['orientation' => 'portrait']);
         $this->treatmentGenerator->TreatmentAnnexeList($AnnexeTreatmentListSection, $treatments);
-        $AnnexeUserListSection = $document->addSection(['orientation' => 'portrait']);
-        $this->userGenerator->UserList($AnnexeUserListSection);
+
+        $RiskAnnexeSection = $document->addSection(['orientation' => 'landscape']);
+        $this->violationGenerator->AnnexeList($RiskAnnexeSection, $violations);
+
+        $ProofAnnexeSection = $document->addSection(['orientation' => 'portrait']);
+        $this->proofGenerator->ProofList($ProofAnnexeSection);
+
+        $protectionActionSection = $document->addSection(['orientation' => 'portrait']);
+        $this->mesurementGenerator->ProtectionActionAppliedAnnexeTable($protectionActionSection, $mesurements);
 
         $RiskAnnexeSection = $document->addSection(['orientation' => 'landscape']);
         $this->conformiteTraitementGenerator->SyntheticAnnexeList($RiskAnnexeSection, $treatments);
 
-        $riskAipdSection = $document->addSection(['orientation' => 'landscape']);
-        $this->treatmentGenerator->RiskTreatmentAnnexeList($riskAipdSection, $treatments);
-        $this->violationGenerator->AnnexeList($RiskAnnexeSection, $violations);
+        $riskAipdSectionBis = $document->addSection(['orientation' => 'landscape']);
+        $this->treatmentGenerator->RiskTreatmentAnnexeList($riskAipdSectionBis, $treatments);
 
-        $protectionActionSection = $document->addSection(['orientation' => 'portrait']);
-        $this->mesurementGenerator->ProtectionActionAppliedAnnexeTable($protectionActionSection, $mesurements);
+        $AnnexeUserListSection = $document->addSection(['orientation' => 'portrait']);
+        $this->userGenerator->UserList($AnnexeUserListSection);
     }
 }
