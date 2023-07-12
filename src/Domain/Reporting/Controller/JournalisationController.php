@@ -57,7 +57,7 @@ class JournalisationController extends AbstractController
                 'userFullName' => $log->getUserFullName(),
                 'userEmail'    => $log->getUserEmail(),
                 'collectivite' => $log->getCollectivity()->getName(),
-                'date'         => date_format($log->getDate(), 'd-m-Y H:i:s'),
+                'date'         => date_format($log->getDate(), 'd-m-Y H:i'),
                 'subject'      => LogJournalSubjectDictionary::getSubjectLabelFromSubjectType($log->getSubjectType()),
                 'action'       => LogJournalActionDictionary::getActions()[$log->getAction()],
                 'subjectName'  => $log->getSubjectName(),

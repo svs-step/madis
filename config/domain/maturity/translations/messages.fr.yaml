@@ -33,6 +33,8 @@ maturity:
             back_to_list: Retour à la liste
             new: Nouveau référentiel
             import: Importer un référentiel
+            new_submit: Créer le référentiel
+            edit_submit: Modifier le référentiel
         breadcrumb:
             create: Nouveau référentiel
             edit: Modifier le référentiel

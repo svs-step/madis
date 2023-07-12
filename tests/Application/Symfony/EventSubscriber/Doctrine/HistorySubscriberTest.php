@@ -112,9 +112,9 @@ class HistorySubscriberTest extends TestCase
 
         $this->lifeCycleEventArgsProphecy->getObject()->shouldBeCalled()->willReturn($object);
 
-        $this->assertEquals($object->getCreatedAt()->format('Y-m-d H:i:s'), $object->getUpdatedAt()->format('Y-m-d H:i:s'));
+        $this->assertEquals($object->getCreatedAt()->format('Y-m-d H:i'), $object->getUpdatedAt()->format('Y-m-d H:i'));
         $this->subscriber->preUpdate($this->lifeCycleEventArgsProphecy->reveal());
 
-        $this->assertNotEquals($object->getCreatedAt()->format('Y-m-d H:i:s'), $object->getUpdatedAt()->format('Y-m-d H:i:s'));
+        $this->assertNotEquals($object->getCreatedAt()->format('Y-m-d H:i'), $object->getUpdatedAt()->format('Y-m-d H:i'));
     }
 }

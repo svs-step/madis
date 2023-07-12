@@ -6,12 +6,11 @@ namespace DoctrineMigrations;
 
 use Doctrine\DBAL\Schema\Schema;
 use Doctrine\Migrations\AbstractMigration;
-use Ramsey\Uuid\Uuid;
 
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230602065458 extends AbstractMigration
+final class Version20230710121656 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -22,16 +21,18 @@ final class Version20230602065458 extends AbstractMigration
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
-        $id = Uuid::uuid4();
-        $this->addSql('INSERT INTO maturity_referentiel(id, name, description, created_at, updated_at) VALUES (?, ?, ?, ?, ?)', [$id, 'Indice de maturité', null, date_create()->format('Y-m-d H:i'), date_create()->format('Y-m-d H:i')]);
-        $this->addSql('UPDATE maturity_domain SET referentiel_id=? WHERE referentiel_id IS NULL', [$id]);
-        $this->addSql('UPDATE maturity SET referentiel_id=? WHERE referentiel_id IS NULL', [$id]);
-        $this->addSql('UPDATE maturity_survey SET referentiel_id=? WHERE referentiel_id IS NULL', [$id]);
+
+        $this->addSql('ALTER TABLE maturity_referentiel CHANGE description description LONGTEXT DEFAULT NULL');
+        $this->addSql('UPDATE registry_treatment_shelf_life SET ultimate_fate = "destruction" where ultimate_fate IS NULL');
+        $this->addSql('ALTER TABLE maturity_domain ADD description LONGTEXT DEFAULT NULL');
     }
 
     public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
+
+        $this->addSql('ALTER TABLE maturity_referentiel CHANGE name name VARCHAR(255) CHARACTER SET utf8mb4 NOT NULL COLLATE `utf8mb4_unicode_ci`');
+        $this->addSql('ALTER TABLE maturity_domain DROP description');
     }
 }

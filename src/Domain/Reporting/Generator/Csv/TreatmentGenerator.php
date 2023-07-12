@@ -30,7 +30,6 @@ use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Model\Mesurement;
-use App\Domain\Registry\Model\ShelfLife;
 use App\Domain\User\Repository\Collectivity;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement\Question;
 use App\Infrastructure\ORM\Registry\Repository\Treatment;
@@ -91,7 +90,7 @@ class TreatmentGenerator extends AbstractGenerator
             $this->treatmentSecurityHeaders(),
             $this->treatmentSpecificHeaders(),
             $this->treatmentProofHeaders(),
-            $this->treatmentConformiteHeaders()
+            $this->treatmentConformiteHeaders(),
         );
         $data = [$headers];
 
@@ -113,11 +112,11 @@ class TreatmentGenerator extends AbstractGenerator
                 $this->initializeTreatmentSecurity($treatment),
                 $this->initializeTreatmentSpecific($treatment),
                 $this->initializeTreatmentProof($treatment),
-                $this->initializeTreatmentConformite($treatment)
+                $this->initializeTreatmentConformite($treatment),
             );
             array_push($data, $extract);
         }
-
+        // dd($data);
         return $data;
     }
 
@@ -185,6 +184,7 @@ class TreatmentGenerator extends AbstractGenerator
             !\is_null($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
             $legalBasisJustification,
             $observation,
+            $treatment->isExemptAIPD() ? $yes : $no,
             $treatment->getPublic() ? $yes : $no,
             $treatment->getExemptAIPD() ? $yes : $no,
             $treatment->getDpoMessage(),
@@ -223,7 +223,7 @@ class TreatmentGenerator extends AbstractGenerator
     {
         return [
             $treatment->getRecipientCategory(),
-            implode(' - ', \iterable_to_array($treatment->getContractors())),
+            implode(' - ', \iterable_to_array($treatment->getContractors())) ?: '',
         ];
     }
 
@@ -241,7 +241,7 @@ class TreatmentGenerator extends AbstractGenerator
     private function initializeTreatmentHistoric(\App\Domain\Registry\Model\Treatment $treatment): array
     {
         return [
-            strval($treatment->getCreator()),
+            $treatment->getCreator(),
             $this->getDate($treatment->getCreatedAt()),
             $this->getDate($treatment->getUpdatedAt()),
         ];
@@ -285,15 +285,18 @@ class TreatmentGenerator extends AbstractGenerator
         $yes = $this->translator->trans('label.yes');
         $no  = $this->translator->trans('label.no');
 
-        $treatmentDurations     = [];
-        $treatmentNames         = [];
-        $treatmentUltimateFates = [];
+        $shelfLifes = $treatment->getShelfLifes();
 
-        /** @var ShelfLife $sl */
-        foreach ($treatment->getShelfLifes() as $k => $sl) {
-            $treatmentDurations[]     = ($k + 1) . ': ' . $sl->getDuration();
-            $treatmentNames[]         = ($k + 1) . ': ' . $sl->getName();
-            $treatmentUltimateFates[] = ($k + 1) . ': ' . $sl->getUltimateFate();
+        $duration     = '';
+        $name         = '';
+        $ultimateFate = '';
+
+        if (count($shelfLifes) > 0) {
+            foreach ($shelfLifes as $key => $shelfLife) {
+                $duration .= $key + 1 . ': ' . $shelfLife->duration . " \r\n";
+                $name .= $key + 1 . ': ' . $shelfLife->name . "\r\n";
+                $ultimateFate .= $key + 1 . ': ' . $shelfLife->ultimateFate . "\r\n";
+            }
         }
 
         return [
@@ -316,9 +319,9 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getEstimatedConcernedPeople(),
             $treatment->getSoftware(),
             $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
-            join("\n", $treatmentDurations),
-            join("\n", $treatmentNames),
-            join("\n", $treatmentUltimateFates),
+            $duration,
+            $name,
+            $ultimateFate,
             $treatment->getDataOrigin(),
             !\is_null($treatment->getCollectingMethod()) ? join(', ', array_map(function ($cm) {
                 return array_key_exists($cm, TreatmentCollectingMethodDictionary::getMethods()) ? TreatmentCollectingMethodDictionary::getMethods()[$cm] : $cm;

@@ -360,8 +360,8 @@
                             <td><strong>{{ 'registry.treatment.show.concerned_people'|trans }}</strong></td>
                         </tr>
                         <tr>
-                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_particular'|trans }}</strong></td>
-                            <td>
+                            <td class="concerned-people-type col-md-8"><strong>{{ 'registry.treatment.show.concerned_people_particular'|trans }}</strong></td>
+                            <td class="col-md-4">
                                 {% if object.concernedPeopleParticular.check %}
                                     <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     <p>{{ object.concernedPeopleParticular.comment }}</p>
@@ -482,11 +482,11 @@
                             </td>
                         </tr>
                     </table>
-                    <table>
+                    <table style="border-top: #f4f4f4 1px solid">
                         <tbody>
                         <tr>
-                            <td class="col-sm-2" style="vertical-align: top; padding-left: 10px"><strong>{{ 'registry.treatment.show.shelfLife'|trans }}</strong></td>
-                            <td class="col-sm-10">
+                            <td class="col-sm-2" style="vertical-align: top; padding-left: 10px; padding-top: 10px"><strong>{{ 'registry.treatment.show.shelf_lifes'|trans }}</strong></td>
+                            <td class="col-sm-10" style="padding-top: 10px">
                                 {% for method in object.shelfLifes %}
                                     <div class="box box-default">
                                         <div class="box-body ">
@@ -516,8 +516,8 @@
                     <table class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
-                            <td>{{ object.dataOrigin }}</td>
+                            <td class="col-md-8"><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
+                            <td class="col-md-4">{{ object.dataOrigin }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>

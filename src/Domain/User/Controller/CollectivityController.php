@@ -151,8 +151,8 @@ class CollectivityController extends CRUDController
                 'nbr_agents'                   => $collectivity->getNbrAgents(),
                 'nbr_cnil'                     => $collectivity->getNbrCnil(),
                 'tel_referent_rgpd'            => !\is_null($collectivity->getDpo()) ? ($collectivity->getDpo())->getPhoneNumber() : null,
-                'createdAt'                    => !\is_null($collectivity->getCreatedAt()) ? $collectivity->getCreatedAt()->format('d-m-Y H:i:s') : null,
-                'updatedAt'                    => !\is_null($collectivity->getUpdatedAt()) ? $collectivity->getUpdatedAt()->format('d-m-Y H:i:s') : null,
+                'createdAt'                    => !\is_null($collectivity->getCreatedAt()) ? $collectivity->getCreatedAt()->format('d-m-Y H:i') : null,
+                'updatedAt'                    => !\is_null($collectivity->getUpdatedAt()) ? $collectivity->getUpdatedAt()->format('d-m-Y H:i') : null,
                 'actions'                      => $this->getActionCellsContent($collectivity),
             ];
         }

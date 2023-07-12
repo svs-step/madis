@@ -46,25 +46,25 @@
                     <table id="table" class="table table-bordered table-hover" style="position: relative">
                         <thead>
                             <tr>
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <input class="form-control" type="text" id="search_description" placeholder="Description" style="width: 100%;">
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                                 </th>
-                                <th>
+                                <th scope="col">
                                     <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                                 </th>
                             </tr>
                             <tr>
-                                <th>{{ 'maturity.referentiel.list.name'|trans }}</th>
-                                <th>{{ 'maturity.referentiel.list.description'|trans }}</th>
-                                <th>{{ 'maturity.referentiel.list.created_at'|trans }}</th>
-                                <th>{{ 'maturity.referentiel.list.updated_at'|trans }}</th>
-                                <th>{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'maturity.referentiel.list.name'|trans }}</th>
+                                <th scope="col">{{ 'maturity.referentiel.list.description'|trans }}</th>
+                                <th scope="col">{{ 'maturity.referentiel.list.created_at'|trans }}</th>
+                                <th scope="col">{{ 'maturity.referentiel.list.updated_at'|trans }}</th>
+                                <th scope="col">{{ 'label.actions'|trans }}</th>
                             </tr>
                         </thead>
                     </table>

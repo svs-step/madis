@@ -56,19 +56,19 @@ class NotificationModuleDictionary extends SimpleDictionary
     public static function getModules()
     {
         return [
-            Notification::MODULES[Treatment::class]  => 'Traitements',
-            Notification::MODULES[Contractor::class] => 'Sous-traitants',
-            Notification::MODULES[Request::class]    => 'Demandes',
-            Notification::MODULES[Violation::class]  => 'Violations',
-            Notification::MODULES[Proof::class]      => 'Preuves',
-            Notification::MODULES[Mesurement::class] => 'Actions de protection',
-            self::ACTION_PLAN                        => 'Plan d\'actions',
+            Notification::MODULES[Treatment::class]     => 'Traitements',
+            Notification::MODULES[Contractor::class]    => 'Sous-traitants',
+            Notification::MODULES[Request::class]       => 'Demandes',
+            Notification::MODULES[Violation::class]     => 'Violations',
+            Notification::MODULES[Proof::class]         => 'Preuves',
+            Notification::MODULES[Mesurement::class]    => 'Actions de protection',
+            self::ACTION_PLAN                           => 'Plan d\'actions',
 //            Notification::MODULES[ConformiteTraitement::class] => 'Conformité du traitement',
 //            Notification::MODULES[Conformite::class]           => 'Conformité de la structure',
             Notification::MODULES[AnalyseImpact::class] => 'AIPD',
 //            Notification::MODULES[Document::class]             => 'Espace Documentaire',
-            Notification::MODULES[Maturity::class] => 'Indice de maturité',
-            Notification::MODULES[User::class]     => 'Utilisateurs',
+            Notification::MODULES[Maturity::class]      => 'Indice de maturité',
+            Notification::MODULES[User::class]          => 'Utilisateurs',
         ];
     }
 
