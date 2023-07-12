@@ -41,10 +41,10 @@
                                     <input id="question-option-reason-{{ question.id }}" type="text" name="survey[questions][{{ question.id }}][optionReason]" value="{% if optionAnswers|length > 0 %}{{ optionAnswers|first.reason }}{% endif %}" />
                                     </span>
                                 {% endif %}
-                                <ul {% if optionAnswers|length > 0 and optionAnswers|first.reason %} style="display:none; list-style: none;"{% endif %} style="padding-left: 0">
+                                <ul {% if optionAnswers|length > 0 and optionAnswers|first.reason %} style="display:none; list-style: none;padding-left: 0;"{% endif %} style="padding-left: 0">
                                     {% for answer in question.answers|sort((a, b) => a.position > b.position) %}
                                         <input {% if form.vars.data.answers|filter(a => a.id == answer.id)|length > 0 %} checked {% endif%} id="answer-{{ answer.id }}" type="radio" name="survey[questions][{{ question.id }}][answers][]" value="{{ answer.id }}" {% if not (optionAnswers|length > 0 and optionAnswers|first.reason) %}required{% endif%} />
-                                        {{ answer.position }} - {{ answer.name }}
+                                        {{ answer.name }}
                                         <br>
                                     {% endfor %}
                                 </ul>
