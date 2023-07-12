@@ -16,41 +16,36 @@
 
 
     {% for domain in domains %}
-        <div class="col-md-12">
+        <div class="col-md-6">
             <div class="box box-solid {{ colors[loop.index % 4] }}">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ domain.name }}</h3>
                 </div>
                 <div class="box-body">
+                    {{ domain.description }}
                     {% for question in domain.questions %}
                         {% set optionAnswers = form.vars.data.optionalAnswers ? form.vars.data.optionalAnswers|filter(a => a.question.id == question.id) : [] %}
                         <div class="row">
                             <div class="col-md-12">
-                                <h4>{{ question.name }}</h4>
+                                <h4><b>{{ question.name }}</b></h4>
                                 {% if question.optional %}
-                                    <label>
-                                        <input
-                                                class="question-option"
-                                                id="question-option-{{ question.id }}"
-                                                type="checkbox" name="survey[questions][{{ question.id }}][option]"
-                                                value="1"
-
-                                                {% if optionAnswers|length > 0 and optionAnswers|first.reason %} checked {% endif %}
-
-                                        />
-                                        Non concerné<span class="question-option-reason" {% if not (optionAnswers|length > 0 and optionAnswers|first.reason) %} style="display:none"{% endif %}>&nbsp;:
-                                        <input id="question-option-reason-{{ question.id }}" type="text" name="survey[questions][{{ question.id }}][optionReason]" value="{% if optionAnswers|length > 0 %}{{ optionAnswers|first.reason }}{% endif %}" />
-                                        </span>
-                                    </label>
+                                    <input
+                                            class="question-option checkbox-round"
+                                            id="question-option-{{ question.id }}"
+                                            type="checkbox" name="survey[questions][{{ question.id }}][option]"
+                                            value="1"
+                                            style="margin-bottom: 4px"
+                                            {% if optionAnswers|length > 0 and optionAnswers|first.reason %} checked {% endif %}
+                                    />
+                                    Non concerné<span class="question-option-reason" {% if not (optionAnswers|length > 0 and optionAnswers|first.reason) %} style="display:none"{% endif %}>&nbsp;:
+                                    <input id="question-option-reason-{{ question.id }}" type="text" name="survey[questions][{{ question.id }}][optionReason]" value="{% if optionAnswers|length > 0 %}{{ optionAnswers|first.reason }}{% endif %}" />
+                                    </span>
                                 {% endif %}
-                                <ul {% if optionAnswers|length > 0 and optionAnswers|first.reason %} style="display:none"{% endif %}>
+                                <ul {% if optionAnswers|length > 0 and optionAnswers|first.reason %} style="display:none; list-style: none;"{% endif %} style="padding-left: 0">
                                     {% for answer in question.answers|sort((a, b) => a.position > b.position) %}
-                                        <li>
-                                        <label>
-                                            <input {% if form.vars.data.answers|filter(a => a.id == answer.id)|length > 0 %} checked {% endif%} id="answer-{{ answer.id }}" type="radio" name="survey[questions][{{ question.id }}][answers][]" value="{{ answer.id }}" {% if not (optionAnswers|length > 0 and optionAnswers|first.reason) %}required{% endif%} />
-                                            {{ answer.position }} - {{ answer.name }}
-                                        </label>
-                                        </li>
+                                        <input {% if form.vars.data.answers|filter(a => a.id == answer.id)|length > 0 %} checked {% endif%} id="answer-{{ answer.id }}" type="radio" name="survey[questions][{{ question.id }}][answers][]" value="{{ answer.id }}" {% if not (optionAnswers|length > 0 and optionAnswers|first.reason) %}required{% endif%} />
+                                        {{ answer.position }} - {{ answer.name }}
+                                        <br>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -82,3 +77,24 @@
 </div>
 
 {{ form_end(form) }}
+
+<style>
+    .checkbox-round {
+        width: 13px;
+        height: 13px;
+        background-color: white;
+        border-radius: 50%;
+        vertical-align: middle;
+        border: 1px solid #6d6d6d;
+        appearance: none;
+        -webkit-appearance: none;
+        outline: none;
+        cursor: default;
+    }
+
+    .checkbox-round:checked {
+        background-color: #005CC8;
+        border: 1px solid #005CC8;
+        border-radius: 100%;
+    }
+</style>
