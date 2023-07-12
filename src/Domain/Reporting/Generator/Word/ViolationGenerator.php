@@ -50,7 +50,6 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
         $nbTotal = \count($data);
 
         foreach ($data as $violation) {
-
             $cellDate = $this->getDate($violation->getDate(), 'd/m/Y');
             if ($violation->isInProgress()) {
                 $cellDate .= '(Toujours en cours)';

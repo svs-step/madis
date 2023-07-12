@@ -115,7 +115,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         ];
 
         $section->addTitle('Analyse de la conformité de la structure', 2);
-        $listStyle = array('listType'=>ListItem::TYPE_NUMBER_NESTED);
+        $listStyle = ['listType' => ListItem::TYPE_NUMBER_NESTED];
         $section->listItemCounterReset($listStyle, 0);
         $section->addText('Afin de répondre aux objectifs du RGPD, la gestion des DCP est structurée en 12 processus dont les objectifs sont définis dans le document figurant en annexe et à valeur de preuve.');
         $section->addText('Chacun des 12 processus est évalué annuellement et selon l’échelle de maturité ci-après.');

@@ -89,7 +89,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $textrun = $section->addTextRun();
         $textrun->addText("Afin de protéger les données à caractère personnel, '{$collectivity}' a mis en place des actions de protection. Une ");
         $textrun->addLink('ActionsImplemented', 'liste exhaustive des actions de protection mises en place', ['underline' => 'single'], [], true);
-        $textrun->addText(" figure en annexe. Ci-dessous, les 20 dernières actions :");
+        $textrun->addText(' figure en annexe. Ci-dessous, les 20 dernières actions :');
 
         $this->ProtectionActionAppliedTable($section, $appliedMesurement);
 
@@ -158,7 +158,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $cell->addText('Action', $this->textHeadStyle);
 
         if ($appliedMesurement) {
-            foreach (array_slice($appliedMesurement,0,20) as $line) {
+            foreach (array_slice($appliedMesurement, 0, 20) as $line) {
                 $tableProtectionActionApplied->addRow(400, ['exactHeight' => true, 'cantsplit' => true]);
                 $cell1 = $tableProtectionActionApplied->addCell(1500);
                 $cell1->addText($line[0], [], ['alignment' => 'center']);
@@ -186,14 +186,14 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         if ($actionPlan) {
             foreach ($actionPlan as $line) {
                 $tableActionPlan->addRow(null, ['cantSplit' => true]);
-                $cell1 = $tableActionPlan->addCell(1000, ['bgColor' => $line['style']['bgColor']]);
-                $priority = match($line['data'][0]){
-                    'low' => 'Basse',
+                $cell1    = $tableActionPlan->addCell(1000, ['bgColor' => $line['style']['bgColor']]);
+                $priority = match ($line['data'][0]) {
+                    'low'    => 'Basse',
                     'normal' => 'Normale',
-                    'high' => 'Haute',
-                    null => 'Aucune',
+                    'high'   => 'Haute',
+                    null     => 'Aucune',
                 };
-                $cell1->addText($priority, ['bold'  => true]);
+                $cell1->addText($priority, ['bold' => true]);
                 $cell2 = $tableActionPlan->addCell(2000);
                 $cell2->addText($line['data'][1]);
                 $cell1 = $tableActionPlan->addCell(1000);

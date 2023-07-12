@@ -90,7 +90,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         }
 
         $section->addText('Les 10 critères suivants correspondent aux principes fondamentaux du RGPD et ont fait l’objet d’une évaluation :');
-        $listStyle = array('listType'=>ListItem::TYPE_NUMBER);
+        $listStyle = ['listType' => ListItem::TYPE_NUMBER];
         $section->addListItem('Finalités', 0, null, $listStyle);
         $section->addListItem('Licéité', 0, null, $listStyle);
         $section->addListItem('Minimisation des données', 0, null, $listStyle);
