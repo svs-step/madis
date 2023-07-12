@@ -27,7 +27,7 @@
                         {% set optionAnswers = form.vars.data.optionalAnswers ? form.vars.data.optionalAnswers|filter(a => a.question.id == question.id) : [] %}
                         <div class="row">
                             <div class="col-md-12">
-                                <h4><b>{{ question.name }}</b></h4>
+                                <h4><b>{{ question.name }}*</b></h4>
                                 {% if question.optional %}
                                     <input
                                             class="question-option checkbox-round"
