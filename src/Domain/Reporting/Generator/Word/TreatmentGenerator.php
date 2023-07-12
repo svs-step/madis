@@ -541,8 +541,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             'Décisions automatisées avec effet',
             'Exclusion automatique d\'un service',
             'Usage innovant',
-            'CNIL',
-            'AIPD exemptée',
+            'CNIL AIPD exemptée',
             '',
             'AIPD requise'];
 
@@ -605,9 +604,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $cell->addText($item->isAutomatedDecisionsWithLegalEffect() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
             $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isAutomaticExclusionService() ? 'ffa7a7' : null, 'valign' => 'center']);
             $cell->addText($item->isAutomaticExclusionService() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isInnovativeUse() ? 'ffa7a7' : null, 'valign' => 'center']);
-            $cell->addText($item->isInnovativeUse() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
-            // todo mettte CNIL
             $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isInnovativeUse() ? 'ffa7a7' : null, 'valign' => 'center']);
             $cell->addText($item->isInnovativeUse() ? 'Oui' : '', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
             $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $item->isExemptAIPD() ? 'bce292' : 'ffa7a7', 'valign' => 'center']);
