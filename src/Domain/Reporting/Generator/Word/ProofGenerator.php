@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Generator\Word;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Model\Proof;
 use Doctrine\ORM\EntityManagerInterface;
 use PhpOffice\PhpWord\Element\Section;
@@ -80,7 +81,7 @@ class ProofGenerator extends AbstractGenerator implements ImpressionGeneratorInt
             $cell = $proofAnnexListTable->addCell(2500);
             $cell->addText($item->getName());
             $cell = $proofAnnexListTable->addCell(2500);
-            $cell->addText($item->getType());
+            $cell->addText(ProofTypeDictionary::getTypes()[$item->getType()]);
             $cell = $proofAnnexListTable->addCell(2500);
             $cell->addText($item->getCreatedAt()->format('d/m/Y'));
         }
