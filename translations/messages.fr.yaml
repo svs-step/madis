@@ -13,6 +13,7 @@ action:
     download: Télécharger
     draft: Enregistrer un brouillon
     duplicate: Dupliquer
+    synthese: Synthèse
     edit: Modifier
     share: Partager
     export: Exporter
