@@ -153,7 +153,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
         $section->addListItem("{$security['saving']} sont sauvegardés");
         $section->addListItem("{$security['update']} sont mis à jour");
 
-        $section->addText('Par ailleurs des mesures de protection ont été mises en place sur les '.$nbTreatments - $digitalisation['digital'].' traitements non informatisés.');
+        $section->addText('Par ailleurs des mesures de protection ont été mises en place sur les ' . $nbTreatments - $digitalisation['digital'] . ' traitements non informatisés.');
     }
 
     public function addSyntheticView(Section $section, array $data, bool $forOverviewReport = false): void
@@ -502,13 +502,16 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $cell->addText($item->getName());
             $cell = $treatmentAnnexListTable->addCell(2000);
             $cell->addText($item->getManager());
-            $cell = $treatmentAnnexListTable->addCell(1500);
-            $cell->addText($item->getDataOrigin());
+            $cell    = $treatmentAnnexListTable->addCell(1500);
+            $support = $item->isPaperProcessing() ? 'Papier, ' : '';
+            $support = $item->getSoftware() ? $support . $item->getSoftware() : rtrim($support, ', ');
+
+            $cell->addText($support);
             $cell = $treatmentAnnexListTable->addCell(2000);
-            $cell->addListItem('Controle d\'accès', null, ['color' => $this->IsMesureOk($item->getSecurityAccessControl())], [], ['spaceAfter' => 0]);
-            $cell->addListItem('Traçabilité', null, ['color' => $this->IsMesureOk($item->getSecurityTracability())], [], ['spaceAfter' => 0]);
-            $cell->addListItem('Sauvegarde', null, ['color' => $this->IsMesureOk($item->getSecuritySaving())], [], ['spaceAfter' => 0]);
-            $cell->addListItem('Mise à jour', null, ['color' => $this->IsMesureOk($item->getSecurityUpdate())], [], ['spaceAfter' => 0]);
+            $cell->addListItem('Controle d\'accès', null, ['bold' => $item->getSecurityAccessControl()->isCheck(), 'color' => $this->IsMesureOk($item->getSecurityAccessControl())], [], ['spaceAfter' => 0]);
+            $cell->addListItem('Traçabilité', null, ['bold' => $item->getSecurityTracability()->isCheck(), 'color' => $this->IsMesureOk($item->getSecurityTracability())], [], ['spaceAfter' => 0]);
+            $cell->addListItem('Sauvegarde', null, ['bold' => $item->getSecuritySaving()->isCheck(), 'color' => $this->IsMesureOk($item->getSecuritySaving())], [], ['spaceAfter' => 0]);
+            $cell->addListItem('Mise à jour', null, ['bold' => $item->getSecurityUpdate()->isCheck(), 'color' => $this->IsMesureOk($item->getSecurityUpdate())], [], ['spaceAfter' => 0]);
         }
     }
 
@@ -619,6 +622,6 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
     private function IsMesureOk($data)
     {
-        return $data->isCheck() ? 'bce292' : 'ffa7a7';
+        return $data->isCheck() ? '00a65a' : '000000';
     }
 }
