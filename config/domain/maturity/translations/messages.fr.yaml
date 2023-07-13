@@ -11,6 +11,7 @@ maturity:
             edit: Modifier un indice de maturité
             list: Liste des indices de maturité
             delete: Supprimer un indice de maturité
+            show: Synthèse de l'indice de maturité
         flashbag:
             success:
                 create: Indice de maturité "%object%" créé avec succès
@@ -28,6 +29,7 @@ maturity:
             list: Liste des indices de maturité
             delete: Supprimer un indice de maturité
             name: test
+            show: Synthèse de l'indice de maturité
     referentiel:
         action:
             back_to_list: Retour à la liste
