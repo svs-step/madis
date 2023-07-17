@@ -41,7 +41,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
                 [['array' => $this->getFormattedParticipants($evaluation)]],
             ],
         ];
-        $this->addTable($section, $contextData, true, self::TABLE_ORIENTATION_VERTICAL);
+        $this->addTable($section, $contextData, false, self::TABLE_ORIENTATION_VERTICAL);
 
         /* ////////////////////////////////////////////////////////////// */
         $section->addTitle('Liste des processus', 1);
@@ -49,7 +49,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         $orderedConformites = ConformiteOrganisationService::getOrderedConformites($evaluation);
         $tableData          = $this->getConformitesTable($orderedConformites);
 
-        $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
+        $this->addTable($section, $tableData, false, self::TABLE_ORIENTATION_HORIZONTAL);
 
         /* ////////////////////////////////////////////////////////////// */
         $section->addPageBreak();
@@ -86,7 +86,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
                 $actions,
             ];
 
-            $this->addTable($section, $processus, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $processus, false, self::TABLE_ORIENTATION_VERTICAL);
         }
     }
 
@@ -185,7 +185,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
                     break;
             }
             $tableData[] = [
-                null === $conformite->getPilote() ? 'Inexistant' : $conformite->getPilote(),
+                $conformite->getPilote() ?? 'Inexistant',
                 $conformite->getProcessus()->getNom(),
                 ['content' => ['text' => $conformite->getConformite()], 'style' => ['bgColor' => $bgColor, 'bold' => true]],
             ];
