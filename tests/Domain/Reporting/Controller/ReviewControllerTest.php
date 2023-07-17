@@ -151,7 +151,7 @@ class ReviewControllerTest extends TestCase
         $this->treatmentRepositoryProphecy->findAllActiveByCollectivity($collectivity)->shouldBeCalled()->willReturn($treatments);
         $this->contractorRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($contractors);
         $this->mesurementRepositoryProphecy->findAllByCollectivity($collectivity)->shouldBeCalled()->willReturn($mesurements);
-        $this->surveyRepositoryProphecy->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'], 2)->shouldBeCalled()->willReturn($survey);
+        $this->surveyRepositoryProphecy->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'], 1, ['o.referentiel is not null'])->shouldBeCalled()->willReturn($survey);
         $this->requestRepositoryProphecy->findAllArchivedByCollectivity($collectivity, false)->shouldBeCalled()->willReturn($requests);
         $this->violationRepositoryProphecy->findAllArchivedByCollectivity($collectivity, false)->shouldBeCalled()->willReturn($violations);
         $this->evaluationRepository->findLastByOrganisation($collectivity)->shouldBeCalled()->willReturn($evaluation->reveal());

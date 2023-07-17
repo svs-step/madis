@@ -34,11 +34,10 @@ interface Survey extends CRUDRepositoryInterface
      *
      * @param Collectivity $collectivity The collectivity to search with
      * @param array        $order        Order the data
-     * @param int          $limit
      *
      * @return array The array of survey given by the collectivity
      */
-    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null): iterable;
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null, array $where = []): iterable;
 
     /**
      * Find previous survey by created_at date.
