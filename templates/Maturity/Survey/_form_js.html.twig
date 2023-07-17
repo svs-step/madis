@@ -10,7 +10,7 @@
         } else {
             $ch.parent().find('.question-option-reason').hide()
             $ch.parent().parent().find('ul').show()
-            $ch.parent().parent().find('ul input').attr('required')
+            $ch.parent().parent().find('ul input').attr('required', true)
             $ch.parent().find('.question-option-reason input').removeAttr('required')
         }
     })
