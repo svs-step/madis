@@ -15,7 +15,8 @@
         <small>{{ form.vars.value }}</small>
     </h1>
 </div>
-{% include 'Registry/Treatment/_form.html.twig' with {'form': form.traitement, 'object': form.vars.value.traitement} %}
 
+{% include 'Registry/Treatment/_form.html.twig' with {'form': form.traitement, 'object': form.vars.value.traitement} %}
+{% do form.traitement.setRendered() %}
 
 {{ form_end(form) }}
