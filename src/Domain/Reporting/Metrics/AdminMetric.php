@@ -99,29 +99,29 @@ class AdminMetric implements MetricInterface
         $totalCollectivity = count($collectivities);
 
         $data = [
-            'collectivityByType'              => [
+            'collectivityByType' => [
                 'value' => [
                     'all'  => $totalCollectivity,
                     'type' => $collectivityByType,
                 ],
             ],
-            'collectivityByAddressInsee'      => [
+            'collectivityByAddressInsee' => [
                 'value' => [
                     'all'          => $totalCollectivity,
                     'addressInsee' => [],
                     'dpoPercent'   => 0,
                 ],
             ],
-            'mesurementByCollectivity'        => [
+            'mesurementByCollectivity' => [
                 'average' => $averageMesurement,
             ],
-            'proofByCollectivity'             => [
+            'proofByCollectivity' => [
                 'average' => $averageProof,
             ],
             'balanceSheetProofByCollectivity' => [
                 'average' => $averageBalanceSheetPoof * 100,
             ],
-            'surveyLastYear'                  => [
+            'surveyLastYear' => [
                 'average' => $averageSurveyLastYer * 100,
             ],
         ];

@@ -30,7 +30,6 @@ use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
-use App\Domain\Reporting\Handler\MetricsHandler;
 use App\Domain\Reporting\Handler\WordHandler;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -74,13 +73,9 @@ class SurveyController extends CRUDController
     private Repository\Referentiel $referentielRepository;
     private $router;
     private RequestStack $requestStack;
-    /**
-     * @var MetricsHandler
-     */
-    private $metricsHandler;
+
 
     public function __construct(
-        MetricsHandler $metricsHandler,
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Survey $repository,
@@ -103,7 +98,6 @@ class SurveyController extends CRUDController
         $this->referentielRepository = $referentielRepository;
         $this->router                = $router;
         $this->requestStack          = $requestStack;
-        $this->metricsHandler        = $metricsHandler;
     }
 
     protected function getDomain(): string

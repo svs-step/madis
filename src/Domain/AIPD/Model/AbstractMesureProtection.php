@@ -15,6 +15,7 @@ class AbstractMesureProtection
     //    use HistoryTrait;
     /**
      * @Serializer\Accessor(getter="getIdString",setter="setIdFromString")
+     *
      * @Serializer\Type("string")
      */
     private UuidInterface $id;
@@ -30,6 +31,7 @@ class AbstractMesureProtection
      * @var \DateTimeImmutable|null
      *
      * @Serializer\Type("DateTimeImmutable")
+     *
      * @Gedmo\Timestampable(on="create")
      */
     private $createdAt;
@@ -38,6 +40,7 @@ class AbstractMesureProtection
      * @var \DateTimeImmutable|null
      *
      * @Serializer\Type("DateTimeImmutable")
+     *
      * @Gedmo\Timestampable(on="update")
      */
     private $updatedAt;
