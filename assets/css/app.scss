@@ -57,27 +57,19 @@ body > div.banner-impersonate {
 }
 
 
-.sidebar-mini.sidebar-collapse .main-sidebar > .sidebar > .sidebar-menu li.header{
+.sidebar-mini.sidebar-collapse .main-sidebar > .sidebar > .sidebar-menu > li.header{
   display:block !important;
   > span {
     display:none !important;
   }
-  > .sidebar-menu > li > a {
-    padding: 12px 5px 12px 0 !important;
-  }
   > ul {
     display:block !important;
-    width:20px;
-    > li > a {
-      padding: 12px 5px 12px 0 !important;
-    }
+    width:35px;
   }
 }
 
-.sidebar-mini .main-sidebar > .sidebar > .sidebar-menu li.header {
-  > .sidebar-menu > li > a {
-    padding: 12px 5px 12px 0 !important;
-  }
+.sidebar-mini .main-sidebar > .sidebar > .sidebar-menu > li.header > .sidebar-menu {
+    margin-left: -15px !important;
 }
 /* Skiplinks */
 .skiplinks {
