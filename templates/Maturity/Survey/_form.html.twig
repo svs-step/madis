@@ -12,7 +12,7 @@
 <div class="row">
     {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
     <input type="hidden" name="referentiel" value="{{ form.vars.value.referentiel ? form.vars.value.referentiel.id : '' }}" />
-    {% set domains = form.vars.value.referentiel ? form.vars.value.referentiel.domains : [] %}
+    {% set domains = form.vars.value.referentiel ? form.vars.value.referentiel.domains|sort((a, b) => a.position > b.position) : [] %}
 
 
     {% for domain in domains %}
@@ -22,7 +22,7 @@
                     <h3 class="box-title">{{ domain.name }}</h3>
                 </div>
                 <div class="box-body">
-                    {% for question in domain.questions %}
+                    {% for question in domain.questions|sort((a, b) => a.position > b.position) %}
                         {% set optionAnswers = form.vars.data.optionalAnswers ? form.vars.data.optionalAnswers|filter(a => a.question.id == question.id) : [] %}
                         <div class="row">
                             <div class="col-md-12">
