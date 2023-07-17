@@ -220,7 +220,7 @@ class NotificationEventSubscriberTest extends TestCase
         $notification->setName($action->__toString());
         $notification->setDpo(true);
         $notification->setObject((object) [
-            'collectivity'      => [
+            'collectivity' => [
                 'name' => 'coll',
             ],
             'planificationDate' => (new \DateTime())->sub(new \DateInterval('P3M'))->format(DATE_ATOM),
@@ -242,7 +242,7 @@ class NotificationEventSubscriberTest extends TestCase
         $this->notificationNormalizer->normalize(Argument::exact($action), null, Argument::any())
             ->shouldBeCalled()
             ->willReturn((object) [
-                'collectivity'      => [
+                'collectivity' => [
                     'name' => 'coll',
                 ],
                 'planificationDate' => (new \DateTime())->sub(new \DateInterval('P3M'))->format(DATE_ATOM),
