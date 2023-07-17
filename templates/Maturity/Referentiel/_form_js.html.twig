@@ -148,7 +148,7 @@
                     setTimeout(function() {
                         $(event.target).find(' > li').each(function(i, li) {
                             console.log('i', i, li)
-                            $(li).find('input[type=hidden]').val(i)
+                            $(li).find('input[type=hidden].domain-position').val(i)
                         })
                     }, 10)
                 }

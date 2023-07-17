@@ -69,10 +69,16 @@ class DomainType extends AbstractType
             ])
 
             ->add('position', HiddenType::class, [
-                'required' => false,
+                'required' => true,
+                'attr'     => [
+                    'class' => 'domain-position',
+                ],
             ])
             ->add('color', HiddenType::class, [
                 'required' => false,
+                'attr'     => [
+                    'class' => 'domain-color',
+                ],
             ]);
 
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {

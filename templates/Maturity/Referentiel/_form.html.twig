@@ -24,6 +24,8 @@
         <div class="row">
             <div class="box box-solid {{ colors[colorSection] }}">
                 <div class="box-header with-border">
+                    {{ form_row(section.position) }}
+                    {{ form_row(section.color) }}
                     <i class="fas fa-ellipsis-v" style="padding: 0 0.5em 0 0.4em; cursor: grab"></i>
                     {{ index }}. {{ section.vars['value'] ? section.vars['value'].name : 'Nouvelle section' }}
                     <a href="#section_{{ index }}" class="box-link btn btn-default " data-toggle="collapse" style="float:right;border:none"><i class="fa fa-plus"></i></a>
