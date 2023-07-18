@@ -335,6 +335,12 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
             case 'responsable_action':
                 $queryBuilder->addOrderBy('o.manager', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
         }
     }
 

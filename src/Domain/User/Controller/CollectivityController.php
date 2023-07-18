@@ -194,7 +194,6 @@ class CollectivityController extends CRUDController
             'population',
             'nbr_agents',
             'nbr_cnil',
-            'tel_referent_rgpd',
             'createdAt',
             'updatedAt',
             'actions',
