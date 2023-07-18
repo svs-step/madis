@@ -476,8 +476,8 @@ registry:
             inactive: Voir les traitements inactifs
             new: Nouveau traitement
             report: Générer une impression
-            new_submit: Créer l'évaluation du traitement
-            edit_submit: Modifier l'évaluation du traitement
+            new_submit: Créer le traitement
+            edit_submit: Modifier le traitement
             edit_config_submit: Modifier la configuration
             draft: Enregistrer le brouillon
         breadcrumb:
@@ -794,6 +794,8 @@ registry:
             back_to_list: Retour à la liste
             report: Générer une impression
             show_conformite_traitement: Évaluer
+            new_submit: Créer l'évaluation du traitement
+            edit_submit: Modifier l'évaluation du traitement
         title:
             list: Conformité des traitements
             create: Evaluer un traitement
