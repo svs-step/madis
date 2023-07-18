@@ -508,7 +508,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $cell->addText($support);
             $cell = $treatmentAnnexListTable->addCell(2000);
-            $cell->addListItem('Controle d\'accès', null, ['bold' => $item->getSecurityAccessControl()->isCheck(), 'color' => $this->IsMesureOk($item->getSecurityAccessControl())], [], ['spaceAfter' => 0]);
+            $cell->addListItem('Contrôle d\'accès', null, ['bold' => $item->getSecurityAccessControl()->isCheck(), 'color' => $this->IsMesureOk($item->getSecurityAccessControl())], [], ['spaceAfter' => 0]);
             $cell->addListItem('Traçabilité', null, ['bold' => $item->getSecurityTracability()->isCheck(), 'color' => $this->IsMesureOk($item->getSecurityTracability())], [], ['spaceAfter' => 0]);
             $cell->addListItem('Sauvegarde', null, ['bold' => $item->getSecuritySaving()->isCheck(), 'color' => $this->IsMesureOk($item->getSecuritySaving())], [], ['spaceAfter' => 0]);
             $cell->addListItem('Mise à jour', null, ['bold' => $item->getSecurityUpdate()->isCheck(), 'color' => $this->IsMesureOk($item->getSecurityUpdate())], [], ['spaceAfter' => 0]);
