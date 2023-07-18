@@ -239,9 +239,9 @@ registry:
             request: Demande
         flashbag:
             success:
-                create: Action de protection "%object%" créé avec succès
-                edit: Action de protection "%object%" modifié avec succès
-                delete: Action de protection "%object%" supprimé avec succès
+                create: Action de protection "%object%" créée avec succès
+                edit: Action de protection "%object%" modifiée avec succès
+                delete: Action de protection "%object%" supprimée avec succès
         list:
             charge: Charge
             collectivity: Structure
