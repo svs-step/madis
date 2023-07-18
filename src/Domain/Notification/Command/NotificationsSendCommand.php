@@ -116,7 +116,6 @@ class NotificationsSendCommand extends Command
             ) {
                 // Exit if user has email notifications disabled
                 $output->writeln('User ' . $mail . ' has disabled notifications');
-                $output->writeln(json_encode($prefs));
                 continue;
             }
 
@@ -188,7 +187,7 @@ class NotificationsSendCommand extends Command
 
                 $output->writeln('Notifications email sent to ' . $mail);
             } catch (\Exception $e) {
-                dump($e);
+                //dump($e);
                 $output->writeln('Could not send email to ' . $mail);
             }
         }

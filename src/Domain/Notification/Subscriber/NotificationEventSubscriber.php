@@ -316,8 +316,11 @@ class NotificationEventSubscriber implements EventSubscriberInterface
             if (is_object($ref) && User::class === get_class($ref)) {
                 $nu->setMail($ref->getEmail());
                 $nu->setUser($ref);
-            } else {
-                $nu->setMail($ref);
+            } else if (method_exists($ref, 'getEmail')) {
+                $nu->setMail($ref->getEmail());
+            } else if (str_contains((string)$ref, '@')) {
+                // Only add it if it contains an '@'
+                $nu->setMail((string)$ref);
             }
 
             $nu->setToken(sha1($notification->getName() . microtime() . $nu->getMail()));
