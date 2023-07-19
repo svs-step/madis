@@ -169,7 +169,7 @@ registry:
             proofs: Documents
             access_control: Contrôle d'accès
             created_at: Date de création
-            updated_at: Date de mise à jour
+            updated_at: Date de modification
             update: Mise à jour
             backup: Sauvegarde
             tracking: Traçabilité
@@ -189,7 +189,7 @@ registry:
             documents: Documents
             access_control: Contrôle d'accès
             created_at: Date de création
-            updated_at: Date de mise à jour
+            updated_at: Date de modification
             update: Mise à jour
             backup: Sauvegarde
             tracking: Traçabilité
