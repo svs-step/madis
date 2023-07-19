@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Model;
 
+use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\Mesurement;
 use JMS\Serializer\Annotation as Serializer;
 use Ramsey\Uuid\Uuid;
@@ -38,8 +39,9 @@ class AnswerSurvey
      */
     private $id;
 
-    private string $survey;
-    private string $answer;
+    private ?Survey $survey;
+
+    private ?Answer $answer;
 
     /**
      * @var Mesurement[]|iterable
@@ -50,7 +52,9 @@ class AnswerSurvey
 
         public function __construct()
     {
-        $this->id             = Uuid::uuid4();    }
+        $this->id             = Uuid::uuid4();
+        $this->mesurements = [];
+    }
 
     public function deserialize(): void
     {
@@ -60,5 +64,43 @@ class AnswerSurvey
     public function getId(): UuidInterface
     {
         return $this->id;
+    }
+
+    public function getAnswer(): Answer
+    {
+        return $this->answer;
+    }
+
+    public function setAnswer(?Answer $answer): void
+    {
+        $this->answer = $answer;
+    }
+
+    public function getSurvey(): Survey
+    {
+        return $this->survey;
+    }
+
+    public function setSurvey(?Survey $survey): void
+    {
+        $this->survey = $survey;
+    }
+
+    public function getMesurements(): iterable
+    {
+        return $this->mesurements;
+    }
+
+    public function getNonAppliedMesurements()
+    {
+        return array_filter(\iterable_to_array($this->mesurements),
+            function (Mesurement $action) {
+                return MesurementStatusDictionary::STATUS_NOT_APPLIED === $action->getStatus();
+            });
+    }
+
+    public function setMesurements(iterable $mesurements): void
+    {
+        $this->mesurements = $mesurements;
     }
 }

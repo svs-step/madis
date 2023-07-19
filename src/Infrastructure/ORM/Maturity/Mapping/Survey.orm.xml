@@ -16,12 +16,15 @@
             <join-column on-delete="SET NULL" />
         </many-to-one>
 
-        <one-to-many field="answerSurvey" target-entity="App\Domain\Maturity\Model\AnswerSurvey" mapped-by="survey">
+        <one-to-many field="answerSurveys" target-entity="App\Domain\Maturity\Model\AnswerSurvey" mapped-by="survey">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>
             </cascade>
         </one-to-many>
+
+        <many-to-many field="answers" target-entity="App\Domain\Maturity\Model\Answer" mapped-by="surveys">
+        </many-to-many>
 
         <one-to-many field="maturity" target-entity="App\Domain\Maturity\Model\Maturity" mapped-by="survey">
             <cascade>

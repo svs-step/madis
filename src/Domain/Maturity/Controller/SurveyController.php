@@ -25,12 +25,15 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Snappy\Pdf;
@@ -73,7 +76,6 @@ class SurveyController extends CRUDController
     private Repository\Referentiel $referentielRepository;
     private $router;
     private RequestStack $requestStack;
-
 
     public function __construct(
         EntityManagerInterface $entityManager,
@@ -193,6 +195,11 @@ class SurveyController extends CRUDController
                         foreach ($question['answers'] as $answerId) {
                             $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
                             $object->addAnswer($answer);
+
+                            $surveyAnswer = new Model\AnswerSurvey();
+                            $surveyAnswer->setAnswer($answer);
+                            $surveyAnswer->setSurvey($object);
+                            $this->entityManager->persist($surveyAnswer);
                         }
                     }
                 }
@@ -380,5 +387,38 @@ class SurveyController extends CRUDController
             '0' => 'nom',
             '1' => 'description',
         ];
+    }
+
+    public function showAction(string $id): Response
+    {
+        /** @var CollectivityRelated $object */
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        if ($object instanceof Collectivity) {
+            $serviceEnabled = $object->getIsServicesEnabled();
+        } else {
+            $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
+        }
+
+        $actionEnabled = true;
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$user->getServices()->isEmpty()) {
+            $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
+        }
+
+        $form = $this->createForm($this->getFormType(), $object);
+
+        return $this->render($this->getTemplatingBasePath('show'), [
+            'object'         => $object,
+            'actionEnabled'  => $actionEnabled,
+            'serviceEnabled' => $serviceEnabled,
+            'form'           => $form->createView(),
+        ]);
     }
 }

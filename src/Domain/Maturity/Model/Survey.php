@@ -52,7 +52,7 @@ class Survey implements LoggableSubject
     /**
      * @var iterable|null
      */
-    private $answerSurvey;
+    private $answerSurveys;
 
     /**
      * @var iterable|null
@@ -195,5 +195,10 @@ class Survey implements LoggableSubject
     public function setReferentiel(?Referentiel $referentiel): void
     {
         $this->referentiel = $referentiel;
+    }
+
+    public function getAnswerSurveys(): ?iterable
+    {
+        return $this->answerSurveys;
     }
 }
