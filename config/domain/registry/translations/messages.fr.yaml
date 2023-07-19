@@ -545,7 +545,7 @@ registry:
             tools: Logiciels et supports
             ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
-            dpoMessage: Préconisations DPO
+            dpoMessage: Préconisations
             legalMentions: Mentions légales apposées
             consentRequest: Consentement demandé
             consentRequestFormat: Format de la demande du consentement
@@ -620,7 +620,7 @@ registry:
             data_origin: Origine des données
             delay: Délais de conservation
             deleted_user: Utilisateur supprimé
-            dpo_message: Préconisations DPO
+            dpo_message: Préconisations
             estimated_concerned_people: Nombre de personnes concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités
@@ -686,7 +686,7 @@ registry:
           recipients: Destination
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
-          dpo_message: Préconisations DPO
+          dpo_message: Préconisations
           statut_dpo: Statut et préconisations DPD
 
     violation:
