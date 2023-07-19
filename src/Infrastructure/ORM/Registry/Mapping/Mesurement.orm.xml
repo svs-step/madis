@@ -42,6 +42,17 @@
             </join-table>
         </many-to-many>
 
+        <many-to-many field="answerSurveys" inversed-by="mesurements" target-entity="App\Domain\Maturity\Model\AnswerSurvey">
+            <join-table name="mesurement_answer_survey">
+                <join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
+
         <many-to-many field="contractors" inversed-by="mesurements" target-entity="App\Domain\Registry\Model\Contractor">
             <join-table name="mesurement_contractor">
                 <join-columns>

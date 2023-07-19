@@ -60,6 +60,11 @@ class Answer
     private $surveys;
 
     /**
+     * @var iterable|null
+     */
+    private $answerSurvey;
+
+    /**
      * Answer constructor.
      *
      * @throws \Exception

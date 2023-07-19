@@ -52,6 +52,11 @@ class Survey implements LoggableSubject
     /**
      * @var iterable|null
      */
+    private $answerSurvey;
+
+    /**
+     * @var iterable|null
+     */
     private $optionalAnswers;
 
     /**

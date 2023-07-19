@@ -151,6 +151,8 @@ class Mesurement implements LoggableSubject, CollectivityRelated
     private ?iterable $requests;
     private ?iterable $violations;
 
+    private ?iterable $answerSurveys;
+
     /**
      * Mesurement constructor.
      *

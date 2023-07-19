@@ -18,8 +18,12 @@
             <join-column on-delete="CASCADE" />
         </many-to-one>
 
-        <many-to-many field="surveys" target-entity="App\Domain\Maturity\Model\Survey" inversed-by="answers">
-        </many-to-many>
+        <one-to-many field="answerSurvey" target-entity="App\Domain\Maturity\Model\AnswerSurvey" mapped-by="answers">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </one-to-many>
 
     </entity>
 
