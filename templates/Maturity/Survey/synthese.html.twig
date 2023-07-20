@@ -31,7 +31,6 @@
                     Aucun indice à afficher
                 {% else %}
                     {% if object.maturity.new is defined and object.maturity.new.data is defined and object.maturity.new.data|length >= 3 %}
-
                         <canvas id="maturity-radar"></canvas>
                     {% else %}
                         Le référentiel contient moins de trois sections
@@ -55,38 +54,24 @@
     <div class="col-md-12"><h4>Préconisations</h4></div>
     <div class="col-md-6">
         <div class="box-body">
-            {{ dump(form.answerSurveys) }}
-            {% for answerSurvey in form.answerSurveys %}
-                <div>
-                    {{ form.answerSurvey.answer.recommendation }}
-                    {{ form_widget(form.answerSurveys.mesurements) }}
-                    {#
-                    {{ dump(answerSurvey, form) }}
-                    {{ form_widget(form.answerSurveys.mesurements) }}
-
-                    <button id="{{ answerSurvey.answer.mesurements.vars.id }}_add_button" aria-label="Ajouter une action de protection" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ answerSurvey.answer.mesurements.vars.id }}">
-                        <span class="fa fa-plus-circle"></span>
-                    </button>
-                    #}
-                </div>
-            {% endfor %}
+            {{ dump(form) }}
         </div>
     </div>
 </div>
 
-    <div class="row">
-        <div class="col-md-12">
-            <div class="box box-solid">
-                <div class="box-body text-center">
-                    <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
-                        {{ 'maturity.survey.action.back_to_list'|trans }}
-                    </a>
-                    <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
-                </div>
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
+                    {{ 'maturity.survey.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>
         </div>
     </div>
-    {# include('Maturity/Survey/_form.html.twig') #}
+</div>
+
 {% endblock %}
 
 {% block javascripts %}
