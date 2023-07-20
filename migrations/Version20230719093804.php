@@ -23,6 +23,7 @@ final class Version20230719093804 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE answer_survey ADD id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\'');
+        $this->addSql('UPDATE answer_survey SET id = UUID()');
         $this->addSql('ALTER TABLE answer_survey DROP PRIMARY KEY');
         $this->addSql('ALTER TABLE answer_survey ADD PRIMARY KEY (id)');
         $this->addSql('CREATE TABLE mesurement_answer_survey (mesurement_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', answer_survey_id CHAR(36) NOT NULL COMMENT \'(DC2Type:uuid)\', INDEX IDX_DDDA26792EA38913 (mesurement_id), INDEX IDX_DDDA26798E018F43 (answer_survey_id), PRIMARY KEY(mesurement_id, answer_survey_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE `utf8mb4_unicode_ci` ENGINE = InnoDB');
