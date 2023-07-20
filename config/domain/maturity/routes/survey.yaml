@@ -16,7 +16,7 @@ maturity_survey_edit:
 maturity_survey_synthesis:
   path: '/synthese/{id}'
   methods: ['GET', 'POST']
-  controller: 'App\Domain\Maturity\Controller\SurveyController::showAction'
+  controller: 'App\Domain\Maturity\Controller\SurveyController::syntheseAction'
 
 maturity_survey_report:
     path: '/bilan/{id}'

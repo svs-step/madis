@@ -389,36 +389,54 @@ class SurveyController extends CRUDController
         ];
     }
 
-    public function showAction(string $id): Response
+    public function syntheseAction(Request $request, string $id): Response
     {
-        /** @var CollectivityRelated $object */
+        //        /** @var CollectivityRelated $object */
         $object = $this->repository->findOneById($id);
         if (!$object) {
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
+        $serviceEnabled = false;
+
         if ($object instanceof Collectivity) {
             $serviceEnabled = $object->getIsServicesEnabled();
-        } else {
+        } elseif ($object instanceof CollectivityRelated) {
             $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
         }
 
-        $actionEnabled = true;
         /**
          * @var User $user
          */
         $user = $this->getUser();
-        if ($object instanceof CollectivityRelated && !$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$user->getServices()->isEmpty()) {
+
+        $actionEnabled = true;
+        if ($object instanceof CollectivityRelated && (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$user->getServices()->isEmpty())) {
             $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
         }
 
-        $form = $this->createForm($this->getFormType(), $object);
+        if (!$actionEnabled) {
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
 
-        return $this->render($this->getTemplatingBasePath('show'), [
-            'object'         => $object,
-            'actionEnabled'  => $actionEnabled,
-            'serviceEnabled' => $serviceEnabled,
+        $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->formPrePersistData($object);
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('synthese'), [
             'form'           => $form->createView(),
+            'object'         => $object,
+            'serviceEnabled' => $serviceEnabled,
         ]);
     }
 }

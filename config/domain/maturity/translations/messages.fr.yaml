@@ -5,6 +5,7 @@ maturity:
             new: Nouvel indice de maturité
             new_submit: Créer l'indice de maturité
             edit_submit: Modifier l'indice de maturité
+            synthese_submit: Modifier la synthèse
             referentiel: Choisir ce référentiel
         breadcrumb:
             create: Nouvel indice de maturité

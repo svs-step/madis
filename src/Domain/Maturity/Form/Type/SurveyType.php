@@ -47,6 +47,10 @@ class SurveyType extends AbstractType
                 'entry_type' => SurveyAnswerType::class,
                 'mapped'     => false,
             ])
+            ->add('answerSurveys',CollectionType::class, [
+                'entry_type' => SurveyAnswerType::class,
+                'mapped'     => false,
+            ])
         ;
     }
 
