@@ -60,14 +60,14 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             'width'       => 100 * 50,
         ];
 
-        uasort($data, [$this, 'sortMesurementByPriority']);
+        uasort($data, [$this, 'sortMesurementByDate']);
 
         $appliedMesurement = [];
         $actionPlan        = [];
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
                 $appliedMesurement[] = [
-                    $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
+                    $mesurement->getCreatedAt()->format('d/m/Y'),
                     $mesurement->getName(),
                 ];
             } elseif (!\is_null($mesurement->getPlanificationDate()) && MesurementStatusDictionary::STATUS_NOT_APPLIED === $mesurement->getStatus()) {
@@ -86,6 +86,7 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             }
         }
 
+        $section->addTitle('Actions de protection mises en place', 2);
         $textrun = $section->addTextRun();
         $textrun->addText("Afin de protéger les données à caractère personnel, '{$collectivity}' a mis en place des actions de protection. Une ");
         $textrun->addLink('ActionsImplemented', 'liste exhaustive des actions de protection mises en place', ['underline' => 'single'], [], true);
@@ -136,11 +137,13 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
     {
         $section->addBookmark('ActionsImplemented');
         $section->addTitle('Liste des actions de protection mises en place', 2);
+
+        uasort($data, [$this, 'sortMesurementByDate']);
         $appliedMesurement = [];
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
                 $appliedMesurement[] = [
-                    $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
+                    $mesurement->getCreatedAt()->format('d/m/Y'),
                     $mesurement->getName(),
                 ];
             }
@@ -326,6 +329,15 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             $section->addTitle('Historique', 3);
             $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);
         }
+    }
+
+    private function sortMesurementByDate(Mesurement $a, Mesurement $b)
+    {
+        if ($a->getCreatedAt() === $b->getCreatedAt()) {
+            return 0;
+        }
+
+        return ($a->getCreatedAt() < $b->getCreatedAt()) ? 1 : -1;
     }
 
     private function sortMesurementByPriority(Mesurement $a, Mesurement $b)
