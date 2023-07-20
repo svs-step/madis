@@ -169,7 +169,7 @@ registry:
             proofs: Documents
             access_control: Contrôle d'accès
             created_at: Date de création
-            updated_at: Date de mise à jour
+            updated_at: Date de modification
             update: Mise à jour
             backup: Sauvegarde
             tracking: Traçabilité
@@ -189,7 +189,7 @@ registry:
             documents: Documents
             access_control: Contrôle d'accès
             created_at: Date de création
-            updated_at: Date de mise à jour
+            updated_at: Date de modification
             update: Mise à jour
             backup: Sauvegarde
             tracking: Traçabilité
@@ -239,9 +239,9 @@ registry:
             request: Demande
         flashbag:
             success:
-                create: Action de protection "%object%" créé avec succès
-                edit: Action de protection "%object%" modifié avec succès
-                delete: Action de protection "%object%" supprimé avec succès
+                create: Action de protection "%object%" créée avec succès
+                edit: Action de protection "%object%" modifiée avec succès
+                delete: Action de protection "%object%" supprimée avec succès
         list:
             charge: Charge
             collectivity: Structure
@@ -476,8 +476,8 @@ registry:
             inactive: Voir les traitements inactifs
             new: Nouveau traitement
             report: Générer une impression
-            new_submit: Créer l'évaluation du traitement
-            edit_submit: Modifier l'évaluation du traitement
+            new_submit: Créer le traitement
+            edit_submit: Modifier le traitement
             edit_config_submit: Modifier la configuration
             draft: Enregistrer le brouillon
         breadcrumb:
@@ -545,7 +545,7 @@ registry:
             tools: Logiciels et supports
             ultimate_fate: Sort final
             vulnerable_people: Personnes vulnérables
-            dpoMessage: Préconisations DPO
+            dpoMessage: Préconisations
             legalMentions: Mentions légales apposées
             consentRequest: Consentement demandé
             consentRequestFormat: Format de la demande du consentement
@@ -620,7 +620,7 @@ registry:
             data_origin: Origine des données
             delay: Délais de conservation
             deleted_user: Utilisateur supprimé
-            dpo_message: Préconisations DPO
+            dpo_message: Préconisations
             estimated_concerned_people: Nombre de personnes concernées
             evaluation_or_rating: Évaluation ou notation
             goal: Finalités
@@ -686,7 +686,7 @@ registry:
           recipients: Destination
           security: Mesures de sécurité et confidentialité
           specific: Traitement spécifique
-          dpo_message: Préconisations DPO
+          dpo_message: Préconisations
           statut_dpo: Statut et préconisations DPD
 
     violation:
@@ -794,6 +794,8 @@ registry:
             back_to_list: Retour à la liste
             report: Générer une impression
             show_conformite_traitement: Évaluer
+            new_submit: Créer l'évaluation du traitement
+            edit_submit: Modifier l'évaluation du traitement
         title:
             list: Conformité des traitements
             create: Evaluer un traitement

@@ -1,4 +1,4 @@
-{% if form.vars.value.createdAt.timestamp is defined %}
+{% if form.vars.value.updatedAt.timestamp is defined %}
     {% set submitValue = submitValue|default('user.user.action.edit_submit'|trans) %}
 {% else %}
     {% set submitValue = submitValue|default('user.user.action.new_submit'|trans) %}

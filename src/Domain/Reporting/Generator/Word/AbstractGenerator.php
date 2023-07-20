@@ -247,10 +247,8 @@ abstract class AbstractGenerator implements GeneratorInterface
             ['size' => 12]
         );
 
-        $section->addText(
-            'Date de désignation : ' . "{$this->getDate(new \DateTimeImmutable(), 'd/m/Y')}",
-            ['size' => 12]
-        );
+        $section->addTextBreak(3);
+        $section->addText(date('d/m/Y'), ['italic' => true], ['alignment' => Jc::CENTER]);
     }
 
     /**

@@ -52,15 +52,14 @@
             <div class="box box-solid">
                 <div class="box-body">
                     <div id="custom-buttons" style="float:left">
+                        <a id="print-all" href="" class="dt-button buttons-collection buttons-colvis">
+                            Imprimer
+                        </a>
                         {% if app.user.roles[0] != 'ROLE_PREVIEW' %}
                             <a id="delete-all"  href="" class="dt-button buttons-collection buttons-colvis">
                                 Supprimer
                             </a>
                         {% endif %}
-                        <a id="print-all" href="" class="dt-button buttons-collection buttons-colvis">
-                            Imprimer
-                        </a>
-
                     </div>
 
                     <table role="presentation" id="table" class="table table-bordered table-hover">

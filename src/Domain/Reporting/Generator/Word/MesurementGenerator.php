@@ -60,14 +60,14 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             'width'       => 100 * 50,
         ];
 
-        uasort($data, [$this, 'sortMesurementByPriority']);
+        uasort($data, [$this, 'sortMesurementByDate']);
 
         $appliedMesurement = [];
         $actionPlan        = [];
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
                 $appliedMesurement[] = [
-                    $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
+                    $mesurement->getCreatedAt()->format('d/m/Y'),
                     $mesurement->getName(),
                 ];
             } elseif (!\is_null($mesurement->getPlanificationDate()) && MesurementStatusDictionary::STATUS_NOT_APPLIED === $mesurement->getStatus()) {
@@ -86,12 +86,13 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             }
         }
 
+        $section->addTitle('Actions de protection mises en place', 2);
         $textrun = $section->addTextRun();
         $textrun->addText("Afin de protéger les données à caractère personnel, '{$collectivity}' a mis en place des actions de protection. Une ");
         $textrun->addLink('ActionsImplemented', 'liste exhaustive des actions de protection mises en place', ['underline' => 'single'], [], true);
         $textrun->addText(' figure en annexe. Ci-dessous, les 20 dernières actions :');
 
-        $this->ProtectionActionAppliedTable($section, $appliedMesurement);
+        $this->ProtectionActionAppliedTable($section, $appliedMesurement, false);
 
         $section->addTitle("Plan d'actions", 2);
         $section->addText('Un plan d’action a été établi comme suit.');
@@ -114,15 +115,22 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
 
         $cntTreatment   = 0;
         $cntContractors = 0;
+        $cntTools       = 0;
         $cntViolations  = 0;
         $cntRequests    = 0;
         foreach ($data as $item) {
             $cntTreatment   = $item->getTreatments() ? $cntTreatment + count($item->getTreatments()) : $cntTreatment;
             $cntContractors = $item->getContractors() ? $cntContractors + count($item->getContractors()) : $cntContractors;
+            $cntTools       = $item->getTools() ? $cntTools + count($item->getTools()) : $cntTools;
             $cntViolations  = $item->getViolations() ? $cntViolations + count($item->getViolations()) : $cntViolations;
             $cntRequests    = $item->getRequests() ? $cntRequests + count($item->getRequests()) : $cntRequests;
         }
-        $arrayTypes = [['type' => 'Traitements', 'count' => $cntTreatment], ['type' => 'Sous-traitants', 'count' => $cntContractors], ['type' => 'Violations de données', 'count' => $cntViolations], ['type' => 'Demandes', 'count' => $cntRequests]];
+
+        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        $arrayTypes   = $collectivity->isHasModuleTools() ?
+            [['type' => 'Traitements', 'count' => $cntTreatment], ['type' => 'Sous-traitants', 'count' => $cntContractors], ['type' => 'Logiciels ou supports', 'count' => $cntTools], ['type' => 'Violations de données', 'count' => $cntViolations], ['type' => 'Demandes', 'count' => $cntRequests]] :
+            [['type' => 'Traitements', 'count' => $cntTreatment], ['type' => 'Sous-traitants', 'count' => $cntContractors], ['type' => 'Violations de données', 'count' => $cntViolations], ['type' => 'Demandes', 'count' => $cntRequests]];
+
         foreach ($arrayTypes as $item) {
             $tableActionType->addRow();
             $cell = $tableActionType->addCell(6000);
@@ -136,19 +144,21 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
     {
         $section->addBookmark('ActionsImplemented');
         $section->addTitle('Liste des actions de protection mises en place', 2);
+
+        uasort($data, [$this, 'sortMesurementByDate']);
         $appliedMesurement = [];
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
                 $appliedMesurement[] = [
-                    $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format(self::DATE_FORMAT) : '',
+                    $mesurement->getCreatedAt()->format('d/m/Y'),
                     $mesurement->getName(),
                 ];
             }
         }
-        $this->ProtectionActionAppliedTable($section, $appliedMesurement);
+        $this->ProtectionActionAppliedTable($section, $appliedMesurement, true);
     }
 
-    public function ProtectionActionAppliedTable($section, $appliedMesurement)
+    public function ProtectionActionAppliedTable($section, $appliedMesurement, $isAnnexe)
     {
         $tableProtectionActionApplied = $section->addTable($this->tableStyleConformite);
         $tableProtectionActionApplied->addRow(null, ['tblHeader' => true, 'cantSplit' => true]);
@@ -158,7 +168,9 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
         $cell->addText('Action', $this->textHeadStyle);
 
         if ($appliedMesurement) {
-            foreach (array_slice($appliedMesurement, 0, 20) as $line) {
+            $limit = $isAnnexe ? count($appliedMesurement) : 20;
+
+            foreach (array_slice($appliedMesurement, 0, $limit) as $line) {
                 $tableProtectionActionApplied->addRow(400, ['exactHeight' => true, 'cantsplit' => true]);
                 $cell1 = $tableProtectionActionApplied->addCell(1500);
                 $cell1->addText($line[0], [], ['alignment' => 'center']);
@@ -324,6 +336,15 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
             $section->addTitle('Historique', 3);
             $this->addTable($section, $historyData, true, self::TABLE_ORIENTATION_VERTICAL);
         }
+    }
+
+    private function sortMesurementByDate(Mesurement $a, Mesurement $b)
+    {
+        if ($a->getCreatedAt() === $b->getCreatedAt()) {
+            return 0;
+        }
+
+        return ($a->getCreatedAt() < $b->getCreatedAt()) ? 1 : -1;
     }
 
     private function sortMesurementByPriority(Mesurement $a, Mesurement $b)

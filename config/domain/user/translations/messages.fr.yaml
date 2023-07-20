@@ -263,9 +263,9 @@ user:
             dpo: DPO
         flashbag:
             success:
-                create: Utilisateur "%object%" créée avec succès
-                edit: Utilisateur "%object%" éditée avec succès
-                delete: Utilisateur "%object%" supprimée avec succès
+                create: Utilisateur "%object%" crée avec succès
+                edit: Utilisateur "%object%" édité avec succès
+                delete: Utilisateur "%object%" supprimé avec succès
                 unarchive: Utilisateur "%object%" rétabli avec succès
         list:
             collectivity: Structure

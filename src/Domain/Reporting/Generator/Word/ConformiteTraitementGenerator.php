@@ -443,61 +443,28 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $section->AddListItem('NCM = Non conforme mineure');
         $section->AddListItem('NC = Non conforme majeure');
 
-        $styleCellHeader = ['textDirection' => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, 'bgColor' => '3c8dbc', 'vAlign' => 'center', 'vMerge' => 'restart'];
+        $styleCellHeader = ['textDirection' => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, 'bgColor' => '3c8dbc', 'vAlign' => 'center'];
 
         // Affichage du header du tableau
         $tableSyntheticAnnexeList = $section->addTable($this->tableStyle);
-        $tableSyntheticAnnexeList->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
-        $cell = $tableSyntheticAnnexeList->addCell(1000, ['bgColor' => '3c8dbc', 'vMerge' => 'restart', 'vAlign' => 'bottom']);
+        $tableSyntheticAnnexeList->addRow(2000, ['tblHeader' => true, 'cantsplit' => true]);
+        $cell = $tableSyntheticAnnexeList->addCell(1000, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
         $cell->addText('Traitements', $this->textHeadStyle);
 
-        $ConformiteNames = ['Finalités', 'Licéité du traitement', 'Minimisation des données', 'Qualité des données', 'Durées de conservation', 'Information des personnes', 'Recueil du consentement'];
+        $ConformiteNames = ['Finalités', 'Licéité du traitement', 'Minimisation des données', 'Qualité des données', 'Durées de conservation', 'Information des personnes', 'Recueil du consentement', "Droit d'Accès", 'Droit de portabilité', 'Droit de rectification', "Droit d'effacement", 'Droit de limitation', "Droit d'opposition", 'Sous-traitance', 'Transferts hors UE'];
         foreach ($ConformiteNames as $item) {
-            $cell = $tableSyntheticAnnexeList->addCell(300, $styleCellHeader);
-            $cell->addText($item, $this->textHeadStyle);
-        }
-
-        $cell = $tableSyntheticAnnexeList->addCell(1800, ['bgColor' => '3c8dbc']);
-        $cell->getStyle()->setGridSpan(6);
-        $cell->addText('Exercice des droits', ['bold' => true, 'color' => 'ffffff'], ['align' => 'center']);
-
-        $ConformiteSuiteNames = ['Sous-traitance', 'Transferts hors UE'];
-        foreach ($ConformiteSuiteNames as $item) {
             $cell = $tableSyntheticAnnexeList->addCell(300, $styleCellHeader);
             $cell->addText($item, $this->textHeadStyle);
         }
 
         $cell = $tableSyntheticAnnexeList->addCell(100, ['borderTopColor' => 'ffffff', 'borderTopSize' => 2, 'borderBottomColor' => 'ffffff', 'borderBottomSize' => 2]);
         $cell->addText('');
-        $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
         $cell->addText('C', $this->textHeadStyle);
-        $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
         $cell->addText('NCM', $this->textHeadStyle);
-        $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom', 'vMerge' => 'restart']);
+        $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
         $cell->addText('NC', $this->textHeadStyle);
-        $tableSyntheticAnnexeList->addRow(1400);
-        $tableSyntheticAnnexeList->addCell(1000, ['vMerge' => 'continue']);
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
-
-        $styleCellHeaderUnder = ['textDirection' => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, 'bgColor' => '3c8dbc', 'vAlign' => 'center'];
-        $ExerciceNames        = ['Accès', 'Portabilité', 'Rectification', 'Effacement', 'Limitation', 'Opposition'];
-
-        foreach ($ExerciceNames as $item) {
-            $cell = $tableSyntheticAnnexeList->addCell(300, $styleCellHeaderUnder);
-            $cell->addText($item, $this->textHeadStyle);
-        }
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
-        $tableSyntheticAnnexeList->addCell(100, ['borderTopColor' => 'ffffff', 'borderTopSize' => 2, 'borderBottomColor' => 'ffffff', 'borderBottomSize' => 2]);
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
-        $tableSyntheticAnnexeList->addCell(300, ['vMerge' => 'continue']);
 
         $listConformityName = [
             'C'   => [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0, 13 => 0, 14 => 0, 15 => 0],
@@ -515,7 +482,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 }
                 ksort($ConformityTreatmentValues);
 
-                $tableSyntheticAnnexeList->addRow(400, ['exactHeight' => true]);
+                $tableSyntheticAnnexeList->addRow();
                 $cell = $tableSyntheticAnnexeList->addCell(1000);
                 $cell->addText($treatment->getName(), ['size' => 8]);
 
@@ -524,7 +491,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 $NCM = 0;
 
                 foreach ($ConformityTreatmentValues as $key => $value) {
-                    $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => $this->BgColorSyntheticTreatment($value)]);
+                    $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => $this->BgColorSyntheticTreatment($value), 'vAlign' => 'center']);
                     $cell->addText($value, ['size' => 8], ['alignment' => 'center']);
                     ++$listConformityName[$value][$key];
 
@@ -537,11 +504,11 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
                 $cell = $tableSyntheticAnnexeList->addCell(100, ['borderTopColor' => 'ffffff', 'borderTopSize' => 2, 'borderBottomColor' => 'ffffff', 'borderBottomSize' => 2]);
                 $cell->addText('');
-                $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'bce292']);
+                $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'bce292', 'vAlign' => 'center']);
                 $cell->addText($C, ['bold' => true], ['alignment' => 'center']);
-                $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffff80']);
+                $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffff80', 'vAlign' => 'center']);
                 $cell->addText($NCM, ['bold' => true], ['alignment' => 'center']);
-                $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffa7a7']);
+                $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffa7a7', 'vAlign' => 'center']);
                 $cell->addText($NC, ['bold' => true], ['alignment' => 'center']);
             }
         }
