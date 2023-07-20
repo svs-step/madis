@@ -232,9 +232,8 @@ class OverviewGenerator extends AbstractGenerator
 
     public function generateAnnexeMention($document, Section $section, array $treatments = [], array $violations = [], array $mesurements = []): void
     {
-        $section->addTitle('Annexes');
-
         $AnnexeTreatmentListSection = $document->addSection(['orientation' => 'portrait']);
+        $AnnexeTreatmentListSection->addTitle('Annexes');
         $this->treatmentGenerator->TreatmentAnnexeList($AnnexeTreatmentListSection, $treatments);
 
         $RiskAnnexeSection = $document->addSection(['orientation' => 'landscape']);

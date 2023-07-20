@@ -115,15 +115,22 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
 
         $cntTreatment   = 0;
         $cntContractors = 0;
+        $cntTools       = 0;
         $cntViolations  = 0;
         $cntRequests    = 0;
         foreach ($data as $item) {
             $cntTreatment   = $item->getTreatments() ? $cntTreatment + count($item->getTreatments()) : $cntTreatment;
             $cntContractors = $item->getContractors() ? $cntContractors + count($item->getContractors()) : $cntContractors;
+            $cntTools       = $item->getTools() ? $cntTools + count($item->getTools()) : $cntTools;
             $cntViolations  = $item->getViolations() ? $cntViolations + count($item->getViolations()) : $cntViolations;
             $cntRequests    = $item->getRequests() ? $cntRequests + count($item->getRequests()) : $cntRequests;
         }
-        $arrayTypes = [['type' => 'Traitements', 'count' => $cntTreatment], ['type' => 'Sous-traitants', 'count' => $cntContractors], ['type' => 'Violations de données', 'count' => $cntViolations], ['type' => 'Demandes', 'count' => $cntRequests]];
+
+        $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        $arrayTypes   = $collectivity->isHasModuleTools() ?
+            [['type' => 'Traitements', 'count' => $cntTreatment], ['type' => 'Sous-traitants', 'count' => $cntContractors], ['type' => 'Logiciels ou supports', 'count' => $cntTools], ['type' => 'Violations de données', 'count' => $cntViolations], ['type' => 'Demandes', 'count' => $cntRequests]] :
+            [['type' => 'Traitements', 'count' => $cntTreatment], ['type' => 'Sous-traitants', 'count' => $cntContractors], ['type' => 'Violations de données', 'count' => $cntViolations], ['type' => 'Demandes', 'count' => $cntRequests]];
+
         foreach ($arrayTypes as $item) {
             $tableActionType->addRow();
             $cell = $tableActionType->addCell(6000);
