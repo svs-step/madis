@@ -47,6 +47,7 @@
                 console.log('new HTML', html)
                 btn.parent('div').find('ul.referentielSections').append('<li>'+html+'</li>');
                 $('#referentiel_referentielSections_'+index+'_orderNumber').val(index);
+                $('#referentiel_domains_'+index+'_position').val(index);
             } else if (type === 'add_question') {
                 let html = $('#prototypes').data('prototype-question')
                 const holder = btn.parent().parent().find('ul.referentielQuestions')
@@ -57,6 +58,7 @@
                 const newIndex = holder.data('index') + 1
                 holder.data('index', newIndex)
                 $('#referentiel_referentielSections_'+ section + '_referentielQuestions_' + oldIndex + '_orderNumber').val(oldIndex);
+                $('#referentiel_domains_'+ section + '_questions_' + oldIndex + '_position').val(oldIndex);
             } else {
                 let html = $('#prototypes').data('prototype-answer')
                 const holder = btn.parent().parent().parent().find('ul.referentielAnswers')
@@ -70,6 +72,7 @@
                 holder.data('index', newIndex)
                 console.log('object val', $(`#referentiel_referentielSections_${section}_referentielQuestions_${question}_referentielAnswers_${oldIndex}_orderNumber`))
                 $(`#referentiel_referentielSections_${section}_referentielQuestions_${question}_referentielAnswers_${oldIndex}_orderNumber`).val(oldIndex)
+                $(`#referentiel_domains_${section}_questions_${question}_answers_${oldIndex}_position`).val(oldIndex)
             }
         }
 
