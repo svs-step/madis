@@ -53,6 +53,7 @@
                                 <td><strong>{{ 'registry.treatment.show.statut'|trans }}</strong></td>
                                 <td>
                                     {{ object.statut ? object.statut|dictionary('treatment_statut') : '' }}
+                                    {{ form_row(form.statut) }}
                                 </td>
                             </tr>
                             {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.dpoMessage is not null) %}

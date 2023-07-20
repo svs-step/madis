@@ -187,7 +187,7 @@ class NotificationsSendCommand extends Command
 
                 $output->writeln('Notifications email sent to ' . $mail);
             } catch (\Exception $e) {
-                //dump($e);
+                // dump($e);
                 $output->writeln('Could not send email to ' . $mail);
             }
         }
