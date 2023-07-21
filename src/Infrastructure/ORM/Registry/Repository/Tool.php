@@ -117,7 +117,13 @@ class Tool extends CRUDRepository implements Repository\Tool
         foreach ($searches as $columnName => $search) {
             switch ($columnName) {
                 case 'name':
+                    $queryBuilder->andWhere('o.name LIKE :name')
+                        ->setParameter('name', '%' . $search . '%');
+                    break;
                 case 'editor':
+                    $queryBuilder->andWhere('o.editor LIKE :editor')
+                        ->setParameter('editor', '%' . $search . '%');
+                    break;
                 case 'access_control':
                     $queryBuilder->andWhere('o.access_control.check = :access_control')
                         ->setParameter('access_control', $search);
