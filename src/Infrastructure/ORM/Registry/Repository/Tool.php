@@ -118,6 +118,22 @@ class Tool extends CRUDRepository implements Repository\Tool
             switch ($columnName) {
                 case 'name':
                 case 'editor':
+                case 'access_control':
+                    $queryBuilder->andWhere('o.access_control.check = :access_control')
+                        ->setParameter('access_control', $search);
+                    break;
+                case 'deletion':
+                    $queryBuilder->andWhere('o.deletion.check = :deletion')
+                        ->setParameter('deletion', $search);
+                    break;
+                case 'tracking':
+                    $queryBuilder->andWhere('o.tracking.check = :tracking')
+                        ->setParameter('tracking', $search);
+                    break;
+                case 'other':
+                    $queryBuilder->andWhere('o.other.check = :other')
+                        ->setParameter('other', $search);
+                    break;
                 case 'type':
                     $this->addWhereClause($queryBuilder, $columnName, '%' . $search . '%', 'LIKE');
                     break;
