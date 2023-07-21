@@ -97,8 +97,12 @@ class Tool extends CRUDRepository implements Repository\Tool
     {
         $query = $this->createQueryBuilder()
             ->leftJoin('o.collectivity', 'collectivity')
+            ->leftJoin('o.treatments', 'treatments')
             ->leftJoin('o.contractors', 'contractors')
+            ->leftJoin('o.proofs', 'proofs')
+            ->leftJoin('o.mesurements', 'mesurements')
         ;
+
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($query, $key, $value);
         }
@@ -147,9 +151,21 @@ class Tool extends CRUDRepository implements Repository\Tool
                     $queryBuilder->andWhere('collectivity.name LIKE :colnom')
                         ->setParameter('colnom', '%' . $search . '%');
                     break;
+                case 'treatments':
+                    $queryBuilder->andWhere('treatments.name LIKE :treatment')
+                        ->setParameter('treatment', '%' . $search . '%');
+                    break;
                 case 'contractors':
-                    $queryBuilder->andWhere('contractors.name LIKE :st_nom')
-                        ->setParameter('st_nom', '%' . $search . '%');
+                    $queryBuilder->andWhere('contractors.name LIKE :contractor')
+                        ->setParameter('contractor', '%' . $search . '%');
+                    break;
+                case 'proofs':
+                    $queryBuilder->andWhere('proofs.name LIKE :proof')
+                        ->setParameter('proof', '%' . $search . '%');
+                    break;
+                case 'mesurements':
+                    $queryBuilder->andWhere('mesurements.name LIKE :mesurement')
+                        ->setParameter('mesurement', '%' . $search . '%');
                     break;
                 case 'createdAt':
                     if (is_string($search)) {

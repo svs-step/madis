@@ -175,7 +175,7 @@ registry:
             tracking: Traçabilité
             deletion: Suppression
             has_comment: Zone de commentaire libre
-            other: Autre
+            other: Autres
             type: Type
             editor: Éditeur
             archival: Archivage
