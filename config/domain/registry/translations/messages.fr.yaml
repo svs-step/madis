@@ -122,7 +122,7 @@ registry:
         form:
             name: Nom
             type: Type
-            editor: Editeur
+            editor: Éditeur
             contractors: Sous-traitants
             description: Description
             other_info: Autres informations
@@ -177,7 +177,7 @@ registry:
             has_comment: Zone de commentaire libre
             other: Autre
             type: Type
-            editor: Editeur
+            editor: Éditeur
             archival: Archivage
             encrypted: Chiffrement
         show:
@@ -197,7 +197,7 @@ registry:
             has_comment: Zone de commentaire libre
             other: Autre
             type: Type
-            editor: Editeur
+            editor: Éditeur
             manager: Personne en charge
             archival: Archivage
             encrypted: Chiffrement
