@@ -29,6 +29,7 @@ use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\SurveyType;
+use App\Domain\Maturity\Form\Type\SyntheseType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
@@ -419,7 +420,7 @@ class SurveyController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
-        $form = $this->createForm($this->getFormType(), $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
+        $form = $this->createForm(SyntheseType::class, $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
 
         $form->handleRequest($request);
 
