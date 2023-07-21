@@ -202,6 +202,18 @@ class Tool extends CRUDRepository implements Repository\Tool
             case 'name':
                 $queryBuilder->addOrderBy('o.' . $orderColumn, $orderDir);
                 break;
+            case 'treatments':
+                $queryBuilder->addOrderBy('treatments.name', $orderDir);
+                break;
+            case 'contractors':
+                $queryBuilder->addOrderBy('contractors.name', $orderDir);
+                break;
+            case 'proofs':
+                $queryBuilder->addOrderBy('proofs.name', $orderDir);
+                break;
+            case 'mesurements':
+                $queryBuilder->addOrderBy('mesurements.name', $orderDir);
+                break;
             default:
                 // $queryBuilder->leftJoin(Model\Embeddable\ComplexChoice::class, 'cc', 'WITH', 'cc')
                 $queryBuilder->addOrderBy('o.' . $orderColumn . '.check', $orderDir);
