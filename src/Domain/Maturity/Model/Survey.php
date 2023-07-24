@@ -47,11 +47,6 @@ class Survey implements LoggableSubject
     /**
      * @var iterable|null
      */
-    private $answers;
-
-    /**
-     * @var iterable|null
-     */
     private $answerSurveys;
 
     /**
@@ -76,10 +71,10 @@ class Survey implements LoggableSubject
      */
     public function __construct()
     {
-        $this->id       = Uuid::uuid4();
-        $this->answers  = [];
-        $this->maturity = [];
-        $this->score    = 0;
+        $this->id            = Uuid::uuid4();
+        $this->answerSurveys = [];
+        $this->maturity      = [];
+        $this->score         = 0;
     }
 
     public function getId(): UuidInterface

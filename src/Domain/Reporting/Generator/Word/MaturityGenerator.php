@@ -267,7 +267,8 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
          * @var Survey $survey
          */
         foreach ($data as $key => $survey) {
-            foreach ($survey->getAnswers() as $answer) {
+            foreach ($survey->getAnswerSurveys() as $answerSurvey) {
+                $answer                                                                                           = $answerSurvey->getAnswer();
                 $ordered[$answer->getQuestion()->getDomain()->getName()][$answer->getQuestion()->getName()][$key] = $answer;
             }
             foreach ($survey->getOptionalAnswers() as $optionalAnswer) {

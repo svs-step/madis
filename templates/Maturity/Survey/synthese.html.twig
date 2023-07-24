@@ -68,11 +68,21 @@
             <div class="box-body">
                 {% if domainAnswers|length > 0 %}
                 {% for answerSurvey in domainAnswers %}
-                    <div style="margin-top: 1em">
-                        <label>
-                            {{ answerSurvey.vars.value.answer.recommendation }}
-                        </label>
-                        {{  form_widget(answerSurvey.mesurements) }}
+                    <div class="row" style="margin-top: 1em">
+                        <div class="col-md-12">
+                            <label for="{{ answerSurvey.mesurements.vars.id }}">
+                                {{ answerSurvey.vars.value.answer.recommendation }}
+                            </label>
+                        </div>
+                        <div class="col-md-10">
+
+                            {{  form_widget(answerSurvey.mesurements) }}
+                            </div>
+                        <div class="col-md-2">
+                            <button id="{{ answerSurvey.mesurements.vars.id }}_add_button" aria-label="Ajouter une action de protection" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ answerSurvey.mesurements.vars.id }}">
+                                <span class="fa fa-plus-circle"></span>
+                            </button>
+                        </div>
                     </div>
                 {% endfor %}
                 {% else %}
@@ -100,11 +110,14 @@
     </div>
 </div>
     {{ form_end(form) }}
+
+    {{ include('Registry/Mesurement/_modal_form.html.twig') }}
 {% endblock %}
 
 {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+    {{ include('Registry/Mesurement/_modal_form_js.html.twig') }}
     <script>
         let colorBlueOpacity = 'rgba(54, 162, 235, 0.5)';
         let colorRedOpacity = 'rgba(255, 99, 132, 0.5)';

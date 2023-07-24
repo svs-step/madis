@@ -38,7 +38,7 @@ class SurveyTest extends TestCase
         $model = new Survey();
 
         $this->assertInstanceOf(UuidInterface::class, $model->getId());
-        $this->assertEquals([], $model->getAnswers());
+        $this->assertEquals([], $model->getAnswerSurveys());
         $this->assertEquals([], $model->getMaturity());
         $this->assertEquals(0, $model->getScore());
     }

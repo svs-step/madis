@@ -103,12 +103,19 @@ class MaturityTest extends TestCase
         // Maturity already set
         $survey->addMaturity($maturity1);
         // Link answers
-        $survey->addAnswer($answer1);
-        $survey->addAnswer($answer2);
-        $survey->addAnswer($answer3);
-        $survey->addAnswer($answer4);
-
-        //        dd($domain1);
+        $as1 = new Model\AnswerSurvey();
+        $as1->setAnswer($answer1);
+        $as1->setSurvey($survey);
+        $as2 = new Model\AnswerSurvey();
+        $as2->setAnswer($answer2);
+        $as2->setSurvey($survey);
+        $as3 = new Model\AnswerSurvey();
+        $as3->setAnswer($answer3);
+        $as3->setSurvey($survey);
+        $as4 = new Model\AnswerSurvey();
+        $as4->setAnswer($answer4);
+        $as4->setSurvey($survey);
+        $survey->setAnswerSurveys([$as1, $as2, $as3, $as4]);
 
         $result = $this->calculator->generateMaturityByDomain($survey);
 
