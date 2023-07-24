@@ -54,7 +54,10 @@
     <div class="col-md-12"><h4>Préconisations</h4></div>
     <div class="col-md-6">
         <div class="box-body">
-            {{ dump(form) }}
+            {{  dump(form.surveyAnswers) }}
+            {% for surveyAnswer in form.surveyAnswers %}
+                tt
+            {% endfor %}
         </div>
     </div>
 </div>

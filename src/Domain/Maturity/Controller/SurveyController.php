@@ -420,7 +420,7 @@ class SurveyController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
-        $form = $this->createForm(SyntheseType::class, $object, ['validation_groups' => ['default', $this->getModel(), 'edit']]);
+        $form = $this->createForm(SyntheseType::class);
 
         $form->handleRequest($request);
 
@@ -435,9 +435,8 @@ class SurveyController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('synthese'), [
-            'form'           => $form->createView(),
-            'object'         => $object,
-            'serviceEnabled' => $serviceEnabled,
+            'form'   => $form->createView(),
+            'object' => $object,
         ]);
     }
 }

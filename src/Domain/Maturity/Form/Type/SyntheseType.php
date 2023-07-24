@@ -30,6 +30,7 @@ use App\Domain\Registry\Model\Mesurement;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -42,37 +43,12 @@ class SyntheseType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
-            $event->getForm()->add('mesurements', EntityType::class, [
-                    'required'      => false,
-                    'label'         => false,
-                    'class'         => Mesurement::class,
-                    'query_builder' => function (EntityRepository $er) {
-                        return $er->createQueryBuilder('m')
-                            ->andWhere('m.status = :nonApplied')
-                            ->setParameter('nonApplied', MesurementStatusDictionary::STATUS_NOT_APPLIED)
-                            ->orderBy('m.name', 'ASC');
-                    },
-                    'choice_label' => 'name',
-                    'expanded'     => false,
-                    'multiple'     => true,
-                    'attr'         => [
-                        'class'            => 'selectpicker',
-                        'title'            => 'placeholder.multiple_select_action_protection',
-                        'data-live-search' => true,
-                        'data-width'       => '450px',
-                    ],
-                    'choice_attr' => function (Mesurement $choice) {
-                        $name = $choice->getName();
-                        if (\mb_strlen($name) > 85) {
-                            $name = \mb_substr($name, 0, 85) . '...';
-                        }
-
-                        return ['data-content' => $name];
-                    },
-                ]
-            );
-        });
+        $builder
+            ->add('surveyAnswers',CollectionType::class, [
+                'entry_type' => SurveyAnswerType::class,
+                'mapped'     => false,
+            ])
+        ;
     }
 
     /**
