@@ -314,16 +314,16 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
 
             $historyData = [
                 [
-                    'Créateur',
-                    strval($mesurement->getCreator()),
-                ],
-                [
                     'Date de création',
                     $this->getDate($mesurement->getCreatedAt()),
                 ],
                 [
                     'Date de modification',
                     $this->getDate($mesurement->getUpdatedAt()),
+                ],
+                [
+                    'Modifié par ',
+                    $mesurement->getUpdatedBy(),
                 ],
             ];
 

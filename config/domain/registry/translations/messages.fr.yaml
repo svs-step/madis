@@ -190,6 +190,7 @@ registry:
             access_control: Contrôle d'accès
             created_at: Date de création
             updated_at: Date de modification
+            updated_by: Modifié par
             update: Mise à jour
             backup: Sauvegarde
             tracking: Traçabilité

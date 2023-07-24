@@ -241,16 +241,16 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
 
             $historyData = [
                 [
-                    'Créateur',
-                    strval($request->getCreator()),
-                ],
-                [
                     'Date de création',
                     $this->getDate($request->getCreatedAt()),
                 ],
                 [
                     'Date de modification',
                     $this->getDate($request->getUpdatedAt()),
+                ],
+                [
+                    'Modifié par ',
+                    $request->getUpdatedBy(),
                 ],
             ];
 

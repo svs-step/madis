@@ -229,16 +229,16 @@ class ContractorGenerator extends AbstractGenerator implements ImpressionGenerat
 
             $historyData = [
                 [
-                    'Créateur',
-                    strval($contractor->getCreator()),
-                ],
-                [
                     'Date de création',
                     $this->getDate($contractor->getCreatedAt()),
                 ],
                 [
                     'Date de modification',
                     $this->getDate($contractor->getUpdatedAt()),
+                ],
+                [
+                    'Modifié par',
+                    $contractor->getUpdatedBy(),
                 ],
             ];
 

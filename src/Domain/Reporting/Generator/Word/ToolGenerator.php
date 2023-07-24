@@ -199,16 +199,16 @@ class ToolGenerator extends AbstractGenerator implements ImpressionGeneratorInte
 
             $historyData = [
                 [
-                    'Créateur',
-                    strval($tool->getCreator()),
-                ],
-                [
                     'Date de création',
                     $this->getDate($tool->getCreatedAt()),
                 ],
                 [
-                    'Dernière mise à jour',
+                    'Dernière de modification',
                     $this->getDate($tool->getUpdatedAt()),
+                ],
+                [
+                    'Modifié par',
+                    $tool->getUpdatedBy(),
                 ],
             ];
 

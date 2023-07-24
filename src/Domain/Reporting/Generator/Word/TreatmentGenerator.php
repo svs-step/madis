@@ -442,16 +442,16 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $historyData = [
                 [
-                    'Créateur',
-                    strval($treatment->getCreator()),
-                ],
-                [
                     'Date de création',
                     $this->getDate($treatment->getCreatedAt()),
                 ],
                 [
                     'Date de modification',
                     $this->getDate($treatment->getUpdatedAt()),
+                ],
+                [
+                    'Modifié par',
+                    $treatment->getUpdatedBy(),
                 ],
             ];
 
