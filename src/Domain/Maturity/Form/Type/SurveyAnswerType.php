@@ -35,25 +35,25 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Security;
 
 class SurveyAnswerType extends AbstractType
 {
+    protected Security $security;
+
+    public function __construct(Security $security)
+    {
+        $this->security = $security;
+    }
+
     /**
      * Build type form.
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('answer', EntityType::class, [
-                'multiple'     => true,
-                'class'        => Model\Answer::class,
-                'choice_label' => 'name',
-            ])
-        ;
-
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $parentForm   = $event->getForm()->getParent()->getParent();
-            $collectivity = $parentForm->getData()->getTraitement()->getCollectivity();
+            $collectivity = $parentForm->getData()->getCollectivity();
             $event->getForm()->add('mesurements', EntityType::class, [
                     'required'      => false,
                     'label'         => false,
@@ -76,7 +76,6 @@ class SurveyAnswerType extends AbstractType
                         'class'            => 'selectpicker',
                         'title'            => 'placeholder.multiple_select_action_protection',
                         'data-live-search' => true,
-                        'data-width'       => '450px',
                     ],
                     'choice_attr' => function (Mesurement $choice) {
                         $name = $choice->getName();
@@ -98,7 +97,7 @@ class SurveyAnswerType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => Model\Answer::class,
+                'data_class'        => Model\AnswerSurvey::class,
                 'validation_groups' => [
                     'default',
                     'answer',

@@ -13,11 +13,20 @@
             <join-column on-delete="CASCADE" />
         </many-to-one>
 
-        <many-to-one field="answer" target-entity="App\Domain\Maturity\Model\Answer" inversed-by="answer_survey">
+        <many-to-one field="answer" target-entity="App\Domain\Maturity\Model\Answer" inversed-by="answerSurveys">
             <join-column on-delete="CASCADE" />
         </many-to-one>
 
-        <many-to-many field="mesurements" target-entity="App\Domain\Registry\Model\Mesurement" mapped-by="answer_surveys"/>
+        <many-to-many field="mesurements" target-entity="App\Domain\Registry\Model\Mesurement" inversed-by="answerSurveys">
+            <join-table name="mesurement_answer_survey">
+                <join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </join-columns>
+                <inverse-join-columns>
+                    <join-column on-delete="CASCADE"/>
+                </inverse-join-columns>
+            </join-table>
+        </many-to-many>
 
     </entity>
 

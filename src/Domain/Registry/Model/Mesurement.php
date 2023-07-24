@@ -382,4 +382,14 @@ class Mesurement implements LoggableSubject, CollectivityRelated
     {
         $this->tools = $tools;
     }
+
+    public function getAnswerSurveys(): ?iterable
+    {
+        return $this->answerSurveys;
+    }
+
+    public function setAnswerSurveys(?iterable $answerSurveys): void
+    {
+        $this->answerSurveys = $answerSurveys;
+    }
 }

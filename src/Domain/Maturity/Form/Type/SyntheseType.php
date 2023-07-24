@@ -25,15 +25,9 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Form\Type;
 
 use App\Domain\Maturity\Model;
-use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
-use App\Domain\Registry\Model\Mesurement;
-use Doctrine\ORM\EntityRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormEvent;
-use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class SyntheseType extends AbstractType
@@ -44,9 +38,8 @@ class SyntheseType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('surveyAnswers',CollectionType::class, [
+            ->add('answerSurveys', CollectionType::class, [
                 'entry_type' => SurveyAnswerType::class,
-                'mapped'     => false,
             ])
         ;
     }
@@ -58,7 +51,7 @@ class SyntheseType extends AbstractType
     {
         $resolver
             ->setDefaults([
-                'data_class'        => null,
+                'data_class'        => Model\Survey::class,
                 'validation_groups' => [
                     'default',
                     'synthese',

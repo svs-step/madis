@@ -50,7 +50,7 @@ class Survey implements LoggableSubject
     private $answers;
 
     /**
-     * @var AnswerSurvey[]|null
+     * @var iterable|null
      */
     private $answerSurveys;
 
@@ -200,5 +200,10 @@ class Survey implements LoggableSubject
     public function getAnswerSurveys(): ?iterable
     {
         return $this->answerSurveys;
+    }
+
+    public function setAnswerSurveys(?iterable $answerSurveys): void
+    {
+        $this->answerSurveys = $answerSurveys;
     }
 }

@@ -62,7 +62,7 @@ class Answer
     /**
      * @var iterable|null
      */
-    private $answerSurvey;
+    private $answerSurveys;
 
     /**
      * Answer constructor.
@@ -150,5 +150,15 @@ class Answer
     public function setPosition(?int $position): void
     {
         $this->position = $position;
+    }
+
+    public function getAnswerSurveys(): ?iterable
+    {
+        return $this->answerSurveys;
+    }
+
+    public function setAnswerSurveys(?iterable $answerSurveys): void
+    {
+        $this->answerSurveys = $answerSurveys;
     }
 }

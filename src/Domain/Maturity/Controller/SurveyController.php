@@ -398,6 +398,8 @@ class SurveyController extends CRUDController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
+        $previous = $this->repository->findPreviousById($id);
+
         $serviceEnabled = false;
 
         if ($object instanceof Collectivity) {
@@ -420,12 +422,11 @@ class SurveyController extends CRUDController
             return $this->redirectToRoute($this->getRouteName('list'));
         }
 
-        $form = $this->createForm(SyntheseType::class);
+        $form = $this->createForm(SyntheseType::class, $object);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
 
@@ -435,8 +436,9 @@ class SurveyController extends CRUDController
         }
 
         return $this->render($this->getTemplatingBasePath('synthese'), [
-            'form'   => $form->createView(),
-            'object' => $object,
+            'form'     => $form->createView(),
+            'object'   => $object,
+            'previous' => $previous,
         ]);
     }
 }

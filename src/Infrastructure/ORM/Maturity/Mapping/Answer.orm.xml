@@ -18,7 +18,7 @@
             <join-column on-delete="CASCADE" />
         </many-to-one>
 
-        <one-to-many field="answerSurvey" target-entity="App\Domain\Maturity\Model\AnswerSurvey" mapped-by="answers">
+        <one-to-many field="answerSurveys" target-entity="App\Domain\Maturity\Model\AnswerSurvey" mapped-by="answers">
             <cascade>
                 <cascade-persist/>
                 <cascade-remove/>

@@ -48,11 +48,11 @@ class AnswerSurvey
      *
      * @Serializer\Exclude
      */
-    private $mesurements;
+    private iterable $mesurements;
 
-        public function __construct()
+    public function __construct()
     {
-        $this->id             = Uuid::uuid4();
+        $this->id          = Uuid::uuid4();
         $this->mesurements = [];
     }
 
