@@ -27,16 +27,12 @@
                             <td>{{ object.type|dictionary('registry_tool_type') }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.tool.show.editor'|trans }}</strong></td>
-                            <td>{{ object.editor }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.tool.show.manager'|trans }}</strong></td>
-                            <td>{{ object.manager }}</td>
-                        </tr>
-                        <tr>
                             <td><strong>{{ 'registry.tool.show.description'|trans }}</strong></td>
                             <td>{{ object.description|nl2br }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.editor'|trans }}</strong></td>
+                            <td>{{ object.editor }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.tool.show.prod_date'|trans }}</strong></td>
@@ -49,6 +45,10 @@
                                 {{ object.countryName }}
                                 {{ object.countryGuarantees }}
                             </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.manager'|trans }}</strong></td>
+                            <td>{{ object.manager }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.tool.show.other_info'|trans }}</strong></td>
@@ -74,17 +74,6 @@
                                 {% endif %}
                             </td>
                             <td>{{ object.archival.comment }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.tool.form.tracking'|trans }}</strong></td>
-                            <td>
-                                {% if object.tracking.check == true %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                {% else %}
-                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                            <td>{{ object.tracking.comment }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.tool.form.encrypted'|trans }}</strong></td>
@@ -140,6 +129,17 @@
                                 {% endif %}
                             </td>
                             <td>{{ object.deletion.comment }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.form.tracking'|trans }}</strong></td>
+                            <td>
+                                {% if object.tracking.check == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ object.tracking.comment }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.tool.form.has_comment'|trans }}</strong></td>

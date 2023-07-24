@@ -61,16 +61,12 @@
                             <td>{{ object.type|dictionary('registry_tool_type') }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.tool.show.editor'|trans }}</strong></td>
-                            <td>{{ object.editor }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.tool.show.manager'|trans }}</strong></td>
-                            <td>{{ object.manager }}</td>
-                        </tr>
-                        <tr>
                             <td><strong>{{ 'registry.tool.show.description'|trans }}</strong></td>
                             <td>{{ object.description|nl2br }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.editor'|trans }}</strong></td>
+                            <td>{{ object.editor }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.tool.show.prod_date'|trans }}</strong></td>
@@ -83,6 +79,10 @@
                                 {{ object.countryName }}
                                 {{ object.countryGuarantees }}
                             </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.manager'|trans }}</strong></td>
+                            <td>{{ object.manager }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.tool.show.other_info'|trans }}</strong></td>

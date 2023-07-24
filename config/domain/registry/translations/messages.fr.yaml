@@ -111,8 +111,8 @@ registry:
 
         country:
             france: France
-            eu: Autre pays de l’Union Européenne ou pays adéquats
-            other: Pays d’hébergement de la donnée
+            eu: Pays de l’Union Européenne ou pays adéquats
+            other: Autre pays d’hébergement de la donnée
         breadcrumb:
             list: Liste des logiciels et supports
             create: Créer
@@ -127,7 +127,7 @@ registry:
             description: Description
             other_info: Autres informations
             prod_date: Date de mise en production
-            country_type: Pays
+            country_type: Pays d’hébergement de la donnée
             country_name: Nom du pays
             country_guarantees: Garanties pour le transfert
             manager: Personne en charge

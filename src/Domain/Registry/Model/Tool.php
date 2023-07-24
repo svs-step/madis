@@ -49,8 +49,8 @@ class Tool implements LoggableSubject, CollectivityRelated
     public const COUNTRY_OTHER  = 'registry.tool.country.other';
 
     public const COUNTRY_FRANCE_TEXT = 'France';
-    public const COUNTRY_EU_TEXT     = 'Autre pays de l’Union Européenne ou pays adéquats';
-    public const COUNTRY_OTHER_TEXT  = 'Pays d’hébergement de la donnée';
+    public const COUNTRY_EU_TEXT     = 'Pays de l’Union Européenne ou pays adéquats';
+    public const COUNTRY_OTHER_TEXT  = 'Autre pays d’hébergement de la donnée';
 
     public const COUNTRY_TYPES = [
         self::COUNTRY_FRANCE_TEXT => self::COUNTRY_FRANCE,
