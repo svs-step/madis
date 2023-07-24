@@ -400,11 +400,12 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     break;
                 case 'openAccounts':
                     $queryBuilder->andWhere('o.securityOpenAccounts = :openAccounts')
-                        ->setParameter('entitledPersons', $search);
+                        ->setParameter('openAccounts', $search);
                     break;
                 case 'specificitiesDelivered':
-                    $queryBuilder->andWhere('o.securitySpecificitiesDelivered = :specificitiesDelivered')
-                        ->setParameter('specificitiesDelivered', $search);
+                    $this->addWhereClause($queryBuilder, 'securitySpecificitiesDelivered', '%' . $search . '%', 'LIKE');
+                    //$queryBuilder->andWhere('o.securitySpecificitiesDelivered LIKE :specificitiesDelivered')
+                    //    ->setParameter('specificitiesDelivered', '%' . $search . '%');
                     break;
                 case 'createdAt':
                     if (is_string($search)) {
