@@ -381,7 +381,7 @@
                     <table class="table" style="border-top: #f4f4f4 1px solid">
                         <tbody>
                         <tr>
-                            <td style="vertical-align: top; padding-left: 10px; padding-top: 10px; width: 20%"><strong>{{ 'registry.treatment.show.shelf_lifes'|trans }}</strong></td>
+                            <td style="vertical-align: top; padding-left: 8px; padding-top: 10px; width: 20%"><strong>{{ 'registry.treatment.show.shelf_lifes'|trans }}</strong></td>
                             <td style="padding-top: 10px; width: 80%">
                                 {% for method in object.shelfLifes %}
                                     <div class="box box-default">
@@ -529,7 +529,6 @@
                                 {% else %}
                                     <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                 {% endif %}
-                            </td>
                             </td>
                         </tr>
                         <tr>
@@ -741,12 +740,6 @@
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.creator'|trans }}</strong></td>
-                            <td>
-                                {{ object.creator }}
-                            </td>
-                        </tr>
                         {% if is_granted('ROLE_ADMIN') %}
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong></td>
@@ -770,8 +763,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-
             </div>
         </div>
     </div>
