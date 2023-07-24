@@ -39,7 +39,7 @@ class SyntheseType extends AbstractType
     {
         $builder
             ->add('answerSurveys', CollectionType::class, [
-                'entry_type' => SurveyAnswerType::class,
+                'entry_type' => SyntheseAnswerType::class,
             ])
         ;
     }

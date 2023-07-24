@@ -53,13 +53,6 @@ class Answer
     private $question;
 
     /**
-     * @var Survey[]|iterable
-     *
-     * @Serializer\Exclude
-     */
-    private $surveys;
-
-    /**
      * @var iterable|null
      */
     private $answerSurveys;
@@ -75,6 +68,7 @@ class Answer
         $this->name           = '';
         $this->response       = '';
         $this->recommendation = '';
+        $this->answerSurveys  = [];
     }
 
     public function deserialize(): void
@@ -105,21 +99,6 @@ class Answer
     public function setQuestion(?Question $question): void
     {
         $this->question = $question;
-    }
-
-    public function getSurveys(): iterable
-    {
-        return $this->surveys;
-    }
-
-    public function setSurveys(iterable $surveys): void
-    {
-        $this->surveys = $surveys;
-    }
-
-    public function addSurvey(Survey $survey): void
-    {
-        $this->surveys[] = $survey;
     }
 
     public function getName(): ?string

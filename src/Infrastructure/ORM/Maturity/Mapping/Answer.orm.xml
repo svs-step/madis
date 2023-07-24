@@ -19,10 +19,6 @@
         </many-to-one>
 
         <one-to-many field="answerSurveys" target-entity="App\Domain\Maturity\Model\AnswerSurvey" mapped-by="answers">
-            <cascade>
-                <cascade-persist/>
-                <cascade-remove/>
-            </cascade>
         </one-to-many>
 
     </entity>

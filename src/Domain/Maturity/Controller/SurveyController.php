@@ -180,6 +180,8 @@ class SurveyController extends CRUDController
 
         $form->handleRequest($request);
 
+        $answerSurveys = [];
+
         if ($form->isSubmitted()) {
             $data = $request->request->all();
             if (isset($data['survey']['questions'])) {
@@ -195,17 +197,15 @@ class SurveyController extends CRUDController
                     } else {
                         foreach ($question['answers'] as $answerId) {
                             $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
-                            $object->addAnswer($answer);
-
-                            $surveyAnswer = new Model\AnswerSurvey();
-                            $surveyAnswer->setAnswer($answer);
-                            $surveyAnswer->setSurvey($object);
-                            $this->entityManager->persist($surveyAnswer);
+                            $as     = new Model\AnswerSurvey();
+                            $as->setSurvey($object);
+                            $as->setAnswer($answer);
+                            $answerSurveys[] = $as;
                         }
                     }
                 }
             }
-
+            $object->setAnswerSurveys($answerSurveys);
             $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
@@ -234,6 +234,8 @@ class SurveyController extends CRUDController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
+        $toDelete = $this->entityManager->getRepository(Model\AnswerSurvey::class)->findBy(['survey' => $object]);
+
         $form = $this->createForm($this->getFormType(), $object);
 
         $form->setData(['referentiel' => $request->get('referentiel')]);
@@ -241,14 +243,8 @@ class SurveyController extends CRUDController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            // Remove existing answers
-            foreach ($object->getAnswers() as $a) {
-                $object->removeAnswer($a);
-                $a->setSurveys([]);
-            }
-            $object->setAnswers([]);
-
-            $data = $request->request->all();
+            $data          = $request->request->all();
+            $answerSurveys = [];
             if (isset($data['survey']['questions'])) {
                 foreach ($data['survey']['questions'] as $questionId => $question) {
                     // Remove optional answer if one exists
@@ -269,14 +265,33 @@ class SurveyController extends CRUDController
                         foreach ($question['answers'] as $answerId) {
                             /** @var Model\Answer $answer */
                             $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
-                            $object->addAnswer($answer);
+                            $as     = $this->entityManager->getRepository(Model\AnswerSurvey::class)->findOneBy(['answer' => $answer, 'survey' => $object]);
+                            if (!$as) {
+                                $as = new Model\AnswerSurvey();
+                            }
+
+                            $as->setSurvey($object);
+                            $as->setAnswer($answer);
+                            $this->entityManager->persist($as);
+                            $answerSurveys[] = $as;
+
+                            $toDelete = array_filter($toDelete, function (Model\AnswerSurvey $asd) use ($as) {
+                                return !$as->getId() || $as->getId() !== $asd->getId();
+                            });
                         }
                     }
                 }
             }
+
+            foreach ($toDelete as $asd) {
+                $this->entityManager->remove($asd);
+            }
+            $object->setAnswerSurveys($answerSurveys);
             $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
+
+            //            dd($object->getAnswerSurveys());
 
             $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object->__toString()));
 

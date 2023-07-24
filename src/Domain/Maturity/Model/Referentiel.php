@@ -59,6 +59,13 @@ class Referentiel
     private $maturity;
 
     /**
+     * @var iterable|null
+     *
+     * @Serializer\Exclude
+     */
+    private $surveys;
+
+    /**
      * @var Collection|Collectivity[]
      *
      * @Serializer\Exclude
@@ -219,5 +226,15 @@ class Referentiel
     public function setMaturity(Maturity $maturity): void
     {
         $this->maturity = $maturity;
+    }
+
+    public function getSurveys(): ?iterable
+    {
+        return $this->surveys;
+    }
+
+    public function setSurveys(?iterable $surveys): void
+    {
+        $this->surveys = $surveys;
     }
 }

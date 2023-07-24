@@ -23,9 +23,6 @@
             </cascade>
         </one-to-many>
 
-        <many-to-many field="answers" target-entity="App\Domain\Maturity\Model\Answer" mapped-by="surveys">
-        </many-to-many>
-
         <one-to-many field="maturity" target-entity="App\Domain\Maturity\Model\Maturity" mapped-by="survey">
             <cascade>
                 <cascade-persist/>

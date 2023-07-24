@@ -92,33 +92,6 @@ class Survey implements LoggableSubject
         return "Indice du {$this->createdAt->format('d/m/Y')}";
     }
 
-    public function addAnswer(Answer $answer): void
-    {
-        $this->answers[] = $answer;
-        $answer->addSurvey($this);
-    }
-
-    public function setAnswers(iterable $answers): void
-    {
-        $this->answers = $answers;
-    }
-
-    public function removeAnswer(Answer $answer): void
-    {
-        $key = \array_search($answer, (array) $this->answers, true);
-
-        if (false === $key) {
-            return;
-        }
-
-        unset($this->answers[$key]);
-    }
-
-    public function getAnswers(): ?iterable
-    {
-        return $this->answers;
-    }
-
     public function addOptionalAnswer(OptionalAnswer $answer): void
     {
         $this->optionalAnswers[] = $answer;

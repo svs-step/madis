@@ -55,9 +55,12 @@ class Maturity
             }
         }
 
-        /** @var Model\Answer $answer */
+        /* @var Model\Answer $answer */
         // Begin calculation
-        foreach ($survey->getAnswers() as $answer) {
+        foreach ($survey->getAnswerSurveys() as $answerSurvey) {
+            /** @var Model\AnswerSurvey $answerSurvey */
+            /** @var Model\Answer $answer */
+            $answer   = $answerSurvey->getAnswer();
             $domain   = $answer->getQuestion()->getDomain();
             $domainId = $domain->getId()->toString();
 

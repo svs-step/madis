@@ -25,6 +25,7 @@
             </cascade>
         </one-to-many>
         <one-to-many field="maturity" target-entity="App\Domain\Maturity\Model\Maturity" mapped-by="referentiel"/>
+        <one-to-many field="surveys" target-entity="App\Domain\Maturity\Model\Survey" mapped-by="referentiel"/>
     </entity>
 
 </doctrine-mapping>
