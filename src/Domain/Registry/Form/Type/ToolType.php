@@ -163,7 +163,7 @@ class ToolType extends AbstractType
             ->add('country_type', ChoiceType::class, [
                 'label'    => 'registry.tool.form.country_type',
                 'choices'  => Tool::COUNTRY_TYPES,
-                'required' => true,
+                'required' => false,
             ])
 
             ->add('country_name', TextType::class, [
