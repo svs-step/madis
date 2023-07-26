@@ -217,8 +217,8 @@ class ViolationController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         return [
-            0 => 'collectivite',
-            1 => 'date',
+            0 => 'date',
+            1 => 'collectivite',
             2 => 'nature',
             3 => 'inProgress',
             4 => 'cause',
