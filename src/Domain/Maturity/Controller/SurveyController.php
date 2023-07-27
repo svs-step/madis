@@ -423,12 +423,12 @@ class SurveyController extends CRUDController
 
         foreach ($surveys as $survey) {
             $reponse['data'][] = [
-                'collectivity' => $survey->getCollectivity()->getName(),
-                'referentiel'  => $survey->getReferentiel(),
+                'collectivity' => $survey->getCollectivity(),
+                'referentiel'  => $survey->getReferentiel()->getName(),
                 'score'        => $survey->getScore(),
                 'createdAt'    => date_format($survey->getCreatedAt(), 'd-m-Y H:i'),
                 'updatedAt'    => date_format($survey->getUpdatedAt(), 'd-m-Y H:i'),
-                'actions'      => $this->generateActionCellContent($survey),
+                //'actions'      => $this->generateActionCellContent($survey),
             ];
         }
 
@@ -441,14 +441,13 @@ class SurveyController extends CRUDController
     private function generateActionCellContent(Model\Referentiel $referentiel)
     {
         $id                  = $referentiel->getId();
-        $htmltoReturnIfAdmin = '';
 
         return
             '<a href="' . $this->router->generate('maturity_survey_print', ['id' => $id]) . '">
                 <i class="fa fa-print"></i>'
             . $this->translator->trans('action.print') .
             '</a>' .
-            '<a href="' . $this->router->generate('maturity_survey_synthese', ['id' => $id]) . '">
+            '<a href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $id]) . '">
                 <i class="fa fa-trash"></i>' .
             $this->translator->trans('action.synthese') .
             '</a>';
@@ -465,7 +464,7 @@ class SurveyController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         return [
-            '0' => 'collectivity',
+            //'0' => 'collectivity',
             '1' => 'referentiel',
             '2' => 'score',
             '3' => 'createdAt',
