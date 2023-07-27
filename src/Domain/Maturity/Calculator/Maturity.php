@@ -77,7 +77,7 @@ class Maturity
             $val = 0;
             if ($ac > 0) {
                 $val = $v / $ac;
-            } else if ($ac === 0) {
+            } elseif (0 === $ac) {
                 $val = $v;
             }
 
