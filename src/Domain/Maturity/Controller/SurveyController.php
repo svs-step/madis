@@ -26,6 +26,7 @@ namespace App\Domain\Maturity\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Model;
@@ -48,6 +49,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class SurveyController extends CRUDController
 {
+    use ServersideDatatablesTrait;
+
     /**
      * @var WordHandler
      */
@@ -378,6 +381,48 @@ class SurveyController extends CRUDController
         return [
             '0' => 'nom',
             '1' => 'description',
+        ];
+    }
+
+    public function listAction(): Response
+    {
+        return $this->render('Maturity/Survey/list.html.twig', [
+            'totalItem' => $this->repository->count(),
+            'route'     => $this->router->generate('maturity_referentiel_list_datatables'),
+        ]);
+    }
+
+    public function listDataTables(Request $request): JsonResponse
+    {
+        $surveys = $this->getResults($request);
+        $reponse = $this->getBaseDataTablesResponse($request, $surveys);
+
+        foreach ($surveys as $survey) {
+            $reponse['data'][] = [
+                'collectivity' => $survey->getCollectivity()->getName(),
+                'referentiel'  => $survey->getReferentiel(),
+                'score'        => $survey->getScore(),
+                'createdAt'    => date_format($survey->getCreatedAt(), 'd-m-Y H:i'),
+                'updatedAt'    => date_format($survey->getUpdatedAt(), 'd-m-Y H:i'),
+                'actions'      => $this->generateActionCellContent($survey),
+            ];
+        }
+
+        $reponse['recordsTotal']    = count($reponse['data']);
+        $reponse['recordsFiltered'] = count($reponse['data']);
+
+        return new JsonResponse($reponse);
+    }
+
+    protected function getLabelAndKeysArray(): array
+    {
+        return [
+            '0' => 'collectivity',
+            '1' => 'referentiel',
+            '2' => 'score',
+            '3' => 'createdAt',
+            '4' => 'updatedAt',
+            '5' => 'actions',
         ];
     }
 }

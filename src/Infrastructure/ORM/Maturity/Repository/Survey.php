@@ -162,4 +162,14 @@ class Survey extends CRUDRepository implements Repository\Survey
             ->getQuery()
             ->getResult();
     }
+
+    public function count(array $criteria = [])
+    {
+        // TODO: Implement count() method.
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        // TODO: Implement findPaginated() method.
+    }
 }
