@@ -449,17 +449,16 @@ class SurveyController extends CRUDController
             '</a>' .
             '<a href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $id]) . '">
                 <i class="fa fa-trash"></i>' .
-            $this->translator->trans('action.print') .
+            $this->translator->trans('action.synthesis') .
+            '</a>'.
+            '<a href="' . $this->router->generate('maturity_survey_edit', ['id' => $id]) . '">
+                <i class="fa fa-pencil-alt"></i>'
+            . $this->translator->trans('action.edit') .
+            '</a>' .
+            '<a href="' . $this->router->generate('maturity_survey_delete', ['id' => $id]) . '">
+                <i class="fa fa-trash"></i>' .
+            $this->translator->trans('action.delete') .
             '</a>';
-
-        /*'<a href="' . $this->router->generate('maturity_survey_edit', ['id' => $id]) . '">
-            <i class="fa fa-pencil-alt"></i>'
-        . $this->translator->trans('action.edit') .
-        '</a>' .
-        '<a href="' . $this->router->generate('maturity_survey_delete', ['id' => $id]) . '">
-            <i class="fa fa-trash"></i>' .
-        $this->translator->trans('action.delete') .
-        '</a>';*/
     }
 
     protected function getLabelAndKeysArray(): array
