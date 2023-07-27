@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20230718084209 extends AbstractMigration
+final class Version20230726125546 extends AbstractMigration
 {
     public function getDescription(): string
     {
@@ -22,11 +22,8 @@ final class Version20230718084209 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->skipIf(
-            $schema->getTable('maturity_question')->hasColumn('optional'),
-            'Skipping because `optional` exists'
-        );
-        $this->addSql('ALTER TABLE maturity_question CHANGE `option` `optional` INT NOT NULL');
+        $this->addSql('UPDATE user_user SET created_at = "1970-01-01 00:00:00" where created_at IS NULL');
+        $this->addSql('UPDATE user_user SET updated_at = "1970-01-01 00:00:00" where updated_at IS NULL');
     }
 
     public function down(Schema $schema): void
