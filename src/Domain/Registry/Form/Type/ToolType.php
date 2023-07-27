@@ -129,11 +129,14 @@ class ToolType extends AbstractType
 
                     if ($collectivity && $collectivity->getIsServicesEnabled()) {
                         $ors = $qb->expr()->orX();
-                        foreach ($authenticatedUser->getServices() as $service) {
-                            $ors->add($qb->expr()->eq('c.service', $service));
+
+                        if (count($authenticatedUser->getServices()) > 0) {
+                            foreach ($authenticatedUser->getServices() as $service) {
+                                $ors->add($qb->expr()->eq('c.service', $service));
+                            }
+                            // Services enabled on user collectivity, check if that contractor belongs to this service
+                            $qb->andWhere($qb->expr()->orX($ors));
                         }
-                        // Services enabled on user collectivity, check if that contractor belongs to this service
-                        $qb->andWhere($qb->expr()->orX($ors));
                     } else {
                         $qb->andWhere('c.collectivity = :collectivity')
                             ->setParameter(':collectivity', $collectivity)
@@ -163,7 +166,7 @@ class ToolType extends AbstractType
             ->add('country_type', ChoiceType::class, [
                 'label'    => 'registry.tool.form.country_type',
                 'choices'  => Tool::COUNTRY_TYPES,
-                'required' => true,
+                'required' => false,
             ])
 
             ->add('country_name', TextType::class, [
@@ -173,7 +176,7 @@ class ToolType extends AbstractType
 
             ->add('country_guarantees', TextType::class, [
                 'label'    => 'registry.tool.form.country_guarantees',
-                'required' => false,
+                'required' => true,
             ])
 
             ->add('archival', ComplexChoiceType::class, [
