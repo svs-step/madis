@@ -64,7 +64,7 @@ class Referentiel
      * @Serializer\Exclude
      */
     private $maturity;
-    
+
     /**
      * @var Collection|Collectivity[]
      *

@@ -508,16 +508,16 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
 
             $cell->addText($support);
             $cell = $treatmentAnnexListTable->addCell(2000);
-            if ($item->getSecurityAccessControl()->isCheck()){
+            if ($item->getSecurityAccessControl()->isCheck()) {
                 $cell->addListItem('Contrôle d\'accès', null, [], [], ['spaceAfter' => 0]);
             }
-            if ($item->getSecurityTracability()->isCheck()){
+            if ($item->getSecurityTracability()->isCheck()) {
                 $cell->addListItem('Traçabilité', null, [], [], ['spaceAfter' => 0]);
             }
-            if ($item->getSecuritySaving()->isCheck()){
+            if ($item->getSecuritySaving()->isCheck()) {
                 $cell->addListItem('Sauvegarde', null, [], [], ['spaceAfter' => 0]);
             }
-            if ($item->getSecurityUpdate()->isCheck()){
+            if ($item->getSecurityUpdate()->isCheck()) {
                 $cell->addListItem('Mise à jour', null, [], [], ['spaceAfter' => 0]);
             }
         }
