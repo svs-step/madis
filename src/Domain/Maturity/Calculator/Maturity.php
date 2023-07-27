@@ -72,12 +72,18 @@ class Maturity
             $w = $answer->getQuestion()->getWeight();
 
             $v  = $answer->getPosition();
-            $ac = count($answer->getQuestion()->getAnswers());
+            $ac = count($answer->getQuestion()->getAnswers()) - 1;
+
+            $val = 0;
+            if ($ac > 0) {
+                $val = $v / $ac;
+            }
+
             if (isset($points[$domainId])) {
-                $points[$domainId]['value'] += $v / $ac * 5 * $w;
+                $points[$domainId]['value'] += $val * 5 * $w;
             } else {
                 $points[$domainId] = [
-                    'value'  => $v / $ac * 5 * $w,
+                    'value'  => $val * 5 * $w,
                     'nbItem' => 0,
                 ];
             }
