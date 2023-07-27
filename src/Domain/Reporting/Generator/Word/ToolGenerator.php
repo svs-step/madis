@@ -100,7 +100,7 @@ class ToolGenerator extends AbstractGenerator implements ImpressionGeneratorInte
             $generalInformationsData = [
                 [
                     'Type',
-                    $tool->getType(),
+                    ToolTypeDictionary::getTypes()[$tool->getType()],
                 ],
                 [
                     'Description',
@@ -122,6 +122,7 @@ class ToolGenerator extends AbstractGenerator implements ImpressionGeneratorInte
                     'Pays d\'hébergement ou de stockage',
                     $this->translator->trans($tool->getCountryType()),
                 ],
+
             ];
 
             if (Tool::COUNTRY_FRANCE !== $tool->getCountryType()) {
@@ -141,6 +142,11 @@ class ToolGenerator extends AbstractGenerator implements ImpressionGeneratorInte
             $generalInformationsData[] = [
                 'Personne en charge',
                 $tool->getManager(),
+            ];
+
+            $generalInformationsData[] = [
+                'Autres informations',
+                $tool->getOtherInfo(),
             ];
 
             $securityData = [
@@ -193,16 +199,16 @@ class ToolGenerator extends AbstractGenerator implements ImpressionGeneratorInte
 
             $historyData = [
                 [
-                    'Créateur',
-                    strval($tool->getCreator()),
-                ],
-                [
                     'Date de création',
                     $this->getDate($tool->getCreatedAt()),
                 ],
                 [
-                    'Dernière mise à jour',
+                    'Dernière de modification',
                     $this->getDate($tool->getUpdatedAt()),
+                ],
+                [
+                    'Modifié par',
+                    $tool->getUpdatedBy(),
                 ],
             ];
 

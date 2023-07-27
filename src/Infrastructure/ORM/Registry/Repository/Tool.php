@@ -97,8 +97,12 @@ class Tool extends CRUDRepository implements Repository\Tool
     {
         $query = $this->createQueryBuilder()
             ->leftJoin('o.collectivity', 'collectivity')
+            ->leftJoin('o.treatments', 'treatments')
             ->leftJoin('o.contractors', 'contractors')
+            ->leftJoin('o.proofs', 'proofs')
+            ->leftJoin('o.mesurements', 'mesurements')
         ;
+
         foreach ($criteria as $key => $value) {
             $this->addWhereClause($query, $key, $value);
         }
@@ -117,7 +121,29 @@ class Tool extends CRUDRepository implements Repository\Tool
         foreach ($searches as $columnName => $search) {
             switch ($columnName) {
                 case 'name':
+                    $queryBuilder->andWhere('o.name LIKE :name')
+                        ->setParameter('name', '%' . $search . '%');
+                    break;
                 case 'editor':
+                    $queryBuilder->andWhere('o.editor LIKE :editor')
+                        ->setParameter('editor', '%' . $search . '%');
+                    break;
+                case 'access_control':
+                    $queryBuilder->andWhere('o.access_control.check = :access_control')
+                        ->setParameter('access_control', $search);
+                    break;
+                case 'deletion':
+                    $queryBuilder->andWhere('o.deletion.check = :deletion')
+                        ->setParameter('deletion', $search);
+                    break;
+                case 'tracking':
+                    $queryBuilder->andWhere('o.tracking.check = :tracking')
+                        ->setParameter('tracking', $search);
+                    break;
+                case 'other':
+                    $queryBuilder->andWhere('o.other.check = :other')
+                        ->setParameter('other', $search);
+                    break;
                 case 'type':
                     $this->addWhereClause($queryBuilder, $columnName, '%' . $search . '%', 'LIKE');
                     break;
@@ -125,9 +151,21 @@ class Tool extends CRUDRepository implements Repository\Tool
                     $queryBuilder->andWhere('collectivity.name LIKE :colnom')
                         ->setParameter('colnom', '%' . $search . '%');
                     break;
+                case 'treatments':
+                    $queryBuilder->andWhere('treatments.name LIKE :treatment')
+                        ->setParameter('treatment', '%' . $search . '%');
+                    break;
                 case 'contractors':
-                    $queryBuilder->andWhere('contractors.name LIKE :st_nom')
-                        ->setParameter('st_nom', '%' . $search . '%');
+                    $queryBuilder->andWhere('contractors.name LIKE :contractor')
+                        ->setParameter('contractor', '%' . $search . '%');
+                    break;
+                case 'proofs':
+                    $queryBuilder->andWhere('proofs.name LIKE :proof')
+                        ->setParameter('proof', '%' . $search . '%');
+                    break;
+                case 'mesurements':
+                    $queryBuilder->andWhere('mesurements.name LIKE :mesurement')
+                        ->setParameter('mesurement', '%' . $search . '%');
                     break;
                 case 'createdAt':
                     if (is_string($search)) {
@@ -163,6 +201,18 @@ class Tool extends CRUDRepository implements Repository\Tool
             case 'updatedAt':
             case 'name':
                 $queryBuilder->addOrderBy('o.' . $orderColumn, $orderDir);
+                break;
+            case 'treatments':
+                $queryBuilder->addOrderBy('treatments.name', $orderDir);
+                break;
+            case 'contractors':
+                $queryBuilder->addOrderBy('contractors.name', $orderDir);
+                break;
+            case 'proofs':
+                $queryBuilder->addOrderBy('proofs.name', $orderDir);
+                break;
+            case 'mesurements':
+                $queryBuilder->addOrderBy('mesurements.name', $orderDir);
                 break;
             default:
                 // $queryBuilder->leftJoin(Model\Embeddable\ComplexChoice::class, 'cc', 'WITH', 'cc')

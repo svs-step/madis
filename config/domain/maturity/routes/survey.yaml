@@ -13,6 +13,11 @@ maturity_survey_edit:
     methods: ['GET', 'POST']
     controller: 'App\Domain\Maturity\Controller\SurveyController:editAction'
 
+maturity_survey_synthesis:
+  path: '/synthese/{id}'
+  methods: ['GET', 'POST']
+  controller: 'App\Domain\Maturity\Controller\SurveyController::syntheseAction'
+
 maturity_survey_report:
     path: '/bilan/{id}'
     methods: ['GET']

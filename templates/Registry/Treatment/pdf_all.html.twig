@@ -374,24 +374,28 @@
                                 {% endif %}
                             </td>
                         </tr>
+                        </tbody>
+                    </table>
+                    <table class="table" style="border-top: #f4f4f4 1px solid">
+                        <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.shelfLifes'|trans }}</strong></td>
-                            <td>
+                            <td style="vertical-align: top; padding-left: 8px; padding-top: 10px; width: 20%"><strong>{{ 'registry.treatment.show.shelf_lifes'|trans }}</strong></td>
+                            <td style="padding-top: 10px; width: 80%">
                                 {% for method in object.shelfLifes %}
                                     <div class="box box-default">
-                                        <div class="box-body">
+                                        <div class="box-body no-padding">
                                             <table class="table">
                                                 <tbody>
                                                 <tr>
-                                                    <td class="text-bold">{{ 'registry.treatment.form.shelflife_name'|trans }}</td>
+                                                    <th class="text-bold" style="width: 40%">{{ 'registry.treatment.form.shelflife_name'|trans }}</th>
                                                     <td>{{ method.name }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-bold">{{ 'registry.treatment.form.shelflife_duration'|trans }}</td>
+                                                    <th class="text-bold">{{ 'registry.treatment.form.shelflife_duration'|trans }}</th>
                                                     <td>{{ method.duration }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <td class="text-bold">{{ 'registry.treatment.form.shelflife_ultimate_fate'|trans }}</td>
+                                                    <th class="text-bold">{{ 'registry.treatment.form.shelflife_ultimate_fate'|trans }}</th>
                                                     <td>{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}</td>
                                                 </tr>
                                                 </tbody>
@@ -401,9 +405,13 @@
                                 {% endfor %}
                             </td>
                         </tr>
+                        </tbody>
+                    </table>
+                    <table class="table">
+                        <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
-                            <td>{{ object.dataOrigin }}</td>
+                            <td class="col-md-8"><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
+                            <td class="col-md-4">{{ object.dataOrigin }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>
@@ -519,7 +527,6 @@
                                 {% else %}
                                     <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
                                 {% endif %}
-                            </td>
                             </td>
                         </tr>
                         <tr>
@@ -730,12 +737,6 @@
                 <div class="box-body no-padding">
                     <table class="table">
                         <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.treatment.show.creator'|trans }}</strong></td>
-                            <td>
-                                {{ object.creator }}
-                            </td>
-                        </tr>
                         {% if is_granted('ROLE_ADMIN') %}
                             <tr>
                                 <td><strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong></td>
@@ -759,8 +760,6 @@
                         </tbody>
                     </table>
                 </div>
-            </div>
-
             </div>
         </div>
     </div>

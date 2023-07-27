@@ -51,11 +51,11 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body" style="overflow-x: auto;min-height:800px">
+                <div class="box-body" style="overflow-x: auto">
                     <table id="table" class="table table-bordered table-hover" style="clear: both;">
                         <thead>
                         <tr>
-                            <th scope="col" >
+                            <th scope="col">
                                 <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
@@ -72,7 +72,7 @@
                                 </select>
                             </th>
                             <th scope="col" >
-                                <input class="form-control" type="text" id="search_editor" placeholder="Editeur" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_editor" placeholder="Éditeur" style="width: 100%;">
                             </th>
                             <th scope="col" >
                                 <select class="form-control" id="search_archival" style="width: 100%;">
@@ -132,15 +132,23 @@
                             </th>
                             <th scope="col" >
                                 <select class="form-control" id="search_other" style="width: 100%;">
-                                    <option value="">Autre</option>
+                                    <option value="">Autres</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
-                            <th scope="col" ></th>
-                            <th scope="col" ></th>
-                            <th scope="col" ></th>
-                            <th scope="col" ></th>
+                            <th scope="col" >
+                                <input class="form-control" type="text" id="search_treatment" placeholder="Traitement" style="width: 100%;">
+                            </th>
+                            <th scope="col" >
+                                <input class="form-control" type="text" id="search_contractor" placeholder="Sous-traitant" style="width: 100%;">
+                            </th>
+                            <th scope="col" >
+                                <input class="form-control" type="text" id="search_document" placeholder="Document" style="width: 100%;">
+                            </th>
+                            <th scope="col" >
+                                <input class="form-control" type="text" id="search_action" placeholder="Action de protection" style="width: 100%;">
+                            </th>
                             <th scope="col" style="min-width:130px;position:relative;">
                                 <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
                             </th>
@@ -213,10 +221,10 @@
             {"data": "tracking", "visible": false},
             {"data": "has_comment", "visible": false},
             {"data": "other"},
-            {"data": "treatments", "visible": false, "orderable": false},
-            {"data": "contractors", "visible": false, "orderable": false},
-            {"data": "proofs", "visible": false, "orderable": false},
-            {"data": "mesurements", "visible": false, "orderable": false},
+            {"data": "treatments", "visible": false},
+            {"data": "contractors", "visible": false},
+            {"data": "proofs", "visible": false},
+            {"data": "mesurements", "visible": false},
             {"data": "createdAt", "visible": false},
             {"data": "updatedAt", "visible": false},
             {"data": "actions", "orderable": false, "className": "noVis action", "visible": actionIsVisible},
@@ -323,6 +331,18 @@
             $('#search_other').change(function(){
                 oTable.column(11+col).search($(this).val()).draw() ;
             });
+            $('#search_treatment').keyup($.debounce(250, function(){
+                oTable.column(12+col).search($(this).val()).draw() ;
+            }));
+            $('#search_contractor').keyup($.debounce(250, function(){
+                oTable.column(13+col).search($(this).val()).draw() ;
+            }));
+            $('#search_document').keyup($.debounce(250, function(){
+                oTable.column(14+col).search($(this).val()).draw() ;
+            }));
+            $('#search_action').keyup($.debounce(250, function(){
+                oTable.column(15+col).search($(this).val()).draw() ;
+            }));
             $(document).on('change', '#search_created_at', function(){
                 console.log('createdat changed',$(this).val() )
                 oTable.column(16+col).search($(this).val()).draw();

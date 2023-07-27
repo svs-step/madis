@@ -396,16 +396,16 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
 
             $historyData = [
                 [
-                    'Créateur',
-                    strval($conformiteTraitement->getCreator()),
-                ],
-                [
                     'Date de création',
                     $this->getDate($conformiteTraitement->getCreatedAt()),
                 ],
                 [
                     'Date de modification',
                     $this->getDate($conformiteTraitement->getUpdatedAt()),
+                ],
+                [
+                    'Modifié par',
+                    $conformiteTraitement->getUpdatedBy(),
                 ],
             ];
 

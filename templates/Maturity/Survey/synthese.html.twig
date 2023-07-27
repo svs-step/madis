@@ -1,0 +1,190 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'maturity_survey form edit' %}
+{% set menuItem = 'maturity_survey' %}
+
+{% block title %}{{ 'maturity.survey.title.show'|trans }} - {{ parent() }}{% endblock %}
+
+{% block body_head %}
+    <h1>
+        {{ 'maturity.survey.title.show'|trans }}
+        <small>{{ object.createdAt|date("d/m/Y") }}</small>
+    </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'maturity.survey.breadcrumb.list'|trans, 'link': path('maturity_survey_list') },
+        { 'name': 'maturity.survey.breadcrumb.show'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    {% set submitValue = submitValue|default('maturity.survey.action.synthese_submit'|trans) %}
+    {{ form_start(form) }}
+<div class="row">
+
+    <div class="col-md-6">
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
+            <div class="box-body">
+                {% if object.maturity is empty %}
+                    Aucun indice à afficher
+                {% else %}
+                    {% if object.maturity|length >= 3 %}
+                        <canvas id="maturity-radar"></canvas>
+                    {% else %}
+                        Le référentiel contient moins de trois sections
+                    {% endif %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="info-box bg-aqua">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-chart-line"></i></span>
+            <div class="info-box-content" style="padding-top: 20px">
+                <span class="info-box-text">Score</span>
+                <span class="info-box-number">{{ object.score/10|round(1) }}</span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-12">
+        <h4>Préconisations</h4>
+    </div>
+    {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
+    {% do form.answerSurveys.setRendered() %}
+    {% for domain in object.referentiel.domains %}
+    {% set domainAnswers = form.answerSurveys|filter(as => as.vars.value.answer.question.domain.id == domain.id and as.vars.value.answer.recommendation) %}
+
+    <div class="col-md-6">
+        <div class="box box-solid {{ colors[(domain.position) % 4] }}">
+            <div class="box-header with-border">
+                {{ domain.name }}
+            </div>
+            <div class="box-body">
+                {% if domainAnswers|length > 0 %}
+                {% for answerSurvey in domainAnswers %}
+                    <div class="row" style="margin-top: 1em">
+                        <div class="col-md-12">
+                            <label for="{{ answerSurvey.mesurements.vars.id }}">
+                                {{ answerSurvey.vars.value.answer.recommendation }}
+                            </label>
+                        </div>
+                        <div class="col-md-10">
+                            {{  form_widget(answerSurvey.mesurements) }}
+                            </div>
+                        <div class="col-md-2">
+                            <button id="{{ answerSurvey.mesurements.vars.id }}_add_button" aria-label="Ajouter une action de protection" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ answerSurvey.mesurements.vars.id }}">
+                                <span class="fa fa-plus-circle"></span>
+                            </button>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% else %}
+                    Aucune préconisation
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+
+    {% endfor %}
+
+</div>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
+                    {{ 'maturity.survey.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+</div>
+    {{ form_end(form) }}
+
+    {{ include('Registry/Mesurement/_modal_form.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+    {{ include('Registry/Mesurement/_modal_form_js.html.twig') }}
+    <script>
+        let colorBlueOpacity = 'rgba(54, 162, 235, 0.5)';
+        let colorRedOpacity = 'rgba(255, 99, 132, 0.5)';
+        function radarChart(id, labels, serieLabel, data, color, legend=false) {
+            let dataset = [];
+            data.forEach(function(item, index) {
+                dataset.push(
+                    {
+                        label: serieLabel[index],
+                        data: item,
+                        backgroundColor: color[index],
+                    }
+                );
+            });
+
+            new Chart($('#' + id), {
+                type: 'radar',
+                data: {
+                    labels: labels,
+                    datasets: dataset,
+                },
+                options: {
+                    scale: {
+                        ticks: {
+                            min: 0,
+                            max: 5,
+                        }
+                    },
+                    legend: {
+                        display: legend,
+                    },
+                }
+            });
+        }
+
+        let maturityLabels = [];
+        let maturitySerieLabel = [];
+        let maturityData = [];
+
+        {% if object.maturity is defined %}
+            let tmpData1 = [];
+            maturitySerieLabel.push('Actuel');
+            {% for position, info in object.maturity %}
+                maturityLabels.push('{{ info.domain.name }}');
+                tmpData1.push('{{ info.score/10 }}');
+            {% endfor %}
+            maturityData.push(tmpData1);
+        {% endif %}
+        {% if previous is defined and previous.maturity is defined %}
+            let tmpData2 = [];
+            maturitySerieLabel.push('Précédent');
+            {% for position, info in previous.maturity %}
+                tmpData2.push('{{ info.score/10 }}');
+            {% endfor %}
+            maturityData.push(tmpData2);
+        {% endif %}
+
+        $(document).ready(function() {
+            if (maturityData.length > 0) {
+                radarChart(
+                    'maturity-radar',
+                    maturityLabels,
+                    maturitySerieLabel,
+                    maturityData,
+                    [colorBlueOpacity, colorRedOpacity],
+                    true
+                );
+            }
+        });
+    </script>
+{% endblock %}

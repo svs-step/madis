@@ -61,9 +61,17 @@ class MesurementType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         /** @var Mesurement $mesurement */
-        $mesurement = $options['data'] ?? null;
+        $mesurement   = $options['data'] ?? null;
+        $collectivity = null;
+        if ($mesurement) {
+            $collectivity = $mesurement->getCollectivity();
+        }
         /** @var User $user */
         $user = $this->security->getUser();
+
+        if (!$collectivity) {
+            $collectivity = $user->getCollectivity();
+        }
         $builder
             ->add('name', TextType::class, [
                 'label'    => 'registry.mesurement.form.name',
@@ -255,7 +263,7 @@ class MesurementType extends AbstractType
             ])
         ;
 
-        if ($options['data']->getCollectivity()->isHasModuleTools()) {
+        if ($collectivity && $collectivity->isHasModuleTools()) {
             $builder->add('tools', EntityType::class, [
                 'label'         => 'registry.treatment.form.tools',
                 'class'         => Tool::class,

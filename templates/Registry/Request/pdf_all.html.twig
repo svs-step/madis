@@ -5,6 +5,9 @@
 
 {% block body %}
 {% for object in objects %}
+    <h1>Demande
+        <small>{{ object.applicant.firstName ~ ' ' ~ object.applicant.lastName }}</small>
+    </h1>
     <div class="row">
         {# LEFT #}
         <div class="col-md-6">

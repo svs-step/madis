@@ -61,16 +61,12 @@
                             <td>{{ object.type|dictionary('registry_tool_type') }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.tool.show.editor'|trans }}</strong></td>
-                            <td>{{ object.editor }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.tool.show.manager'|trans }}</strong></td>
-                            <td>{{ object.manager }}</td>
-                        </tr>
-                        <tr>
                             <td><strong>{{ 'registry.tool.show.description'|trans }}</strong></td>
                             <td>{{ object.description|nl2br }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.editor'|trans }}</strong></td>
+                            <td>{{ object.editor }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.tool.show.prod_date'|trans }}</strong></td>
@@ -83,6 +79,10 @@
                                 {{ object.countryName }}
                                 {{ object.countryGuarantees }}
                             </td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.show.manager'|trans }}</strong></td>
+                            <td>{{ object.manager }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.tool.show.other_info'|trans }}</strong></td>
@@ -129,6 +129,116 @@
 
         {# RIGHT #}
         <div class="col-md-6">
+            {# Mesures de securite et confidentialite #}
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.tool.tab.measures'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.form.archival'|trans }}</strong></td>
+                            <td>
+                                {% if object.archival.check == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ object.archival.comment }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.form.tracking'|trans }}</strong></td>
+                            <td>
+                                {% if object.tracking.check == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ object.tracking.comment }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.form.encrypted'|trans }}</strong></td>
+                            <td>
+                                {% if object.encrypted.check == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ object.encrypted.comment }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.form.access_control'|trans }}</strong></td>
+                            <td>
+                                {% if object.accessControl.check == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ object.accessControl.comment }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.form.update'|trans }}</strong></td>
+                            <td>
+                                {% if object.update.check == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ object.update.comment }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.form.backup'|trans }}</strong></td>
+                            <td>
+                                {% if object.backup.check == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ object.backup.comment }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.form.deletion'|trans }}</strong></td>
+                            <td>
+                                {% if object.deletion.check == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ object.deletion.comment }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.form.has_comment'|trans }}</strong></td>
+                            <td>
+                                {% if object.hasComment.check == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ object.hasComment.comment }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.form.other'|trans }}</strong></td>
+                            <td>
+                                {% if object.other.check == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ object.other.comment }}</td>
+                        </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
 
             {# PROOFS #}
             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}

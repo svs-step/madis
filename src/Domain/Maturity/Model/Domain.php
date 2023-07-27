@@ -165,17 +165,6 @@ class Domain
         $this->questions = $questions;
     }
 
-    public function removeQuestion(Question $question)
-    {
-        $key = \array_search($question, $this->questions, true);
-
-        if (false === $key) {
-            return;
-        }
-
-        unset($this->questions[$key]);
-    }
-
     public function getQuestions()
     {
         return $this->questions;

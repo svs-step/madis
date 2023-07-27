@@ -24,6 +24,7 @@
                 <cascade-remove/>
             </cascade>
         </one-to-many>
+
         <one-to-many field="maturity" target-entity="App\Domain\Maturity\Model\Maturity" mapped-by="referentiel">
             <cascade>
                 <cascade-remove/>

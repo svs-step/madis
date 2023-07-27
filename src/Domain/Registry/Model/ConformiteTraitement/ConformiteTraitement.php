@@ -72,6 +72,11 @@ class ConformiteTraitement implements LoggableSubject
      */
     private $analyseImpacts;
 
+    /**
+     * @var string|null
+     */
+    private $updatedBy;
+
     public function __construct()
     {
         $this->id                     = Uuid::uuid4();
@@ -188,5 +193,15 @@ class ConformiteTraitement implements LoggableSubject
     public function __toString(): string
     {
         return $this->traitement->__toString();
+    }
+
+    public function getUpdatedBy(): ?string
+    {
+        return $this->updatedBy;
+    }
+
+    public function setUpdatedBy(?string $updatedBy): void
+    {
+        $this->updatedBy = $updatedBy;
     }
 }

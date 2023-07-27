@@ -183,10 +183,6 @@ class ToolType extends AbstractType
                 'label'    => 'registry.tool.form.archival',
                 'required' => false,
             ])
-            ->add('tracking', ComplexChoiceType::class, [
-                'label'    => 'registry.tool.form.tracking',
-                'required' => false,
-            ])
             ->add('encrypted', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.form.encrypted',
                 'required' => false,
@@ -205,6 +201,10 @@ class ToolType extends AbstractType
             ])
             ->add('deletion', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.form.deletion',
+                'required' => false,
+            ])
+            ->add('tracking', ComplexChoiceType::class, [
+                'label'    => 'registry.tool.form.tracking',
                 'required' => false,
             ])
             ->add('has_comment', ComplexChoiceType::class, [

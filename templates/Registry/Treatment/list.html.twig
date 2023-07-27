@@ -147,8 +147,8 @@
                             <th scope="col">
                                 <select class="form-control" id="search_tracabilite" style="width: 100%;">
                                     <option value="">Traçabilité</option>
-                                    <option value="foo">Oui</option>
-                                    <option value="bar">Non</option>
+                                    <option value="1">Oui</option>
+                                    <option value="0">Non</option>
                                 </select>
                             </th>
                             <th scope="col">
@@ -523,8 +523,8 @@
                 oTable.column(col + 14).search($(this).val()).draw() ;
             });
 
-            $('#search_specificite').off('change');
-            $('#search_specificite').change(function(){
+            $('#search_specificites').off('change');
+            $('#search_specificites').change(function(){
                 oTable.column(col + 15).search($(this).val()).draw() ;
             });
 
@@ -539,7 +539,7 @@
             });
             $('#search_responsable_traitement').off('keyup');
             $('#search_responsable_traitement').keyup($.debounce(250, function(){
-                oTable.column(col + 19).search($(this).val()).draw() ;
+                oTable.column(col + 18).search($(this).val()).draw() ;
             }));
 
             $('#search_created_at').off('change');

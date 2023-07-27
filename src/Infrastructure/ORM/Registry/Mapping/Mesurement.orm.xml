@@ -42,6 +42,13 @@
             </join-table>
         </many-to-many>
 
+        <many-to-many field="answerSurveys" mapped-by="mesurements" target-entity="App\Domain\Maturity\Model\AnswerSurvey">
+            <cascade>
+                <cascade-persist/>
+                <cascade-remove/>
+            </cascade>
+        </many-to-many>
+
         <many-to-many field="contractors" inversed-by="mesurements" target-entity="App\Domain\Registry\Model\Contractor">
             <join-table name="mesurement_contractor">
                 <join-columns>

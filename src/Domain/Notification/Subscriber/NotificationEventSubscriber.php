@@ -288,6 +288,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
 
     private function saveEmailNotificationForDPOs(Notification $notification, ConformiteTraitement $object)
     {
+        // TODO envoyer à tous les ADMINS + MOREINFO_DPD
         // Get DPOs
         $t    = $object->getTraitement();
         $refs = $t->getCollectivity()->getUsers()->filter(function (User $u) {

@@ -267,7 +267,8 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
          * @var Survey $survey
          */
         foreach ($data as $key => $survey) {
-            foreach ($survey->getAnswers() as $answer) {
+            foreach ($survey->getAnswerSurveys() as $answerSurvey) {
+                $answer                                                                                           = $answerSurvey->getAnswer();
                 $ordered[$answer->getQuestion()->getDomain()->getName()][$answer->getQuestion()->getName()][$key] = $answer;
             }
             foreach ($survey->getOptionalAnswers() as $optionalAnswer) {
@@ -277,21 +278,9 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
         \ksort($ordered);
 
-        // Table Header
-        $tableHeader = [
-            [
-                '',
-            ],
-        ];
-        if (isset($data['old'])) {
-            $tableHeader[0][] = isset($data['old']) ? $this->getDate($data['old']->getCreatedAt(), 'd/m/Y') : '';
-        }
-        $tableHeader[0][] = $this->getDate($data['new']->getCreatedAt(), 'd/m/Y');
-
         // Table Body
         foreach ($ordered as $domainName => $questions) {
             $section->addTitle($domainName, 3);
-            $parsedData = $tableHeader;
             \ksort($questions);
             foreach ($questions as $questionName => $questionItem) {
                 $table   = [];
@@ -306,7 +295,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
                 \ksort($table);
                 $parsedData[] = $table;
             }
-            $this->addTable($section, $parsedData, true, self::TABLE_ORIENTATION_VERTICAL);
+            $this->addTable($section, $parsedData, false, self::TABLE_ORIENTATION_VERTICAL);
         }
     }
 }
