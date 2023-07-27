@@ -64,14 +64,7 @@ class Referentiel
      * @Serializer\Exclude
      */
     private $maturity;
-
-    /**
-     * @var iterable|null
-     *
-     * @Serializer\Exclude
-     */
-    private $surveys;
-
+    
     /**
      * @var Collection|Collectivity[]
      *
