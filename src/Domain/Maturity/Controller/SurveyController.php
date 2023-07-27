@@ -388,7 +388,7 @@ class SurveyController extends CRUDController
     {
         return $this->render('Maturity/Survey/list.html.twig', [
             'totalItem' => $this->repository->count(),
-            'route'     => $this->router->generate('maturity_referentiel_list_datatables'),
+            'route'     => $this->router->generate('maturity_survey_list_datatables'),
         ]);
     }
 
@@ -407,11 +407,35 @@ class SurveyController extends CRUDController
                 'actions'      => $this->generateActionCellContent($survey),
             ];
         }
-
+        dd($reponse);
         $reponse['recordsTotal']    = count($reponse['data']);
         $reponse['recordsFiltered'] = count($reponse['data']);
 
         return new JsonResponse($reponse);
+    }
+
+    private function generateActionCellContent(Model\Referentiel $referentiel)
+    {
+        $id                  = $referentiel->getId();
+        $htmltoReturnIfAdmin = '';
+
+        return
+            '<a href="' . $this->router->generate('maturity_survey_print', ['id' => $id]) . '">
+                <i class="fa fa-print"></i>'
+            . $this->translator->trans('action.print') .
+            '</a>' .
+            '<a href="' . $this->router->generate('maturity_survey_synthese', ['id' => $id]) . '">
+                <i class="fa fa-trash"></i>' .
+            $this->translator->trans('action.synthese') .
+            '</a>';
+            '<a href="' . $this->router->generate('maturity_survey_edit', ['id' => $id]) . '">
+                <i class="fa fa-pencil-alt"></i>'
+            . $this->translator->trans('action.edit') .
+            '</a>' .
+            '<a href="' . $this->router->generate('maturity_survey_delete', ['id' => $id]) . '">
+                <i class="fa fa-trash"></i>' .
+            $this->translator->trans('action.delete') .
+            '</a>';
     }
 
     protected function getLabelAndKeysArray(): array
