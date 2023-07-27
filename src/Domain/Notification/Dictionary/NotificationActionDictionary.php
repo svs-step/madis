@@ -29,7 +29,6 @@ use App\Application\Dictionary\SimpleDictionary;
 class NotificationActionDictionary extends SimpleDictionary
 {
     public const CREATE               = 'create';
-    public const ADD                  = 'add';
     public const EDIT                 = 'edit';
     public const DELETE               = 'delete';
     public const LATE                 = 'late';
@@ -53,7 +52,6 @@ class NotificationActionDictionary extends SimpleDictionary
     public static function getActions()
     {
         return [
-            self::ADD                  => 'Ajout',
             self::CREATE               => 'Création',
             self::EDIT                 => 'Modification',
             self::STATE_CHANGE         => 'Changement d\'étape',

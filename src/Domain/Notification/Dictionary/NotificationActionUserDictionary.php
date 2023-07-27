@@ -28,7 +28,7 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class NotificationActionUserDictionary extends SimpleDictionary
 {
-    public const ADD                  = 'add';
+    public const CREATE               = 'create';
     public const AUTOMATIC            = 'automatic';
     public const LATE_SURVEY          = 'late_survey';
     public const NO_LOGIN             = 'no_login';
@@ -48,7 +48,7 @@ class NotificationActionUserDictionary extends SimpleDictionary
     public static function getActions()
     {
         return [
-            self::ADD                  => 'Ajout',
+            self::CREATE               => 'Création',
             self::TREATMENT_NEEDS_AIPD => 'AIPD nécéssaire',
             self::VALIDATION           => 'Validation nécéssaire',
             self::AUTOMATIC            => 'Rappel automatique',
