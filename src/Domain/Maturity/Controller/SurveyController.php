@@ -25,12 +25,16 @@ declare(strict_types=1);
 namespace App\Domain\Maturity\Controller;
 
 use App\Application\Controller\CRUDController;
+use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\SurveyType;
+use App\Domain\Maturity\Form\Type\SyntheseType;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
+use App\Domain\User\Model\Collectivity;
+use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Knp\Snappy\Pdf;
@@ -176,6 +180,8 @@ class SurveyController extends CRUDController
 
         $form->handleRequest($request);
 
+        $answerSurveys = [];
+
         if ($form->isSubmitted()) {
             $data = $request->request->all();
             if (isset($data['survey']['questions'])) {
@@ -191,12 +197,15 @@ class SurveyController extends CRUDController
                     } else {
                         foreach ($question['answers'] as $answerId) {
                             $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
-                            $object->addAnswer($answer);
+                            $as     = new Model\AnswerSurvey();
+                            $as->setSurvey($object);
+                            $as->setAnswer($answer);
+                            $answerSurveys[] = $as;
                         }
                     }
                 }
             }
-
+            $object->setAnswerSurveys($answerSurveys);
             $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
@@ -225,6 +234,8 @@ class SurveyController extends CRUDController
             throw new NotFoundHttpException("No object found with ID '{$id}'");
         }
 
+        $toDelete = $this->entityManager->getRepository(Model\AnswerSurvey::class)->findBy(['survey' => $object]);
+
         $form = $this->createForm($this->getFormType(), $object);
 
         $form->setData(['referentiel' => $request->get('referentiel')]);
@@ -232,14 +243,8 @@ class SurveyController extends CRUDController
         $form->handleRequest($request);
 
         if ($form->isSubmitted()) {
-            // Remove existing answers
-            foreach ($object->getAnswers() as $a) {
-                $object->removeAnswer($a);
-                $a->setSurveys([]);
-            }
-            $object->setAnswers([]);
-
-            $data = $request->request->all();
+            $data          = $request->request->all();
+            $answerSurveys = [];
             if (isset($data['survey']['questions'])) {
                 foreach ($data['survey']['questions'] as $questionId => $question) {
                     // Remove optional answer if one exists
@@ -260,14 +265,33 @@ class SurveyController extends CRUDController
                         foreach ($question['answers'] as $answerId) {
                             /** @var Model\Answer $answer */
                             $answer = $this->entityManager->getRepository(Model\Answer::class)->find($answerId);
-                            $object->addAnswer($answer);
+                            $as     = $this->entityManager->getRepository(Model\AnswerSurvey::class)->findOneBy(['answer' => $answer, 'survey' => $object]);
+                            if (!$as) {
+                                $as = new Model\AnswerSurvey();
+                            }
+
+                            $as->setSurvey($object);
+                            $as->setAnswer($answer);
+                            $this->entityManager->persist($as);
+                            $answerSurveys[] = $as;
+
+                            $toDelete = array_filter($toDelete, function (Model\AnswerSurvey $asd) use ($as) {
+                                return !$as->getId() || $as->getId() !== $asd->getId();
+                            });
                         }
                     }
                 }
             }
+
+            foreach ($toDelete as $asd) {
+                $this->entityManager->remove($asd);
+            }
+            $object->setAnswerSurveys($answerSurveys);
             $this->formPrePersistData($object);
             $this->entityManager->persist($object);
             $this->entityManager->flush();
+
+            //            dd($object->getAnswerSurveys());
 
             $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object->__toString()));
 
@@ -379,5 +403,57 @@ class SurveyController extends CRUDController
             '0' => 'nom',
             '1' => 'description',
         ];
+    }
+
+    public function syntheseAction(Request $request, string $id): Response
+    {
+        //        /** @var CollectivityRelated $object */
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        $previous = $this->repository->findPreviousById($id);
+
+        $serviceEnabled = false;
+
+        if ($object instanceof Collectivity) {
+            $serviceEnabled = $object->getIsServicesEnabled();
+        } elseif ($object instanceof CollectivityRelated) {
+            $serviceEnabled = $object->getCollectivity()->getIsServicesEnabled();
+        }
+
+        /**
+         * @var User $user
+         */
+        $user = $this->getUser();
+
+        $actionEnabled = true;
+        if ($object instanceof CollectivityRelated && (!$this->authorizationChecker->isGranted('ROLE_ADMIN') && !$user->getServices()->isEmpty())) {
+            $actionEnabled = $object->isInUserServices($this->userProvider->getAuthenticatedUser());
+        }
+
+        if (!$actionEnabled) {
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        $form = $this->createForm(SyntheseType::class, $object);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($object);
+            $this->entityManager->flush();
+
+            $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object));
+
+            return $this->redirectToRoute($this->getRouteName('list'));
+        }
+
+        return $this->render($this->getTemplatingBasePath('synthese'), [
+            'form'     => $form->createView(),
+            'object'   => $object,
+            'previous' => $previous,
+        ]);
     }
 }

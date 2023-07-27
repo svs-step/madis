@@ -47,7 +47,7 @@ class Survey implements LoggableSubject
     /**
      * @var iterable|null
      */
-    private $answers;
+    private $answerSurveys;
 
     /**
      * @var iterable|null
@@ -71,10 +71,10 @@ class Survey implements LoggableSubject
      */
     public function __construct()
     {
-        $this->id       = Uuid::uuid4();
-        $this->answers  = [];
-        $this->maturity = [];
-        $this->score    = 0;
+        $this->id            = Uuid::uuid4();
+        $this->answerSurveys = [];
+        $this->maturity      = [];
+        $this->score         = 0;
     }
 
     public function getId(): UuidInterface
@@ -85,33 +85,6 @@ class Survey implements LoggableSubject
     public function __toString(): string
     {
         return "Indice du {$this->createdAt->format('d/m/Y')}";
-    }
-
-    public function addAnswer(Answer $answer): void
-    {
-        $this->answers[] = $answer;
-        $answer->addSurvey($this);
-    }
-
-    public function setAnswers(iterable $answers): void
-    {
-        $this->answers = $answers;
-    }
-
-    public function removeAnswer(Answer $answer): void
-    {
-        $key = \array_search($answer, (array) $this->answers, true);
-
-        if (false === $key) {
-            return;
-        }
-
-        unset($this->answers[$key]);
-    }
-
-    public function getAnswers(): ?iterable
-    {
-        return $this->answers;
     }
 
     public function addOptionalAnswer(OptionalAnswer $answer): void
@@ -190,5 +163,15 @@ class Survey implements LoggableSubject
     public function setReferentiel(?Referentiel $referentiel): void
     {
         $this->referentiel = $referentiel;
+    }
+
+    public function getAnswerSurveys(): ?iterable
+    {
+        return $this->answerSurveys;
+    }
+
+    public function setAnswerSurveys(?iterable $answerSurveys): void
+    {
+        $this->answerSurveys = $answerSurveys;
     }
 }

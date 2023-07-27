@@ -45,7 +45,7 @@
                         data-section="{{ form.parent.parent.vars.name ? form.parent.parent.vars.name : 0 }}"
                     >
                             {% if question.answers is not empty %}
-                                {% for answer in question.answers|sort((a, b) => a.vars['value'].position <=> b.vars['value'].position) %}
+                                {% for answer in question.answers|sort((a, b) => a.vars['value'].position >= b.vars['value'].position) %}
                                     {{ formMacros.printAnswerRow(answer) }}
                                 {% endfor %}
                             {% endif %}

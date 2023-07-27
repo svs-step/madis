@@ -82,10 +82,14 @@
                                 {% endif %}
                                 {% if is_granted('ROLE_USER') %}
                                 {% if object.referentiel is defined and object.referentiel.id is defined %}
-                                <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('maturity_survey_edit', { 'id': object.id }) }}">
-                                    <i class="fa fa-pencil-alt"></i>
-                                    {{ 'action.edit'|trans }}
-                                </a>
+                                    <a aria-label="{{ 'action.synthesis'|trans }}" href="{{ path('maturity_survey_synthesis', { 'id': object.id }) }}">
+                                        <i class="fa fa-chart-bar"></i>
+                                        {{ 'action.synthesis'|trans }}
+                                    </a>
+                                    <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('maturity_survey_edit', { 'id': object.id }) }}">
+                                        <i class="fa fa-pencil-alt"></i>
+                                        {{ 'action.edit'|trans }}
+                                    </a>
                                 {% endif %}
                                 <a aria-label="{{ 'action.delete'|trans }}" href="{{ path('maturity_survey_delete', { 'id': object.id }) }}">
                                     <i class="fa fa-trash"></i>

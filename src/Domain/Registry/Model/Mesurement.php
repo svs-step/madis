@@ -151,6 +151,8 @@ class Mesurement implements LoggableSubject, CollectivityRelated
     private ?iterable $requests;
     private ?iterable $violations;
 
+    private ?iterable $answerSurveys;
+
     /**
      * Mesurement constructor.
      *
@@ -379,5 +381,15 @@ class Mesurement implements LoggableSubject, CollectivityRelated
     public function setTools(?iterable $tools): void
     {
         $this->tools = $tools;
+    }
+
+    public function getAnswerSurveys(): ?iterable
+    {
+        return $this->answerSurveys;
+    }
+
+    public function setAnswerSurveys(?iterable $answerSurveys): void
+    {
+        $this->answerSurveys = $answerSurveys;
     }
 }

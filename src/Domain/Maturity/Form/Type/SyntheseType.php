@@ -22,34 +22,40 @@
 
 declare(strict_types=1);
 
-namespace App\Tests\Domain\Maturity\Model;
+namespace App\Domain\Maturity\Form\Type;
 
-use App\Application\Traits\Model\CollectivityTrait;
-use App\Application\Traits\Model\CreatorTrait;
-use App\Application\Traits\Model\HistoryTrait;
-use App\Domain\Maturity\Model\Survey;
-use PHPUnit\Framework\TestCase;
-use Ramsey\Uuid\UuidInterface;
+use App\Domain\Maturity\Model;
+use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class SurveyTest extends TestCase
+class SyntheseType extends AbstractType
 {
-    public function testConstruct()
+    /**
+     * Build type form.
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $model = new Survey();
-
-        $this->assertInstanceOf(UuidInterface::class, $model->getId());
-        $this->assertEquals([], $model->getAnswerSurveys());
-        $this->assertEquals([], $model->getMaturity());
-        $this->assertEquals(0, $model->getScore());
+        $builder
+            ->add('answerSurveys', CollectionType::class, [
+                'entry_type' => SyntheseAnswerType::class,
+            ])
+        ;
     }
 
-    public function testTraits()
+    /**
+     * Provide type options.
+     */
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $model = new Survey();
-
-        $uses = \class_uses($model);
-        $this->assertTrue(\in_array(CollectivityTrait::class, $uses));
-        $this->assertTrue(\in_array(CreatorTrait::class, $uses));
-        $this->assertTrue(\in_array(HistoryTrait::class, $uses));
+        $resolver
+            ->setDefaults([
+                'data_class'        => Model\Survey::class,
+                'validation_groups' => [
+                    'default',
+                    'synthese',
+                ],
+            ]);
     }
 }
