@@ -431,7 +431,7 @@ class SurveyController extends CRUDController
                 'actions'      => $this->generateActionCellContent($survey),
             ];
         }
-        dd($reponse);
+
         $reponse['recordsTotal']    = count($reponse['data']);
         $reponse['recordsFiltered'] = count($reponse['data']);
 

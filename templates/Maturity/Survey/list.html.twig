@@ -43,11 +43,11 @@
                     <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            {% if is_granted('ROLE_REFERENT') %}
+                            {#  if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
                                     <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
                                 </th>
-                            {% endif %}
+                            {% endif #}
                             <th scope="col">
                                 <select class="form-control" id="search_referentiel" style="width: 100%;">
                                     <option value="">Référentiel</option>
@@ -67,9 +67,9 @@
                             </th>
                         </tr>
                         <tr>
-                            {% if is_granted('ROLE_REFERENT') %}
+                            {#  if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">{{ 'maturity.survey.list.collectivity'|trans }}</th>
-                            {% endif %}
+                            {% endif #}
 
                             <th scope="col">{{ 'maturity.survey.list.referentiel'|trans }}</th>
                             <th scope="col">{{ 'maturity.survey.list.score'|trans }}</th>
@@ -91,7 +91,6 @@
     {% if is_granted('ROLE_REFERENT') %}
     {% set dataTableOptions = {
         columns: [
-            {"data": "collectivity", "classname": "noVis"},
             {"data": "referentiel"},
             {"data": "score", "visible": true},
             {"data": "createdAt", "visible": false},
