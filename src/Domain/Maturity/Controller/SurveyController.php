@@ -428,7 +428,7 @@ class SurveyController extends CRUDController
                 'score'        => $survey->getScore(),
                 'createdAt'    => date_format($survey->getCreatedAt(), 'd-m-Y H:i'),
                 'updatedAt'    => date_format($survey->getUpdatedAt(), 'd-m-Y H:i'),
-                //'actions'      => $this->generateActionCellContent($survey),
+                'actions'      => $this->generateActionCellContent($survey),
             ];
         }
 
@@ -438,33 +438,34 @@ class SurveyController extends CRUDController
         return new JsonResponse($reponse);
     }
 
-    private function generateActionCellContent(Model\Referentiel $referentiel)
+    private function generateActionCellContent(Model\Survey $survey)
     {
-        $id                  = $referentiel->getId();
+        $id = $survey->getId();
 
         return
-            '<a href="' . $this->router->generate('maturity_survey_print', ['id' => $id]) . '">
+            '<a href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $id]) . '">
                 <i class="fa fa-print"></i>'
             . $this->translator->trans('action.print') .
             '</a>' .
             '<a href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $id]) . '">
                 <i class="fa fa-trash"></i>' .
-            $this->translator->trans('action.synthese') .
+            $this->translator->trans('action.print') .
             '</a>';
-            '<a href="' . $this->router->generate('maturity_survey_edit', ['id' => $id]) . '">
-                <i class="fa fa-pencil-alt"></i>'
-            . $this->translator->trans('action.edit') .
-            '</a>' .
-            '<a href="' . $this->router->generate('maturity_survey_delete', ['id' => $id]) . '">
-                <i class="fa fa-trash"></i>' .
-            $this->translator->trans('action.delete') .
-            '</a>';
+
+        /*'<a href="' . $this->router->generate('maturity_survey_edit', ['id' => $id]) . '">
+            <i class="fa fa-pencil-alt"></i>'
+        . $this->translator->trans('action.edit') .
+        '</a>' .
+        '<a href="' . $this->router->generate('maturity_survey_delete', ['id' => $id]) . '">
+            <i class="fa fa-trash"></i>' .
+        $this->translator->trans('action.delete') .
+        '</a>';*/
     }
 
     protected function getLabelAndKeysArray(): array
     {
         return [
-            //'0' => 'collectivity',
+            // '0' => 'collectivity',
             '1' => 'referentiel',
             '2' => 'score',
             '3' => 'createdAt',
