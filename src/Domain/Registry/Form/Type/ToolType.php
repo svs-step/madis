@@ -173,7 +173,7 @@ class ToolType extends AbstractType
 
             ->add('country_guarantees', TextType::class, [
                 'label'    => 'registry.tool.form.country_guarantees',
-                'required' => false,
+                'required' => true,
             ])
 
             ->add('archival', ComplexChoiceType::class, [

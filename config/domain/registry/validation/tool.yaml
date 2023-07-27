@@ -34,8 +34,4 @@ App\Domain\Registry\Model\Tool:
         other:
             - Valid: ~
         country_type:
-            - NotNull:
-                  groups: ['default']
-            - NotBlank:
-                  groups: ['default']
-            - Callback: [validate]
+            - Valid: ~
