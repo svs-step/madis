@@ -112,7 +112,7 @@ class NotificationExtension extends AbstractExtension
             $sentence .= ' pour le <strong>' . (new \DateTime($notification->getObject()->planificationDate))->format('d/m/Y') . '</strong> est en retard ';
         }
 
-        if ($notification->getCollectivity() && $this->security->isGranted('ROLE_REFERENT')) {
+        if ($notification->getCollectivity() && $this->security->getToken() && $this->security->isGranted('ROLE_REFERENT')) {
             $sentence .= $this->translator->trans('label.par') . ' <strong>' . $notification->getCollectivity()->getName() . '</strong>';
         }
 

@@ -65,7 +65,7 @@ class RequestGenerator extends AbstractGenerator implements ImpressionGeneratorI
 
         $section->addText("Un registre des demandes des personnes concernées est tenu à jour par '{$collectivity}'.");
         if (0 === $nbTotal) {
-            $section->addText('Un registre des demandes est tenu à jour par le référent RGPD et l’organisation du traitement de la demande est opérationnel. A ce jour, il n’y a pas eu de demande de personnes concernées.');
+            $section->addText('Un registre des demandes est tenu à jour par le référent RGPD et l’organisation du traitement de la demande est opérationnel. À ce jour, il n’y a pas eu de demande de personnes concernées.');
         }
 
         if (0 < $nbTotal) {

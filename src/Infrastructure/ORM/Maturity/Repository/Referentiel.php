@@ -88,6 +88,9 @@ class Referentiel extends CRUDRepository implements Repository\Referentiel
             case 'updatedAt':
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
         }
     }
 

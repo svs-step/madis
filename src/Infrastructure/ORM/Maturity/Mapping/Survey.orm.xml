@@ -13,7 +13,7 @@
         <field name="score" column="score" type="integer"/>
 
         <many-to-one field="referentiel" target-entity="App\Domain\Maturity\Model\Referentiel">
-            <join-column on-delete="SET NULL" />
+            <join-column on-delete="CASCADE" />
         </many-to-one>
 
         <one-to-many field="answerSurveys" target-entity="App\Domain\Maturity\Model\AnswerSurvey" mapped-by="survey">

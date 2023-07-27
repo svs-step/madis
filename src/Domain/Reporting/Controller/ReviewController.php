@@ -25,7 +25,6 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Controller;
 
 use App\Application\Symfony\Security\UserProvider;
-use App\Domain\Maturity\Model\Survey;
 use App\Domain\Maturity\Repository as MaturityRepository;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
@@ -125,15 +124,16 @@ class ReviewController extends AbstractController
         }
 
         $maturity = [];
-        $objects  = array_filter($this->surveyRepository->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'], 2), function (Survey $survey) {
-            return null !== $survey->getReferentiel();
-        });
+        // Get most recent maturity index that has a referentiel
+        $objects = $this->surveyRepository->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'], 1, ['o.referentiel is not null']);
 
         if (1 <= \count($objects)) {
             $maturity['new'] = $objects[0];
-        }
-        if (2 <= \count($objects)) {
-            $maturity['old'] = $objects[1];
+
+            $previous = $this->surveyRepository->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'], 2, ['referentiel' => $maturity['new']->getReferentiel()]);
+            if (2 <= \count($previous)) {
+                $maturity['old'] = $previous[1];
+            }
         }
 
         return $this->wordHandler->generateOverviewReport(

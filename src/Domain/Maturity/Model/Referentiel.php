@@ -52,6 +52,13 @@ class Referentiel
     private $domains;
 
     /**
+     * @var array|Survey[]
+     *
+     * @Serializer\Type("array<App\Domain\Maturity\Model\Survey>")
+     */
+    private $surveys;
+
+    /**
      * @var Maturity
      *
      * @Serializer\Exclude
@@ -228,12 +235,18 @@ class Referentiel
         $this->maturity = $maturity;
     }
 
-    public function getSurveys(): ?iterable
+    /**
+     * @return Survey[]|array
+     */
+    public function getSurveys(): array
     {
         return $this->surveys;
     }
 
-    public function setSurveys(?iterable $surveys): void
+    /**
+     * @param Survey[]|array $surveys
+     */
+    public function setSurveys(array $surveys): void
     {
         $this->surveys = $surveys;
     }

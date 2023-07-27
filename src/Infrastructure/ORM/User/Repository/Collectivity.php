@@ -141,6 +141,7 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
 
     private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
     {
+        
         switch ($orderColumn) {
             case 'nom':
                 $queryBuilder->addOrderBy('o.name', $orderDir);
@@ -180,7 +181,7 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
                 break;
             case 'nbr_cnil':
                 $queryBuilder->addOrderBy('o.nbrCnil', $orderDir);
-                // no break
+                break;
             case 'updatedAt':
                 $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
                 break;

@@ -49,7 +49,7 @@ class Survey extends CRUDRepository implements Repository\Survey
         return Model\Survey::class;
     }
 
-    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null): iterable
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null, array $where = []): iterable
     {
         $qb = $this->createQueryBuilder()
             ->andWhere('o.collectivity = :collectivity')
@@ -58,6 +58,15 @@ class Survey extends CRUDRepository implements Repository\Survey
 
         foreach ($order as $key => $dir) {
             $qb->addOrderBy("o.{$key}", $dir);
+        }
+
+        foreach ($where as $key => $value) {
+            if (is_int($key)) {
+                $qb->andWhere($value);
+            } elseif (is_string($key)) {
+                $qb->andWhere("o.{$key} = :o_{$key}")
+                ->setParameter("o_{$key}", $value);
+            }
         }
 
         if (!\is_null($limit)) {

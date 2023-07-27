@@ -237,7 +237,7 @@ class ReferentielController extends CRUDController
                 unset($toRemove[$key]);
             }
             /* @var Model\Domain $domain */
-            $domain->setPosition($k);
+            // $domain->setPosition($k);
             $domain->setColor($colors[$k % 4]);
 
             // get all existing questions
@@ -251,7 +251,7 @@ class ReferentielController extends CRUDController
                     unset($toRemoveQuestions[$key]);
                 }
 
-                $question->setPosition($n);
+                // $question->setPosition($n);
                 $question->setDomain($domain);
 
                 // get all existing Answers
@@ -264,7 +264,7 @@ class ReferentielController extends CRUDController
                         unset($toRemoveAnswers[$key]);
                     }
 
-                    $answer->setPosition($l);
+                    // $answer->setPosition($l);
                     $answer->setQuestion($question);
                 }
 

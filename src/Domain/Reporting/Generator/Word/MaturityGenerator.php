@@ -70,7 +70,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
         $section->addText('Afin de répondre aux objectifs du RGPD, la gestion des données à caractère personnel est structurée en ' . \count($domainsName) . ' domaines.');
         $section->addText('Chacun des ' . \count($domainsName) . ' domaines a été évalué par la structure selon l’échelle de maturité ci-après.');
-        $section->addText("Echelle d'estimation de maturité", ['bold' => true]);
+        $section->addText("Échelle d'estimation de maturité", ['bold' => true]);
 
         $tableStyleConformite = [
             'borderColor' => '006699',
@@ -144,7 +144,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             }
         }
         $table = $section->addTable(['unit' => TblWidth::PERCENT, 'width' => 5000]);
-        $row   = $table->addRow(null, ['cantsplit' => true]);
+        $row   = $table->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
         if (!empty($serie2)) {
             $cell = $row->addCell(2500);
             if (isset($data['old'])) {

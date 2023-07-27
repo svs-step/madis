@@ -1,7 +1,7 @@
 {% if form.vars.value.createdAt.timestamp is defined %}
-    {% set submitValue = submitValue|default('registry.treatment.action.edit_submit'|trans) %}
+    {% set submitValue = submitValue|default('registry.conformite_traitement.action.edit_submit'|trans) %}
 {% else %}
-    {% set submitValue = submitValue|default('registry.treatment.action.new_submit'|trans) %}
+    {% set submitValue = submitValue|default('registry.conformite_traitement.action.new_submit'|trans) %}
 {% endif %}
 
 {{ form_start(form) }}
@@ -15,7 +15,8 @@
         <small>{{ form.vars.value }}</small>
     </h1>
 </div>
-{% include 'Registry/Treatment/_form.html.twig' with {'form': form.traitement, 'object': form.vars.value.traitement} %}
 
+{% include 'Registry/Treatment/_form.html.twig' with {'form': form.traitement, 'object': form.vars.value.traitement} %}
+{% do form.traitement.setRendered() %}
 
 {{ form_end(form) }}
