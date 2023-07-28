@@ -43,11 +43,6 @@
                     <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
-                                </th>
-                            {% endif %}
                             <th scope="col">
                                 <select class="form-control" id="search_referentiel" style="width: 100%;">
                                     <option value="">Référentiel</option>
@@ -56,6 +51,11 @@
                                     {% endfor %}
                                 </select>
                             </th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th scope="col">
+                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
+                                </th>
+                            {% endif %}
                             <th scope="col">
                                 <input class="form-control" type='number' id="search_score" style="width: 100%;" placeholder="Score">
                             </th>
@@ -67,10 +67,10 @@
                             </th>
                         </tr>
                         <tr>
+                            <th scope="col">{{ 'maturity.survey.list.referentiel'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">{{ 'maturity.survey.list.collectivity'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'maturity.survey.list.referentiel'|trans }}</th>
                             <th scope="col">{{ 'maturity.survey.list.score'|trans }}</th>
                             <th scope="col">{{ 'maturity.survey.list.created_at'|trans }}</th>
                             <th scope="col">{{ 'maturity.survey.list.updated_at'|trans }}</th>
@@ -90,8 +90,8 @@
     {% if is_granted('ROLE_REFERENT') %}
     {% set dataTableOptions = {
         columns: [
-            {"data": "collectivity"},
             {"data": "referentiel"},
+            {"data": "collectivity"},
             {"data": "score", "visible": true},
             {"data": "createdAt", "visible": false},
             {"data": "updatedAt", "visible": false},
@@ -130,13 +130,13 @@
             {% if is_granted('ROLE_REFERENT') %}
                 $('#search_collectivity').off('keyup');
                 $('#search_collectivity').keyup($.debounce(250, function(){
-                    oTable.column('0').search($(this).val()).draw() ;
+                    oTable.column(1).search($(this).val()).draw() ;
                 }));
             {% endif %}
 
             $('#search_referentiel').off('change');
             $('#search_referentiel').change(function(){
-                oTable.column(col).search($(this).val()).draw();
+                oTable.column(0).search($(this).val()).draw();
             });
 
             $('#search_score').off('keyup');
