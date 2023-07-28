@@ -28,6 +28,7 @@ use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
@@ -180,6 +181,16 @@ class Survey extends CRUDRepository implements Repository\Survey
     {
         $qb = $this->createQueryBuilder();
 
+        $qb->leftJoin('o.collectivity', 'collectivite')
+            ->addSelect('collectivite');
+        $qb->leftJoin('o.referentiel', 'referentiel')
+            ->addSelect('referentiel');
+
+        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
+            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
+            unset($criteria['collectivity']);
+        }
+
         $this->addTableSearches($qb, $searches);
         $this->addTableOrder($qb, $orderColumn, $orderDir);
 
@@ -194,10 +205,10 @@ class Survey extends CRUDRepository implements Repository\Survey
     {
         switch ($orderColumn) {
             case 'collectivity':
-                $queryBuilder->addOrderBy('o.collectivity', $orderDir);
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
                 break;
             case 'referentiel':
-                $queryBuilder->addOrderBy('o.referentiel', $orderDir);
+                $queryBuilder->addOrderBy('referentiel.name', $orderDir);
                 break;
             case 'score':
                 $queryBuilder->addOrderBy('o.score', $orderDir);
