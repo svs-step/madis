@@ -127,7 +127,7 @@ registry:
             description: Description
             other_info: Autres informations
             prod_date: Date de mise en production
-            country_type: Pays d’hébergement de la donnée
+            country_type: Pays d’hébergement ou de stockage
             country_name: Nom du pays
             country_guarantees: Garanties pour le transfert
             manager: Personne en charge
@@ -206,7 +206,7 @@ registry:
             description: Description
             other_info: Autres informations
             prod_date: Date de mise en production
-            country: pays
+            country: Pays d’hébergement ou de stockage
 
 
     mesurement:
