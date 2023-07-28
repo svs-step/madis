@@ -45,19 +45,19 @@
                         <tr>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
                                 </th>
                             {% endif %}
                             <th scope="col">
                                 <select class="form-control" id="search_referentiel" style="width: 100%;">
                                     <option value="">Référentiel</option>
-                                    {#  for key, subject in dictionary('registry_request_object') %}
-                                        <option value="{{ key }}">{{ subject }}</option>
-                                    {% endfor #}
+                                    {% for survey in listSurveys %}
+                                        <option value="{{ survey }}">{{ survey }}</option>
+                                    {% endfor %}
                                 </select>
                             </th>
                             <th scope="col">
-                                <input class="form-control" type='number' id="search_score" style="width: 100%;">
+                                <input class="form-control" type='number' id="search_score" style="width: 100%;" placeholder="Score">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
                                 <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
@@ -134,15 +134,19 @@
                 }));
             {% endif %}
 
-            $('#search_referentiel').off('keyup');
-            $('#search_referentiel').keyup($.debounce(250, function(){
-                oTable.column(col).search($(this).val()).draw() ;
-            }));
+            $('#search_referentiel').off('change');
+            $('#search_referentiel').change(function(){
+                oTable.column(col).search($(this).val()).draw();
+            });
 
             $('#search_score').off('keyup');
             $('#search_score').keyup($.debounce(250, function(){
                 oTable.column(col + 1).search($(this).val()).draw() ;
             }));
+
+            $('#search_score').on('click', function(){
+                oTable.column(col + 1).search($(this).val()).draw() ;
+            });
 
             $('#search_created_at').off('change');
             $('#search_created_at').change(function(){

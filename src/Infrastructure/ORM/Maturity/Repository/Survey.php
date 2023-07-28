@@ -54,12 +54,21 @@ class Survey extends CRUDRepository implements Repository\Survey
         return Model\Survey::class;
     }
 
-    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null, array $where = []): iterable
+    protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
-        $qb = $this->createQueryBuilder()
+        return $qb
             ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
-        ;
+            ;
+    }
+
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null, array $where = []): iterable
+    {
+        $qb = $this->createQueryBuilder();
+
+        if (!\is_null($collectivity)) {
+            $this->addCollectivityClause($qb, $collectivity);
+        }
 
         foreach ($order as $key => $dir) {
             $qb->addOrderBy("o.{$key}", $dir);
@@ -179,17 +188,9 @@ class Survey extends CRUDRepository implements Repository\Survey
 
     public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
     {
-        $qb = $this->createQueryBuilder();
-
-        $qb->leftJoin('o.collectivity', 'collectivite')
-            ->addSelect('collectivite');
-        $qb->leftJoin('o.referentiel', 'referentiel')
-            ->addSelect('referentiel');
-
-        if (isset($criteria['collectivity']) && $criteria['collectivity'] instanceof Collection) {
-            $this->addInClauseCollectivities($qb, $criteria['collectivity']->toArray());
-            unset($criteria['collectivity']);
-        }
+        $qb = $this->createQueryBuilder()
+            ->leftJoin('o.collectivity', 'collectivite')
+            ->leftJoin('o.referentiel', 'referentiel');
 
         $this->addTableSearches($qb, $searches);
         $this->addTableOrder($qb, $orderColumn, $orderDir);
@@ -227,10 +228,12 @@ class Survey extends CRUDRepository implements Repository\Survey
         foreach ($searches as $columnName => $search) {
             switch ($columnName) {
                 case 'collectivity':
-                    $this->addWhereClause($queryBuilder, 'collectivity', '%' . $search . '%', 'LIKE');
+                    $queryBuilder->andWhere('collectivite.name LIKE :collectivity')
+                        ->setParameter('collectivity', '%' . $search . '%');
                     break;
                 case 'referentiel':
-                    $this->addWhereClause($queryBuilder, 'referentiel', '%' . $search . '%', 'LIKE');
+                    $queryBuilder->andWhere('referentiel.name LIKE :referentiel')
+                        ->setParameter('referentiel', $search);
                     break;
                 case 'score':
                     $this->addWhereClause($queryBuilder, 'score', '%' . $search . '%', 'LIKE');

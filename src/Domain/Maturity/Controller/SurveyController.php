@@ -410,9 +410,16 @@ class SurveyController extends CRUDController
 
     public function listAction(): Response
     {
+        $surveys = $this->entityManager->getRepository(Model\Survey::class)->findAll();
+        $listSurveys = [];
+        foreach ($surveys as $survey){
+            $listSurveys[] = $survey->getReferentiel()->getName();
+        }
+
         return $this->render('Maturity/Survey/list.html.twig', [
             'totalItem' => $this->repository->count(),
             'route'     => $this->router->generate('maturity_survey_list_datatables'),
+            'listSurveys'      => array_unique($listSurveys, SORT_STRING),
         ]);
     }
 
