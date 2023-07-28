@@ -358,6 +358,7 @@ class Violation implements Repository\Violation
                 $queryBuilder->addOrderBy('collectivite.name', $orderDir);
                 break;
             case 'date':
+
                 $queryBuilder->addOrderBy('o.date', $orderDir);
                 break;
             case 'nature':
