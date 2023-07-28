@@ -410,16 +410,16 @@ class SurveyController extends CRUDController
 
     public function listAction(): Response
     {
-        $surveys = $this->entityManager->getRepository(Model\Survey::class)->findAll();
+        $surveys     = $this->entityManager->getRepository(Model\Survey::class)->findAll();
         $listSurveys = [];
-        foreach ($surveys as $survey){
+        foreach ($surveys as $survey) {
             $listSurveys[] = $survey->getReferentiel()->getName();
         }
 
         return $this->render('Maturity/Survey/list.html.twig', [
-            'totalItem' => $this->repository->count(),
-            'route'     => $this->router->generate('maturity_survey_list_datatables'),
-            'listSurveys'      => array_unique($listSurveys, SORT_STRING),
+            'totalItem'   => $this->repository->count(),
+            'route'       => $this->router->generate('maturity_survey_list_datatables'),
+            'listSurveys' => array_unique($listSurveys, SORT_STRING),
         ]);
     }
 
@@ -429,9 +429,13 @@ class SurveyController extends CRUDController
         $reponse = $this->getBaseDataTablesResponse($request, $surveys);
 
         foreach ($surveys as $survey) {
+            $referentielLink = '<a aria-label="' . \htmlspecialchars($survey->getReferentiel()->getName()) . '" href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $survey->getId()->toString()]) . '">
+                ' . \htmlspecialchars($survey->getReferentiel()->getName()) . '
+                </a>';
+
             $reponse['data'][] = [
                 'collectivity' => $survey->getCollectivity()->getName(),
-                'referentiel'  => $survey->getReferentiel()->getName(),
+                'referentiel'  => $referentielLink,
                 'score'        => $survey->getScore(),
                 'createdAt'    => date_format($survey->getCreatedAt(), 'd-m-Y H:i'),
                 'updatedAt'    => date_format($survey->getUpdatedAt(), 'd-m-Y H:i'),
@@ -457,7 +461,7 @@ class SurveyController extends CRUDController
             '<a href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $id]) . '">
                 <i class="fa fa-chart-bar"></i> ' .
             $this->translator->trans('action.synthesis') .
-            '</a>'.
+            '</a>' .
             '<a href="' . $this->router->generate('maturity_survey_edit', ['id' => $id]) . '">
                 <i class="fa fa-pencil-alt"></i> '
             . $this->translator->trans('action.edit') .
