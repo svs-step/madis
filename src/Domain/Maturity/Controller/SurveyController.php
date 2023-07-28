@@ -423,7 +423,7 @@ class SurveyController extends CRUDController
 
         foreach ($surveys as $survey) {
             $reponse['data'][] = [
-                'collectivity' => $survey->getCollectivity(),
+                'collectivity' => $survey->getCollectivity()->getName(),
                 'referentiel'  => $survey->getReferentiel()->getName(),
                 'score'        => $survey->getScore(),
                 'createdAt'    => date_format($survey->getCreatedAt(), 'd-m-Y H:i'),
@@ -444,19 +444,19 @@ class SurveyController extends CRUDController
 
         return
             '<a href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $id]) . '">
-                <i class="fa fa-print"></i>'
+                <i class="fa fa-print"></i> '
             . $this->translator->trans('action.print') .
             '</a>' .
             '<a href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $id]) . '">
-                <i class="fa fa-trash"></i>' .
+                <i class="fa fa-chart-bar"></i> ' .
             $this->translator->trans('action.synthesis') .
             '</a>'.
             '<a href="' . $this->router->generate('maturity_survey_edit', ['id' => $id]) . '">
-                <i class="fa fa-pencil-alt"></i>'
+                <i class="fa fa-pencil-alt"></i> '
             . $this->translator->trans('action.edit') .
             '</a>' .
             '<a href="' . $this->router->generate('maturity_survey_delete', ['id' => $id]) . '">
-                <i class="fa fa-trash"></i>' .
+                <i class="fa fa-trash"></i> ' .
             $this->translator->trans('action.delete') .
             '</a>';
     }
@@ -464,7 +464,7 @@ class SurveyController extends CRUDController
     protected function getLabelAndKeysArray(): array
     {
         return [
-            // '0' => 'collectivity',
+            '0' => 'collectivity',
             '1' => 'referentiel',
             '2' => 'score',
             '3' => 'createdAt',
