@@ -10,8 +10,8 @@
         <id name="id" column="id" type="uuid"/>
 
         <field name="response" column="response" type="integer"/>
-        <field name="recommendation" column="recommendation"  nullable="true" />
-        <field name="name" column="name" />
+        <field name="recommendation" column="recommendation" type="text" nullable="true" />
+        <field name="name" column="name" type="text"/>
         <field name="position" column="position" type="integer"/>
 
         <many-to-one field="question" target-entity="App\Domain\Maturity\Model\Question" inversed-by="answers">

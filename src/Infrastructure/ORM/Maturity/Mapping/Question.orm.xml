@@ -9,11 +9,11 @@
 
         <id name="id" column="id" type="uuid"/>
 
-        <field name="name" column="name"/>
+        <field name="name" column="name" type="text"/>
         <field name="position" column="position" type="integer"/>
         <field name="optional" column="optional" type="boolean"/>
         <field name="weight" column="weight" type="integer"/>
-        <field name="optionReason" column="option_reason" nullable="true" type="string"/>
+        <field name="optionReason" column="option_reason" nullable="true" type="text"/>
 
         <one-to-many field="answers" target-entity="App\Domain\Maturity\Model\Answer" mapped-by="question">
             <cascade>

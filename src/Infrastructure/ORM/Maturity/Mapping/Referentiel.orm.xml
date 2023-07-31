@@ -9,7 +9,7 @@
     <entity name="App\Domain\Maturity\Model\Referentiel" table="maturity_referentiel">
 
         <id name="id" column="id" type="uuid"/>
-        <field name="name" column="name"/>
+        <field name="name" column="name" type="text"/>
         <field name="description" column="description" type="text" nullable="true"/>
 
         <field name="createdAt" column="created_at" type="datetime_immutable">
