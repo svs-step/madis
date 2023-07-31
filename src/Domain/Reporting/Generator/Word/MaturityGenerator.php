@@ -290,7 +290,7 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
                  * @var Answer|OptionalAnswer $answer
                  */
                 foreach ($questionItem as $newOld => $answer) {
-                    $table[$index[$newOld]] = Answer::class === get_class($answer) ? $answer->getName() : 'Non concerné : ' . $answer->getReason();
+                    $table[$index[$newOld]] = is_a($answer, Answer::class) ? $answer->getName() : 'Non concerné : ' . $answer->getReason();
                 }
                 \ksort($table);
                 $parsedData[] = $table;
