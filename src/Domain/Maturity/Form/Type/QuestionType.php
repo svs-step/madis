@@ -50,7 +50,7 @@ class QuestionType extends AbstractType
                 'label'    => 'maturity.referentiel.form.question_name',
                 'required' => true,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
                 ],
             ])
             ->add('weight', ChoiceType::class, [
@@ -72,7 +72,7 @@ class QuestionType extends AbstractType
                 'required' => false,
                 'attr'     => [
                     'placeholder' => 'Précisez',
-                    'maxlength'   => 255,
+                    'maxlength'   => 1000,
                 ],
             ])
             ->add('answers', CollectionType::class, [

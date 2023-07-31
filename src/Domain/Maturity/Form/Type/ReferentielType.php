@@ -44,7 +44,7 @@ class ReferentielType extends AbstractType
                 'label'    => 'maturity.referentiel.form.referentiel_name',
                 'required' => true,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
                 ],
             ])
             ->add('description', TextareaType::class, [

@@ -43,7 +43,7 @@ class AnswerType extends AbstractType
                 'label'    => 'maturity.referentiel.form.answer.name',
                 'required' => true,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
                     'required'  => 'required',
                 ],
             ])
@@ -51,7 +51,7 @@ class AnswerType extends AbstractType
                 'label'    => 'maturity.referentiel.form.recommendation',
                 'required' => false,
                 'attr'     => [
-                'maxlength' => 255,
+                'maxlength' => 1000,
                 ],
             ])
             ->add('position', HiddenType::class, [
