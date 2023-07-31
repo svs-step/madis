@@ -54,7 +54,7 @@ class Referentiel
     /**
      * @var array|Survey[]
      *
-     * @Serializer\Type("array<App\Domain\Maturity\Model\Survey>")
+     * @Serializer\Exclude
      */
     private $surveys;
 
