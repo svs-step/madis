@@ -59,16 +59,18 @@
             checkTargetOption();
             checkTargetCollectivities();
 
-            $('#referentiel_rights_optionRightSelection').on('change', function() {
+            $('#modele_referentiel_rights_optionRightSelection').on('change', function() {
                 checkTargetOption();
             });
 
         });
 
         function checkTargetOption() {
-            let targetOption = $('#referentiel_rights_optionRightSelection input[type=radio]:checked').val();
-            let targetPerType = $('#referentiel_rights_authorizedCollectivityTypes');
-            let targetPerCollectivity = $('#referentiel_rights_authorizedCollectivities');
+            let targetOption = $('#modele_referentiel_rights_optionRightSelection input[type=radio]:checked').val();
+            console.log('to',targetOption);
+
+            let targetPerType = $('#modele_referentiel_rights_authorizedCollectivityTypes');
+            let targetPerCollectivity = $('#modele_referentiel_rights_authorizedCollectivities');
 
             if (targetOption === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTargetOptionDictionary::KEY_PER_TYPE') }}') {
                 targetPerType.show();

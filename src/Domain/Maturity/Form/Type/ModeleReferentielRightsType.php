@@ -37,9 +37,9 @@ class ModeleReferentielRightsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $dataOptionRightSelectionValue = DuplicationTargetOptionDictionary::KEY_PER_COLLECTIVITY;
-
-        if ($options['data']->getAuthorizedCollectivityTypes()) {
+        if ($options['data']->getAuthorizedCollectivities()) {
+            $dataOptionRightSelectionValue = DuplicationTargetOptionDictionary::KEY_PER_COLLECTIVITY;
+        } else {
             $dataOptionRightSelectionValue = DuplicationTargetOptionDictionary::KEY_PER_TYPE;
         }
 
