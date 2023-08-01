@@ -325,9 +325,12 @@ class SurveyController extends CRUDController
     public function startSurveyAction(Request $request)
     {
         if ($request->isMethod('GET')) {
+            /** @var User $user */
+            $user = $this->getUser();
+
             return $this->render($this->getTemplatingBasePath('start'), [
                 'totalItem' => $this->referentielRepository->count(),
-                'route'     => $this->router->generate('maturity_survey_referentiel_datatables', ['collectivity' => $this->getUser()->getCollectivity()->getId()->toString()]),
+                'route'     => $this->router->generate('maturity_survey_referentiel_datatables', ['collectivity' => $user->getCollectivity()->getId()->toString()]),
             ]);
         }
 

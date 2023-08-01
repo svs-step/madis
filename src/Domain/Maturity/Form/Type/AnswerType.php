@@ -56,6 +56,9 @@ class AnswerType extends AbstractType
             ])
             ->add('position', HiddenType::class, [
                 'required' => true,
+                'attr'     => [
+                    'class' => 'answer-position',
+                ],
             ])
         ;
     }

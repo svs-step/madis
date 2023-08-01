@@ -62,6 +62,9 @@ class QuestionType extends AbstractType
             ])
             ->add('position', HiddenType::class, [
                 'required' => false,
+                'attr'     => [
+                    'class' => 'question-position',
+                ],
             ])
             ->add('optional', CheckboxType::class, [
                 'label'    => "Activer l'option : Non concerné",
