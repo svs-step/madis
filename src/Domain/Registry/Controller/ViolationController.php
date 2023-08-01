@@ -216,17 +216,31 @@ class ViolationController extends CRUDController
 
     protected function getLabelAndKeysArray(): array
     {
+        if ($this->authorizationChecker->isGranted('ROLE_REFERENT')) {
+            return [
+                0 => 'date',
+                1 => 'collectivite',
+                2 => 'nature',
+                3 => 'inProgress',
+                4 => 'cause',
+                5 => 'gravity',
+                6 => 'notification',
+                7 => 'createdAt',
+                8 => 'updatedAt',
+                9 => 'actions',
+            ];
+        }
+
         return [
             0 => 'date',
-            1 => 'collectivite',
-            2 => 'nature',
-            3 => 'inProgress',
-            4 => 'cause',
-            5 => 'gravity',
-            6 => 'notification',
-            7 => 'createdAt',
-            8 => 'updatedAt',
-            9 => 'actions',
+            1 => 'nature',
+            2 => 'inProgress',
+            3 => 'cause',
+            4 => 'gravity',
+            5 => 'notification',
+            6 => 'createdAt',
+            7 => 'updatedAt',
+            8 => 'actions',
         ];
     }
 

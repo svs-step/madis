@@ -25,13 +25,17 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Maturity\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
 use App\Domain\User\Model\Collectivity;
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 class Survey extends CRUDRepository implements Repository\Survey
 {
+    use RepositoryUtils;
     private string $lateSurveyDelayDays;
 
     /**
@@ -49,12 +53,21 @@ class Survey extends CRUDRepository implements Repository\Survey
         return Model\Survey::class;
     }
 
-    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null, array $where = []): iterable
+    protected function addCollectivityClause(QueryBuilder $qb, Collectivity $collectivity): QueryBuilder
     {
-        $qb = $this->createQueryBuilder()
+        return $qb
             ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
         ;
+    }
+
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null, array $where = []): iterable
+    {
+        $qb = $this->createQueryBuilder();
+
+        if (!\is_null($collectivity)) {
+            $this->addCollectivityClause($qb, $collectivity);
+        }
 
         foreach ($order as $key => $dir) {
             $qb->addOrderBy("o.{$key}", $dir);
@@ -161,5 +174,84 @@ class Survey extends CRUDRepository implements Repository\Survey
             ->setParameter('lastmonth', $monthsAgo->format('Y-m-d'))
             ->getQuery()
             ->getResult();
+    }
+
+    public function count(array $criteria = [])
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb->select('COUNT(o.id)');
+
+        return $qb->getQuery()->getSingleScalarResult();
+    }
+
+    public function findPaginated($firstResult, $maxResults, $orderColumn, $orderDir, $searches, $criteria = [])
+    {
+        $qb = $this->createQueryBuilder()
+            ->leftJoin('o.collectivity', 'collectivite')
+            ->leftJoin('o.referentiel', 'referentiel');
+
+        $this->addTableSearches($qb, $searches);
+        $this->addTableOrder($qb, $orderColumn, $orderDir);
+
+        $qb = $qb->getQuery();
+        $qb->setFirstResult($firstResult);
+        $qb->setMaxResults($maxResults);
+
+        return new Paginator($qb);
+    }
+
+    private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
+    {
+        switch ($orderColumn) {
+            case 'collectivity':
+                $queryBuilder->addOrderBy('collectivite.name', $orderDir);
+                break;
+            case 'referentiel':
+                $queryBuilder->addOrderBy('referentiel.name', $orderDir);
+                break;
+            case 'score':
+                $queryBuilder->addOrderBy('o.score', $orderDir);
+                break;
+            case 'updatedAt':
+                $queryBuilder->addOrderBy('o.updatedAt', $orderDir);
+                break;
+            case 'createdAt':
+                $queryBuilder->addOrderBy('o.createdAt', $orderDir);
+                break;
+        }
+    }
+
+    private function addTableSearches(QueryBuilder $queryBuilder, $searches)
+    {
+        foreach ($searches as $columnName => $search) {
+            switch ($columnName) {
+                case 'collectivity':
+                    $queryBuilder->andWhere('collectivite.name LIKE :collectivity')
+                        ->setParameter('collectivity', '%' . $search . '%');
+                    break;
+                case 'referentiel':
+                    $queryBuilder->andWhere('referentiel.name LIKE :referentiel')
+                        ->setParameter('referentiel', $search);
+                    break;
+                case 'score':
+                    $this->addWhereClause($queryBuilder, 'score', '%' . $search . '%', 'LIKE');
+                    break;
+                case 'updatedAt':
+                    if (is_string($search)) {
+                        $queryBuilder->andWhere('o.updatedAt BETWEEN :updated_start_date AND :updated_finish_date')
+                            ->setParameter('updated_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('updated_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    }
+                    break;
+                case 'createdAt':
+                    if (is_string($search)) {
+                        $queryBuilder->andWhere('o.createdAt BETWEEN :create_start_date AND :create_finish_date')
+                            ->setParameter('create_start_date', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('create_finish_date', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
+                    }
+                    break;
+            }
+        }
     }
 }

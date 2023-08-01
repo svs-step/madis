@@ -27,6 +27,7 @@ namespace App\Domain\Maturity\Controller;
 use App\Application\Controller\CRUDController;
 use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Symfony\Security\UserProvider;
+use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Form\Type\SyntheseType;
@@ -52,6 +53,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
  */
 class SurveyController extends CRUDController
 {
+    use ServersideDatatablesTrait;
+
     /**
      * @var WordHandler
      */
@@ -419,6 +422,92 @@ class SurveyController extends CRUDController
         return [
             '0' => 'nom',
             '1' => 'description',
+        ];
+    }
+
+    public function listAction(): Response
+    {
+        $surveys     = $this->entityManager->getRepository(Model\Survey::class)->findAll();
+        $listSurveys = [];
+        foreach ($surveys as $survey) {
+            $listSurveys[] = $survey->getReferentiel()->getName();
+        }
+
+        return $this->render('Maturity/Survey/list.html.twig', [
+            'totalItem'   => $this->repository->count(),
+            'route'       => $this->router->generate('maturity_survey_list_datatables'),
+            'listSurveys' => array_unique($listSurveys, SORT_STRING),
+        ]);
+    }
+
+    public function listDataTables(Request $request): JsonResponse
+    {
+        $surveys = $this->getResults($request);
+        $reponse = $this->getBaseDataTablesResponse($request, $surveys);
+
+        foreach ($surveys as $survey) {
+            $referentielLink = '<a aria-label="' . \htmlspecialchars($survey->getReferentiel()->getName()) . '" href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $survey->getId()->toString()]) . '">
+                ' . \htmlspecialchars($survey->getReferentiel()->getName()) . '
+                </a>';
+
+            $reponse['data'][] = [
+                'collectivity' => $survey->getCollectivity()->getName(),
+                'referentiel'  => $referentielLink,
+                'score'        => $survey->getScore(),
+                'createdAt'    => date_format($survey->getCreatedAt(), 'd-m-Y H:i'),
+                'updatedAt'    => date_format($survey->getUpdatedAt(), 'd-m-Y H:i'),
+                'actions'      => $this->generateActionCellContent($survey),
+            ];
+        }
+
+        $reponse['recordsTotal']    = count($reponse['data']);
+        $reponse['recordsFiltered'] = count($reponse['data']);
+
+        return new JsonResponse($reponse);
+    }
+
+    private function generateActionCellContent(Model\Survey $survey)
+    {
+        $id = $survey->getId();
+
+        return
+            '<a href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $id]) . '">
+                <i class="fa fa-print"></i> '
+            . $this->translator->trans('action.print') .
+            '</a>' .
+            '<a href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $id]) . '">
+                <i class="fa fa-chart-bar"></i> ' .
+            $this->translator->trans('action.synthesis') .
+            '</a>' .
+            '<a href="' . $this->router->generate('maturity_survey_edit', ['id' => $id]) . '">
+                <i class="fa fa-pencil-alt"></i> '
+            . $this->translator->trans('action.edit') .
+            '</a>' .
+            '<a href="' . $this->router->generate('maturity_survey_delete', ['id' => $id]) . '">
+                <i class="fa fa-trash"></i> ' .
+            $this->translator->trans('action.delete') .
+            '</a>';
+    }
+
+    protected function getLabelAndKeysArray(): array
+    {
+        if ($this->isGranted('ROLE_REFERENT')) {
+            return [
+                'referentiel',
+                'collectivity',
+                'score',
+                'createdAt',
+                'updatedAt',
+                'actions',
+            ];
+        }
+
+        return [
+            'referentiel',
+            'score',
+            'createdAt',
+            'updatedAt',
+            'actions',
         ];
     }
 

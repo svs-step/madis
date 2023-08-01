@@ -244,10 +244,12 @@
                 oTable.column('0').search($(this).val()).draw() ;
             });
 
-            $('#search_collectivite').off('keyup');
-            $('#search_collectivite').keyup($.debounce(250, function(){
-                oTable.column(col).search($(this).val()).draw() ;
-            }));
+            {% if is_granted('ROLE_REFERENT') %}
+                $('#search_collectivite').off('keyup');
+                $('#search_collectivite').keyup($.debounce(250, function(){
+                    oTable.column(1).search($(this).val()).draw() ;
+                }));
+            {% endif %}
 
             $('#search_nature').off('change');
             $('#search_nature').change(function(){

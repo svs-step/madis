@@ -43,63 +43,40 @@
                     <table role="presentation" id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th scope="col">
+                                <select class="form-control" id="search_referentiel" style="width: 100%;">
+                                    <option value="">Référentiel</option>
+                                    {% for survey in listSurveys %}
+                                        <option value="{{ survey }}">{{ survey }}</option>
+                                    {% endfor %}
+                                </select>
+                            </th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th scope="col">
+                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
+                                </th>
+                            {% endif %}
+                            <th scope="col">
+                                <input class="form-control" type='number' id="search_score" style="width: 100%;" placeholder="Score">
+                            </th>
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                            </th>
+                            <th scope="col" style="min-width:130px;position:relative;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                            </th>
+                        </tr>
+                        <tr>
+                            <th scope="col">{{ 'maturity.survey.list.referentiel'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">{{ 'maturity.survey.list.collectivity'|trans }}</th>
                             {% endif %}
-
-                            <th scope="col">{{ 'maturity.survey.list.referentiel'|trans }}</th>
                             <th scope="col">{{ 'maturity.survey.list.score'|trans }}</th>
                             <th scope="col">{{ 'maturity.survey.list.created_at'|trans }}</th>
                             <th scope="col">{{ 'maturity.survey.list.updated_at'|trans }}</th>
-
                             <th scope="col">{{ 'label.actions'|trans }}</th>
                         </tr>
                         </thead>
-                        <tbody>
-                        {% for object in objects %}
-                        <tr>
-                            {% if is_granted('ROLE_REFERENT') %}
-                                <td>{{ object.collectivity }}</td>
-                            {% endif %}
-                            <td>
-                                {% if is_granted('ROLE_ADMIN') and object.referentiel is defined and object.referentiel.id is defined %}
-                                <a href="{{ path('maturity_referentiel_edit', { 'id': object.referentiel.id }) }}">
-                                {{ object.referentiel.name }}
-                                </a>
-                                {% elseif(object.referentiel is defined and object.referentiel.name is defined) %}
-                                    {{ object.referentiel.name }}
-                                {% endif %}
-                            </td>
-                            <td>{{ object.score / 10 }}</td>
-                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
-                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
-                            <td>
-                                {% if object.referentiel is defined and object.referentiel.id is defined  %}
-                                <a aria-label="{{ 'action.print'|trans }}" href="{{ path('maturity_survey_report', { 'id': object.id }) }}">
-                                    <i class="fa fa-clipboard-list"></i>
-                                    {{ 'action.print'|trans }}
-                                </a>
-                                {% endif %}
-                                {% if is_granted('ROLE_USER') %}
-                                {% if object.referentiel is defined and object.referentiel.id is defined %}
-                                    <a aria-label="{{ 'action.synthesis'|trans }}" href="{{ path('maturity_survey_synthesis', { 'id': object.id }) }}">
-                                        <i class="fa fa-chart-bar"></i>
-                                        {{ 'action.synthesis'|trans }}
-                                    </a>
-                                    <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('maturity_survey_edit', { 'id': object.id }) }}">
-                                        <i class="fa fa-pencil-alt"></i>
-                                        {{ 'action.edit'|trans }}
-                                    </a>
-                                {% endif %}
-                                <a aria-label="{{ 'action.delete'|trans }}" href="{{ path('maturity_survey_delete', { 'id': object.id }) }}">
-                                    <i class="fa fa-trash"></i>
-                                    {{ 'action.delete'|trans }}
-                                </a>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        {% endfor %}
-                        </tbody>
                     </table>
                 </div>
             </div>
@@ -108,11 +85,13 @@
 {% endblock %}
 
 {% block javascripts %}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-throttle-debounce/1.1/jquery.ba-throttle-debounce.js"></script>
+
     {% if is_granted('ROLE_REFERENT') %}
     {% set dataTableOptions = {
         columns: [
-            {"data": "collectivity", "classname": "noVis"},
-            {"data": "referentiel"},
+            {"data": "referentiel", "className": "noVis"},
+            {"data": "collectivity"},
             {"data": "score", "visible": true},
             {"data": "createdAt", "visible": false},
             {"data": "updatedAt", "visible": false},
@@ -122,7 +101,7 @@
     {% else %}
         {% set dataTableOptions = {
             columns: [
-                {"data": "referentiel"},
+                {"data": "referentiel", "className": "noVis"},
                 {"data": "score", "visible": true},
                 {"data": "createdAt", "visible": false},
                 {"data": "updatedAt", "visible": false},
@@ -131,5 +110,64 @@
         } %}
     {% endif %}
 
-    {{ include('_Utils/_datatable.html.twig') }}
+    {{ include('_Utils/_serverside_datatable.html.twig') }}
+
+    <script>
+        function setEvents() {
+            var oTable = $('#table').DataTable();
+            var col = 0;
+            {% if is_granted('ROLE_REFERENT') %}
+                col = 1;
+            {% endif %}
+
+            $('#search_created_at').show('slide',function(){
+                $('input#search_created_at').val('');
+            });
+            $('#search_updated_at').show('slide',function(){
+                $('input#search_updated_at').val('');
+            });
+
+            {% if is_granted('ROLE_REFERENT') %}
+                $('#search_collectivity').off('keyup');
+                $('#search_collectivity').keyup($.debounce(250, function(){
+                    oTable.column(1).search($(this).val()).draw() ;
+                }));
+            {% endif %}
+
+            $('#search_referentiel').off('change');
+            $('#search_referentiel').change(function(){
+                oTable.column(0).search($(this).val()).draw();
+            });
+
+            $('#search_score').off('keyup');
+            $('#search_score').keyup($.debounce(250, function(){
+                oTable.column(col + 1).search($(this).val()).draw() ;
+            }));
+
+            $('#search_score').on('click', function(){
+                oTable.column(col + 1).search($(this).val()).draw() ;
+            });
+
+            $('#search_created_at').off('change');
+            $('#search_created_at').change(function(){
+                console.log(oTable.column('2'));
+                oTable.column(col + 2).search($(this).val()).draw();
+            });
+
+            $('#search_updated_at').off('change');
+            $('#search_updated_at').change(function(){
+                oTable.column(col + 3).search($(this).val()).draw();
+            });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+        } );
+
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
+        } );
+    </script>
+
 {% endblock %}
