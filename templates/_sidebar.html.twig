@@ -26,9 +26,9 @@
                 </li>
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleTools == true %}
                     <li {% if menuItem == 'registry_tool' %}class="active"{% endif %}>
-                        <a href="{{ path('registry_tool_list') }}">
+                        <a aria-label="Logiciels et supports" href="/logiciel-et-support/liste" >
                             <i class="fa fa-briefcase"></i>
-                            <span>{{ 'sidebar_menu.registry_tools'|trans }}</span>
+                            <span>Logiciels et supports</span>
                         </a>
                     </li>
                 {% endif %}
