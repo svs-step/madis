@@ -54,6 +54,9 @@
 
     <script>
         $(document).ready(function() {
+            if($('#modele_referentiel_rights_authorizedCollectivities').val() === null){
+                $("#modele_referentiel_rights_optionRightSelection_0").prop("checked", true);
+            }
 
             // Initialize form
             checkTargetOption();
@@ -67,11 +70,9 @@
 
         function checkTargetOption() {
             let targetOption = $('#modele_referentiel_rights_optionRightSelection input[type=radio]:checked').val();
-            console.log('to',targetOption);
-
             let targetPerType = $('#modele_referentiel_rights_authorizedCollectivityTypes');
             let targetPerCollectivity = $('#modele_referentiel_rights_authorizedCollectivities');
-
+            console.log($('#modele_referentiel_rights_authorizedCollectivityTypes').val());
             if (targetOption === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTargetOptionDictionary::KEY_PER_TYPE') }}') {
                 targetPerType.show();
                 targetPerCollectivity.hide();
@@ -87,18 +88,18 @@
         function checkTargetCollectivities() {
             let sourceCollectivityVal = $('#duplication_sourceCollectivity').val();
 
-            $('#referentiel_rights_authorizedCollectivities option[value!=\'' + sourceCollectivityVal + '\']').prop('disabled', false);
-            $('#referentiel_rights_authorizedCollectivities option[value=\'' + sourceCollectivityVal + '\']').prop('disabled', true);
+            $('#modele_referentiel_rights_authorizedCollectivities option[value!=\'' + sourceCollectivityVal + '\']').prop('disabled', false);
+            $('#modele_referentiel_rights_authorizedCollectivities option[value=\'' + sourceCollectivityVal + '\']').prop('disabled', true);
         }
 
         // Clear the radio button
         $('form').submit(function() {
-            if($('#referentiel_rights_optionRightSelection input[type=radio]:checked').val() == 'per_collectivity') {
-                $('#referentiel_rights_authorizedCollectivityTypes').val(null);
+            if($('#modele_referentiel_rights_optionRightSelection input[type=radio]:checked').val() == 'per_collectivity') {
+                $('#modele_referentiel_rights_authorizedCollectivityTypes').val(null);
             }
 
-            if($('#referentiel_rights_optionRightSelection input[type=radio]:checked').val() == 'per_type') {
-                $('#referentiel_rights_authorizedCollectivities').val(null);
+            if($('#modele_referentiel_rights_optionRightSelection input[type=radio]:checked').val() == 'per_type') {
+                $('#modele_referentiel_rights_authorizedCollectivities').val(null);
             }
         });
     </script>
