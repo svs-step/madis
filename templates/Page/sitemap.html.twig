@@ -176,12 +176,10 @@
                         </a>
                         <ul>
                             <li>
-                            <a aria-label="{{ 'sidebar_menu.user_users'|trans }}" href="{{ path('user_user_list', {'archive' : 'true'}) }}">
-                                Liste des utilisateurs (Archivés)
-                            </a>
+                                <a aria-label="{{ 'sidebar_menu.user_users'|trans }}" href="{{ path('user_user_list', {'archive' : 'true'}) }}">
+                                    Liste des utilisateurs (Archivés)
+                                </a>
                             </li>
-                        </ul>
-                        <ul>
                             <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
                                 <a aria-label="{{ 'sidebar_menu.user_profile_user'|trans }}" href="{{ path('user_profile_user_edit') }}">
                                     <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
@@ -189,33 +187,28 @@
                             </li>
                         </ul>
                     </li>
-                    {# Referent is not allowed to journalisation #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li>
-                            <a aria-label="{{ 'sidebar_menu.reporting_journalisation'|trans }}" href="{{ path('reporting_journalisation_index') }}">
-                                <span>{{ 'sidebar_menu.reporting_journalisation'|trans }} des actions</span>
-                            </a>
-                        </li>
-
-                    {# If not an admin nor a referent & is write granted, let user edit informations #}
-                    {% else %}
-                        <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
-                            <a aria-label="{{ 'sidebar_menu.user_profile_collectivity'|trans }}" href="{{ path('user_profile_collectivity_show') }}">
-                                <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                    {% if not is_granted('ROLE_ADMIN') %}
-                        <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
-                            <a aria-label="{{ 'sidebar_menu.user_profile_user'|trans }}" href="{{ path('user_profile_user_edit') }}">
-                                <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
-                            </a>
-                        </li>
-                    {% endif %}
-
-                    <li><a aria-label="sitemap" href="{{ path('page_sitemap') }}">Plan du site</a></li>
-                    <li><a aria-label="credit" href="{{ path('page_credit') }}">Crédit</a></li>
                 {% endif %}
+                {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_REFERENT')%}
+                    <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
+                        <a aria-label="{{ 'sidebar_menu.user_profile_collectivity'|trans }}" href="{{ path('user_profile_collectivity_show') }}">
+                            <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
+                        </a>
+                    </li>
+                    <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
+                        <a aria-label="{{ 'sidebar_menu.user_profile_user'|trans }}" href="{{ path('user_profile_user_edit') }}">
+                            <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <li>
+                        <a aria-label="{{ 'sidebar_menu.reporting_journalisation'|trans }}" href="{{ path('reporting_journalisation_index') }}">
+                            <span>{{ 'sidebar_menu.reporting_journalisation'|trans }} des actions</span>
+                        </a>
+                    </li>
+                {% endif %}
+                <li><a aria-label="sitemap" href="{{ path('page_sitemap') }}">Plan du site</a></li>
+                <li><a aria-label="credit" href="{{ path('page_credit') }}">Crédit</a></li>
             </ul>
         </li>
     </ul>
