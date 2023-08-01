@@ -48,7 +48,7 @@ class DomainType extends AbstractType
                 'label'    => 'maturity.referentiel.form.name',
                 'required' => true,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
                 ],
             ])
 

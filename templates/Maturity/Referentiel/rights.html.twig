@@ -54,21 +54,24 @@
 
     <script>
         $(document).ready(function() {
+            if($('#modele_referentiel_rights_authorizedCollectivities').val() === null){
+                $("#modele_referentiel_rights_optionRightSelection_0").prop("checked", true);
+            }
 
             // Initialize form
             checkTargetOption();
             checkTargetCollectivities();
 
-            $('#referentiel_rights_optionRightSelection').on('change', function() {
+            $('#modele_referentiel_rights_optionRightSelection').on('change', function() {
                 checkTargetOption();
             });
 
         });
 
         function checkTargetOption() {
-            let targetOption = $('#referentiel_rights_optionRightSelection input[type=radio]:checked').val();
-            let targetPerType = $('#referentiel_rights_authorizedCollectivityTypes');
-            let targetPerCollectivity = $('#referentiel_rights_authorizedCollectivities');
+            let targetOption = $('#modele_referentiel_rights_optionRightSelection input[type=radio]:checked').val();
+            let targetPerType = $('#modele_referentiel_rights_authorizedCollectivityTypes');
+            let targetPerCollectivity = $('#modele_referentiel_rights_authorizedCollectivities');
 
             if (targetOption === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTargetOptionDictionary::KEY_PER_TYPE') }}') {
                 targetPerType.show();
@@ -85,18 +88,18 @@
         function checkTargetCollectivities() {
             let sourceCollectivityVal = $('#duplication_sourceCollectivity').val();
 
-            $('#referentiel_rights_authorizedCollectivities option[value!=\'' + sourceCollectivityVal + '\']').prop('disabled', false);
-            $('#referentiel_rights_authorizedCollectivities option[value=\'' + sourceCollectivityVal + '\']').prop('disabled', true);
+            $('#modele_referentiel_rights_authorizedCollectivities option[value!=\'' + sourceCollectivityVal + '\']').prop('disabled', false);
+            $('#modele_referentiel_rights_authorizedCollectivities option[value=\'' + sourceCollectivityVal + '\']').prop('disabled', true);
         }
 
         // Clear the radio button
         $('form').submit(function() {
-            if($('#referentiel_rights_optionRightSelection input[type=radio]:checked').val() == 'per_collectivity') {
-                $('#referentiel_rights_authorizedCollectivityTypes').val(null);
+            if($('#modele_referentiel_rights_optionRightSelection input[type=radio]:checked').val() == 'per_collectivity') {
+                $('#modele_referentiel_rights_authorizedCollectivityTypes').val(null);
             }
 
-            if($('#referentiel_rights_optionRightSelection input[type=radio]:checked').val() == 'per_type') {
-                $('#referentiel_rights_authorizedCollectivities').val(null);
+            if($('#modele_referentiel_rights_optionRightSelection input[type=radio]:checked').val() == 'per_type') {
+                $('#modele_referentiel_rights_authorizedCollectivities').val(null);
             }
         });
     </script>

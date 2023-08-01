@@ -325,9 +325,12 @@ class SurveyController extends CRUDController
     public function startSurveyAction(Request $request)
     {
         if ($request->isMethod('GET')) {
+            /** @var User $user */
+            $user = $this->getUser();
+
             return $this->render($this->getTemplatingBasePath('start'), [
                 'totalItem' => $this->referentielRepository->count(),
-                'route'     => $this->router->generate('maturity_survey_referentiel_datatables'),
+                'route'     => $this->router->generate('maturity_survey_referentiel_datatables', ['collectivity' => $user->getCollectivity()->getId()->toString()]),
             ]);
         }
 
@@ -345,13 +348,27 @@ class SurveyController extends CRUDController
         $request      = $this->requestStack->getMasterRequest();
         $referentiels = $this->getReferentielResults($request);
 
+        $collectivity = $this->entityManager->getRepository(Collectivity::class)->find($request->query->get('collectivity'));
+
         $reponse = $this->getBaseDataTablesResponse($request, $referentiels);
+
         foreach ($referentiels as $referentiel) {
-            $reponse['data'][] = [
-                'nom'         => '<input type="radio" value="' . $referentiel->getId() . '" name="referentiel_choice" required="true"/> ' . $referentiel->getName(),
-                'description' => $referentiel->getDescription(),
-            ];
+            /** @var Model\Referentiel $collectivityType */
+            $collectivityType            = $collectivity->getType();
+            $authorizedCollectivities    = $referentiel->getAuthorizedCollectivities();
+            $authorizedCollectivityTypes = $referentiel->getAuthorizedCollectivityTypes();
+
+            if ((!\is_null($authorizedCollectivityTypes)
+                    && in_array($collectivityType, $authorizedCollectivityTypes))
+                || $authorizedCollectivities->contains($collectivity)
+            ) {
+                $reponse['data'][] = [
+                    'nom'         => '<input type="radio" value="' . $referentiel->getId() . '" name="referentiel_choice" required="true"/> ' . $referentiel->getName(),
+                    'description' => $referentiel->getDescription(),
+                ];
+            }
         }
+
         $reponse['recordsTotal']    = count($reponse['data']);
         $reponse['recordsFiltered'] = count($reponse['data']);
 

@@ -154,6 +154,8 @@ function checkDifferentDpo(id, boxId)
     });
     // Be sure to not disable checkbox
     id.prop('disabled', false);
+    $('#collectivity_nbrCnil').prop('disabled', false)
+    $('#collectivity_nbrCnil').prop('required', false)
 }
 
 function checkDifferentItManager(id, boxId)

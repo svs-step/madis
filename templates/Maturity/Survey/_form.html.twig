@@ -43,7 +43,7 @@
                                 {% endif %}
                                 <ul {% if optionAnswers|length > 0 and optionAnswers|first.reason %} style="display:none; list-style: none;padding-left: 0;"{% endif %} style="padding-left: 0">
                                     {% for answer in question.answers|sort((a, b) => a.position > b.position) %}
-                                        <label>
+                                        <label style="font-weight: normal !important;">
                                         <input {% if form.vars.data.answerSurveys|filter(a => a.answer.id == answer.id)|length > 0 %} checked {% endif%} id="answer-{{ answer.id }}" type="radio" name="survey[questions][{{ question.id }}][answers][]" value="{{ answer.id }}" {% if not (optionAnswers|length > 0 and optionAnswers|first.reason) %}required{% endif%} />
                                             <!-- {{ answer.position }} --> {{ answer.name }}
                                         </label>

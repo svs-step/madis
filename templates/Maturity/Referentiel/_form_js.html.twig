@@ -1,5 +1,19 @@
 <script>
     $(document).ready(function() {
+        $('form[name=referentiel]').on('submit', function() {
+            // Assign position to each domain, question and answer depending on their position in the DOM
+            // Fixes https://gitlab.adullact.net/soluris/madis/-/issues/783
+            $('#referentiel-sections-container').find('li').each(function(n, el) {
+                $(el).find('input.domain-position').val(n)
+                $(el).find('.referentielQuestions > li').each(function(nq, elq) {
+                    $(elq).find('input.question-position').val(nq)
+                    $(elq).find('.referentielAnswers > li').each(function(na, ela) {
+                        $(ela).find('input.answer-position').val(na)
+                    })
+                })
+            })
+            this.submit()
+        })
         $('body').on('click', '.add_section', addFormToCollection)
             .on('click', '.add_question', addFormToCollection)
             .on('click', '.add_answer', addFormToCollection)
@@ -113,14 +127,13 @@
         })
 
         $("ul.referentielAnswers").each(function(n, el){
-            console.log('el', el)
             $(el).sortable({
                 stop: function( event, ui ) {
                     console.log("answer order changed", event.target)
                     setTimeout(function() {
                         $(event.target).find(' > li').each(function(i, li) {
                             console.log('i', i, li)
-                            $(li).find('input[type=hidden]').val(i)
+                            $(li).find('input[type=hidden].answer-position').val(i)
                         })
                     }, 10)
 
@@ -129,14 +142,13 @@
         })
 
         $("ul.referentielQuestions").each(function(n, el){
-            console.log('el', el)
             $(el).sortable({
                 stop: function( event, ui ) {
                     console.log("question order changed", event.target)
                     setTimeout(function() {
                         $(event.target).find(' > li').each(function(i, li) {
                             console.log('i', i, li)
-                            $(li).find('input[type=hidden]').val(i)
+                            $(li).find('input[type=hidden].question-position').val(i)
                         })
                     }, 10)
                 }
@@ -144,7 +156,6 @@
         })
 
         $("ul.referentielSections").each(function(n, el){
-            console.log('el', el)
             $(el).sortable({
                 stop: function( event, ui ) {
                     console.log("section order changed", event.target)

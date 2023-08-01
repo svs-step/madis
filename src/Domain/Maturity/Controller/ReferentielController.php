@@ -253,24 +253,25 @@ class ReferentielController extends CRUDController
 
                 // $question->setPosition($n);
                 $question->setDomain($domain);
-
                 // get all existing Answers
                 $toRemoveAnswers = $this->entityManager->getRepository(Model\Answer::class)->findBy(['question' => $question]);
-
+                $answers         = [];
                 foreach ($question->getAnswers() as $l => $answer) {
                     /** @var Model\Answer $answer */
                     $key = array_search($answer, $toRemoveAnswers);
                     if (false !== $key) {
                         unset($toRemoveAnswers[$key]);
                     }
-
                     // $answer->setPosition($l);
                     $answer->setQuestion($question);
+                    $answers[] = $answer;
                 }
 
                 foreach ($toRemoveAnswers as $removing) {
                     $this->entityManager->remove($removing);
                 }
+
+                $question->setAnswers($answers);
 
                 $questions[] = $question;
             }
@@ -282,7 +283,6 @@ class ReferentielController extends CRUDController
 
             $domains[] = $domain;
         }
-
         // Remove deleted domains
         foreach ($toRemove as $removing) {
             $this->entityManager->remove($removing);

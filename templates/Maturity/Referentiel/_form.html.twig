@@ -83,6 +83,7 @@
                 <div class="col-md-12">
                     <ul class="referentielSections" style="margin: 0;list-style: none; padding:0"
                         data-index="{{ form.domains|length }}"
+                        id="referentiel-sections-container"
                    >
                         {% do form.domains.setRendered() %}
                         {% if form.domains is not empty %}

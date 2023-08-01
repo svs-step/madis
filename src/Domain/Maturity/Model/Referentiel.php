@@ -77,7 +77,7 @@ class Referentiel
      *
      * @Serializer\Exclude
      */
-    private $authorizedCollectivityTypes;
+    private ?iterable $authorizedCollectivityTypes;
 
     /**
      * @see DuplicationTargetOptionDictionary
@@ -102,10 +102,8 @@ class Referentiel
 
     public function __construct()
     {
-        $this->id                          = Uuid::uuid4();
-        $this->domains                     = new ArrayCollection();
-        $this->authorizedCollectivities    = new ArrayCollection();
-        $this->authorizedCollectivityTypes = new ArrayCollection();
+        $this->id      = Uuid::uuid4();
+        $this->domains = new ArrayCollection();
     }
 
     public function __clone()
@@ -198,12 +196,12 @@ class Referentiel
         $this->optionRightSelection = $optionRightSelection;
     }
 
-    public function getAuthorizedCollectivityTypes(): ?Collection
+    public function getAuthorizedCollectivityTypes()
     {
         return $this->authorizedCollectivityTypes;
     }
 
-    public function setAuthorizedCollectivityTypes(?iterable $authorizedCollectivityTypes)
+    public function setAuthorizedCollectivityTypes(iterable $authorizedCollectivityTypes)
     {
         $this->authorizedCollectivityTypes = $authorizedCollectivityTypes;
     }

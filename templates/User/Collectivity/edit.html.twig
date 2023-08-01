@@ -26,13 +26,6 @@
 
 {% block javascripts %}
     {{ parent() }}
-    <script>
-        $(document).ready(function() {
-            $('input[name="collectivity[nbrCnil]"]').removeAttr('disabled');
-        });
-    </script>
-
-
     {{ encore_entry_script_tags('js/collectionManager') }}
 
     <script>
@@ -44,7 +37,6 @@
                 $("#collectivity_dpo_job").attr("required", "true");
                 $("#collectivity_dpo_mail").attr("required", "true");
                 $("#collectivity_dpo_phoneNumber").attr("required", "true");
-                $('input[name="collectivity[nbrCnil]"]').removeAttr('disabled');
             }
 
             $('#collectivity_differentDpo').on('change', function(){
@@ -64,7 +56,6 @@
                     $("#collectivity_dpo_mail").prop("required", false);
                     $("#collectivity_dpo_phoneNumber").prop("required", false);
                 }
-                $('input[name="collectivity[nbrCnil]"]').removeAttr('disabled');
             })
         })
     </script>

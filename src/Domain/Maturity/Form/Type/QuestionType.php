@@ -50,7 +50,7 @@ class QuestionType extends AbstractType
                 'label'    => 'maturity.referentiel.form.question_name',
                 'required' => true,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
                 ],
             ])
             ->add('weight', ChoiceType::class, [
@@ -62,6 +62,9 @@ class QuestionType extends AbstractType
             ])
             ->add('position', HiddenType::class, [
                 'required' => false,
+                'attr'     => [
+                    'class' => 'question-position',
+                ],
             ])
             ->add('optional', CheckboxType::class, [
                 'label'    => "Activer l'option : Non concerné",
@@ -72,7 +75,7 @@ class QuestionType extends AbstractType
                 'required' => false,
                 'attr'     => [
                     'placeholder' => 'Précisez',
-                    'maxlength'   => 255,
+                    'maxlength'   => 1000,
                 ],
             ])
             ->add('answers', CollectionType::class, [
