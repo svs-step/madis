@@ -122,7 +122,6 @@ class ToolGenerator extends AbstractGenerator implements ImpressionGeneratorInte
                     'Pays d\'hébergement ou de stockage',
                     $this->translator->trans($tool->getCountryType()),
                 ],
-
             ];
 
             if (Tool::COUNTRY_FRANCE !== $tool->getCountryType()) {

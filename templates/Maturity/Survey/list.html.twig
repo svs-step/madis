@@ -90,7 +90,7 @@
     {% if is_granted('ROLE_REFERENT') %}
     {% set dataTableOptions = {
         columns: [
-            {"data": "referentiel"},
+            {"data": "referentiel", "className": "noVis"},
             {"data": "collectivity"},
             {"data": "score", "visible": true},
             {"data": "createdAt", "visible": false},
@@ -101,7 +101,7 @@
     {% else %}
         {% set dataTableOptions = {
             columns: [
-                {"data": "referentiel"},
+                {"data": "referentiel", "className": "noVis"},
                 {"data": "score", "visible": true},
                 {"data": "createdAt", "visible": false},
                 {"data": "updatedAt", "visible": false},

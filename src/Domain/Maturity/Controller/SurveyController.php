@@ -474,13 +474,23 @@ class SurveyController extends CRUDController
 
     protected function getLabelAndKeysArray(): array
     {
+        if ($this->isGranted('ROLE_REFERENT')) {
+            return [
+                'referentiel',
+                'collectivity',
+                'score',
+                'createdAt',
+                'updatedAt',
+                'actions',
+            ];
+        }
+
         return [
-            '0' => 'collectivity',
-            '1' => 'referentiel',
-            '2' => 'score',
-            '3' => 'createdAt',
-            '4' => 'updatedAt',
-            '5' => 'actions',
+            'referentiel',
+            'score',
+            'createdAt',
+            'updatedAt',
+            'actions',
         ];
     }
 

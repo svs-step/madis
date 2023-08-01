@@ -25,14 +25,13 @@ declare(strict_types=1);
 namespace App\Infrastructure\ORM\Maturity\Repository;
 
 use App\Application\Doctrine\Repository\CRUDRepository;
+use App\Application\Traits\RepositoryUtils;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
 use App\Domain\User\Model\Collectivity;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Application\Traits\RepositoryUtils;
 
 class Survey extends CRUDRepository implements Repository\Survey
 {
@@ -59,7 +58,7 @@ class Survey extends CRUDRepository implements Repository\Survey
         return $qb
             ->andWhere('o.collectivity = :collectivity')
             ->setParameter('collectivity', $collectivity)
-            ;
+        ;
     }
 
     public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null, array $where = []): iterable

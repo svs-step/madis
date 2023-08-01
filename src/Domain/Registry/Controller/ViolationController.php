@@ -242,7 +242,6 @@ class ViolationController extends CRUDController
             7 => 'updatedAt',
             8 => 'actions',
         ];
-
     }
 
     private function getActionCellsContent(Model\Violation $violation)
