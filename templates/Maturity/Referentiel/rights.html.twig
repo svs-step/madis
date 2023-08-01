@@ -72,7 +72,7 @@
             let targetOption = $('#modele_referentiel_rights_optionRightSelection input[type=radio]:checked').val();
             let targetPerType = $('#modele_referentiel_rights_authorizedCollectivityTypes');
             let targetPerCollectivity = $('#modele_referentiel_rights_authorizedCollectivities');
-            
+
             if (targetOption === '{{ constant('App\\Domain\\Admin\\Dictionary\\DuplicationTargetOptionDictionary::KEY_PER_TYPE') }}') {
                 targetPerType.show();
                 targetPerCollectivity.hide();
