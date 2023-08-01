@@ -414,6 +414,7 @@ class TreatmentType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select',
+                    'aria-label'       => 'Logiciels et supports',
                 ],
             ]);
         } else {

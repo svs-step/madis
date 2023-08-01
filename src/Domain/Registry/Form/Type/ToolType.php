@@ -149,6 +149,7 @@ class ToolType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select',
+                    'aria-label'       => 'Sous-traitants',
                 ],
             ])
 

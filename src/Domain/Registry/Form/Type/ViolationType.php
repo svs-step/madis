@@ -124,6 +124,7 @@ class ViolationType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select',
+                    'aria-label'       => 'Natures de la violation',
                 ],
             ])
             ->add('origins', DictionaryType::class, [
@@ -272,6 +273,7 @@ class ViolationType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select',
+                    'aria-label'       => 'Sous-traitants',
                 ],
             ])
             ->add('updatedBy', HiddenType::class, [
