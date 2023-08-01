@@ -404,7 +404,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     break;
                 case 'specificitiesDelivered':
                     $this->addWhereClause($queryBuilder, 'securitySpecificitiesDelivered', '%' . $search . '%', 'LIKE');
-                    //$queryBuilder->andWhere('o.securitySpecificitiesDelivered LIKE :specificitiesDelivered')
+                    // $queryBuilder->andWhere('o.securitySpecificitiesDelivered LIKE :specificitiesDelivered')
                     //    ->setParameter('specificitiesDelivered', '%' . $search . '%');
                     break;
                 case 'createdAt':

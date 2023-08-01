@@ -54,6 +54,7 @@ class Answer
 
     /**
      * @var iterable|null
+     *
      * @Serializer\Exclude
      */
     private $answerSurveys;

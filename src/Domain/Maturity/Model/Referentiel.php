@@ -231,7 +231,7 @@ class Referentiel
     /**
      * @return Survey[]|array
      */
-    public function getSurveys(): array
+    public function getSurveys(): array|Collection
     {
         return $this->surveys;
     }
