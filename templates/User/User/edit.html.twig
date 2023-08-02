@@ -39,6 +39,7 @@
             $('#user_collectivity').on('change', function() {
                 checkData();
             });
+            traiterBoutons();
         });
 
         function checkData() {
@@ -71,6 +72,21 @@
             })
         }
 
+        function traiterBoutons() {
+            $('select').each(function(){
+                const label = $(this).attr('aria-label');
+                const dataIdValue = $(this).attr('id');
+                const buttonElement = $(`button[data-id="${dataIdValue}"]`);
+                if (typeof buttonElement.attr('data-id') === 'undefined'){
+                    setTimeout(function(){
+                            traiterBoutons()}
+                        ,1000
+                    )
+                }
+                buttonElement.removeAttr('role');
+                buttonElement.attr('aria-label', label)
+            })
+        }
     </script>
 
 {% endblock %}
