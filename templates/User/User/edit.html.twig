@@ -65,12 +65,11 @@
                 response.forEach(function(responseItem) {
                     let selected = responseItem.selected ? 'selected="selected"' : ''
                     dataField.append('<option value="' + responseItem.value + '"' + selected + '>' + responseItem.text + '</option>')
-                
+
                 });
                 dataField.prop('disabled', false);
             })
         }
-
     </script>
 
 {% endblock %}

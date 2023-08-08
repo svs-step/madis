@@ -117,6 +117,10 @@ $(document).ready(function() {
     $('#contractor_hasDpo').on('change', function() {
         checkContractorHasDpo();
     });
+
+    // Remove role from selects + add aria-label
+
+    traiterBoutons();
 });
 
 function checkMesurementStatus()
@@ -267,4 +271,25 @@ function checkContractorHasDpo()
     let boxDpo = $('body.registry_contractor.form #box-dpo');
 
     checkDifferentDpo(hasDpo, boxDpo);
+}
+
+function traiterBoutons() {
+    const buttons = [];
+    const selects = $('select.selectpicker')
+    selects.each(function() {
+        console.log($(this))
+        const btn = $(this).next('button')
+        if (btn.length) {
+            buttons.push(btn)
+        }
+    })
+    if (buttons.length < selects.length) {
+        setTimeout(traiterBoutons, 100)
+        return;
+    }
+    for (let i in buttons) {
+        const but = buttons[i]
+        but.removeAttr('role');
+        but.attr('aria-label', buttons[i].prevObject.attr('aria-label'));
+    }
 }

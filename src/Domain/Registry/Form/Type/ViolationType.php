@@ -104,7 +104,7 @@ class ViolationType extends AbstractType
 
                     return $qb;
                 },
-                'required' => false,
+                'required'      => false,
             ]);
         }
         /** @var User $user */
@@ -124,6 +124,7 @@ class ViolationType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select',
+                    'aria-label'       => 'Natures de la violation',
                 ],
             ])
             ->add('origins', DictionaryType::class, [
@@ -135,6 +136,7 @@ class ViolationType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_origine_data',
+                    'aria-label'       => 'Origine de la perte de données',
                 ],
             ])
             ->add('cause', DictionaryType::class, [
@@ -152,6 +154,7 @@ class ViolationType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_nature_data',
+                    'aria-label'       => 'Nature des données concernées',
                 ],
             ])
             ->add('concernedPeopleCategories', DictionaryType::class, [
@@ -163,6 +166,7 @@ class ViolationType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_categorie_personne',
+                    'aria-label'       => 'Catégorie des personnes concernées',
                 ],
             ])
             ->add('nbAffectedRows', IntegerType::class, [
@@ -186,6 +190,7 @@ class ViolationType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_nature_impact',
+                    'aria-label'       => 'Nature des impacts potentiels pour les personnes',
                 ],
             ])
             ->add('gravity', DictionaryType::class, [
@@ -245,13 +250,14 @@ class ViolationType extends AbstractType
                         ->setParameter(':collectivity', $collectivity)
                         ->orderBy('s.name', 'ASC');
                 },
-                'required' => false,
-                'expanded' => false,
-                'multiple' => true,
-                'attr'     => [
+                'required'      => false,
+                'expanded'      => false,
+                'multiple'      => true,
+                'attr'          => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_traitement_associe',
+                    'aria-label'       => 'Traitements',
                 ],
             ])
             ->add('contractors', EntityType::class, [
@@ -265,13 +271,14 @@ class ViolationType extends AbstractType
                         ->setParameter(':collectivity', $collectivity)
                         ->orderBy('s.name', 'ASC');
                 },
-                'required' => false,
-                'expanded' => false,
-                'multiple' => true,
-                'attr'     => [
+                'required'      => false,
+                'expanded'      => false,
+                'multiple'      => true,
+                'attr'          => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select',
+                    'aria-label'       => 'Sous-traitants',
                 ],
             ])
             ->add('updatedBy', HiddenType::class, [

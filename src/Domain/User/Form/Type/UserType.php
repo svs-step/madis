@@ -141,6 +141,7 @@ class UserType extends AbstractType
                         'title'            => 'placeholder.multiple_select',
                         'data-live-search' => true,
                         'data-width'       => '450px',
+                        'aria-label'       => 'Structures rattachées',
                     ],
                 ])
                 ->add('ssoKey', TextType::class, [

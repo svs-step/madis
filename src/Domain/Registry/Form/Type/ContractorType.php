@@ -99,7 +99,7 @@ class ContractorType extends AbstractType
 
                         return $qb;
                     },
-                    'required' => false,
+                    'required'      => false,
                 ])
             ;
         }

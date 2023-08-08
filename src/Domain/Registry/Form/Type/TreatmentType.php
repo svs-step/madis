@@ -180,6 +180,7 @@ class TreatmentType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_cat_data',
+                    'aria-label'       => 'Catégorie des données',
                 ],
             ])
             ->add('dataCategoryOther', TextareaType::class, [
@@ -229,6 +230,7 @@ class TreatmentType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_contractors',
+                    'aria-label'       => 'Sous-traitants',
                 ],
             ])
             ->add('securityAccessControl', ComplexChoiceType::class, [
@@ -316,6 +318,7 @@ class TreatmentType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_moyen_collecte',
+                    'aria-label'       => 'Moyens de la collecte',
                 ],
             ])
             ->add('estimatedConcernedPeople', IntegerType::class, [
@@ -414,6 +417,7 @@ class TreatmentType extends AbstractType
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select',
+                    'aria-label'       => 'Logiciels et supports',
                 ],
             ]);
         } else {
