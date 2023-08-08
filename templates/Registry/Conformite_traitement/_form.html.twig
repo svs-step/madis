@@ -7,7 +7,7 @@
 {{ form_start(form) }}
 
 <div class="row"></div>
-
+{% do form.reponses.setRendered() %}
 {% include 'Registry/Conformite_traitement/_form_reponse.html.twig' with {'form': form.reponses} %}
 <div class="content-header content-header-custom-padding">
     <h1>
@@ -18,6 +18,6 @@
 
 {% include 'Registry/Treatment/_form.html.twig' with {'form': form.traitement, 'object': form.vars.value.traitement} %}
 {% do form.traitement.setRendered() %}
-{% do form.reponses.setRendered() %}
+
 
 {{ form_end(form) }}
