@@ -156,7 +156,7 @@
                                         </div>
                                     {% endif %}
                                 </td>
-                                <td>{% if conformiteTraitement is not null %}{{ conformiteTraitement.updatedAt|date('d/m/Y') }}{% endif %}</td>
+                                <td>{% if conformiteTraitement is not null %}{{ conformiteTraitement.updatedAt|date('d/m/Y') }}{% else %}<span style="visibility: hidden">01/01/1970</span>{% endif %}</td>
                                 <td>
                                     {% set statut = "non_realisee" %}
                                     {% set labelAipdColor = "label-default" %}
@@ -180,6 +180,8 @@
                                 <td>
                                     {% if conformiteTraitement is not null and analyseImpact is not null %}
                                         {{ (conformiteTraitement.analyseImpacts|first).dateValidation|date('d/m/Y') }}
+                                    {% else %}
+                                        <span style="visibility: hidden">01/01/1970</span>
                                     {% endif %}
                                 </td>
                                 {% if is_granted('ROLE_USER') and ((services_user is empty) or ((object.service is defined) and (object.service in services_user)))%}
