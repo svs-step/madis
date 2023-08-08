@@ -184,7 +184,6 @@ class TreatmentGenerator extends AbstractGenerator
             !\is_null($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
             $legalBasisJustification,
             $observation,
-            $treatment->isExemptAIPD() ? $yes : $no,
             $treatment->getPublic() ? $yes : $no,
             $treatment->getExemptAIPD() ? $yes : $no,
             $treatment->getDpoMessage(),
