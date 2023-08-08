@@ -20,28 +20,3 @@
 {% block body %}
     {{ include('Registry/Mesurement/_form.html.twig') }}
 {% endblock %}
-
-{% block javascripts %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            traiterBoutons('mesurement_contractors', 'Sous-traitants');
-            traiterBoutons('mesurement_treatments', 'Traitements');
-            traiterBoutons('mesurement_requests', 'Demandes');
-            traiterBoutons('mesurement_violations', 'Violations');
-            traiterBoutons('mesurement_tools', 'Logiciels et supports');
-        })
-
-        function traiterBoutons(label, ariaLabel) {
-            const buttonElement = $(`button[data-id='${label}']`);
-            if (buttonElement.attr('data-id') === undefined) {
-                setTimeout(function(){
-                    traiterBoutons(label, ariaLabel);
-                }, 1000);
-                return; // Sortie de la fonction pour éviter d'exécuter le reste du code
-            }
-            buttonElement.removeAttr('role');
-            buttonElement.attr('aria-label', ariaLabel);
-        }
-    </script>
-{% endblock %}

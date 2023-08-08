@@ -27,19 +27,6 @@
         })
 
         showDependents($('#tool_country_type'))
-
-        traiterBoutons('tool_contractors', 'Sous-traitants');
     })
 
-    function traiterBoutons(label, ariaLabel) {
-        const buttonElement = $(`button[data-id='${label}']`);
-        if (buttonElement.attr('data-id') === undefined) {
-            setTimeout(function(){
-                traiterBoutons(label, ariaLabel);
-            }, 1000);
-            return; // Sortie de la fonction pour éviter d'exécuter le reste du code
-        }
-        buttonElement.removeAttr('role');
-        buttonElement.attr('aria-label', ariaLabel);
-    }
 </script>

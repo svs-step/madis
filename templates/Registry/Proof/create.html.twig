@@ -21,30 +21,4 @@
     {{ include('Registry/Proof/_form.html.twig') }}
 {% endblock %}
 
-{% block javascripts %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-    <script>
-        $(document).ready(function(){
-            traiterBoutons('proof_treatments', 'Traitements');
-            traiterBoutons('proof_contractors', 'Sous-traitants');
-            traiterBoutons('proof_mesurements', 'Actions de protection');
-            traiterBoutons('proof_requests', 'Demandes de personnes concernées');
-            traiterBoutons('proof_violations', 'Violations');
-            traiterBoutons('proof_tools', 'Logiciels et supports');
-        })
-
-        function traiterBoutons(label, ariaLabel) {
-            const buttonElement = $(`button[data-id='${label}']`);
-            if (buttonElement.attr('data-id') === undefined) {
-                setTimeout(function(){
-                    traiterBoutons(label, ariaLabel);
-                }, 1000);
-                return; // Sortie de la fonction pour éviter d'exécuter le reste du code
-            }
-            buttonElement.removeAttr('role');
-            buttonElement.attr('aria-label', ariaLabel);
-        }
-    </script>
-{% endblock %}
 

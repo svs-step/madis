@@ -39,7 +39,6 @@
             $('#user_collectivity').on('change', function() {
                 checkData();
             });
-            traiterBoutons("user_collectivitesReferees", "Structures rattachées");
         });
 
         function checkData() {
@@ -66,22 +65,10 @@
                 response.forEach(function(responseItem) {
                     let selected = responseItem.selected ? 'selected="selected"' : ''
                     dataField.append('<option value="' + responseItem.value + '"' + selected + '>' + responseItem.text + '</option>')
-                
+
                 });
                 dataField.prop('disabled', false);
             })
-        }
-
-        function traiterBoutons(label, ariaLabel) {
-            const buttonElement = $(`button[data-id='${label}']`);
-            if (buttonElement.attr('data-id') === undefined) {
-                setTimeout(function(){
-                    traiterBoutons(label, ariaLabel);
-                }, 1000);
-                return; // Sortie de la fonction pour éviter d'exécuter le reste du code
-            }
-            buttonElement.removeAttr('role');
-            buttonElement.attr('aria-label', ariaLabel);
         }
     </script>
 

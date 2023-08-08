@@ -21,29 +21,3 @@
     {{ include('Registry/Violation/_form.html.twig') }}
 {% endblock %}
 
-{% block javascripts %}
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function(){
-            traiterBoutons('violation_violationNatures', 'Natures de la violation');
-            traiterBoutons('violation_origins', 'Origine de la perte de données');
-            traiterBoutons('violation_concernedDataNature', 'Nature des données concernées');
-            traiterBoutons('violation_concernedPeopleCategories', 'Catégorie des personnes concernées');
-            traiterBoutons('violation_potentialImpactsNature', 'Nature des impacts potentiels pour les personnes');
-            traiterBoutons('violation_treatments', 'Traitements');
-            traiterBoutons('violation_contractors', 'Sous-traitants');
-        })
-
-        function traiterBoutons(label, ariaLabel) {
-            const buttonElement = $(`button[data-id='${label}']`);
-            if (buttonElement.attr('data-id') === undefined) {
-                setTimeout(function(){
-                    traiterBoutons(label, ariaLabel);
-                }, 1000);
-                return; // Sortie de la fonction pour éviter d'exécuter le reste du code
-            }
-            buttonElement.removeAttr('role');
-            buttonElement.attr('aria-label', ariaLabel);
-        }
-    </script>
-{% endblock %}
