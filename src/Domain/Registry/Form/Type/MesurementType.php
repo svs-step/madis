@@ -169,7 +169,7 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
+                'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_contractors',
@@ -198,7 +198,7 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
+                'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_traitement',
@@ -226,7 +226,7 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
+                'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_violation',
@@ -254,7 +254,7 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
+                'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select_demande_personne',
@@ -290,7 +290,7 @@ class MesurementType extends AbstractType
                         ->setParameter('collectivity', $collectivity)
                     ;
                 },
-                'attr'          => [
+                'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
                     'title'            => 'placeholder.multiple_select',

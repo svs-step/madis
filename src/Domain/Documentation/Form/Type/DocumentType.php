@@ -87,9 +87,9 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'constraints' => [
                     new Image(['groups' => ['default']]),
                     new File([
-                        'maxSize'          => $this->maxSize,
-                        'groups'           => ['default'],
-                        'mimeTypes'        => [
+                        'maxSize'   => $this->maxSize,
+                        'groups'    => ['default'],
+                        'mimeTypes' => [
                             'image/png', // .png
                             'image/jpg', // .jpg
                             'image/jpeg', // .jpeg
@@ -97,7 +97,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                         'mimeTypesMessage' => 'Les formats autorisés sont .png, .jpg, .jpeg.',
                     ]),
                 ],
-                'attr'        => [
+                'attr' => [
                     'accept' => 'image/*',
                 ],
             ])
@@ -169,9 +169,9 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'required'    => !$data->getId(),
                 'constraints' => [
                     new File([
-                        'maxSize'          => $this->maxSize,
-                        'groups'           => ['default'],
-                        'mimeTypes'        => [
+                        'maxSize'   => $this->maxSize,
+                        'groups'    => ['default'],
+                        'mimeTypes' => [
                             'image/png', // .png
                             'image/jpg', // .jpg
                             'image/jpeg', // .jpeg
