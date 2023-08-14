@@ -88,6 +88,5 @@ class UserGenerator extends AbstractGenerator implements ImpressionGeneratorInte
             $cell = $userAnnexListTable->addCell(1000, ['bgColor' => $item->IsEnabled() ? 'bce292' : 'ffa7a7']);
             $cell->addText($item->IsEnabled() ? 'Actif' : 'Inactif', ['bold' => true]);
         }
-        $section->addPageBreak();
     }
 }
