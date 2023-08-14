@@ -120,7 +120,7 @@ class ToolType extends AbstractType
                 'required'      => false,
                 'multiple'      => true,
                 'expanded'      => false,
-                'query_builder' => function (EntityRepository $er) use($tool) {
+                'query_builder' => function (EntityRepository $er) use ($tool) {
                     /** @var User $authenticatedUser */
                     $authenticatedUser = $this->security->getUser();
                     $collectivity      = $tool ? $tool->getCollectivity() : $authenticatedUser->getCollectivity();
