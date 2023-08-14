@@ -305,9 +305,11 @@
             $('#search_nom').keyup($.debounce(250, function(){
                 oTable.column('0').search($(this).val()).draw() ;
             }));
+            {% if is_granted('ROLE_REFERENT') %}
             $('#search_collectivity').keyup($.debounce(250, function(){
                 oTable.column('1').search($(this).val()).draw() ;
             }));
+            {% endif %}
             $('#search_type').change(function(){
                 oTable.column(1+col).search($(this).val()).draw() ;
             });
