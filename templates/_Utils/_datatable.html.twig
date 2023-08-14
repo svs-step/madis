@@ -114,9 +114,9 @@
                 },
             ]
         })%}
+        var options ={{ dataTableOptions|json_encode|raw }}
+        options.initComplete = modifyDatatable
 
-
-
-        $('#table').DataTable({{ dataTableOptions|json_encode|raw }});
+        $('#table').DataTable(options);
     });
 </script>

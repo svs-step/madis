@@ -273,7 +273,20 @@ function checkContractorHasDpo()
     checkDifferentDpo(hasDpo, boxDpo);
 }
 
+window.modifyDatatable = function () {
+    $('.dataTables_info').removeAttr('aria-live')
+    $('.dataTables_processing').attr('role', 'status')
+    $('.dataTables_paginate').each(function() {
+        var el = $(this)
+        var id = el.attr('id')
+        var cls = el.attr('class')
+        el.wrap( "<nav></nav>" );
+    })
+
+}
+
 function traiterBoutons() {
+
     const buttons = [];
     const selects = $('select.selectpicker')
     selects.each(function() {

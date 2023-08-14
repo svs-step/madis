@@ -90,7 +90,7 @@
     <script src="//cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
     <script src="//cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
-
+    {{ encore_entry_script_tags('js/app') }}
     <script>
         $.datepicker.setDefaults({
             firstDay: 1,
@@ -120,7 +120,7 @@
             }
         });
     </script>
-    {{ encore_entry_script_tags('js/app') }}
+
     {% block javascripts %}{% endblock %}
 </body>
 </html>

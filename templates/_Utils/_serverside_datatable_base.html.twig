@@ -169,6 +169,8 @@
             })
         } catch { }
 
+        options.initComplete = modifyDatatable
+
         $('#table').DataTable(options);
 
         $('.dt-buttons').append('<button id="button-reset" class="dt-button buttons-collection buttons-colvis" tabindex="0" aria-controls="table" type="button" aria-haspopup="true" aria-expanded="false"><span>Réinitialiser les filtres</span></button>');
