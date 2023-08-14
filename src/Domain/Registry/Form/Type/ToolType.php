@@ -120,13 +120,12 @@ class ToolType extends AbstractType
                 'required'      => false,
                 'multiple'      => true,
                 'expanded'      => false,
-                'query_builder' => function (EntityRepository $er) {
+                'query_builder' => function (EntityRepository $er) use($tool) {
                     /** @var User $authenticatedUser */
                     $authenticatedUser = $this->security->getUser();
-                    $collectivity      = $authenticatedUser->getCollectivity();
+                    $collectivity      = $tool ? $tool->getCollectivity() : $authenticatedUser->getCollectivity();
                     $qb                = $er->createQueryBuilder('c');
                     $qb->addOrderBy('c.name', 'asc');
-
                     if ($collectivity && $collectivity->getIsServicesEnabled()) {
                         $ors = $qb->expr()->orX();
 

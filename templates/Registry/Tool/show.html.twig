@@ -69,17 +69,35 @@
                             <td>{{ object.editor }}</td>
                         </tr>
                         <tr>
+                            <td><strong>{{ 'registry.tool.show.contractors'|trans }}</strong></td>
+                            <td>{{ object.contractors|map(c => c.name)|join(', ') }}</td>
+                        </tr>
+                        <tr>
                             <td><strong>{{ 'registry.tool.show.prod_date'|trans }}</strong></td>
                             <td>{{ object.prodDate|date('d/m/Y H:i') }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.tool.show.country'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.tool.form.country_type'|trans }}</strong></td>
                             <td>
                                 {{ object.countryType|trans }}
-                                {{ object.countryName }}
-                                {{ object.countryGuarantees }}
                             </td>
                         </tr>
+                        {% if object.countryType != 'registry.tool.country.france'  %}
+                        <tr>
+                            <td><strong>Nom du pays</strong></td>
+                            <td>
+                                {{ object.countryName}}
+                            </td>
+                        </tr>
+                        {% endif %}
+                        {% if object.countryType != 'registry.tool.country.france' and object.countryType != 'registry.tool.country.eu'  %}
+                            <tr>
+                                <td><strong>{{ 'registry.tool.form.country_guarantees'|trans }}</strong></td>
+                                <td>
+                                    {{ object.countryGuarantees}}
+                                </td>
+                            </tr>
+                        {% endif %}
                         <tr>
                             <td><strong>{{ 'registry.tool.show.manager'|trans }}</strong></td>
                             <td>{{ object.manager }}</td>
@@ -147,17 +165,6 @@
                             <td>{{ object.archival.comment }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.tool.form.tracking'|trans }}</strong></td>
-                            <td>
-                                {% if object.tracking.check == true %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                {% else %}
-                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                            <td>{{ object.tracking.comment }}</td>
-                        </tr>
-                        <tr>
                             <td><strong>{{ 'registry.tool.form.encrypted'|trans }}</strong></td>
                             <td>
                                 {% if object.encrypted.check == true %}
@@ -211,6 +218,17 @@
                                 {% endif %}
                             </td>
                             <td>{{ object.deletion.comment }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'registry.tool.form.tracking'|trans }}</strong></td>
+                            <td>
+                                {% if object.tracking.check == true %}
+                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ object.tracking.comment }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.tool.form.has_comment'|trans }}</strong></td>
