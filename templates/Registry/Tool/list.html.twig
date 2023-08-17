@@ -271,12 +271,11 @@
 
 
     <script>
-        var col = 0
-        {% if is_granted('ROLE_REFERENT') %}
-        col = 1
-        {% endif %}
-        $(document).ready(function() {
-
+        function setEvents() {
+            var col = 0
+            {% if is_granted('ROLE_REFERENT') %}
+            col = 1
+            {% endif %}
             $('#table_filter').hide();
             var oTable = $('#table').DataTable();
             $('input#search_created_at').val('');
@@ -363,6 +362,17 @@
                 console.log('updatedat changed',$(this).val() )
                 oTable.column(17+col).search($(this).val()).draw();
             });
+        }
+
+        $(document).ready(function() {
+            $('#table_filter').hide();
+            setEvents();
+
+            let columnButton = $("button.dt-button > span:contains('Colonnes')").parent();
+            $( "#custom-buttons" ).prepend( columnButton.css("float", "left").css("margin-right", "0.5em"));
+        } );
+        $('#table').on('column-visibility.dt', function() {
+            setEvents();
         } );
     </script>
 {% endblock %}
