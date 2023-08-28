@@ -135,7 +135,9 @@
             new Chart($('#' + id), {
                 type: 'radar',
                 data: {
-                    labels: labels,
+                    labels: labels.map(l => {
+                        return l.match(/.{1,40}(\s|$)/g)
+                    }),
                     datasets: dataset,
                 },
                 options: {
