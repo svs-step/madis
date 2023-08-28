@@ -597,7 +597,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
             $data = $data->toArray();
         }
 
-        return join(', ', array_map(function ($object) {
+        return implode(', ', array_map(function ($object) {
             return $object->getName();
         }, (array) $data));
     }

@@ -316,7 +316,7 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getConcernedPeopleOther()->isCheck() ? $yes : $no,
             $treatment->getConcernedPeopleOther()->getComment(),
             $treatment->getEstimatedConcernedPeople(),
-            $treatment->getSoftware(),
+            $treatment->getToolsString(),
             $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
             $duration,
             $name,
