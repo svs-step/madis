@@ -88,7 +88,7 @@ class UserTypeTest extends FormTypeHelper
             $this->authorizationCheckerProphecy->reveal(),
             $this->encoderFactoryProphecy->reveal(),
             $this->security->reveal(),
-            'true'
+            true
         );
 
         $this->user   = new User();
@@ -108,7 +108,7 @@ class UserTypeTest extends FormTypeHelper
             $this->authorizationCheckerProphecy->reveal(),
             $this->encoderFactoryProphecy->reveal(),
             $this->security->reveal(),
-            'true'
+            true
         );
         $builder = [
             'firstName'                   => TextType::class,
@@ -164,7 +164,7 @@ class UserTypeTest extends FormTypeHelper
             $this->authorizationCheckerProphecy->reveal(),
             $this->encoderFactoryProphecy->reveal(),
             $this->security->reveal(),
-            'false'
+            false
         );
 
         $builder = [
@@ -221,7 +221,7 @@ class UserTypeTest extends FormTypeHelper
             $this->authorizationCheckerProphecy->reveal(),
             $this->encoderFactoryProphecy->reveal(),
             $this->security->reveal(),
-            'true'
+            true
         );
 
         $builder = [
@@ -270,7 +270,7 @@ class UserTypeTest extends FormTypeHelper
             $this->authorizationCheckerProphecy->reveal(),
             $this->encoderFactoryProphecy->reveal(),
             $this->security->reveal(),
-            'false'
+            false
         );
 
         $builder = [

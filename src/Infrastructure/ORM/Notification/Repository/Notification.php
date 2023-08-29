@@ -53,8 +53,8 @@ class Notification extends CRUDRepository implements Repository\Notification
     public function __construct(ManagerRegistry $registry, Security $security, bool $notificationsActive, string $saveNotificationsDuration)
     {
         parent::__construct($registry);
-        $this->security = $security;
-        $this->notificationsActive = $notificationsActive;
+        $this->security                  = $security;
+        $this->notificationsActive       = $notificationsActive;
         $this->saveNotificationsDuration = $saveNotificationsDuration;
     }
 
@@ -128,31 +128,31 @@ class Notification extends CRUDRepository implements Repository\Notification
     public function findAllUnread(array $order = ['createdAt' => 'DESC']): array
     {
         // If notifications are not active, delete all notifications
-        if ($this->notificationsActive === false) {
+        if (false === $this->notificationsActive) {
             $em = $this->getManager();
             $em->createQuery('DELETE FROM App\Domain\Notification\Model\NotificationUser')->execute();
             $em->createQuery('DELETE FROM App\Domain\Notification\Model\Notification')->execute();
+
             return [];
         }
 
         // If notifications are active, delete old notifications
-//
-//        $qb = $this->getManager()->createQueryBuilder();
-//        $qb->where('o.createdAt < :date');
-//        $prevDate = new \DateTime();
-//        $prevDate->modify('-'.$this->saveNotificationsDuration);
-//        $qb->setParameter('date', $prevDate);
-//        $qb->delete('App\Domain\Notification\Model\NotificationUser as o');
-//        $qb->getQuery()->execute();
-//
-//        $qb = $this->getManager()->createQueryBuilder();
-//        $qb->where('o.createdAt < :date');
-//        $prevDate = new \DateTime();
-//        $prevDate->modify('-'.$this->saveNotificationsDuration);
-//        $qb->setParameter('date', $prevDate);
-//        $qb->delete('App\Domain\Notification\Model\Notification as o');
-//        $qb->getQuery()->execute();
-
+        //
+        //        $qb = $this->getManager()->createQueryBuilder();
+        //        $qb->where('o.createdAt < :date');
+        //        $prevDate = new \DateTime();
+        //        $prevDate->modify('-'.$this->saveNotificationsDuration);
+        //        $qb->setParameter('date', $prevDate);
+        //        $qb->delete('App\Domain\Notification\Model\NotificationUser as o');
+        //        $qb->getQuery()->execute();
+        //
+        //        $qb = $this->getManager()->createQueryBuilder();
+        //        $qb->where('o.createdAt < :date');
+        //        $prevDate = new \DateTime();
+        //        $prevDate->modify('-'.$this->saveNotificationsDuration);
+        //        $qb->setParameter('date', $prevDate);
+        //        $qb->delete('App\Domain\Notification\Model\Notification as o');
+        //        $qb->getQuery()->execute();
 
         $qb = $this->getQueryBuilder($order);
 

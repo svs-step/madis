@@ -61,7 +61,7 @@ class ContactTypeTest extends FormTypeHelper
 
     public function testInstanceOf(): void
     {
-        $this->assertInstanceOf(AbstractType::class, new ContactType($this->requestStack, 'false'));
+        $this->assertInstanceOf(AbstractType::class, new ContactType($this->requestStack, false));
     }
 
     public function testBuildForm(): void
@@ -75,7 +75,7 @@ class ContactTypeTest extends FormTypeHelper
             'phoneNumber' => TextType::class,
         ];
 
-        (new ContactType($this->requestStack, 'false'))->buildForm($this->prophesizeBuilder($builder), []);
+        (new ContactType($this->requestStack, false))->buildForm($this->prophesizeBuilder($builder), []);
     }
 
     public function testConfigureOptions(): void
@@ -88,6 +88,6 @@ class ContactTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new ContactType($this->requestStack, 'false'))->configureOptions($resolverProphecy->reveal());
+        (new ContactType($this->requestStack, false))->configureOptions($resolverProphecy->reveal());
     }
 }
