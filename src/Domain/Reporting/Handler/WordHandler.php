@@ -228,6 +228,7 @@ class WordHandler
         $this->maturityGenerator->addTableOfContent($contentSection, 1);
 
         // Content
+        $this->maturityGenerator->addContextView($contentSection, $maturityList);
         $this->maturityGenerator->addSyntheticView($contentSection, $maturityList);
         $this->maturityGenerator->addDetailedView($contentSection, $maturityList);
 
