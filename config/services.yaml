@@ -5,7 +5,7 @@ services:
         public: false
         bind:
             string $maxSize: '%APP_MAX_UPLOAD_SIZE%'
-            string $activeNotifications: '%APP_ACTIVATE_NOTIFICATIONS%'
+            bool $activeNotifications: '%APP_ACTIVATE_NOTIFICATIONS%'
 
 
     App\Application\:

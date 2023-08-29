@@ -44,7 +44,7 @@ class NotificationsGenerateCommand extends Command
         UserRepository $userRepository,
         SurveyRepository $surveyRepository,
         ConformiteTraitementRepository $conformiteTraitementRepository,
-        string $activeNotifications
+        bool $activeNotifications
     ) {
         $this->dispatcher                     = $dispatcher;
         $this->mesurementRepository           = $mesurementRepository;
@@ -52,8 +52,7 @@ class NotificationsGenerateCommand extends Command
         $this->userRepository                 = $userRepository;
         $this->surveyRepository               = $surveyRepository;
         $this->conformiteTraitementRepository = $conformiteTraitementRepository;
-
-        $this->activeNotifications = 'true' === $activeNotifications;
+        $this->activeNotifications            = $activeNotifications;
 
         parent::__construct();
     }

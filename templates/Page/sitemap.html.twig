@@ -23,13 +23,13 @@
 
     <ul data-widget="tree">
         <li><a href="{{ path('logout') }}">Déconnexion</a></li>
-    
+
         <li>
             <a aria-label="{{ 'sidebar_menu.dashboard'|trans }}" href="{{ path('reporting_dashboard_index') }}">
                 <span>{{ 'sidebar_menu.dashboard'|trans }}</span>
             </a>
             <ul>
-                {% if app_activate_notifications is same as "true" %}
+                {% if app_activate_notifications %}
                     <li><a aria-label="Notifications" href="{{ path('notification_notification_list') }}">Centre de notifications</a></li>
                 {% endif %}
                 <li><a aria-label="{{ 'sidebar_menu.registry_treatments'|trans }}" href="{{ path('registry_treatment_list') }}">

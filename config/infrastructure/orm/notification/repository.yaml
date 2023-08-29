@@ -3,6 +3,9 @@ services:
         autowire: true
         autoconfigure: true
         public: false
+        bind:
+            bool $notificationsActive: '%APP_ACTIVATE_NOTIFICATIONS%'
+            string $saveNotificationsDuration: '%APP_LOG_JOURNAL_DURATION%'
 
     App\Infrastructure\ORM\Notification\Repository\:
         resource: '../../../../src/Infrastructure/ORM/Notification/Repository'

@@ -36,7 +36,7 @@ class NotificationsSendCommand extends Command
         NotificationUserRepository $notificationUserRepository,
         MailerInterface $mailer,
         TranslatorInterface $translator,
-        string $activeNotifications,
+        bool $activeNotifications,
         string $name = null,
     ) {
         parent::__construct($name);
@@ -44,7 +44,7 @@ class NotificationsSendCommand extends Command
         $this->mailer                     = $mailer;
         $this->notificationUserRepository = $notificationUserRepository;
         $this->translator                 = $translator;
-        $this->activeNotifications        = 'true' === $activeNotifications;
+        $this->activeNotifications        = $activeNotifications;
     }
 
     protected function configure(): void
