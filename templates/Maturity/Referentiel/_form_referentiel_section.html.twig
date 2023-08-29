@@ -12,10 +12,9 @@
             {{ form_row(form.description) }}
         </div>
 
-        <div class="col-md-12">
-
+        <div class="col-md-12" style="padding:0">
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12" style="margin: 0 0 -20px 0;padding:0;">
                     <ul class="referentielQuestions" style="margin: 0;list-style: none; padding:0"
                         data-index="{{ form.questions|length > 0 ? form.questions|last.vars.name + 1 : 0 }}"
                         data-section="{{ form.vars.name ? form.vars.name : 0 }}"
@@ -26,7 +25,9 @@
                             {% endfor %}
                         {% endif %}
                     </ul>
-                    {{ form_row(form.addQuestion) }}
+                    <div style="margin-left: 30px;">
+                        {{ form_row(form.addQuestion) }}
+                    </div>
                 </div>
             </div>
         </div>

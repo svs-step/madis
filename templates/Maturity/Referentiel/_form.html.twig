@@ -35,8 +35,10 @@
                             <i class="fa fa-cog"></i> <span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" style="left: -100px;">
+                            <li><a href="#" style="color: #777" class="up-section"><i class="fa fa-chevron-up"></i> Monter</a></li>
+                            <li><a href="#" style="color: #777" class="down-section"><i class="fa fa-chevron-down"></i> Descendre</a></li>
                             <li><a href="#" style="color: #777" class="delete-section"><i class="fa fa-trash"></i> Supprimer</a></li>
-{#                            <li><a href="#" style="color: #777" class="duplicate-section"><i class="fa fa-clone"></i> Dupliquer</a></li>#}
+{#                          <li><a href="#" style="color: #777" class="duplicate-section"><i class="fa fa-clone"></i> Dupliquer</a></li>#}
                         </ul>
                     </div>
                     <a href="#section_{{ index }}" class="box-link btn btn-default " data-toggle="collapse" style="float:right;border:none; padding: 0.5em"><i class="fa fa-plus"></i></a>
@@ -82,7 +84,7 @@
         ></div>
 
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-12" style="padding-bottom: 1em">
                     <ul class="referentielSections" style="margin: 0;list-style: none; padding:0"
                         data-index="{{ form.domains|length }}"
                         id="referentiel-sections-container"
