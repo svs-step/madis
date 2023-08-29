@@ -75,22 +75,6 @@ label:
 placeholder:
     precision: Précisez
     multiple_select: Sélectionner une ou plusieurs valeurs
-    multiple_select_cat_data: Catégorie de données - Sélectionner une ou plusieurs valeurs
-    multiple_select_moyen_collecte: Moyen de la collecte - Sélectionner une ou plusieurs valeurs
-    multiple_select_category: Catégories - Sélectionner une ou plusieurs valeurs
-    multiple_select_contractors: Sous-traitants - Sélectionner une ou plusieurs valeurs
-    multiple_select_user_collectivity: Collectivités rattachées - Sélectionner une ou plusieurs valeurs
-    multiple_select_action_protection: Action de protection - Sélectionner une ou plusieurs valeurs
-    multiple_select_traitement: Traitements - Sélectionner une ou plusieurs valeurs
-    multiple_select_traitement_associe: Traitements associés - Sélectionner une ou plusieurs valeurs
-    multiple_select_nature_impact: Nature des impacts - Sélectionner une ou plusieurs valeurs
-    multiple_select_categorie_personne: Catégorie des personnes concernées - Sélectionner une ou plusieurs valeurs
-    multiple_select_demande_personne: Demandes de personnes concernées - Sélectionner une ou plusieurs valeurs
-    multiple_select_nature_data: Nature des données concernées - Sélectionner une ou plusieurs valeurs
-    multiple_select_origine_data: Origine de la perte de données - Sélectionner une ou plusieurs valeurs
-    multiple_select_violation: Violations - Sélectionner une ou plusieurs valeurs
-    multiple_select_mesure_protection: Mesures de protection - Sélectionner une ou plusieurs valeurs
-
 
 sidebar_menu:
   admin_duplication: Module de Duplication

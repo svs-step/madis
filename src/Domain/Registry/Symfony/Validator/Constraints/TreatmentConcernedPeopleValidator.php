@@ -42,6 +42,7 @@ class TreatmentConcernedPeopleValidator extends ConstraintValidator
             && false === $value->getConcernedPeopleElected()->isCheck()
             && false === $value->getConcernedPeopleCompany()->isCheck()
             && false === $value->getConcernedPeoplePartner()->isCheck()
+            && false === $value->getConcernedPeopleUsager()->isCheck()
             && false === $value->getConcernedPeopleOther()->isCheck()
         ) {
             $this->context

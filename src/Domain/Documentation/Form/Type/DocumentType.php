@@ -78,7 +78,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'attr'         => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select_category',
+                    'title'            => 'placeholder.multiple_select',
                 ],
             ])
             ->add('thumbUploadedFile', FileType::class, [

@@ -179,7 +179,7 @@ class TreatmentType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select_cat_data',
+                    'title'            => 'placeholder.multiple_select',
                     'aria-label'       => 'Catégorie des données',
                 ],
             ])
@@ -229,7 +229,7 @@ class TreatmentType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select_contractors',
+                    'title'            => 'placeholder.multiple_select',
                     'aria-label'       => 'Sous-traitants',
                 ],
             ])
@@ -317,7 +317,7 @@ class TreatmentType extends AbstractType
                 'attr'        => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select_moyen_collecte',
+                    'title'            => 'placeholder.multiple_select',
                     'aria-label'       => 'Moyens de la collecte',
                 ],
             ])

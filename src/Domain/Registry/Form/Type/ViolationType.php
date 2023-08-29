@@ -135,7 +135,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select_origine_data',
+                    'title'            => 'placeholder.multiple_select',
                     'aria-label'       => 'Origine de la perte de données',
                 ],
             ])
@@ -153,7 +153,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select_nature_data',
+                    'title'            => 'placeholder.multiple_select',
                     'aria-label'       => 'Nature des données concernées',
                 ],
             ])
@@ -165,7 +165,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select_categorie_personne',
+                    'title'            => 'placeholder.multiple_select',
                     'aria-label'       => 'Catégorie des personnes concernées',
                 ],
             ])
@@ -189,7 +189,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select_nature_impact',
+                    'title'            => 'placeholder.multiple_select',
                     'aria-label'       => 'Nature des impacts potentiels pour les personnes',
                 ],
             ])
@@ -256,7 +256,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select_traitement_associe',
+                    'title'            => 'placeholder.multiple_select',
                     'aria-label'       => 'Traitements',
                 ],
             ])
