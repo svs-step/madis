@@ -29,7 +29,6 @@ use App\Domain\Maturity\Model\OptionalAnswer;
 use App\Domain\Maturity\Model\Survey;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
-use PhpOffice\PhpWord\SimpleType\TblWidth;
 
 class MaturityGenerator extends AbstractGenerator implements ImpressionGeneratorInterface
 {
@@ -37,42 +36,34 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
     {
         $section->addTitle('Contexte', 1);
 
-        $tableData = [
-            [
-                'Référentiel',
-                $data['new']->getReferentiel()->getName(),
-            ],
-            [
-                'Description',
-                $data['new']->getReferentiel()->getDescription(),
-            ],
-            [
-                'Date de l\'indice de maturité',
-                $data['new']->getCreatedAt()->format('d/m/Y'),
-            ],
-            [
-                'Date de l\'indice de maturité précédent',
-                isset($data['old']) ? $data['old']->getCreatedAt()->format('d/m/Y') : 'Aucun',
-            ],
-        ];
-
-        $this->tableStyle = [
+        $table = $section->addTable([
             'borderColor' => '006699',
             'borderSize'  => 6,
             'cellMargin'  => 100,
-            'unit'        => TblWidth::PERCENT,
-            'width'       => 100,
-        ];
+        ]);
 
-        $this->addTable($section, $tableData, false, self::TABLE_ORIENTATION_VERTICAL);
-
-        $this->tableStyle = [
-            'borderColor' => '006699',
-            'borderSize'  => 6,
-            'cellMargin'  => 100,
-            'unit'        => TblWidth::PERCENT,
-            'width'       => 100 * 50,
-        ];
+        $cellStyle = ['bgColor' => '3c8dbc'];
+        $textStyle = ['bold' => true, 'color' => 'ffffff'];
+        $table->addRow();
+        $cell = $table->addCell(3000, $cellStyle);
+        $cell->addText('Référentiel', $textStyle);
+        $cell = $table->addCell(7000);
+        $cell->addText($data['new']->getReferentiel()->getName());
+        $table->addRow();
+        $cell = $table->addCell(3000, $cellStyle);
+        $cell->addText('Description', $textStyle);
+        $cell = $table->addCell(7000);
+        $cell->addText($data['new']->getReferentiel()->getDescription());
+        $table->addRow();
+        $cell = $table->addCell(3000, $cellStyle);
+        $cell->addText('Date de l\'indice de maturité', $textStyle);
+        $cell = $table->addCell(7000);
+        $cell->addText($data['new']->getCreatedAt()->format('d/m/Y'));
+        $table->addRow();
+        $cell = $table->addCell(3000, $cellStyle);
+        $cell->addText('Date de l\'indice de maturité précédent', $textStyle);
+        $cell = $table->addCell(7000);
+        $cell->addText(isset($data['old']) ? $data['old']->getCreatedAt()->format('d/m/Y') : 'Aucun');
     }
 
     public function addSyntheticView(Section $section, array $data): void
