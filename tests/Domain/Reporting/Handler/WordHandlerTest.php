@@ -239,6 +239,7 @@ class WordHandlerTest extends TestCase
         $this->maturityGeneratorProphecy->addTableOfContent($section, 1)->shouldBeCalled();
 
         // Content
+        $this->maturityGeneratorProphecy->addContextView($section, $data)->shouldBeCalled();
         $this->maturityGeneratorProphecy->addSyntheticView($section, $data)->shouldBeCalled();
         $this->maturityGeneratorProphecy->addDetailedView($section, $data)->shouldBeCalled();
 

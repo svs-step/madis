@@ -427,7 +427,7 @@ class SurveyController extends CRUDController
 
     public function listAction(): Response
     {
-        $surveys     = $this->repository->findAll();
+        $surveys      = $this->repository->findAll();
         $referentiels = [];
         foreach ($surveys as $survey) {
             $referentiels[] = $survey->getReferentiel()->getName();
@@ -438,8 +438,8 @@ class SurveyController extends CRUDController
         }
 
         return $this->render('Maturity/Survey/list.html.twig', [
-            'totalItem'   => $this->repository->count($criteria),
-            'route'       => $this->router->generate('maturity_survey_list_datatables'),
+            'totalItem'    => $this->repository->count($criteria),
+            'route'        => $this->router->generate('maturity_survey_list_datatables'),
             'referentiels' => array_unique($referentiels, SORT_STRING),
         ]);
     }
@@ -467,7 +467,8 @@ class SurveyController extends CRUDController
                 'actions'      => $this->generateActionCellContent($survey),
             ];
         }
-        $reponse['recordsTotal']    = $this->repository->count($criteria);
+        $reponse['recordsTotal'] = $this->repository->count($criteria);
+
         return new JsonResponse($reponse);
     }
 

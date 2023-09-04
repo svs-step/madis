@@ -200,7 +200,7 @@ class OverviewGenerator extends AbstractGenerator
     ): void {
         $section->addTitle('Système de management des données à caractère personnel et conformité', 1);
 
-        $this->maturityGenerator->addGlobalOverview($section, $maturity);
+        $this->maturityGenerator->addContextView($section, $maturity);
         $collectivity = $this->userProvider->getAuthenticatedUser()->getCollectivity();
 
         if ($collectivity->isHasModuleConformiteTraitement()) {
