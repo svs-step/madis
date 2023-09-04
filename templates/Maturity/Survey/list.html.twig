@@ -46,8 +46,8 @@
                             <th scope="col">
                                 <select class="form-control" id="search_referentiel" style="width: 100%;">
                                     <option value="">Référentiel</option>
-                                    {% for survey in listSurveys %}
-                                        <option value="{{ survey }}">{{ survey }}</option>
+                                    {% for referentiel in referentiels %}
+                                        <option value="{{ referentiel }}">{{ referentiel }}</option>
                                     {% endfor %}
                                 </select>
                             </th>

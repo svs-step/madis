@@ -353,7 +353,7 @@ class SurveyController extends CRUDController
 
         $collectivity = $this->entityManager->getRepository(Collectivity::class)->find($request->query->get('collectivity'));
 
-        $reponse = $this->getBaseDataTablesResponse($request, $referentiels);
+        $reponse = $this->getBaseReferentielsDataTablesResponse($request, $referentiels);
 
         foreach ($referentiels as $referentiel) {
             /** @var Model\Referentiel $collectivityType */
@@ -378,7 +378,7 @@ class SurveyController extends CRUDController
         return new JsonResponse($reponse);
     }
 
-    protected function getBaseDataTablesResponse(Request $request, $results, array $criteria = [])
+    protected function getBaseReferentielsDataTablesResponse(Request $request, $results, array $criteria = [])
     {
         $draw = $request->request->get('draw');
 
@@ -427,22 +427,30 @@ class SurveyController extends CRUDController
 
     public function listAction(): Response
     {
-        $surveys     = $this->entityManager->getRepository(Model\Survey::class)->findAll();
-        $listSurveys = [];
+        $surveys     = $this->repository->findAll();
+        $referentiels = [];
         foreach ($surveys as $survey) {
-            $listSurveys[] = $survey->getReferentiel()->getName();
+            $referentiels[] = $survey->getReferentiel()->getName();
+        }
+        $criteria = [];
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         }
 
         return $this->render('Maturity/Survey/list.html.twig', [
-            'totalItem'   => $this->repository->count(),
+            'totalItem'   => $this->repository->count($criteria),
             'route'       => $this->router->generate('maturity_survey_list_datatables'),
-            'listSurveys' => array_unique($listSurveys, SORT_STRING),
+            'referentiels' => array_unique($referentiels, SORT_STRING),
         ]);
     }
 
     public function listDataTables(Request $request): JsonResponse
     {
-        $surveys = $this->getResults($request);
+        $criteria = [];
+        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+            $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
+        }
+        $surveys = $this->getResults($request, $criteria);
         $reponse = $this->getBaseDataTablesResponse($request, $surveys);
 
         foreach ($surveys as $survey) {
@@ -459,10 +467,7 @@ class SurveyController extends CRUDController
                 'actions'      => $this->generateActionCellContent($survey),
             ];
         }
-
-        $reponse['recordsTotal']    = count($reponse['data']);
-        $reponse['recordsFiltered'] = count($reponse['data']);
-
+        $reponse['recordsTotal']    = $this->repository->count($criteria);
         return new JsonResponse($reponse);
     }
 
