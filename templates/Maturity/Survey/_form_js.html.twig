@@ -1,17 +1,34 @@
 <script>
-    $('.question-option').on('change', function(ev) {
-        var $ch = $(ev.currentTarget);
-        console.log($ch, $ch.is(":checked"))
-        if ($ch.is(":checked")) {
-            $ch.parent().find('.question-option-reason').show()
-            $ch.parent().find('.question-option-reason input').attr('required', true)
-            $ch.parent().parent().find('ul').hide()
-            $ch.parent().parent().find('ul input').removeAttr('required')
-        } else {
-            $ch.parent().find('.question-option-reason').hide()
-            $ch.parent().parent().find('ul').show()
-            $ch.parent().parent().find('ul input').attr('required', true)
-            $ch.parent().find('.question-option-reason input').removeAttr('required')
-        }
+    $(document).ready(function() {
+        $('.question-option').on('change', function(ev) {
+            var $ch = $(ev.currentTarget);
+
+            if ($ch.is(":checked")) {
+                $ch.parent().parent().parent().find('li.answer input').removeAttr('required').removeAttr('checked')
+            } else {
+                $ch.parent().parent().parent().find('li.answer input').attr('required', true)
+            }
+        })
+        $('.question-option').each(function(el) {
+            var $ch = $(el);
+            if ($ch.is(":checked")) {
+                $ch.parent().parent().parent().find('li.answer input').removeAttr('required').removeAttr('checked')
+            } else {
+                $ch.parent().parent().parent().find('li.answer input').attr('required', true)
+            }
+        })
+        $('.answer-input').on('change', function(ev) {
+            var $ch = $(ev.currentTarget);
+            if ($ch.is(":checked")) {
+                $ch.parent().parent().parent().find('li.optional input').removeAttr('required').removeAttr('checked')
+            }
+        })
+        $('.answer-input').each(function(el) {
+            var $ch = $(el);
+            if ($ch.is(":checked")) {
+                $ch.parent().parent().parent().find('li.optional input').removeAttr('required').removeAttr('checked')
+            }
+        })
     })
+
 </script>

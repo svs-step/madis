@@ -28,26 +28,30 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <h4><b>{{ question.name }}*</b></h4>
-                                {% if question.optional %}
-                                    <input
-                                            class="question-option checkbox-round"
-                                            id="question-option-{{ question.id }}"
-                                            type="checkbox" name="survey[questions][{{ question.id }}][option]"
-                                            value="1"
-                                            style="margin-bottom: 4px"
-                                            {% if optionAnswers|length > 0 and optionAnswers|first.reason %} checked {% endif %}
-                                    />
-                                    Non concerné<span class="question-option-reason" {% if not (optionAnswers|length > 0 and optionAnswers|first.reason) %} style="display:none"{% endif %}>&nbsp;:
-                                    <input id="question-option-reason-{{ question.id }}" type="text" name="survey[questions][{{ question.id }}][optionReason]" value="{% if optionAnswers|length > 0 %}{{ optionAnswers|first.reason }}{% endif %}" />
-                                    </span>
-                                {% endif %}
-                                <ul {% if optionAnswers|length > 0 and optionAnswers|first.reason %} style="display:none; list-style: none;padding-left: 0;"{% endif %} style="padding-left: 0">
+
+                                <ul style="padding-left: 0;list-style: none">
+                                    {% if question.optional %}
+                                        <li class="optional">
+                                            <label style="font-weight: normal !important;">
+                                                <input
+                                                        class="question-option"
+                                                        id="question-option-{{ question.id }}"
+                                                        type="radio" name="survey[questions][{{ question.id }}][option]"
+                                                        value="1"
+                                                        style="margin-bottom: 4px"
+                                                        {% if optionAnswers|length > 0 %} checked {% endif %}
+                                                />
+                                                {{ question.optionReason ? question.optionReason : 'Non concerné' }}
+                                            </label>
+                                        </li>
+                                    {% endif %}
                                     {% for answer in question.answers|sort((a, b) => a.position > b.position) %}
-                                        <label style="font-weight: normal !important;">
-                                        <input {% if form.vars.data.answerSurveys|filter(a => a.answer.id == answer.id)|length > 0 %} checked {% endif%} id="answer-{{ answer.id }}" type="radio" name="survey[questions][{{ question.id }}][answers][]" value="{{ answer.id }}" {% if not (optionAnswers|length > 0 and optionAnswers|first.reason) %}required{% endif%} />
-                                            <!-- {{ answer.position }} --> {{ answer.name }}
-                                        </label>
-                                        <br>
+                                        <li class="answer">
+                                            <label style="font-weight: normal !important;">
+                                            <input class="answer-input" {% if form.vars.data.answerSurveys|filter(a => a.answer.id == answer.id)|length > 0 %} checked {% endif%} id="answer-{{ answer.id }}" type="radio" name="survey[questions][{{ question.id }}][answers][]" value="{{ answer.id }}" {% if not (optionAnswers|length > 0) %}required{% endif%} />
+                                                <!-- {{ answer.position }} --> {{ answer.name }}
+                                            </label>
+                                        </li>
                                     {% endfor %}
                                 </ul>
                             </div>
@@ -80,23 +84,3 @@
 
 {{ form_end(form) }}
 
-<style>
-    .checkbox-round {
-        width: 13px;
-        height: 13px;
-        background-color: white;
-        border-radius: 50%;
-        vertical-align: middle;
-        border: 1px solid #6d6d6d;
-        appearance: none;
-        -webkit-appearance: none;
-        outline: none;
-        cursor: default;
-    }
-
-    .checkbox-round:checked {
-        background-color: #005CC8;
-        border: 1px solid #005CC8;
-        border-radius: 100%;
-    }
-</style>

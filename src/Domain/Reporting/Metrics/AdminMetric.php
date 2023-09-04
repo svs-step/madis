@@ -79,7 +79,7 @@ class AdminMetric implements MetricInterface
         $this->security               = $security;
     }
 
-    public function getData(Referentiel|null $referentiel = null): array
+    public function getData(Referentiel $referentiel = null): array
     {
         if (!$this->security->isGranted(UserRoleDictionary::ROLE_ADMIN)) {
             $collectivities = $this->collectivityRepository->findByUserReferent($this->security->getUser());

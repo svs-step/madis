@@ -25,7 +25,6 @@ namespace App\Tests\Domain\Reporting\Metrics;
 
 use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Maturity\Model\Referentiel;
-use App\Domain\Maturity\Model\Survey;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Treatment;
@@ -36,6 +35,7 @@ use App\Domain\Reporting\Metrics\MetricInterface;
 use App\Domain\Reporting\Metrics\UserMetric;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
+use App\Infrastructure\ORM\Maturity\Repository\Survey as SurveyRepository;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use App\Infrastructure\ORM\Reporting\Repository\LogJournal;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,7 +44,6 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
-use App\Infrastructure\ORM\Maturity\Repository\Survey as SurveyRepository;
 
 class UserMetricTest extends TestCase
 {
@@ -104,7 +103,7 @@ class UserMetricTest extends TestCase
         $this->evaluationRepository           = $this->prophesize(Evaluation::class);
         $this->logJournalRepository           = $this->prophesize(LogJournal::class);
         $this->surveyRepository               = $this->prophesize(SurveyRepository::class);
-        $this->userMetric = new UserMetric(
+        $this->userMetric                     = new UserMetric(
             $this->entityManager->reveal(),
             $this->conformiteTraitementRepository->reveal(),
             $this->requestRepository->reveal(),
@@ -131,7 +130,7 @@ class UserMetricTest extends TestCase
     {
         $user         = $this->prophesize(User::class);
         $collectivity = new Collectivity();
-        $referentiel = new Referentiel();
+        $referentiel  = new Referentiel();
         $user->getCollectivity()->willReturn($collectivity);
         $this->userProvider->getAuthenticatedUser()->shouldBeCalled()->willReturn($user);
 

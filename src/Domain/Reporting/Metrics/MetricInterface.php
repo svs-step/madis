@@ -35,5 +35,5 @@ interface MetricInterface
     /**
      * Return all data for metric view.
      */
-    public function getData(Referentiel|null $referentiel = null): array;
+    public function getData(Referentiel $referentiel = null): array;
 }
