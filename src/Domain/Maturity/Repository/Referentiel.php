@@ -10,5 +10,5 @@ use App\Domain\User\Repository\Collectivity;
 
 interface Referentiel extends CRUDRepositoryInterface, DataTablesRepository
 {
-    public function findAllByCollectivity(Collectivity $collectivity);
+    public function findBy(array $criteria);
 }

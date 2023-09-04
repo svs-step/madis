@@ -180,6 +180,10 @@ class Survey extends CRUDRepository implements Repository\Survey
     {
         $qb = $this->createQueryBuilder();
 
+        if (isset($criteria['collectivity'])) {
+            $qb->andWhere('o.collectivity = :collectivity')
+                ->setParameter('collectivity', $criteria['collectivity']);
+        }
         $qb->select('COUNT(o.id)');
 
         return $qb->getQuery()->getSingleScalarResult();
@@ -191,6 +195,10 @@ class Survey extends CRUDRepository implements Repository\Survey
             ->leftJoin('o.collectivity', 'collectivite')
             ->leftJoin('o.referentiel', 'referentiel');
 
+        if (isset($criteria['collectivity'])) {
+            $qb->andWhere('o.collectivity = :collectivity')
+                ->setParameter('collectivity', $criteria['collectivity']);
+        }
         $this->addTableSearches($qb, $searches);
         $this->addTableOrder($qb, $orderColumn, $orderDir);
 
