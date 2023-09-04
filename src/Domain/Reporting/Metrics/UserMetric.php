@@ -24,7 +24,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Metrics;
 
 use App\Application\Symfony\Security\UserProvider;
-use App\Domain\Maturity\Model\Survey;
+use App\Domain\Maturity\Model\Referentiel;
 use App\Domain\Registry\Calculator\Completion\ConformiteTraitementCompletion;
 use App\Domain\Registry\Dictionary\ConformiteTraitementLevelDictionary;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
@@ -33,6 +33,7 @@ use App\Domain\Registry\Repository;
 use App\Domain\Registry\Service\ConformiteOrganisationService;
 use App\Domain\Reporting\Dictionary\LogJournalSubjectDictionary;
 use App\Domain\Reporting\Repository\LogJournal;
+use App\Infrastructure\ORM\Maturity\Repository\Survey as SurveyRepository;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteOrganisation\Evaluation;
 use Doctrine\Inflector\InflectorFactory;
 use Doctrine\Inflector\Language;
@@ -64,6 +65,10 @@ class UserMetric implements MetricInterface
      * @var Repository\Treatment
      */
     private $treatmentRepository;
+    /**
+     * @var SurveyRepository
+     */
+    private $surveyRepository;
 
     /**
      * @var UserProvider
@@ -88,6 +93,7 @@ class UserMetric implements MetricInterface
         UserProvider $userProvider,
         Evaluation $evaluationRepository,
         LogJournal $logJournalRepository,
+        SurveyRepository $surveyRepository,
         int $userLogJounalViewLimit
     ) {
         $this->entityManager                  = $entityManager;
@@ -97,10 +103,11 @@ class UserMetric implements MetricInterface
         $this->userProvider                   = $userProvider;
         $this->evaluationRepository           = $evaluationRepository;
         $this->logJournalRepository           = $logJournalRepository;
+        $this->surveyRepository               = $surveyRepository;
         $this->userLogJounalViewLimit         = $userLogJounalViewLimit;
     }
 
-    public function getData(): array
+    public function getData(Referentiel|null $referentiel = null): array
     {
         $data = [
             'conformiteOrganisation' => [
@@ -220,10 +227,9 @@ class UserMetric implements MetricInterface
                 ]
             );
 
-        $maturity = $this->entityManager->getRepository(Survey::class)->findBy(
-            ['collectivity' => $collectivity],
-            ['createdAt' => 'DESC'],
-            2
+        $maturity = $this->surveyRepository->findLatestByReferentialAndCollectivity(
+            $referentiel,
+            $collectivity
         );
         $mesurements = $this->entityManager->getRepository(Model\Mesurement::class)->findBy(
             ['collectivity' => $collectivity]

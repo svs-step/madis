@@ -28,7 +28,7 @@ use App\Application\Doctrine\Repository\CRUDRepository;
 use App\Application\Traits\RepositoryUtils;
 use App\Domain\Maturity\Model;
 use App\Domain\Maturity\Repository;
-use App\Domain\User\Repository\Collectivity;
+use App\Domain\User\Model\Collectivity;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 
@@ -44,8 +44,10 @@ class Referentiel extends CRUDRepository implements Repository\Referentiel
     public function findAllByCollectivity(Collectivity $collectivity)
     {
         $qb = $this->createQueryBuilder();
-        // TODO Gestion des droits
 
+        $qb->leftJoin('o.authorizedCollectivities', 'c');
+        $qb->andWhere('c = :collectivity');
+        $qb->setParameter('collectivity', $collectivity);
         $qb = $qb->getQuery();
         $qb->setFirstResult(0);
         $qb->setMaxResults(100);

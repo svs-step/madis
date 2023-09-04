@@ -28,7 +28,10 @@ use App\Application\Interfaces\CollectivityRelated;
 use App\Domain\Registry\Repository\Mesurement;
 use App\Domain\Reporting\Handler\ExportCsvHandler;
 use App\Domain\Reporting\Handler\MetricsHandler;
+use App\Infrastructure\ORM\Maturity\Repository\Referentiel;
+use App\Infrastructure\ORM\Maturity\Repository\Survey;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 class DashboardController extends AbstractController
@@ -45,11 +48,21 @@ class DashboardController extends AbstractController
 
     private Mesurement $repository;
 
-    public function __construct(MetricsHandler $metricsHandler, ExportCsvHandler $exportCsvHandler, Mesurement $repository)
-    {
-        $this->repository       = $repository;
-        $this->metricsHandler   = $metricsHandler;
-        $this->exportCsvHandler = $exportCsvHandler;
+    private Referentiel $referentielRepository;
+    private Survey $surveyRepository;
+
+    public function __construct(
+        MetricsHandler $metricsHandler,
+        ExportCsvHandler $exportCsvHandler,
+        Mesurement $repository,
+        Referentiel $referentielRepository,
+        Survey $surveyRepository
+    ) {
+        $this->repository            = $repository;
+        $this->metricsHandler        = $metricsHandler;
+        $this->exportCsvHandler      = $exportCsvHandler;
+        $this->referentielRepository = $referentielRepository;
+        $this->surveyRepository      = $surveyRepository;
     }
 
     /**
@@ -58,20 +71,48 @@ class DashboardController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
-        $metrics = $this->metricsHandler->getHandler();
-
-        $actions = [];
+        $metrics      = $this->metricsHandler->getHandler();
+        $actions      = [];
+        $referentiels = $this->referentielRepository->findAll();
         if (!$this->isGranted('ROLE_REFERENT')) {
             $user         = $this->getUser();
             $collectivity = $user instanceof CollectivityRelated ? $user->getCollectivity() : null;
             $actions      = $this->repository->getPlanifiedActionsDashBoard($this->getParameter('APP_USER_DASHBOARD_ACTION_PLAN_LIMIT'), $collectivity);
+            $referentiels = array_reduce(
+                array_map(
+                    function (\App\Domain\Maturity\Model\Survey $survey) {
+                        return $survey->getReferentiel();
+                    }, $this->surveyRepository->findAllByCollectivity($collectivity)
+                ),
+                function (array $result, \App\Domain\Maturity\Model\Referentiel $referentiel) {
+                    if (!isset($result[$referentiel->getId()->toString()])) {
+                        $result[$referentiel->getId()->toString()] = $referentiel;
+                    }
+
+                    return $result;
+                },
+                []);
+
+            $referentiels = array_values($referentiels);
+        }
+        $selectedRef = $referentiels[0] ?? null;
+        if ($request->get('referentiel')) {
+            $selRefs = array_values(array_filter($referentiels, function (\App\Domain\Maturity\Model\Referentiel $referentiel) use ($request) {
+                return $referentiel->getId()->toString() === $request->get('referentiel');
+            }));
+
+            if (count($selRefs) > 0) {
+                $selectedRef = $selRefs[0];
+            }
         }
 
         return $this->render($metrics->getTemplateViewName(), [
-            'data'    => $metrics->getData(),
-            'actions' => $actions,
+            'data'         => $metrics->getData($selectedRef),
+            'actions'      => $actions,
+            'referentiels' => $referentiels,
+            'selected_ref' => $selectedRef,
         ]);
     }
 

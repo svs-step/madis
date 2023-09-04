@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Domain\Reporting\Metrics;
 
 use App\Domain\Maturity;
+use App\Domain\Maturity\Model\Referentiel;
 use App\Domain\Registry;
 use App\Domain\User;
 use App\Domain\User\Dictionary\CollectivityTypeDictionary;
@@ -78,7 +79,7 @@ class AdminMetric implements MetricInterface
         $this->security               = $security;
     }
 
-    public function getData(): array
+    public function getData(Referentiel|null $referentiel = null): array
     {
         if (!$this->security->isGranted(UserRoleDictionary::ROLE_ADMIN)) {
             $collectivities = $this->collectivityRepository->findByUserReferent($this->security->getUser());

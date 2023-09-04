@@ -61,7 +61,22 @@ class Survey extends CRUDRepository implements Repository\Survey
         ;
     }
 
-    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null, array $where = []): iterable
+    public function findLatestByReferentialAndCollectivity(Model\Referentiel $referentiel, Collectivity $collectivity)
+    {
+        return $this->createQueryBuilder()
+            ->select('o')
+            ->andWhere('o.referentiel = :referentiel')
+            ->setParameter('referentiel', $referentiel)
+            ->andWhere('o.collectivity = :collectivity')
+            ->setParameter('collectivity', $collectivity)
+            ->orderBy('o.createdAt', 'DESC')
+            ->setMaxResults(2)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null, array $where = []): array
     {
         $qb = $this->createQueryBuilder();
 

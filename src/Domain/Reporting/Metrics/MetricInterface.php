@@ -23,6 +23,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Reporting\Metrics;
 
+use App\Domain\Maturity\Model\Referentiel;
+
 interface MetricInterface
 {
     /**
@@ -33,5 +35,5 @@ interface MetricInterface
     /**
      * Return all data for metric view.
      */
-    public function getData(): array;
+    public function getData(Referentiel|null $referentiel = null): array;
 }

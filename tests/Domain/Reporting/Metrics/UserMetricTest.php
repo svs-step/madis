@@ -24,6 +24,7 @@ declare(strict_types=1);
 namespace App\Tests\Domain\Reporting\Metrics;
 
 use App\Application\Symfony\Security\UserProvider;
+use App\Domain\Maturity\Model\Referentiel;
 use App\Domain\Maturity\Model\Survey;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
@@ -43,6 +44,7 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Prophecy\PhpUnit\ProphecyTrait;
 use Prophecy\Prophecy\ObjectProphecy;
+use App\Infrastructure\ORM\Maturity\Repository\Survey as SurveyRepository;
 
 class UserMetricTest extends TestCase
 {
@@ -87,6 +89,10 @@ class UserMetricTest extends TestCase
      * @var LogJournal
      */
     private $logJournalRepository;
+    /**
+     * @var SurveyRepository
+     */
+    private $surveyRepository;
 
     protected function setUp(): void
     {
@@ -97,7 +103,7 @@ class UserMetricTest extends TestCase
         $this->userProvider                   = $this->prophesize(UserProvider::class);
         $this->evaluationRepository           = $this->prophesize(Evaluation::class);
         $this->logJournalRepository           = $this->prophesize(LogJournal::class);
-
+        $this->surveyRepository               = $this->prophesize(SurveyRepository::class);
         $this->userMetric = new UserMetric(
             $this->entityManager->reveal(),
             $this->conformiteTraitementRepository->reveal(),
@@ -106,6 +112,7 @@ class UserMetricTest extends TestCase
             $this->userProvider->reveal(),
             $this->evaluationRepository->reveal(),
             $this->logJournalRepository->reveal(),
+            $this->surveyRepository->reveal(),
             15
         );
     }
@@ -124,21 +131,21 @@ class UserMetricTest extends TestCase
     {
         $user         = $this->prophesize(User::class);
         $collectivity = new Collectivity();
+        $referentiel = new Referentiel();
         $user->getCollectivity()->willReturn($collectivity);
         $this->userProvider->getAuthenticatedUser()->shouldBeCalled()->willReturn($user);
 
         $contractorRepo = $this->prophesize(ObjectRepository::class);
-        $surveyRepo     = $this->prophesize(ObjectRepository::class);
         $mesurementRepo = $this->prophesize(ObjectRepository::class);
         $treatmentRepo  = $this->prophesize(ObjectRepository::class);
         $violationRepo  = $this->prophesize(ObjectRepository::class);
         $this->entityManager->getRepository(Contractor::class)->shouldBeCalled()->willReturn($contractorRepo);
-        $this->entityManager->getRepository(Survey::class)->shouldBeCalled()->willReturn($surveyRepo);
+
         $this->entityManager->getRepository(Mesurement::class)->shouldBeCalled()->willReturn($mesurementRepo);
         $this->entityManager->getRepository(Treatment::class)->shouldBeCalled()->willReturn($treatmentRepo);
         $this->entityManager->getRepository(Violation::class)->shouldBeCalled()->willReturn($violationRepo);
         $contractorRepo->findBy(Argument::cetera())->shouldBeCalled()->willReturn([]);
-        $surveyRepo->findBy(Argument::cetera())->shouldBeCalled()->willReturn([]);
+        $this->surveyRepository->findLatestByReferentialAndCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $mesurementRepo->findBy(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $treatmentRepo->findBy(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $violationRepo->findBy(Argument::cetera())->shouldBeCalled()->willReturn([]);
@@ -148,6 +155,6 @@ class UserMetricTest extends TestCase
         $this->evaluationRepository->findLastByOrganisation(Argument::any())->shouldBeCalled()->willReturn(null);
         $this->logJournalRepository->findAllByCollectivityWithoutSubjects($collectivity, 15, Argument::any())->shouldBeCalled()->willReturn([]);
 
-        $this->assertIsArray($this->userMetric->getData());
+        $this->assertIsArray($this->userMetric->getData($referentiel));
     }
 }

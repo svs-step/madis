@@ -89,16 +89,28 @@
                         <div class="box box-solid">
                             <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
                             <div class="box-body">
-                                {% if data.maturity is empty %}
-                                    Aucun indice à afficher
-                                {% else %}
-                                    {% if data.maturity.new is defined and data.maturity.new.data is defined and data.maturity.new.data|length >= 3 %}
+                                <style>
+                                    .dropdown.bootstrap-select {
+                                        width: 100% !important;
+                                    }
+                                </style>
+                                <select class="selectpicker" id="referentiel-chooser">
+                                    {% for ref in referentiels %}
+                                        <option value="{{ ref.id }}" {% if ref.id == selected_ref.id %}selected{% endif %}>{{ ref.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <div style="margin-top: 1em">
+                                    {% if data.maturity is empty %}
+                                        Aucun indice à afficher
+                                    {% else %}
+                                        {% if data.maturity.new is defined and data.maturity.new.data is defined and data.maturity.new.data|length >= 3 %}
 
-                                    <canvas id="maturity-radar"></canvas>
-                                        {% else %}
-                                        Le référentiel contient moins de trois sections
+                                        <canvas id="maturity-radar"></canvas>
+                                            {% else %}
+                                            Le référentiel contient moins de trois sections
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
+                                </div>
                             </div>
                         </div>
 
@@ -497,4 +509,13 @@
 
     {# USE DATA & DEFINE GRAPH #}
     {{ encore_entry_script_tags('js/dashboard') }}
+
+    <script>
+        $(document).ready(function() {
+            $('body').on('change', '#referentiel-chooser', function() {
+                console.log('change', $(this).val());
+                window.location.href = "{{ app.request.pathinfo }}?referentiel=" + $(this).val();
+            })
+        })
+    </script>
 {% endblock %}
