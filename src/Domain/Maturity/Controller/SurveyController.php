@@ -461,7 +461,7 @@ class SurveyController extends CRUDController
             $reponse['data'][] = [
                 'collectivity' => $survey->getCollectivity()->getName(),
                 'referentiel'  => $referentielLink,
-                'score'        => $survey->getScore(),
+                'score'        => $survey->getScore()/10,
                 'createdAt'    => date_format($survey->getCreatedAt(), 'd-m-Y H:i'),
                 'updatedAt'    => date_format($survey->getUpdatedAt(), 'd-m-Y H:i'),
                 'actions'      => $this->generateActionCellContent($survey),
