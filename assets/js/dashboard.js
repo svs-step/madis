@@ -211,7 +211,10 @@ $(document).ready(function() {
     if (maturityData.length > 0) {
         radarChart(
             'maturity-radar',
-            maturityLabels,
+            maturityLabels.map(l => {
+                l = l.replace('&#039;', "'");
+                return l.substring(0, 75) + (l.length > 75 ? '…' : '')
+            }),
             maturitySerieLabel,
             maturityData,
             [colorBlueOpacity, colorRedOpacity],

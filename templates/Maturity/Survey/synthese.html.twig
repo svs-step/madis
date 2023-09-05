@@ -136,7 +136,8 @@
                 type: 'radar',
                 data: {
                     labels: labels.map(l => {
-                        return l.match(/.{1,40}(\s|$)/g)
+                        l = l.replace('&#039;', "'");
+                        return l.substring(0, 75) + (l.length > 75 ? '…' : ''); //.match(/.{1,40}(\s|$)/g)
                     }),
                     datasets: dataset,
                 },
