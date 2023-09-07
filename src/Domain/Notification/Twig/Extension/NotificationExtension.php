@@ -48,10 +48,10 @@ class NotificationExtension extends AbstractExtension
 
     public function getSentence(Notification $notification): string
     {
-        $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong>';
+        $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ';
 
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Document::class]) {
-            $sentence .= ' Nouveau document déposé par le DPD&nbsp;';
+            $sentence .= ' Nouveau document déposé par le DPD ';
         }
 
         switch ($notification->getAction()) {
@@ -81,7 +81,7 @@ class NotificationExtension extends AbstractExtension
                     $sentence .= $this->translator->trans($notification->getAction()) . ' ';
                 }
                 if ('notification.modules.action_plan' !== $notification->getModule()) {
-                    $sentence .= '&nbsp;: ';
+                    $sentence .= ' : ';
                 }
                 $link = $this->getObjectLink($notification);
                 if ($this->repository->objectExists($notification)) {

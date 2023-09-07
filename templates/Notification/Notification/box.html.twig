@@ -17,7 +17,7 @@
                 <div class="col-md-8" href="#">
                     {{ notif | sentence | raw }}
 
-                    <div class="text-muted" style="display: inline">
+                    <div class="text-muted">
                         {{ notif.action | trans }}, <b title="{{ notif.createdAt|date('d/m/Y H:i') }}">{{ notif.createdAt|ago }}</b>
                         {% if notif.createdBy %}
                         par <b>{{ notif.createdBy }}</b>
