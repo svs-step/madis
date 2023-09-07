@@ -194,7 +194,6 @@ class SurveyController extends CRUDController
                         $opa = new Model\OptionalAnswer();
                         $q   = $this->entityManager->getRepository(Model\Question::class)->find($questionId);
                         $opa->setQuestion($q);
-                        $opa->setReason($question['optionReason']);
                         $this->entityManager->persist($opa);
                         $object->addOptionalAnswer($opa);
                     } else {
@@ -261,7 +260,6 @@ class SurveyController extends CRUDController
                         $opa = new Model\OptionalAnswer();
 
                         $opa->setQuestion($q);
-                        // $opa->setReason($question['optionReason']);
                         $this->entityManager->persist($opa);
                         $object->addOptionalAnswer($opa);
                     } else {
