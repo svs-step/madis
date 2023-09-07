@@ -213,7 +213,7 @@ $(document).ready(function() {
             'maturity-radar',
             maturityLabels.map(l => {
                 l = l.replace('&#039;', "'");
-                return l.substring(0, 75) + (l.length > 75 ? '…' : '')
+                return l.substring(0, 25) + (l.length > 25 ? '…' : '')
             }),
             maturitySerieLabel,
             maturityData,
