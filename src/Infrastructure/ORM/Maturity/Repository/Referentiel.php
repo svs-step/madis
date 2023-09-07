@@ -81,7 +81,7 @@ class Referentiel extends CRUDRepository implements Repository\Referentiel
     private function addTableOrder(QueryBuilder $queryBuilder, $orderColumn, $orderDir)
     {
         switch ($orderColumn) {
-            case 'name':
+            case 'nom':
                 $queryBuilder->addOrderBy('o.name', $orderDir);
                 break;
             case 'description':
@@ -100,7 +100,7 @@ class Referentiel extends CRUDRepository implements Repository\Referentiel
     {
         foreach ($searches as $columnName => $search) {
             switch ($columnName) {
-                case 'name':
+                case 'nom':
                     $this->addWhereClause($queryBuilder, 'name', '%' . $search . '%', 'LIKE');
                     break;
                 case 'description':
