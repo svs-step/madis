@@ -54,6 +54,8 @@ class SyntheseAnswerType extends AbstractType
         $builder->addEventListener(FormEvents::PRE_SET_DATA, function (FormEvent $event) {
             $parentForm   = $event->getForm()->getParent()->getParent();
             $collectivity = $parentForm->getData()->getCollectivity();
+            $a            = $event->getData()->getAnswer()->getRecommendation();
+
             $event->getForm()->add('mesurements', EntityType::class, [
                     'required'      => false,
                     'label'         => false,
@@ -75,6 +77,7 @@ class SyntheseAnswerType extends AbstractType
                     'attr'         => [
                         'class'            => 'selectpicker',
                         'title'            => 'placeholder.multiple_select',
+                        'aria-label'       => $a,
                         'data-live-search' => true,
                     ],
                     'choice_attr' => function (Mesurement $choice) {

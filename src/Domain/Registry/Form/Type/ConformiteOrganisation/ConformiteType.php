@@ -50,6 +50,7 @@ class ConformiteType extends AbstractType
                     'class'            => 'selectpicker',
                     'title'            => 'placeholder.multiple_select',
                     'data-live-search' => true,
+                    'aria-label'       => 'Actions de protection',
                     'data-width'       => '450px',
                 ],
                 'choice_attr' => function (Mesurement $choice) {
