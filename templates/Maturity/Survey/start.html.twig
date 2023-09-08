@@ -42,7 +42,7 @@
                         <table id="table" class="table table-bordered table-hover">
                             <thead>
                             <tr>
-                                <th scope="col"><input class="form-control" type="text" id="search_nom" style="width: 100%;" placeholder="Nom"></th>
+                                <th scope="col"><input class="form-control" type="text" id="search_name" style="width: 100%;" placeholder="Nom"></th>
                                 <th scope="col"><input class="form-control" type="text" id="search_description" style="width: 100%;" placeholder="Description"></th>
                             </tr>
                             <tr>
@@ -78,7 +78,7 @@
 
     {% set dataTableOptions = {
         columns: [
-            {"data": "nom", "className": "noVis"},
+            {"data": "name", "className": "noVis"},
             {"data" : "description", "className": "noVis"},
         ],
 
@@ -91,8 +91,8 @@
         function setEvents() {
             var oTable = $('#table').DataTable();
 
-            $('#search_nom').off('keyup');
-            $('#search_nom').keyup($.debounce(250, function () {
+            $('#search_name').off('keyup');
+            $('#search_name').keyup($.debounce(250, function () {
                 oTable.column('0').search($(this).val()).draw();
             }));
 

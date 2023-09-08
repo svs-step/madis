@@ -364,7 +364,7 @@ class SurveyController extends CRUDController
                 || $authorizedCollectivities->contains($collectivity)
             ) {
                 $reponse['data'][] = [
-                    'nom'         => '<input type="radio" value="' . $referentiel->getId() . '" name="referentiel_choice" required="true"/> ' . $referentiel->getName(),
+                    'name'         => '<input type="radio" value="' . $referentiel->getId() . '" name="referentiel_choice" required="true"/> ' . $referentiel->getName(),
                     'description' => $referentiel->getDescription(),
                 ];
             }
@@ -418,7 +418,7 @@ class SurveyController extends CRUDController
     private function getLabelAndKeysArrayForReferentiels()
     {
         return [
-            '0' => 'nom',
+            '0' => 'name',
             '1' => 'description',
         ];
     }
