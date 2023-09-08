@@ -1,33 +1,53 @@
 <script>
     $(document).ready(function() {
         $('.question-option').on('change', function(ev) {
-            var $ch = $(ev.currentTarget);
+            var $question = $(this).closest('.question');
+            var $answerInput = $question.find('.answer-input');
 
-            if ($ch.is(":checked")) {
-                $ch.parent().parent().parent().find('li.answer input').removeAttr('required').removeAttr('checked')
-            } else {
-                $ch.parent().parent().parent().find('li.answer input').attr('required', true)
-            }
+            $answerInput.each(function(index,el){
+                var $ch = $(el);
+                $ch.removeAttr('required')
+                if ($ch.is(":checked")) {
+                    $ch.removeAttr('checked');
+                }
+            })
         })
         $('.question-option').each(function(el) {
             var $ch = $(el);
-            if ($ch.is(":checked")) {
-                $ch.parent().parent().parent().find('li.answer input').removeAttr('required').removeAttr('checked')
-            } else {
-                $ch.parent().parent().parent().find('li.answer input').attr('required', true)
-            }
+            var $question = $ch.closest('.question');
+            var $answerInput = $question.find('.answer-input');
+
+            $answerInput.each(function(index,el){
+                var $ch = $(el);
+                if ($ch.is(":checked")) {
+                    $ch.removeAttr('required').removeAttr('checked');
+                } else {
+                    $ch.attr('required', true);
+                }
+            })
         })
         $('.answer-input').on('change', function(ev) {
-            var $ch = $(ev.currentTarget);
-            if ($ch.is(":checked")) {
-                $ch.parent().parent().parent().find('li.optional input').removeAttr('required').removeAttr('checked')
-            }
+            var $question = $(this).closest('.question');
+            var $answerInput = $question.find('.question-option');
+
+            $answerInput.each(function(index,el){
+                var $ch = $(el);
+                if ($ch.is(":checked")) {
+                    $ch.removeAttr('checked');
+                }
+            })
         })
         $('.answer-input').each(function(el) {
             var $ch = $(el);
-            if ($ch.is(":checked")) {
-                $ch.parent().parent().parent().find('li.optional input').removeAttr('required').removeAttr('checked')
-            }
+            var $question = $ch.closest('.question');
+            var $answerInput = $question.find('.question-option');
+
+            $answerInput.each(function(index,el){
+                var $ch = $(el);
+                if ($ch.is(":checked")) {
+                    $ch.removeAttr('checked');
+                }
+            })
         })
     })
 

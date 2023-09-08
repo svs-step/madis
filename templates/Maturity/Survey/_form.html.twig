@@ -26,34 +26,31 @@
                     {% for question in domain.questions|sort((a, b) => a.position > b.position) %}
                         {% set optionAnswers = form.vars.data.optionalAnswers ? form.vars.data.optionalAnswers|filter(a => a.question.id == question.id) : [] %}
                         <div class="row">
-                            <div class="col-md-12">
-                                <label>{{ question.name }}*</label>
-
-                                <ul style="padding-left: 0;list-style: none">
-                                    {% if question.optional %}
-                                        <li class="optional">
-                                            <label style="font-weight: normal !important;">
-                                                <input
-                                                        class="question-option"
-                                                        id="question-option-{{ question.id }}"
-                                                        type="radio" name="survey[questions][{{ question.id }}][option]"
-                                                        value="1"
-                                                        style="margin-bottom: 4px"
-                                                        {% if optionAnswers|length > 0 %} checked {% endif %}
-                                                />
-                                                {{ question.optionReason ? question.optionReason : 'Non concerné' }}
-                                            </label>
-                                        </li>
-                                    {% endif %}
-                                    {% for answer in question.answers|sort((a, b) => a.position > b.position) %}
-                                        <li class="answer">
-                                            <label style="font-weight: normal !important;">
-                                            <input class="answer-input" {% if form.vars.data.answerSurveys|filter(a => a.answer.id == answer.id)|length > 0 %} checked {% endif%} id="answer-{{ answer.id }}" type="radio" name="survey[questions][{{ question.id }}][answers][]" value="{{ answer.id }}" {% if not (optionAnswers|length > 0) %}required{% endif%} />
-                                                <!-- {{ answer.position }} --> {{ answer.name }}
-                                            </label>
-                                        </li>
-                                    {% endfor %}
-                                </ul>
+                            <div class="col-md-12 question">
+                                <label class="required">{{ question.name }}*</label>
+                                {% if question.optional %}
+                                    <div class="radio optional">
+                                        <label style="font-weight: normal !important;" for="question-option-{{ question.id }}">
+                                            <input
+                                                class="question-option"
+                                                id="question-option-{{ question.id }}"
+                                                type="radio" name="survey[questions][{{ question.id }}][option]"
+                                                value="1"
+                                                style="margin-bottom: 4px"
+                                                {% if optionAnswers|length > 0 %} checked {% endif %}
+                                            />
+                                            {{ question.optionReason ? question.optionReason : 'Non concerné' }}
+                                        </label>
+                                    </div>
+                                {% endif %}
+                                {% for answer in question.answers|sort((a, b) => a.position > b.position) %}
+                                    <div class="radio answer">
+                                        <label style="font-weight: normal !important;">
+                                        <input class="answer-input" {% if form.vars.data.answerSurveys|filter(a => a.answer.id == answer.id)|length > 0 %} checked {% endif%} id="answer-{{ answer.id }}" type="radio" name="survey[questions][{{ question.id }}][answers][]" value="{{ answer.id }}" {% if not (optionAnswers|length > 0) %}required{% endif%} />
+                                            <!-- {{ answer.position }} --> {{ answer.name }}
+                                        </label>
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
                     {% endfor %}
