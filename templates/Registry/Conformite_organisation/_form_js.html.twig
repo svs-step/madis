@@ -31,6 +31,8 @@
             removeRequiredFields();
         });
 
+        addAttribute();
+
     });
 
     /**
@@ -42,5 +44,17 @@
         form.find('input').each(function(){
             $(this).prop('required',false);
         });
+    }
+
+    function addAttribute(){
+        var elementExiste = false;
+        if ($('[data-id^="evaluation_conformites"]').length > 0){
+            $('[data-id^="evaluation_conformites"]').each(function() {
+                $(this).attr('aria-label', 'Actions de protections');
+            });
+            elementExiste = true;
+        } else {
+            setTimeout(addAttribute, 1000);
+        }
     }
 </script>
