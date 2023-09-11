@@ -23,8 +23,19 @@
 {% block body %}
     {% set submitValue = submitValue|default('maturity.survey.action.synthese_submit'|trans) %}
     {{ form_start(form) }}
-<div class="row">
 
+<div class="row">
+    <div class="col-xs-12">
+        <div class="action-bar">
+            <a aria-label="{{ 'action.print'|trans }}" href="{{ path('maturity_survey_report', {'id': object.id}) }}" class="btn btn-default">
+                <i class="fa fa-print"></i>
+                {{ 'action.print'|trans }}
+            </a>
+        </div>
+    </div>
+</div>
+
+<div class="row">
     <div class="col-md-6">
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
