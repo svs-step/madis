@@ -24,6 +24,8 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Tool;
@@ -76,7 +78,7 @@ class TreatmentType extends AbstractType
                 'label'    => ' ',
                 'required' => false,
             ])
-            ->add('name', TextType::class, [
+            ->add('name', SanitizeTextFormType::class, [
                 'label'    => 'registry.treatment.form.name',
                 'required' => true,
                 'attr'     => [
@@ -88,14 +90,14 @@ class TreatmentType extends AbstractType
                 'required' => false,
             ])
 
-            ->add('goal', TextareaType::class, [
+            ->add('goal', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.treatment.form.goal',
                 'required' => false,
                 'attr'     => [
                     'rows' => 4,
                 ],
             ])
-            ->add('manager', TextType::class, [
+            ->add('manager', SanitizeTextFormType::class, [
                 'label'    => 'registry.treatment.form.manager',
                 'required' => false,
                 'attr'     => [
@@ -114,11 +116,11 @@ class TreatmentType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
             ])
-            ->add('legalBasisJustification', TextareaType::class, [
+            ->add('legalBasisJustification', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.treatment.form.legal_basis_justification',
                 'required' => false,
             ])
-            ->add('observation', TextareaType::class, [
+            ->add('observation', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.treatment.form.observation',
                 'required' => false,
                 'attr'     => [
@@ -183,21 +185,21 @@ class TreatmentType extends AbstractType
                     'aria-label'       => 'Catégorie des données',
                 ],
             ])
-            ->add('dataCategoryOther', TextareaType::class, [
+            ->add('dataCategoryOther', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.treatment.form.data_category_other',
                 'required' => false,
                 'attr'     => [
                     'rows' => 3,
                 ],
             ])
-            ->add('dataOrigin', TextType::class, [
+            ->add('dataOrigin', SanitizeTextFormType::class, [
                 'label'    => 'registry.treatment.form.data_origin',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('recipientCategory', TextareaType::class, [
+            ->add('recipientCategory', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.treatment.form.recipient_category',
                 'required' => false,
                 'attr'     => [
@@ -300,7 +302,7 @@ class TreatmentType extends AbstractType
                 'name'     => 'registry_treatment_author',
                 'required' => true,
             ])
-            ->add('coordonneesResponsableTraitement', TextareaType::class, [
+            ->add('coordonneesResponsableTraitement', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.treatment.form.coordonnees_responsable_traitement',
                 'required' => false,
                 'attr'     => [
@@ -349,7 +351,7 @@ class TreatmentType extends AbstractType
                 'allow_delete' => true,
                 'by_reference' => false,
             ])
-            ->add('otherCollectingMethod', TextType::class, [
+            ->add('otherCollectingMethod', SanitizeTextFormType::class, [
                 'label'    => 'registry.treatment.form.otherCollectingMethod',
                 'required' => false,
             ])
@@ -365,7 +367,7 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.consentRequest',
                 'required' => false,
             ])
-            ->add('consentRequestFormat', TextType::class, [
+            ->add('consentRequestFormat', SanitizeTextFormType::class, [
                 'label'    => 'registry.treatment.form.consentRequestFormat',
                 'required' => false,
             ])
@@ -374,7 +376,7 @@ class TreatmentType extends AbstractType
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
             $builder
-                ->add('dpoMessage', TextAreaType::class, [
+                ->add('dpoMessage', SanitizeTextAreaFormType::class, [
                     'label'    => 'registry.treatment.form.dpoMessage',
                     'required' => false,
                 ])
@@ -421,7 +423,7 @@ class TreatmentType extends AbstractType
                 ],
             ]);
         } else {
-            $builder->add('software', TextType::class, [
+            $builder->add('software', SanitizeTextFormType::class, [
                 'label'    => 'registry.treatment.form.software',
                 'required' => false,
                 'attr'     => [

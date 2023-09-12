@@ -1,4 +1,10 @@
 services:
+    App\Application\Form\Extension\SanitizeTextFormType:
+        tags: [ 'form.type_extension' ]
+
+    App\Application\Form\Extension\SanitizeTextAreaFormType:
+      tags: [ 'form.type_extension' ]
+
     _defaults:
         autowire: true
         autoconfigure: true
