@@ -60,6 +60,7 @@ class DelayType extends AbstractType
             ->add('comment', TextareaType::class, [
                 'label'    => false,
                 'required' => false,
+                'purify_html' => true,
             ])
         ;
     }

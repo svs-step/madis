@@ -46,6 +46,7 @@ class AnswerType extends AbstractType
                     'maxlength' => 1000,
                     'required'  => 'required',
                 ],
+                'purify_html' => true,
             ])
             ->add('recommendation', TextType::class, [
                 'label'    => 'maturity.referentiel.form.recommendation',
@@ -53,6 +54,7 @@ class AnswerType extends AbstractType
                 'attr'     => [
                 'maxlength' => 1000,
                 ],
+                'purify_html' => true,
             ])
             ->add('position', HiddenType::class, [
                 'required' => true,

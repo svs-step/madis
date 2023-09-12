@@ -52,6 +52,7 @@ class QuestionType extends AbstractType
                 'attr'     => [
                     'maxlength' => 1000,
                 ],
+                'purify_html' => true,
             ])
             ->add('weight', ChoiceType::class, [
                 'label'    => 'maturity.referentiel.form.weight',
@@ -77,6 +78,7 @@ class QuestionType extends AbstractType
                     'placeholder' => 'Précisez',
                     'maxlength'   => 1000,
                 ],
+                'purify_html' => true,
             ])
             ->add('answers', CollectionType::class, [
                     'label'          => 'maturity.referentiel.form.answer',

@@ -50,6 +50,7 @@ class DomainType extends AbstractType
                 'attr'     => [
                     'maxlength' => 1000,
                 ],
+                'purify_html' => true,
             ])
 
             ->add('description', TextareaType::class, [
@@ -58,6 +59,7 @@ class DomainType extends AbstractType
                 'attr'     => [
                     'rows' => 3,
                 ],
+                'purify_html' => true,
             ])
 
             ->add('questions', CollectionType::class, [

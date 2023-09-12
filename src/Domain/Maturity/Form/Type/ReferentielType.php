@@ -46,6 +46,7 @@ class ReferentielType extends AbstractType
                 'attr'     => [
                     'maxlength' => 1000,
                 ],
+                'purify_html' => true,
             ])
             ->add('description', TextareaType::class, [
                 'label'    => 'maturity.referentiel.form.description',
@@ -53,6 +54,7 @@ class ReferentielType extends AbstractType
                 'attr'     => [
                     'rows' => 3,
                 ],
+                'purify_html' => true,
             ])
             ->add('domains', CollectionType::class, [
                 'entry_type'     => DomainType::class,

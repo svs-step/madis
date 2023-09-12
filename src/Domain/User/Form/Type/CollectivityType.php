@@ -79,6 +79,7 @@ class CollectivityType extends AbstractType
                     'attr'     => [
                         'maxlength' => 255,
                     ],
+                    'purify_html' => true,
                 ])
                 ->add('shortName', TextType::class, [
                     'label'    => 'user.collectivity.form.short_name',
@@ -86,6 +87,7 @@ class CollectivityType extends AbstractType
                     'attr'     => [
                         'maxlength' => 20,
                     ],
+                    'purify_html' => true,
                 ])
                 ->add('type', DictionaryType::class, [
                     'label'    => 'user.collectivity.form.type',
@@ -130,6 +132,7 @@ class CollectivityType extends AbstractType
                 ->add('informationsComplementaires', TextareaType::class, [
                     'label'    => 'user.collectivity.form.informations_complementaires',
                     'required' => false,
+                    'purify_html' => true,
                 ])
                 ->add('finessGeo', TextType::class, [
                     'label'    => 'user.collectivity.form.finess_geo',
@@ -137,6 +140,7 @@ class CollectivityType extends AbstractType
                     'attr'     => [
                         'maxlength' => 255,
                     ],
+                    'purify_html' => true,
                 ])
                 ->add('nbrCnil', NumberType::class, [
                     'label'    => 'user.collectivity.form.nbr_cnil',

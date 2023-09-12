@@ -20,26 +20,31 @@ class MesureProtectionAIPDType extends AbstractType
                 'attr' => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('nomCourt', TextType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('labelLivrable', TextType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('phrasePreconisation', TextType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('detail', TextType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('poidsVraisemblance', IntegerType::class, [
                 'attr' => [

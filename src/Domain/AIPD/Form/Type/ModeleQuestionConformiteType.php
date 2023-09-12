@@ -25,18 +25,21 @@ class ModeleQuestionConformiteType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('texteNonConformiteMineure', TextType::class, [
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('texteNonConformiteMajeure', TextType::class, [
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
         ;
     }

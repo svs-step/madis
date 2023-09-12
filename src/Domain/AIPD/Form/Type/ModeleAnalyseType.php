@@ -24,30 +24,35 @@ class ModeleAnalyseType extends AbstractType
                         'attr'     => [
                             'maxlength' => 255,
                         ],
+                        'purify_html' => true,
                     ])
                     ->add('description', TextType::class, [
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
                         ],
+                        'purify_html' => true,
                     ])
                     ->add('labelAmeliorationPrevue', TextType::class, [
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
                         ],
+                        'purify_html' => true,
                     ])
                     ->add('labelInsatisfaisant', TextType::class, [
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
                         ],
+                        'purify_html' => true,
                     ])
                     ->add('labelSatisfaisant', TextType::class, [
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
                         ],
+                        'purify_html' => true,
                     ])
                     ->add('criterePrincipeFondamentaux', CollectionType::class, [
                         'entry_type'  => CriterePrincipeFondamentalType::class,

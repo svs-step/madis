@@ -72,6 +72,7 @@ class ContractorType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
         ;
         if ($contractor->getCollectivity()->getIsServicesEnabled()) {
@@ -112,6 +113,7 @@ class ContractorType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('contractualClausesVerified', CheckboxType::class, [
                 'label'    => 'registry.contractor.form.contractual_clauses_verified',
@@ -135,6 +137,7 @@ class ContractorType extends AbstractType
                 'attr'     => [
                     'rows' => 4,
                 ],
+                'purify_html' => true,
             ])
             ->add('address', AddressType::class, [
                 'label'             => 'registry.contractor.form.address',

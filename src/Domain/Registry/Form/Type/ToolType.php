@@ -72,6 +72,7 @@ class ToolType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 3]),
@@ -91,6 +92,7 @@ class ToolType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('other_info', TextareaType::class, [
                 'label'    => 'registry.tool.form.other_info',
@@ -98,6 +100,7 @@ class ToolType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('editor', TextType::class, [
                 'label'    => 'registry.tool.form.editor',
@@ -105,6 +108,7 @@ class ToolType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('manager', TextType::class, [
                 'label'    => 'registry.tool.form.manager',
@@ -112,6 +116,7 @@ class ToolType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
 
             ->add('contractors', EntityType::class, [
@@ -172,11 +177,13 @@ class ToolType extends AbstractType
             ->add('country_name', TextType::class, [
                 'label'    => 'registry.tool.form.country_name',
                 'required' => false,
+                'purify_html' => true,
             ])
 
             ->add('country_guarantees', TextType::class, [
                 'label'    => 'registry.tool.form.country_guarantees',
                 'required' => true,
+                'purify_html' => true,
             ])
 
             ->add('archival', ComplexChoiceType::class, [

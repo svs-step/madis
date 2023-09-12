@@ -79,6 +79,7 @@ class MesurementType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             /*
             ->add('type', DictionaryType::class, [
@@ -95,6 +96,7 @@ class MesurementType extends AbstractType
                 'attr'     => [
                     'rows' => 3,
                 ],
+                'purify_html' => true,
             ])
             ->add('cost', TextType::class, [
                 'label'    => 'registry.mesurement.form.cost',
@@ -102,6 +104,7 @@ class MesurementType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('charge', TextType::class, [
                 'label'    => 'registry.mesurement.form.charge',
@@ -109,6 +112,7 @@ class MesurementType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('status', DictionaryType::class, [
                 'label'    => 'registry.mesurement.form.status',
@@ -133,6 +137,7 @@ class MesurementType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('priority', DictionaryType::class, [
                 'label'    => 'registry.mesurement.form.priority',
@@ -146,6 +151,7 @@ class MesurementType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('contractors', EntityType::class, [
                 'label'         => 'registry.mesurement.form.contractor',
