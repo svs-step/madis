@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestAnswerType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestApplicantType;
@@ -163,7 +164,7 @@ class RequestType extends AbstractType
                 'name'     => 'registry_request_state',
                 'required' => true,
             ])
-            ->add('stateRejectionReason', TextareaType::class, [
+            ->add('stateRejectionReason', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.request.form.state_rejection_reason',
                 'required' => false,
                 'attr'     => [

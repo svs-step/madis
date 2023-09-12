@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\MesurementType;
 use App\Domain\Registry\Model\Mesurement;
@@ -69,7 +70,7 @@ class MesurementTypeTest extends FormTypeHelper
 
         $builder = [
             'name'              => SanitizeTextFormType::class,
-            'description'       => TextareaType::class,
+            'description'       => SanitizeTextAreaFormType::class,
             'cost'              => SanitizeTextFormType::class,
             'charge'            => SanitizeTextFormType::class,
             'status'            => DictionaryType::class,

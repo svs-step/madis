@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Form\Type\Embeddable\AddressType;
@@ -63,7 +64,7 @@ class ContractorTypeTest extends FormTypeHelper
             'adoptedSecurityFeatures'    => CheckboxType::class,
             'maintainsTreatmentRegister' => CheckboxType::class,
             'sendingDataOutsideEu'       => CheckboxType::class,
-            'otherInformations'          => TextareaType::class,
+            'otherInformations'          => SanitizeTextAreaFormType::class,
             'address'                    => AddressType::class,
             'legalManager'               => ContactType::class,
             'hasDpo'                     => CheckboxType::class,

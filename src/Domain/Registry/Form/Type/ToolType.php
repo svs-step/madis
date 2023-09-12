@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Model\Contractor;
@@ -86,14 +87,14 @@ class ToolType extends AbstractType
                 'multiple' => false,
                 'expanded' => true,
             ])
-            ->add('description', TextareaType::class, [
+            ->add('description', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.tool.form.description',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('other_info', TextareaType::class, [
+            ->add('other_info', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.tool.form.other_info',
                 'required' => false,
                 'attr'     => [

@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\User\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\User\Form\Type\AddressType;
 use App\Domain\User\Form\Type\CollectivityType;
@@ -84,7 +85,7 @@ class CollectivityTypeTest extends FormTypeHelper
             'siren'                               => NumberType::class,
             'active'                              => ChoiceType::class,
             'website'                             => UrlType::class,
-            'informationsComplementaires'         => TextareaType::class,
+            'informationsComplementaires'         => SanitizeTextAreaFormType::class,
             'address'                             => AddressType::class,
             'legalManager'                        => ContactType::class,
             'referent'                            => ContactType::class,

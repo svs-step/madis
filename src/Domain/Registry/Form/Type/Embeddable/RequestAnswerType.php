@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type\Embeddable;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Domain\Registry\Model\Embeddable\RequestAnswer;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -40,7 +41,7 @@ class RequestAnswerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('response', TextareaType::class, [
+            ->add('response', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.request_answer.form.response',
                 'required' => false,
                 'attr'     => [

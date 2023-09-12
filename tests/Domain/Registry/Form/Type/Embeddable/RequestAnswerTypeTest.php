@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type\Embeddable;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestAnswerType;
 use App\Domain\Registry\Model\Embeddable\RequestAnswer;
 use App\Tests\Utils\FormTypeHelper;
@@ -43,7 +44,7 @@ class RequestAnswerTypeTest extends FormTypeHelper
     public function testBuildForm(): void
     {
         $builder = [
-            'response' => TextareaType::class,
+            'response' => SanitizeTextAreaFormType::class,
             'date'     => DateType::class,
             'type'     => DictionaryType::class,
         ];

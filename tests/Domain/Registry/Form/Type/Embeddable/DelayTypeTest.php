@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type\Embeddable;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Domain\Registry\Form\Type\Embeddable\DelayType;
 use App\Domain\Registry\Model\Embeddable\Delay;
 use App\Tests\Utils\FormTypeHelper;
@@ -47,7 +48,7 @@ class DelayTypeTest extends FormTypeHelper
             'number'     => IntegerType::class,
             'period'     => DictionaryType::class,
             'otherDelay' => CheckboxType::class,
-            'comment'    => TextareaType::class,
+            'comment'    => SanitizeTextAreaFormType::class,
         ];
 
         (new DelayType())->buildForm($this->prophesizeBuilder($builder), []);

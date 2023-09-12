@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\ViolationType;
 use App\Domain\Registry\Model\Violation;
@@ -70,11 +71,11 @@ class ViolationTypeTest extends FormTypeHelper
             'potentialImpactsNature'        => DictionaryType::class,
             'gravity'                       => DictionaryType::class,
             'communication'                 => DictionaryType::class,
-            'communicationPrecision'        => TextareaType::class,
-            'appliedMeasuresAfterViolation' => TextareaType::class,
+            'communicationPrecision'        => SanitizeTextAreaFormType::class,
+            'appliedMeasuresAfterViolation' => SanitizeTextAreaFormType::class,
             'notification'                  => DictionaryType::class,
             'notificationDetails'           => SanitizeTextFormType::class,
-            'comment'                       => TextareaType::class,
+            'comment'                       => SanitizeTextAreaFormType::class,
             'treatments'                    => EntityType::class,
             'contractors'                   => EntityType::class,
             'updatedBy'                     => HiddenType::class,

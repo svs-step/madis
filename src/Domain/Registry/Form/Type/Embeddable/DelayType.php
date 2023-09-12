@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type\Embeddable;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Domain\Registry\Model\Embeddable\Delay;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -57,7 +58,7 @@ class DelayType extends AbstractType
                 'label'    => 'registry.delay.form.other_delay',
                 'required' => false,
             ])
-            ->add('comment', TextareaType::class, [
+            ->add('comment', SanitizeTextAreaFormType::class, [
                 'label'    => false,
                 'required' => false,
             ])

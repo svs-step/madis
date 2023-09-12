@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestAnswerType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestApplicantType;
@@ -72,7 +73,7 @@ class RequestTypeTest extends FormTypeHelper
             'legitimateRequest'    => CheckboxType::class,
             'answer'               => RequestAnswerType::class,
             'state'                => DictionaryType::class,
-            'stateRejectionReason' => TextareaType::class,
+            'stateRejectionReason' => SanitizeTextAreaFormType::class,
             'treatments'           => EntityType::class,
             'updatedBy'            => HiddenType::class,
         ];

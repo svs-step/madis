@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
@@ -130,7 +131,7 @@ class ContractorType extends AbstractType
                 'label'    => 'registry.contractor.form.sending_data_outside_eu',
                 'required' => false,
             ])
-            ->add('otherInformations', TextareaType::class, [
+            ->add('otherInformations', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.contractor.form.other_informations',
                 'required' => false,
                 'attr'     => [

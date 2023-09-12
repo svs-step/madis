@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Treatment;
@@ -206,14 +207,14 @@ class ViolationType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
             ])
-            ->add('communicationPrecision', TextareaType::class, [
+            ->add('communicationPrecision', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.violation.form.communication_precision',
                 'required' => false,
                 'attr'     => [
                     'rows' => 5,
                 ],
             ])
-            ->add('appliedMeasuresAfterViolation', TextareaType::class, [
+            ->add('appliedMeasuresAfterViolation', SanitizeTextAreaFormType::class, [
                 'label' => 'registry.violation.form.applied_measures_after_violation',
                 'attr'  => [
                     'rows' => 5,
@@ -233,7 +234,7 @@ class ViolationType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
-            ->add('comment', TextareaType::class, [
+            ->add('comment', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.violation.form.comment',
                 'required' => false,
                 'attr'     => [

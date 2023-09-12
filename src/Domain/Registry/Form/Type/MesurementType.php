@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
@@ -90,7 +91,7 @@ class MesurementType extends AbstractType
                 'expanded' => true,
             ])
             */
-            ->add('description', TextareaType::class, [
+            ->add('description', SanitizeTextAreaFormType::class, [
                 'label'    => 'registry.mesurement.form.description',
                 'required' => false,
                 'attr'     => [

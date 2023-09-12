@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Maturity\Model;
 use Symfony\Component\Form\AbstractType;
@@ -48,7 +49,7 @@ class ReferentielType extends AbstractType
                     'maxlength' => 1000,
                 ],
             ])
-            ->add('description', TextareaType::class, [
+            ->add('description', SanitizeTextAreaFormType::class, [
                 'label'    => 'maturity.referentiel.form.description',
                 'required' => false,
                 'attr'     => [

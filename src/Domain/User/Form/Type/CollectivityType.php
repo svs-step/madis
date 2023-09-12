@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
@@ -128,7 +129,7 @@ class CollectivityType extends AbstractType
                     'label'    => 'user.collectivity.form.has_module_tools',
                     'required' => false,
                 ])
-                ->add('informationsComplementaires', TextareaType::class, [
+                ->add('informationsComplementaires', SanitizeTextAreaFormType::class, [
                     'label'    => 'user.collectivity.form.informations_complementaires',
                     'required' => false,
                 ])

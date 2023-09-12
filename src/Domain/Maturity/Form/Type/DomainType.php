@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Maturity\Model\Domain;
 use Symfony\Component\Form\AbstractType;
@@ -53,7 +54,7 @@ class DomainType extends AbstractType
                 ],
             ])
 
-            ->add('description', TextareaType::class, [
+            ->add('description', SanitizeTextAreaFormType::class, [
                 'label'    => 'maturity.referentiel.form.description',
                 'required' => false,
                 'attr'     => [

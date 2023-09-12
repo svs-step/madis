@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextAreaFormType;
 use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Form\Type\ToolType;
@@ -74,8 +75,8 @@ class ToolTypeTest extends FormTypeHelper
         $builder = [
             'name'               => SanitizeTextFormType::class,
             'type'               => DictionaryType::class,
-            'description'        => TextareaType::class,
-            'other_info'         => TextareaType::class,
+            'description'        => SanitizeTextAreaFormType::class,
+            'other_info'         => SanitizeTextAreaFormType::class,
             'editor'             => SanitizeTextFormType::class,
             'manager'            => SanitizeTextFormType::class,
             'contractors'        => EntityType::class,
