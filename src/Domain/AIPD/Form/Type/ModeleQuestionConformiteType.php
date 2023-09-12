@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\AIPD\Model\ModeleQuestionConformite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -20,19 +21,19 @@ class ModeleQuestionConformiteType extends AbstractType
                 'required' => false,
                 'label'    => false,
             ])
-            ->add('texteConformite', TextType::class, [
+            ->add('texteConformite', SanitizeTextFormType::class, [
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('texteNonConformiteMineure', TextType::class, [
+            ->add('texteNonConformiteMineure', SanitizeTextFormType::class, [
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('texteNonConformiteMajeure', TextType::class, [
+            ->add('texteNonConformiteMajeure', SanitizeTextFormType::class, [
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,

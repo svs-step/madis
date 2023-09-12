@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -27,7 +28,7 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
         $builder->add('reponse', DictionaryType::class, [
             'name' => 'reponse_critere_fondamental',
         ])
-            ->add('justification', TextType::class, [
+            ->add('justification', SanitizeTextFormType::class, [
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,

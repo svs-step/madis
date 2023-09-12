@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Documentation\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Documentation\Model;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -38,7 +39,7 @@ class CategoryType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('name', SanitizeTextFormType::class, [
                 'label' => 'documentation.category.form.label.name',
             ])
         ;

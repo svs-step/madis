@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\User\Form\Type\ContactType;
@@ -66,7 +67,7 @@ class ContractorType extends AbstractType
     {
         $contractor = $options['data'];
         $builder
-            ->add('name', TextType::class, [
+            ->add('name', SanitizeTextFormType::class, [
                 'label'    => 'registry.contractor.form.name',
                 'required' => true,
                 'attr'     => [
@@ -106,7 +107,7 @@ class ContractorType extends AbstractType
         /** @var User $user */
         $user = $this->security->getUser();
         $builder
-            ->add('referent', TextType::class, [
+            ->add('referent', SanitizeTextFormType::class, [
                 'label'    => 'registry.contractor.form.referent',
                 'required' => false,
                 'attr'     => [

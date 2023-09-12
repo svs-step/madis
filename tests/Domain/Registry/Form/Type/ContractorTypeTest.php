@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\ContractorType;
 use App\Domain\Registry\Form\Type\Embeddable\AddressType;
 use App\Domain\Registry\Model\Contractor;
@@ -55,9 +56,9 @@ class ContractorTypeTest extends FormTypeHelper
         $contractor->setCollectivity($collectivity);
 
         $builder = [
-            'name'                       => TextType::class,
+            'name'                       => SanitizeTextFormType::class,
             'service'                    => EntityType::class,
-            'referent'                   => TextType::class,
+            'referent'                   => SanitizeTextFormType::class,
             'contractualClausesVerified' => CheckboxType::class,
             'adoptedSecurityFeatures'    => CheckboxType::class,
             'maintainsTreatmentRegister' => CheckboxType::class,

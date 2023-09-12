@@ -2,6 +2,7 @@
 
 namespace App\Tests\Domain\Registry\Form\Type\ConformiteOrganisation;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\ConformiteOrganisation\PiloteType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use App\Tests\Utils\FormTypeHelper;
@@ -40,7 +41,7 @@ class PiloteTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'pilote' => TextType::class,
+            'pilote' => SanitizeTextFormType::class,
         ];
         $this->formType->buildForm($this->prophesizeBuilder($builder), []);
     }

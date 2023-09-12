@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\ViolationType;
 use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Model\Collectivity;
@@ -72,7 +73,7 @@ class ViolationTypeTest extends FormTypeHelper
             'communicationPrecision'        => TextareaType::class,
             'appliedMeasuresAfterViolation' => TextareaType::class,
             'notification'                  => DictionaryType::class,
-            'notificationDetails'           => TextType::class,
+            'notificationDetails'           => SanitizeTextFormType::class,
             'comment'                       => TextareaType::class,
             'treatments'                    => EntityType::class,
             'contractors'                   => EntityType::class,

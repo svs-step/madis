@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type\Embeddable;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\Embeddable\Address;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -41,28 +42,28 @@ class AddressType extends AbstractType
         $required = \in_array('contractor', $options['validation_groups']);
 
         $builder
-            ->add('lineOne', TextType::class, [
+            ->add('lineOne', SanitizeTextFormType::class, [
                 'label'    => 'registry.address.form.line_one',
                 'required' => $required,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('lineTwo', TextType::class, [
+            ->add('lineTwo', SanitizeTextFormType::class, [
                 'label'    => 'registry.address.form.line_two',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('city', TextType::class, [
+            ->add('city', SanitizeTextFormType::class, [
                 'label'    => 'registry.address.form.city',
                 'required' => $required,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('zipCode', TextType::class, [
+            ->add('zipCode', SanitizeTextFormType::class, [
                 'label'    => 'registry.address.form.zip_code',
                 'required' => $required,
                 'attr'     => [
@@ -76,11 +77,11 @@ class AddressType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
-            ->add('phoneNumber', TextType::class, [
+            ->add('phoneNumber', SanitizeTextFormType::class, [
                 'label'    => 'registry.address.form.phone_number',
                 'required' => $required,
             ])
-            ->add('country', TextType::class, [
+            ->add('country', SanitizeTextFormType::class, [
             'label'    => 'registry.address.form.country',
             'required' => $required,
             'attr'     => [

@@ -23,6 +23,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\User\Model\Service;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -36,7 +37,7 @@ class ServiceType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', TextType::class, [
+        $builder->add('name', SanitizeTextFormType::class, [
             'label'             => 'Nom',
             'validation_groups' => ['default'],
         ]);

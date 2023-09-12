@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\AIPD\Model\ModeleAnalyse;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -19,31 +20,31 @@ class ModeleAnalyseType extends AbstractType
         switch ($options['flow_step']) {
             case 1:
                 $builder
-                    ->add('nom', TextType::class, [
+                    ->add('nom', SanitizeTextFormType::class, [
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
                         ],
                     ])
-                    ->add('description', TextType::class, [
+                    ->add('description', SanitizeTextFormType::class, [
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
                         ],
                     ])
-                    ->add('labelAmeliorationPrevue', TextType::class, [
+                    ->add('labelAmeliorationPrevue', SanitizeTextFormType::class, [
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
                         ],
                     ])
-                    ->add('labelInsatisfaisant', TextType::class, [
+                    ->add('labelInsatisfaisant', SanitizeTextFormType::class, [
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
                         ],
                     ])
-                    ->add('labelSatisfaisant', TextType::class, [
+                    ->add('labelSatisfaisant', SanitizeTextFormType::class, [
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,

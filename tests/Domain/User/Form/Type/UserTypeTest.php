@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\User\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\User\Form\DataTransformer\MoreInfoTransformer;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Form\Type\EmailNotificationPreferenceType;
@@ -111,8 +112,8 @@ class UserTypeTest extends FormTypeHelper
             true
         );
         $builder = [
-            'firstName'                   => TextType::class,
-            'lastName'                    => TextType::class,
+            'firstName'                   => SanitizeTextFormType::class,
+            'lastName'                    => SanitizeTextFormType::class,
             'email'                       => EmailType::class,
             'collectivity'                => EntityType::class,
             'roles'                       => DictionaryType::class,
@@ -123,7 +124,7 @@ class UserTypeTest extends FormTypeHelper
             'collectivitesReferees'       => EntityType::class,
             'emailNotificationPreference' => EmailNotificationPreferenceType::class,
             'apiAuthorized'               => CheckboxType::class,
-            'ssoKey'                      => TextType::class,
+            'ssoKey'                      => SanitizeTextFormType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
@@ -168,8 +169,8 @@ class UserTypeTest extends FormTypeHelper
         );
 
         $builder = [
-            'firstName'             => TextType::class,
-            'lastName'              => TextType::class,
+            'firstName'             => SanitizeTextFormType::class,
+            'lastName'              => SanitizeTextFormType::class,
             'email'                 => EmailType::class,
             'collectivity'          => EntityType::class,
             'roles'                 => DictionaryType::class,
@@ -178,7 +179,7 @@ class UserTypeTest extends FormTypeHelper
             'plainPassword'         => RepeatedType::class,
             'collectivitesReferees' => EntityType::class,
             'apiAuthorized'         => CheckboxType::class,
-            'ssoKey'                => TextType::class,
+            'ssoKey'                => SanitizeTextFormType::class,
         ];
 
         $this->authorizationCheckerProphecy->isGranted('ROLE_ADMIN')->shouldBeCalled()->willReturn(true);
@@ -225,8 +226,8 @@ class UserTypeTest extends FormTypeHelper
         );
 
         $builder = [
-            'firstName'                   => TextType::class,
-            'lastName'                    => TextType::class,
+            'firstName'                   => SanitizeTextFormType::class,
+            'lastName'                    => SanitizeTextFormType::class,
             'email'                       => EmailType::class,
             'moreInfos'                   => DictionaryType::class,
             'emailNotificationPreference' => EmailNotificationPreferenceType::class,
@@ -274,8 +275,8 @@ class UserTypeTest extends FormTypeHelper
         );
 
         $builder = [
-            'firstName'     => TextType::class,
-            'lastName'      => TextType::class,
+            'firstName'     => SanitizeTextFormType::class,
+            'lastName'      => SanitizeTextFormType::class,
             'email'         => EmailType::class,
             'moreInfos'     => DictionaryType::class,
             'plainPassword' => RepeatedType::class,

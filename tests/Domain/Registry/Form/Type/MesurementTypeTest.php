@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\MesurementType;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Model\Collectivity;
@@ -67,15 +68,15 @@ class MesurementTypeTest extends FormTypeHelper
         $mesurement->setCollectivity($collectivity);
 
         $builder = [
-            'name'              => TextType::class,
+            'name'              => SanitizeTextFormType::class,
             'description'       => TextareaType::class,
-            'cost'              => TextType::class,
-            'charge'            => TextType::class,
+            'cost'              => SanitizeTextFormType::class,
+            'charge'            => SanitizeTextFormType::class,
             'status'            => DictionaryType::class,
             'planificationDate' => DateType::class,
-            'comment'           => TextType::class,
+            'comment'           => SanitizeTextFormType::class,
             'priority'          => DictionaryType::class,
-            'manager'           => TextType::class,
+            'manager'           => SanitizeTextFormType::class,
             'contractors'       => EntityType::class,
             'treatments'        => EntityType::class,
             'violations'        => EntityType::class,

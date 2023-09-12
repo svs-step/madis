@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\Request;
@@ -73,7 +74,7 @@ class MesurementType extends AbstractType
             $collectivity = $user->getCollectivity();
         }
         $builder
-            ->add('name', TextType::class, [
+            ->add('name', SanitizeTextFormType::class, [
                 'label'    => 'registry.mesurement.form.name',
                 'required' => true,
                 'attr'     => [
@@ -96,14 +97,14 @@ class MesurementType extends AbstractType
                     'rows' => 3,
                 ],
             ])
-            ->add('cost', TextType::class, [
+            ->add('cost', SanitizeTextFormType::class, [
                 'label'    => 'registry.mesurement.form.cost',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('charge', TextType::class, [
+            ->add('charge', SanitizeTextFormType::class, [
                 'label'    => 'registry.mesurement.form.charge',
                 'required' => false,
                 'attr'     => [
@@ -127,7 +128,7 @@ class MesurementType extends AbstractType
                     'class' => 'datepicker',
                 ],
             ])
-            ->add('comment', TextType::class, [
+            ->add('comment', SanitizeTextFormType::class, [
                 'label'    => 'registry.mesurement.form.comment',
                 'required' => false,
                 'attr'     => [
@@ -140,7 +141,7 @@ class MesurementType extends AbstractType
                 'required' => false,
                 'multiple' => false,
             ])
-            ->add('manager', TextType::class, [
+            ->add('manager', SanitizeTextFormType::class, [
                 'label'    => 'registry.mesurement.form.manager',
                 'required' => false,
                 'attr'     => [

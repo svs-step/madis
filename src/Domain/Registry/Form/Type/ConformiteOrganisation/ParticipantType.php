@@ -2,6 +2,7 @@
 
 namespace App\Domain\Registry\Form\Type\ConformiteOrganisation;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Participant;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -14,14 +15,14 @@ class ParticipantType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('prenom', TextType::class, [
+            ->add('prenom', SanitizeTextFormType::class, [
                 'label'    => 'registry.conformite_organisation.participant.form.prenom',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('nomDeFamille', TextType::class, [
+            ->add('nomDeFamille', SanitizeTextFormType::class, [
                 'label'    => 'registry.conformite_organisation.participant.form.nom_famille',
                 'required' => true,
                 'attr'     => [
@@ -33,7 +34,7 @@ class ParticipantType extends AbstractType
                 'required' => true,
                 'name'     => 'user_contact_civility',
             ])
-            ->add('fonction', TextType::class, [
+            ->add('fonction', SanitizeTextFormType::class, [
                 'label'    => 'registry.conformite_organisation.participant.form.fonction',
                 'required' => true,
                 'attr'     => [

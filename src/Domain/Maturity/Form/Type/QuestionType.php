@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Maturity\Model\Question;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ButtonType;
@@ -46,7 +47,7 @@ class QuestionType extends AbstractType
     {
         /* @var Question $question */
         $builder
-            ->add('name', TextType::class, [
+            ->add('name', SanitizeTextFormType::class, [
                 'label'    => 'maturity.referentiel.form.question_name',
                 'required' => true,
                 'attr'     => [
@@ -70,7 +71,7 @@ class QuestionType extends AbstractType
                 'label'    => "Activer l'option : Non concerné",
                 'required' => false,
             ])
-            ->add('optionReason', TextType::class, [
+            ->add('optionReason', SanitizeTextFormType::class, [
                 'label'    => false,
                 'required' => false,
                 'attr'     => [

@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\User\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\User\Form\Type\AddressType;
 use App\Domain\User\Model\Embeddable\Address;
 use App\Tests\Utils\FormTypeHelper;
@@ -44,11 +45,11 @@ class AddressTypeTest extends FormTypeHelper
     public function testBuildForm(): void
     {
         $builder = [
-            'lineOne' => TextType::class,
-            'lineTwo' => TextType::class,
-            'city'    => TextType::class,
-            'zipCode' => TextType::class,
-            'insee'   => TextType::class,
+            'lineOne' => SanitizeTextFormType::class,
+            'lineTwo' => SanitizeTextFormType::class,
+            'city'    => SanitizeTextFormType::class,
+            'zipCode' => SanitizeTextFormType::class,
+            'insee'   => SanitizeTextFormType::class,
         ];
 
         (new AddressType())->buildForm($this->prophesizeBuilder($builder), []);

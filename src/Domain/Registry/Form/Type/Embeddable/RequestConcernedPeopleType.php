@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type\Embeddable;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\Embeddable\RequestConcernedPeople;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -45,21 +46,21 @@ class RequestConcernedPeopleType extends AbstractType
                 'required' => false,
                 'name'     => 'registry_request_civility',
             ])
-            ->add('firstName', TextType::class, [
+            ->add('firstName', SanitizeTextFormType::class, [
                 'label'    => 'registry.request_concerned_people.form.first_name',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('lastName', TextType::class, [
+            ->add('lastName', SanitizeTextFormType::class, [
                 'label'    => 'registry.request_concerned_people.form.last_name',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('address', TextType::class, [
+            ->add('address', SanitizeTextFormType::class, [
                 'label'    => 'registry.request_concerned_people.form.address',
                 'required' => false,
                 'attr'     => [
@@ -70,11 +71,11 @@ class RequestConcernedPeopleType extends AbstractType
                 'label'    => 'registry.request_concerned_people.form.mail',
                 'required' => false,
             ])
-            ->add('phoneNumber', TextType::class, [
+            ->add('phoneNumber', SanitizeTextFormType::class, [
                 'label'    => 'registry.request_concerned_people.form.phone_number',
                 'required' => false,
             ])
-            ->add('linkWithApplicant', TextType::class, [
+            ->add('linkWithApplicant', SanitizeTextFormType::class, [
                 'label'    => 'registry.request_concerned_people.form.link_with_applicant',
                 'required' => false,
                 'attr'     => [

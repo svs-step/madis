@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Maturity\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Maturity\Form\Type\ReferentielType;
 use App\Domain\Maturity\Model\Referentiel;
 use App\Tests\Utils\FormTypeHelper;
@@ -46,7 +47,7 @@ class ReferentielTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'name'        => TextType::class,
+            'name'        => SanitizeTextFormType::class,
             'description' => TextareaType::class,
             'domains'     => CollectionType::class,
         ];

@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\ProofType;
 use App\Domain\Registry\Model;
 use App\Domain\User\Model as UserModel;
@@ -86,10 +87,10 @@ class ProofTypeTest extends FormTypeHelper
 
         $proof->setCollectivity($collectivity);
         $builder = [
-            'name'         => TextType::class,
+            'name'         => SanitizeTextFormType::class,
             'type'         => DictionaryType::class,
             'documentFile' => FileType::class,
-            'comment'      => TextType::class,
+            'comment'      => SanitizeTextFormType::class,
             'treatments'   => EntityType::class,
             'contractors'  => EntityType::class,
             'mesurements'  => EntityType::class,

@@ -2,6 +2,7 @@
 
 namespace App\Domain\AIPD\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\AIPD\Model\AnalyseScenarioMenace;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -54,7 +55,7 @@ class AnalyseScenarioMenaceType extends AbstractType
                     'class' => 'gravite-dropdown',
                 ],
             ])
-            ->add('precisions', TextType::class, [
+            ->add('precisions', SanitizeTextFormType::class, [
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,

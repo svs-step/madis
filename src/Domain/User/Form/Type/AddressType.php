@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\User\Model\Embeddable\Address;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -38,35 +39,35 @@ class AddressType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('lineOne', TextType::class, [
+            ->add('lineOne', SanitizeTextFormType::class, [
                 'label'    => 'user.address.form.line_one',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('lineTwo', TextType::class, [
+            ->add('lineTwo', SanitizeTextFormType::class, [
                 'label'    => 'user.address.form.line_two',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('city', TextType::class, [
+            ->add('city', SanitizeTextFormType::class, [
                 'label'    => 'user.address.form.city',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('zipCode', TextType::class, [
+            ->add('zipCode', SanitizeTextFormType::class, [
                 'label'    => 'user.address.form.zip_code',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 5,
                 ],
             ])
-            ->add('insee', TextType::class, [
+            ->add('insee', SanitizeTextFormType::class, [
                 'label'    => 'user.address.form.insee',
                 'required' => true,
                 'attr'     => [

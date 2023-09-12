@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Documentation\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Documentation\Model;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -65,7 +66,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'required'   => false,
                 'empty_data' => '0',
             ])
-            ->add('name', TextType::class, [
+            ->add('name', SanitizeTextFormType::class, [
                 'label' => 'documentation.document.form.label.name',
             ])
             ->add('categories', EntityType::class, [

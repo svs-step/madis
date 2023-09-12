@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Documentation\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Documentation\Form\Type\DocumentType;
 use App\Domain\Documentation\Model\Document;
 use App\Tests\Utils\FormTypeHelper;
@@ -58,7 +59,7 @@ class DocumentTypeTest extends FormTypeHelper
     {
         $builder = [
             'isLink'            => HiddenType::class,
-            'name'              => TextType::class,
+            'name'              => SanitizeTextFormType::class,
             'categories'        => EntityType::class,
             'pinned'            => CheckboxType::class,
             'thumbUploadedFile' => FileType::class,

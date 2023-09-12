@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\AIPD\Model\ModeleMesureProtection;
 use App\Domain\AIPD\Model\ModeleScenarioMenace;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
@@ -19,7 +20,7 @@ class ModeleScenarioMenaceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, [
+            ->add('nom', SanitizeTextFormType::class, [
                 'label' => false,
                 'attr'  => [
                     'maxlength' => 255,
@@ -63,7 +64,7 @@ class ModeleScenarioMenaceType extends AbstractType
                 'name'     => 'modele_vraisemblance_gravite',
                 'label'    => false,
             ])
-            ->add('precisions', TextType::class, [
+            ->add('precisions', SanitizeTextFormType::class, [
                 'required' => false,
                 'label'    => false,
                 'attr'     => [

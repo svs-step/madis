@@ -2,6 +2,7 @@
 
 namespace App\Domain\Registry\Form\Type\ConformiteOrganisation;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Reponse;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -27,7 +28,7 @@ class ReponseType extends AbstractType
                     return ['required' => 'required'];
                 },
             ])
-            ->add('reponseRaison', TextType::class, [
+            ->add('reponseRaison', SanitizeTextFormType::class, [
                 'label'    => false,
                 'required' => false,
                 'attr'     => [

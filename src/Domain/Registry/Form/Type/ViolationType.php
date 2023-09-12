@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
@@ -225,7 +226,7 @@ class ViolationType extends AbstractType
                 'expanded' => true,
                 'multiple' => false,
             ])
-            ->add('notificationDetails', TextType::class, [
+            ->add('notificationDetails', SanitizeTextFormType::class, [
                 'label'    => 'registry.violation.form.notification_details',
                 'required' => false,
                 'attr'     => [

@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Maturity\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Maturity\Form\Type\AnswerType;
 use App\Domain\Maturity\Model\Answer;
 use App\Tests\Utils\FormTypeHelper;
@@ -45,8 +46,8 @@ class AnswerTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'name'           => TextType::class,
-            'recommendation' => TextType::class,
+            'name'           => SanitizeTextFormType::class,
+            'recommendation' => SanitizeTextFormType::class,
             'position'       => HiddenType::class,
         ];
 

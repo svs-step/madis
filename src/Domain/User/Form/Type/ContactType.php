@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\User\Model\Embeddable\Contact;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -71,21 +72,21 @@ class ContactType extends AbstractType
                 'required' => $required,
                 'name'     => 'user_contact_civility',
             ])
-            ->add('firstName', TextType::class, [
+            ->add('firstName', SanitizeTextFormType::class, [
                 'label'    => 'user.contact.form.first_name',
                 'required' => $required,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('lastName', TextType::class, [
+            ->add('lastName', SanitizeTextFormType::class, [
                 'label'    => 'user.contact.form.last_name',
                 'required' => $required,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('job', TextType::class, [
+            ->add('job', SanitizeTextFormType::class, [
                 'label'    => 'user.contact.form.job',
                 'required' => $required,
                 'attr'     => [
@@ -115,7 +116,7 @@ class ContactType extends AbstractType
             ]);
         }
 
-        $builder->add('phoneNumber', TextType::class, [
+        $builder->add('phoneNumber', SanitizeTextFormType::class, [
             'label'    => 'user.contact.form.phone_number',
             'required' => $isComiteIl ? false : $required,
             'attr'     => [

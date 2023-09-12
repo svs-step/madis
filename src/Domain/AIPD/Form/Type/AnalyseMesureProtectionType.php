@@ -2,6 +2,7 @@
 
 namespace App\Domain\AIPD\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\AIPD\Model\AbstractMesureProtection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -18,7 +19,7 @@ class AnalyseMesureProtectionType extends AbstractType
                 'expanded'    => false,
                 'placeholder' => 'Pas de réponse',
             ])
-            ->add('detail', TextType::class, [
+            ->add('detail', SanitizeTextFormType::class, [
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,

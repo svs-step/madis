@@ -2,6 +2,7 @@
 
 namespace App\Domain\Registry\Form\Type\ConformiteOrganisation;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Conformite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -13,7 +14,7 @@ class PiloteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pilote', TextType::class);
+            ->add('pilote', SanitizeTextFormType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver)

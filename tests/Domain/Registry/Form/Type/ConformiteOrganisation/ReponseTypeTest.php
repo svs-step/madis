@@ -2,6 +2,7 @@
 
 namespace App\Tests\Domain\Registry\Form\Type\ConformiteOrganisation;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\ConformiteOrganisation\ReponseType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Reponse;
 use App\Tests\Utils\FormTypeHelper;
@@ -24,7 +25,7 @@ class ReponseTypeTest extends FormTypeHelper
     {
         $builder = [
             'reponse'       => DictionaryType::class,
-            'reponseRaison' => TextType::class,
+            'reponseRaison' => SanitizeTextFormType::class,
         ];
 
         (new ReponseType())->buildForm($this->prophesizeBuilder($builder), []);

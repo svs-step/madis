@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Maturity\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Maturity\Model\Answer;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
@@ -39,7 +40,7 @@ class AnswerType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('name', SanitizeTextFormType::class, [
                 'label'    => 'maturity.referentiel.form.answer.name',
                 'required' => true,
                 'attr'     => [
@@ -47,7 +48,7 @@ class AnswerType extends AbstractType
                     'required'  => 'required',
                 ],
             ])
-            ->add('recommendation', TextType::class, [
+            ->add('recommendation', SanitizeTextFormType::class, [
                 'label'    => 'maturity.referentiel.form.recommendation',
                 'required' => false,
                 'attr'     => [

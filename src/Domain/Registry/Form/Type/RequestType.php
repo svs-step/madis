@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestAnswerType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestApplicantType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestConcernedPeopleType;
@@ -109,7 +110,7 @@ class RequestType extends AbstractType
         /** @var User $user */
         $user = $this->security->getUser();
         $builder
-            ->add('otherObject', TextType::class, [
+            ->add('otherObject', SanitizeTextFormType::class, [
                 'label'    => 'registry.request.form.other_object',
                 'required' => false,
                 'attr'     => [
@@ -126,7 +127,7 @@ class RequestType extends AbstractType
                     'class' => 'datepicker',
                 ],
             ])
-            ->add('reason', TextType::class, [
+            ->add('reason', SanitizeTextFormType::class, [
                 'label'    => 'registry.request.form.reason',
                 'required' => false,
                 'attr'     => [

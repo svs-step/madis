@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type\Embeddable;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -47,7 +48,7 @@ class ComplexChoiceType extends AbstractType
                 ],
                 'error_bubbling' => true,
             ])
-            ->add('comment', TextType::class, [
+            ->add('comment', SanitizeTextFormType::class, [
                 'label'    => false,
                 'required' => false,
                 'attr'     => [

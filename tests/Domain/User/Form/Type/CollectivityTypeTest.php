@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\User\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\User\Form\Type\AddressType;
 use App\Domain\User\Form\Type\CollectivityType;
 use App\Domain\User\Form\Type\ContactType;
@@ -77,8 +78,8 @@ class CollectivityTypeTest extends FormTypeHelper
     public function testBuildFormAdmin(): void
     {
         $builder = [
-            'name'                                => TextType::class,
-            'shortName'                           => TextType::class,
+            'name'                                => SanitizeTextFormType::class,
+            'shortName'                           => SanitizeTextFormType::class,
             'type'                                => DictionaryType::class,
             'siren'                               => NumberType::class,
             'active'                              => ChoiceType::class,
@@ -99,7 +100,7 @@ class CollectivityTypeTest extends FormTypeHelper
             'hasModuleTools'                      => CheckboxType::class,
             'isServicesEnabled'                   => CheckboxType::class,
             'services'                            => CollectionType::class,
-            'finessGeo'                           => TextType::class,
+            'finessGeo'                           => SanitizeTextFormType::class,
             'population'                          => NumberType::class,
             'nbrAgents'                           => NumberType::class,
             'nbrCnil'                             => NumberType::class,

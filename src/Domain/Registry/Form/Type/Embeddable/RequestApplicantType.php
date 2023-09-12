@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type\Embeddable;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\Embeddable\RequestApplicant;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -46,21 +47,21 @@ class RequestApplicantType extends AbstractType
                 'required' => true,
                 'name'     => 'registry_request_civility',
             ])
-            ->add('firstName', TextType::class, [
+            ->add('firstName', SanitizeTextFormType::class, [
                 'label'    => 'registry.request_applicant.form.first_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('lastName', TextType::class, [
+            ->add('lastName', SanitizeTextFormType::class, [
                 'label'    => 'registry.request_applicant.form.last_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('address', TextType::class, [
+            ->add('address', SanitizeTextFormType::class, [
                 'label'    => 'registry.request_applicant.form.address',
                 'required' => false,
                 'attr'     => [
@@ -71,7 +72,7 @@ class RequestApplicantType extends AbstractType
                 'label'    => 'registry.request_applicant.form.mail',
                 'required' => false,
             ])
-            ->add('phoneNumber', TextType::class, [
+            ->add('phoneNumber', SanitizeTextFormType::class, [
                 'label'    => 'registry.request_applicant.form.phone_number',
                 'required' => false,
             ])

@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\User\Form\DataTransformer\MoreInfoTransformer;
 use App\Domain\User\Form\DataTransformer\RoleTransformer;
 use App\Domain\User\Model\Collectivity;
@@ -144,7 +145,7 @@ class UserType extends AbstractType
                         'aria-label'       => 'Structures rattachées',
                     ],
                 ])
-                ->add('ssoKey', TextType::class, [
+                ->add('ssoKey', SanitizeTextFormType::class, [
                     'label'    => 'user.user.form.sso_key',
                     'required' => false,
                     'attr'     => [
@@ -208,14 +209,14 @@ class UserType extends AbstractType
 
         // Now add standard information
         $builder
-            ->add('firstName', TextType::class, [
+            ->add('firstName', SanitizeTextFormType::class, [
                 'label'    => 'user.user.form.first_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('lastName', TextType::class, [
+            ->add('lastName', SanitizeTextFormType::class, [
                 'label'    => 'user.user.form.last_name',
                 'required' => true,
                 'attr'     => [

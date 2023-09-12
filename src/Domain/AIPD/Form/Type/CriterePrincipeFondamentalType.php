@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -27,8 +28,8 @@ class CriterePrincipeFondamentalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label', TextType::class)
-            ->add('labelLivrable', TextType::class, [
+            ->add('label', SanitizeTextFormType::class)
+            ->add('labelLivrable', SanitizeTextFormType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
@@ -40,22 +41,22 @@ class CriterePrincipeFondamentalType extends AbstractType
                 'label'    => false,
                 'required' => false,
             ])
-            ->add('texteConformite', TextType::class, [
+            ->add('texteConformite', SanitizeTextFormType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('texteNonConformite', TextType::class, [
+            ->add('texteNonConformite', SanitizeTextFormType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('texteNonApplicable', TextType::class, [
+            ->add('texteNonApplicable', SanitizeTextFormType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('justification', TextType::class, [
+            ->add('justification', SanitizeTextFormType::class, [
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,

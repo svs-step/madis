@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\AIPD\Model\AnalyseQuestionConformite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -15,7 +16,7 @@ class AnalyseQuestionConformiteType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('justificatif', TextType::class, [
+            ->add('justificatif', SanitizeTextFormType::class, [
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,

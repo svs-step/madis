@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\User\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use FOS\CKEditorBundle\Form\Type\CKEditorType;
@@ -73,14 +74,14 @@ class CollectivityType extends AbstractType
         // Add collectivity general information only for admins
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $builder
-                ->add('name', TextType::class, [
+                ->add('name', SanitizeTextFormType::class, [
                     'label'    => 'user.collectivity.form.name',
                     'required' => true,
                     'attr'     => [
                         'maxlength' => 255,
                     ],
                 ])
-                ->add('shortName', TextType::class, [
+                ->add('shortName', SanitizeTextFormType::class, [
                     'label'    => 'user.collectivity.form.short_name',
                     'required' => true,
                     'attr'     => [
@@ -131,7 +132,7 @@ class CollectivityType extends AbstractType
                     'label'    => 'user.collectivity.form.informations_complementaires',
                     'required' => false,
                 ])
-                ->add('finessGeo', TextType::class, [
+                ->add('finessGeo', SanitizeTextFormType::class, [
                     'label'    => 'user.collectivity.form.finess_geo',
                     'required' => false,
                     'attr'     => [

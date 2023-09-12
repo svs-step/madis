@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Form\Type\ToolType;
 use App\Domain\Registry\Model\Tool;
@@ -71,17 +72,17 @@ class ToolTypeTest extends FormTypeHelper
         $tool->setCollectivity($collectivity);
 
         $builder = [
-            'name'               => TextType::class,
+            'name'               => SanitizeTextFormType::class,
             'type'               => DictionaryType::class,
             'description'        => TextareaType::class,
             'other_info'         => TextareaType::class,
-            'editor'             => TextType::class,
-            'manager'            => TextType::class,
+            'editor'             => SanitizeTextFormType::class,
+            'manager'            => SanitizeTextFormType::class,
             'contractors'        => EntityType::class,
             'prod_date'          => DateType::class,
             'country_type'       => ChoiceType::class,
-            'country_name'       => TextType::class,
-            'country_guarantees' => TextType::class,
+            'country_name'       => SanitizeTextFormType::class,
+            'country_guarantees' => SanitizeTextFormType::class,
             'archival'           => ComplexChoiceType::class,
             'tracking'           => ComplexChoiceType::class,
             'encrypted'          => ComplexChoiceType::class,

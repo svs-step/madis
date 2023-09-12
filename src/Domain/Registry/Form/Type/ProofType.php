@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Model\Tool;
 use App\Domain\User\Model as UserModel;
@@ -74,7 +75,7 @@ class ProofType extends AbstractType
         }
 
         $builder
-            ->add('name', TextType::class, [
+            ->add('name', SanitizeTextFormType::class, [
                 'label'    => 'registry.proof.form.name',
                 'required' => true,
                 'attr'     => [
@@ -122,7 +123,7 @@ class ProofType extends AbstractType
                     ]),
                 ],
             ])
-            ->add('comment', TextType::class, [
+            ->add('comment', SanitizeTextFormType::class, [
                 'label'    => 'registry.proof.form.comment',
                 'required' => false,
                 'attr'     => [

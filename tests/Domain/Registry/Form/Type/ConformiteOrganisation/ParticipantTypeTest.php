@@ -2,6 +2,7 @@
 
 namespace App\Tests\Domain\Registry\Form\Type\ConformiteOrganisation;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\ConformiteOrganisation\ParticipantType;
 use App\Domain\Registry\Model\ConformiteOrganisation\Participant;
 use App\Tests\Utils\FormTypeHelper;
@@ -23,10 +24,10 @@ class ParticipantTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'prenom'       => TextType::class,
-            'nomDeFamille' => TextType::class,
+            'prenom'       => SanitizeTextFormType::class,
+            'nomDeFamille' => SanitizeTextFormType::class,
             'civilite'     => DictionaryType::class,
-            'fonction'     => TextType::class,
+            'fonction'     => SanitizeTextFormType::class,
         ];
 
         (new ParticipantType())->buildForm($this->prophesizeBuilder($builder), []);

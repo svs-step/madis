@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestAnswerType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestApplicantType;
 use App\Domain\Registry\Form\Type\Embeddable\RequestConcernedPeopleType;
@@ -61,9 +62,9 @@ class RequestTypeTest extends FormTypeHelper
         $builder = [
             'object'               => DictionaryType::class,
             'service'              => EntityType::class,
-            'otherObject'          => TextType::class,
+            'otherObject'          => SanitizeTextFormType::class,
             'date'                 => DateType::class,
-            'reason'               => TextType::class,
+            'reason'               => SanitizeTextFormType::class,
             'applicant'            => RequestApplicantType::class,
             'concernedPeople'      => RequestConcernedPeopleType::class,
             'complete'             => CheckboxType::class,

@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Tool;
@@ -66,7 +67,7 @@ class ToolType extends AbstractType
         /** @var Tool $tool */
         $tool = $options['data'] ?? null;
         $builder
-            ->add('name', TextType::class, [
+            ->add('name', SanitizeTextFormType::class, [
                 'label'    => 'registry.tool.form.name',
                 'required' => true,
                 'attr'     => [
@@ -99,14 +100,14 @@ class ToolType extends AbstractType
                     'maxlength' => 255,
                 ],
             ])
-            ->add('editor', TextType::class, [
+            ->add('editor', SanitizeTextFormType::class, [
                 'label'    => 'registry.tool.form.editor',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('manager', TextType::class, [
+            ->add('manager', SanitizeTextFormType::class, [
                 'label'    => 'registry.tool.form.manager',
                 'required' => false,
                 'attr'     => [
@@ -169,12 +170,12 @@ class ToolType extends AbstractType
                 'required' => false,
             ])
 
-            ->add('country_name', TextType::class, [
+            ->add('country_name', SanitizeTextFormType::class, [
                 'label'    => 'registry.tool.form.country_name',
                 'required' => false,
             ])
 
-            ->add('country_guarantees', TextType::class, [
+            ->add('country_guarantees', SanitizeTextFormType::class, [
                 'label'    => 'registry.tool.form.country_guarantees',
                 'required' => true,
             ])

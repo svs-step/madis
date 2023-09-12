@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model\Treatment;
@@ -88,12 +89,12 @@ class TreatmentTypeTest extends FormTypeHelper
 
         $builder = [
             'public'                            => CheckboxType::class,
-            'name'                              => TextType::class,
+            'name'                              => SanitizeTextFormType::class,
             'exempt_AIPD'                       => CheckboxType::class,
             'service'                           => EntityType::class,
             'goal'                              => TextareaType::class,
-            'manager'                           => TextType::class,
-            'software'                          => TextType::class,
+            'manager'                           => SanitizeTextFormType::class,
+            'software'                          => SanitizeTextFormType::class,
             'paperProcessing'                   => CheckboxType::class,
             'legalBasis'                        => DictionaryType::class,
             'legalBasisJustification'           => TextareaType::class,
@@ -108,7 +109,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'concernedPeopleOther'              => ComplexChoiceType::class,
             'dataCategories'                    => EntityType::class,
             'dataCategoryOther'                 => TextareaType::class,
-            'dataOrigin'                        => TextType::class,
+            'dataOrigin'                        => SanitizeTextFormType::class,
             'recipientCategory'                 => TextareaType::class,
             'contractors'                       => EntityType::class,
             'shelfLifes'                        => CollectionType::class,
@@ -133,10 +134,10 @@ class TreatmentTypeTest extends FormTypeHelper
             'securityEntitledPersons'           => CheckboxType::class,
             'securityOpenAccounts'              => CheckboxType::class,
             'securitySpecificitiesDelivered'    => CheckboxType::class,
-            'otherCollectingMethod'             => TextType::class,
+            'otherCollectingMethod'             => SanitizeTextFormType::class,
             'legalMentions'                     => CheckboxType::class,
             'consentRequest'                    => CheckboxType::class,
-            'consentRequestFormat'              => TextType::class,
+            'consentRequestFormat'              => SanitizeTextFormType::class,
             'updatedBy'                         => HiddenType::class,
             'statut'                            => HiddenType::class,
         ];
@@ -154,11 +155,11 @@ class TreatmentTypeTest extends FormTypeHelper
 
         $builder = [
             'public'                            => CheckboxType::class,
-            'name'                              => TextType::class,
+            'name'                              => SanitizeTextFormType::class,
             'exempt_AIPD'                       => CheckboxType::class,
             'service'                           => EntityType::class,
             'goal'                              => TextareaType::class,
-            'manager'                           => TextType::class,
+            'manager'                           => SanitizeTextFormType::class,
             'tools'                             => EntityType::class,
             'paperProcessing'                   => CheckboxType::class,
             'legalBasis'                        => DictionaryType::class,
@@ -174,7 +175,7 @@ class TreatmentTypeTest extends FormTypeHelper
             'concernedPeopleOther'              => ComplexChoiceType::class,
             'dataCategories'                    => EntityType::class,
             'dataCategoryOther'                 => TextareaType::class,
-            'dataOrigin'                        => TextType::class,
+            'dataOrigin'                        => SanitizeTextFormType::class,
             'recipientCategory'                 => TextareaType::class,
             'contractors'                       => EntityType::class,
             'shelfLifes'                        => CollectionType::class,
@@ -199,10 +200,10 @@ class TreatmentTypeTest extends FormTypeHelper
             'securityEntitledPersons'           => CheckboxType::class,
             'securityOpenAccounts'              => CheckboxType::class,
             'securitySpecificitiesDelivered'    => CheckboxType::class,
-            'otherCollectingMethod'             => TextType::class,
+            'otherCollectingMethod'             => SanitizeTextFormType::class,
             'legalMentions'                     => CheckboxType::class,
             'consentRequest'                    => CheckboxType::class,
-            'consentRequestFormat'              => TextType::class,
+            'consentRequestFormat'              => SanitizeTextFormType::class,
             'updatedBy'                         => HiddenType::class,
             'statut'                            => HiddenType::class,
         ];

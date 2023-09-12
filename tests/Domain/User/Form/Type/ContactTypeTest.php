@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\User\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\User\Form\Type\ContactType;
 use App\Domain\User\Model\Embeddable\Contact;
 use App\Tests\Utils\FormTypeHelper;
@@ -68,11 +69,11 @@ class ContactTypeTest extends FormTypeHelper
     {
         $builder = [
             'civility'    => DictionaryType::class,
-            'firstName'   => TextType::class,
-            'lastName'    => TextType::class,
-            'job'         => TextType::class,
+            'firstName'   => SanitizeTextFormType::class,
+            'lastName'    => SanitizeTextFormType::class,
+            'job'         => SanitizeTextFormType::class,
             'mail'        => EmailType::class,
-            'phoneNumber' => TextType::class,
+            'phoneNumber' => SanitizeTextFormType::class,
         ];
 
         (new ContactType($this->requestStack, false))->buildForm($this->prophesizeBuilder($builder), []);

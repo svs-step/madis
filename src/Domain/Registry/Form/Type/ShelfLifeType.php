@@ -2,6 +2,7 @@
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Model\ShelfLife;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -14,14 +15,14 @@ class ShelfLifeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', TextType::class, [
+            ->add('name', SanitizeTextFormType::class, [
                 'label'    => 'registry.treatment.form.shelflife_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('duration', TextType::class, [
+            ->add('duration', SanitizeTextFormType::class, [
                 'label'    => 'registry.treatment.form.shelflife_duration',
                 'required' => true,
                 'attr'     => [

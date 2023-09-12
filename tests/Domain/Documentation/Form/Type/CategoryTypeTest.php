@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Documentation\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Documentation\Form\Type\CategoryType;
 use App\Domain\Documentation\Model\Category;
 use App\Tests\Utils\FormTypeHelper;
@@ -44,7 +45,7 @@ class CategoryTypeTest extends FormTypeHelper
     public function testBuildForm()
     {
         $builder = [
-            'name' => TextType::class,
+            'name' => SanitizeTextFormType::class,
         ];
 
         (new CategoryType())->buildForm($this->prophesizeBuilder($builder), []);

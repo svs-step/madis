@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\AIPD\Model\AnalyseAvis;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
@@ -31,7 +32,7 @@ class AnalyseSingleAvisType extends AbstractType
                 'name'     => 'reponse_avis',
                 'required' => true,
             ])
-            ->add('detail', TextType::class, [
+            ->add('detail', SanitizeTextFormType::class, [
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,

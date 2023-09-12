@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type\Embeddable;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Model\Embeddable\ComplexChoice;
 use App\Tests\Utils\FormTypeHelper;
@@ -43,7 +44,7 @@ class ComplexChoiceTypeTest extends FormTypeHelper
     {
         $builder = [
             'check'   => CheckboxType::class,
-            'comment' => TextType::class,
+            'comment' => SanitizeTextFormType::class,
         ];
 
         (new ComplexChoiceType())->buildForm($this->prophesizeBuilder($builder), []);

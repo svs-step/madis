@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\AIPD\Form\Type;
 
+use App\Application\Form\Extension\SanitizeTextFormType;
 use App\Domain\AIPD\Model\AbstractMesureProtection;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
@@ -16,27 +17,27 @@ class MesureProtectionAIPDType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, [
+            ->add('nom', SanitizeTextFormType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('nomCourt', TextType::class, [
+            ->add('nomCourt', SanitizeTextFormType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('labelLivrable', TextType::class, [
+            ->add('labelLivrable', SanitizeTextFormType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('phrasePreconisation', TextType::class, [
+            ->add('phrasePreconisation', SanitizeTextFormType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
             ])
-            ->add('detail', TextType::class, [
+            ->add('detail', SanitizeTextFormType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
