@@ -22,11 +22,11 @@
                     <h3 class="box-title">{{ domain.name }}</h3>
                 </div>
                 <div class="box-body">
-                    {{ domain.description }}
+                    <p>{{ domain.description }}</p>
                     {% for question in domain.questions|sort((a, b) => a.position > b.position) %}
                         {% set optionAnswers = form.vars.data.optionalAnswers ? form.vars.data.optionalAnswers|filter(a => a.question.id == question.id) : [] %}
                         <div class="row">
-                            <div class="col-md-12 question">
+                            <div class="col-md-12 question" style="padding-bottom: 15px">
                                 <label class="required">{{ question.name }}*</label>
                                 {% if question.optional %}
                                     <div class="radio optional">
