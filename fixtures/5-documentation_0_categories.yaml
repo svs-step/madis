@@ -32,3 +32,6 @@ App\Domain\Documentation\Model\Category:
     documentation_category_11:
         name: "Violation"
         systeme: true
+    documentation_category_12:
+      name: "Indice de maturité"
+      systeme: true
