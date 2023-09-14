@@ -43,7 +43,10 @@
                 ev.preventDefault()
                 $(ev.currentTarget).parents('li.answer-item').remove()
             })
-        ;
+
+        $('select[id^="referentiel_domains_"][id$="_weight"]').parent().css('width', '100px')
+        var label = $('label[for^="referentiel_domains_"][for$="_weight"]');
+        label.css('width', '100px');
 
         function addFormToCollection(e){
             const btn = $(e.currentTarget)
