@@ -23,17 +23,22 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="action-bar">
-                    {% if is_granted('ROLE_USER') %}
-                    <a aria-label="{{ 'maturity.survey.action.new'|trans }}" href="{{ path('maturity_survey_start') }}" class="btn btn-default">
-                        <i class="fa fa-plus"></i>
-                        {{ 'maturity.survey.action.new'|trans }}
+        <div class="col-xs-12">
+            <div class="action-bar">
+                {% if is_granted('ROLE_USER') %}
+                <a aria-label="{{ 'maturity.survey.action.new'|trans }}" href="{{ path('maturity_survey_start') }}" class="btn btn-default">
+                    <i class="fa fa-plus"></i>
+                    {{ 'maturity.survey.action.new'|trans }}
+                </a>
+                {% endif %}
+                {% if category and category.documents|length > 0 %}
+                    <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i class="far fa-file"></i>
+                        {{ 'documentation.document.link.button'|trans }}
                     </a>
-                    {% endif %}
-                </div>
+                {% endif %}
             </div>
-
+        </div>
     </div>
 
     <div class="row">
