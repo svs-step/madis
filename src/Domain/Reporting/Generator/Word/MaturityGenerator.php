@@ -140,13 +140,9 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
     {
         $section->addTitle('Détail', 1);
 
-        $index = [
-            'old' => 1,
-            'new' => 2,
-        ];
-
         // Order data
-        $ordered = [];
+        $ordered      = [];
+        $descriptions = [];
         /**
          * @var int    $key
          * @var Survey $survey
@@ -155,17 +151,20 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             foreach ($survey->getAnswerSurveys() as $answerSurvey) {
                 $answer                                                                                           = $answerSurvey->getAnswer();
                 $ordered[$answer->getQuestion()->getDomain()->getName()][$answer->getQuestion()->getName()][$key] = $answer;
+                $descriptions[$answer->getQuestion()->getDomain()->getName()]                                     = $answer->getQuestion()->getDomain()->getDescription();
             }
             foreach ($survey->getOptionalAnswers() as $optionalAnswer) {
                 $ordered[$optionalAnswer->getQuestion()->getDomain()->getName()][$optionalAnswer->getQuestion()->getName()][$key] = $optionalAnswer;
+                $descriptions[$optionalAnswer->getQuestion()->getDomain()->getName()]                                             = $optionalAnswer->getQuestion()->getDomain()->getDescription();
             }
         }
 
         \ksort($ordered);
-
         // Table Body
         foreach ($ordered as $domainName => $questions) {
             $section->addTitle($domainName, 3);
+            $section->addText($descriptions[$domainName]);
+            $parsedData = [['', 'Réponse', 'Préconisation', 'Actions de protection']];
             \ksort($questions);
             foreach ($questions as $questionName => $questionItem) {
                 $table   = [];
@@ -175,12 +174,29 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
                  * @var Answer|OptionalAnswer $answer
                  */
                 foreach ($questionItem as $newOld => $answer) {
-                    $table[$index[$newOld]] = is_a($answer, Answer::class) ? $answer->getName() : 'Non concerné : ' . $answer->getReason();
+                    $table[1] = is_a($answer, Answer::class) ? $answer->getName() : 'Non concerné : ' . $answer->getReason();
+                    $table[2] = $answer->getRecommendation() ?: '';
+
+                    if ($survey->getAnswerSurveys() && $survey->getAnswerSurveys()->count() > 0) {
+                        $mesurements = '';
+                        foreach ($survey->getAnswerSurveys() as $answerSurvey) {
+                            if ($answerSurvey->getAnswer()->getName() === $answer->getName()) {
+                                foreach ($answerSurvey->getMesurements() as $mesurement) {
+                                    $mesurements .= $mesurement->getName() . ', ';
+                                }
+                            }
+                        }
+                        $table[3] = ('' === $mesurements) ? '' : substr($mesurements, 0, -2);
+                    }
                 }
+
                 \ksort($table);
                 $parsedData[] = $table;
             }
-            $this->addTable($section, $parsedData, false, self::TABLE_ORIENTATION_VERTICAL);
+
+            // var_dump($parsedData);
+            // exit;
+            $this->addTable($section, $parsedData, true, self::TABLE_ORIENTATION_VERTICAL);
         }
     }
 }
