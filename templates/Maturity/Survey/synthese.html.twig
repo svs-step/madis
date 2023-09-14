@@ -63,48 +63,53 @@
     </div>
 </div>
 <div class="row">
-    <div class="col-md-12">
-        <h2>Préconisations</h2>
-    </div>
-    {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
     {% do form.answerSurveys.setRendered() %}
+    {%  set showPreco = false %}
     {% for domain in object.referentiel.domains %}
-    {% set domainAnswers = form.answerSurveys|filter(as => as.vars.value.answer.question.domain.id == domain.id and as.vars.value.answer.recommendation) %}
-
-    <div class="col-md-6">
-        <div class="box box-solid {{ colors[(domain.position) % 4] }}">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ domain.name }}</h3>
-            </div>
-            <div class="box-body">
-                {% if domainAnswers|length > 0 %}
-                {% for answerSurvey in domainAnswers %}
-                    <div class="row" style="margin-top: 1em">
-                        <div class="col-md-12">
-                            <label for="{{ answerSurvey.mesurements.vars.id }}">
-                                {{ answerSurvey.vars.value.answer.recommendation }}
-                            </label>
-                        </div>
-                        <div class="col-md-10">
-                            {{  form_widget(answerSurvey.mesurements) }}
-                            </div>
-                        <div class="col-md-2">
-                            <button id="{{ answerSurvey.mesurements.vars.id }}_add_button" aria-label="Ajouter une action de protection" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ answerSurvey.mesurements.vars.id }}">
-                                <span class="fa fa-plus-circle"></span>
-                            </button>
-                        </div>
-                    </div>
-                {% endfor %}
-                {% else %}
-                    Aucune préconisation
-                {% endif %}
-            </div>
-        </div>
-    </div>
-
-
+        {% set domainAnswers = form.answerSurveys|filter(as => as.vars.value.answer.question.domain.id == domain.id and as.vars.value.answer.recommendation) %}
+        {% if domainAnswers|length > 0 %}
+            {% set showPreco = true %}
+        {% endif %}
     {% endfor %}
 
+    {% if showPreco %}
+        <div class="col-md-12">
+            <h2>Préconisations</h2>
+        </div>
+        {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
+        {% for domain in object.referentiel.domains %}
+            {% set domainAnswers = form.answerSurveys|filter(as => as.vars.value.answer.question.domain.id == domain.id and as.vars.value.answer.recommendation) %}
+
+            {% if domainAnswers|length > 0 %}
+                <div class="col-md-6">
+                    <div class="box box-solid {{ colors[(domain.position) % 4] }}">
+                        <div class="box-header with-border">
+                            <h3 class="box-title">{{ domain.name }}</h3>
+                        </div>
+                        <div class="box-body">
+                            {% for answerSurvey in domainAnswers %}
+                                <div class="row" style="margin-top: 1em">
+                                    <div class="col-md-12">
+                                        <label for="{{ answerSurvey.mesurements.vars.id }}">
+                                            {{ answerSurvey.vars.value.answer.recommendation }}
+                                        </label>
+                                    </div>
+                                    <div class="col-md-10">
+                                        {{  form_widget(answerSurvey.mesurements) }}
+                                        </div>
+                                    <div class="col-md-2">
+                                        <button id="{{ answerSurvey.mesurements.vars.id }}_add_button" aria-label="Ajouter une action de protection" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ answerSurvey.mesurements.vars.id }}">
+                                            <span class="fa fa-plus-circle"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
 </div>
 
 <div class="row">
