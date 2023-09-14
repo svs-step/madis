@@ -77,6 +77,11 @@ body > div.banner-impersonate {
 .sidebar-mini .main-sidebar > .sidebar > .sidebar-menu > li.header > .sidebar-menu {
     margin-left: -15px !important;
 }
+
+.dropdown-menu {
+    z-index:2000;
+}
+
 /* Skiplinks */
 .skiplinks {
   position: absolute;
