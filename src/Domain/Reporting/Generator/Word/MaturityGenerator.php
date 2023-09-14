@@ -172,8 +172,8 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
                  * @var string                $newOld
                  * @var Answer|OptionalAnswer $answer
                  */
-                $table[1] = is_a($answer, Answer::class) ? $answer->getName() : $answer->getQuestion()->getOptionReason();
-                $table[2] = is_a($answer, Answer::class) ? $answer->getRecommendation() : '';
+                $table[1]    = is_a($answer, Answer::class) ? $answer->getName() : $answer->getQuestion()->getOptionReason();
+                $table[2]    = is_a($answer, Answer::class) ? $answer->getRecommendation() : '';
                 $mesurements = '';
                 if ($survey->getAnswerSurveys()) {
                     foreach ($survey->getAnswerSurveys() as $answerSurvey) {
