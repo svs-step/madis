@@ -75,8 +75,8 @@ class RequestApplicantType extends AbstractType
                 'required' => false,
             ])
             ->add('phoneNumber', TextType::class, [
-                'label'    => 'registry.request_applicant.form.phone_number',
-                'required' => false,
+                'label'       => 'registry.request_applicant.form.phone_number',
+                'required'    => false,
                 'purify_html' => true,
             ])
             ->add('concernedPeople', CheckboxType::class, [

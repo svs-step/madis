@@ -74,8 +74,8 @@ class RequestConcernedPeopleType extends AbstractType
                 'required' => false,
             ])
             ->add('phoneNumber', TextType::class, [
-                'label'    => 'registry.request_concerned_people.form.phone_number',
-                'required' => false,
+                'label'       => 'registry.request_concerned_people.form.phone_number',
+                'required'    => false,
                 'purify_html' => true,
             ])
             ->add('linkWithApplicant', TextType::class, [

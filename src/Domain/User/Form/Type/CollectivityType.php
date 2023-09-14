@@ -130,8 +130,8 @@ class CollectivityType extends AbstractType
                     'required' => false,
                 ])
                 ->add('informationsComplementaires', TextareaType::class, [
-                    'label'    => 'user.collectivity.form.informations_complementaires',
-                    'required' => false,
+                    'label'       => 'user.collectivity.form.informations_complementaires',
+                    'required'    => false,
                     'purify_html' => true,
                 ])
                 ->add('finessGeo', TextType::class, [

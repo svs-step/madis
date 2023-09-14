@@ -118,8 +118,8 @@ class TreatmentType extends AbstractType
                 'multiple' => false,
             ])
             ->add('legalBasisJustification', TextareaType::class, [
-                'label'    => 'registry.treatment.form.legal_basis_justification',
-                'required' => false,
+                'label'       => 'registry.treatment.form.legal_basis_justification',
+                'required'    => false,
                 'purify_html' => true,
             ])
             ->add('observation', TextareaType::class, [
@@ -359,8 +359,8 @@ class TreatmentType extends AbstractType
                 'by_reference' => false,
             ])
             ->add('otherCollectingMethod', TextType::class, [
-                'label'    => 'registry.treatment.form.otherCollectingMethod',
-                'required' => false,
+                'label'       => 'registry.treatment.form.otherCollectingMethod',
+                'required'    => false,
                 'purify_html' => true,
             ])
             ->add('updatedBy', HiddenType::class, [
@@ -376,8 +376,8 @@ class TreatmentType extends AbstractType
                 'required' => false,
             ])
             ->add('consentRequestFormat', TextType::class, [
-                'label'    => 'registry.treatment.form.consentRequestFormat',
-                'required' => false,
+                'label'       => 'registry.treatment.form.consentRequestFormat',
+                'required'    => false,
                 'purify_html' => true,
             ])
 
@@ -386,8 +386,8 @@ class TreatmentType extends AbstractType
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
             $builder
                 ->add('dpoMessage', TextAreaType::class, [
-                    'label'    => 'registry.treatment.form.dpoMessage',
-                    'required' => false,
+                    'label'       => 'registry.treatment.form.dpoMessage',
+                    'required'    => false,
                     'purify_html' => true,
                 ])
                 ->add('statut', DictionaryType::class, [

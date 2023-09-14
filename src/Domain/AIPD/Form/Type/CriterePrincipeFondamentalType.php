@@ -27,7 +27,7 @@ class CriterePrincipeFondamentalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label', TextType::class,['purify_html' => true,])
+            ->add('label', TextType::class, ['purify_html' => true])
             ->add('labelLivrable', TextType::class, [
                 'attr' => [
                     'maxlength' => 255,

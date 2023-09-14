@@ -150,7 +150,7 @@ class UserType extends AbstractType
                     'attr'     => [
                         'maxlength' => 255,
                     ],
-                    'purify_html' => true
+                    'purify_html' => true,
                 ]);
 
             $builder
@@ -215,7 +215,7 @@ class UserType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
-                'purify_html' => true
+                'purify_html' => true,
             ])
             ->add('lastName', TextType::class, [
                 'label'    => 'user.user.form.last_name',
@@ -223,7 +223,7 @@ class UserType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
-                'purify_html' => true
+                'purify_html' => true,
             ])
             ->add('email', EmailType::class, [
                 'label'    => 'user.user.form.email',

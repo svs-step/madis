@@ -39,7 +39,7 @@ class ServiceType extends AbstractType
         $builder->add('name', TextType::class, [
             'label'             => 'Nom',
             'validation_groups' => ['default'],
-            'purify_html' => true,
+            'purify_html'       => true,
         ]);
     }
 

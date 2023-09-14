@@ -175,14 +175,14 @@ class ToolType extends AbstractType
             ])
 
             ->add('country_name', TextType::class, [
-                'label'    => 'registry.tool.form.country_name',
-                'required' => false,
+                'label'       => 'registry.tool.form.country_name',
+                'required'    => false,
                 'purify_html' => true,
             ])
 
             ->add('country_guarantees', TextType::class, [
-                'label'    => 'registry.tool.form.country_guarantees',
-                'required' => true,
+                'label'       => 'registry.tool.form.country_guarantees',
+                'required'    => true,
                 'purify_html' => true,
             ])
 
