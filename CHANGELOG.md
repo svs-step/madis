@@ -1,5 +1,13 @@
 CHANGELOG
 =========
+## [2.3.0] - 2023-09-14
+### Changement
+- Ajout du module de gestion des logiciels et supports.
+- Ajout du module indice de maturité.
+- Acessibilité : premier pas.
+- Durées de conservation multiples pour les traitements.
+- De nombreuses autres améliorations et correctifs.
+
 ## [2.0.2] - 2023-02-28
 ### Changement
 - Ajout des parametres suivants dans le .env concernant les notifications
