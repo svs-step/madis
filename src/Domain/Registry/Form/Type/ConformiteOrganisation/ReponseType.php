@@ -34,6 +34,7 @@ class ReponseType extends AbstractType
                     'placeholder' => 'placeholder.precision',
                     'maxlength'   => 255,
                 ],
+                'purify_html' => true,
             ])
         ;
     }

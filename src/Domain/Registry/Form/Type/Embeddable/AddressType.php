@@ -47,6 +47,7 @@ class AddressType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('lineTwo', TextType::class, [
                 'label'    => 'registry.address.form.line_two',
@@ -54,6 +55,7 @@ class AddressType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('city', TextType::class, [
                 'label'    => 'registry.address.form.city',
@@ -61,6 +63,7 @@ class AddressType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('zipCode', TextType::class, [
                 'label'    => 'registry.address.form.zip_code',
@@ -68,6 +71,7 @@ class AddressType extends AbstractType
                 'attr'     => [
                     'maxlength' => 5,
                 ],
+                'purify_html' => true,
             ])
             ->add('mail', EmailType::class, [
                 'label'    => 'registry.address.form.mail',
@@ -79,6 +83,7 @@ class AddressType extends AbstractType
             ->add('phoneNumber', TextType::class, [
                 'label'    => 'registry.address.form.phone_number',
                 'required' => $required,
+                'purify_html' => true,
             ])
             ->add('country', TextType::class, [
             'label'    => 'registry.address.form.country',
@@ -86,6 +91,7 @@ class AddressType extends AbstractType
             'attr'     => [
                 'maxlength' => 255,
             ],
+            'purify_html' => true,
         ]);
     }
 

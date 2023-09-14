@@ -46,6 +46,7 @@ class RequestAnswerType extends AbstractType
                 'attr'     => [
                     'rows' => 4,
                 ],
+                'purify_html' => true,
             ])
             ->add('date', DateType::class, [
                 'label'    => 'registry.request_answer.form.date',

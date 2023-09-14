@@ -82,6 +82,7 @@ class TreatmentType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('exempt_AIPD', CheckboxType::class, [
                 'label'    => 'registry.treatment.form.exemptAipd',
@@ -94,6 +95,7 @@ class TreatmentType extends AbstractType
                 'attr'     => [
                     'rows' => 4,
                 ],
+                'purify_html' => true,
             ])
             ->add('manager', TextType::class, [
                 'label'    => 'registry.treatment.form.manager',
@@ -101,6 +103,7 @@ class TreatmentType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
 
             ->add('paperProcessing', CheckboxType::class, [
@@ -117,6 +120,7 @@ class TreatmentType extends AbstractType
             ->add('legalBasisJustification', TextareaType::class, [
                 'label'    => 'registry.treatment.form.legal_basis_justification',
                 'required' => false,
+                'purify_html' => true,
             ])
             ->add('observation', TextareaType::class, [
                 'label'    => 'registry.treatment.form.observation',
@@ -124,6 +128,7 @@ class TreatmentType extends AbstractType
                 'attr'     => [
                     'rows' => 2,
                 ],
+                'purify_html' => true,
             ])
             ->add('concernedPeopleParticular', ComplexChoiceType::class, [
                 'label'    => 'registry.treatment.form.concerned_people_particular',
@@ -189,6 +194,7 @@ class TreatmentType extends AbstractType
                 'attr'     => [
                     'rows' => 3,
                 ],
+                'purify_html' => true,
             ])
             ->add('dataOrigin', TextType::class, [
                 'label'    => 'registry.treatment.form.data_origin',
@@ -196,6 +202,7 @@ class TreatmentType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('recipientCategory', TextareaType::class, [
                 'label'    => 'registry.treatment.form.recipient_category',
@@ -203,6 +210,7 @@ class TreatmentType extends AbstractType
                 'attr'     => [
                     'rows' => 2,
                 ],
+                'purify_html' => true,
             ])
             ->add('contractors', EntityType::class, [
                 'label'         => 'registry.treatment.form.contractors',
@@ -306,6 +314,7 @@ class TreatmentType extends AbstractType
                 'attr'     => [
                     'rows' => 3,
                 ],
+                'purify_html' => true,
             ])
             ->add('collectingMethod', DictionaryType::class, [
                 'label'       => 'registry.treatment.form.collecting_method',
@@ -352,6 +361,7 @@ class TreatmentType extends AbstractType
             ->add('otherCollectingMethod', TextType::class, [
                 'label'    => 'registry.treatment.form.otherCollectingMethod',
                 'required' => false,
+                'purify_html' => true,
             ])
             ->add('updatedBy', HiddenType::class, [
                 'required' => false,
@@ -368,6 +378,7 @@ class TreatmentType extends AbstractType
             ->add('consentRequestFormat', TextType::class, [
                 'label'    => 'registry.treatment.form.consentRequestFormat',
                 'required' => false,
+                'purify_html' => true,
             ])
 
         ;
@@ -377,6 +388,7 @@ class TreatmentType extends AbstractType
                 ->add('dpoMessage', TextAreaType::class, [
                     'label'    => 'registry.treatment.form.dpoMessage',
                     'required' => false,
+                    'purify_html' => true,
                 ])
                 ->add('statut', DictionaryType::class, [
                     'label'    => 'registry.treatment.form.statut',
@@ -427,6 +439,7 @@ class TreatmentType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ]);
         }
 

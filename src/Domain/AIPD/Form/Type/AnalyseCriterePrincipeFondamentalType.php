@@ -32,6 +32,7 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('fichierFile', FileType::class, [
                 'required' => false,

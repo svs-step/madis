@@ -52,6 +52,7 @@ class RequestApplicantType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('lastName', TextType::class, [
                 'label'    => 'registry.request_applicant.form.last_name',
@@ -59,6 +60,7 @@ class RequestApplicantType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('address', TextType::class, [
                 'label'    => 'registry.request_applicant.form.address',
@@ -66,6 +68,7 @@ class RequestApplicantType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('mail', EmailType::class, [
                 'label'    => 'registry.request_applicant.form.mail',
@@ -74,6 +77,7 @@ class RequestApplicantType extends AbstractType
             ->add('phoneNumber', TextType::class, [
                 'label'    => 'registry.request_applicant.form.phone_number',
                 'required' => false,
+                'purify_html' => true,
             ])
             ->add('concernedPeople', CheckboxType::class, [
                 'label'    => 'registry.request_applicant.form.concerned_people',

@@ -20,6 +20,7 @@ class AnalyseQuestionConformiteType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ]);
     }
 

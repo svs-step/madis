@@ -80,6 +80,7 @@ class ProofType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('type', DictionaryType::class, [
                 'label'    => 'registry.proof.form.type',
@@ -128,6 +129,7 @@ class ProofType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('treatments', EntityType::class, [
                 'label'         => 'registry.proof.form.treatments',

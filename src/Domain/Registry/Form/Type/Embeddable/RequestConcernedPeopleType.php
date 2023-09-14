@@ -51,6 +51,7 @@ class RequestConcernedPeopleType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('lastName', TextType::class, [
                 'label'    => 'registry.request_concerned_people.form.last_name',
@@ -58,6 +59,7 @@ class RequestConcernedPeopleType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('address', TextType::class, [
                 'label'    => 'registry.request_concerned_people.form.address',
@@ -65,6 +67,7 @@ class RequestConcernedPeopleType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('mail', EmailType::class, [
                 'label'    => 'registry.request_concerned_people.form.mail',
@@ -73,6 +76,7 @@ class RequestConcernedPeopleType extends AbstractType
             ->add('phoneNumber', TextType::class, [
                 'label'    => 'registry.request_concerned_people.form.phone_number',
                 'required' => false,
+                'purify_html' => true,
             ])
             ->add('linkWithApplicant', TextType::class, [
                 'label'    => 'registry.request_concerned_people.form.link_with_applicant',
@@ -80,6 +84,7 @@ class RequestConcernedPeopleType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
         ;
     }

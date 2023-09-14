@@ -27,11 +27,12 @@ class CriterePrincipeFondamentalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label', TextType::class)
+            ->add('label', TextType::class,['purify_html' => true,])
             ->add('labelLivrable', TextType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('reponse', DictionaryType::class, [
                 'name' => 'reponse_critere_fondamental',
@@ -44,22 +45,26 @@ class CriterePrincipeFondamentalType extends AbstractType
                 'attr' => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('texteNonConformite', TextType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('texteNonApplicable', TextType::class, [
                 'attr' => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('justification', TextType::class, [
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('deleteFile', HiddenType::class, [
                 'data' => 0,

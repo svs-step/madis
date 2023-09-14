@@ -20,6 +20,7 @@ class ParticipantType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('nomDeFamille', TextType::class, [
                 'label'    => 'registry.conformite_organisation.participant.form.nom_famille',
@@ -27,6 +28,7 @@ class ParticipantType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('civilite', DictionaryType::class, [
                 'label'    => 'user.contact.form.civility',
@@ -39,6 +41,7 @@ class ParticipantType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
         ;
     }

@@ -24,6 +24,7 @@ class ModeleScenarioMenaceType extends AbstractType
                 'attr'  => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('mesuresProtections', EntityType::class, [
                 'required' => false,
@@ -69,6 +70,7 @@ class ModeleScenarioMenaceType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
         ;
     }

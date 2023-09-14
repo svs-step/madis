@@ -77,6 +77,7 @@ class ContactType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('lastName', TextType::class, [
                 'label'    => 'user.contact.form.last_name',
@@ -84,6 +85,7 @@ class ContactType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('job', TextType::class, [
                 'label'    => 'user.contact.form.job',
@@ -91,6 +93,7 @@ class ContactType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('mail', EmailType::class, [
                 'label'    => 'user.contact.form.mail',
@@ -98,6 +101,7 @@ class ContactType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
         ;
 
@@ -121,6 +125,7 @@ class ContactType extends AbstractType
             'attr'     => [
                 'maxlength' => 10,
             ],
+            'purify_html' => true,
         ]);
     }
 

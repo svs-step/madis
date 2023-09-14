@@ -211,12 +211,14 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'rows' => 5,
                 ],
+                'purify_html' => true,
             ])
             ->add('appliedMeasuresAfterViolation', TextareaType::class, [
                 'label' => 'registry.violation.form.applied_measures_after_violation',
                 'attr'  => [
                     'rows' => 5,
                 ],
+                'purify_html' => true,
             ])
             ->add('notification', DictionaryType::class, [
                 'label'    => 'registry.violation.form.notification',
@@ -231,6 +233,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('comment', TextareaType::class, [
                 'label'    => 'registry.violation.form.comment',
@@ -238,6 +241,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'rows' => 5,
                 ],
+                'purify_html' => true,
             ])
             ->add('treatments', EntityType::class, [
                 'class'         => Treatment::class,

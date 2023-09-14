@@ -115,6 +115,7 @@ class RequestType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('date', DateType::class, [
                 'label'    => 'registry.request.form.date',
@@ -132,6 +133,7 @@ class RequestType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('applicant', RequestApplicantType::class, [
                 'label'    => false,
@@ -168,6 +170,7 @@ class RequestType extends AbstractType
                 'attr'     => [
                     'rows' => 4,
                 ],
+                'purify_html' => true,
             ])
             ->add('treatments', EntityType::class, [
                 'class'         => Treatment::class,

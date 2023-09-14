@@ -20,6 +20,7 @@ class ShelfLifeType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('duration', TextType::class, [
                 'label'    => 'registry.treatment.form.shelflife_duration',
@@ -27,6 +28,7 @@ class ShelfLifeType extends AbstractType
                 'attr'     => [
                     'maxlength' => 255,
                 ],
+                'purify_html' => true,
             ])
             ->add('ultimate_fate', DictionaryType::class, [
                 'label'    => 'registry.treatment.form.shelflife_ultimate_fate',
