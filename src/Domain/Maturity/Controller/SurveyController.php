@@ -28,6 +28,7 @@ use App\Application\Controller\CRUDController;
 use App\Application\Interfaces\CollectivityRelated;
 use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
+use App\Domain\Documentation\Model\Category;
 use App\Domain\Maturity\Calculator\MaturityHandler;
 use App\Domain\Maturity\Form\Type\SurveyType;
 use App\Domain\Maturity\Form\Type\SyntheseType;
@@ -435,7 +436,12 @@ class SurveyController extends CRUDController
             $criteria['collectivity'] = $this->userProvider->getAuthenticatedUser()->getCollectivity();
         }
 
+        $category = $this->entityManager->getRepository(Category::class)->findOneBy([
+            'name' => 'Indice de maturité',
+        ]);
+
         return $this->render('Maturity/Survey/list.html.twig', [
+            'category'     => $category,
             'totalItem'    => $this->repository->count($criteria),
             'route'        => $this->router->generate('maturity_survey_list_datatables'),
             'referentiels' => array_unique($referentiels, SORT_STRING),
