@@ -27,6 +27,7 @@ namespace App\Domain\Reporting\Generator\Word;
 use App\Domain\Maturity\Model\Answer;
 use App\Domain\Maturity\Model\OptionalAnswer;
 use App\Domain\Maturity\Model\Survey;
+use App\Domain\Registry\Model\Mesurement;
 use PhpOffice\PhpWord\Element\Section;
 use PhpOffice\PhpWord\Shared\Converter;
 
@@ -144,19 +145,17 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
         $ordered      = [];
         $descriptions = [];
         /**
-         * @var int    $key
          * @var Survey $survey
          */
-        foreach ($data as $key => $survey) {
-            foreach ($survey->getAnswerSurveys() as $answerSurvey) {
-                $answer                                                                                           = $answerSurvey->getAnswer();
-                $ordered[$answer->getQuestion()->getDomain()->getName()][$answer->getQuestion()->getName()][$key] = $answer;
-                $descriptions[$answer->getQuestion()->getDomain()->getName()]                                     = $answer->getQuestion()->getDomain()->getDescription();
-            }
-            foreach ($survey->getOptionalAnswers() as $optionalAnswer) {
-                $ordered[$optionalAnswer->getQuestion()->getDomain()->getName()][$optionalAnswer->getQuestion()->getName()][$key] = $optionalAnswer;
-                $descriptions[$optionalAnswer->getQuestion()->getDomain()->getName()]                                             = $optionalAnswer->getQuestion()->getDomain()->getDescription();
-            }
+        $survey = $data['new'];
+        foreach ($survey->getAnswerSurveys() as $answerSurvey) {
+            $answer                                                                                     = $answerSurvey->getAnswer();
+            $ordered[$answer->getQuestion()->getDomain()->getName()][$answer->getQuestion()->getName()] = $answer;
+            $descriptions[$answer->getQuestion()->getDomain()->getName()]                               = $answer->getQuestion()->getDomain()->getDescription();
+        }
+        foreach ($survey->getOptionalAnswers() as $optionalAnswer) {
+            $ordered[$optionalAnswer->getQuestion()->getDomain()->getName()][$optionalAnswer->getQuestion()->getName()] = $optionalAnswer;
+            $descriptions[$optionalAnswer->getQuestion()->getDomain()->getName()]                                       = $optionalAnswer->getQuestion()->getDomain()->getDescription();
         }
 
         \ksort($ordered);
@@ -166,36 +165,31 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             $section->addText($descriptions[$domainName]);
             $parsedData = [['', 'Réponse', 'Préconisation', 'Actions de protection']];
             \ksort($questions);
-            foreach ($questions as $questionName => $questionItem) {
+            foreach ($questions as $questionName => $answer) {
                 $table   = [];
                 $table[] = $questionName;
-                /**
+                /*
                  * @var string                $newOld
                  * @var Answer|OptionalAnswer $answer
                  */
-                foreach ($questionItem as $newOld => $answer) {
-                    $table[1] = is_a($answer, Answer::class) ? $answer->getName() : 'Non concerné : ' . $answer->getReason();
-                    $table[2] = $answer->getRecommendation() ?: '';
-
-                    if ($survey->getAnswerSurveys() && $survey->getAnswerSurveys()->count() > 0) {
-                        $mesurements = '';
-                        foreach ($survey->getAnswerSurveys() as $answerSurvey) {
-                            if ($answerSurvey->getAnswer()->getName() === $answer->getName()) {
-                                foreach ($answerSurvey->getMesurements() as $mesurement) {
-                                    $mesurements .= $mesurement->getName() . ', ';
-                                }
-                            }
+                $table[1] = is_a($answer, Answer::class) ? $answer->getName() : $answer->getQuestion()->getOptionReason();
+                $table[2] = is_a($answer, Answer::class) ? $answer->getRecommendation() : '';
+                $mesurements = '';
+                if ($survey->getAnswerSurveys()) {
+                    foreach ($survey->getAnswerSurveys() as $answerSurvey) {
+                        if ($answerSurvey->getAnswer()->getId() === $answer->getId()) {
+                            $mesurements = join(', ', $answerSurvey->getMesurements()->map(function (Mesurement $mesurement) {
+                                return $mesurement->getName();
+                            })->toArray());
                         }
-                        $table[3] = ('' === $mesurements) ? '' : substr($mesurements, 0, -2);
                     }
                 }
+                $table[3] = $mesurements;
 
                 \ksort($table);
                 $parsedData[] = $table;
             }
 
-            // var_dump($parsedData);
-            // exit;
             $this->addTable($section, $parsedData, true, self::TABLE_ORIENTATION_VERTICAL);
         }
     }

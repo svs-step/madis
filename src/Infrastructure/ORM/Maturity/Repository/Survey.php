@@ -111,7 +111,7 @@ class Survey extends CRUDRepository implements Repository\Survey
 
     public function findPreviousById(string $id, int $limit = 1): iterable
     {
-        return $this->createQueryBuilder()
+        $q = $this->createQueryBuilder()
             ->select('s')
             ->from(Model\Survey::class, 's')
             ->andWhere('o.id = :id')
@@ -122,7 +122,10 @@ class Survey extends CRUDRepository implements Repository\Survey
             ->setMaxResults($limit)
             ->setParameter('id', $id)
             ->getQuery()
-            ->getResult()
+        ;
+
+        return
+            $q->getResult()
         ;
     }
 
