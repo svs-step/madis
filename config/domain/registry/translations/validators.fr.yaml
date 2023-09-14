@@ -96,6 +96,12 @@ registry_mesurement:
     name:
         not_blank: Vous devez renseigner un nom
 
+registry_tool:
+    name:
+        not_blank: Vous devez renseigner un nom
+    type:
+        not_null: Vous devez renseigner un type
+
 registry_treatment_data_category:
     name:
         not_blank: Vous devez renseigner un nom

@@ -2,14 +2,14 @@ App\Domain\Registry\Model\Tool:
     properties:
         name:
             - NotBlank:
-                message: 'registry.tool.name.not_blank'
+                message: 'registry_tool.name.not_blank'
                 groups: ['default']
             - Length:
                 max: 255
                 groups: ['default']
         type:
             - NotNull:
-                message: 'registry.tool.type.not_null'
+                message: 'registry_tool.type.not_null'
                 groups: ['default']
         manager:
             - Length:
