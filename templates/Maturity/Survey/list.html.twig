@@ -141,7 +141,7 @@
 
             $('#search_score').off('keyup');
             $('#search_score').keyup($.debounce(250, function(){
-                oTable.column(col + 1).search($(this).val()).draw() ;
+                oTable.column(col + 1).search($(this).val()*10).draw() ;
             }));
 
             $('#search_score').on('click', function(){
