@@ -41,16 +41,19 @@ use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DocumentType extends AbstractType implements EventSubscriberInterface
 {
     private RequestStack $requestStack;
     private string $maxSize;
+    private TranslatorInterface $translator;
 
-    public function __construct(RequestStack $requestStack, string $maxSize)
+    public function __construct(RequestStack $requestStack, string $maxSize, TranslatorInterface $translator)
     {
         $this->requestStack = $requestStack;
         $this->maxSize      = $maxSize;
+        $this->translator   = $translator;
     }
 
     /**
@@ -211,11 +214,15 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
         $submittedData = $event->getData();
 
         if (!$submittedData->getUploadedFile() && !$submittedData->getUrl()) {
-            throw new TransformationFailedException('documentation.document.form.error.fileorurl', 400, /* code */ null, /* previous */ 'documentation.document.form.error.fileorurl', /* user message */ ['{{ what }}' => 'aa'] /* message context for the translater */);
+            $error = $this->translator->trans('documentation.document.form.error.fileorurl');
+
+            throw new TransformationFailedException($error, 400, /* code */ null, /* previous */ $error, /* user message */ ['{{ what }}' => 'aa'] /* message context for the translater */);
         }
 
         if (true === $submittedData->getIsLink() && !$submittedData->getUrl()) {
-            throw new TransformationFailedException('documentation.document.form.error.missingurl', 401, /* code */ null, /* previous */ 'documentation.document.form.error.missingurl', /* user message */ ['{{ what }}' => 'aa'] /* message context for the translater */);
+            $error = $this->translator->trans('documentation.document.form.error.missingurl');
+
+            throw new TransformationFailedException($error, 400, /* code */ null, /* previous */ $error, /* user message */ ['{{ what }}' => 'aa'] /* message context for the translater */);
         }
     }
 }
