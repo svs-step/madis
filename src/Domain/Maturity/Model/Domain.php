@@ -45,7 +45,7 @@ class Domain
     /**
      * @var string|null
      */
-    private $description;
+    private string $description;
 
     private string $color;
 

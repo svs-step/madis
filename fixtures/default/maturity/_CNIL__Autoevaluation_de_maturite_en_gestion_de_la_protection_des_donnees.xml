@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+  <name><![CDATA[[CNIL] Autoévaluation de maturité en gestion de la protection des données]]></name>
+  <description><![CDATA[La protection des données repose sur des activités mises en œuvre par chaque organisme (pilotage, gestion
+du registre, veille juridique, etc.). Toutefois, ces activités n'existent pas dans toutes les structures et ne sont
+pas toujours gérées de manière homogène (informelles, décrites, généralisées, etc.).
+Ce questionnaire propose un modèle de maturité, qui quantifie la rigueur et le formalisme avec laquelle les
+activités liées à la gestion de la protection des données sont gérées. En savoir plus : <a target="_blanck" href="https://www.cnil.fr/sites/cnil/files/atoms/files/autoevaluation_de_maturite_en_gestion_de_la_protection_des_donnees.pdf">autoevaluation_de_maturite_en_gestion_de_la_protection_des_donnees.pdf</a>]]></description>
+  <domains>
+    <entry>
+      <name><![CDATA[Piloter la gouvernance de la protection des données]]></name>
+      <description><![CDATA[Définition, mise en place, mise en œuvre, communication et amélioration de la stratégie de protection des données au sein de l'organisme (gouvernance, rôles et responsabilités, y compris ceux du délégué à la protection des données – DPO).]]></description>
+      <color><![CDATA[info]]></color>
+      <position>17</position>
+      <questions>
+        <entry>
+          <name><![CDATA[Des compétences relatives à la protection des données sont identifiées au sein de l'organisme (ex : service juridique) et exploitées ponctuellement.]]></name>
+          <position>0</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Un responsable des questions relatives à la protection des données, chargé notamment des interactions avec les personnes concernées (courriers, etc.), est identifié.]]></name>
+          <position>1</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Des moyens sont régulièrement alloués pour mettre en œuvre des plans d’action au regard du bilan du délégué à la protection des données et s’assurer de leur mise en œuvre et de leur amélioration continue.]]></name>
+          <position>4</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Le délégué à la protection des données fait un bilan annuel de ses actions aux dirigeants de l’organisme (notamment le(s) responsable(s) de traitements).]]></name>
+          <position>3</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Un délégué à la protection des données est désigné auprès de l’autorité nationale de protection des données personnelles (avec une fiche de poste ou une lettre de mission formelle et connue du personnel), une organisation est mise en place et les rôles et responsabilités sont définis.]]></name>
+          <position>2</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+      </questions>
+    </entry>
+    <entry>
+      <name><![CDATA[Former et sensibiliser]]></name>
+      <description><![CDATA[Diffusion de la connaissance et création ou renforcement des compétences internes concernant la protection des données. Note : les sessions de formation/sensibilisation doivent permettre de garantir la bonne connaissance de la politique de protection des données de la part du personnel.]]></description>
+      <color><![CDATA[success]]></color>
+      <position>68</position>
+      <questions>
+        <entry>
+          <name><![CDATA[Des indicateurs mesurent qualitativement et quantitativement la compréhension des sujets liés à la protection des données (ex. : sondage, questionnaire annuel, etc.).]]></name>
+          <position>3</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Des formations ou sessions d'information sont régulièrement proposées sur de nouvelles technologies ou problématiques relatives à la protection des données.]]></name>
+          <position>4</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Certains collaborateurs sont sensibilisés à la protection des données.]]></name>
+          <position>0</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Les métiers sont formés à identifier et transmettre les sujets liés à la protection des données à la personne en charge (ex. : demandes des personnes concernées, de l’autorité de contrôle, nouveaux traitements, etc.).]]></name>
+          <position>1</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Des sessions de sensibilisation sont régulièrement organisées pour le personnel.]]></name>
+          <position>2</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+      </questions>
+    </entry>
+    <entry>
+      <name><![CDATA[Assurer la conformité juridique des traitements]]></name>
+      <description><![CDATA[Évaluation des traitements de données personnelles existants ou en projet au regard des obligations légales et réglementaires en matière de protection des données (proportionnalité et nécessité, ainsi que
+droits des personnes), détermination de mesures pour améliorer la conformité (y compris des clauses contractuelles types), conseil au responsable de traitement et vérification de la mise en œuvre des mesures prévues.]]></description>
+      <color><![CDATA[primary]]></color>
+      <position>51</position>
+      <questions>
+        <entry>
+          <name><![CDATA[Une information des personnes (ex : mentions légales) est faite sur les principaux endroits de collecte de données personnelles (ex : site web, formulaires).]]></name>
+          <position>0</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Pour chaque traitement, des mentions légales sont réalisées et une étude des principes fondamentaux (proportionnalité, nécessité et droits des personnes) est menée. Les clauses contractuelles sont évaluées et comprennent une partie relative à la protection des données.]]></name>
+          <position>1</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Les mesures prévues sont vérifiées. Des revues régulières des mentions légales et des clauses contractuelles sont programmées et réalisées. La qualité des analyses d’impact relatives à la protection des données est évaluée par des indicateurs. Des plans d’action (ex : en cas de non- conformité d’un traitement) sont créés et mis en œuvre.]]></name>
+          <position>3</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[La protection des données est prise en compte dès l’initiation des projets, en collaboration avec le délégué à la protection des données. Les améliorations possibles sont régulièrement étudiées. Une veille juridique et technique est réalisée. Des analyses sont produites et diffusées.]]></name>
+          <position>4</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Des clauses types pour les contrats avec les sous-traitants sont formalisées et utilisées. Des analyses d’impact relatives à la protection des données sont menées sur les traitements susceptibles d'engendrer des risques élevés sur les personnes, en collaboration avec les services concernés et la personne en charge de la protection des données.]]></name>
+          <position>2</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+      </questions>
+    </entry>
+    <entry>
+      <name><![CDATA[Traiter les demandes des usagers internes et externes]]></name>
+      <description><![CDATA[Définition, mise en place, mise en œuvre et communication des moyens permettant la gestion des demandes d'exercice des droits des personnes concernées (ex : demandes de droit d’accès), des plaintes et autres réclamations internes et externes concernant la protection des données.]]></description>
+      <color><![CDATA[warning]]></color>
+      <position>85</position>
+      <questions>
+        <entry>
+          <name><![CDATA[Des réponses types aux demandes d’exercice des droits et questions sont créées et utilisées. Une procédure de gestions des demandes d’exercice de droits est définie et communiquée au personnel. Un formulaire de contact est mis en place sur le site internet et toutes les requêtes sont centralisées.]]></name>
+          <position>2</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Le processus de gestion des demandes d’exercice des droits et les outils sur lesquels il repose font régulièrement l'objet d'améliorations.]]></name>
+          <position>4</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Des courriers types sont créés (ex. : à partir des modèles de la CNIL) pour répondre aux demandes régulièrement effectuées.]]></name>
+          <position>1</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[La personne en charge de la protection des données est systématiquement informée de chacune des demandes concernant le droit des personnes. Les demandes d’exercice des droits font l'objet d'indicateurs qui apparaissent dans le bilan annuel.]]></name>
+          <position>3</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Les demandes des usagers sont gérées au cas par cas.]]></name>
+          <position>0</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+      </questions>
+    </entry>
+    <entry>
+      <name><![CDATA[Gérer les risques de sécurité]]></name>
+      <description><![CDATA[Appréciation des risques de sécurité que les traitements de données personnelles sont susceptibles d'engendrer sur les personnes concernées, détermination de mesures contribuant à les traiter (y compris des clauses contractuelles types) et vérification de la mise en œuvre des mesures prévues.]]></description>
+      <color><![CDATA[info]]></color>
+      <position>102</position>
+      <questions>
+        <entry>
+          <name><![CDATA[Les analyses d’impact relatives à la protection des données (AIPD) comprennent une étude des risques de sécurité. Une méthode est employée pour apprécier les risques des traitements susceptibles d'engendrer des risques élevés sur les personnes concernées et les traiter de manière proportionnée. Les études de risques font l’objet de plans d’action.]]></name>
+          <position>2</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Des mesures de sécurité élémentaires sont mises en place (ex. : habilitations, sécurisation des postes de travail, etc.).]]></name>
+          <position>0</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Les études de risques et plans d’action font l’objet d’une revue annuelle. Une veille active est réalisée sur les vulnérabilités liées aux supports des données et des actions correctrices sont prises en cas d’impact sur le système d’information.]]></name>
+          <position>4</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Des référentiels sont utilisés pour choisir et mettre en place des mesures de sécurité (ex. : Guide sécurité des données personnelles de la CNIL, politique de sécurité interne, etc.).]]></name>
+          <position>1</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[La mise en œuvre des plans d’action est vérifiée en termes d’effectivité et d’efficacité. Les risques résiduels sont suivis par des indicateurs.]]></name>
+          <position>3</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+      </questions>
+    </entry>
+    <entry>
+      <name><![CDATA[Définir et mettre en œuvre des procédures sur la protection des données]]></name>
+      <description><![CDATA[Définition, tenue à jour et communication des politiques et procédures générales relatives à la gestion des données personnelles et à la protection de la vie privée (charte d’utilisation du système d’information, clauses contractuelles types, etc.), vérification de leur application et déclenchement des éventuelles mesures prévues en cas de manquement.]]></description>
+      <color><![CDATA[success]]></color>
+      <position>0</position>
+      <questions>
+        <entry>
+          <name><![CDATA[Une documentation formelle (ex. : politique de protection des données), approuvée par le comité de direction, est communiquée à l’ensemble du personnel. Des procédures sont formalisées et transmises à l’ensemble du personnel. Les règles sont appliquées.]]></name>
+          <position>2</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Des documents relatifs à la protection des données (bonnes pratiques, règles, exemples, etc.) sont partagés. Il existe une documentation (ex. : charte d'utilisation des moyens informatiques) comportant des règles relatives à la protection des données.]]></name>
+          <position>1</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Une revue annuelle des politiques et procédures est réalisée. Des indicateurs sont produits (ex. : sur la mise en œuvre des règles, sur les difficultés rencontrées, sur leur efficacité, etc.).]]></name>
+          <position>3</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Les politiques et procédures sont mises à jour dès identification d’une amélioration possible.]]></name>
+          <position>4</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Quelques bonnes pratiques sont ponctuellement mises en œuvre (ex. : minimisation de la collecte ou effacement des données obsolètes, mentions d'information).]]></name>
+          <position>0</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+      </questions>
+    </entry>
+    <entry>
+      <name><![CDATA[Recenser et tenir à jour la liste des traitements]]></name>
+      <description><![CDATA[Identification et tenue à jour de l'inventaire des traitements de données personnelles, des données et des flux de données qui leurs sont associés.]]></description>
+      <color><![CDATA[primary]]></color>
+      <position>34</position>
+      <questions>
+        <entry>
+          <name><![CDATA[Les traitements de données personnelles sont identifiés et/ou signalés de manière centralisée.]]></name>
+          <position>1</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Un registre des activités de traitement, conforme au RGPD, est tenu.]]></name>
+          <position>2</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Le registre sert d'instrument de pilotage des actions relatives aux traitements de données personnelles (ex. : il sert de recensement, mais aussi d’instrument de gestion comparative des risques et de suivi des plans d’action).]]></name>
+          <position>4</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[La complétude et la qualité du registre sont régulièrement vérifiées.]]></name>
+          <position>3</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Les services sont capables d’identifier les traitements de données personnelles qu’ils mettent en œuvre.]]></name>
+          <position>0</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+      </questions>
+    </entry>
+    <entry>
+      <name><![CDATA[Gérer les violations de données]]></name>
+      <description><![CDATA[Identification, qualification, résolution des violations de données personnelles, notifications aux autorités de protection de données et communication aux personnes concernées, tenue d'un registre des violations.]]></description>
+      <color><![CDATA[warning]]></color>
+      <position>119</position>
+      <questions>
+        <entry>
+          <name><![CDATA[L'application des mesures correctives est vérifiée. Des indicateurs de suivi des violations de données sont créés et communiqués (ex. : dans le bilan annuel).]]></name>
+          <position>3</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Une procédure de gestion des violations de données est formalisée et mise en œuvre de manière systématique. Toutes les violations sont inscrites dans un registre dédié. Suite à une violation de données, un plan d’action est prévu afin de réduire le risque qu'elle ne se reproduise.]]></name>
+          <position>2</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[La gestion des incidents, mise en œuvre de manière centralisée, inclut les violations de données. Des mesures correctrices sont systématiquement prises. Une communication aux personnes dont les données ont fait l'objet d'une violation pouvant engendrer un risque élevé est prévue.]]></name>
+          <position>1</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Des incidents sont signalés. Des mesures correctrices sont parfois prises. Une notification de violation de données est parfois effectuée auprès de la CNIL.]]></name>
+          <position>0</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+        <entry>
+          <name><![CDATA[Un bilan des violations est régulièrement réalisé afin d'identifier et de mettre en œuvre des mesures permettant d'améliorer la sécurité des données. La gestion des violations de données alimente les études de risques (ex. : AIPD). Une gestion automatique des traces permet de détecter les violations de données dans les plus brefs délais.]]></name>
+          <position>4</position>
+          <weight>1</weight>
+          <optional>false</optional>
+          <answers>
+            <entry>
+              <name><![CDATA[Mis en œuvre]]></name>
+              <position>1</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+            <entry>
+              <name><![CDATA[Non]]></name>
+              <position>0</position>
+              <response><![CDATA[0]]></response>
+            </entry>
+          </answers>
+        </entry>
+      </questions>
+    </entry>
+  </domains>
+  <created_at><![CDATA[2023-09-12T11:58:44+02:00]]></created_at>
+  <updated_at><![CDATA[2023-09-12T12:17:15+02:00]]></updated_at>
+</result>
