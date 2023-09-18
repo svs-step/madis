@@ -42,9 +42,6 @@ class Domain
 
     private string $name;
 
-    /**
-     * @var string|null
-     */
     private ?string $description;
 
     private string $color;
