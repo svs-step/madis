@@ -215,12 +215,14 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
 
         if (!$submittedData->getUploadedFile() && !$submittedData->getUrl()) {
             $error = $this->translator->trans('documentation.document.form.error.fileorurl');
+
             throw new TransformationFailedException($error, 400, /* code */ null, /* previous */ $error, /* user message */ ['{{ what }}' => 'aa'] /* message context for the translater */);
         }
 
         if (true === $submittedData->getIsLink() && !$submittedData->getUrl()) {
             $error = $this->translator->trans('documentation.document.form.error.missingurl');
-            throw new TransformationFailedException($error, 401, /* code */ null, /* previous */ $error, /* user message */ ['{{ what }}' => 'aa'] /* message context for the translater */);
+
+            throw new TransformationFailedException($error, 400, /* code */ null, /* previous */ $error, /* user message */ ['{{ what }}' => 'aa'] /* message context for the translater */);
         }
     }
 }
