@@ -36,6 +36,7 @@ use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DocumentTypeTest extends FormTypeHelper
 {
@@ -43,15 +44,18 @@ class DocumentTypeTest extends FormTypeHelper
 
     private $requestStack;
 
+    private $translator;
+
     public function setUp(): void
     {
         $this->requestStack = $this->prophesize(RequestStack::class)->reveal();
+        $this->translator   = $this->prophesize(TranslatorInterface::class)->reveal();
         parent::setUp();
     }
 
     public function testInstanceOf()
     {
-        $this->assertInstanceOf(AbstractType::class, new DocumentType($this->requestStack, '4M'));
+        $this->assertInstanceOf(AbstractType::class, new DocumentType($this->requestStack, '4M', $this->translator));
     }
 
     public function testBuildForm()
@@ -64,7 +68,7 @@ class DocumentTypeTest extends FormTypeHelper
             'thumbUploadedFile' => FileType::class,
         ];
 
-        $dt = new DocumentType($this->requestStack, '4M');
+        $dt = new DocumentType($this->requestStack, '4M', $this->translator);
 
         $prophecy = $this->prophesizeBuilder($builder, true, $dt);
 
@@ -84,6 +88,6 @@ class DocumentTypeTest extends FormTypeHelper
         $resolverProphecy = $this->prophesize(OptionsResolver::class);
         $resolverProphecy->setDefaults($defaults)->shouldBeCalled();
 
-        (new DocumentType($this->requestStack, '4M'))->configureOptions($resolverProphecy->reveal());
+        (new DocumentType($this->requestStack, '4M', $this->translator))->configureOptions($resolverProphecy->reveal());
     }
 }
