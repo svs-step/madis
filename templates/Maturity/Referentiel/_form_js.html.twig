@@ -43,7 +43,6 @@
                 ev.preventDefault()
                 $(ev.currentTarget).parents('li.answer-item').remove()
             })
-        ;
 
         function addFormToCollection(e){
             const btn = $(e.currentTarget)
@@ -63,7 +62,9 @@
                 $('#referentiel_referentielSections_'+index+'_orderNumber').val(index);
                 $('#referentiel_domains_'+index+'_position').val(index);
             } else if (type === 'add_question') {
+                console.log('add question')
                 let html = $('#prototypes').data('prototype-question')
+                console.log(btn.parent().parent())
                 const holder = btn.parent().parent().find('ul.referentielQuestions')
                 const section = holder.data('section');
                 const oldIndex = holder.data('index')
