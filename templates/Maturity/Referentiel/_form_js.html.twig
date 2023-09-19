@@ -67,10 +67,11 @@
                 console.log(btn.parent().parent())
                 const holder = btn.parent().parent().find('ul.referentielQuestions')
                 const section = holder.data('section');
-                const oldIndex = holder.data('index')
-                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, oldIndex).replace('li class="col-md-12"', 'li class="col-md-12 question-item"')
-                holder.append(html);
+                const oldIndex = holder.data('index');
                 const newIndex = holder.data('index') + 1
+                html = html.replace(/__section_name__/g, section).replace(/__question_name__/g, oldIndex).replace('li class="col-md-12"', 'li class="col-md-12 question-item"').replace(/question__/g, "question_" + newIndex + "_")
+                holder.append(html);
+
                 holder.data('index', newIndex)
                 $('#referentiel_referentielSections_'+ section + '_referentielQuestions_' + oldIndex + '_orderNumber').val(oldIndex);
                 $('#referentiel_domains_'+ section + '_questions_' + oldIndex + '_position').val(oldIndex);
