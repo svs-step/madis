@@ -65,7 +65,7 @@ Pour installer le modèle AIPD par défaut, lancez la commande suivante :
 bin/console aipd:model:import fixtures/default/aipd/Modele_par_defaut_AIPD.xml
 ```
 
-Pour installer les réferentiels de maturité par défaut, lancer la command suivante:
+Pour installer les réferentiels de maturité par défaut, lancez la commande suivante:
 ```bash
 bin/console maturity:referentiel:import fixtures/default/maturity/
 ```
