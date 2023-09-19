@@ -56,60 +56,16 @@ INSERT INTO `user_user` (`id`, `collectivity_id`, `first_name`, `last_name`, `em
 
 # Créer les catégories de base
 INSERT INTO `registry_treatment_data_category` VALUES ('bank','Information bancaire',7,0),('bank-situation','Situation bancaire',8,0),('birth','Date, lieu de naissance',2,0),('caf','Numéro de CAF',17,0),('connexion','Connexion',15,0),('earning','Revenus',12,0),('email','Emails',13,0),('family-situation','Situation familiale',3,0),('filiation','Filiation',4,0),('geo','Géolocalisation',16,0),('health','Santé',18,1),('heritage','Patrimoine',9,0),('identity','Pièces d’identité',20,0),('ip','Adresse IP',14,0),('name','Nom, Prénom',1,0),('phone','Coordonnées téléphoniques',6,0),('picture','Photos-vidéos',21,0),('postal','Coordonnées postales',5,0),('professional-situation','Situation professionnelle',11,0),('public-religious-opinion','Opinion politique ou religieuse',23,1),('racial-ethnic-opinion','Origine raciale ou ethnique',24,1),('sex-life','Vie sexuelle',25,1),('social-security-number','Numéro de Sécurité Sociale',19,1),('syndicate','Appartenance Syndicale',22,1),('tax-situation','Situation fiscale',10,0);
-
-# Créer les questions de l’indice
-INSERT INTO `maturity_domain` (`id`, `name`, `color`, `position`) VALUES
-('2773db9d-9447-11e8-ad93-000c298bb17a', 'Technique', 'danger', 1),
-('277c689e-9447-11e8-ad93-000c298bb17a', 'Vie privée', 'info', 2),
-('277e7a13-9447-11e8-ad93-000c298bb17a', 'Violation de données', 'primary', 3),
-('27825dcb-9447-11e8-ad93-000c298bb17a', 'Organisation', 'success', 4),
-('278b79e0-9447-11e8-ad93-000c298bb17a', 'Juridique', 'warning', 5),
-('28320b43-9447-11e8-ad93-000c298bb17a', 'Sensibilisation Formation', 'info', 6);
-
-INSERT INTO `maturity_question` (`id`, `domain_id`, `name`) VALUES
-('018a30d6-9449-11e8-ad93-000c298bb17a', '277c689e-9447-11e8-ad93-000c298bb17a', 'Les sessions Windows sont protégées par un mot de passe et se vérrouillent automatiquement'),
-('018d03e0-9449-11e8-ad93-000c298bb17a', '277c689e-9447-11e8-ad93-000c298bb17a', 'Chaque utilisateur dispose d\'un identifiant unique (pas de compte générique)'),
-('018d1f65-9449-11e8-ad93-000c298bb17a', '277c689e-9447-11e8-ad93-000c298bb17a', 'Les éléments de sécurité de base ont été installés sur les postes clients (Antivirus, parefeu)'),
-('0191ea66-9449-11e8-ad93-000c298bb17a', '277c689e-9447-11e8-ad93-000c298bb17a', 'Une politique de mot de passe utilisateur rigoureuse a été adoptée (les mots de passe sont strictement confidentiels)'),
-('0192e833-9449-11e8-ad93-000c298bb17a', '277c689e-9447-11e8-ad93-000c298bb17a', 'Les permissions d\'accès obsolètes ont été supprimées'),
-('01946667-9449-11e8-ad93-000c298bb17a', '277c689e-9447-11e8-ad93-000c298bb17a', 'Une politique de protection des données a été mise en place et est connue de tous (interne et externe)'),
-('0195eb20-9449-11e8-ad93-000c298bb17a', '277c689e-9447-11e8-ad93-000c298bb17a', 'Les données à l\'issu des traitements sont supprimées ou anonymisées'),
-('07ae7fd8-9449-11e8-ad93-000c298bb17a', '277e7a13-9447-11e8-ad93-000c298bb17a', 'Les supports de sauvegarde sont stockés dans un endroit sûr'),
-('07af1ab7-9449-11e8-ad93-000c298bb17a', '277e7a13-9447-11e8-ad93-000c298bb17a', 'Les supports de sauvegarde sont externalisés'),
-('07af362d-9449-11e8-ad93-000c298bb17a', '277e7a13-9447-11e8-ad93-000c298bb17a', 'Les jeux de sauvegarde sont régulièrement testés'),
-('07b46150-9449-11e8-ad93-000c298bb17a', '277e7a13-9447-11e8-ad93-000c298bb17a', 'Des études d\'impact sur la vie privée sont conduites lorsque le traitement le nécessite'),
-('07b4775d-9449-11e8-ad93-000c298bb17a', '277e7a13-9447-11e8-ad93-000c298bb17a', 'L\'intégrité des document est régulièrement vérifiée'),
-('07b4d7d0-9449-11e8-ad93-000c298bb17a', '277e7a13-9447-11e8-ad93-000c298bb17a', 'Les procédures à suivre en cas de violation de données sont définies et connues'),
-('07b5206b-9449-11e8-ad93-000c298bb17a', '277e7a13-9447-11e8-ad93-000c298bb17a', 'Les clients mobiles sont régulièrement synchronisés'),
-('0d892944-9449-11e8-ad93-000c298bb17a', '27825dcb-9447-11e8-ad93-000c298bb17a', 'Les procédures d\'exploitation du SI ont été documentées'),
-('0d8968c8-9449-11e8-ad93-000c298bb17a', '27825dcb-9447-11e8-ad93-000c298bb17a', 'Un registre des traitements est tenu dans la structure'),
-('0d8c82c0-9449-11e8-ad93-000c298bb17a', '27825dcb-9447-11e8-ad93-000c298bb17a', 'Les conditions de restitution et de destruction des données sont prévues'),
-('0d8cbc4b-9449-11e8-ad93-000c298bb17a', '27825dcb-9447-11e8-ad93-000c298bb17a', 'L\'identité du destinataire est confirmée (en cas de transmission)'),
-('0d8e7488-9449-11e8-ad93-000c298bb17a', '27825dcb-9447-11e8-ad93-000c298bb17a', 'La demande de droit d\'accès est écrite ou repose sur un texte juridique'),
-('0d919125-9449-11e8-ad93-000c298bb17a', '27825dcb-9447-11e8-ad93-000c298bb17a', 'Un DPD a été désigné dans la structure'),
-('0d93fe5b-9449-11e8-ad93-000c298bb17a', '27825dcb-9447-11e8-ad93-000c298bb17a', 'Les coordonnées du DPD et son rôle sont connus des personnes concernées, à l\'interne et à l\'externe'),
-('12cd278d-9449-11e8-ad93-000c298bb17a', '278b79e0-9447-11e8-ad93-000c298bb17a', 'Une clause spécifique est prévue dans les contrats de sous traitance et dans les cahiers des charges'),
-('12cd5a73-9449-11e8-ad93-000c298bb17a', '278b79e0-9447-11e8-ad93-000c298bb17a', 'Les mentions font apparaître la finalité, les droits des personnes et la durée de conservation et sont présentes sur les formulaires (papier et électronique)'),
-('12cee5b1-9449-11e8-ad93-000c298bb17a', '278b79e0-9447-11e8-ad93-000c298bb17a', 'Un comité informatique et liberté a été mis en place et se réunit au moins une fois par an'),
-('12d0680f-9449-11e8-ad93-000c298bb17a', '278b79e0-9447-11e8-ad93-000c298bb17a', 'Une charte informatique a été rédigée et annexée au règlement interieur'),
-('12d0ee43-9449-11e8-ad93-000c298bb17a', '278b79e0-9447-11e8-ad93-000c298bb17a', 'Le consentement des personnes concernées est organisé (classement, conservation, ...)'),
-('12d1dea0-9449-11e8-ad93-000c298bb17a', '278b79e0-9447-11e8-ad93-000c298bb17a', 'La conformité de chaque sous-traitant est vérifiée'),
-('12d21db4-9449-11e8-ad93-000c298bb17a', '278b79e0-9447-11e8-ad93-000c298bb17a', 'Une politique de gestion des données à caractère personnel a été mise en place'),
-('17e5b8bf-9449-11e8-ad93-000c298bb17a', '28320b43-9447-11e8-ad93-000c298bb17a', 'Des actions de sensibilisation sont régulièrement menées'),
-('17e8eeb2-9449-11e8-ad93-000c298bb17a', '28320b43-9447-11e8-ad93-000c298bb17a', 'Les élus ont été sensibilisés à la protection des données à caractère personnel'),
-('17ea3348-9449-11e8-ad93-000c298bb17a', '28320b43-9447-11e8-ad93-000c298bb17a', 'Le personnel a été sensibilisé à la protection des données à caractère personnel'),
-('17eb6123-9449-11e8-ad93-000c298bb17a', '28320b43-9447-11e8-ad93-000c298bb17a', 'Le personnel a été formé à la protection des données à caractère personnel'),
-('17ecb83b-9449-11e8-ad93-000c298bb17a', '28320b43-9447-11e8-ad93-000c298bb17a', 'Les élus connaissent le principe d\'interdiction d\'utilisation des données à caractère personnel à des fins de communication politique'),
-('17ef7566-9449-11e8-ad93-000c298bb17a', '28320b43-9447-11e8-ad93-000c298bb17a', 'Les agents connaissent et appliquent le principe de minimisation des données collectées'),
-('17efc682-9449-11e8-ad93-000c298bb17a', '28320b43-9447-11e8-ad93-000c298bb17a', 'Le principe d\'interdiction de la collecte des données sensibles est connu par les agents et élus de la structure'),
-('f2be456a-9448-11e8-ad93-000c298bb17a', '2773db9d-9447-11e8-ad93-000c298bb17a', 'Les éléments de sécurité ont été installés sur le réseau (Antivirus, parefeu)'),
-('f2c4ad0d-9448-11e8-ad93-000c298bb17a', '2773db9d-9447-11e8-ad93-000c298bb17a', 'Les mises à jours des logiciels sont faites régulièrement (WindowsUpdate, Antivirus, Navigateur, client email)'),
-('f2c4f5cb-9448-11e8-ad93-000c298bb17a', '2773db9d-9447-11e8-ad93-000c298bb17a', 'Des moyens de chiffrement pour les ordinateurs portables et les unités de stockage amovibles ( clefs USB, CD, DVD,…) ont été prévus'),
-('f2ce7bbe-9448-11e8-ad93-000c298bb17a', '2773db9d-9447-11e8-ad93-000c298bb17a', 'Les accès distants des appareils informatiques nomades sont sécurisés par VPN'),
-('f2cef0e7-9448-11e8-ad93-000c298bb17a', '2773db9d-9447-11e8-ad93-000c298bb17a', 'Une politique de mot de passe administrateur rigoureuse a été adoptée'),
-('f2cf66af-9448-11e8-ad93-000c298bb17a', '2773db9d-9447-11e8-ad93-000c298bb17a', 'Des alarmes anti intrusion ont été installées et sont vérifiées périodiquement'),
-('f2d04f22-9448-11e8-ad93-000c298bb17a', '2773db9d-9447-11e8-ad93-000c298bb17a', 'Un détecteur de fumée et un système anti-feu ont été mis en place');
-
 ```
 
 Vous pouvez maintenant vous connecter à MADIS avec cet utilisateur et commencer la configuration.
+
+Pour installer le modèle AIPD par défaut, lancez la commande suivante : 
+```bash
+bin/console aipd:model:import fixtures/default/aipd/Modele_par_defaut_AIPD.xml
+```
+
+Pour installer les réferentiels de maturité par défaut, lancer la command suivante:
+```bash
+bin/console maturity:referentiel:import fixtures/default/maturity/
+```

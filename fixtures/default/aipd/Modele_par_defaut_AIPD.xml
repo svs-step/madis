@@ -1,0 +1,1593 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result>
+  <nom><![CDATA[Modèle par défaut]]></nom>
+  <description><![CDATA[Modèle par défaut [12 Risques, 28 Mesures] (A1 v1.01)]]></description>
+  <label_amelioration_prevue><![CDATA[Amelioration prévue]]></label_amelioration_prevue>
+  <label_insatisfaisant><![CDATA[Insatisfaisant]]></label_insatisfaisant>
+  <label_satisfaisant><![CDATA[Satisfaisant]]></label_satisfaisant>
+  <critere_principe_fondamentaux>
+    <entry>
+      <label><![CDATA[Contexte du traitement]]></label>
+      <label_livrable><![CDATA[Contexte du traitement]]></label_livrable>
+      <code><![CDATA[contexte_traitement]]></code>
+      <reponse><![CDATA[non_renseigne]]></reponse>
+      <is_visible>true</is_visible>
+      <texte_conformite><![CDATA[Le contexte du traitement est conforme.]]></texte_conformite>
+      <texte_non_conformite><![CDATA[Le contexte du traitement est non conforme.]]></texte_non_conformite>
+      <texte_non_applicable><![CDATA[Le contexte du traitement est non applicable ici.]]></texte_non_applicable>
+      <justification><![CDATA[Précisez ici le contexte ou les enjeux du traitement.]]></justification>
+      <can_be_modified>true</can_be_modified>
+      <delete_file>false</delete_file>
+    </entry>
+    <entry>
+      <label><![CDATA[Conformité à un code de conduite existant]]></label>
+      <label_livrable><![CDATA[Conformité à un code de conduite existant]]></label_livrable>
+      <code><![CDATA[conformite_code]]></code>
+      <reponse><![CDATA[non_renseigne]]></reponse>
+      <is_visible>true</is_visible>
+      <texte_conformite><![CDATA[Conformité à un code de conduite existant est conforme.]]></texte_conformite>
+      <texte_non_conformite><![CDATA[Conformité à un code de conduite existant est non conforme.]]></texte_non_conformite>
+      <texte_non_applicable><![CDATA[Conformité à un code de conduite existant ne s'applique pas ici.]]></texte_non_applicable>
+      <justification><![CDATA[Précisez les codes de conduite et référentiels.]]></justification>
+      <can_be_modified>true</can_be_modified>
+      <delete_file>false</delete_file>
+    </entry>
+    <entry>
+      <label><![CDATA[Portée du traitement]]></label>
+      <label_livrable><![CDATA[Portée du traitement]]></label_livrable>
+      <code><![CDATA[portee_traitement]]></code>
+      <reponse><![CDATA[non_renseigne]]></reponse>
+      <is_visible>true</is_visible>
+      <texte_conformite><![CDATA[La portée du traitement est conforme.]]></texte_conformite>
+      <texte_non_conformite><![CDATA[La portée du traitement est non conforme.]]></texte_non_conformite>
+      <texte_non_applicable><![CDATA[La portée du traitement ne s'applique pas ici.]]></texte_non_applicable>
+      <justification><![CDATA[Précisez ici la portée du traitement.]]></justification>
+      <can_be_modified>true</can_be_modified>
+      <delete_file>false</delete_file>
+    </entry>
+    <entry>
+      <label><![CDATA[Description fonctionnelle du traitement]]></label>
+      <label_livrable><![CDATA[Description fonctionnelle du traitement]]></label_livrable>
+      <code><![CDATA[description_fonctionnelle]]></code>
+      <reponse><![CDATA[non_renseigne]]></reponse>
+      <is_visible>true</is_visible>
+      <texte_conformite><![CDATA[La description fonctionnelle est conforme.]]></texte_conformite>
+      <texte_non_conformite><![CDATA[La description fonctionnelle est non conforme.]]></texte_non_conformite>
+      <texte_non_applicable><![CDATA[La description fonctionnelle ne s'applique pas ici.]]></texte_non_applicable>
+      <justification><![CDATA[Ajoutez une description fonctionnelle ou précisez pourquoi il n'y en a pas..]]></justification>
+      <can_be_modified>true</can_be_modified>
+      <delete_file>false</delete_file>
+    </entry>
+    <entry>
+      <label><![CDATA[Identification des biens et supports]]></label>
+      <label_livrable><![CDATA[Identification des biens et supports]]></label_livrable>
+      <code><![CDATA[identification_biens]]></code>
+      <reponse><![CDATA[non_renseigne]]></reponse>
+      <is_visible>true</is_visible>
+      <texte_conformite><![CDATA[L'identification des biens et supports est conforme.]]></texte_conformite>
+      <texte_non_conformite><![CDATA[L'identification des biens et supports est non conforme.]]></texte_non_conformite>
+      <texte_non_applicable><![CDATA[Identification des biens et supports ne s'applique pas ici.]]></texte_non_applicable>
+      <justification><![CDATA[Ajoutez la description des des processus et supports ou précisez pouquoi ce n'est pas renseigné.]]></justification>
+      <can_be_modified>true</can_be_modified>
+      <delete_file>false</delete_file>
+    </entry>
+  </critere_principe_fondamentaux>
+  <question_conformites>
+    <entry>
+      <question><![CDATA[Exercice du droit d'accès]]></question>
+      <position>8</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[L'exercice du droit d'accès est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[L'exercice du droit d'accès est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[L'exercice du droit d'accès est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Qualité des données : exactes et tenues à jour]]></question>
+      <position>4</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[La qualité des données est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[La qualité des données est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[La qualité des données est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Recueil du consentement]]></question>
+      <position>7</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[Le recueil du consentement est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[Le recueil du consentement est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[Le recueil du consentement est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Exercice du droit à la portabilité]]></question>
+      <position>11</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[L'exercice du droit à la portabilité est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[L'exercice du droit à la portabilité est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[L'exercice du droit à la portabilité est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Exercice du droit de limitation]]></question>
+      <position>10</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[L'exercice du droit de limitation est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[L'exercice du droit de limitation est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[L'exercice du droit de limitation est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Minimisation des données : adéquates, pertinentes et limitées]]></question>
+      <position>3</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[La minimisation des données est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[La minimisation des données est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[La minimisation des données est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Sous-traitance : identifiée et contractualisée]]></question>
+      <position>14</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[La sous-traitance est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[La sous-traitance est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[La sous-traitance est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Finalités : déterminées, explicites et légitime]]></question>
+      <position>1</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[La finalité est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[La finalité est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[La finalité est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Information des personnes concernées (traitement loyal et transparent]]></question>
+      <position>6</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[L'information des personnes concernées est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[L'information des personnes concernées est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[L'information des personnes concernées est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Exercice du droit de rectification]]></question>
+      <position>9</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[L'exercice du droit de rectification est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[L'exercice du droit de rectification est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[L'exercice du droit de rectification est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Transferts : respect des obligations en matière de transfert des données en dehors de l'Union Européenne]]></question>
+      <position>15</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[Le Transfert de données est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[Le Transfert de données est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[Le Transfert de données est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Exercice du droit d'opposition]]></question>
+      <position>13</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[L'exercice du droit d'opposition est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[L'exercice du droit d'opposition est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[L'exercice du droit d'opposition est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Exercice du droit d'effacement]]></question>
+      <position>12</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[L'exercice du droit d'effacement est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[L'exercice du droit d'effacement est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[L'exercice du droit d'effacement est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Fondement : licéité du traitement, interdiction du détournement de finalité]]></question>
+      <position>2</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[Le fondement est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[Le fondement est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[Le fondement est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+    <entry>
+      <question><![CDATA[Durées de conservation : limitées]]></question>
+      <position>5</position>
+      <is_justification_obligatoire>true</is_justification_obligatoire>
+      <texte_conformite><![CDATA[La durée de conservation est conforme.]]></texte_conformite>
+      <texte_non_conformite_mineure><![CDATA[La durée de conservation est non conforme mais des améliorations sont prévues.]]></texte_non_conformite_mineure>
+      <texte_non_conformite_majeure><![CDATA[La durée de conservation est non conforme.]]></texte_non_conformite_majeure>
+    </entry>
+  </question_conformites>
+  <scenario_menaces>
+    <entry>
+      <nom><![CDATA[06 - Dépendance prestataire ou compétences indisponibles]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[1741e06f-78b1-454f-b32f-280c7da50f31]]></id>
+          <nom><![CDATA[A1. Gestion des incidents et des violations de données]]></nom>
+          <nom_court><![CDATA[Gestion des incidents et des violations de données]]></nom_court>
+          <label_livrable><![CDATA[Gestion des incidents et des violations de données]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un suivi des incidents et des violations de données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les incidents font l’objet d’une gestion documentée et testée, notamment en ce qui concerne les violations de données à caractère personnel.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[23cd0f5c-a8d3-4877-9df0-a70efb7deb88]]></id>
+          <nom><![CDATA[A1. Surveillance]]></nom>
+          <nom_court><![CDATA[Surveillance]]></nom_court>
+          <label_livrable><![CDATA[Surveillance]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système de surveillance.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si une surveillance en temps réel du réseau local est mise en œuvre et avec quels moyens. Indiquez si un contrôle des configurations matérielles et logicielles est effectué et par quels moyens.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[285b256b-eff8-4df0-ad77-e9f34c71a454]]></id>
+          <nom><![CDATA[A1. Organisation]]></nom>
+          <nom_court><![CDATA[Organisation]]></nom_court>
+          <label_livrable><![CDATA[Organisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Définir les rôles et responsabilités et mettre en place un comité de suivi de la protection des données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez si les rôles et responsabilités en matière de protection des données sont définis. Précisez si une personne est chargée de la mise en application des lois et règlements touchant à la protection de la vie privée.  Précisez s’il existe un comité de suivi (ou équivalent) chargé des orientations et du suivi des actions concernant la protection de la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[422eba50-6b72-4aec-a36f-26cc04b9b3e0]]></id>
+          <nom><![CDATA[A1. Gestion des risques]]></nom>
+          <nom_court><![CDATA[Gestion des risques]]></nom_court>
+          <label_livrable><![CDATA[Gestion des risques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une cartographie des risques sur la vie privée.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les risques que les traitements font peser sur la vie privée des personnes concernées sont étudiés pour les nouveaux traitements, si c'est systématique ou non, et le cas échéant, selon quelle méthode. Précisez s’il existe, au niveau de l’organisme, une cartographie des risques sur la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[c15ca959-0e1e-488f-a68b-469afc37b533]]></id>
+          <nom><![CDATA[A1. Relation avec les tiers]]></nom>
+          <nom_court><![CDATA[Relation avec les tiers]]></nom_court>
+          <label_livrable><![CDATA[Relation avec les tiers]]></label_livrable>
+          <phrase_preconisation><![CDATA[Vérifier que la sous-traitance est contractualisée et que les modalités et les mesures de sécurité sont définies dans le contrat]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici, notamment pour les sous-traitants amenés à avoir accès aux données, les modalités et les mesures de sécurité mises en œuvre pour ces accès.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[c44974fd-dabc-4ad9-8a40-62faef168cf5]]></id>
+          <nom><![CDATA[A1. Supervision]]></nom>
+          <nom_court><![CDATA[Supervision]]></nom_court>
+          <label_livrable><![CDATA[Supervision]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système de management des données à caractère personnel]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si l'effectivité et l’adéquation des mesures touchant à la vie privée sont contrôlées.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[e88ee80e-5df4-4af3-a00b-5ea4592b0b58]]></id>
+          <nom><![CDATA[A1. Politique (gestion des règles)]]></nom>
+          <nom_court><![CDATA[Politique (gestion des règles)]]></nom_court>
+          <label_livrable><![CDATA[Politique (gestion des règles)]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une charte informatique]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici s’il existe une charte informatique (ou équivalent) traitant de la protection des données et de la bonne utilisation des moyens informatiques.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>true</is_disponibilite>
+      <is_integrite>false</is_integrite>
+      <is_confidentialite>false</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+    <entry>
+      <nom><![CDATA[02 - Vol, dégradation ou perte de documents, de matériels]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[1741e06f-78b1-454f-b32f-280c7da50f31]]></id>
+          <nom><![CDATA[A1. Gestion des incidents et des violations de données]]></nom>
+          <nom_court><![CDATA[Gestion des incidents et des violations de données]]></nom_court>
+          <label_livrable><![CDATA[Gestion des incidents et des violations de données]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un suivi des incidents et des violations de données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les incidents font l’objet d’une gestion documentée et testée, notamment en ce qui concerne les violations de données à caractère personnel.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[422eba50-6b72-4aec-a36f-26cc04b9b3e0]]></id>
+          <nom><![CDATA[A1. Gestion des risques]]></nom>
+          <nom_court><![CDATA[Gestion des risques]]></nom_court>
+          <label_livrable><![CDATA[Gestion des risques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une cartographie des risques sur la vie privée.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les risques que les traitements font peser sur la vie privée des personnes concernées sont étudiés pour les nouveaux traitements, si c'est systématique ou non, et le cas échéant, selon quelle méthode. Précisez s’il existe, au niveau de l’organisme, une cartographie des risques sur la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[4333f533-c7af-417f-b470-62deb93db16e]]></id>
+          <nom><![CDATA[A1. Contrôle d'accès physique]]></nom>
+          <nom_court><![CDATA[Contrôle d'accès physique]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'accès physique]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un contrôle d'accès physique]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici la manière dont est réalisé le contrôle d’accès physique aux locaux hébergeant le traitement (zonage, accompagnement des visiteurs, port de badge, portes verrouillées, etc.). Indiquez s’il existe des moyens d’alerte en cas d’effraction.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[53a35412-f57d-4b58-b820-ae0d798aea42]]></id>
+          <nom><![CDATA[A1. Sécurité des documents papier]]></nom>
+          <nom_court><![CDATA[Sécurité des documents papier]]></nom_court>
+          <label_livrable><![CDATA[Sécurité des documents papier]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire d'organiser l'impression, le stockage, la destruction et les échanges des documents papiers.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici comment sont imprimés, stockés, détruits et échangés les documents papiers.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[679f044c-31db-47dd-8542-44034986fe77]]></id>
+          <nom><![CDATA[A1. Anonymisation]]></nom>
+          <nom_court><![CDATA[Anonymisation]]></nom_court>
+          <label_livrable><![CDATA[Anonymisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système d'anonymisation.]]></phrase_preconisation>
+          <detail><![CDATA[Préciser si un méchanisme d'anonymisation est prévu.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ddd4e886-108a-43db-8c0e-877ce554e3c4]]></id>
+          <nom><![CDATA[A1. Sauvegardes]]></nom>
+          <nom_court><![CDATA[Sauvegardes]]></nom_court>
+          <label_livrable><![CDATA[Sauvegardes]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de définir et mettre en oeuvre une politique de sauvegarde. Le stockage de celles ci doit être sûr.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici comment les sauvegardes sont gérées et précisez si elles sont stockées dans un endroit sûr.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ea22ac0d-ac28-4eab-9eba-bd879e97df1f]]></id>
+          <nom><![CDATA[A1. Chiffrement]]></nom>
+          <nom_court><![CDATA[Chiffrement]]></nom_court>
+          <label_livrable><![CDATA[Les flux, les supports et les données ont chiffrés.]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de chiffrer les données et les flux.]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici les moyens mis en œuvre pour assurer la confidentialité des données et les moyens de chiffrement employés pour les flux de données]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ee8d88d2-9654-489d-a932-df90b0b84005]]></id>
+          <nom><![CDATA[A1. Contrôle d'intégrité]]></nom>
+          <nom_court><![CDATA[Contrôle d'intégrité]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'intégrité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre des systèmes de contrôle d'intégrité.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des mécanismes de contrôle d’intégrité des données stockées sont mis en œuvre, lesquels et à quelle fin.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[eed8e461-1f5a-4de4-961e-268710aa9855]]></id>
+          <nom><![CDATA[A1. Sécurité des matériels]]></nom>
+          <nom_court><![CDATA[Sécurité des matériels]]></nom_court>
+          <label_livrable><![CDATA[Sécurité des matériels]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place les mesures de sécurité sur les matériels]]></phrase_preconisation>
+          <detail><![CDATA[[Indiquez ici les mesures de sécurité physique des serveurs et des postes clients (stockage sécurisé, câbles de sécurité, filtres de confidentialité, effacement  sécurisé avant mise au rebut, etc.).]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>true</is_disponibilite>
+      <is_integrite>true</is_integrite>
+      <is_confidentialite>true</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+    <entry>
+      <nom><![CDATA[12 -  Virus, intrusion, hameçonnage, usurpation de droit, d'identité, fraude]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[1741e06f-78b1-454f-b32f-280c7da50f31]]></id>
+          <nom><![CDATA[A1. Gestion des incidents et des violations de données]]></nom>
+          <nom_court><![CDATA[Gestion des incidents et des violations de données]]></nom_court>
+          <label_livrable><![CDATA[Gestion des incidents et des violations de données]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un suivi des incidents et des violations de données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les incidents font l’objet d’une gestion documentée et testée, notamment en ce qui concerne les violations de données à caractère personnel.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[23cd0f5c-a8d3-4877-9df0-a70efb7deb88]]></id>
+          <nom><![CDATA[A1. Surveillance]]></nom>
+          <nom_court><![CDATA[Surveillance]]></nom_court>
+          <label_livrable><![CDATA[Surveillance]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système de surveillance.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si une surveillance en temps réel du réseau local est mise en œuvre et avec quels moyens. Indiquez si un contrôle des configurations matérielles et logicielles est effectué et par quels moyens.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[285b256b-eff8-4df0-ad77-e9f34c71a454]]></id>
+          <nom><![CDATA[A1. Organisation]]></nom>
+          <nom_court><![CDATA[Organisation]]></nom_court>
+          <label_livrable><![CDATA[Organisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Définir les rôles et responsabilités et mettre en place un comité de suivi de la protection des données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez si les rôles et responsabilités en matière de protection des données sont définis. Précisez si une personne est chargée de la mise en application des lois et règlements touchant à la protection de la vie privée.  Précisez s’il existe un comité de suivi (ou équivalent) chargé des orientations et du suivi des actions concernant la protection de la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[33dd00ed-918a-464a-9eee-ffbf327e55d2]]></id>
+          <nom><![CDATA[A1. Gestion des projets]]></nom>
+          <nom_court><![CDATA[Gestion des projets]]></nom_court>
+          <label_livrable><![CDATA[Gestion des projets]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une procédure/règle  pour  pour que les projets soient tester avec des données fictives/anonymes.]]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les tests des dispositifs sont réalisés sur des données fictives/anonymes.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[422eba50-6b72-4aec-a36f-26cc04b9b3e0]]></id>
+          <nom><![CDATA[A1. Gestion des risques]]></nom>
+          <nom_court><![CDATA[Gestion des risques]]></nom_court>
+          <label_livrable><![CDATA[Gestion des risques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une cartographie des risques sur la vie privée.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les risques que les traitements font peser sur la vie privée des personnes concernées sont étudiés pour les nouveaux traitements, si c'est systématique ou non, et le cas échéant, selon quelle méthode. Précisez s’il existe, au niveau de l’organisme, une cartographie des risques sur la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[4451eeee-1675-403d-bbbe-60c14d52069f]]></id>
+          <nom><![CDATA[A1. Gestion des postes de travail]]></nom>
+          <nom_court><![CDATA[Gestion des postes de travail]]></nom_court>
+          <label_livrable><![CDATA[Gestion des postes de travail]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre des systèmes de sécurité minimum sur les postes de travail  (verrouillage automatique, pare-feu, etc.).]]></phrase_preconisation>
+          <detail><![CDATA[Détaillez ici les mesures mises en œuvre sur les postes de travail (verrouillage automatique, pare-feu, etc.).]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[671b7c99-f09e-4380-a5ea-65c0ad516171]]></id>
+          <nom><![CDATA[A1. Contrôle des accès logiques des utilisateurs]]></nom>
+          <nom_court><![CDATA[Contrôle des accès logiques des utilisateurs]]></nom_court>
+          <label_livrable><![CDATA[Contrôle des accès logiques des utilisateurs]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de définir des profils utilisateurs et un système d'authentification robuste.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici comment les profils utilisateurs sont définis et attribués et les moyens d’authentification mis en œuvre.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[679f044c-31db-47dd-8542-44034986fe77]]></id>
+          <nom><![CDATA[A1. Anonymisation]]></nom>
+          <nom_court><![CDATA[Anonymisation]]></nom_court>
+          <label_livrable><![CDATA[Anonymisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système d'anonymisation.]]></phrase_preconisation>
+          <detail><![CDATA[Préciser si un méchanisme d'anonymisation est prévu.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[71558060-c69b-4008-b0d6-353e0e2db37b]]></id>
+          <nom><![CDATA[A1. Sécurité des canaux informatiques]]></nom>
+          <nom_court><![CDATA[Sécurité des canaux informatiques]]></nom_court>
+          <label_livrable><![CDATA[Sécurité des canaux informatiques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en place des systèmes de sécurité réseau (pare-feu, détection d'intrusion, ...)]]></phrase_preconisation>
+          <detail><![CDATA[Précisez quels système de pare-feu, sondes de détection d'intrusion, ou autres dispoitifs actifs ou passifs sont chargés d'assurer la sécurité du réseau.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[c15ca959-0e1e-488f-a68b-469afc37b533]]></id>
+          <nom><![CDATA[A1. Relation avec les tiers]]></nom>
+          <nom_court><![CDATA[Relation avec les tiers]]></nom_court>
+          <label_livrable><![CDATA[Relation avec les tiers]]></label_livrable>
+          <phrase_preconisation><![CDATA[Vérifier que la sous-traitance est contractualisée et que les modalités et les mesures de sécurité sont définies dans le contrat]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici, notamment pour les sous-traitants amenés à avoir accès aux données, les modalités et les mesures de sécurité mises en œuvre pour ces accès.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[c44974fd-dabc-4ad9-8a40-62faef168cf5]]></id>
+          <nom><![CDATA[A1. Supervision]]></nom>
+          <nom_court><![CDATA[Supervision]]></nom_court>
+          <label_livrable><![CDATA[Supervision]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système de management des données à caractère personnel]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si l'effectivité et l’adéquation des mesures touchant à la vie privée sont contrôlées.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[cdbdfe56-6691-469e-8a14-758ddf958e33]]></id>
+          <nom><![CDATA[A1. Gestion des personnels]]></nom>
+          <nom_court><![CDATA[Gestion des personnels]]></nom_court>
+          <label_livrable><![CDATA[Gestion des personnels]]></label_livrable>
+          <phrase_preconisation><![CDATA[Sensibiliser les personnes dès leur arrivée dans sa fonction.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici les mesures de sensibilisation prises à l’arrivée d’une personne dans sa fonction. Indiquez les mesures prises au départ des personnes accédant aux données]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[e001dce1-2857-40d7-9773-910f8fae2de0]]></id>
+          <nom><![CDATA[A1. Lutte contre les logiciels malveillants]]></nom>
+          <nom_court><![CDATA[Lutte contre les logiciels malveillants]]></nom_court>
+          <label_livrable><![CDATA[Lutte contre les logiciels malveillants]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un antivirus sur tous les postes régulièrement mis à jour.]]></phrase_preconisation>
+          <detail><![CDATA[Précisez si un antivirus est installé et régulièrement mis à jour sur tous les postes.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[e88ee80e-5df4-4af3-a00b-5ea4592b0b58]]></id>
+          <nom><![CDATA[A1. Politique (gestion des règles)]]></nom>
+          <nom_court><![CDATA[Politique (gestion des règles)]]></nom_court>
+          <label_livrable><![CDATA[Politique (gestion des règles)]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une charte informatique]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici s’il existe une charte informatique (ou équivalent) traitant de la protection des données et de la bonne utilisation des moyens informatiques.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ea22ac0d-ac28-4eab-9eba-bd879e97df1f]]></id>
+          <nom><![CDATA[A1. Chiffrement]]></nom>
+          <nom_court><![CDATA[Chiffrement]]></nom_court>
+          <label_livrable><![CDATA[Les flux, les supports et les données ont chiffrés.]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de chiffrer les données et les flux.]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici les moyens mis en œuvre pour assurer la confidentialité des données et les moyens de chiffrement employés pour les flux de données]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ed1a61c0-cb37-445f-a11d-e718afd1a907]]></id>
+          <nom><![CDATA[A1. Cloisonnement des données]]></nom>
+          <nom_court><![CDATA[Cloisonnement des données]]></nom_court>
+          <label_livrable><![CDATA[Cloisonnement des données]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il faut séparer les différents réseaux (cloisonnement).]]></phrase_preconisation>
+          <detail><![CDATA[Préciser si les réseaux sont cloisonnés.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ee8d88d2-9654-489d-a932-df90b0b84005]]></id>
+          <nom><![CDATA[A1. Contrôle d'intégrité]]></nom>
+          <nom_court><![CDATA[Contrôle d'intégrité]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'intégrité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre des systèmes de contrôle d'intégrité.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des mécanismes de contrôle d’intégrité des données stockées sont mis en œuvre, lesquels et à quelle fin.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ef7856d6-b865-4eac-9dde-a72d3499758d]]></id>
+          <nom><![CDATA[A1. Traçabilité]]></nom>
+          <nom_court><![CDATA[Traçabilité]]></nom_court>
+          <label_livrable><![CDATA[Traçabilité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une journalisation des accès.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des événements sont journalisés et la durée de conservation de ces traces.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[f0434dbc-cb87-4ca8-bd3d-56b48a42e2d4]]></id>
+          <nom><![CDATA[A1. Sécurité des sites Web]]></nom>
+          <nom_court><![CDATA[Sécurité des sites Web]]></nom_court>
+          <label_livrable><![CDATA[Sécurité des sites Web]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre les "recommandations pour la sécurisation des sites web" de l'ANSSI.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les "recommandations pour la sécurisation des sites web" de l'ANSSI sont mises en œuvre.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>true</is_disponibilite>
+      <is_integrite>true</is_integrite>
+      <is_confidentialite>true</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+    <entry>
+      <nom><![CDATA[03 - Phénomènes météorologiques et naturels]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[285b256b-eff8-4df0-ad77-e9f34c71a454]]></id>
+          <nom><![CDATA[A1. Organisation]]></nom>
+          <nom_court><![CDATA[Organisation]]></nom_court>
+          <label_livrable><![CDATA[Organisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Définir les rôles et responsabilités et mettre en place un comité de suivi de la protection des données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez si les rôles et responsabilités en matière de protection des données sont définis. Précisez si une personne est chargée de la mise en application des lois et règlements touchant à la protection de la vie privée.  Précisez s’il existe un comité de suivi (ou équivalent) chargé des orientations et du suivi des actions concernant la protection de la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[c9d1c0e8-14ea-4ca3-903d-90ef4367edce]]></id>
+          <nom><![CDATA[A1. Eloignement des sources de risques]]></nom>
+          <nom_court><![CDATA[Eloignement des sources de risques]]></nom_court>
+          <label_livrable><![CDATA[Eloignement des sources de risques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place des mesures d'éloignement des sources de rsiques]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici les mesures de sécurité physique des serveurs et des postes clients (stockage sécurisé, câbles de sécurité, filtres de confidentialité, effacement sécurisé avant mise au rebut, etc.).]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ddd4e886-108a-43db-8c0e-877ce554e3c4]]></id>
+          <nom><![CDATA[A1. Sauvegardes]]></nom>
+          <nom_court><![CDATA[Sauvegardes]]></nom_court>
+          <label_livrable><![CDATA[Sauvegardes]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de définir et mettre en oeuvre une politique de sauvegarde. Le stockage de celles ci doit être sûr.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici comment les sauvegardes sont gérées et précisez si elles sont stockées dans un endroit sûr.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ee8d88d2-9654-489d-a932-df90b0b84005]]></id>
+          <nom><![CDATA[A1. Contrôle d'intégrité]]></nom>
+          <nom_court><![CDATA[Contrôle d'intégrité]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'intégrité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre des systèmes de contrôle d'intégrité.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des mécanismes de contrôle d’intégrité des données stockées sont mis en œuvre, lesquels et à quelle fin.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>true</is_disponibilite>
+      <is_integrite>true</is_integrite>
+      <is_confidentialite>false</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+    <entry>
+      <nom><![CDATA[01 - Incendie, dégats des eaux ou explosion]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[285b256b-eff8-4df0-ad77-e9f34c71a454]]></id>
+          <nom><![CDATA[A1. Organisation]]></nom>
+          <nom_court><![CDATA[Organisation]]></nom_court>
+          <label_livrable><![CDATA[Organisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Définir les rôles et responsabilités et mettre en place un comité de suivi de la protection des données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez si les rôles et responsabilités en matière de protection des données sont définis. Précisez si une personne est chargée de la mise en application des lois et règlements touchant à la protection de la vie privée.  Précisez s’il existe un comité de suivi (ou équivalent) chargé des orientations et du suivi des actions concernant la protection de la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[4333f533-c7af-417f-b470-62deb93db16e]]></id>
+          <nom><![CDATA[A1. Contrôle d'accès physique]]></nom>
+          <nom_court><![CDATA[Contrôle d'accès physique]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'accès physique]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un contrôle d'accès physique]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici la manière dont est réalisé le contrôle d’accès physique aux locaux hébergeant le traitement (zonage, accompagnement des visiteurs, port de badge, portes verrouillées, etc.). Indiquez s’il existe des moyens d’alerte en cas d’effraction.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[53e094bb-34b3-43c9-804f-ad6634dc4762]]></id>
+          <nom><![CDATA[A1. Protection contre les sources de risques non humaines]]></nom>
+          <nom_court><![CDATA[Protection contre les sources de risques non humaines]]></nom_court>
+          <label_livrable><![CDATA[Protection contre les sources de risques non humaines]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système de prévention, de détection et de lutte contre les sources de risques identifiées .]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici les moyens de prévention, de détection et de lutte contre l’incendie. Le cas échéant, indiquez les moyens de prévention de dégât des eaux. Précisez également les moyens de surveillance et de secours de l'alimentation électrique.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[c9d1c0e8-14ea-4ca3-903d-90ef4367edce]]></id>
+          <nom><![CDATA[A1. Eloignement des sources de risques]]></nom>
+          <nom_court><![CDATA[Eloignement des sources de risques]]></nom_court>
+          <label_livrable><![CDATA[Eloignement des sources de risques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place des mesures d'éloignement des sources de rsiques]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici les mesures de sécurité physique des serveurs et des postes clients (stockage sécurisé, câbles de sécurité, filtres de confidentialité, effacement sécurisé avant mise au rebut, etc.).]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ddd4e886-108a-43db-8c0e-877ce554e3c4]]></id>
+          <nom><![CDATA[A1. Sauvegardes]]></nom>
+          <nom_court><![CDATA[Sauvegardes]]></nom_court>
+          <label_livrable><![CDATA[Sauvegardes]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de définir et mettre en oeuvre une politique de sauvegarde. Le stockage de celles ci doit être sûr.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici comment les sauvegardes sont gérées et précisez si elles sont stockées dans un endroit sûr.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ee8d88d2-9654-489d-a932-df90b0b84005]]></id>
+          <nom><![CDATA[A1. Contrôle d'intégrité]]></nom>
+          <nom_court><![CDATA[Contrôle d'intégrité]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'intégrité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre des systèmes de contrôle d'intégrité.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des mécanismes de contrôle d’intégrité des données stockées sont mis en œuvre, lesquels et à quelle fin.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>true</is_disponibilite>
+      <is_integrite>true</is_integrite>
+      <is_confidentialite>false</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+    <entry>
+      <nom><![CDATA[11 - Traitement non autorisé, diffusion d'infos sensibles, perte de localisation de données]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[1741e06f-78b1-454f-b32f-280c7da50f31]]></id>
+          <nom><![CDATA[A1. Gestion des incidents et des violations de données]]></nom>
+          <nom_court><![CDATA[Gestion des incidents et des violations de données]]></nom_court>
+          <label_livrable><![CDATA[Gestion des incidents et des violations de données]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un suivi des incidents et des violations de données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les incidents font l’objet d’une gestion documentée et testée, notamment en ce qui concerne les violations de données à caractère personnel.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[23cd0f5c-a8d3-4877-9df0-a70efb7deb88]]></id>
+          <nom><![CDATA[A1. Surveillance]]></nom>
+          <nom_court><![CDATA[Surveillance]]></nom_court>
+          <label_livrable><![CDATA[Surveillance]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système de surveillance.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si une surveillance en temps réel du réseau local est mise en œuvre et avec quels moyens. Indiquez si un contrôle des configurations matérielles et logicielles est effectué et par quels moyens.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[285b256b-eff8-4df0-ad77-e9f34c71a454]]></id>
+          <nom><![CDATA[A1. Organisation]]></nom>
+          <nom_court><![CDATA[Organisation]]></nom_court>
+          <label_livrable><![CDATA[Organisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Définir les rôles et responsabilités et mettre en place un comité de suivi de la protection des données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez si les rôles et responsabilités en matière de protection des données sont définis. Précisez si une personne est chargée de la mise en application des lois et règlements touchant à la protection de la vie privée.  Précisez s’il existe un comité de suivi (ou équivalent) chargé des orientations et du suivi des actions concernant la protection de la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[33dd00ed-918a-464a-9eee-ffbf327e55d2]]></id>
+          <nom><![CDATA[A1. Gestion des projets]]></nom>
+          <nom_court><![CDATA[Gestion des projets]]></nom_court>
+          <label_livrable><![CDATA[Gestion des projets]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une procédure/règle  pour  pour que les projets soient tester avec des données fictives/anonymes.]]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les tests des dispositifs sont réalisés sur des données fictives/anonymes.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[422eba50-6b72-4aec-a36f-26cc04b9b3e0]]></id>
+          <nom><![CDATA[A1. Gestion des risques]]></nom>
+          <nom_court><![CDATA[Gestion des risques]]></nom_court>
+          <label_livrable><![CDATA[Gestion des risques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une cartographie des risques sur la vie privée.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les risques que les traitements font peser sur la vie privée des personnes concernées sont étudiés pour les nouveaux traitements, si c'est systématique ou non, et le cas échéant, selon quelle méthode. Précisez s’il existe, au niveau de l’organisme, une cartographie des risques sur la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[4333f533-c7af-417f-b470-62deb93db16e]]></id>
+          <nom><![CDATA[A1. Contrôle d'accès physique]]></nom>
+          <nom_court><![CDATA[Contrôle d'accès physique]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'accès physique]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un contrôle d'accès physique]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici la manière dont est réalisé le contrôle d’accès physique aux locaux hébergeant le traitement (zonage, accompagnement des visiteurs, port de badge, portes verrouillées, etc.). Indiquez s’il existe des moyens d’alerte en cas d’effraction.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[53a35412-f57d-4b58-b820-ae0d798aea42]]></id>
+          <nom><![CDATA[A1. Sécurité des documents papier]]></nom>
+          <nom_court><![CDATA[Sécurité des documents papier]]></nom_court>
+          <label_livrable><![CDATA[Sécurité des documents papier]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire d'organiser l'impression, le stockage, la destruction et les échanges des documents papiers.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici comment sont imprimés, stockés, détruits et échangés les documents papiers.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[671b7c99-f09e-4380-a5ea-65c0ad516171]]></id>
+          <nom><![CDATA[A1. Contrôle des accès logiques des utilisateurs]]></nom>
+          <nom_court><![CDATA[Contrôle des accès logiques des utilisateurs]]></nom_court>
+          <label_livrable><![CDATA[Contrôle des accès logiques des utilisateurs]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de définir des profils utilisateurs et un système d'authentification robuste.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici comment les profils utilisateurs sont définis et attribués et les moyens d’authentification mis en œuvre.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[679f044c-31db-47dd-8542-44034986fe77]]></id>
+          <nom><![CDATA[A1. Anonymisation]]></nom>
+          <nom_court><![CDATA[Anonymisation]]></nom_court>
+          <label_livrable><![CDATA[Anonymisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système d'anonymisation.]]></phrase_preconisation>
+          <detail><![CDATA[Préciser si un méchanisme d'anonymisation est prévu.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[71558060-c69b-4008-b0d6-353e0e2db37b]]></id>
+          <nom><![CDATA[A1. Sécurité des canaux informatiques]]></nom>
+          <nom_court><![CDATA[Sécurité des canaux informatiques]]></nom_court>
+          <label_livrable><![CDATA[Sécurité des canaux informatiques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en place des systèmes de sécurité réseau (pare-feu, détection d'intrusion, ...)]]></phrase_preconisation>
+          <detail><![CDATA[Précisez quels système de pare-feu, sondes de détection d'intrusion, ou autres dispoitifs actifs ou passifs sont chargés d'assurer la sécurité du réseau.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[c15ca959-0e1e-488f-a68b-469afc37b533]]></id>
+          <nom><![CDATA[A1. Relation avec les tiers]]></nom>
+          <nom_court><![CDATA[Relation avec les tiers]]></nom_court>
+          <label_livrable><![CDATA[Relation avec les tiers]]></label_livrable>
+          <phrase_preconisation><![CDATA[Vérifier que la sous-traitance est contractualisée et que les modalités et les mesures de sécurité sont définies dans le contrat]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici, notamment pour les sous-traitants amenés à avoir accès aux données, les modalités et les mesures de sécurité mises en œuvre pour ces accès.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[c44974fd-dabc-4ad9-8a40-62faef168cf5]]></id>
+          <nom><![CDATA[A1. Supervision]]></nom>
+          <nom_court><![CDATA[Supervision]]></nom_court>
+          <label_livrable><![CDATA[Supervision]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système de management des données à caractère personnel]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si l'effectivité et l’adéquation des mesures touchant à la vie privée sont contrôlées.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[cdbdfe56-6691-469e-8a14-758ddf958e33]]></id>
+          <nom><![CDATA[A1. Gestion des personnels]]></nom>
+          <nom_court><![CDATA[Gestion des personnels]]></nom_court>
+          <label_livrable><![CDATA[Gestion des personnels]]></label_livrable>
+          <phrase_preconisation><![CDATA[Sensibiliser les personnes dès leur arrivée dans sa fonction.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici les mesures de sensibilisation prises à l’arrivée d’une personne dans sa fonction. Indiquez les mesures prises au départ des personnes accédant aux données]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[e88ee80e-5df4-4af3-a00b-5ea4592b0b58]]></id>
+          <nom><![CDATA[A1. Politique (gestion des règles)]]></nom>
+          <nom_court><![CDATA[Politique (gestion des règles)]]></nom_court>
+          <label_livrable><![CDATA[Politique (gestion des règles)]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une charte informatique]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici s’il existe une charte informatique (ou équivalent) traitant de la protection des données et de la bonne utilisation des moyens informatiques.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ea22ac0d-ac28-4eab-9eba-bd879e97df1f]]></id>
+          <nom><![CDATA[A1. Chiffrement]]></nom>
+          <nom_court><![CDATA[Chiffrement]]></nom_court>
+          <label_livrable><![CDATA[Les flux, les supports et les données ont chiffrés.]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de chiffrer les données et les flux.]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici les moyens mis en œuvre pour assurer la confidentialité des données et les moyens de chiffrement employés pour les flux de données]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ed1a61c0-cb37-445f-a11d-e718afd1a907]]></id>
+          <nom><![CDATA[A1. Cloisonnement des données]]></nom>
+          <nom_court><![CDATA[Cloisonnement des données]]></nom_court>
+          <label_livrable><![CDATA[Cloisonnement des données]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il faut séparer les différents réseaux (cloisonnement).]]></phrase_preconisation>
+          <detail><![CDATA[Préciser si les réseaux sont cloisonnés.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ee8d88d2-9654-489d-a932-df90b0b84005]]></id>
+          <nom><![CDATA[A1. Contrôle d'intégrité]]></nom>
+          <nom_court><![CDATA[Contrôle d'intégrité]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'intégrité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre des systèmes de contrôle d'intégrité.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des mécanismes de contrôle d’intégrité des données stockées sont mis en œuvre, lesquels et à quelle fin.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ef7856d6-b865-4eac-9dde-a72d3499758d]]></id>
+          <nom><![CDATA[A1. Traçabilité]]></nom>
+          <nom_court><![CDATA[Traçabilité]]></nom_court>
+          <label_livrable><![CDATA[Traçabilité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une journalisation des accès.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des événements sont journalisés et la durée de conservation de ces traces.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>true</is_disponibilite>
+      <is_integrite>true</is_integrite>
+      <is_confidentialite>true</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+    <entry>
+      <nom><![CDATA[10 - Défaillance d'exploitation, saturation serveur, réseau, WEB ou erreur d'utilisation]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[1741e06f-78b1-454f-b32f-280c7da50f31]]></id>
+          <nom><![CDATA[A1. Gestion des incidents et des violations de données]]></nom>
+          <nom_court><![CDATA[Gestion des incidents et des violations de données]]></nom_court>
+          <label_livrable><![CDATA[Gestion des incidents et des violations de données]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un suivi des incidents et des violations de données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les incidents font l’objet d’une gestion documentée et testée, notamment en ce qui concerne les violations de données à caractère personnel.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[285b256b-eff8-4df0-ad77-e9f34c71a454]]></id>
+          <nom><![CDATA[A1. Organisation]]></nom>
+          <nom_court><![CDATA[Organisation]]></nom_court>
+          <label_livrable><![CDATA[Organisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Définir les rôles et responsabilités et mettre en place un comité de suivi de la protection des données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez si les rôles et responsabilités en matière de protection des données sont définis. Précisez si une personne est chargée de la mise en application des lois et règlements touchant à la protection de la vie privée.  Précisez s’il existe un comité de suivi (ou équivalent) chargé des orientations et du suivi des actions concernant la protection de la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[33dd00ed-918a-464a-9eee-ffbf327e55d2]]></id>
+          <nom><![CDATA[A1. Gestion des projets]]></nom>
+          <nom_court><![CDATA[Gestion des projets]]></nom_court>
+          <label_livrable><![CDATA[Gestion des projets]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une procédure/règle  pour  pour que les projets soient tester avec des données fictives/anonymes.]]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les tests des dispositifs sont réalisés sur des données fictives/anonymes.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[3500bb0b-e08c-4605-ba6c-5c746cba65d4]]></id>
+          <nom><![CDATA[A1. Maintenance]]></nom>
+          <nom_court><![CDATA[Maintenance]]></nom_court>
+          <label_livrable><![CDATA[Maintenance]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire d'organiser et documenter la maintenance des équipements physiques.]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici comment est gérée la maintenance physique des équipements.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[422eba50-6b72-4aec-a36f-26cc04b9b3e0]]></id>
+          <nom><![CDATA[A1. Gestion des risques]]></nom>
+          <nom_court><![CDATA[Gestion des risques]]></nom_court>
+          <label_livrable><![CDATA[Gestion des risques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une cartographie des risques sur la vie privée.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les risques que les traitements font peser sur la vie privée des personnes concernées sont étudiés pour les nouveaux traitements, si c'est systématique ou non, et le cas échéant, selon quelle méthode. Précisez s’il existe, au niveau de l’organisme, une cartographie des risques sur la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[679f044c-31db-47dd-8542-44034986fe77]]></id>
+          <nom><![CDATA[A1. Anonymisation]]></nom>
+          <nom_court><![CDATA[Anonymisation]]></nom_court>
+          <label_livrable><![CDATA[Anonymisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système d'anonymisation.]]></phrase_preconisation>
+          <detail><![CDATA[Préciser si un méchanisme d'anonymisation est prévu.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[c15ca959-0e1e-488f-a68b-469afc37b533]]></id>
+          <nom><![CDATA[A1. Relation avec les tiers]]></nom>
+          <nom_court><![CDATA[Relation avec les tiers]]></nom_court>
+          <label_livrable><![CDATA[Relation avec les tiers]]></label_livrable>
+          <phrase_preconisation><![CDATA[Vérifier que la sous-traitance est contractualisée et que les modalités et les mesures de sécurité sont définies dans le contrat]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici, notamment pour les sous-traitants amenés à avoir accès aux données, les modalités et les mesures de sécurité mises en œuvre pour ces accès.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[cdbdfe56-6691-469e-8a14-758ddf958e33]]></id>
+          <nom><![CDATA[A1. Gestion des personnels]]></nom>
+          <nom_court><![CDATA[Gestion des personnels]]></nom_court>
+          <label_livrable><![CDATA[Gestion des personnels]]></label_livrable>
+          <phrase_preconisation><![CDATA[Sensibiliser les personnes dès leur arrivée dans sa fonction.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici les mesures de sensibilisation prises à l’arrivée d’une personne dans sa fonction. Indiquez les mesures prises au départ des personnes accédant aux données]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[d9e44d00-6174-4d8c-9f6e-4e6640f3f3f7]]></id>
+          <nom><![CDATA[A1. Sécurité de l'exploitation]]></nom>
+          <nom_court><![CDATA[Sécurité de l'exploitation]]></nom_court>
+          <label_livrable><![CDATA[Sécurité de l'exploitation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire d'organiser la mise en oeuvre des mises à jour et correctifs de sécurité.]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici comment les mises à jour des logiciels (systèmes d’exploitation, applications, etc.) et l'application des correctifs de sécurité sont réalisées.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[e88ee80e-5df4-4af3-a00b-5ea4592b0b58]]></id>
+          <nom><![CDATA[A1. Politique (gestion des règles)]]></nom>
+          <nom_court><![CDATA[Politique (gestion des règles)]]></nom_court>
+          <label_livrable><![CDATA[Politique (gestion des règles)]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une charte informatique]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici s’il existe une charte informatique (ou équivalent) traitant de la protection des données et de la bonne utilisation des moyens informatiques.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ee8d88d2-9654-489d-a932-df90b0b84005]]></id>
+          <nom><![CDATA[A1. Contrôle d'intégrité]]></nom>
+          <nom_court><![CDATA[Contrôle d'intégrité]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'intégrité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre des systèmes de contrôle d'intégrité.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des mécanismes de contrôle d’intégrité des données stockées sont mis en œuvre, lesquels et à quelle fin.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[f0434dbc-cb87-4ca8-bd3d-56b48a42e2d4]]></id>
+          <nom><![CDATA[A1. Sécurité des sites Web]]></nom>
+          <nom_court><![CDATA[Sécurité des sites Web]]></nom_court>
+          <label_livrable><![CDATA[Sécurité des sites Web]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre les "recommandations pour la sécurisation des sites web" de l'ANSSI.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les "recommandations pour la sécurisation des sites web" de l'ANSSI sont mises en œuvre.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>true</is_disponibilite>
+      <is_integrite>true</is_integrite>
+      <is_confidentialite>true</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+    <entry>
+      <nom><![CDATA[09 - Erreur de conception, dysfonctionnement après mise à jour]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[285b256b-eff8-4df0-ad77-e9f34c71a454]]></id>
+          <nom><![CDATA[A1. Organisation]]></nom>
+          <nom_court><![CDATA[Organisation]]></nom_court>
+          <label_livrable><![CDATA[Organisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Définir les rôles et responsabilités et mettre en place un comité de suivi de la protection des données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez si les rôles et responsabilités en matière de protection des données sont définis. Précisez si une personne est chargée de la mise en application des lois et règlements touchant à la protection de la vie privée.  Précisez s’il existe un comité de suivi (ou équivalent) chargé des orientations et du suivi des actions concernant la protection de la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[33dd00ed-918a-464a-9eee-ffbf327e55d2]]></id>
+          <nom><![CDATA[A1. Gestion des projets]]></nom>
+          <nom_court><![CDATA[Gestion des projets]]></nom_court>
+          <label_livrable><![CDATA[Gestion des projets]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une procédure/règle  pour  pour que les projets soient tester avec des données fictives/anonymes.]]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les tests des dispositifs sont réalisés sur des données fictives/anonymes.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[422eba50-6b72-4aec-a36f-26cc04b9b3e0]]></id>
+          <nom><![CDATA[A1. Gestion des risques]]></nom>
+          <nom_court><![CDATA[Gestion des risques]]></nom_court>
+          <label_livrable><![CDATA[Gestion des risques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une cartographie des risques sur la vie privée.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les risques que les traitements font peser sur la vie privée des personnes concernées sont étudiés pour les nouveaux traitements, si c'est systématique ou non, et le cas échéant, selon quelle méthode. Précisez s’il existe, au niveau de l’organisme, une cartographie des risques sur la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[56cfb4a3-8e7e-480f-a2f1-56e2e2908445]]></id>
+          <nom><![CDATA[A1. Archivage]]></nom>
+          <nom_court><![CDATA[Archivage]]></nom_court>
+          <label_livrable><![CDATA[Archivage]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en place une politique et un système d'archivage.]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici le processus de gestion des archives et la politique d’archivage.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[cdbdfe56-6691-469e-8a14-758ddf958e33]]></id>
+          <nom><![CDATA[A1. Gestion des personnels]]></nom>
+          <nom_court><![CDATA[Gestion des personnels]]></nom_court>
+          <label_livrable><![CDATA[Gestion des personnels]]></label_livrable>
+          <phrase_preconisation><![CDATA[Sensibiliser les personnes dès leur arrivée dans sa fonction.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici les mesures de sensibilisation prises à l’arrivée d’une personne dans sa fonction. Indiquez les mesures prises au départ des personnes accédant aux données]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[d9e44d00-6174-4d8c-9f6e-4e6640f3f3f7]]></id>
+          <nom><![CDATA[A1. Sécurité de l'exploitation]]></nom>
+          <nom_court><![CDATA[Sécurité de l'exploitation]]></nom_court>
+          <label_livrable><![CDATA[Sécurité de l'exploitation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire d'organiser la mise en oeuvre des mises à jour et correctifs de sécurité.]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici comment les mises à jour des logiciels (systèmes d’exploitation, applications, etc.) et l'application des correctifs de sécurité sont réalisées.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[e88ee80e-5df4-4af3-a00b-5ea4592b0b58]]></id>
+          <nom><![CDATA[A1. Politique (gestion des règles)]]></nom>
+          <nom_court><![CDATA[Politique (gestion des règles)]]></nom_court>
+          <label_livrable><![CDATA[Politique (gestion des règles)]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une charte informatique]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici s’il existe une charte informatique (ou équivalent) traitant de la protection des données et de la bonne utilisation des moyens informatiques.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ee8d88d2-9654-489d-a932-df90b0b84005]]></id>
+          <nom><![CDATA[A1. Contrôle d'intégrité]]></nom>
+          <nom_court><![CDATA[Contrôle d'intégrité]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'intégrité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre des systèmes de contrôle d'intégrité.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des mécanismes de contrôle d’intégrité des données stockées sont mis en œuvre, lesquels et à quelle fin.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>true</is_disponibilite>
+      <is_integrite>true</is_integrite>
+      <is_confidentialite>true</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+    <entry>
+      <nom><![CDATA[07 - Observation ou écoute passive, interception de signaux radio, ingénierie sociale]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[1741e06f-78b1-454f-b32f-280c7da50f31]]></id>
+          <nom><![CDATA[A1. Gestion des incidents et des violations de données]]></nom>
+          <nom_court><![CDATA[Gestion des incidents et des violations de données]]></nom_court>
+          <label_livrable><![CDATA[Gestion des incidents et des violations de données]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un suivi des incidents et des violations de données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les incidents font l’objet d’une gestion documentée et testée, notamment en ce qui concerne les violations de données à caractère personnel.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[285b256b-eff8-4df0-ad77-e9f34c71a454]]></id>
+          <nom><![CDATA[A1. Organisation]]></nom>
+          <nom_court><![CDATA[Organisation]]></nom_court>
+          <label_livrable><![CDATA[Organisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Définir les rôles et responsabilités et mettre en place un comité de suivi de la protection des données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez si les rôles et responsabilités en matière de protection des données sont définis. Précisez si une personne est chargée de la mise en application des lois et règlements touchant à la protection de la vie privée.  Précisez s’il existe un comité de suivi (ou équivalent) chargé des orientations et du suivi des actions concernant la protection de la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[679f044c-31db-47dd-8542-44034986fe77]]></id>
+          <nom><![CDATA[A1. Anonymisation]]></nom>
+          <nom_court><![CDATA[Anonymisation]]></nom_court>
+          <label_livrable><![CDATA[Anonymisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système d'anonymisation.]]></phrase_preconisation>
+          <detail><![CDATA[Préciser si un méchanisme d'anonymisation est prévu.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[71558060-c69b-4008-b0d6-353e0e2db37b]]></id>
+          <nom><![CDATA[A1. Sécurité des canaux informatiques]]></nom>
+          <nom_court><![CDATA[Sécurité des canaux informatiques]]></nom_court>
+          <label_livrable><![CDATA[Sécurité des canaux informatiques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en place des systèmes de sécurité réseau (pare-feu, détection d'intrusion, ...)]]></phrase_preconisation>
+          <detail><![CDATA[Précisez quels système de pare-feu, sondes de détection d'intrusion, ou autres dispoitifs actifs ou passifs sont chargés d'assurer la sécurité du réseau.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[cdbdfe56-6691-469e-8a14-758ddf958e33]]></id>
+          <nom><![CDATA[A1. Gestion des personnels]]></nom>
+          <nom_court><![CDATA[Gestion des personnels]]></nom_court>
+          <label_livrable><![CDATA[Gestion des personnels]]></label_livrable>
+          <phrase_preconisation><![CDATA[Sensibiliser les personnes dès leur arrivée dans sa fonction.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici les mesures de sensibilisation prises à l’arrivée d’une personne dans sa fonction. Indiquez les mesures prises au départ des personnes accédant aux données]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[e88ee80e-5df4-4af3-a00b-5ea4592b0b58]]></id>
+          <nom><![CDATA[A1. Politique (gestion des règles)]]></nom>
+          <nom_court><![CDATA[Politique (gestion des règles)]]></nom_court>
+          <label_livrable><![CDATA[Politique (gestion des règles)]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une charte informatique]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici s’il existe une charte informatique (ou équivalent) traitant de la protection des données et de la bonne utilisation des moyens informatiques.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ea22ac0d-ac28-4eab-9eba-bd879e97df1f]]></id>
+          <nom><![CDATA[A1. Chiffrement]]></nom>
+          <nom_court><![CDATA[Chiffrement]]></nom_court>
+          <label_livrable><![CDATA[Les flux, les supports et les données ont chiffrés.]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de chiffrer les données et les flux.]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici les moyens mis en œuvre pour assurer la confidentialité des données et les moyens de chiffrement employés pour les flux de données]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ee8d88d2-9654-489d-a932-df90b0b84005]]></id>
+          <nom><![CDATA[A1. Contrôle d'intégrité]]></nom>
+          <nom_court><![CDATA[Contrôle d'intégrité]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'intégrité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre des systèmes de contrôle d'intégrité.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des mécanismes de contrôle d’intégrité des données stockées sont mis en œuvre, lesquels et à quelle fin.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>true</is_disponibilite>
+      <is_integrite>true</is_integrite>
+      <is_confidentialite>true</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+    <entry>
+      <nom><![CDATA[08 - Géolocalisation d'un utilisateur]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[285b256b-eff8-4df0-ad77-e9f34c71a454]]></id>
+          <nom><![CDATA[A1. Organisation]]></nom>
+          <nom_court><![CDATA[Organisation]]></nom_court>
+          <label_livrable><![CDATA[Organisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Définir les rôles et responsabilités et mettre en place un comité de suivi de la protection des données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez si les rôles et responsabilités en matière de protection des données sont définis. Précisez si une personne est chargée de la mise en application des lois et règlements touchant à la protection de la vie privée.  Précisez s’il existe un comité de suivi (ou équivalent) chargé des orientations et du suivi des actions concernant la protection de la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[422eba50-6b72-4aec-a36f-26cc04b9b3e0]]></id>
+          <nom><![CDATA[A1. Gestion des risques]]></nom>
+          <nom_court><![CDATA[Gestion des risques]]></nom_court>
+          <label_livrable><![CDATA[Gestion des risques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une cartographie des risques sur la vie privée.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les risques que les traitements font peser sur la vie privée des personnes concernées sont étudiés pour les nouveaux traitements, si c'est systématique ou non, et le cas échéant, selon quelle méthode. Précisez s’il existe, au niveau de l’organisme, une cartographie des risques sur la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[cdbdfe56-6691-469e-8a14-758ddf958e33]]></id>
+          <nom><![CDATA[A1. Gestion des personnels]]></nom>
+          <nom_court><![CDATA[Gestion des personnels]]></nom_court>
+          <label_livrable><![CDATA[Gestion des personnels]]></label_livrable>
+          <phrase_preconisation><![CDATA[Sensibiliser les personnes dès leur arrivée dans sa fonction.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici les mesures de sensibilisation prises à l’arrivée d’une personne dans sa fonction. Indiquez les mesures prises au départ des personnes accédant aux données]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[e88ee80e-5df4-4af3-a00b-5ea4592b0b58]]></id>
+          <nom><![CDATA[A1. Politique (gestion des règles)]]></nom>
+          <nom_court><![CDATA[Politique (gestion des règles)]]></nom_court>
+          <label_livrable><![CDATA[Politique (gestion des règles)]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une charte informatique]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici s’il existe une charte informatique (ou équivalent) traitant de la protection des données et de la bonne utilisation des moyens informatiques.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>false</is_disponibilite>
+      <is_integrite>false</is_integrite>
+      <is_confidentialite>true</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+    <entry>
+      <nom><![CDATA[05 - Défaillance matérielle ou brouillage électromagnétique]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[3500bb0b-e08c-4605-ba6c-5c746cba65d4]]></id>
+          <nom><![CDATA[A1. Maintenance]]></nom>
+          <nom_court><![CDATA[Maintenance]]></nom_court>
+          <label_livrable><![CDATA[Maintenance]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire d'organiser et documenter la maintenance des équipements physiques.]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici comment est gérée la maintenance physique des équipements.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[422eba50-6b72-4aec-a36f-26cc04b9b3e0]]></id>
+          <nom><![CDATA[A1. Gestion des risques]]></nom>
+          <nom_court><![CDATA[Gestion des risques]]></nom_court>
+          <label_livrable><![CDATA[Gestion des risques]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place une cartographie des risques sur la vie privée.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si les risques que les traitements font peser sur la vie privée des personnes concernées sont étudiés pour les nouveaux traitements, si c'est systématique ou non, et le cas échéant, selon quelle méthode. Précisez s’il existe, au niveau de l’organisme, une cartographie des risques sur la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[c15ca959-0e1e-488f-a68b-469afc37b533]]></id>
+          <nom><![CDATA[A1. Relation avec les tiers]]></nom>
+          <nom_court><![CDATA[Relation avec les tiers]]></nom_court>
+          <label_livrable><![CDATA[Relation avec les tiers]]></label_livrable>
+          <phrase_preconisation><![CDATA[Vérifier que la sous-traitance est contractualisée et que les modalités et les mesures de sécurité sont définies dans le contrat]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici, notamment pour les sous-traitants amenés à avoir accès aux données, les modalités et les mesures de sécurité mises en œuvre pour ces accès.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ee8d88d2-9654-489d-a932-df90b0b84005]]></id>
+          <nom><![CDATA[A1. Contrôle d'intégrité]]></nom>
+          <nom_court><![CDATA[Contrôle d'intégrité]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'intégrité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre des systèmes de contrôle d'intégrité.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des mécanismes de contrôle d’intégrité des données stockées sont mis en œuvre, lesquels et à quelle fin.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>true</is_disponibilite>
+      <is_integrite>true</is_integrite>
+      <is_confidentialite>false</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+    <entry>
+      <nom><![CDATA[04 - Phénomène bactériologique, chimique, pandémique ou pollution]]></nom>
+      <mesures_protections>
+        <entry>
+          <id><![CDATA[285b256b-eff8-4df0-ad77-e9f34c71a454]]></id>
+          <nom><![CDATA[A1. Organisation]]></nom>
+          <nom_court><![CDATA[Organisation]]></nom_court>
+          <label_livrable><![CDATA[Organisation]]></label_livrable>
+          <phrase_preconisation><![CDATA[Définir les rôles et responsabilités et mettre en place un comité de suivi de la protection des données]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez si les rôles et responsabilités en matière de protection des données sont définis. Précisez si une personne est chargée de la mise en application des lois et règlements touchant à la protection de la vie privée.  Précisez s’il existe un comité de suivi (ou équivalent) chargé des orientations et du suivi des actions concernant la protection de la vie privée.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[4333f533-c7af-417f-b470-62deb93db16e]]></id>
+          <nom><![CDATA[A1. Contrôle d'accès physique]]></nom>
+          <nom_court><![CDATA[Contrôle d'accès physique]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'accès physique]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un contrôle d'accès physique]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici la manière dont est réalisé le contrôle d’accès physique aux locaux hébergeant le traitement (zonage, accompagnement des visiteurs, port de badge, portes verrouillées, etc.). Indiquez s’il existe des moyens d’alerte en cas d’effraction.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[53e094bb-34b3-43c9-804f-ad6634dc4762]]></id>
+          <nom><![CDATA[A1. Protection contre les sources de risques non humaines]]></nom>
+          <nom_court><![CDATA[Protection contre les sources de risques non humaines]]></nom_court>
+          <label_livrable><![CDATA[Protection contre les sources de risques non humaines]]></label_livrable>
+          <phrase_preconisation><![CDATA[Mettre en place un système de prévention, de détection et de lutte contre les sources de risques identifiées .]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici les moyens de prévention, de détection et de lutte contre l’incendie. Le cas échéant, indiquez les moyens de prévention de dégât des eaux. Précisez également les moyens de surveillance et de secours de l'alimentation électrique.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ddd4e886-108a-43db-8c0e-877ce554e3c4]]></id>
+          <nom><![CDATA[A1. Sauvegardes]]></nom>
+          <nom_court><![CDATA[Sauvegardes]]></nom_court>
+          <label_livrable><![CDATA[Sauvegardes]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de définir et mettre en oeuvre une politique de sauvegarde. Le stockage de celles ci doit être sûr.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici comment les sauvegardes sont gérées et précisez si elles sont stockées dans un endroit sûr.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ea22ac0d-ac28-4eab-9eba-bd879e97df1f]]></id>
+          <nom><![CDATA[A1. Chiffrement]]></nom>
+          <nom_court><![CDATA[Chiffrement]]></nom_court>
+          <label_livrable><![CDATA[Les flux, les supports et les données ont chiffrés.]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de chiffrer les données et les flux.]]></phrase_preconisation>
+          <detail><![CDATA[Décrivez ici les moyens mis en œuvre pour assurer la confidentialité des données et les moyens de chiffrement employés pour les flux de données]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+        <entry>
+          <id><![CDATA[ee8d88d2-9654-489d-a932-df90b0b84005]]></id>
+          <nom><![CDATA[A1. Contrôle d'intégrité]]></nom>
+          <nom_court><![CDATA[Contrôle d'intégrité]]></nom_court>
+          <label_livrable><![CDATA[Contrôle d'intégrité]]></label_livrable>
+          <phrase_preconisation><![CDATA[Il est nécessaire de mettre en oeuvre des systèmes de contrôle d'intégrité.]]></phrase_preconisation>
+          <detail><![CDATA[Indiquez ici si des mécanismes de contrôle d’intégrité des données stockées sont mis en œuvre, lesquels et à quelle fin.]]></detail>
+          <poids_vraisemblance>1</poids_vraisemblance>
+          <poids_gravite>1</poids_gravite>
+          <created_at><![CDATA[2023-07-19T10:57:24+02:00]]></created_at>
+          <updated_at><![CDATA[2023-07-19T10:57:24+02:00]]></updated_at>
+        </entry>
+      </mesures_protections>
+      <is_visible>true</is_visible>
+      <is_disponibilite>true</is_disponibilite>
+      <is_integrite>true</is_integrite>
+      <is_confidentialite>false</is_confidentialite>
+      <vraisemblance><![CDATA[vide]]></vraisemblance>
+      <gravite><![CDATA[vide]]></gravite>
+    </entry>
+  </scenario_menaces>
+  <created_at><![CDATA[2023-08-02T18:17:01+02:00]]></created_at>
+  <updated_at><![CDATA[2023-08-02T18:18:46+02:00]]></updated_at>
+</result>
