@@ -227,10 +227,13 @@ class UserMetric implements MetricInterface
                 ]
             );
 
-        $maturity = $this->surveyRepository->findLatestByReferentialAndCollectivity(
-            $referentiel,
-            $collectivity
-        );
+        if ($referentiel) {
+            $maturity = $this->surveyRepository->findLatestByReferentialAndCollectivity(
+                $referentiel,
+                $collectivity
+            );
+        }
+
         $mesurements = $this->entityManager->getRepository(Model\Mesurement::class)->findBy(
             ['collectivity' => $collectivity]
         );
@@ -273,7 +276,7 @@ class UserMetric implements MetricInterface
         }
 
         // MATURITY
-        if (isset($maturity[0]) && null !== $maturity[0]->getReferentiel()) {
+        if (isset($maturity) && isset($maturity[0]) && null !== $maturity[0]->getReferentiel()) {
             $data['maturity']['new']['name'] = $maturity[0]->getCreatedAt()->format('d/m/Y');
             foreach ($maturity[0]->getMaturity() as $item) {
                 $data['maturity']['new']['data'][$item->getDomain()->getPosition()]['name']  = $item->getDomain()->getName();
@@ -281,7 +284,7 @@ class UserMetric implements MetricInterface
             }
             \ksort($data['maturity']['new']['data']);
         }
-        if (isset($maturity[1]) && null !== $maturity[0]->getReferentiel()) {
+        if (isset($maturity) && isset($maturity[1]) && null !== $maturity[0]->getReferentiel()) {
             $data['maturity']['old']['name'] = $maturity[1]->getCreatedAt()->format('d/m/Y');
             foreach ($maturity[1]->getMaturity() as $item) {
                 $data['maturity']['old']['data'][$item->getDomain()->getPosition()]['name']  = $item->getDomain()->getName();
