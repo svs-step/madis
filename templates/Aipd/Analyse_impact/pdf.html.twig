@@ -1582,25 +1582,28 @@
     var domainesLabels = [];
     var domainesDatas = [];
 
-    {% for critere in object.criterePrincipeFondamentaux %}
-    domainesLabels.push("{{ critere.label|u.truncate(28,'...')|raw|escape('js') }}");
-    {% if critere.reponse == 'conforme' %}
-    domainesDatas.push(5);
-    {% else %}
-    domainesDatas.push(1);
-    {% endif %}
 
+    {% for critere in object.criterePrincipeFondamentaux %}
+        {% if critere.reponse != 'non_applicable' %}
+            domainesLabels.push("{{ critere.label|u.truncate(28,'...')|raw|escape('js') }}");
+            {% if critere.reponse == 'conforme' %}
+                domainesDatas.push(5);
+            {% else %}
+                domainesDatas.push(1);
+            {% endif %}
+        {% endif %}
     {% endfor %}
+
     {% for question in object.questionConformites|sort((a, b) => a.position >= b.position) %}
-    {% set reponse = object.conformiteTraitement.reponseOfPosition(question.position) %}
-    {% if reponse and reponse.conforme %}
-    domainesDatas.push(5);
-    {% elseif reponse and reponse.actionProtections is not empty %}
-    domainesDatas.push(3);
-    {% else %}
-    domainesDatas.push(1);
-    {% endif %}
-    domainesLabels.push("{{ question.question|u.truncate(28, "...")|raw|escape('js') }}");
+        {% set reponse = object.conformiteTraitement.reponseOfPosition(question.position) %}
+        {% if reponse and reponse.conforme %}
+            domainesDatas.push(5);
+        {% elseif reponse and reponse.actionProtections is not empty %}
+            domainesDatas.push(3);
+        {% else %}
+            domainesDatas.push(1);
+        {% endif %}
+        domainesLabels.push("{{ question.question|u.truncate(28, "...")|raw|escape('js') }}");
     {% endfor %}
     /* The format of the data used by the chart is [[],[]] but here we use only 1 set of data */
     domainesDatas = [domainesDatas];
