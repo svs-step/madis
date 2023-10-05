@@ -426,17 +426,11 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
         $this->ssoKey = $ssoKey;
     }
 
-    /**
-     * @return bool
-     */
     public function isNotGeneratesNotifications(): ?bool
     {
         return $this->notGeneratesNotifications;
     }
 
-    /**
-     * @param bool $notGeneratesNotifications
-     */
     public function setNotGeneratesNotifications(?bool $notGeneratesNotifications): void
     {
         $this->notGeneratesNotifications = $notGeneratesNotifications;

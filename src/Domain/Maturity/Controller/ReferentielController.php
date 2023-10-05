@@ -425,7 +425,6 @@ class ReferentielController extends CRUDController
             /** @var Model\Referentiel $object */
             $object = $serializer->deserialize($content, Model\Referentiel::class, 'xml');
             $object->deserialize();
-            // dd($object);
             // $object->setDomains($domain);
 
             $object->setCreatedAt(new \DateTimeImmutable());

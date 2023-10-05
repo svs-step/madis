@@ -213,6 +213,7 @@ class NotificationsSendCommand extends Command
                 return (new \DateTime())->setTime($prefs->getHour(), 0);
             case EmailNotificationPreference::FREQUENCY_WEEK:
                 $now = new \DateTime();
+
                 // set cutoff date to this week at the specified day and time
                 return (new \DateTime())->setTime($prefs->getHour(), 0)->setISODate($now->format('Y'), $now->format('W'), $prefs->getDay());
             case EmailNotificationPreference::FREQUENCY_MONTH:

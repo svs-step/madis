@@ -444,8 +444,6 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                             ->setParameter('sensitiveDatas', 1)
                             ->groupBy('o.id')
                         ;
-
-                        // dd($queryBuilder->getQuery()->getSQL());
                     }
 
                     break;

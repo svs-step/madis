@@ -468,7 +468,6 @@ class TreatmentType extends AbstractType
 
                         $qb
                         ->orderBy('s.name', 'ASC');
-                        // dd($qb);
 
                         return $qb;
                     }

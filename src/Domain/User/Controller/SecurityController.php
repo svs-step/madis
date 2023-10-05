@@ -32,7 +32,6 @@ use App\Domain\User\Form\Type\ResetPasswordType;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository;
 use Doctrine\ORM\EntityManagerInterface;
-use Exception;
 use KnpU\OAuth2ClientBundle\Client\ClientRegistry;
 use KnpU\OAuth2ClientBundle\Client\OAuth2Client;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
@@ -113,7 +112,7 @@ class SecurityController extends AbstractController
         $oauthServiceName = $request->get('service');
         try {
             $client = $clientRegistry->getClient($oauthServiceName);
-        } catch (Exception) {
+        } catch (\Exception) {
             return $this->_handleSsoClientError();
         }
 
@@ -138,7 +137,7 @@ class SecurityController extends AbstractController
         $sso_key_field = $this->sso_key_field;
         try {
             $sso_value = $userOAuthData[$sso_key_field];
-        } catch (Exception) {
+        } catch (\Exception) {
             $logger->error('SSO field "' . $sso_key_field . '" not found.');
             $logger->info('Data returned by SSO: ' . json_encode($userOAuthData));
 

@@ -3,7 +3,6 @@
 namespace App\Oauth2Provider\Keycloak;
 
 use App\Oauth2Provider\Keycloak\Exception\EncryptionConfigurationException;
-use Exception;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use League\OAuth2\Client\Provider\AbstractProvider;
@@ -262,7 +261,7 @@ class Keycloak extends AbstractProvider
     {
         try {
             $this->encryptionKey = file_get_contents($encryptionKeyPath);
-        } catch (Exception) {
+        } catch (\Exception) {
             // Not sure how to handle this yet.
         }
 

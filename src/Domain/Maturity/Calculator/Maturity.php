@@ -95,7 +95,6 @@ class Maturity
         $removedMaturities = $maturityList;
         // Update maturityList with new points
         // If maturity doesn't exists for related domain, create it
-        // dd($points);
         foreach ($points as $key => $point) {
             if (!isset($maturityList[$key])) {
                 $maturityList[$key] = new Model\Maturity();

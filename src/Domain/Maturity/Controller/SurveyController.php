@@ -293,8 +293,6 @@ class SurveyController extends CRUDController
             $this->entityManager->persist($object);
             $this->entityManager->flush();
 
-            //            dd($object->getAnswerSurveys());
-
             $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object->__toString()));
 
             return $this->redirectToRoute($this->getRouteName('list'));

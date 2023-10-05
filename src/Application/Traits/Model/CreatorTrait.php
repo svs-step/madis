@@ -30,9 +30,6 @@ trait CreatorTrait
 {
     private ?User $creator = null;
 
-    /**
-     * @return User
-     */
     public function getCreator(): ?User
     {
         return $this->creator;

@@ -502,9 +502,6 @@ class Collectivity implements LoggableSubject
         $modeleAnalyse->addAuthorizedCollectivity($this);
     }
 
-    /**
-     * @return bool
-     */
     public function isHasModuleConformiteTraitement(): ?bool
     {
         return $this->hasModuleConformiteTraitement;

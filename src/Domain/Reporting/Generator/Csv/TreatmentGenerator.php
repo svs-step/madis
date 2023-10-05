@@ -116,7 +116,7 @@ class TreatmentGenerator extends AbstractGenerator
             );
             array_push($data, $extract);
         }
-        // dd($data);
+
         return $data;
     }
 

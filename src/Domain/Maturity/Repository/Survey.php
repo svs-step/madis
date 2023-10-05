@@ -57,7 +57,6 @@ interface Survey extends CRUDRepositoryInterface, DataTablesRepository
      *
      * @param array $collectivities The array of collectivity to search with
      * @param array $order          Order the data
-     * @param int   $limit
      *
      * @return array The array of survey given by the collectivity
      */
