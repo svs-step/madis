@@ -45,26 +45,22 @@
             })
 
         function addFormToCollection(e){
+            e.preventDefault()
             const btn = $(e.currentTarget)
             let type = e.currentTarget.classList[0];
 
             let html = $('#prototypes').data('prototype-section')
             if (type === 'add_section') {
-                console.log('adding section')
                 const collectionHolder = document.querySelector('.' + e.currentTarget.dataset.collectionHolderClass);
                 collectionHolder.dataset.index++
                 const index = collectionHolder.dataset.index;
                 let html = $('#prototypes').data('prototype-section')
-                console.log('old HTML', html)
                 html = html.replace(/__section_name__/g, index).replace(/__index__/g, index)
-                console.log('new HTML', html)
                 btn.parent('div').find('ul.referentielSections').append('<li>'+html+'</li>');
                 $('#referentiel_referentielSections_'+index+'_orderNumber').val(index);
                 $('#referentiel_domains_'+index+'_position').val(index);
             } else if (type === 'add_question') {
-                console.log('add question')
                 let html = $('#prototypes').data('prototype-question')
-                console.log(btn.parent().parent())
                 const holder = btn.parent().parent().find('ul.referentielQuestions')
                 const section = holder.data('section');
                 const oldIndex = holder.data('index');
@@ -78,7 +74,7 @@
             } else {
                 let html = $('#prototypes').data('prototype-answer')
                 const holder = btn.parent().parent().parent().find('ul.referentielAnswers')
-                console.log('holder', holder)
+
                 const section = holder.data('section');
                 const question = holder.data('question');
                 const oldIndex = holder.data('index')
@@ -86,10 +82,11 @@
                 holder.append(html);
                 const newIndex = holder.data('index') + 1
                 holder.data('index', newIndex)
-                console.log('object val', $(`#referentiel_referentielSections_${section}_referentielQuestions_${question}_referentielAnswers_${oldIndex}_orderNumber`))
                 $(`#referentiel_referentielSections_${section}_referentielQuestions_${question}_referentielAnswers_${oldIndex}_orderNumber`).val(oldIndex)
                 $(`#referentiel_domains_${section}_questions_${question}_answers_${oldIndex}_position`).val(oldIndex)
             }
+
+            dragdrop()
         }
 
         var $wrapper = $('.js-table-collection-wrapper');
@@ -115,7 +112,6 @@
             $(this).parent().data('index', index + 1);
             // Display the form in the page before the "new" link
             $('#js-table-collection tr:last').after(newForm);
-            console.log($('.selectpicker'));
             $('.selectpicker').selectpicker('refresh');
         });
 
@@ -125,13 +121,15 @@
             var $h = $p.parent().find('input[type=hidden]')
             $h.val(1);
             $p.remove();
-            console.log('$h', $h)
         })
 
+        dragdrop()
+    });
+
+    function dragdrop() {
         $("ul.referentielAnswers").each(function(n, el){
             $(el).sortable({
                 stop: function( event, ui ) {
-                    console.log("answer order changed", event.target)
                     setTimeout(function() {
                         $(event.target).find(' > li').each(function(i, li) {
                             console.log('i', i, li)
@@ -146,7 +144,6 @@
         $("ul.referentielQuestions").each(function(n, el){
             $(el).sortable({
                 stop: function( event, ui ) {
-                    console.log("question order changed", event.target)
                     setTimeout(function() {
                         $(event.target).find(' > li').each(function(i, li) {
                             console.log('i', i, li)
@@ -160,7 +157,6 @@
         $("ul.referentielSections").each(function(n, el){
             $(el).sortable({
                 stop: function( event, ui ) {
-                    console.log("section order changed", event.target)
                     setTimeout(function() {
                         $(event.target).find(' > li').each(function(i, li) {
                             console.log('i', i, li)
@@ -170,5 +166,5 @@
                 }
             })
         })
-    });
+    }
 </script>
