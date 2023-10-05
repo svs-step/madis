@@ -84,7 +84,7 @@ class DashboardController extends AbstractController
                 array_map(
                     function (\App\Domain\Maturity\Model\Survey $survey) {
                         return $survey->getReferentiel();
-                    }, $this->surveyRepository->findAllByCollectivity($collectivity)
+                    }, $this->surveyRepository->findAllByCollectivity($collectivity, ['createdAt' => 'DESC'])
                 ),
                 function (array $result, \App\Domain\Maturity\Model\Referentiel $referentiel) {
                     if (!isset($result[$referentiel->getId()->toString()])) {
