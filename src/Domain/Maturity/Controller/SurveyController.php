@@ -215,7 +215,7 @@ class SurveyController extends CRUDController
 
             $this->addFlash('success', $this->getFlashbagMessage('success', 'create', $object->__toString()));
 
-            return $this->redirectToRoute($this->getRouteName('list'));
+            return $this->redirectToRoute($this->getRouteName('synthesis'), ['id' => $object->getId()]);
         }
 
         return $this->render($this->getTemplatingBasePath('create'), [
@@ -295,7 +295,7 @@ class SurveyController extends CRUDController
 
             $this->addFlash('success', $this->getFlashbagMessage('success', 'edit', $object->__toString()));
 
-            return $this->redirectToRoute($this->getRouteName('list'));
+            return $this->redirectToRoute($this->getRouteName('synthesis'), ['id' => $object->getId()]);
         }
 
         return $this->render($this->getTemplatingBasePath('edit'), [
