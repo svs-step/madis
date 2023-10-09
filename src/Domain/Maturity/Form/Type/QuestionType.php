@@ -83,7 +83,7 @@ class QuestionType extends AbstractType
             ->add('answers', CollectionType::class, [
                     'label'          => 'maturity.referentiel.form.answer',
                     'entry_type'     => AnswerType::class,
-                    'required'       => false,
+                    'required'       => true,
                     'allow_add'      => true,
                     'allow_delete'   => true,
                     'by_reference'   => false,

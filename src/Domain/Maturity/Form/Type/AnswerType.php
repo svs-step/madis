@@ -52,7 +52,7 @@ class AnswerType extends AbstractType
                 'label'    => 'maturity.referentiel.form.recommendation',
                 'required' => false,
                 'attr'     => [
-                'maxlength' => 1000,
+                    'maxlength' => 1000,
                 ],
                 'purify_html' => true,
             ])
