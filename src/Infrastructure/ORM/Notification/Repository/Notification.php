@@ -306,8 +306,9 @@ class Notification extends CRUDRepository implements Repository\Notification
                         ->setParameter('object', '%' . $search . '%');
                     break;
                 case 'date':
-                    $queryBuilder->andWhere('o.createdAt LIKE :createdAt')
-                        ->setParameter('createdAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    $queryBuilder->andWhere('o.createdAt BETWEEN :createdAt_start AND :createdAt_end')
+                        ->setParameter('createdAt_start', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('createdAt_end', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
                 case 'user':
                     $queryBuilder->leftJoin('o.createdBy', 'cb');
@@ -316,19 +317,22 @@ class Notification extends CRUDRepository implements Repository\Notification
                     break;
                 case 'read_date':
                     if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_REFERENT')) {
-                        $queryBuilder->andWhere('o.readAt LIKE :readAt')
-                            ->setParameter('readAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                        $queryBuilder->andWhere('o.readAt BETWEEN :readAt_start AND :readAt_end')
+                            ->setParameter('readAt_start', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('readAt_end', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     } else {
                         $queryBuilder->leftJoin('o.notificationUsers', 'nu2');
                         $queryBuilder->andWhere('nu2.user=:user');
-                        $queryBuilder->andWhere('nu2.readAt LIKE :readAt')
-                            ->setParameter('readAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                        $queryBuilder->andWhere('nu2.readAt BETWEEN :readAt_start AND :readAt_end')
+                            ->setParameter('readAt_start', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                            ->setParameter('readAt_end', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                         $queryBuilder->setParameter('user', $user);
                     }
                     break;
                 case 'updatedAt':
-                    $queryBuilder->andWhere('o.updatedAt LIKE :updatedAt')
-                        ->setParameter('updatedAt', date_create_from_format('d/m/Y', $search)->format('Y-m-d') . '%');
+                    $queryBuilder->andWhere('o.updatedAt BETWEEN :updatedAt_start AND :updatedAt_end')
+                        ->setParameter('updatedAt_start', date_create_from_format('d/m/y', substr($search, 0, 8))->format('Y-m-d 00:00:00'))
+                        ->setParameter('updatedAt_end', date_create_from_format('d/m/y', substr($search, 11, 8))->format('Y-m-d 23:59:59'));
                     break;
             }
         }

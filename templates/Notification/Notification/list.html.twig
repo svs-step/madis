@@ -79,13 +79,13 @@
                                     <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
                                 </th>
                                 {% endif %}
-                                <th scope="col"><input class="datepicker form-control" type="text" id="search_date" placeholder="Date" style="width: 100%;"></th>
+                                <th scope="col"><input class="daterangepicker form-control" type="text" id="search_date" placeholder="Date" style="position: relative; width: 90%; top: 0; left: 0; padding: 5px; font-size: small; border-radius: 0; border-color: rgb(210, 214, 222);"></th>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <th scope="col">
                                     <input class="form-control" type="text" id="search_user_name" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 <th scope="col">
-                                    <input class="datepicker form-control" type="text" id="search_read_at" placeholder="Date" style="width: 100%;">
+                                    <input class="daterangepicker form-control" type="text" id="search_read_at" placeholder="Date" style="position: relative; width: 90%; top: 0; left: 0; padding: 5px; font-size: small; border-radius: 0; border-color: rgb(210, 214, 222);">
                                 </th>
                                 <th scope="col">
                                     <input class="form-control" type="text" id="search_read_by" placeholder="Nom" style="width: 100%;">
@@ -181,7 +181,7 @@
     {{ include('_Utils/_serverside_datatable.html.twig') }}
 <script>
     const isAdmin = {{ is_granted('ROLE_ADMIN')|json_encode() }}
-        
+
     function resetFilters() {
             $('[id^=search_]').each(function() {
                 $(this).val('');
