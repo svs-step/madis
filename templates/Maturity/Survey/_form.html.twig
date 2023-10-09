@@ -16,8 +16,12 @@
 
 
     {% for domain in domains %}
+        {% set colorSection = 0 %}
+        {% if loop.index matches '/^\\d+$/' %}
+            {% set colorSection = (loop.index - 1) % 4 %}
+        {% endif %}
         <div class="col-md-6">
-            <div class="box box-solid {{ colors[loop.index % 4] }}">
+            <div class="box box-solid {{ colors[colorSection] }}">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ domain.name }}</h3>
                 </div>

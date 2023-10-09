@@ -89,7 +89,7 @@
                    >
                         {% do form.domains.setRendered() %}
                         {% if form.domains is not empty %}
-                            {% for section in form.domains|sort((a, b) => a.vars['value'].position <=> b.vars['value'].position) %}
+                            {% for section in form.domains|sort((a, b) => a.vars['value'].position > b.vars['value'].position) %}
                                 {{ formMacros.printSectionRow(section, loop.index, colors) }}
                             {% endfor %}
                         {% endif %}

@@ -77,12 +77,15 @@
             <h2>Préconisations</h2>
         </div>
         {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
-        {% for domain in object.referentiel.domains %}
+        {% for domain in object.referentiel.domains|sort((a, b) => a.position > b.position) %}
             {% set domainAnswers = form.answerSurveys|filter(as => as.vars.value.answer.question.domain.id == domain.id and as.vars.value.answer.recommendation) %}
-
+            {% set colorSection = 0 %}
+            {% if loop.index matches '/^\\d+$/' %}
+                {% set colorSection = (loop.index - 1) % 4 %}
+            {% endif %}
             {% if domainAnswers|length > 0 %}
                 <div class="col-md-6">
-                    <div class="box box-solid {{ colors[(domain.position) % 4] }}">
+                    <div class="box box-solid {{ colors[colorSection] }}">
                         <div class="box-header with-border">
                             <h3 class="box-title">{{ domain.name }}</h3>
                         </div>
