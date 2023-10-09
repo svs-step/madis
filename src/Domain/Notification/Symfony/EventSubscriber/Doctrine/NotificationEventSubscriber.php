@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Domain\Notification\Symfony\EventSubscriber\Doctrine;
 
 use App\Application\Interfaces\CollectivityRelated;
+use App\Domain\AIPD\Dictionary\StatutAnalyseImpactDictionary;
 use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Documentation\Model\Document;
 use App\Domain\Notification\Model\Notification;
@@ -448,7 +449,7 @@ class NotificationEventSubscriber implements EventSubscriber
         }
 
         if ('notification.modules.aipd' === $notification->getModule() && ('notifications.actions.state_change' === $notification->getAction() || 'notification.actions.state_change' === $notification->getAction())) {
-            return $notification->getObject()->statut;
+            return StatutAnalyseImpactDictionary::getStatuts()[$notification->getObject()->statut];
         }
 
         if ('notification.modules.document' === $notification->getModule()) {
