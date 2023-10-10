@@ -29,6 +29,7 @@
 {{ form_end(form) }}
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
 <script>
     $(document).ready(function(){
         $('.draft').on('click',function(){
@@ -36,8 +37,8 @@
         })
 
         if (!$("input[id='treatment_legalBasis_1']").is(':checked')){
-            $("label[for='treatment_consentRequest']").hide();
-            $("label[for='treatment_consentRequestFormat']").hide();
+            $("label[for='treatment_consentRequest']").parents('.form-group').hide();
+            $("label[for='treatment_consentRequestFormat']").parents('.form-group').hide();
             $("#treatment_consentRequestFormat").hide();
             $("#treatment_consentRequestFormat").val('');
             $("#treatment_consentRequest").prop('checked',false);
@@ -45,12 +46,12 @@
 
         $("input[name='treatment[legalBasis]']").on('change',function(){
             if($(this).val() === 'consent'){
-                $("label[for='treatment_consentRequest']").show();
-                $("label[for='treatment_consentRequestFormat']").show();
+                $("label[for='treatment_consentRequest']").parents('.form-group').show();
+                $("label[for='treatment_consentRequestFormat']").parents('.form-group').show();
                 $("#treatment_consentRequestFormat").show();
             } else {
-                $("label[for='treatment_consentRequest']").hide();
-                $("label[for='treatment_consentRequestFormat']").hide();
+                $("label[for='treatment_consentRequest']").parents('.form-group').hide();
+                $("label[for='treatment_consentRequestFormat']").parents('.form-group').hide();
                 $("#treatment_consentRequestFormat").hide();
                 $("#treatment_consentRequestFormat").val('');
                 $("#treatment_consentRequest").prop('checked',false);

@@ -21,4 +21,80 @@
     $( ".conformite-select" ).each(function() {
         disableSelect($(this));
     });
+
+    $(document).ready(function(){
+        var collect = $('#conformite_traitement_traitement_collectingMethod option:selected').text();
+        if (collect.includes('Autre')) {
+            $('label[for="conformite_traitement_traitement_otherCollectingMethod"]').show();
+            $('input[id="conformite_traitement_traitement_otherCollectingMethod"]').show();
+        } else {
+            $('label[for="conformite_traitement_traitement_otherCollectingMethod"]').hide();
+            $('input[id="conformite_traitement_traitement_otherCollectingMethod"]').hide();
+            $('input[id="conformite_traitement_traitement_otherCollectingMethod"]').val('');
+        }
+
+        $('#conformite_traitement_traitement_collectingMethod').on('change',function(){
+            var collection = $('#conformite_traitement_traitement_collectingMethod option:selected').text();
+            if (collection.includes('Autre')) {
+                $('label[for="conformite_traitement_traitement_otherCollectingMethod"]').show();
+                $('#conformite_traitement_traitement_otherCollectingMethod').show();
+                $('#conformite_traitement_traitement_otherCollectingMethod').prop( "disabled", false );
+            } else {
+                $('label[for="conformite_traitement_traitement_otherCollectingMethod"]').hide();
+                $('#conformite_traitement_traitement_otherCollectingMethod').hide();
+                $('#conformite_traitement_traitement_otherCollectingMethod').prop( "disabled", false );
+                $('#conformite_traitement_traitement_otherCollectingMethod').val('');
+            }
+        })
+
+        var author = $('#conformite_traitement_traitement_author option:selected').text();
+        console.log('auteur',author);
+        if (author === 'Responsable de traitement'){
+            $('label[for="conformite_traitement_traitement_coordonneesResponsableTraitement"]').hide();
+            $('#conformite_traitement_traitement_coordonneesResponsableTraitement').hide();
+            $('#conformite_traitement_traitement_coordonneesResponsableTraitement').val('');
+        } else {
+            $('label[for="conformite_traitement_traitement_coordonneesResponsableTraitement"]').show();
+            $('#conformite_traitement_traitement_coordonneesResponsableTraitement').show();
+        }
+
+        $('#conformite_traitement_traitement_author').on('change',function(){
+            var author = $('#conformite_traitement_traitement_author option:selected').text();
+
+            if (author === 'Responsable de traitement'){
+                $('label[for="conformite_traitement_traitement_coordonneesResponsableTraitement"]').hide();
+                $('#conformite_traitement_traitement_coordonneesResponsableTraitement').hide();
+                $('#conformite_traitement_traitement_coordonneesResponsableTraitement').val('');
+            } else {
+                $('label[for="conformite_traitement_traitement_coordonneesResponsableTraitement"]').show();
+                $('#conformite_traitement_traitement_coordonneesResponsableTraitement').show();
+            }
+        })
+        $('.draft').on('click',function(){
+            $('#conformite_traitement_traitement_statut').val('draft');
+        })
+
+        if (!$("input[id='conformite_traitement_traitement_legalBasis_1']").is(':checked')){
+            $("label[for='conformite_traitement_traitement_consentRequest']").parents('.form-group').hide();
+            $("label[for='conformite_traitement_traitement_consentRequestFormat']").parents('.form-group').hide();
+            $("#conformite_traitement_traitement_consentRequestFormat").hide();
+            $("#conformite_traitement_traitement_consentRequestFormat").val('');
+            $("#conformite_traitement_traitement_consentRequest").prop('checked',false);
+        }
+
+        $("input[name='conformite_traitement[traitement][legalBasis]']").on('change',function(){
+            if($(this).val() === 'consent'){
+                $("label[for='conformite_traitement_traitement_consentRequest']").parents('.form-group').show();
+                $("label[for='conformite_traitement_traitement_consentRequestFormat']").parents('.form-group').show();
+                $("#conformite_traitement_traitement_consentRequestFormat").show();
+            } else {
+                $("label[for='conformite_traitement_traitement_consentRequest']").parents('.form-group').hide();
+                $("label[for='conformite_traitement_traitement_consentRequestFormat']").parents('.form-group').hide();
+                $("#conformite_traitement_traitement_consentRequestFormat").hide();
+                $("#conformite_traitement_traitement_consentRequestFormat").val('');
+                $("#conformite_traitement_traitement_consentRequest").prop('checked',false);
+            }
+        })
+
+    })
 </script>
