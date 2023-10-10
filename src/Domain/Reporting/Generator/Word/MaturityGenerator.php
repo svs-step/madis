@@ -35,7 +35,12 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 {
     public function addContextView(Section $section, array $data): void
     {
-        $section->addTitle('Contexte', 1);
+        if (isset($data['bilanReport']) && $data['bilanReport']) {
+            $section->addTitle('Évaluation de la mise en conformité', 2);
+            $section->addTitle('Contexte', 3);
+        } else {
+            $section->addTitle('Contexte', 1);
+        }
 
         $table = $section->addTable([
             'borderColor' => '006699',
@@ -69,6 +74,10 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
     public function addSyntheticView(Section $section, array $data): void
     {
+        if (isset($data['bilanReport']) && $data['bilanReport']) {
+            $section->addTitle("Résultat de l'évaluation", 3);
+        }
+
         $maturityList = [];
         $domainsName  = [];
         if (isset($data['old'])) {
@@ -116,7 +125,10 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             }
         }
         // Display
-        $section->addTitle('Vue d\'ensemble', 1);
+        if (!(isset($data['bilanReport']) && $data['bilanReport'])) {
+            $section->addTitle('Vue d\'ensemble', 1);
+        }
+
         $this->addTable($section, $tableData, true, self::TABLE_ORIENTATION_HORIZONTAL);
 
         $section->addTextBreak(2);
