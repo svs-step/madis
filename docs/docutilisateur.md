@@ -35,12 +35,12 @@ Il est possible de visualiser différents indicateurs :
 * Les sous-traitants conformes et non conformes ;
 * Les demandes à traiter et celles traitées ;
 * Des statistiques et accès rapide de modules figurants également dans le menu ;
-* Les deux derniers indices de maturité sous forme de radar. Il est possible de visualiser qu'un seul radar en cliquant sur la date de l'indice de maturité à masquer ;
+* Les deux derniers indices de maturité sous forme de radar. Il est possible de visualiser qu'un seul radar en cliquant sur la date de l'indice de maturité à masquer ainsi que de sélectionner un référentiel en particulier ;
 * Le graphique synthétisant les mesures de sécurité conformes et non conformes sur les traitements informatisés ;
 * La liste des prochaines actions planifiées dans le plan d'action ;
 * D'autres indicateurs peuvent être affichés si les modules sont activés (Conformité des traitements, AIPD à réaliser...).
 
-Les légendes et le détail des contenus sont affichés au survol de la souris.
+``Astuce : Les légendes et le détail des contenus sont affichés au survol de la souris.``
 
 ## Navigation générale
 
@@ -57,7 +57,7 @@ Il est possible de naviguer dans les différentes pages :
 * Le menu « **Générer un bilan** » permet de générer le bilan synthétisant l'ensemble des éléments renseignés dans Madis au format Word ;
 * Le menu « **Espace documentaire** » permet de consulter toutes les ressources mises à disposition par le DPD ;
 * Le menu « **Ma structure** » permet de modifier les informations de la structure ;
-* Le menu « **Mon compte** » permet de modifier les informations du compte (prénom, nom, email, mot de passe). **L'adresse mail renseignée ne doit pas déjà avoir été utilisée par un autre compte**.
+* Le menu « **Mon compte** » permet de modifier les informations du compte (prénom, nom, email, mot de passe...).
 
 ![Menu Madis](images/Madis-Navigation-Menu-Desktop.png)
 
@@ -103,7 +103,7 @@ Dans les formulaires, les champs précédés d’un astérisque « * » sont obl
 
 Le menu « **Ma structure** » permet de modifier les informations de la structure.
 
-``À noter : À l'exception du nombre de salariés ou de la population, seul un administrateur peut modifier les informations générales et l’adresse.``
+``À noter : À l'exception du site internet, du nombre de salariés et de la population, seul un administrateur peut modifier les informations générales et l’adresse.``
 
 ![Visualiser ma structure](images/Madis-Visualiser-Ma-Structure.png)
 
@@ -134,7 +134,7 @@ Le menu « **Mon compte** » permet de modifier les informations du compte (pré
 
 Ce module permet de paramétrer Madis pour qu’il délègue son authentification à un système tiers.
 
-Le module de délégation de l'authentification (SSO) est optionnel et peut être activé pour l'ensemble de Madis par le DPD (compte administrateur). Consulter l'[activation du module de délégation de l'authentification (SSO)](#activation-du-module-de-delegation-de-lauthentification-(sso)) pour plus d'information.
+Le module de délégation de l'authentification (SSO) est optionnel et peut être activé pour l'ensemble de Madis par le DPD (compte administrateur). Consulter l'[activation du module de délégation de l'authentification (SSO)](#activation-du-module-de-delegation-de-l-authentification-sso) pour plus d'information.
 
 L’activation du module ajoute une nouvelle méthode d'authentification lors de la connexion ainsi que des éléments de paramétrage dans son profil permettant d'associer le compte à la délégation.
 
@@ -142,7 +142,7 @@ L’activation du module ajoute une nouvelle méthode d'authentification lors de
 
 Pour utiliser cette méthode d'authentification, il est nécessaire d'associer son compte à un fournisseur d'identité en cliquant depuis son profil sur « **Associer le compte** ».
 
-![Mon profil](images/Madis-Mon-Profil-SSO.png)
+![Mon profil avec le module SSO](images/Madis-Mon-Profil-SSO.png)
 
 # Les registres
 
@@ -163,11 +163,12 @@ Il est possible d'effectuer plusieurs actions :
 
 Des cases à cocher permettent de réaliser des actions en masse sur les éléments sélectionnés :
 
-- « **Désactiver** » permet de rendre les traitements sélectionnés inactifs. Un traitement inactif n'apparaît pas dans le registre des traitements ni dans le bilan ;
-- « **Supprimer** » permet de supprimer les traitements sélectionnés. **Cette action est irréversible** ;
-- « **Imprimer** » permet de générer les traitements sélectionnés au format PDF.
+- « **Imprimer** » permet de générer les traitements sélectionnés au format PDF ;
 
-``Astuce : Il est possible de visualiser les informations d'un traitement en cliquant sur son nom. Lors de la consultation de celui-ci, un bouton d'action « Imprimer » permet d'imprimer les informations du traitement au format PDF.``
+- « **Désactiver** » permet de rendre les traitements sélectionnés inactifs. Un traitement inactif n'apparaît pas dans le registre des traitements ni dans le bilan ;
+- « **Supprimer** » permet de supprimer les traitements sélectionnés. **Cette action est irréversible**.
+
+``Astuce : Il est possible de visualiser les informations d'un traitement en cliquant sur son nom. Lors de la consultation de celui-ci, un bouton d'action « Imprimer » permet d'imprimer les informations du traitement au format PDF. De plus, une zone d'information permet de consulter les préconisations renseignées par le Délégué à la Protection des Données (DPD).``
 
 ### Nouveau traitement
 
@@ -191,7 +192,6 @@ Dans les informations générales, il est possible de renseigner les éléments 
 * **Base légale** : Liste des bases légales énumérées dans le RGPD. Il est possible de positionner la base légale sur « **À déterminer** » si la base légale n'est pas connue au moment de la création du traitement ;
 * **Justification de la base légale** : Toute base légale doit être justifiée grâce à des références de texte réglementaire (Exemple CGCT). Par exemple, pour le consentement, il faut avoir l'accord écrit de la personne concernée. Il est également possible d'indiquer le texte réglementaire permettant de justifier le choix du délai de conservation ;
 * **Observations** : Toute précision complémentaire sur la tenue de ce traitement ;
-* **Préconisations DPO** : Champ affiché uniquement aux DPD permettant de préciser toute préconisation à destination de la structure. Si ce champ est renseigné, une zone de préconisation DPD apparaîtra lors de la visualisation d'un traitement ;
 * **Registre public** : Rend visible le traitement dans une page non authentifiée à destination du grand public. Les champs affichés sont ceux [paramétrés par le DPD](#registre-public).
 
 Ci-après un exemple d’informations générales pré-rempli :
@@ -215,7 +215,7 @@ Dans les catégories de données, il est possible de renseigner les éléments s
 
 Dans la destination, il est possible de renseigner les éléments suivants :
 
-* **Catégorie de destinataires** : Précise les destinataires des données à caractère personnel (service interne, organisation extérieure, partenaires, ...) ;
+* **Catégorie de destinataires** : Précise les destinataires des données à caractère personnel (service interne, organisation extérieure, partenaires...) ;
 * **Sous-traitants** : Liste des sous-traitants identifiés dans le registre des sous-traitants.
 
 ``Astuce : Recenser un sous-traitant avant un traitement permet de le rattacher directement au moment de la création du traitement.``
@@ -239,34 +239,39 @@ Dans les détails, il est possible de renseigner les éléments suivants :
 
 * **Personnes concernées** : Type de personnes concernées par le traitement. Il est possible de cocher la case correspondante et de préciser les informations par le champ de texte adjacent ;
 * **Nombre de concernés** : Nombre approximatif de personnes concernées par le traitement. Cette information est utile en cas de violations de données personnelles ;
-* **Logiciel** : Si le traitement est informatisé, précise le nom du logiciel utilisé (Word, Excel, ...). Si le traitement est exclusivement papier, laisser ce champ vide ;
+* **Logiciel et supports** : Si le traitement est informatisé, précise le nom du logiciel utilisé (Word, Excel...). Si le traitement est exclusivement papier, laisser ce champ vide ;
 * **Traitement papier** : Si le traitement est papier ;
-* **Délai de conservation** : Le délai de conservation indiqué est le délai réel mis en œuvre par la structure. Si le délai est calculé, préciser les critères utilisés pour déterminer le délai de conservation (Exemple : 3 ans à compter de la fin de la relation contractuelle) ;
-* **Sort final** : Sort final appliqué à l'issue du traitement ;
-* **Origine des données** : Données provenant d'un tiers (CAF, Société, ...) ou de la personne concernée directement ;
+* « **+ Délai de conservation** » permet d'ajouter un ou plusieurs délais de conservation. Pour chacun, il est possible de renseigner les éléments suivants :
+  * **Nom** :  Intitulé du délai de conservation ;
+  * **Durée** :  Durée réelle mise en œuvre par la structure. Si la durée est calculée, préciser les critères utilisés pour déterminer le délai de conservation (Exemple : 3 ans à compter de la fin de la relation contractuelle) ;
+  * **Sort final** : Sort final appliqué à l'issue du délai de conservation ;
+
+* **Origine des données** : Données provenant d'un tiers (CAF, Société...) ou de la personne concernée directement ;
 * **Moyens de la collecte** : Moyen utilisé pour collecter les données à caractère personnel ;
 * **Mentions légales apposées** : Si les mentions légales sont indiqués ;
-* **Consentement demandé** : Si le consentement est demandé ;
-* **Format de la demande du consentement**.
+* Si la base légale du traitement est le consentement, il est possible de renseigner les éléments suivants :
+  * **Consentement demandé** : Si le consentement est demandé ;
+  * **Format de la demande du consentement**.
+
 
 #### Mesures de sécurité et confidentialité
 
 Les mesures de sécurité sont propres à chaque traitement concerné, il est possible de renseigner les éléments suivants :
 
 * **Contrôle d'accès** : Par exemple, accès via un identifiant/mot de passe ou une certification, une gestion des habilitations, un badge... ;
-* **Traçabilité** : Par exemple, journalisation des accès utilisateurs, données enregistrées (identifiant, date et heure de connexion, actions)... ;
-* **Sauvegarde** : Type de sauvegarde (support, interne/externe, fréquence, ...) ;
+* **Traçabilité** : Par exemple, journalisation des accès utilisateurs, données enregistrées (identifiant, date et heure de connexion, actions...) ;
+* **Sauvegarde** : Type de sauvegarde (support, interne/externe, fréquence...) ;
 * **Mise à jour** : Par exemple, configuration des mises à jour automatique, contrat de mise à jour... ;
-* **Autres** : Précise toute autre mesure à documenter. Les quatre mesures précédentes concernent principalement les traitements informatisés, il est possible d'utiliser ce champ pour la protection des traitements papier. Par exemple, documents stockés dans un coffre-fort, armoire ignifugée fermant à clé... ;
+* **Autres** : Précise toute autre mesure à documenter. Les quatre mesures précédentes concernent principalement les traitements informatisés, il est possible d'utiliser ce champ pour la protection des traitements papier. Par exemple, documents stockés dans un coffre-fort, armoire ignifugée fermant à clé...
 
-Les éléments suivants doivent être cochés :
+Les éléments suivants doivent être cochés dans les cas suivants :
 * S'il est possible de ressortir à tout moment les personnes habilitées ayant un accès aux données à caractère personnel ;
 * Si la personne et/ou la procédure permettant d’ouvrir des comptes sont clairement identifiées ;
 * Si les personnes pouvant avoir accès aux données ont été sensibilisées à la protection des données. Il peut également arriver que le traitement nécessite une sensibilisation spécifique.
 
 ## Le registre des sous-traitants
 
-Le menu « **Sous-traitants** » permet de consulter la liste des sous-traitants et d'en ajouter. Le registre des traitements recense l’ensemble des sous-traitants de la structure et permet d’effectuer le suivi de leur conformité au RGPD (clauses contractuelles vérifiées, conforme au RGPD).
+Le menu « **Sous-traitants** » permet de consulter la liste des sous-traitants et d'en ajouter. Le registre des sous-traitants recense l’ensemble des sous-traitants de la structure et permet d’effectuer le suivi de leur conformité au RGPD (clauses contractuelles vérifiées, conforme au RGPD).
 
 Un sous-traitant est un prestataire de services qui traite des données à caractère personnel pour le compte, sur l'instruction et sous l’autorité de la structure en tant que responsable de traitement.
 
@@ -276,11 +281,11 @@ Il est possible d'effectuer plusieurs actions :
 
 - « **+ Nouveau sous-traitant** » permet d'ajouter un nouveau sous-traitant ;
 - « **Générer une impression** » permet de générer le registre des sous-traitants au format Word ;
+- « **Imprimer** » permet de générer les éléments filtrés dans l'affichage au format PDF ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
 - « **Supprimer** » permet de supprimer les éléments filtrés dans l'affichage. **Cette action est irréversible** ;
-- « **Imprimer** » permet de générer les éléments filtrés dans l'affichage au format PDF ;
-- « **Modifier** » permet de modifier les informations d'un traitement ;
-- « **Supprimer** » permet de supprimer définitivement le traitement. **Cette action est irréversible**.
+- « **Modifier** » permet de modifier les informations d'un sous-traitant ;
+- « **Supprimer** » permet de supprimer définitivement le sous-traitant. **Cette action est irréversible**.
 
 ``Astuce : Il est possible de visualiser les informations d'un sous-traitant en cliquant sur son nom. Lors de la consultation de celui-ci, un bouton d'action « Imprimer » permet d'imprimer les informations du sous-traitant au format PDF.``
 
@@ -323,9 +328,73 @@ Dans les coordonnées, il est possible de renseigner les éléments suivants :
 * **Email** ;
 * **N° de tel**.
 
+## Module logiciels et supports
+
+Le module logiciels et supports est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module logiciels et supports](#activation-du-module-logiciels-et-supports) pour plus d'information.
+
+L'activation du module ajoute l'élément « **Logiciels et supports** » dans le menu, il ajoute la possibilité de lier un logiciel ou support depuis une preuve ainsi qu'une action de protection. De plus, celui-ci modifie le champ « **Logiciels et supports** » dans le registre des traitements en le replaçant par un champ permettant de lier un ou plusieurs logiciels ou supports au traitement.
+
+``À noter : Si des données ont été renseignées dans le champ libre « Logiciels et supports » dans le registre des traitements, celles-ci seront conservées, mais ne seront plus consultables lorsque le module sera actif. Inversement, si des logiciels et supports sont liés à un traitement et que le module est désactivé, celles-ci seront aussi conservées, mais ne seront plus consultables jusqu'à tant qu'il soit réactivé.``
+
+### Le registre des logiciels et supports
+
+Le menu « **Logiciels et supports** » permet de consulter la liste des logiciels et supports et d'en ajouter. Le registre des logiciels et supports recense l’ensemble des logiciels applicatifs (bureautique, web...) et supports de stockage (disque dur, serveur, clé USB, CD...) de la structure et permet d'apporter des précisions pour le registre des traitements.
+
+![Liste des logiciels et supports](images/Madis-Liste-Des-Logiciels-Et-Supports.png)
+
+Il est possible d'effectuer plusieurs actions : 
+
+- « **+ Nouveau logiciel ou support** » permet d'ajouter un nouveau logiciel ou support ;
+- « **Générer une impression** » permet de générer le registre des logiciels et supports au format Word ;
+- « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
+- « **Modifier** » permet de modifier les informations d'un logiciel ou support ;
+- « **Supprimer** » permet de supprimer définitivement le logiciel ou support. **Cette action est irréversible**.
+
+``Astuce : Il est possible de visualiser les informations d'un logiciel ou support en cliquant sur son nom. Lors de la consultation de celui-ci, un bouton d'action « Imprimer » permet d'imprimer les informations du logiciel ou support au format PDF.``
+
+#### Nouveau logiciel ou support
+
+« **+ Nouveau logiciel ou support** » permet d'ajouter un nouveau logiciel ou support.
+
+**Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
+
+![Ajouter un logiciel ou support](images/Madis-Ajouter-Un-Logiciel-Ou-Support.png)
+
+``Astuce : Recenser un logiciel ou support avant un traitement permet de le rattacher directement au moment de la création du traitement.``
+
+##### Informations générales
+
+Dans les informations générales, il est possible de renseigner les éléments suivants :
+
+* **Nom** : Intitulé du logiciel ou support ;
+* **Type** : Précise le type permettant de distinguer un logiciel (bureautique, web...) ou un support de stockage (disque dur, serveur, clé USB, CD...) ;
+* **Description** : Toute précision sur le logiciel ou support ;
+* **Éditeur** : Nom de l'entreprise éditrice du logiciel ou support ;
+* **Sous-traitants** : Liste des sous-traitants identifiés dans le registre des sous-traitants ;
+* **Date de mise en production** : Date de mise en production dans la structure ;
+* **Pays d’hébergement ou de stockage** : Pays d’hébergement du logiciel ou de stockage du support (logiciel web hébergé dans un autre pays, données stockées sur un serveur à l'étranger...). Si le logiciel ou support est stocké en dehors de la France, il est possible de préciser :
+  * **Nom du pays** ;
+  * **Garanties pour le transfert** : Toute précision permettant de garantir que le pays tiers dispose d’un niveau adéquat de protection des données si le logiciel ou support est hébergé ou stocké dans un pays non-adéquat. Il est possible de prendre connaissance de la [liste des pays considérés comme assurant un niveau de protection adéquat (Anglais)](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_fr) ;
+* **Personne en charge** : Personne(s) ou service qui gère le logiciel ou support ;
+* **Autres informations** : Toute précision complémentaire.
+
+##### Mesures de sécurité et confidentialité
+
+Les mesures de sécurité sont propres à chaque logiciel ou support concerné, il est possible de renseigner les éléments suivants :
+
+* **Archivage** ;
+* **Chiffrement** ;
+* **Contrôle d'accès** : Par exemple, accès via un identifiant/mot de passe ou une certification, une gestion des habilitations, un badge... ;
+* **Mise à jour** : Par exemple, configuration des mises à jour automatique, contrat de mise à jour... ;
+* **Sauvegarde** : Type de sauvegarde (support, interne/externe, fréquence...) ;
+* **Suppression** ;
+* **Traçabilité** : Par exemple, journalisation des accès utilisateurs, données enregistrées (identifiant, date et heure de connexion, actions...) ;
+* **Zone de commentaire libre** ;
+* **Autres** : Précise toute autre mesure à documenter.
+
 ## Le registre des demandes
 
-Le menu « **Demandes** » permet de consulter la liste des demandes et d'en ajouter. Chaque nouvelle demande d'exercice de droit de personne concernée basé sur le RGPD (droit d’accès, d’opposition, ...) doit être enregistrée dans ce registre.
+Le menu « **Demandes** » permet de consulter la liste des demandes et d'en ajouter. Chaque nouvelle demande d'exercice de droit de personne concernée basé sur le RGPD (droit d’accès, d’opposition...) doit être enregistrée dans ce registre.
 
 ![Liste des demandes](images/Madis-Liste-Des-Demandes.png)
 
@@ -509,7 +578,7 @@ Il est possible d'associer la preuve à un ou plusieurs éléments du registre d
 
 Le menu « **Actions de protection** » permet de consulter la liste des actions de protection et d'en ajouter. Cette liste recense l’ensemble des actions mises en place ou à mettre en place.
 
-Les actions de protection sont des mesures (techniques, organisationnelles, juridiques, ...) mises en place ou à mettre en place dans la structure.
+Les actions de protection sont des mesures (techniques, organisationnelles, juridiques...) mises en place ou à mettre en place dans la structure.
 
 ![Liste des actions de protection](images/Madis-Liste-Des-Actions-De-Protection.png)
 
@@ -517,9 +586,9 @@ Il est possible d'effectuer plusieurs actions :
 
 - « **+ Nouvelle action** » permet d'ajouter une nouvelle action ;
 - « **Générer une impression** » permet de générer le registre des actions de protection au format Word ;
-- « **Supprimer** » permet de supprimer les éléments filtrés dans l'affichage. **Cette action est irréversible** ;
 - « **Imprimer** » permet de générer les éléments filtrés dans l'affichage au format PDF ;
 - « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
+- « **Supprimer** » permet de supprimer les éléments filtrés dans l'affichage. **Cette action est irréversible** ;
 - « **Modifier** » permet de modifier les informations d'une action de protection ;
 - « **Supprimer** » permet de supprimer définitivement l'action de protection. **Cette action est irréversible**.
 
@@ -571,11 +640,11 @@ Il est possible d'effectuer plusieurs actions :
 
 ``Astuce : Il est possible de trier les actions par date/coût/charge...``
 
-Pour ajouter une action au plan d'actions, il faut aller dans la [liste des actions de protection](#les-actions-de-protection) et passer le **statut de l'action** en question en « **Non appliquée** » et renseigner une **date prévisionnelle**.
+Pour ajouter une action au plan d'actions, il faut aller dans la [liste des actions de protection](#les-actions-de-protection) et passer le **statut de l'action** en « **Non appliquée** » et renseigner une **date prévisionnelle**.
 
 # Indice de maturité
 
-Le menu « **Indice de maturité** » permet de consulter la liste des indices de maturité et d'en ajouter. Cette liste recense la progression du niveau de maturité de la structure.
+Le menu « **Indice de maturité** » permet de consulter la liste des indices de maturité et d'en ajouter. Cette liste recense la progression du niveau de maturité de la structure selon différents référentiels mis à disposition par le Délégué à la Protection des Données (DPD).
 
 L’indice de maturité est une suite de questions, classées par thématiques permettant de suivre l’évolution de la mise en conformité de la structure. Outil d’aide à la décision, il permet ainsi de mettre en exergue les thèmes prioritaires à développer. Il est le repère indispensable pour aiguiller dans l’élaboration du [plan d'actions](#plan-dactions).
 
@@ -585,26 +654,49 @@ Il est possible d'effectuer plusieurs actions :
 
 - « **+ Nouvel indice de maturité** » permet d'ajouter un nouvel indice de maturité ;
 - « **Imprimer** » permet de générer un indice de maturité au format Word ;
+- « **Synthèse** » permet de visualiser la synthèse d'un indice de maturité ;
 - « **Modifier** » permet de modifier les informations d'un indice de maturité ;
 - « **Supprimer** » permet de supprimer définitivement l'indice de maturité. **Cette action est irréversible**.
+
+``Astuce : Il est possible de visualiser la synthèse d'un indice de maturité en cliquant sur son nom. Lors de la consultation de celle-ci, un bouton d'action « Imprimer » permet d'imprimer les informations de l'indice de maturité au format Word. Des préconisations peuvent être présentes, et pour chacune, il est possible d'affecter une ou plusieurs actions de protection. Celles-ci peuvent être choisies dans la liste ou ajoutées avec le bouton « + ».``
+
+![Synthèse d'un indice de maturité](images/Madis-Indice-De-Maturite-Synthese.png)
 
 ## Nouvel indice de maturité
 
 « **+ Nouvel indice de maturité** » permet d'ajouter un nouvel indice de maturité. 
 
-À chaque nouvel indice, l‘ensemble des questions doit être répondu.
+**Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
 
-Il est possible de répondre par l'une des réponses suivantes :
+### Choix du référentiel
 
-- **Non / Je ne sais pas** : L'élément n'est pas réalisé ou la réponse n'est pas certaine ;
-- « **En partie** » ;
-- « **Oui / Complètement** ».
+L’évaluation d’un indice de maturité commence par le choix du référentiel.
+
+![Choix du référentiel dans l'ajout d'un indice de maturité](images/Madis-Ajouter-Un-Indice-De-Maturite-Choix-Du-Referentiel.png)
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **Retourner à la liste** » permet de quitter l'indice de maturité en ne prenant pas en compte les informations saisies ;
+- « **Choisir ce référentiel** » permet de choisir le référentiel sélectionné et de passer à l'étape suivante. Une fois le référentiel choisi, il n’est plus possible de revenir en arrière.
+
+``Astuce : En cas d’erreur lors du choix du référentiel, il est possible de supprimer l'évaluation dans la liste des indices de maturité.``
+
+### Évaluation de l'indice de maturité
+
+Cette étape permet d'évaluer l'indice de maturité selon le référentiel précédemment choisi. L'ensemble des questions doit être répondu.
 
 ![Ajouter un indice de maturité](images/Madis-Ajouter-Un-Indice-De-Maturite.png)
 
-Lorsqu'un nouvel indice de maturité est réalisé, il est possible de consulter le résultat sur le tableau de bord ainsi que dans le bilan. Celui-ci comprend le résultat du nouvel indice ainsi que l’indice précédent.
+Il est possible d'effectuer plusieurs actions :
+
+- « **Retourner à la liste** » permet de quitter l'AIPD en ne prenant pas en compte les informations saisies ou modifiées ;
+- « **Créer l'indice de maturité** » permet de créer l'indice de maturité.
+
+Lorsqu'un indice de maturité est créé, il est possible de consulter le résultat depuis la synthèse ou depuis le tableau de bord.
 
 ![Graphique de l'indice de maturité](images/Madis-Graphique-Indice-De-Maturite.png)
+
+``Astuce : Pour le tableau de bord, si plusieurs référentiels ont été utilisés pour la réalisation d'indices de maturité, il est possible d'en sélectionner un en particulier. Le graphique comprend le résultat du dernier indice ainsi que l’indice précédent.``
 
 # Générer un bilan
 
@@ -649,7 +741,7 @@ L'activation du module ajoute l'élément « **Conformité des traitements** » 
 
 De plus, l'activation du module ajoute l'élément « **Évaluation de la conformité du traitement** » dans la visualisation d'un traitement. « **Évaluer** » permet de procéder à l'évaluation du traitement.
 
-![Évaluation de la conformité du traitement dans la visualisation du traitement](images/Madis-Visualiser-Un-Traitement-Conformite-Du-Traitement.png)
+![Évaluation de la conformité du traitement dans la visualisation d'un traitement](images/Madis-Visualiser-Un-Traitement-Conformite-Du-Traitement.png)
 
 Enfin, l'activation du module activera le module AIPD. Consulter le [module AIPD](#module-aipd) pour plus d'information.
 
@@ -775,9 +867,9 @@ Il est possible d'effectuer plusieurs actions :
 Il est possible d'effectuer plusieurs actions :
 
 - « **Retourner à la liste** » permet de quitter l'évaluation en ne prenant pas en compte les informations saisies ou modifiées ;
-- « **Enregistrer** » permet de terminer l'évaluation et d'actualiser les notes de conformité du tableau avec les pilotes. Il n'est pas possible de modifier une évaluation terminée ;
+- « **Créer l'évaluation de la structure** » ou « **Modifier l'évaluation de la structure** » permet de terminer l'évaluation et d'actualiser les notes de conformité du tableau avec les pilotes. Il n'est pas possible de modifier une évaluation terminée ;
 - « **Enregistrer un brouillon** » permet de quitter l'évaluation en prenant en compte les informations saisies ou modifiées. Les informations d'une évaluation en brouillon ne sont pas prises en compte dans le calcul de la conformité ;
-- « **Ajouter un participant** » permet d'ajouter un participant. Les informations du ou des participants sont repris dans l'impression de l'évaluation ;
+- « **Ajouter un participant** » permet d'ajouter un participant. Les informations du ou des participants sont repris dans l'impression de l'évaluation.
 
 #### Contexte
 
@@ -824,7 +916,7 @@ L'activation du module ajoute l'élément « **Analyse d'impacts** » dans le me
 
 De plus, l'activation du module ajoute l'élément « **Dernière analyse d'impact réalisée** » dans la visualisation d'un traitement. « **Modifier l'AIPD** » permet de modifier l'AIPD si celle-ci n'a pas été validée.
 
-![Dernière analyse d'impact réalisée dans la visualisation du traitement](images/Madis-Visualiser-Un-Traitement-AIPD.png)
+![Dernière analyse d'impact réalisée dans la visualisation d'un traitement](images/Madis-Visualiser-Un-Traitement-AIPD.png)
 
 ## Analyse d'impacts
 
@@ -866,7 +958,7 @@ L’instruction d’une nouvelle AIPD démarre depuis la liste de conformité de
 
 L’instruction d’une AIPD commence par le choix du modèle. **Selon le modèle choisi, lors des étapes suivantes, certains champs pourront être pré remplis ou en lecture seule.**
 
-![Choix du modèle](images/Madis-Realiser-Une-AIPD-Choix-Du-Modele.png)
+![Choix du modèle dans l'instruction d'une AIPD](images/Madis-Realiser-Une-AIPD-Choix-Du-Modele.png)
 
 Il est possible d'effectuer plusieurs actions :
 
@@ -936,7 +1028,7 @@ Il est possible d'effectuer plusieurs actions :
 
 - « **Retourner à la liste** » permet de quitter l'AIPD en ne prenant pas en compte les informations saisies ou modifiées ;
 - « **Précédent** » permet de passer à l'étape précédente ;
-- « **Suivant** » permet de passer à l'étape suivante.
+- « **Enregistrer** » permet d'enregistrer et de passer à l'étape suivante.
 
 #### Étape 5 : Évaluation
 
@@ -1006,12 +1098,36 @@ Plusieurs indicateurs sont disponibles :
 
 Il est possible d'exporter certaines informations au format Excel :
 
-* « **Exporter les structures** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion ; ...) ainsi que les informations comprises dans le [module conformité de la structure](#module-conformite-de-la-structure) ;
-* « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#le-registre-des-traitements) (Statut actif/inactif ; Date de modification...) ainsi que les informations comprises dans le [module conformité des traitements](#module-conformite-des-traitements) ;
-* « **Exporter les sous-traitants** » : Export comprenant toutes les informations enregistrées dans le [registre des sous-traitants](#le-registre-des-sous-traitants) (Nom du sous-traitant ; Clauses vérifiées ; Traitements associés ; ...) ;
-* « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#les-actions-de-protection) et dans le [plan d'actions](#plan-dactions) (Nom de l'action ; Statut ; Échéance ; ...).
+* « **Exporter les structures** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion...) ainsi que les informations comprises dans le [module conformité de la structure](#module-conformite-de-la-structure) ;
+* « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#le-registre-des-traitements) (Statut actif/inactif ; Date de dernière modification...) ainsi que les informations comprises dans le [module conformité des traitements](#module-conformite-des-traitements) ;
+* « **Exporter les sous-traitants** » : Export comprenant toutes les informations enregistrées dans le [registre des sous-traitants](#le-registre-des-sous-traitants) (Nom du sous-traitant ; Clauses vérifiées ; Traitements associés...) ;
+* « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#les-actions-de-protection) et dans le [plan d'actions](#plan-dactions) (Nom de l'action ; Statut ; Échéance...).
 
 ``Attention : Les exports, notamment pour le registre des traitements, peuvent être volumineux. L'export peut alors prendre un peu de temps.``
+
+## Gestion de la validation et préconisation des traitements
+
+En tant que Délégué à la Protection des Données (DPD), il est possible de suivre et de contrôler les traitements renseignés par une structure et de préconiser des informations.
+
+![Visualiser un traitement](images/Madis-Visualiser-Un-Traitement-Statut-Et-Préconisations-DPD.png)
+
+Les traitements peuvent avoir l'un des statuts suivants :
+
+- **Brouillon** ;
+- **Terminé** ;
+- **Contrôlé**.
+
+``Astuce : Depuis la liste des traitements, il est possible de filtrer les traitements par statut.``
+
+Le gestionnaire d'une structure a la possibilité de mettre un traitement en « **Brouillon** » en cliquant sur « **Enregistrer le brouillon** » ou en « **Terminé** » en cliquant sur « **Créer le traitement** » ou « **Modifier le traitement** ».
+
+![Boutons pour enregistrer en brouillon ou pour créer un traitement](images/Madis-Ajouter-Un-Traitement-Boutons-De-Création.png)
+
+L'administrateur a la possibilité de modifier le statut d'un traitement et de renseigner des préconisations. Ces préconisations seront visibles dans la visualisation d'un traitement ainsi qu'en modification.
+
+![Modifier un traitement](images/Madis-Modifier-Un-Traitement-Statut-Et-Préconisations-DPD.png)
+
+``À noter : Seul un administrateur peut mettre un traitement en « Contrôlé ». Si un gestionnaire modifie le traitement, celui-ci repassera en « Brouillon » ou en « Terminé ». De plus, si un gestionnaire évalue la conformité d'un traitement ayant le statut « Contrôlé », celui-ci repassera en « Terminé ».``
 
 ## Gestion des AIPD
 
@@ -1184,23 +1300,115 @@ Dans les informations pour livrable, il est possible de renseigner les élément
 * **Label livrable** : Intitulé de la mesure affiché dans le livrable. Il peut être identique au nom de la mesure ;
 * **Phrase préconisation** : Texte de préconisation affiché dans le livrable si la mesure n’est pas appliquée.
 
+## Gestion des référentiels des indices de maturité
+
+Le menu « **Gérer les référentiels** » permet de consulter la liste des référentiels et d'en ajouter.
+
+Un référentiel est un questionnaire permettant à une structure d'évaluer son niveau de maturité par rapport à celui-ci. Ces référentiels peuvent traiter de thématiques et sujets différents, et sont tous constitués d'une ou plusieurs sections, regroupant chacune une ou plusieurs questions, et qui sont à leurs tours constituées d'une ou plusieurs réponses.
+
+![Liste des référentiels](images/Madis-Liste-Des-Référentiels.png)
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **+ Nouveau référentiel** » permet d'ajouter un nouveau référentiel ;
+- « **+ Importer un référentiel** » permet d'importer un référentiel. Seul un fichier au format XML peut être importé ;
+- « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
+- « **Modifier** » permet de modifier les informations d'un référentiel. La modification de celui-ci entraîne la modification du référentiel utilisé dans un indice de maturité réalisé ;
+- « **Droits** » permet de choisir la ou les structures pouvant utiliser le référentiel. **Par défaut, un référentiel n’a aucun droit, il est donc nécessaire après la création d'un référentiel, d’aller choisir les structures autorisées à l’utiliser** ;
+- « **Exporter** » permet d'exporter le référentiel au format XML ;
+- « **Supprimer** » permet de supprimer définitivement le référentiel. La suppression d’un modèle entraîne la suppression des indices de maturité réalisés à partir de celui-ci. **Cette action est irréversible**.
+
+### Nouveau référentiel
+
+« **+ Nouveau référentiel** » permet d'ajouter un nouveau référentiel.
+
+**Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
+
+![Ajouter un référentiel](images/Madis-Ajouter-Un-Référentiel.png)
+
+#### Informations générales
+
+Dans les informations générales, il est possible de renseigner les éléments suivants :
+
+* **Nom du référentiel** : Intitulé du référentiel ;
+* **Description** : Description du référentiel.
+
+Le nom et la description sont visibles lors du choix du référentiel à la réalisation d'un indice de maturité. Ils permettent d'aider à la sélection du référentiel.
+
+#### Sections
+
+« **+ Ajouter une section** » permet d'ajouter une nouvelle section.
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **Supprimer** » permet de supprimer la section ainsi que toutes les données présentes dans celle-ci ;
+- « **-** » ou « **+** » permet de réduire ou d'agrandir la section ;
+- Cliquer/glisser sur la section permet de modifier l'ordre de celle-ci ;
+- « **+ Ajouter une question** » permet d'ajouter une nouvelle question.
+
+Dans une section, il est possible de renseigner les éléments suivants :
+
+* **Nom de la section** : Intitulé de la section. Celui-ci sera notamment repris dans le graphique radar de l'indice de maturité. Il est donc conseillé de renseigner un intitulé court ;
+* **Description** : Description introduisant la section.
+
+![Ajouter une section pour un référentiel](images/Madis-Ajouter-Un-Référentiel-Section.png)
+
+#### Questions
+
+« **+ Ajouter une question** » permet d'ajouter une nouvelle question dans une section.
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **Supprimer** » permet de supprimer la question ainsi que toutes les données présentes dans celle-ci ;
+- « **-** » ou « **+** » permet de réduire ou d'agrandir la question ;
+- Cliquer/glisser sur la question permet de modifier l'ordre de celle-ci. Il n'est pas possible de transférer une question d'une section vers une autre ;
+- « **+ Ajouter une réponse** » permet d'ajouter une nouvelle réponse.
+
+Dans une question, il est possible de renseigner les éléments suivants :
+
+* **Nom de la question** : Intitulé de la question ;
+* **Pondération** : Pondère la question vis à vis des autres questions. Une question pondérée à 0 ne sera pas prise en compte lors du calcul du score, alors qu'une question pondérée à 5 comptera 5 fois plus dans le calcul du score.
+
+![Ajouter une question pour un référentiel](images/Madis-Ajouter-Un-Référentiel-Question.png)
+
+#### Réponses
+
+« **+ Ajouter une réponse** » permet d'ajouter une nouvelle réponse dans une question.
+
+**Attention : l'ordre des réponses a un impact sur le calcul du score. Il est important de placer les réponses du négatif au positif.**
+
+Par exemple, si les réponses possibles sont Oui/Non/En partie, elles devront être dans l'ordre suivant :
+
+1. **Non** ;
+2. **En partie** ;
+3. **Oui**.
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **Supprimer** » permet de supprimer la réponse ;
+- Cliquer/glisser sur la réponse permet de modifier l'ordre de celle-ci. Il n'est pas possible de transférer une réponse d'une question vers une autre.
+
+Dans une réponse, il est possible de renseigner les éléments suivants :
+
+* **Activer l'option : Non concerné** : Ajout d'une réponse permettant à la question de ne pas être prise en compte lors du calcul du score. Par défaut, si cette option est cochée et qu'aucune précision n'est renseignée, la réponse aura comme intitulé « **Non concerné** » ;
+* **Réponse** : Intitulé de la réponse ;
+* **Préconisation** : Préconisation permettant dans la synthèse, d'aider à la mise en place d'une action de protection. Pour chacune des réponses, il est possible d'adapter la préconisation.
+
+![Ajouter une réponse pour un référentiel](images/Madis-Ajouter-Un-Référentiel-Réponse.png)
+
 ## Registre Public
 
 Il est possible pour une structure de disposer d'une page, non authentifiée, à destination du grand public et affichant les traitements qu'elle souhaite rendre visible. Cette page peut être intégrée dans un site web sous forme d'iframe ou de lien externe.
 
 ![Liste des traitements publics](images/Madis-Liste-Des-Traitements-Publics.png)
 
-L'URL est constituée du **nom de domaine Madis**, suivie de « **/public/traitements/liste/** » et terminée par le **numéro de la structure** souhaitée.
+Un lien pour accéder au registre public est présent en visualisation d'une structure.
 
-Exemple : madis-exemple.fr/public/traitements/liste/e611ec51-8031-4492-98bc-05254959f708
-
-Le numéro de la structure est constitué d'une suite de chiffres et de lettres séparés par des tirets. Il peut être trouvé dans l'URL lors de la visualisation ou la modification d'une structure.
-
-![URL du numéro de la structure](images/Madis-Structure-ID.png)
+![Visualiser les informations générales d'une structure](images/Madis-Visualiser-Une-Structure-Informations-Generales.png)
 
 Le menu « **Configuration des traitements** » permet de configurer les champs des traitements consultables par le grand public. Les informations des éléments cochés seront rendues publiques pour les traitements publics. **Cette configuration est globale pour toutes les structures.**
 
-![ Configurer les traitements ](images/Madis-Configurer-Les-Traitements.png)
+![Configurer les traitements](images/Madis-Configurer-Les-Traitements.png)
 
 ## Gestion de l'espace documentaire
 
@@ -1336,7 +1544,7 @@ Outre les éléments de [paramétrage d'une structure](#parametrage-ma-structure
 
 ``Rappel : Les informations générales (excepté le nombre de salariés ou la population) et l’adresse de la structure ne sont pas modifiables par un utilisateur gestionnaire.``
 
-![Ajouter d'une structure](images/Madis-Ajouter-Une-Structure.png)
+![Ajouter une structure](images/Madis-Ajouter-Une-Structure.png)
 
 ### Activation du module conformité des traitements
 
@@ -1353,6 +1561,14 @@ Le module conformité de la structure est optionnel et peut être activé par st
 Consulter le [module conformité de la structure](#module-conformite-de-la-structure) pour plus d'information.
 
 ![Activation du module conformité de la structure](images/Madis-Activation-Module-Conformite-De-La-Structure.png)
+
+### Activation du module logiciels et supports
+
+Le module logiciels et supports est optionnel et peut être activé par structure en cochant la case « **Module logiciels et supports** ». Cette action est réalisable par le DPD (compte administrateur) dans l'édition de la structure.
+
+Consulter le [module logiciels et supports](#module-logiciels-et-supports) pour plus d'information.
+
+![Activation du module logiciels et supports](images/Madis-Activation-Module-Logiciels-Et-Supports.png)
 
 ### Activation du module AIPD
 
@@ -1484,18 +1700,18 @@ APP_COOKIE_IDLE_TIMEOUT=5400
 # Cookie lifetime is 4 hours in seconds
 APP_COOKIE_LIFETIME=14400
 APP_DEFAULT_REFERENT="Référent RGPD"
-APP_DPO_ADDRESS_CITY="Saintes"
-APP_DPO_ADDRESS_STREET="2 rue des Rochers"
-APP_DPO_ADDRESS_ZIP_CODE="17100"
+APP_DPO_ADDRESS_CITY="Ville"
+APP_DPO_ADDRESS_STREET="1 avenue de la république"
+APP_DPO_ADDRESS_ZIP_CODE="17999"
 APP_DPO_CIVILITY=m
 APP_DPO_FIRST_NAME=
-APP_DPO_LAST_NAME="DPD Soluris"
+APP_DPO_LAST_NAME="DPD"
 APP_DPO_COMPANY=Soluris
 APP_DPO_JOB="Délégué à la Protection des Données"
-APP_DPO_MAIL=rgpd@soluris.fr
-APP_DPO_PHONE_NUMBER=0546923999
+APP_DPO_MAIL=DPD@soluris.fr
+APP_DPO_PHONE_NUMBER=0601234567
 APP_ENV=dev
-APP_FOOTER_PROVIDER_NAME=SOLURIS
+APP_FOOTER_PROVIDER_NAME=Soluris
 APP_FOOTER_PROVIDER_URL="https://example.fr"
 APP_IMAGE_FAVICON_PATH="images/logo_madis_2020_favicon.png"
 APP_IMAGE_SIDEBAR_BOTTOM_TARGET_URL="https//example.fr"
@@ -1544,13 +1760,15 @@ TOOLTIP_CONFORMITE_ORGANISATION_TRES_ELOIGNEE="La ou les pratique(s) sont très 
 TOOLTIP_CONFORMITE_ORGANISATION_PARTIELLE="La ou les pratique(s) sont partielles (20 % < Pratique > 80 %) au regard de la définition.<br/>Elles ne sont pas documentées."
 TOOLTIP_CONFORMITE_ORGANISATION_QUASI_CONFORME="La ou les pratiques sont conformes ou quasiment conforme à la définition (80 % < Pratique > 100 %)."
 TOOLTIP_CONFORMITE_ORGANISATION_MESURABLE="La ou les pratiques sont conforme à la définition.<br/>Elles sont documentées et contrôlables dans le cas d'un audit."
-TOOLTIP_CONFORMITE_ORGANISATION_REVISEE="La ou les pratiques sont coordonnées et conforme à la définition.<br/>Des évaluations sont réalisées.<br/>Des améliorations sont systématiquement apportées à partir de l'analyse des évaluations effectuées. "
+TOOLTIP_CONFORMITE_ORGANISATION_REVISEE="La ou les pratiques sont coordonnées et conforme à la définition.<br/>Des évaluations sont réalisées.<br/>Des améliorations sont systématiquement apportées à partir de l'analyse des évaluations effectuées."
 
 ###> SSO LOGIN ###
 SSO_TITLE="SSO"
 SSO_ICON="images/sso-icon.png"
 # sso user info field used to identify user on the app
 SSO_KEY_FIELD="sub"
+# leave empty to disable SSO logout on app logout
+SSO_LOGOUT_URL=
 ###> Value used for oauth2 client config see config/packages/knpu_oauth2_client.yaml ###
 # leave empty to disable SSO (available types: LemonLDAP and keycloak)
 OAUTH_TYPE=
@@ -1563,11 +1781,13 @@ OAUTH_CLIENT_SECRET=XXXXX
 
 # API
 
-À l'édition d'un utilisateur, l'administrateur a la possibilité de choisir si l'utilisateur peut être accédé ou non par les webservices (API).
+À l'édition d'un utilisateur, l'administrateur a la possibilité de choisir si l'utilisateur peut être accédé ou non par les Web Services (API).
 
-![Accès aux Webservices (API)](images/Madis-Ajouter-Un-Utilisateur-API.png)
+![Accès aux Web Services (API)](images/Madis-Ajouter-Un-Utilisateur-API.png)
 
-Pour en savoir plus, [accéder aux API Madis](https://madis-test.soluris.fr/api/docs).
+Pour en savoir plus sur les Web Services (API), consulter la documentation disponible depuis Madis en ajoutant à l'URL du **nom de domaine Madis** : « **/api/docs** ».
+
+Exemple : madis-exemple.fr/api/docs
 
 # Annexe
 
