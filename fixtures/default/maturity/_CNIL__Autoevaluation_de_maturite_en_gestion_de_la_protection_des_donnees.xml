@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <result>
   <name><![CDATA[[CNIL] Autoévaluation de maturité en gestion de la protection des données]]></name>
-  <description><![CDATA[La protection des données repose sur des activités mises en œuvre par chaque organisme (pilotage, gestion
-du registre, veille juridique, etc.). Toutefois, ces activités n'existent pas dans toutes les structures et ne sont
-pas toujours gérées de manière homogène (informelles, décrites, généralisées, etc.).
-Ce questionnaire propose un modèle de maturité, qui quantifie la rigueur et le formalisme avec laquelle les
-activités liées à la gestion de la protection des données sont gérées. En savoir plus : <a target="_blanck" href="https://www.cnil.fr/sites/cnil/files/atoms/files/autoevaluation_de_maturite_en_gestion_de_la_protection_des_donnees.pdf">autoevaluation_de_maturite_en_gestion_de_la_protection_des_donnees.pdf</a>]]></description>
+  <description><![CDATA[La protection des données repose sur des activités mises en œuvre par chaque organisme (pilotage, gestion du registre, veille juridique, etc.). Toutefois, ces activités n'existent pas dans toutes les structures et ne sont pas toujours gérées de manière homogène (informelles, décrites, généralisées, etc.). Ce questionnaire propose un modèle de maturité, qui quantifie la rigueur et le formalisme avec laquelle les activités liées à la gestion de la protection des données sont gérées. Pour plus d'informations : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/autoevaluation_de_maturite_en_gestion_de_la_protection_des_donnees.pdf" target="_blank">Autoévaluation de maturité en gestion de la protection des données (PDF - 405 Ko)</a>.]]></description>
   <domains>
     <entry>
       <name><![CDATA[Piloter la gouvernance de la protection des données]]></name>
-      <description><![CDATA[Définition, mise en place, mise en œuvre, communication et amélioration de la stratégie de protection des données au sein de l'organisme (gouvernance, rôles et responsabilités, y compris ceux du délégué à la protection des données – DPO).]]></description>
+      <description><![CDATA[Définition, mise en place, mise en œuvre, communication et amélioration de la stratégie de protection des données au sein de l'organisme (gouvernance, rôles et responsabilités, y compris ceux du délégué à la protection des données – DPD).]]></description>
       <color><![CDATA[info]]></color>
       <position>17</position>
       <questions>
@@ -50,7 +46,7 @@ activités liées à la gestion de la protection des données sont gérées. En 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Des moyens sont régulièrement alloués pour mettre en œuvre des plans d’action au regard du bilan du délégué à la protection des données et s’assurer de leur mise en œuvre et de leur amélioration continue.]]></name>
+          <name><![CDATA[Des moyens sont régulièrement alloués pour mettre en œuvre des plans d'action au regard du bilan du délégué à la protection des données et s'assurer de leur mise en œuvre et de leur amélioration continue.]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -68,7 +64,7 @@ activités liées à la gestion de la protection des données sont gérées. En 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Le délégué à la protection des données fait un bilan annuel de ses actions aux dirigeants de l’organisme (notamment le(s) responsable(s) de traitements).]]></name>
+          <name><![CDATA[Le délégué à la protection des données fait un bilan annuel de ses actions aux dirigeants de l'organisme (notamment le(s) responsable(s) de traitements).]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -86,7 +82,7 @@ activités liées à la gestion de la protection des données sont gérées. En 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Un délégué à la protection des données est désigné auprès de l’autorité nationale de protection des données personnelles (avec une fiche de poste ou une lettre de mission formelle et connue du personnel), une organisation est mise en place et les rôles et responsabilités sont définis.]]></name>
+          <name><![CDATA[Un délégué à la protection des données est désigné auprès de l'autorité nationale de protection des données personnelles (avec une fiche de poste ou une lettre de mission formelle et connue du personnel), une organisation est mise en place et les rôles et responsabilités sont définis.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -166,7 +162,7 @@ activités liées à la gestion de la protection des données sont gérées. En 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Les métiers sont formés à identifier et transmettre les sujets liés à la protection des données à la personne en charge (ex. : demandes des personnes concernées, de l’autorité de contrôle, nouveaux traitements, etc.).]]></name>
+          <name><![CDATA[Les métiers sont formés à identifier et transmettre les sujets liés à la protection des données à la personne en charge (ex. : demandes des personnes concernées, de l'autorité de contrôle, nouveaux traitements, etc.).]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -205,8 +201,7 @@ activités liées à la gestion de la protection des données sont gérées. En 
     </entry>
     <entry>
       <name><![CDATA[Assurer la conformité juridique des traitements]]></name>
-      <description><![CDATA[Évaluation des traitements de données personnelles existants ou en projet au regard des obligations légales et réglementaires en matière de protection des données (proportionnalité et nécessité, ainsi que
-droits des personnes), détermination de mesures pour améliorer la conformité (y compris des clauses contractuelles types), conseil au responsable de traitement et vérification de la mise en œuvre des mesures prévues.]]></description>
+      <description><![CDATA[Évaluation des traitements de données personnelles existants ou en projet au regard des obligations légales et réglementaires en matière de protection des données (proportionnalité et nécessité, ainsi que droits des personnes), détermination de mesures pour améliorer la conformité (y compris des clauses contractuelles types), conseil au responsable de traitement et vérification de la mise en œuvre des mesures prévues.]]></description>
       <color><![CDATA[primary]]></color>
       <position>51</position>
       <questions>
@@ -247,7 +242,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Les mesures prévues sont vérifiées. Des revues régulières des mentions légales et des clauses contractuelles sont programmées et réalisées. La qualité des analyses d’impact relatives à la protection des données est évaluée par des indicateurs. Des plans d’action (ex : en cas de non- conformité d’un traitement) sont créés et mis en œuvre.]]></name>
+          <name><![CDATA[Les mesures prévues sont vérifiées. Des revues régulières des mentions légales et des clauses contractuelles sont programmées et réalisées. La qualité des analyses d'impact relatives à la protection des données est évaluée par des indicateurs. Des plans d'action (ex : en cas de non-conformité d'un traitement) sont créés et mis en œuvre.]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -265,7 +260,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[La protection des données est prise en compte dès l’initiation des projets, en collaboration avec le délégué à la protection des données. Les améliorations possibles sont régulièrement étudiées. Une veille juridique et technique est réalisée. Des analyses sont produites et diffusées.]]></name>
+          <name><![CDATA[La protection des données est prise en compte dès l'initiation des projets, en collaboration avec le délégué à la protection des données. Les améliorations possibles sont régulièrement étudiées. Une veille juridique et technique est réalisée. Des analyses sont produites et diffusées.]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -283,7 +278,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Des clauses types pour les contrats avec les sous-traitants sont formalisées et utilisées. Des analyses d’impact relatives à la protection des données sont menées sur les traitements susceptibles d'engendrer des risques élevés sur les personnes, en collaboration avec les services concernés et la personne en charge de la protection des données.]]></name>
+          <name><![CDATA[Des clauses types pour les contrats avec les sous-traitants sont formalisées et utilisées. Des analyses d'impact relatives à la protection des données sont menées sur les traitements susceptibles d'engendrer des risques élevés sur les personnes, en collaboration avec les services concernés et la personne en charge de la protection des données.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -304,12 +299,12 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
     </entry>
     <entry>
       <name><![CDATA[Traiter les demandes des usagers internes et externes]]></name>
-      <description><![CDATA[Définition, mise en place, mise en œuvre et communication des moyens permettant la gestion des demandes d'exercice des droits des personnes concernées (ex : demandes de droit d’accès), des plaintes et autres réclamations internes et externes concernant la protection des données.]]></description>
+      <description><![CDATA[Définition, mise en place, mise en œuvre et communication des moyens permettant la gestion des demandes d'exercice des droits des personnes concernées (ex : demandes de droit d'accès), des plaintes et autres réclamations internes et externes concernant la protection des données.]]></description>
       <color><![CDATA[warning]]></color>
       <position>85</position>
       <questions>
         <entry>
-          <name><![CDATA[Des réponses types aux demandes d’exercice des droits et questions sont créées et utilisées. Une procédure de gestions des demandes d’exercice de droits est définie et communiquée au personnel. Un formulaire de contact est mis en place sur le site internet et toutes les requêtes sont centralisées.]]></name>
+          <name><![CDATA[Des réponses types aux demandes d'exercice des droits et questions sont créées et utilisées. Une procédure de gestions des demandes d'exercice de droits est définie et communiquée au personnel. Un formulaire de contact est mis en place sur le site Internet et toutes les requêtes sont centralisées.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -327,7 +322,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Le processus de gestion des demandes d’exercice des droits et les outils sur lesquels il repose font régulièrement l'objet d'améliorations.]]></name>
+          <name><![CDATA[Le processus de gestion des demandes d'exercice des droits et les outils sur lesquels il repose font régulièrement l'objet d'améliorations.]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -363,7 +358,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[La personne en charge de la protection des données est systématiquement informée de chacune des demandes concernant le droit des personnes. Les demandes d’exercice des droits font l'objet d'indicateurs qui apparaissent dans le bilan annuel.]]></name>
+          <name><![CDATA[La personne en charge de la protection des données est systématiquement informée de chacune des demandes concernant le droit des personnes. Les demandes d'exercice des droits font l'objet d'indicateurs qui apparaissent dans le bilan annuel.]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -407,7 +402,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
       <position>102</position>
       <questions>
         <entry>
-          <name><![CDATA[Les analyses d’impact relatives à la protection des données (AIPD) comprennent une étude des risques de sécurité. Une méthode est employée pour apprécier les risques des traitements susceptibles d'engendrer des risques élevés sur les personnes concernées et les traiter de manière proportionnée. Les études de risques font l’objet de plans d’action.]]></name>
+          <name><![CDATA[Les analyses d'impact relatives à la protection des données (AIPD) comprennent une étude des risques de sécurité. Une méthode est employée pour apprécier les risques des traitements susceptibles d'engendrer des risques élevés sur les personnes concernées et les traiter de manière proportionnée. Les études de risques font l'objet de plans d'action.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -443,7 +438,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Les études de risques et plans d’action font l’objet d’une revue annuelle. Une veille active est réalisée sur les vulnérabilités liées aux supports des données et des actions correctrices sont prises en cas d’impact sur le système d’information.]]></name>
+          <name><![CDATA[Les études de risques et plans d'action font l'objet d'une revue annuelle. Une veille active est réalisée sur les vulnérabilités liées aux supports des données et des actions correctrices sont prises en cas d'impact sur le système d'information.]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -479,7 +474,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[La mise en œuvre des plans d’action est vérifiée en termes d’effectivité et d’efficacité. Les risques résiduels sont suivis par des indicateurs.]]></name>
+          <name><![CDATA[La mise en œuvre des plans d'action est vérifiée en termes d'effectivité et d'efficacité. Les risques résiduels sont suivis par des indicateurs.]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -500,12 +495,12 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
     </entry>
     <entry>
       <name><![CDATA[Définir et mettre en œuvre des procédures sur la protection des données]]></name>
-      <description><![CDATA[Définition, tenue à jour et communication des politiques et procédures générales relatives à la gestion des données personnelles et à la protection de la vie privée (charte d’utilisation du système d’information, clauses contractuelles types, etc.), vérification de leur application et déclenchement des éventuelles mesures prévues en cas de manquement.]]></description>
+      <description><![CDATA[Définition, tenue à jour et communication des politiques et procédures générales relatives à la gestion des données personnelles et à la protection de la vie privée (charte d'utilisation du système d'information, clauses contractuelles types, etc.), vérification de leur application et déclenchement des éventuelles mesures prévues en cas de manquement.]]></description>
       <color><![CDATA[success]]></color>
       <position>0</position>
       <questions>
         <entry>
-          <name><![CDATA[Une documentation formelle (ex. : politique de protection des données), approuvée par le comité de direction, est communiquée à l’ensemble du personnel. Des procédures sont formalisées et transmises à l’ensemble du personnel. Les règles sont appliquées.]]></name>
+          <name><![CDATA[Une documentation formelle (ex. : politique de protection des données), approuvée par le comité de direction, est communiquée à l'ensemble du personnel. Des procédures sont formalisées et transmises à l'ensemble du personnel. Les règles sont appliquées.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -559,7 +554,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Les politiques et procédures sont mises à jour dès identification d’une amélioration possible.]]></name>
+          <name><![CDATA[Les politiques et procédures sont mises à jour dès l'identification d'une amélioration possible.]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -598,7 +593,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
     </entry>
     <entry>
       <name><![CDATA[Recenser et tenir à jour la liste des traitements]]></name>
-      <description><![CDATA[Identification et tenue à jour de l'inventaire des traitements de données personnelles, des données et des flux de données qui leurs sont associés.]]></description>
+      <description><![CDATA[Identification et tenue à jour de l'inventaire des traitements de données personnelles, des données et des flux de données qui leur sont associés.]]></description>
       <color><![CDATA[primary]]></color>
       <position>34</position>
       <questions>
@@ -639,7 +634,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Le registre sert d'instrument de pilotage des actions relatives aux traitements de données personnelles (ex. : il sert de recensement, mais aussi d’instrument de gestion comparative des risques et de suivi des plans d’action).]]></name>
+          <name><![CDATA[Le registre sert d'instrument de pilotage des actions relatives aux traitements de données personnelles (ex. : il sert de recensement, mais aussi d'instrument de gestion comparative des risques et de suivi des plans d'action).]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -675,7 +670,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Les services sont capables d’identifier les traitements de données personnelles qu’ils mettent en œuvre.]]></name>
+          <name><![CDATA[Les services sont capables d'identifier les traitements de données personnelles qu'ils mettent en œuvre.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -719,7 +714,7 @@ droits des personnes), détermination de mesures pour améliorer la conformité 
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Une procédure de gestion des violations de données est formalisée et mise en œuvre de manière systématique. Toutes les violations sont inscrites dans un registre dédié. Suite à une violation de données, un plan d’action est prévu afin de réduire le risque qu'elle ne se reproduise.]]></name>
+          <name><![CDATA[Une procédure de gestion des violations de données est formalisée et mise en œuvre de manière systématique. Toutes les violations sont inscrites dans un registre dédié. Suite à une violation de données, un plan d'action est prévu afin de réduire le risque qu'elle ne se reproduise.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>

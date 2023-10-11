@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <result>
-  <name><![CDATA[[SANTE] Les mesures prioritaires de sécurité (MPR) pour les etablissements de santé.]]></name>
-  <description><![CDATA[Le référentiel de mesures prioritaires de sécurité des systèmes d’information (MPR) à destination de
-l’ensemble des établissements de santé (ES) a été élaboré collégialement avec l’atelier SSI (sécurité
-des systèmes d’information), dans le cadre de la composition du référentiel MATURIN’H, et avec le
-club RSSI (responsables SSI) des établissements de santé.
-Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_des_mesures_prioritaires.pdf" target="_blank">referentiel_des_mesures_prioritaires.pdf</a>]]></description>
+  <name><![CDATA[[SANTE] Les mesures prioritaires de sécurité (MPR) pour les etablissements de santé]]></name>
+  <description><![CDATA[Le référentiel de mesures prioritaires de sécurité des systèmes d'information (MPR) à destination de l'ensemble des établissements de santé (ES) a été élaboré collégialement avec l'atelier SSI (sécurité des systèmes d'information), dans le cadre de la composition du référentiel MATURIN'H, et avec le club RSSI (responsables SSI) des établissements de santé. Pour plus d'informations : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_des_mesures_prioritaires.pdf" target="_blank">Les mesures prioritaires de sécurité des systèmes d'information (PDF - 1,38 Mo)</a>.]]></description>
   <domains>
     <entry>
       <name><![CDATA[Mesures Prioritaires]]></name>
@@ -13,7 +9,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
       <position>0</position>
       <questions>
         <entry>
-          <name><![CDATA[L'établissement dispose d'un support permettant de pouvoir recourir à un spécialiste de la réponse à incidents de sécurité « De préférence, ce prestataire doit être qualifié PRESTATAIRES (PRIS) ou en cours de qualification par l’ANSSI ».]]></name>
+          <name><![CDATA[L'établissement dispose d'un support permettant de pouvoir recourir à un spécialiste de la réponse à incidents de sécurité « De préférence, ce prestataire doit être qualifié PRESTATAIRES (PRIS) ou en cours de qualification par l'ANSSI ».]]></name>
           <position>41</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -67,7 +63,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[La revue périodique des comptes d’accès au serveur de sauvegarde est réalisée.]]></name>
+          <name><![CDATA[La revue périodique des comptes d'accès au serveur de sauvegarde est réalisée.]]></name>
           <position>29</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -103,7 +99,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Le télétravail est réalisé depuis un poste de l'entreprise (poste professionnel) ou un dispositif d’ouverture de sessions à distance type VDI avec accès VPN et authentification multi facteurs.]]></name>
+          <name><![CDATA[Le télétravail est réalisé depuis un poste de l'entreprise (poste professionnel) ou un dispositif d'ouverture de sessions à distance type VDI avec accès VPN et authentification multifacteur.]]></name>
           <position>21</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -121,7 +117,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Des sauvegardes régulières et fréquentes sont effectuées, elles permettent de disposer de copies déconnectées du réseau. Il est vérifié régulièrement qu’elles sont opérantes.]]></name>
+          <name><![CDATA[Des sauvegardes régulières et fréquentes sont effectuées, elles permettent de disposer de copies déconnectées du réseau. Il est vérifié régulièrement qu'elles sont opérantes.]]></name>
           <position>28</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -139,7 +135,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Le principe de la réalisation d’une analyse de risques numériques est accepté par la Direction (acceptation des risques résiduels).]]></name>
+          <name><![CDATA[Le principe de la réalisation d'une analyse de risques numériques est accepté par la Direction (acceptation des risques résiduels).]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>true</optional>
@@ -158,7 +154,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[L'audit d’exposition de vulnérabilité sur internet du CERT Santé est réalisé au moins annuellement. Il comprend les résultats suivants : • date audit de cybersurveillance (récent) • nombre de domaines (récent) • appréciation (récent) • total vulnérabilité]]></name>
+          <name><![CDATA[L'audit d'exposition de vulnérabilité sur Internet du CERT Santé est réalisé au moins annuellement. Il comprend les résultats suivants : date audit de cybersurveillance (récent) ; nombre de domaines (récent) ; appréciation (récent) ; total vulnérabilité.]]></name>
           <position>12</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -176,7 +172,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Les procédures de travail dégradées sont toujours accessibles (leurs supports sont protégés contre les risques cyber)]]></name>
+          <name><![CDATA[Les procédures de travail dégradées sont toujours accessibles (leurs supports sont protégés contre les risques cyber).]]></name>
           <position>37</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -230,7 +226,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Le plan d’action associé à l’analyse de risque est suivi et priorisé.]]></name>
+          <name><![CDATA[Le plan d'action associé à l'analyse de risque est suivi et priorisé.]]></name>
           <position>3</position>
           <weight>5</weight>
           <optional>true</optional>
@@ -249,7 +245,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Des sauvegardes régulières de l’ensemble des données, y compris celles présentes sur les serveurs de fichiers, d’infrastructure et d’applications métier critiques sont réalisées]]></name>
+          <name><![CDATA[Des sauvegardes régulières de l'ensemble des données, y compris celles présentes sur les serveurs de fichiers, d'infrastructure et d'applications métier critiques sont réalisées.]]></name>
           <position>27</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -290,7 +286,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Une campagne de sensibilisation aux risques cyber est menée (par exemple : des mails de rappels périodiques concernant les bonnes pratiques, des fiches reflexes à disposition, du contenu pédagogique dispensé sous forme de webinaires,…).]]></name>
+          <name><![CDATA[Une campagne de sensibilisation aux risques cyber est menée (par exemple : des mails de rappels périodiques concernant les bonnes pratiques, des fiches réflexes à disposition, du contenu pédagogique dispensé sous forme de webinaires...).]]></name>
           <position>32</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -308,7 +304,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[L'audit d’identification des vulnérabilités sur l’AD de L'ANSSI est réalisé au moins annuellement. Il comprend les résultats suivants (récents) : • Date audit Active Directory  • niveau de sécurité  • progression totale  • nombre d'utilisateurs]]></name>
+          <name><![CDATA[L'audit d'identification des vulnérabilités sur l'AD de L'ANSSI est réalisé au moins annuellement. Il comprend les résultats suivants (récents) : Date audit Active Directory ; niveau de sécurité ; progression totale ; nombre d'utilisateurs.]]></name>
           <position>13</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -326,7 +322,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[L'établissement a mis en place un plan d’action de sécurité des SI annuel hiérarchisé et budgété pour la mise en conformité, la réduction des vulnérabilités et la couverture des risques.]]></name>
+          <name><![CDATA[L'établissement a mis en place un plan d'action de sécurité des SI annuel hiérarchisé et budgété pour la mise en conformité, la réduction des vulnérabilités et la couverture des risques.]]></name>
           <position>17</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -349,7 +345,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Un ou plusieurs dispositifs de filtrage permettant un cloisonnement entre les différentes zones réseaux plus ou moins critiques du système d’information sont mis en place (exemple : zone des serveurs internes, exposés sur Internet, administration, ...)]]></name>
+          <name><![CDATA[Un ou plusieurs dispositifs de filtrage permettant un cloisonnement entre les différentes zones réseaux plus ou moins critiques du système d'information sont mis en place (exemple : zone des serveurs internes, exposés sur Internet, administration...)]]></name>
           <position>26</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -367,7 +363,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[L'établissement met en œuvre des réseaux wifi cloisonnés : wifi patient, wifi pour le système d’information, wifi pour les intervenants extérieurs.]]></name>
+          <name><![CDATA[L'établissement met en œuvre des réseaux wifi cloisonnés : wifi patient, wifi pour le système d'information, wifi pour les intervenants extérieurs.]]></name>
           <position>19</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -385,7 +381,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[L’organisation de la sécurité du système d'information fait l'objet, tous les trois ans, d'un audit organisationnel de la SSI dans l'esprit de l'ISO 27001]]></name>
+          <name><![CDATA[L'organisation de la sécurité du système d'information fait l'objet, tous les trois ans, d'un audit organisationnel de la SSI dans l'esprit de l'ISO 27001]]></name>
           <position>16</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -418,7 +414,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Un inventaire des matériels et logiciels (matériel: postes de travail, serveurs, machines virtuelles, équipements réseau, biomédical, etc) est réalisé et publié annuellement]]></name>
+          <name><![CDATA[Un inventaire des matériels et logiciels (matériel : postes de travail, serveurs, machines virtuelles, équipements réseau, biomédical...) est réalisé et publié annuellement]]></name>
           <position>10</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -429,7 +425,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Oui datant de plus d'1 an mais non publié]]></name>
+              <name><![CDATA[Oui datant de plus d'1 an, mais non publié]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -439,7 +435,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Oui datant de moins d'1 an mais non publié]]></name>
+              <name><![CDATA[Oui datant de moins d'1 an, mais non publié]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -451,7 +447,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Un plan d'actions urgentes issu des conclusions des audits des mesures 13 et 14 est validé et mis en œuvre par la direction de l’établissement .]]></name>
+          <name><![CDATA[Un plan d'actions urgentes issu des conclusions des audits des mesures 13 et 14 est validé et mis en œuvre par la direction de l'établissement.]]></name>
           <position>14</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -474,7 +470,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Des alertes sont en place pour surveiller la sécurité de l’annuaire AD.]]></name>
+          <name><![CDATA[Des alertes sont en place pour surveiller la sécurité de l'annuaire AD.]]></name>
           <position>15</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -511,7 +507,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[La cartographie des risques liés aux services numériques est consolidée dans une cartographie globale des risques7 portant sur l'établissement.]]></name>
+          <name><![CDATA[La cartographie des risques liés aux services numériques est consolidée dans une cartographie globale des risques portant sur l'établissement.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>true</optional>
@@ -548,7 +544,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Un tunnel VPN pour tous les flux est mis en place pour le télétravail]]></name>
+          <name><![CDATA[Un tunnel VPN pour tous les flux est mis en place pour le télétravail.]]></name>
           <position>22</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -566,7 +562,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Les contrats de télémaintenance prévoient un mode dégradé en cas de coupure des flux Internet (ex cyberattaque du CHU : mesure de cloisonnement avec l’extérieur ne permettant pas à des éditeurs d’intervenir à distance sur les premiers jours).]]></name>
+          <name><![CDATA[Les contrats de télémaintenance prévoient un mode dégradé en cas de coupure des flux Internet (ex cyberattaque du CHU : mesure de cloisonnement avec l'extérieur ne permettant pas à des éditeurs d'intervenir à distance sur les premiers jours).]]></name>
           <position>25</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -604,7 +600,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Une politique régissant les conditions et restrictions liées au télétravail est validée par l'établissement]]></name>
+          <name><![CDATA[Une politique régissant les conditions et restrictions liées au télétravail est validée par l'établissement.]]></name>
           <position>20</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -622,7 +618,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Le plan de sécurité des SI annuel de réduction des vulnérabilités et de couverture des risques est intégré dans la démarche globale de maîtrise des risques de l’établissement.]]></name>
+          <name><![CDATA[Le plan de sécurité des SI annuel de réduction des vulnérabilités et de couverture des risques est intégré dans la démarche globale de maîtrise des risques de l'établissement.]]></name>
           <position>18</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -658,7 +654,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Les incidents graves de sécurité des systèmes d'information sont systématiquement signalés, conformément à la Règlementation.]]></name>
+          <name><![CDATA[Les incidents graves de sécurité des systèmes d'information sont systématiquement signalés, conformément à la Réglementation.]]></name>
           <position>39</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -699,7 +695,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[L'établissement calcule la part, en %, du budget global annuel de l'établissement consacrée au SI selon la méthodologie de l'enquête "charges et ressources" de la DGOS]]></name>
+          <name><![CDATA[L'établissement calcule la part, en %, du budget global annuel de l'établissement consacrée au SI selon la méthodologie de l'enquête « charges et ressources » de la DGOS]]></name>
           <position>8</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -754,7 +750,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[L'établissement a défini et applique une procédure interne de remontée des incidents de sécurité SI qui associe les métiers concernés]]></name>
+          <name><![CDATA[L'établissement a défini et applique une procédure interne de remontée des incidents de sécurité SI qui associe les métiers concernés.]]></name>
           <position>38</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -777,7 +773,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Le rôle du RSSI dans la procédure de remontée des incidents est défini et lui permet d'être informé en permanence sur le traitement de l'incident]]></name>
+          <name><![CDATA[Le rôle du RSSI dans la procédure de remontée des incidents est défini et lui permet d'être informé en permanence sur le traitement de l'incident.]]></name>
           <position>40</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -795,7 +791,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Une analyse de risque, validée par les responsables métiers des services concernés, est réalisée lors de l'introduction d'un nouveau service numérique (application, matériel IT, équipement biomédical et technique, GTB/GTC) .]]></name>
+          <name><![CDATA[Une analyse de risque, validée par les responsables métiers des services concernés, est réalisée lors de l'introduction d'un nouveau service numérique (application, matériel IT, équipement biomédical et technique, GTB/GTC).]]></name>
           <position>2</position>
           <weight>5</weight>
           <optional>false</optional>
@@ -818,7 +814,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[L'établissement dispose d’une cartographie des risques liés aux services numériques actualisée annuellement basée sur une méthodologie qui permette de comparer les résultats d’une itération à l’autre.]]></name>
+          <name><![CDATA[L'établissement dispose d'une cartographie des risques liés aux services numériques actualisée annuellement basée sur une méthodologie qui permette de comparer les résultats d'une itération à l'autre.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -841,7 +837,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Une cartographie applicative est réalisée et tenue à jour (flux d’échange entre applications et ensemble des flux) sur la base de celles demandées par l’ANSSI (cartographie du systèmes d’information).]]></name>
+          <name><![CDATA[Une cartographie applicative est réalisée et tenue à jour (flux d'échange entre applications et ensemble des flux) sur la base de celles demandées par l'ANSSI (cartographie du système d'information).]]></name>
           <position>11</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -864,7 +860,7 @@ Plus d'infos : <a href="https://sante.gouv.fr/IMG/pdf/cybersecurite_referentiel_
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[La séparation des accès Télétravail et des accès Télémaintenance (ex : bastion d’administration) au travers d’identification/authentification forte (OTP[4], CPS, etc.) est privilégiée]]></name>
+          <name><![CDATA[La séparation des accès Télétravail et des accès Télémaintenance (ex : bastion d'administration) au travers d'identification/authentification forte (OTP[4], CPS, etc.) est privilégiée.]]></name>
           <position>24</position>
           <weight>1</weight>
           <optional>false</optional>

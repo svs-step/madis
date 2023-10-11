@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <result>
   <name><![CDATA[[ANSSI] Autoévaluation de gestion de crise cyber]]></name>
-  <description><![CDATA[Cet outil propose une série de 57 questions, réparties sur 5 thématiques : gouvernance et interactions entre équipes mobilisées, processus et outillage, communication de crise et relations externes, détection et réponse à incidents, continuité d’activité et reconstruction. Pour chaque question, une série de réponses progressive permettent un positionnement entre un niveau novice (0) et à l’état de l’art (3). Il peut être utilisé dans le cadre d’une évaluation rapide ou dans le cadre d’un audit plus complet, selon les besoins de chacun.
-Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_questionnaire-devaluation-a-la-maturite-en-gestion-de-crise-cyber_guide_v1.0.pdf" target="_blank">tlpwhite_anssi_questionnaire-devaluation-a-la-maturite-en-gestion-de-crise-cyber_guide_v1.0.pdf</a>]]></description>
+  <description><![CDATA[Cet outil propose une série de 57 questions, réparties sur 5 thématiques : gouvernance et interactions entre équipes mobilisées, processus et outillage, communication de crise et relations externes, détection et réponse à incidents, continuité d'activité et reconstruction. Pour chaque question, une série de réponses progressive permettent un positionnement entre un niveau novice (0) et à l'état de l'art (3). Il peut être utilisé dans le cadre d'une évaluation rapide ou dans le cadre d'un audit plus complet, selon les besoins de chacun. Pour plus d'informations : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_questionnaire-devaluation-a-la-maturite-en-gestion-de-crise-cyber_guide_v1.0.pdf" target="_blank">Questionnaire d'évaluation à la maturité en gestion de crise cyber (PDF - 433 Ko)</a>.]]></description>
   <domains>
     <entry>
       <name><![CDATA[Communication de crise et relations externes]]></name>
@@ -44,7 +43,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Les actions de déclaration d’incident (ANSSI, CNIL, autorités judiciaires) sont centralisées et coordonnées par la cellule stratégique. En cas de violation des données personnelles (règlement général sur la protection des données), une notification de l’incident est réalisée par le délégué à la protection des données.]]></name>
+              <name><![CDATA[Les actions de déclaration d'incident (ANSSI, CNIL, autorités judiciaires) sont centralisées et coordonnées par la cellule stratégique. En cas de violation des données personnelles (règlement général sur la protection des données), une notification de l'incident est réalisée par le délégué à la protection des données.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -59,7 +58,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les actions de déclaration d’incident (ANSSI, CNIL, autorités judiciaires) sont centralisées et coordonnées par la cellule stratégique. En cas de violation des données personnelles (règlement général sur la protection des données), une notification de l’incident est réalisée par le délégué à la protection des données. Dans le cadre d’une crise d’ampleur internationale, les équipes juridiques prennent en compte la législation en vigueur et coordonnent la notification d’incident aux autorités locales. En lien avec les équipes juridiques, un dépôt de plainte est envisagé.]]></name>
+              <name><![CDATA[Les actions de déclaration d'incident (ANSSI, CNIL, autorités judiciaires) sont centralisées et coordonnées par la cellule stratégique. En cas de violation des données personnelles (règlement général sur la protection des données), une notification de l'incident est réalisée par le délégué à la protection des données. Dans le cadre d'une crise d'ampleur internationale, les équipes juridiques prennent en compte la législation en vigueur et coordonnent la notification d'incident aux autorités locales. En lien avec les équipes juridiques, un dépôt de plainte est envisagé.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -77,7 +76,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les équipes cyber et SI partagent les informations nécessaires à la déclaration selon un processus validé, stocké hors ligne et mis à jour régulièrement. En fonction des obligations légales, une déclaration d’incident est réalisée et les éléments de compromission sont partagés avec l’ANSSI. Les preuves de compromission (serveurs, données) sont conservées pour la justice (si judiciarisation) et pour l’assureur (si activation d’un contrat d’assurance). En cas de judiciarisation, un huissier spécialisé est sollicité pour établir le constat.]]></name>
+              <name><![CDATA[Les équipes cyber et SI partagent les informations nécessaires à la déclaration selon un processus validé, stocké hors ligne et mis à jour régulièrement. En fonction des obligations légales, une déclaration d'incident est réalisée et les éléments de compromission sont partagés avec l'ANSSI. Les preuves de compromission (serveurs, données) sont conservées pour la justice (si judiciarisation) et pour l'assureur (si activation d'un contrat d'assurance). En cas de judiciarisation, un huissier spécialisé est sollicité pour établir le constat.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -87,7 +86,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les équipes cyber et SI partagent les informations nécessaires à la déclaration selon un processus formalisé et validé. En fonction des obligations légales, une déclaration d’incident est réalisée et les éléments de compromission sont partagés avec l’ANSSI.]]></name>
+              <name><![CDATA[Les équipes cyber et SI partagent les informations nécessaires à la déclaration selon un processus formalisé et validé. En fonction des obligations légales, une déclaration d'incident est réalisée et les éléments de compromission sont partagés avec l'ANSSI.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -100,7 +99,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Une stratégie de communication de crise en cas d'incident cyber est formalisée et validée et testée lors d'exercices de crise cyber. Les équipes sont familiarisées et entraînées à la communication de crise cyber et assurent une formation régulière auprès des agents et des responsables de l’entité.  Des scénarios de référence cyber sont disponibles. Des éléments de langage sont formalisés en fonction des scénarios cyber de référence identifiés. Plusieurs sujets médiatiques spécifiques sont anticipés (e.g. attribution de l'attaque). Un porte-parole de crise a été pré-identifié.]]></name>
+              <name><![CDATA[Une stratégie de communication de crise en cas d'incident cyber est formalisée et validée et testée lors d'exercices de crise cyber. Les équipes sont familiarisées et entraînées à la communication de crise cyber et assurent une formation régulière auprès des agents et des responsables de l'entité. Des scénarios de référence cyber sont disponibles. Des éléments de langage sont formalisés en fonction des scénarios cyber de référence identifiés. Plusieurs sujets médiatiques spécifiques sont anticipés (e.g. attribution de l'attaque). Un porte-parole de crise a été pré-identifié.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -110,7 +109,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Une stratégie de  crise en cas d'incident cyber est établie de manière informelle.]]></name>
+              <name><![CDATA[Une stratégie de crise en cas d'incident cyber est établie de manière informelle.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -122,7 +121,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Comment est réalisée l'analyse de risque communicationnelle  ?]]></name>
+          <name><![CDATA[Comment est réalisée l'analyse de risque communicationnelle ?]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -133,7 +132,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les grandes orientations permettant d'identifier les risques communicationnelles sont identifiées mais non formalisées.]]></name>
+              <name><![CDATA[Les grandes orientations permettant d'identifier les risques communicationnelles sont identifiées, mais non formalisées.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -143,7 +142,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Aucune méthode d'analyse de risque communicationnelle  n'est disponible.]]></name>
+              <name><![CDATA[Aucune méthode d'analyse de risque communicationnelle n'est disponible.]]></name>
               <position>0</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -156,7 +155,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[L'équipe juridique est mobilisée dans la gestion de crise cyber afin d'identifier les obligations qui ne pourront pas être respectées auprès des partenaires, clients et fournisseurs. Elle s'assure en lien avec les équipes  communication, achats et commerciales de la transmission des informations nécessaires aux partenaires. Les délais et informations à transmettre sont prévus dans tous les contrats critiques.]]></name>
+              <name><![CDATA[L'équipe juridique est mobilisée dans la gestion de crise cyber afin d'identifier les obligations qui ne pourront pas être respectées auprès des partenaires, clients et fournisseurs. Elle s'assure en lien avec les équipes communication, achats et commerciales de la transmission des informations nécessaires aux partenaires. Les délais et informations à transmettre sont prévus dans tous les contrats critiques.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -184,7 +183,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[La liste des parties prenantes est pré-identifiée avec leurs contacts. Les contacts suivants sont notamment identifiés: - contacts internes - autorités]]></name>
+              <name><![CDATA[La liste des parties prenantes est pré-identifiée avec leurs contacts. Les contacts suivants sont notamment identifiés : contacts internes ; autorités.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -194,12 +193,12 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[La liste des parties prenantes est pré-identifiée avec leurs contacts, avec une contribution des équipes IT. Les contacts suivants sont notamment identifiés: - contacts internes - autorités - public / média]]></name>
+              <name><![CDATA[La liste des parties prenantes est pré-identifiée avec leurs contacts, avec une contribution des équipes IT. Les contacts suivants sont notamment identifiés : contacts internes ; autorités ; public / média.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[La liste des parties prenantes est pré-identifiée avec leurs contacts avec une contribution des équipes IT. Le contact d'urgence ainsi que le moyen de communication de secours des clients et fournisseurs les plus critiques est prévu dans les contrats. Un fichier presse (liste des contacts des journalistes ainsi que les supports pour lesquels ils rédigent) est disponible et stocké hors ligne.  Les contacts suivants sont notamment identifiés: - contacts internes - autorités - public / média - clients importants - fournisseurs - partenaires techniques (CSIRT, etc.)]]></name>
+              <name><![CDATA[La liste des parties prenantes est pré-identifiée avec leurs contacts avec une contribution des équipes IT. Le contact d'urgence ainsi que le moyen de communication de secours des clients et fournisseurs les plus critiques sont prévus dans les contrats. Un fichier presse (liste des contacts des journalistes ainsi que les supports pour lesquels ils rédigent) est disponible et stocké hors ligne. Les contacts suivants sont notamment identifiés : contacts internes ; autorités ; public / média ; clients importants ; fournisseurs ; partenaires techniques (CSIRT, etc.).]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -212,7 +211,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[L’assurance cyber est activée sur décision de la cellule stratégique, selon les critères préétablis.]]></name>
+              <name><![CDATA[L'assurance cyber est activée sur décision de la cellule stratégique, selon les critères préétablis.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -222,12 +221,12 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[L’assurance cyber est activée sur décision de la cellule stratégique, selon les critères préétablis. Une synthèse des évènements et de la situation actuelle est formalisée pour la partager avec l’assureur.]]></name>
+              <name><![CDATA[L'assurance cyber est activée sur décision de la cellule stratégique, selon les critères préétablis. Une synthèse des évènements et de la situation actuelle est formalisée pour la partager avec l'assureur.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[L’assurance cyber est activée sur décision de la cellule stratégique.]]></name>
+              <name><![CDATA[L'assurance cyber est activée sur décision de la cellule stratégique.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -275,7 +274,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA["Les critères d’activation et de désactivation du dispositif opérationnel sont définis en fonction des scénarios cyber de référence. Ils prévoient en particulier l’activation par effet de seuil (par le bas) et l’activation sur décision du dispositif stratégique (par le haut). Ils sont connus des membres du dispositif de crise et des équipes de gestion d’incident. Ils permettent d’objectiver la mobilisation et la démobilisation d’une cellule stratégique. Ils prennent en compte les besoins de notification d'incidents vers les autorités et font lien avec la politique de réponse à incident numérique de sécurité."]]></name>
+              <name><![CDATA[Les critères d'activation et de désactivation du dispositif opérationnel sont définis en fonction des scénarios cyber de référence. Ils prévoient en particulier l'activation par effet de seuil (par le bas) et l'activation sur décision du dispositif stratégique (par le haut). Ils sont connus des membres du dispositif de crise et des équipes de gestion d'incident. Ils permettent d'objectiver la mobilisation et la démobilisation d'une cellule stratégique. Ils prennent en compte les besoins de notification d'incidents vers les autorités et font lien avec la politique de réponse à incident numérique de sécurité.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -285,12 +284,12 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les critères d'activation et de désactivation des dispositifs opérationnels prévoient en particulier l’activation par effet de seuil (par le bas) et l’activation sur décision du dispositif stratégique (par le haut).]]></name>
+              <name><![CDATA[Les critères d'activation et de désactivation des dispositifs opérationnels prévoient en particulier l'activation par effet de seuil (par le bas) et l'activation sur décision du dispositif stratégique (par le haut).]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les critères d'activation et de désactivation des dispositifs opérationnels prévoient en particulier l’activation par effet de seuil (par le bas) et l’activation sur décision du dispositif stratégique (par le haut). Ils sont connus des membres du dispositif de crise et des équipes de gestion d’incident. Ils prennent en compte les besoins de notification d'incidents vers les autorités et font lien avec la politique de réponse à incident numérique de sécurité.]]></name>
+              <name><![CDATA[Les critères d'activation et de désactivation des dispositifs opérationnels prévoient en particulier l'activation par effet de seuil (par le bas) et l'activation sur décision du dispositif stratégique (par le haut). Ils sont connus des membres du dispositif de crise et des équipes de gestion d'incident. Ils prennent en compte les besoins de notification d'incidents vers les autorités et font lien avec la politique de réponse à incident numérique de sécurité.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -308,7 +307,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[La cellule de crise dispose d'une interface unique (type tableau de bord) pour uniformiser la circulation de l’information. Une communication descendante est mise en place pour fournir de la visibilité sur l'évolution de la situation.]]></name>
+              <name><![CDATA[La cellule de crise dispose d'une interface unique (type tableau de bord) pour uniformiser la circulation de l'information. Une communication descendante est mise en place pour fournir de la visibilité sur l'évolution de la situation.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -325,7 +324,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Les conditions de sortie de crise sont-elles pré définies et évaluées durant la crise ?]]></name>
+          <name><![CDATA[Les conditions de sortie de crise sont-elles prédéfinies et évaluées durant la crise ?]]></name>
           <position>7</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -336,7 +335,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Le processus de réévaluation des critères de sortie de crise  prend en compte, en particulier, les connaissances sur l’attaque, le rétablissement des services et la remise en production des systèmes affectés.]]></name>
+              <name><![CDATA[Le processus de réévaluation des critères de sortie de crise prend en compte, en particulier, les connaissances sur l'attaque, le rétablissement des services et la remise en production des systèmes affectés.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -359,7 +358,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Des salles de réunions permettant aux différentes cellules de crise de se retrouver et de travailler ensemble sont mises à disposition. Si des prestataires sont mobilisés, une liste nominative des personnes est communiquée aux équipes logistiques pour fournir des badges et un accès aux locaux.  Une personne est dédiée au suivi RH.]]></name>
+              <name><![CDATA[Des salles de réunions permettant aux différentes cellules de crise de se retrouver et de travailler ensemble sont mises à disposition. Si des prestataires sont mobilisés, une liste nominative des personnes est communiquée aux équipes logistiques pour fournir des badges et un accès aux locaux. Une personne est dédiée au suivi RH.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -374,7 +373,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des salles de réunions permettant aux différentes cellules de crise de se retrouver et de travailler ensemble sont mises à disposition. Si des prestataires sont mobilisés, une liste nominative des personnes est communiquée aux équipes logistiques pour fournir des badges et un accès aux locaux.  Une personne est dédiée au suivi RH. Des moyens de restauration, de logement, de transport sont mis à disposition des équipes impliquées, y compris en dehors du temps de travail habituel. Les besoins familiaux sont pris en compte voire solutionnés.]]></name>
+              <name><![CDATA[Des salles de réunions permettant aux différentes cellules de crise de se retrouver et de travailler ensemble sont mises à disposition. Si des prestataires sont mobilisés, une liste nominative des personnes est communiquée aux équipes logistiques pour fournir des badges et un accès aux locaux. Une personne est dédiée au suivi RH. Des moyens de restauration, de logement, de transport sont mis à disposition des équipes impliquées, y compris en dehors du temps de travail habituel. Les besoins familiaux sont pris en compte voire solutionnés.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -387,7 +386,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Les besoins en cas de crise cyber sont identifiés pour compléter les dispositifs opérationnels existants (expertise, couverture des frais, etc.). Un état des lieux est mené pour identifier la couverture et les polices existantes au sein de l’organisation.   Un seuil d’activation des polices d’assurance est défini. Sa mise en œuvre est testée dans le cadre d’un exercice de gestion de crise cyber. Une fiche de bonnes pratiques est formalisée pour faciliter l’utilisation de la police d’assurance en cas de crise : contacts de l’assureur, conservation des justificatifs etc.]]></name>
+              <name><![CDATA[Les besoins en cas de crise cyber sont identifiés pour compléter les dispositifs opérationnels existants (expertise, couverture des frais, etc.). Un état des lieux est mené pour identifier la couverture et les polices existantes au sein de l'organisation. Un seuil d'activation des polices d'assurance est défini. Sa mise en œuvre est testée dans le cadre d'un exercice de gestion de crise cyber. Une fiche de bonnes pratiques est formalisée pour faciliter l'utilisation de la police d'assurance en cas de crise : contacts de l'assureur, conservation des justificatifs etc.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -397,19 +396,19 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un état des lieux est mené pour identifier la couverture et les polices existantes au sein de l’organisation. Ces besoins en cas de crise cyber sont identifiés pour compléter les dispositifs opérationnels existants (expertise, couverture des frais, etc.). Une fiche de bonnes pratiques est formalisée pour faciliter l’utilisation de la police d’assurance en cas de crise : contacts de l’assureur, conservation des justificatifs etc. Un seuil d’activation des polices d’assurance est défini. Sa mise en œuvre est testée dans le cadre d’exercice de gestion de crise cyber avec le cyber assureur. L’utilisation du contrat d’assurance fait l’objet d’un retour d’expérience après chaque activation.]]></name>
+              <name><![CDATA[Un état des lieux est mené pour identifier la couverture et les polices existantes au sein de l'organisation. Ces besoins en cas de crise cyber sont identifiés pour compléter les dispositifs opérationnels existants (expertise, couverture des frais, etc.). Une fiche de bonnes pratiques est formalisée pour faciliter l'utilisation de la police d'assurance en cas de crise : contacts de l'assureur, conservation des justificatifs etc. Un seuil d'activation des polices d'assurance est défini. Sa mise en œuvre est testée dans le cadre d'exercice de gestion de crise cyber avec le cyber assureur. L'utilisation du contrat d'assurance fait l'objet d'un retour d'expérience après chaque activation.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les besoins en cas de crise cyber sont identifiés pour compléter les dispositifs opérationnels existants (expertise, couverture des frais, etc.). Un état des lieux est mené pour identifier la couverture et les polices existantes au sein de l’organisation.]]></name>
+              <name><![CDATA[Les besoins en cas de crise cyber sont identifiés pour compléter les dispositifs opérationnels existants (expertise, couverture des frais, etc.). Un état des lieux est mené pour identifier la couverture et les polices existantes au sein de l'organisation.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Un dispositif d'astreinte est-il existant?]]></name>
+          <name><![CDATA[Un dispositif d'astreinte est-il existant ?]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -430,14 +429,14 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des personnes sont identifiées au niveau opérationnel et stratégique pour intervenir en heures non-ouvrées, et sont informées qu'elles pourraient être jointes. La politique est celle du "meilleur effort".]]></name>
+              <name><![CDATA[Des personnes sont identifiées au niveau opérationnel et stratégique pour intervenir en heures non-ouvrées, et sont informées qu'elles pourraient être jointes. La politique est celle du « meilleur effort ».]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[La cellule de crise dispose-t-elle d'outils numériques dédiés à la gestion de crise?]]></name>
+          <name><![CDATA[La cellule de crise dispose-t-elle d'outils numériques dédiés à la gestion de crise ?]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -504,7 +503,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les critères d'activation et de désactivation de la cellule stratégique sont validés. Des objectifs et des critères de sortie de crise atteignables sont pré-identifiés, en lien avec les équipes métiers, cyber et IT. lls sont connus des membres du dispositif. Ils prennent en compte les besoins de notification d'incidents vers les autorités.]]></name>
+              <name><![CDATA[Les critères d'activation et de désactivation de la cellule stratégique sont validés. Des objectifs et des critères de sortie de crise atteignables sont pré-identifiés, en lien avec les équipes métiers, cyber et IT. Ils sont connus des membres du dispositif. Ils prennent en compte les besoins de notification d'incidents vers les autorités.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -514,7 +513,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les critères d'activation sont formalisés et validés. Des objectifs et des critères de sortie de crise atteignables sont pré-identifiés. lls sont connus des membres du dispositif. Ils prennent en compte les besoins de notification d'incidents vers les autorités.]]></name>
+              <name><![CDATA[Les critères d'activation sont formalisés et validés. Des objectifs et des critères de sortie de crise atteignables sont pré-identifiés. Ils sont connus des membres du dispositif. Ils prennent en compte les besoins de notification d'incidents vers les autorités.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -528,7 +527,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
       <position>213</position>
       <questions>
         <entry>
-          <name><![CDATA[Comment est surveillé l'évolution de l'état de la menace cyber ?]]></name>
+          <name><![CDATA[Comment est surveillée l'évolution de l'état de la menace cyber ?]]></name>
           <position>8</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -539,12 +538,12 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[L’état de la menace cyber est revu et analysé régulièrement. Il conditionne les choix de solutions et de processus mis en place dans les plans de continuité d'activité.]]></name>
+              <name><![CDATA[L'état de la menace cyber est revu et analysé régulièrement. Il conditionne les choix de solutions et de processus mis en place dans les plans de continuité d'activité.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[L’état de la menace cyber est régulièrement revu et alimente la réflexion sur la résilience des solutions et des processus mis en place.]]></name>
+              <name><![CDATA[L'état de la menace cyber est régulièrement revu et alimente la réflexion sur la résilience des solutions et des processus mis en place.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -584,7 +583,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Comment l'industrialisation de la reconstruction est-elle effectuée?]]></name>
+          <name><![CDATA[Comment l'industrialisation de la reconstruction est-elle effectuée ?]]></name>
           <position>14</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -595,7 +594,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Une procédure consolide les principales règles d'industrialisation de la reconstruction. Un plan d'action consolide les actions à entreprendre et l'avancée du chantier. Le support en ressources  est renforcé pour assurer la  reconstruction SI, le cas échéant en  travail posté (24 h/24). Des procédures ou des scripts sont produits pour faciliter la reconstruction. Les métiers sont mobilisés pour réaliser des tests utilisateurs avant la remise en production des applications.]]></name>
+              <name><![CDATA[Une procédure consolide les principales règles d'industrialisation de la reconstruction. Un plan d'action consolide les actions à entreprendre et l'avancée du chantier. Le support en ressources est renforcé pour assurer la reconstruction SI, le cas échéant en travail posté (24 h/24). Des procédures ou des scripts sont produits pour faciliter la reconstruction. Les métiers sont mobilisés pour réaliser des tests utilisateurs avant la remise en production des applications.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -605,7 +604,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Une procédure consolide les principales règles d'industrialisation de la reconstruction. Un plan d'action consolide les actions à entreprendre et l'avancée du chantier. Le support en ressources  est renforcé pour assurer la  reconstruction SI, le cas échéant en  travail posté (24 h/24).]]></name>
+              <name><![CDATA[Une procédure consolide les principales règles d'industrialisation de la reconstruction. Un plan d'action consolide les actions à entreprendre et l'avancée du chantier. Le support en ressources est renforcé pour assurer la reconstruction SI, le cas échéant en travail posté (24 h/24).]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -628,12 +627,12 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des processus de restauration des données et de réinstallation des SI sont formalisés et validées,  avec des procédures de basculement.]]></name>
+              <name><![CDATA[Des processus de restauration des données et de réinstallation des SI sont formalisés et validées, avec des procédures de basculement.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des processus de restauration des données et de réinstallation des SI sont formalisés et validées,  avec des procédures de basculement. La restauration des sauvegardes et les procédures sont sont testées au moins une fois par an. Ces tests sont en particulier réalisés en cohérence avec les processus métier, via des tests unitaires et des tests par bloc métier (ensemble d'applications cohérentes pour supporter un processus métier).]]></name>
+              <name><![CDATA[Des processus de restauration des données et de réinstallation des SI sont formalisés et validées, avec des procédures de basculement. La restauration des sauvegardes et les procédures sont testées au moins une fois par an. Ces tests sont en particulier réalisés en cohérence avec les processus métier, via des tests unitaires et des tests par bloc métier (ensemble d'applications cohérentes pour supporter un processus métier).]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -651,7 +650,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Le planning des actions prioritaires inclut  les reconstructions de l’Active Directory, des serveurs, des postes de travail, des systèmes de noms de domaines (DNS), des infrastructures de gestion des clés (PKI), et de toute infrastructure critique.]]></name>
+              <name><![CDATA[Le planning des actions prioritaires inclut les reconstructions de l'Active Directory, des serveurs, des postes de travail, des systèmes de noms de domaines (DNS), des infrastructures de gestion des clés (PKI), et de toute infrastructure critique.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -668,18 +667,18 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Quelles gouvernance est mise en place dans le cadre de la reconstruction des SI?]]></name>
+          <name><![CDATA[Quelle gouvernance est mise en place dans le cadre de la reconstruction des SI ?]]></name>
           <position>13</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Une stratégie de reconstruction  est définie et validée par la cellule stratégique. Elle conduit à un état des lieux régulièrement partagé à la cellule opérationnelle cyber et IT et la  cellule stratégique. La stratégie repose sur l'utilisation de sauvegarde saines, les risques de perte de données en cas de sauvegardes désynchronisés sont identifiés et communiquées.]]></name>
+              <name><![CDATA[Une stratégie de reconstruction est définie et validée par la cellule stratégique. Elle conduit à un état des lieux régulièrement partagé à la cellule opérationnelle cyber et IT et la cellule stratégique. La stratégie repose sur l'utilisation de sauvegardes saines, les risques de perte de données en cas de sauvegardes désynchronisés sont identifiés et communiquées.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Une stratégie de reconstruction est définie et validée par la cellule stratégique. Elle conduit à un état des lieux régulièrement partagé  à la cellule opérationnelle cyber et IT et la cellule stratégique. La stratégie repose sur l'utilisation de sauvegarde saines, les risques de perte de données en cas de sauvegardes désynchronisés sont identifiés et communiquées. Le PRA est adapté en fonction des  avancées de l'’investigation et de remédiation.]]></name>
+              <name><![CDATA[Une stratégie de reconstruction est définie et validée par la cellule stratégique. Elle conduit à un état des lieux régulièrement partagé à la cellule opérationnelle cyber et IT et la cellule stratégique. La stratégie repose sur l'utilisation de sauvegardes saines, les risques de perte de données en cas de sauvegardes désynchronisés sont identifiés et communiquées. Le PRA est adapté en fonction des avancées de l''investigation et de remédiation.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -689,7 +688,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Une stratégie de reconstruction est définie. Elle conduit à un état des lieux régulièrement partagé à la cellule opérationnelle cyber et IT et la  cellule stratégique.]]></name>
+              <name><![CDATA[Une stratégie de reconstruction est définie. Elle conduit à un état des lieux régulièrement partagé à la cellule opérationnelle cyber et IT et la cellule stratégique.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -707,12 +706,12 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les PCA métiers ne prévoit pas l'indisponibilité des services numériques.]]></name>
+              <name><![CDATA[Les PCA métiers ne prévoient pas l'indisponibilité des services numériques.]]></name>
               <position>0</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[En cas d’indisponibilité des services et outils numériques, des solutions de continuité d’activité sont définies, testées et mises à jour régulièrement.]]></name>
+              <name><![CDATA[En cas d'indisponibilité des services et outils numériques, des solutions de continuité d'activité sont définies, testées et mises à jour régulièrement.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -724,13 +723,13 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Comment les travaux de reconstruction et d'industrialisation sont-ils vérifiés et sécurisés?]]></name>
+          <name><![CDATA[Comment les travaux de reconstruction et d'industrialisation sont-ils vérifiés et sécurisés ?]]></name>
           <position>15</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Une checklist de sécurité standard est définie pour la reconstruction, et est vérifiée avant mise en production. Une coordination renforcée est  mise en œuvre entre les équipes  en charge du durcissement et  de la remédiation et celles en charge de la reconstruction afin de faire appliquer les mesures de cybersécurité.  La vérification des règles de sécurité est automatisée au maximum par des outils. Les systèmes mis en production sont sous la surveillance d'outils de détection.]]></name>
+              <name><![CDATA[Une check-list de sécurité standard est définie pour la reconstruction, et est vérifiée avant mise en production. Une coordination renforcée est mise en œuvre entre les équipes en charge du durcissement et de la remédiation et celles en charge de la reconstruction afin de faire appliquer les mesures de cybersécurité. La vérification des règles de sécurité est automatisée au maximum par des outils. Les systèmes mis en production sont sous la surveillance d'outils de détection.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -740,25 +739,25 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Une checklist de sécurité standard est définie pour la reconstruction, et est vérifiée avant mise en production. Une coordination renforcée est  mise en œuvre entre les équipes  en charge du durcissement et  de la remédiation et celles en charge de la reconstruction afin de faire appliquer les mesures de cybersécurité.]]></name>
+              <name><![CDATA[Une check-list de sécurité standard est définie pour la reconstruction, et est vérifiée avant mise en production. Une coordination renforcée est mise en œuvre entre les équipes en charge du durcissement et de la remédiation et celles en charge de la reconstruction afin de faire appliquer les mesures de cybersécurité.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Une checklist de sécurité standard est définie pour la reconstruction, et est vérifiée avant mise en production.]]></name>
+              <name><![CDATA[Une check-list de sécurité standard est définie pour la reconstruction, et est vérifiée avant mise en production.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Comment est définie les métriques de continuité (TAMT, DMIA, PDMA, TRD) ?]]></name>
+          <name><![CDATA[Comment sont définies les métriques de continuité (TAMT, DMIA, PDMA, TRD) ?]]></name>
           <position>7</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Les métiers définissent pour chaque service Les métriques de continuité d'activité intégrant un temps d’indisponibilité long, lié au scénario de risque cyber.]]></name>
+              <name><![CDATA[Les métiers définissent pour chaque service les métriques de continuité d'activité intégrant un temps d'indisponibilité long, lié au scénario de risque cyber.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -819,7 +818,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Le plan de sauvegarde  des données est défini et validé, et repose sur l'existence de sauvegarde saines. Les sauvegardes sont stockés dans un espace sécurisé, respectant la politique de sauvegarde définie et avec une copie hors ligne disponible.Le plan de sauvegarde  des données est défini et validé, et repose sur l'existence de sauvegarde saines. Les sauvegardes sont stockés dans un espace sécurisé, respectant la politique de sauvegarde définie et avec une copie hors ligne disponible.]]></name>
+              <name><![CDATA[Le plan de sauvegarde des données est défini et validé, et repose sur l'existence de sauvegardes saines. Les sauvegardes sont stockées dans un espace sécurisé, respectant la politique de sauvegarde définie et avec une copie hors ligne disponible. Le plan de sauvegarde des données est défini et validé, et repose sur l'existence de sauvegardes saines. Les sauvegardes sont stockées dans un espace sécurisé, respectant la politique de sauvegarde définie et avec une copie hors ligne disponible.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -829,7 +828,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un plan de sauvegarde et de restauration des données est défini et validé. Ce plan est revu régulièrement sur la base d'une analyse de la menace cyber. Il s’appuie sur l’existence de sauvegardes saines. Les sauvegardes sont stockés dans un espace sécurisé, respectant la politique de sauvegarde définie et avec une copie hors ligne disponible. Ces dernières sont cataloguées dans un stockage protégé. Le risque d’une incohérence de données liées à leur synchronisation est pris en compte.]]></name>
+              <name><![CDATA[Un plan de sauvegarde et de restauration des données est défini et validé. Ce plan est revu régulièrement sur la base d'une analyse de la menace cyber. Il s'appuie sur l'existence de sauvegardes saines. Les sauvegardes sont stockées dans un espace sécurisé, respectant la politique de sauvegarde définie et avec une copie hors ligne disponible. Ces dernières sont cataloguées dans un stockage protégé. Le risque d'une incohérence de données liées à leur synchronisation est pris en compte.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -892,7 +891,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Quelles informations sont inclues dans le plan de continuité d'activité ?]]></name>
+          <name><![CDATA[Quelles informations sont incluses dans le plan de continuité d'activité ?]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -903,17 +902,17 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un ou plusieurs PCA inclut l’analyse, l’évaluation et le traitement des risques numériques et cyber et prend notamment en compte une perte totale ou un fonctionnement très dégradé des services et des processus critiques de l’organisation. Des mesures relatives au PCA, tel que le temps d’arrêt maximal tolérable et le temps de récupération des données sont définies en intégrant les scénarios cyber. Des solutions de continuité d’activité sont identifiées en lien avec les équipes cyber et IT. Elles sont testées.  Des dispositifs opérationnels métiers sont envisagés et maintiennent à un seuil minimum le fonctionnement des processus critiques de l’organisation. Les dispositifs sont testés.]]></name>
+              <name><![CDATA[Un ou plusieurs PCA inclut l'analyse, l'évaluation et le traitement des risques numériques et cyber et prend notamment en compte une perte totale ou un fonctionnement très dégradé des services et des processus critiques de l'organisation. Des mesures relatives au PCA, tel que le temps d'arrêt maximal tolérable et le temps de récupération des données sont définies en intégrant les scénarios cyber. Des solutions de continuité d'activité sont identifiées en lien avec les équipes cyber et IT. Elles sont testées. Des dispositifs opérationnels métiers sont envisagés et maintiennent à un seuil minimum le fonctionnement des processus critiques de l'organisation. Les dispositifs sont testés.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un ou plusieurs PCA inclut l’analyse, l’évaluation et le traitement des risques numériques et cyber.  Ces PCA prennent notamment en compte une perte totale ou un fonctionnement très dégradé des services et des processus critiques de l’organisation. Des mesures relatives au PCA, tel que le temps d’arrêt maximal tolérable et le temps de récupération des données sont définies en intégrant les scénarios cyber. Des solutions de continuité d’activité sont identifiées en lien avec les équipes cyber et IT.]]></name>
+              <name><![CDATA[Un ou plusieurs PCA inclut l'analyse, l'évaluation et le traitement des risques numériques et cyber. Ces PCA prennent notamment en compte une perte totale ou un fonctionnement très dégradé des services et des processus critiques de l'organisation. Des mesures relatives au PCA, tel que le temps d'arrêt maximal tolérable et le temps de récupération des données sont définies en intégrant les scénarios cyber. Des solutions de continuité d'activité sont identifiées en lien avec les équipes cyber et IT.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un ou plusieurs PCA inclut l’analyse, l’évaluation et le traitement des risques numériques et cyber.]]></name>
+              <name><![CDATA[Un ou plusieurs PCA inclut l'analyse, l'évaluation et le traitement des risques numériques et cyber.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -926,7 +925,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Les périmètres du PCA intègrent également la perte d’une solution nuagique, d’un partenaire ou prestataire de l’entité.  Les modalités de gestion de crise cyber sont intégrées dans les contrats d’infogérance et d’externalisation.  Le PCA est maintenu à jour tous les ans et stocké hors-ligne.]]></name>
+              <name><![CDATA[Les périmètres du PCA intègrent également la perte d'une solution nuagique, d'un partenaire ou prestataire de l'entité. Les modalités de gestion de crise cyber sont intégrées dans les contrats d'infogérance et d'externalisation. Le PCA est maintenu à jour tous les ans et stocké hors-ligne.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -941,7 +940,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les périmètres du PCA intègrent également la perte d’une solution nuagique, d’un partenaire ou prestataire de services numériques de l’entité.]]></name>
+              <name><![CDATA[Les périmètres du PCA intègrent également la perte d'une solution nuagique, d'un partenaire ou prestataire de services numériques de l'entité.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -954,22 +953,22 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Les métiers sont consultés de manière informelle lors de l'intégration des aspects cyber dans les PCA "Métiers".]]></name>
+              <name><![CDATA[Les métiers sont consultés de manière informelle lors de l'intégration des aspects cyber dans les PCA « Métiers ».]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les équipes cyber et SI accompagnent les métiers pour l’analyse, l’évaluation et le traitement des risques numériques et cyber via une compréhension des impacts pour l’activité métiers, afin d'intégrer les ressources SI dans les PCA métiers.]]></name>
+              <name><![CDATA[Les équipes cyber et SI accompagnent les métiers pour l'analyse, l'évaluation et le traitement des risques numériques et cyber via une compréhension des impacts pour l'activité métiers, afin d'intégrer les ressources SI dans les PCA métiers.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les équipes cyber et SI accompagnent les métiers pour l’analyse, l’évaluation et le traitement des risques numériques et cyber via une compréhension des impacts pour l’activité métiers, afin d'intégrer les ressources SI dans les PCA métiers. Les équipes cyber et SI mettent à jour régulièrement, avec les métiers, l'analyse et le traitement des risques.]]></name>
+              <name><![CDATA[Les équipes cyber et SI accompagnent les métiers pour l'analyse, l'évaluation et le traitement des risques numériques et cyber via une compréhension des impacts pour l'activité métiers, afin d'intégrer les ressources SI dans les PCA métiers. Les équipes cyber et SI mettent à jour régulièrement, avec les métiers, l'analyse et le traitement des risques.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les métiers ne sont pas consultés lors de l'intégration des aspects cyber dans les PCA "Métiers".]]></name>
+              <name><![CDATA[Les métiers ne sont pas consultés lors de l'intégration des aspects cyber dans les PCA « Métiers ».]]></name>
               <position>0</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -989,7 +988,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Des exercices testant des scénarios cyber sont organisés. Certains exercices testent l’articulation entre les volets opérationnel et stratégique. La complexité technique des exercices est adaptée à la maturité de l’organisation. Ils tendent progressivement vers plus de réalisme pour entraîner les équipes d’investigation (type entraînement sur Cyber Range).]]></name>
+              <name><![CDATA[Des exercices testant des scénarios cyber sont organisés. Certains exercices testent l'articulation entre les volets opérationnel et stratégique. La complexité technique des exercices est adaptée à la maturité de l'organisation. Ils tendent progressivement vers plus de réalisme pour entraîner les équipes d'investigation (type entraînement sur Cyber Range).]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -999,7 +998,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des exercices testant des scénarios cyber sont organisés au niveau opérationnel. Certains exercices testent l’articulation entre les volets opérationnel et stratégique.]]></name>
+              <name><![CDATA[Des exercices testant des scénarios cyber sont organisés au niveau opérationnel. Certains exercices testent l'articulation entre les volets opérationnel et stratégique.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1017,7 +1016,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Les fonctions décisionnelles de l’organisation sont sensibilisées aux enjeux cyber. Un dispositif de crise est présent. Les fonctions cyber et IT sont systématiquement représentées dans la gouvernance de crise cyber.]]></name>
+              <name><![CDATA[Les fonctions décisionnelles de l'organisation sont sensibilisées aux enjeux cyber. Un dispositif de crise est présent. Les fonctions cyber et IT sont systématiquement représentées dans la gouvernance de crise cyber.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1027,7 +1026,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les fonctions décisionnelles de l’organisation sont sensibilisées aux enjeux cyber. Les fonctions cyber et IT sont systématiquement représentées dans la gouvernance de crise (cyber et hors cyber).]]></name>
+              <name><![CDATA[Les fonctions décisionnelles de l'organisation sont sensibilisées aux enjeux cyber. Les fonctions cyber et IT sont systématiquement représentées dans la gouvernance de crise (cyber et hors cyber).]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1045,7 +1044,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Le roulement des équipes est anticipé et l'activité opérationnelle des collaborateurs (en particulier l'intervention en heures non ouvrées) est suivie afin de préserver leur capacité à opérer dans la durée et de régulariser leur temps de travail.  Les prestataires mobilisés font également un suivi équivalent pour les ressources utilisées. Les collaborateurs sans activité peuvent être mobilisés pour fournir de l’aide sur les différentes actions à réaliser.  Le travail est organisé sous forme d’équipes-projet, afin de répondre à plusieurs objectifs dans un délai réduit.]]></name>
+              <name><![CDATA[Le roulement des équipes est anticipé et l'activité opérationnelle des collaborateurs (en particulier l'intervention en heures non ouvrées) est suivie afin de préserver leur capacité à opérer dans la durée et de régulariser leur temps de travail. Les prestataires mobilisés font également un suivi équivalent pour les ressources utilisées. Les collaborateurs sans activité peuvent être mobilisés pour fournir de l'aide sur les différentes actions à réaliser. Le travail est organisé sous forme d'équipes-projet, afin de répondre à plusieurs objectifs dans un délai réduit.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1060,7 +1059,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Le roulement des équipes est anticipé et l'activité opérationnelle des collaborateurs (en particulier l'intervention en heures non ouvrées) est suivie afin de préserver leur capacité à opérer dans la durée et de régulariser leur temps de travail.  Les prestataires mobilisés font également un suivi équivalent pour les ressources utilisées. Les collaborateurs sans activité peuvent être mobilisés pour fournir de l’aide sur les différentes actions à réaliser.]]></name>
+              <name><![CDATA[Le roulement des équipes est anticipé et l'activité opérationnelle des collaborateurs (en particulier l'intervention en heures non ouvrées) est suivie afin de préserver leur capacité à opérer dans la durée et de régulariser leur temps de travail. Les prestataires mobilisés font également un suivi équivalent pour les ressources utilisées. Les collaborateurs sans activité peuvent être mobilisés pour fournir de l'aide sur les différentes actions à réaliser.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1078,7 +1077,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les membres de la cellule de crise sont identifiés et sont informés de leur nomination au dispositif. Ils sont informés de leur rôle, leurs missions et leur périmètre d'action, qui ont été définis en amont.  Des suppléants sont identifiés.]]></name>
+              <name><![CDATA[Les membres de la cellule de crise sont identifiés et sont informés de leur nomination au dispositif. Ils sont informés de leur rôle, leurs missions et leur périmètre d'action, qui ont été définis en amont. Des suppléants sont identifiés.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1101,12 +1100,12 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Les membres de la cellule de crise opérationnelle sont identifiés et sont informés de leur nomination au dispositif. Ils sont informés de leur rôle, leurs missions et leur périmètre d'action, qui ont été définis en amont. L'organisation des équipes est pensée pour être la plus efficace possible.  Des suppléants sont identifiés.]]></name>
+              <name><![CDATA[Les membres de la cellule de crise opérationnelle sont identifiés et sont informés de leur nomination au dispositif. Ils sont informés de leur rôle, leurs missions et leur périmètre d'action, qui ont été définis en amont. L'organisation des équipes est pensée pour être la plus efficace possible. Des suppléants sont identifiés.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les membres de la cellule de crise opérationnelle sont identifiés et sont informés de leur nomination au dispositif. Ils sont informés de leur rôle, leurs missions et leur périmètre d'action, qui ont été définis en amont, et y sont formés. Des suppléants sont identifiés et intégrés aux formations et aux exercices.  La cellule intègre des experts clés capables de fournir des orientations ainsi qu’un relais pour la communication de crise. L'organisation des équipes est pensée pour être la plus efficace possible de manière à réaliser les actions d’investigation/endiguement, de durcissement/remédiation et de reconstruction.]]></name>
+              <name><![CDATA[Les membres de la cellule de crise opérationnelle sont identifiés et sont informés de leur nomination au dispositif. Ils sont informés de leur rôle, leurs missions et leur périmètre d'action, qui ont été définis en amont, et y sont formés. Des suppléants sont identifiés et intégrés aux formations et aux exercices. La cellule intègre des experts clés capables de fournir des orientations ainsi qu'un relais pour la communication de crise. L'organisation des équipes est pensée pour être la plus efficace possible de manière à réaliser les actions d'investigation/endiguement, de durcissement/remédiation et de reconstruction.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1123,7 +1122,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Comment l'anticipation et la connaissance de la menace est-elle intégrée au niveau opérationnel?]]></name>
+          <name><![CDATA[Comment l'anticipation et la connaissance de la menace est-elle intégrée au niveau opérationnel ?]]></name>
           <position>13</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1134,7 +1133,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Une fonction CTI existe au sein des équipes cyber. Elle est contribue à l'identification des scénarios de menace à couvrir et à la définition des fiches réflexes. La fonction CTI est mobilisée durant les entrainements et durant les crises pour identifier les comportements possibles de l'attaquant et pour identifier les actions de durcissement et de remédiation à mettre en place.]]></name>
+              <name><![CDATA[Une fonction CTI existe au sein des équipes cyber. Elle contribue à l'identification des scénarios de menace à couvrir et à la définition des fiches réflexes. La fonction CTI est mobilisée durant les entraînements et durant les crises pour identifier les comportements possibles de l'attaquant et pour identifier les actions de durcissement et de remédiation à mettre en place.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1144,7 +1143,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Une fonction CTI existe au sein des équipes cyber. Elle est contribue à l'identification des scénarios de menace à couvrir et à la définition des fiches réflexes.]]></name>
+              <name><![CDATA[Une fonction CTI existe au sein des équipes cyber. Elle contribue à l'identification des scénarios de menace à couvrir et à la définition des fiches réflexes.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1157,7 +1156,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Une stratégie d’entraînement de gestion de crise est définie et des exercices testant des scénarios cyber sont régulièrement organisés au niveau stratégique. Les exercices impliquent des périmètres d’impacts et des scénarios en ligne avec la cartographie des risques et l'état de la menace. La cellule stratégique s'entraîne à prendre des décisions dans l'incertitude.  La stratégie d'exercice intègre le sujet de la coordination avec son écosystème et prend en compte l'articulation avec les exercices opérationnels. La stratégie est alignée avec un plan de montée en compétence sur les savoir-faire liés à la gestion de crise cyber.]]></name>
+              <name><![CDATA[Une stratégie d'entraînement de gestion de crise est définie et des exercices testant des scénarios cyber sont régulièrement organisés au niveau stratégique. Les exercices impliquent des périmètres d'impacts et des scénarios en ligne avec la cartographie des risques et l'état de la menace. La cellule stratégique s'entraîne à prendre des décisions dans l'incertitude. La stratégie d'exercice intègre le sujet de la coordination avec son écosystème et prend en compte l'articulation avec les exercices opérationnels. La stratégie est alignée avec un plan de montée en compétence sur les savoir-faire liés à la gestion de crise cyber.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1167,7 +1166,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Une stratégie d’entraînement de gestion de crise est définie et des exercices testant des scénarios cyber sont régulièrement organisés au niveau stratégique. Les exercices impliquent des périmètres d’impacts et des scénarios en ligne avec la cartographie des risques et l'état de la menace.]]></name>
+              <name><![CDATA[Une stratégie d'entraînement de gestion de crise est définie et des exercices testant des scénarios cyber sont régulièrement organisés au niveau stratégique. Les exercices impliquent des périmètres d'impacts et des scénarios en ligne avec la cartographie des risques et l'état de la menace.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1179,18 +1178,18 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Comment l'anticipation est-elle intégrée à la cellule de crise stratégique?]]></name>
+          <name><![CDATA[Comment l'anticipation est-elle intégrée à la cellule de crise stratégique ?]]></name>
           <position>12</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Une équipe est en charge du volet anticipation dans la cellule de crise. Elle s'appuie sur une méthodologie d'anticipation qui prend en compte les spécificités des attaques cyber ainsi que sur des modèles de restitution des travaux. Ses travaux sont pris en compte dans la résolution de la crise. L'équipe est régulièrement entrainée via des exercices de crise.  Une fiche de poste précise son rôle.]]></name>
+              <name><![CDATA[Une équipe est en charge du volet anticipation dans la cellule de crise. Elle s'appuie sur une méthodologie d'anticipation qui prend en compte les spécificités des attaques cyber ainsi que sur des modèles de restitution des travaux. Ses travaux sont pris en compte dans la résolution de la crise. L'équipe est régulièrement entrainée via des exercices de crise. Une fiche de poste précise son rôle.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[L'anticipation n'est pas intégré danse les fonctions de la cellule de crise stratégique.]]></name>
+              <name><![CDATA[L'anticipation n'est pas intégrée dans les fonctions de la cellule de crise stratégique.]]></name>
               <position>0</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1218,7 +1217,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les différents rôles des interlocuteurs  des cellules opérationnelles et de la cellule stratégique et leur manière de se réunir ne sont pas définis.]]></name>
+              <name><![CDATA[Les différents rôles des interlocuteurs des cellules opérationnelles et de la cellule stratégique et leur manière de se réunir ne sont pas définis.]]></name>
               <position>0</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1235,13 +1234,13 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Comment est organisé la phase de RETEX de crise?]]></name>
+          <name><![CDATA[Comment est organisée la phase de RETEX de crise ?]]></name>
           <position>14</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[L'équipe en charge du RETEX est identifiée. Cette équipe identifie les acteurs à interroger, la grille d'entretien et organise les aspects pratiques du RETEX, pour le volet stratégique et opérationnel.  Le processus de RETEX est prévu pour se terminer maximum 30 jours après la fin de la crise.  Un rapport d'investigation numérique est demandé aux prestataires mobilisés. Les axes d'amélioration identifiés à l'issue de la restitution font l'objet d'un suivi spécifique.]]></name>
+              <name><![CDATA[L'équipe en charge du RETEX est identifiée. Cette équipe identifie les acteurs à interroger, la grille d'entretien et organise les aspects pratiques du RETEX, pour le volet stratégique et opérationnel. Le processus de RETEX est prévu pour se terminer maximum 30 jours après la fin de la crise. Un rapport d'investigation numérique est demandé aux prestataires mobilisés. Les axes d'amélioration identifiés à l'issue de la restitution font l'objet d'un suivi spécifique.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1251,7 +1250,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA["L'équipe en charge du RETEX est identifiée. Cette équipe identifie les acteurs à interroger, la grille d'entretien et organise les aspects pratiques du RETEX.  Le processus de RETEX est prévu pour se terminer maximum 30 jours après la fin de la crise.  Un rapport d'investigation numérique est demandé aux prestataires mobilisés."]]></name>
+              <name><![CDATA[L'équipe en charge du RETEX est identifiée. Cette équipe identifie les acteurs à interroger, la grille d'entretien et organise les aspects pratiques du RETEX. Le processus de RETEX est prévu pour se terminer maximum 30 jours après la fin de la crise. Un rapport d'investigation numérique est demandé aux prestataires mobilisés.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1298,7 +1297,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Un référentiel de management des crises intégrant une description de l’ensemble du dispositif de crise (organisation, gouvernance, ressources, outils, annuaire) existe mais n'intègre pas le volet cyber.]]></name>
+              <name><![CDATA[Un référentiel de management des crises intégrant une description de l'ensemble du dispositif de crise (organisation, gouvernance, ressources, outils, annuaire) existe, mais n'intègre pas le volet cyber.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1308,12 +1307,12 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un référentiel de management des crises cyber intégrant une description de l’ensemble du dispositif de crise (organisation, gouvernance, ressources, outils, annuaire) est formalisé, promu, maintenu à jour et testé. Il est lié aux autres dispositifs de crise existant.]]></name>
+              <name><![CDATA[Un référentiel de management des crises cyber intégrant une description de l'ensemble du dispositif de crise (organisation, gouvernance, ressources, outils, annuaire) est formalisé, promu, maintenu à jour et testé. Il est lié aux autres dispositifs de crise existants.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un référentiel de management des crises contenant d'un volet cyber intégrant une description de l’ensemble du dispositif de crise (organisation, gouvernance, ressources, outils, annuaire) est formalisé et validé. Il est lié aux autres dispositifs de crise existant.]]></name>
+              <name><![CDATA[Un référentiel de management des crises contenant d'un volet cyber intégrant une description de l'ensemble du dispositif de crise (organisation, gouvernance, ressources, outils, annuaire) est formalisé et validé. Il est lié aux autres dispositifs de crise existants.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1326,7 +1325,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Le rythme des remontées d’information adapté à la crise est formalisée et partagée.  En particulier, leurs réunions servent à partager l’avancement, les priorités, les difficultés et incertitudes et les besoins. Les éléments techniques sont vulgarisés afin de s'adapter à des publics non-experts. Des collaborateurs des équipes techniques travaillent avec les équipes de communication afin de participer à la rédaction des communications internes ou externes.]]></name>
+              <name><![CDATA[Le rythme des remontées d'information adapté à la crise est formalisé et partagé. En particulier, leurs réunions servent à partager l'avancement, les priorités, les difficultés et incertitudes et les besoins. Les éléments techniques sont vulgarisés afin de s'adapter à des publics non-experts. Des collaborateurs des équipes techniques travaillent avec les équipes de communication afin de participer à la rédaction des communications internes ou externes.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1341,20 +1340,20 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Le rythme des remontées d’information adapté à la crise est formalisée et partagée.  Des éléments de langages vulgarisés sont préparés en amont afin de s'adapter à des publics non experts.]]></name>
+              <name><![CDATA[Le rythme des remontées d'information adapté à la crise est formalisé et partagé. Des éléments de langages vulgarisés sont préparés en amont afin de s'adapter à des publics non experts.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Quelles sont les expertises identifiées au niveau stratégique?]]></name>
+          <name><![CDATA[Quelles sont les expertises identifiées au niveau stratégique ?]]></name>
           <position>7</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Des expertises sont identifiées, et couvrent au moins l'un des domaines suivants :  - gestion et conduite de crise ; - communication de crise cyber ; - gestion de projet.]]></name>
+              <name><![CDATA[Des expertises sont identifiées, et couvrent au moins l'un des domaines suivants : gestion et conduite de crise ; communication de crise cyber ; gestion de projet.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1364,35 +1363,35 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des expertises sont identifiées et mises à jour. Elles couvrent les domaines suivants : - gestion et conduite de crise ; - communication de crise cyber. En cas d'externalisation, des accords de non divulgation sont mis en place pour l’ensemble des experts sollicités.]]></name>
+              <name><![CDATA[Des expertises sont identifiées et mises à jour. Elles couvrent les domaines suivants : gestion et conduite de crise ; communication de crise cyber. En cas d'externalisation, des accords de non divulgation sont mis en place pour l'ensemble des experts sollicités.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des expertises sont identifiées et mises à jour. Elles couvrent les domaines suivants : - gestion et conduite de crise ; - communication de crise cyber ; - gestion de projet ; - expertise juridique. En cas d'externalisation, des accords de non divulgation sont mis en place pour l’ensemble des experts sollicités.]]></name>
+              <name><![CDATA[Des expertises sont identifiées et mises à jour. Elles couvrent les domaines suivants : gestion et conduite de crise ; communication de crise cyber ; gestion de projet ; expertise juridique. En cas d'externalisation, des accords de non divulgation sont mis en place pour l'ensemble des experts sollicités.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Quelles sont les expertises identifiées au niveau opérationnel?]]></name>
+          <name><![CDATA[Quelles sont les expertises identifiées au niveau opérationnel ?]]></name>
           <position>8</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Des expertises sont identifiées, et couvrent certains des domaines suivants :  - réponse à incidents ; - supervision de sécurité ; - remédiation technique - infrastructure informatique.]]></name>
+              <name><![CDATA[Des expertises sont identifiées, et couvrent certains des domaines suivants : réponse à incidents ; supervision de sécurité ; remédiation technique ; infrastructure informatique.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des expertises sont identifiées et mises à jour. Elles couvrent les domaines suivants : - réponse à incidents ; - supervision de sécurité ; - remédiation technique ; - infrastructure informatique ; - annuaires et accès privilégiés (souvent Active Directory) ; - restauration de données ; - recouvrement de données. En cas d'externalisation, des accords de non divulgation sont mis en place pour l’ensemble des experts sollicités.]]></name>
+              <name><![CDATA[Des expertises sont identifiées et mises à jour. Elles couvrent les domaines suivants : réponse à incidents ; supervision de sécurité ; remédiation technique ; infrastructure informatique ; annuaires et accès privilégiés (souvent Active Directory) ; restauration de données ; recouvrement de données. En cas d'externalisation, des accords de non divulgation sont mis en place pour l'ensemble des experts sollicités.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des expertises sont identifiées et mises à jour. Elles couvrent les domaines suivants : - réponse à incidents ; - supervision de sécurité ; - remédiation technique ; - infrastructure informatique ; - annuaires et accès privilégiés (souvent Active Directory) ; - restauration de données ; - recouvrement de données ; - solutions nuagiques ; - réseaux ; - administration Linux/Windows ;  - pare-feu. En cas d'externalisation, des accords de non divulgation sont mis en place pour l’ensemble des experts sollicités. Tous les prestataires mobilisés travaillent ensemble, sous la coordination de la cellule opérationnelle, avec des objectifs et des périmètres clairement définis.]]></name>
+              <name><![CDATA[Des expertises sont identifiées et mises à jour. Elles couvrent les domaines suivants : réponse à incidents ; supervision de sécurité ; remédiation technique ; infrastructure informatique ; annuaires et accès privilégiés (souvent Active Directory) ; restauration de données ; recouvrement de données ; solutions nuagiques ; réseaux ; administration Linux/Windows ; pare-feu. En cas d'externalisation, des accords de non divulgation sont mis en place pour l'ensemble des experts sollicités. Tous les prestataires mobilisés travaillent ensemble, sous la coordination de la cellule opérationnelle, avec des objectifs et des périmètres clairement définis.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1411,35 +1410,35 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
       <position>171</position>
       <questions>
         <entry>
-          <name><![CDATA[Quelle gouvernance est mise en place dans le cadre du durcissement et de la remédiation des SI?]]></name>
+          <name><![CDATA[Quelle gouvernance est mise en place dans le cadre du durcissement et de la remédiation des SI ?]]></name>
           <position>6</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Un plan d'action consolide la liste des mesures à entreprendre pour durcir les systèmes et isoler l'attaquant. Les mesures sont mises en place et consolidés dans le document.]]></name>
+              <name><![CDATA[Un plan d'action consolide la liste des mesures à entreprendre pour durcir les systèmes et isoler l'attaquant. Les mesures sont mises en place et consolidées dans le document.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un plan d'action consolide la liste des actions à entreprendre pour durcir les systèmes et isoler l'attaquant. Les mesures sont mises en place et consolidés dans le document.  En cas de mesures structurantes, les risques et impacts sur les SI et les métiers sont identifiés et validés en amont de leur déploiement, et les risques de ne pas appliquer les mesures sont consolidés.]]></name>
+              <name><![CDATA[Un plan d'action consolide la liste des actions à entreprendre pour durcir les systèmes et isoler l'attaquant. Les mesures sont mises en place et consolidées dans le document. En cas de mesures structurantes, les risques et impacts sur les SI et les métiers sont identifiés et validés en amont de leur déploiement, et les risques de ne pas appliquer les mesures sont consolidés.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un plan d'actions consolide la liste des actions à entreprendre pour durcir les systèmes et isoler l'attaquant. Les mesures sont mises en place et consolidés dans le document, ainsi que les risques et impacts associés à l'application ou non-application des mesures. Un plan de conduite du changement, soutenu par la cellule décisionnelle, est mis en place pour aider les utilisateurs suites aux changements nécessaire dans les pratiques d'utilisation ou d'administration des systèmes.]]></name>
+              <name><![CDATA[Un plan d'actions consolide la liste des actions à entreprendre pour durcir les systèmes et isoler l'attaquant. Les mesures sont mises en place et consolidées dans le document, ainsi que les risques et impacts associés à l'application ou non-application des mesures. Un plan de conduite du changement, soutenu par la cellule décisionnelle, est mis en place pour aider les utilisateurs suites aux changements nécessaire dans les pratiques d'utilisation ou d'administration des systèmes.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Aucune gouvernance n'est défini pour suivre le plan de durcissement des SI.]]></name>
+              <name><![CDATA[Aucune gouvernance n'est définie pour suivre le plan de durcissement des SI.]]></name>
               <position>0</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Comment sont menées les actions de détection et d'investigation?]]></name>
+          <name><![CDATA[Comment sont menées les actions de détection et d'investigation ?]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1460,7 +1459,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des outils de détection et d'endiguement sont mis en place et testés régulièrement lors d'exercice pour faciliter les actions de détection et la réponse à incident.  Des outils numériques déconnectés, sont disponibles pour réaliser les investigations numériques. Les équipes sont formées à l'utilisation de ces outils.]]></name>
+              <name><![CDATA[Des outils de détection et d'endiguement sont mis en place et testés régulièrement lors d'exercice pour faciliter les actions de détection et la réponse à incident. Des outils numériques déconnectés, sont disponibles pour réaliser les investigations numériques. Les équipes sont formées à l'utilisation de ces outils.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1473,7 +1472,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Un processus d'alerte, de gestion et de réponse aux incidents, s’appuyant notamment sur un dispositif de réponse à incident et des outils de détection et de gestion d’incident et intégrant un volet « sécurité du numérique » est validé, stocké hors-ligne et testé régulièrement.  Le processus prévoit une classification des incidents, en prenant en compte la nature, le périmètre et l'impact des incidents. Elle est accompagnée de fiches pratiques pour accélérer la réponse à incident.]]></name>
+              <name><![CDATA[Un processus d'alerte, de gestion et de réponse aux incidents, s'appuyant notamment sur un dispositif de réponse à incident et des outils de détection et de gestion d'incident et intégrant un volet « sécurité du numérique » est validé, stocké hors-ligne et testé régulièrement. Le processus prévoit une classification des incidents, en prenant en compte la nature, le périmètre et l'impact des incidents. Elle est accompagnée de fiches pratiques pour accélérer la réponse à incident.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1488,7 +1487,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un processus d'alerte, de gestion et de réponse aux incidents, s’appuyant notamment sur un dispositif de réponse à incident et des outils de détection et de gestion d’incident et intégrant un volet « sécurité du numérique » est formalisé et validé.  Le processus prévoit une classification des incidents.]]></name>
+              <name><![CDATA[Un processus d'alerte, de gestion et de réponse aux incidents, s'appuyant notamment sur un dispositif de réponse à incident et des outils de détection et de gestion d'incident et intégrant un volet « sécurité du numérique » est formalisé et validé. Le processus prévoit une classification des incidents.]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1501,7 +1500,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Les mémos techniques sont complétés par les aspects fonctionnels et stratégiques de la gestion de crise et intègrent en particulier des listes d’actions à mener par les différentes équipes métiers. Ces mémos sont testés lors d’exercices de gestion de crise. Ils font l’objet d’une mise à jour après chaque exercice ou d’une utilisation en situation de crise. Ces mémos techniques sont adaptés aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.).]]></name>
+              <name><![CDATA[Les mémos techniques sont complétés par les aspects fonctionnels et stratégiques de la gestion de crise et intègrent en particulier des listes d'actions à mener par les différentes équipes métiers. Ces mémos sont testés lors d'exercices de gestion de crise. Ils font l'objet d'une mise à jour après chaque exercice ou d'une utilisation en situation de crise. Ces mémos techniques sont adaptés aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.).]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1511,7 +1510,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les mémos techniques sont complétés par les aspects fonctionnels et stratégiques de la gestion de crise et intègrent en particulier des listes d’actions à mener par les différentes équipes métiers. Ces mémos techniques sont adaptés aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.).]]></name>
+              <name><![CDATA[Les mémos techniques sont complétés par les aspects fonctionnels et stratégiques de la gestion de crise et intègrent en particulier des listes d'actions à mener par les différentes équipes métiers. Ces mémos techniques sont adaptés aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.).]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1523,7 +1522,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Comment est défini le plan de durcissement durant la crise ? Comment les investigations sont-elles intégrés dans le travail de durcissement ?]]></name>
+          <name><![CDATA[Comment est défini le plan de durcissement durant la crise ? Comment les investigations sont-elles intégrées dans le travail de durcissement ?]]></name>
           <position>5</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1534,7 +1533,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un plan de durcissement et de remédiation est élaboré de façon  itérative en fonction des retours des investigations numériques. Les fiches réflexes sont adaptées aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.).]]></name>
+              <name><![CDATA[Un plan de durcissement et de remédiation est élaboré de façon itérative en fonction des retours des investigations numériques. Les fiches réflexes sont adaptées aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.).]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1544,7 +1543,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Un plan de durcissement et de remédiation est élaboré de façon  itérative en fonction des retours des investigations numériques. Les fiches réflexes sont adaptées aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.). Une bulle sécurisée est mise en place pour les opérations les plus sensibles et la reconstruction du système d'information. Cette bulle, ainsi que les systèmes reconstruits sont suivi via des outils de surveillance, en particulier ceux  identifiés comme précédemment compromis par l’investigation.]]></name>
+              <name><![CDATA[Un plan de durcissement et de remédiation est élaboré de façon itérative en fonction des retours des investigations numériques. Les fiches réflexes sont adaptées aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.). Une bulle sécurisée est mise en place pour les opérations les plus sensibles et la reconstruction du système d'information. Cette bulle, ainsi que les systèmes reconstruits sont suivi via des outils de surveillance, en particulier ceux identifiés comme précédemment compromis par l'investigation.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1557,7 +1556,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Les cas où les mesures conservatoires et de remédiation font l'objet d'une validation par la cellule stratégique sont formalisés en amont et incluent en particulier toutes les mesures qui ont des conséquences sur la continuité de l'activité (isolement, déconnexion d’applicatifs ou serveur, blocage des accès Internet, etc.).]]></name>
+              <name><![CDATA[Les cas où les mesures conservatoires et de remédiation font l'objet d'une validation par la cellule stratégique sont formalisés en amont et incluent en particulier toutes les mesures qui ont des conséquences sur la continuité de l'activité (isolement, déconnexion d'applicatifs ou serveur, blocage des accès Internet, etc.).]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1572,7 +1571,7 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les cas où les mesures conservatoires et de remédiation font l'objet d'une validation par la cellule stratégique sont formalisés en amont et incluent en particulier toutes les mesures qui ont des conséquences sur la continuité de l'activité (isolement, déconnexion d’applicatifs ou serveur, blocage des accès Internet, etc.). La cellule stratégique est formée sur les conséquences de continuité de certaines mesures, et des exercices sur tables testent leur prise de décision.]]></name>
+              <name><![CDATA[Les cas où les mesures conservatoires et de remédiation font l'objet d'une validation par la cellule stratégique sont formalisés en amont et incluent en particulier toutes les mesures qui ont des conséquences sur la continuité de l'activité (isolement, déconnexion d'applicatifs ou serveur, blocage des accès Internet, etc.). La cellule stratégique est formée sur les conséquences de continuité de certaines mesures, et des exercices sur tables testent leur prise de décision.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1585,29 +1584,29 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Les modalités d’escalade de l’alerte vers le niveau stratégique est validée. Elle prévoit un mode « alerte » et un mode « crise ».]]></name>
+              <name><![CDATA[Les modalités d'escalade de l'alerte vers le niveau stratégique sont validées. Elle prévoit un mode « alerte » et un mode « crise ».]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les modalités d’escalade de l’alerte vers le niveau stratégique n'est pas formalisée.]]></name>
+              <name><![CDATA[Les modalités d'escalade de l'alerte vers le niveau stratégique ne sont pas formalisées.]]></name>
               <position>0</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les modalités d’escalade de l’alerte vers le niveau stratégique est validée. Plusieurs modes sont prévus dont un mode « alerte » et un mode « crise ». Le dispositif de crise peut s'adapter au mode choisi. La chaine de remontée d'alerte est testée régulièrement lors d'exercices de crise.]]></name>
+              <name><![CDATA[Les modalités d'escalade de l'alerte vers le niveau stratégique sont validées. Plusieurs modes sont prévus dont un mode « alerte » et un mode « crise ». Le dispositif de crise peut s'adapter au mode choisi. La chaine de remontée d'alerte est testée régulièrement lors d'exercices de crise.]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Les modalités d’escalade de l’alerte vers le niveau stratégique est définie de manière informelle.]]></name>
+              <name><![CDATA[Les modalités d'escalade de l'alerte vers le niveau stratégique sont définies de manière informelle.]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Comment sont formalisées les procédure de confinement en amont de la crise ?]]></name>
+          <name><![CDATA[Comment sont formalisées les procédures de confinement en amont de la crise ?]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1623,12 +1622,12 @@ Plus d'infos : <a href="https://www.ssi.gouv.fr/uploads/2023/07/tlpwhite_anssi_q
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des listes d'actions à réaliser par les équipes techniques sont formalisées et validées. Des mémos techniques sur les procédures de confinement et d’éradication d’une menace cyber active sont formalisés et testés. Ces procédures sont adaptées aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.).]]></name>
+              <name><![CDATA[Des listes d'actions à réaliser par les équipes techniques sont formalisées et validées. Des mémos techniques sur les procédures de confinement et d'éradication d'une menace cyber active sont formalisés et testés. Ces procédures sont adaptées aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.).]]></name>
               <position>3</position>
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Des listes d'actions à réaliser par les équipes techniques sont formalisées et validées. Des mémos techniques sur les procédures de confinement et d’éradication d’une menace cyber active sont définis. Ces procédures sont adaptées aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.).]]></name>
+              <name><![CDATA[Des listes d'actions à réaliser par les équipes techniques sont formalisées et validées. Des mémos techniques sur les procédures de confinement et d'éradication d'une menace cyber active sont définis. Ces procédures sont adaptées aux différents types de menaces cyber (DDoS, rançongiciel, fuite de données, etc.).]]></name>
               <position>2</position>
               <response><![CDATA[0]]></response>
             </entry>
