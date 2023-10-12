@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <result>
-  <name><![CDATA[[ANSSI] Guide d'hygienne]]></name>
-  <description><![CDATA[Non exhaustives, ces mesures représentent cependant le socle minimum à respecter pour protéger les informations de votre organisation. Une fois ces règles partagées et appliquées, vous aurez accompli une part importante de votre mission : permettre à votre organisation d’interagir avec ses partenaires et de servir ses clients en respectant l’intégrité et la confidentialité des informations qui les concernent.
-<a href="https://www.ssi.gouv.fr/guide/guide-dhygiene-informatique/" target="_blanck">https://www.ssi.gouv.fr/guide/guide-dhygiene-informatique/</a>]]></description>
+  <name><![CDATA[[ANSSI] Guide d'hygiène]]></name>
+  <description><![CDATA[Non exhaustives, ces mesures représentent cependant le socle minimum à respecter pour protéger les informations de votre organisation. Une fois ces règles partagées et appliquées, vous aurez accompli une part importante de votre mission : permettre à votre organisation d'interagir avec ses partenaires et de servir ses clients en respectant l'intégrité et la confidentialité des informations qui les concernent. Pour plus d'informations : <a href="https://www.ssi.gouv.fr/uploads/2017/01/guide_hygiene_informatique_anssi.pdf" target="_blank">Guide d'hygiène informatique (PDF - 4,57 Mo)</a>.]]></description>
   <domains>
     <entry>
       <name><![CDATA[Sensibiliser et former]]></name>
@@ -10,7 +9,7 @@
       <position>0</position>
       <questions>
         <entry>
-          <name><![CDATA[Les utilisateurs sont-ils sensibilisés aux bonnes pratiques élémentaires de sécurité informatique ?]]></name>
+          <name><![CDATA[Les utilisateurs sont-ils sensibilisés aux bonnes pratiques élémentaires de sécurité informatique ?]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -21,7 +20,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -43,7 +42,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Les équipes opérationnelles sont formées à la sécurité des systèmes d’information?]]></name>
+          <name><![CDATA[Les équipes opérationnelles sont formées à la sécurité des systèmes d'information ?]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -54,7 +53,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -76,13 +75,13 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Maîtrisez-vous les risques liés à l’infogérance ?]]></name>
+          <name><![CDATA[Maîtrisez-vous les risques liés à l'infogérance ?]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -111,12 +110,12 @@
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[Sécuriser les postes]]></name>
+      <name><![CDATA[Sécuriser les postes]]></name>
       <color><![CDATA[success]]></color>
       <position>84</position>
       <questions>
         <entry>
-          <name><![CDATA[Vous protégez-vous des menaces relatives à l’utilisation de supports amovibles ?]]></name>
+          <name><![CDATA[Vous protégez-vous des menaces relatives à l'utilisation de supports amovibles ?]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -127,7 +126,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -149,7 +148,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Utilisez-vous un outil de gestion centralisée afin d’homogénéiser les politiques de sécurité  ?]]></name>
+          <name><![CDATA[Utilisez-vous un outil de gestion centralisée afin d'homogénéiser les politiques de sécurité ?]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -165,7 +164,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -182,7 +181,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Chiffrez-vous les données sensibles transmises par voie Internet  ?]]></name>
+          <name><![CDATA[Chiffrez-vous les données sensibles transmises par voie Internet ?]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -203,7 +202,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -215,7 +214,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Mettez-vous en place un niveau de sécurité minimal sur l’ensemble du parc informatique ?]]></name>
+          <name><![CDATA[Mettez-vous en place un niveau de sécurité minimal sur l'ensemble du parc informatique ?]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -241,14 +240,14 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Activez-vous et configurez-vous le pare-feu local des postes de travail?]]></name>
+          <name><![CDATA[Activez-vous et configurez-vous le pare-feu local des postes de travail ?]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -264,7 +263,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -283,12 +282,12 @@
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[Gérer le nomadisme]]></name>
+      <name><![CDATA[Gérer le nomadisme]]></name>
       <color><![CDATA[primary]]></color>
       <position>186</position>
       <questions>
         <entry>
-          <name><![CDATA[Prenez-vous des mesures de sécurisation physique des terminaux nomades ?]]></name>
+          <name><![CDATA[Prenez-vous des mesures de sécurisation physique des terminaux nomades ?]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -304,7 +303,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -321,13 +320,13 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Adoptez-vous des politiques de sécurité dédiées aux terminaux mobiles ?]]></name>
+          <name><![CDATA[Adoptez-vous des politiques de sécurité dédiées aux terminaux mobiles ?]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -354,7 +353,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Sécurisez-vous la connexion réseau des postes utilisés en situation de nomadisme ?]]></name>
+          <name><![CDATA[Sécurisez-vous la connexion réseau des postes utilisés en situation de nomadisme ?]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -365,7 +364,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -387,13 +386,13 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Chiffrez-vous les données sensibles, en particulier sur le matériel potentiellement perdable ?]]></name>
+          <name><![CDATA[Chiffrez-vous les données sensibles, en particulier sur le matériel potentiellement perdable ?]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -422,12 +421,12 @@
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[Sécuriser le réseau]]></name>
+      <name><![CDATA[Sécuriser le réseau]]></name>
       <color><![CDATA[warning]]></color>
       <position>116</position>
       <questions>
         <entry>
-          <name><![CDATA[Cloisonnez-vous les services visibles depuis Internet du reste du système d’information ?]]></name>
+          <name><![CDATA[Cloisonnez-vous les services visibles depuis Internet du reste du système d'information ?]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -443,7 +442,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -460,7 +459,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Vous assurez-vous de la sécurité des réseaux d’accès Wi-Fi et de la séparation des usages ?]]></name>
+          <name><![CDATA[Vous assurez-vous de la sécurité des réseaux d'accès Wi-Fi et de la séparation des usages ?]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -476,7 +475,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -493,7 +492,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Utilisez-vous des protocoles sécurisés dès qu’ils existent ?]]></name>
+          <name><![CDATA[Utilisez-vous des protocoles sécurisés dès qu'ils existent ?]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -519,14 +518,14 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Mettez-vous en place une/des passerelle(s) d’accès sécurisé(es) à Internet ?]]></name>
+          <name><![CDATA[Mettez-vous en place une/des passerelle(s) d'accès sécurisé(es) à Internet ?]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -537,7 +536,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -559,7 +558,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Protégez-vous votre messagerie professionnelle ?]]></name>
+          <name><![CDATA[Protégez-vous votre messagerie professionnelle ?]]></name>
           <position>5</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -575,7 +574,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -592,7 +591,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Contrôlez-vous et protégez-vous l’accès aux salles serveurs et aux locaux techniques ?]]></name>
+          <name><![CDATA[Contrôlez-vous et protégez-vous l'accès aux salles serveurs et aux locaux techniques ?]]></name>
           <position>7</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -618,14 +617,14 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Segmentez-vous le/les réseau(x) et mettez-vous en place un cloisonnement entre ces zones ?]]></name>
+          <name><![CDATA[Segmentez-vous le/les réseau(x) et mettez-vous en place un cloisonnement entre ces zones ?]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -651,20 +650,20 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Sécurisez-vous les interconnexions réseau dédiées avec les partenaires ?]]></name>
+          <name><![CDATA[Sécurisez-vous les interconnexions réseau dédiées avec les partenaires ?]]></name>
           <position>6</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -693,12 +692,12 @@
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[Superviser, auditer, réagir]]></name>
+      <name><![CDATA[Superviser, auditer, réagir]]></name>
       <color><![CDATA[info]]></color>
       <position>226</position>
       <questions>
         <entry>
-          <name><![CDATA[Avez-vous défini une procédure de gestion des incidents de sécurité ?]]></name>
+          <name><![CDATA[Avez-vous défini une procédure de gestion des incidents de sécurité ?]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -724,14 +723,14 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Avez-vous défini et appliqué une politique de sauvegarde des composants critiques ?]]></name>
+          <name><![CDATA[Avez-vous défini et appliqué une politique de sauvegarde des composants critiques ?]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -752,7 +751,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -764,7 +763,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Procédez-vous à des contrôles et audits de sécurité réguliers puis appliquer les actions correctives ?]]></name>
+          <name><![CDATA[Procédez-vous à des contrôles et audits de sécurité réguliers puis appliquer les actions correctives ?]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -775,7 +774,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -797,7 +796,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Avez-vous désigné un référent en sécurité des systèmes d’information ? Celui-ci est-il connu du personnel?]]></name>
+          <name><![CDATA[Avez-vous désigné un référent en sécurité des systèmes d'information ? Celui-ci est-il connu du personnel ?]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -818,7 +817,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -836,7 +835,7 @@
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -865,12 +864,12 @@
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[Sécuriser l’administration]]></name>
+      <name><![CDATA[Sécuriser l'administration]]></name>
       <color><![CDATA[success]]></color>
       <position>166</position>
       <questions>
         <entry>
-          <name><![CDATA[Limitez-vous au strict besoin opérationnel les droits d’administration sur les postes de travail ?]]></name>
+          <name><![CDATA[Limitez-vous au strict besoin opérationnel les droits d'administration sur les postes de travail ?]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -881,7 +880,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -903,7 +902,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Interdisez-vous l’accès à Internet depuis les postes ou serveurs utilisés pour l’administration du système d’information ?]]></name>
+          <name><![CDATA[Interdisez-vous l'accès à Internet depuis les postes ou serveurs utilisés pour l'administration du système d'information ?]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -929,14 +928,14 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Utilisez-vous un réseau dédié et cloisonné pour l’administration du système d’information ?]]></name>
+          <name><![CDATA[Utilisez-vous un réseau dédié et cloisonné pour l'administration du système d'information ?]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -957,7 +956,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -976,7 +975,7 @@
       <position>258</position>
       <questions>
         <entry>
-          <name><![CDATA[Privilégiez-vous  l’usage de produits et de services qualifiés par l’ANSSI ?]]></name>
+          <name><![CDATA[Privilégiez-vous l'usage de produits et de services qualifiés par l'ANSSI ?]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -992,7 +991,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1030,7 +1029,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1044,12 +1043,12 @@
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[Connaitre le système d’information]]></name>
+      <name><![CDATA[Connaitre le système d'information]]></name>
       <color><![CDATA[warning]]></color>
       <position>20</position>
       <questions>
         <entry>
-          <name><![CDATA[Possédez-vous un schéma réseau ou une cartographie à jour des vos infrastructures?]]></name>
+          <name><![CDATA[Possédez-vous un schéma réseau ou une cartographie à jour de vos infrastructures ?]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1075,14 +1074,14 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Autorisez-vous uniquement la connexion au réseau de l’entité aux seuls équipements maîtrisés ?]]></name>
+          <name><![CDATA[Autorisez-vous uniquement la connexion au réseau de l'entité aux seuls équipements maîtrisés ?]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1103,7 +1102,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1115,7 +1114,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Disposez-vous d’un inventaire exhaustif des comptes privilégiés maintenu à jour ?]]></name>
+          <name><![CDATA[Disposez-vous d'un inventaire exhaustif des comptes privilégiés maintenu à jour ?]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1141,20 +1140,20 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Possèdez-vous des procédures d’arrivées, de départ et de changement de fonction des utilisateurs?]]></name>
+          <name><![CDATA[Possédez-vous des procédures d'arrivées, de départ et de changement de fonction des utilisateurs ?]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1183,12 +1182,12 @@
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[Authentifier et contrôler les accès]]></name>
+      <name><![CDATA[Authentifier et contrôler les accès]]></name>
       <color><![CDATA[info]]></color>
       <position>46</position>
       <questions>
         <entry>
-          <name><![CDATA[L'entreprise défini-t-elle et vérifi-t-elle des règles de choix et de dimensionnement des mots de passe ?]]></name>
+          <name><![CDATA[L'entreprise définie-t-elle et vérifie-t-elle des règles de choix et de dimensionnement des mots de passe ?]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1204,7 +1203,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1221,7 +1220,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Privilégiez-vous lorsque c’est possible une authentification forte?]]></name>
+          <name><![CDATA[Privilégiez-vous lorsque c'est possible une authentification forte ?]]></name>
           <position>5</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1237,7 +1236,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1254,7 +1253,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Identifiez-vous nommément chaque personne accédant au système (éviter les comptes génériques)?]]></name>
+          <name><![CDATA[Identifiez-vous nommément chaque personne accédant au système (éviter les comptes génériques) ?]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1265,7 +1264,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1287,13 +1286,13 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Protégez-vous les mots de passe stockés sur vos systèmes?]]></name>
+          <name><![CDATA[Protégez-vous les mots de passe stockés sur vos systèmes ?]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1320,7 +1319,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Possédez-vous une attribution/gestion des droits efficaces sur les ressources sensibles du système d’information?]]></name>
+          <name><![CDATA[Possédez-vous une attribution/gestion des droits efficaces sur les ressources sensibles du système d'information ?]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1346,20 +1345,20 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Changez-vous les éléments d’authentification par défaut sur les équipements et services ?]]></name>
+          <name><![CDATA[Changez-vous les éléments d'authentification par défaut sur les équipements et services ?]]></name>
           <position>4</position>
           <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1388,12 +1387,12 @@
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[Maintenir à jour le système d’information]]></name>
+      <name><![CDATA[Maintenir à jour le système d'information]]></name>
       <color><![CDATA[success]]></color>
       <position>212</position>
       <questions>
         <entry>
-          <name><![CDATA[Anticipez-vous la fin de la maintenance des logiciels et systèmes ?]]></name>
+          <name><![CDATA[Anticipez-vous la fin de la maintenance des logiciels et systèmes ?]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1404,7 +1403,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>
@@ -1426,7 +1425,7 @@
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Avez-vous défini une politique de mise à jour des composants du système d’information ?]]></name>
+          <name><![CDATA[Avez-vous défini une politique de mise à jour des composants du système d'information ?]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1442,7 +1441,7 @@
               <response><![CDATA[0]]></response>
             </entry>
             <entry>
-              <name><![CDATA[Mesures en cours de reflexion]]></name>
+              <name><![CDATA[Mesures en cours de réflexion]]></name>
               <position>1</position>
               <response><![CDATA[0]]></response>
             </entry>

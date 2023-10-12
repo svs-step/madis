@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <result>
   <name><![CDATA[[CNIL] Sécurité des données]]></name>
-  <description><![CDATA[À travers 17 fiches, le guide de la sécurité des données personnelles de la CNIL rappelle aussi bien les précautions élémentaires qui devraient être mises en œuvre de façon systématique que les mesures destinées à renforcer davantage encore la protection des données. Ce guide constitue une référence en matière de sécurité.
-Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_guide_securite_personnelle.pdf" target="_blanck">cnil_guide_securite_personnelle.pdf</a>]]></description>
+  <description><![CDATA[À travers 17 fiches, le guide de la sécurité des données personnelles de la CNIL rappelle aussi bien les précautions élémentaires qui devraient être mises en œuvre de façon systématique, que les mesures destinées à renforcer davantage la protection des données. Ce guide constitue une référence en matière de sécurité. Pour plus d'informations : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_guide_securite_personnelle.pdf" target="_blank">Guide de la sécurité des données personnelles (PDF - 302 Ko)</a>.]]></description>
   <domains>
     <entry>
-      <name><![CDATA[SENSIBILISER LES UTILISATEURS]]></name>
+      <name><![CDATA[Sensibiliser les utilisateurs]]></name>
       <color><![CDATA[info]]></color>
       <position>0</position>
       <questions>
         <entry>
-          <name><![CDATA[Rédiger une charte informatique et lui donner une force contraignante]]></name>
+          <name><![CDATA[Rédiger une charte informatique et lui donner une force contraignante.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -28,7 +27,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Informer et sensibiliser les personnes manipulant les données]]></name>
+          <name><![CDATA[Informer et sensibiliser les personnes manipulant les données.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -48,12 +47,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[AUTHENTIFIER LES UTILISATEURS]]></name>
+      <name><![CDATA[Authentifier les utilisateurs]]></name>
       <color><![CDATA[success]]></color>
       <position>8</position>
       <questions>
         <entry>
-          <name><![CDATA[Limiter le nombre de tentatives d’accès à un compte]]></name>
+          <name><![CDATA[Limiter le nombre de tentatives d'accès à un compte.]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -71,7 +70,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Adopter une politique de mot de passe utilisateur conforme aux recommandations de la CNIL]]></name>
+          <name><![CDATA[Adopter une politique de mot de passe utilisateur conforme aux recommandations de la CNIL.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -89,7 +88,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Définir un identifiant (« login ») unique pour chaque utilisateur]]></name>
+          <name><![CDATA[Définir un identifiant (« login ») unique pour chaque utilisateur.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -107,7 +106,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Obliger l’utilisateur à changer le mot de passe attribué automatiquement ou par un administrateur]]></name>
+          <name><![CDATA[Obliger l'utilisateur à changer le mot de passe attribué automatiquement ou par un administrateur.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -127,12 +126,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[GÉRER LES HABILITATIONS]]></name>
+      <name><![CDATA[Gérer les habilitations]]></name>
       <color><![CDATA[primary]]></color>
       <position>22</position>
       <questions>
         <entry>
-          <name><![CDATA[Supprimer les permissions d’accès obsolètes]]></name>
+          <name><![CDATA[Supprimer les permissions d'accès obsolètes.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -150,7 +149,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Réaliser une revue annuelle des habilitations]]></name>
+          <name><![CDATA[Réaliser une revue annuelle des habilitations.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -168,7 +167,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Définir des profils d’habilitation]]></name>
+          <name><![CDATA[Définir des profils d'habilitation.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -188,12 +187,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[TRACER LES OPÉRATIONS ET GÉRER LES INCIDENTS]]></name>
+      <name><![CDATA[Tracer les opérations et gérer les incidents]]></name>
       <color><![CDATA[warning]]></color>
       <position>33</position>
       <questions>
         <entry>
-          <name><![CDATA[Prévoir un système de journalisation]]></name>
+          <name><![CDATA[Prévoir un système de journalisation.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -211,7 +210,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Informer les utilisateurs de la mise en place du système de journalisation]]></name>
+          <name><![CDATA[Informer les utilisateurs de la mise en place du système de journalisation.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -229,7 +228,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Protéger les équipements de journalisation et les informations journalisées]]></name>
+          <name><![CDATA[Protéger les équipements de journalisation et les informations journalisées.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -247,7 +246,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Prévoir les procédures et les responsabilités internes pour la gestion des incidents, dont la procédure de notification aux régulateurs des violations de données personnelles]]></name>
+          <name><![CDATA[Prévoir les procédures et les responsabilités internes pour la gestion des incidents, dont la procédure de notification aux régulateurs des violations de données personnelles.]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -267,12 +266,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[SÉCURISER LES POSTES DE TRAVAIL]]></name>
+      <name><![CDATA[Sécuriser les postes de travail]]></name>
       <color><![CDATA[info]]></color>
       <position>47</position>
       <questions>
         <entry>
-          <name><![CDATA[Recueillir l’accord de l’utilisateur avant toute intervention sur son poste]]></name>
+          <name><![CDATA[Recueillir l'accord de l'utilisateur avant toute intervention sur son poste.]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -290,7 +289,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Installer un pare-feu (« firewall ») logiciel]]></name>
+          <name><![CDATA[Installer un pare-feu (« firewall ») logiciel.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -308,7 +307,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Utiliser des antivirus régulièrement mis à jour]]></name>
+          <name><![CDATA[Utiliser des antivirus régulièrement mis à jour.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -326,7 +325,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Prévoir une procédure de verrouillage automatique de session]]></name>
+          <name><![CDATA[Prévoir une procédure de verrouillage automatique de session.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -346,12 +345,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[SÉCURISER L’INFORMATIQUE MOBILE]]></name>
+      <name><![CDATA[Sécuriser l'informatique mobile]]></name>
       <color><![CDATA[success]]></color>
       <position>61</position>
       <questions>
         <entry>
-          <name><![CDATA[Faire des sauvegardes ou des synchronisations régulières des données]]></name>
+          <name><![CDATA[Faire des sauvegardes ou des synchronisations régulières des données.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -369,7 +368,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Exiger un secret pour le déverrouillage des smartphones]]></name>
+          <name><![CDATA[Exiger un secret pour le déverrouillage des smartphones.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -387,7 +386,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Prévoir des moyens de chiffrement des équipements mobiles]]></name>
+          <name><![CDATA[Prévoir des moyens de chiffrement des équipements mobiles.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -407,12 +406,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[PROTÉGER LE RÉSEAU INFORMATIQUE INTERNE]]></name>
+      <name><![CDATA[Protéger le réseau informatique interne]]></name>
       <color><![CDATA[primary]]></color>
       <position>72</position>
       <questions>
         <entry>
-          <name><![CDATA[Sécuriser les accès distants des appareils informatiques nomades par VPN]]></name>
+          <name><![CDATA[Sécuriser les accès distants des appareils informatiques nomades par VPN.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -430,7 +429,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Limiter les flux réseau au strict nécessaire]]></name>
+          <name><![CDATA[Limiter les flux réseau au strict nécessaire.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -448,7 +447,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Sécuriser ses réseaux Wi-Fi, notamment en mettant en œuvre le protocole WPA3]]></name>
+          <name><![CDATA[Sécuriser ses réseaux Wi-Fi, notamment en mettant en œuvre le protocole WPA3.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -468,12 +467,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[SÉCURISER LES SERVEURS]]></name>
+      <name><![CDATA[Sécuriser les serveurs]]></name>
       <color><![CDATA[warning]]></color>
       <position>83</position>
       <questions>
         <entry>
-          <name><![CDATA[Assurer une disponibilité des données]]></name>
+          <name><![CDATA[Assurer une disponibilité des données.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -491,7 +490,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Limiter l’accès aux outils et interfaces d’administration aux seules personnes habilitées]]></name>
+          <name><![CDATA[Limiter l'accès aux outils et interfaces d'administration aux seules personnes habilitées.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -509,7 +508,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Installer sans délai les mises à jour critiques]]></name>
+          <name><![CDATA[Installer sans délai les mises à jour critiques.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -529,12 +528,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[SÉCURISER LES SITES WEB]]></name>
+      <name><![CDATA[Sécuriser les sites web]]></name>
       <color><![CDATA[info]]></color>
       <position>94</position>
       <questions>
         <entry>
-          <name><![CDATA[Vérifier qu'aucun mot de passe ou donnée personnelle ne passe par les URL]]></name>
+          <name><![CDATA[Vérifier qu'aucun mot de passe ou donnée personnelle ne passe par les URL.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -552,7 +551,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Contrôler que les entrées des utilisateurs correspondent à ce qui est attendu]]></name>
+          <name><![CDATA[Contrôler que les entrées des utilisateurs correspondent à ce qui est attendu.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -570,7 +569,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Mettre un bandeau de consentement pour les cookies non nécessaires au service]]></name>
+          <name><![CDATA[Mettre un bandeau de consentement pour les cookies non nécessaires au service.]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -588,7 +587,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Utiliser le protocole TLS et vérifier sa mise en œuvre]]></name>
+          <name><![CDATA[Utiliser le protocole TLS et vérifier sa mise en œuvre.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -608,12 +607,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[SAUVEGARDER ET PRÉVOIR LA CONTINUITÉ D’ACTIVITÉ]]></name>
+      <name><![CDATA[Sauvegarder et prévoir la continuité d'activité]]></name>
       <color><![CDATA[success]]></color>
       <position>108</position>
       <questions>
         <entry>
-          <name><![CDATA[Protéger les sauvegardes, notamment durant leur convoyage]]></name>
+          <name><![CDATA[Protéger les sauvegardes, notamment durant leur convoyage.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -631,7 +630,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Prévoir et tester régulièrement la continuité d'activité]]></name>
+          <name><![CDATA[Prévoir et tester régulièrement la continuité d'activité.]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -649,7 +648,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Effectuer des sauvegardes régulières]]></name>
+          <name><![CDATA[Effectuer des sauvegardes régulières.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -667,7 +666,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Stocker les supports de sauvegarde dans un endroit sûr]]></name>
+          <name><![CDATA[Stocker les supports de sauvegarde dans un endroit sûr.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -687,12 +686,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[ARCHIVER DE MANIÈRE SÉCURISÉE]]></name>
+      <name><![CDATA[Archiver de manière sécurisée]]></name>
       <color><![CDATA[primary]]></color>
       <position>122</position>
       <questions>
         <entry>
-          <name><![CDATA[Détruire les archives obsolètes de manière sécurisée]]></name>
+          <name><![CDATA[Détruire les archives obsolètes de manière sécurisée.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -710,7 +709,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Mettre en œuvre des modalités d’accès spécifiques aux données archivées]]></name>
+          <name><![CDATA[Mettre en œuvre des modalités d'accès spécifiques aux données archivées.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -730,12 +729,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[ENCADRER LES DÉVELOPPEMENTS INFORMATIQUES]]></name>
+      <name><![CDATA[Encadrer les développements informatiques]]></name>
       <color><![CDATA[warning]]></color>
       <position>130</position>
       <questions>
         <entry>
-          <name><![CDATA[Proposer des paramètres respectueux de la vie privée par défaut]]></name>
+          <name><![CDATA[Proposer des paramètres respectueux de la vie privée par défaut.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -753,7 +752,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Éviter les zones de commentaires ou les encadrer strictement]]></name>
+          <name><![CDATA[Éviter les zones de commentaires ou les encadrer strictement.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -771,7 +770,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Utiliser des données fictives ou anonymisées pour le développement et les tests]]></name>
+          <name><![CDATA[Utiliser des données fictives ou anonymisées pour le développement et les tests.]]></name>
           <position>3</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -789,7 +788,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Prendre en compte la protection des données personnelles dès la conception]]></name>
+          <name><![CDATA[Prendre en compte la protection des données personnelles dès la conception.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -809,12 +808,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[ENCADRER LA MAINTENANCE ET LA FIN DE VIE DES MATÉRIELS ET LOGICIELS]]></name>
+      <name><![CDATA[Encadrer la maintenance et la fin de vie des matériels et logiciels]]></name>
       <color><![CDATA[info]]></color>
       <position>144</position>
       <questions>
         <entry>
-          <name><![CDATA[Encadrer les interventions de tiers par un responsable de l'organisme]]></name>
+          <name><![CDATA[Encadrer les interventions de tiers par un responsable de l'organisme.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -832,7 +831,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Effacer les données de tout matériel avant sa mise au rebut]]></name>
+          <name><![CDATA[Effacer les données de tout matériel avant sa mise au rebut.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -850,7 +849,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Enregistrer les interventions de maintenance dans une main courante]]></name>
+          <name><![CDATA[Enregistrer les interventions de maintenance dans une main courante.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -870,12 +869,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[GÉRER LA SOUS-TRAITANCE]]></name>
+      <name><![CDATA[Gérer la sous-traitance]]></name>
       <color><![CDATA[success]]></color>
       <position>155</position>
       <questions>
         <entry>
-          <name><![CDATA[Prévoir les conditions de restitution et de destruction des données]]></name>
+          <name><![CDATA[Prévoir les conditions de restitution et de destruction des données.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -893,7 +892,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Prévoir des clauses spécifiques dans les contrats des sous-traitants]]></name>
+          <name><![CDATA[Prévoir des clauses spécifiques dans les contrats des sous-traitants.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -911,7 +910,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[S'assurer de l'effectivité des garanties prévues (ex. : audits de sécurité, visites)]]></name>
+          <name><![CDATA[S'assurer de l'effectivité des garanties prévues (ex. : audits de sécurité, visites).]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -931,12 +930,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[SÉCURISER LES ÉCHANGES AVEC D’AUTRES ORGANISMES]]></name>
+      <name><![CDATA[Sécuriser les échanges avec d'autres organismes]]></name>
       <color><![CDATA[primary]]></color>
       <position>166</position>
       <questions>
         <entry>
-          <name><![CDATA[S'assurer qu'il s'agit du bon destinataire]]></name>
+          <name><![CDATA[S'assurer qu'il s'agit du bon destinataire.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -954,7 +953,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Chiffrer les données avant leur envoi]]></name>
+          <name><![CDATA[Chiffrer les données avant leur envoi.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -972,7 +971,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Transmettre le secret lors d'un envoi distinct et via un canal différent]]></name>
+          <name><![CDATA[Transmettre le secret lors d'un envoi distinct et via un canal différent.]]></name>
           <position>2</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -992,12 +991,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[PROTÉGER LES LOCAUX]]></name>
+      <name><![CDATA[Protéger les locaux]]></name>
       <color><![CDATA[warning]]></color>
       <position>177</position>
       <questions>
         <entry>
-          <name><![CDATA[Restreindre les accès aux locaux au moyen de portes verrouillées]]></name>
+          <name><![CDATA[Restreindre les accès aux locaux au moyen de portes verrouillées.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1015,7 +1014,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Installer des alarmes anti-intrusion et les vérifier périodiquement]]></name>
+          <name><![CDATA[Installer des alarmes anti-intrusion et les vérifier périodiquement.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1035,12 +1034,12 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
       </questions>
     </entry>
     <entry>
-      <name><![CDATA[CHIFFRER, HACHER OU SIGNER]]></name>
+      <name><![CDATA[Chiffrer, hacher ou signer]]></name>
       <color><![CDATA[info]]></color>
       <position>185</position>
       <questions>
         <entry>
-          <name><![CDATA[Conserver les secrets et les clés cryptographiques de manière sécurisée]]></name>
+          <name><![CDATA[Conserver les secrets et les clés cryptographiques de manière sécurisée.]]></name>
           <position>1</position>
           <weight>1</weight>
           <optional>false</optional>
@@ -1058,7 +1057,7 @@ Plus d'infos : <a href="https://www.cnil.fr/sites/cnil/files/atoms/files/cnil_gu
           </answers>
         </entry>
         <entry>
-          <name><![CDATA[Utiliser des algorithmes, des logiciels et des bibliothèques reconnues et sécurisées]]></name>
+          <name><![CDATA[Utiliser des algorithmes, des logiciels et des bibliothèques reconnues et sécurisées.]]></name>
           <position>0</position>
           <weight>1</weight>
           <optional>false</optional>
