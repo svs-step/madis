@@ -94,6 +94,7 @@
 
     {% if is_granted('ROLE_REFERENT') %}
     {% set dataTableOptions = {
+
         columns: [
             {"data": "referentiel", "className": "noVis"},
             {"data": "collectivity"},
@@ -101,17 +102,20 @@
             {"data": "createdAt", "visible": false},
             {"data": "updatedAt", "visible": false},
             {"data": "actions", "className": "noVis", "orderable": false}
-        ]
+        ],
+        order:  [[3, 'desc' ]],
     } %}
     {% else %}
         {% set dataTableOptions = {
+
             columns: [
                 {"data": "referentiel", "className": "noVis"},
                 {"data": "score", "visible": true},
                 {"data": "createdAt", "visible": false},
                 {"data": "updatedAt", "visible": false},
                 {"data": "actions", "className": "noVis", "orderable": false}
-            ]
+            ],
+            order:  [[2, 'desc' ]],
         } %}
     {% endif %}
 
@@ -120,10 +124,13 @@
     <script>
         function setEvents() {
             var oTable = $('#table').DataTable();
+
             var col = 0;
             {% if is_granted('ROLE_REFERENT') %}
                 col = 1;
             {% endif %}
+
+            //oTable.order([[col+2, 'desc']])
 
             $('#search_created_at').show('slide',function(){
                 $('input#search_created_at').val('');
@@ -155,7 +162,7 @@
 
             $('#search_created_at').off('change');
             $('#search_created_at').change(function(){
-                console.log(oTable.column('2'));
+                console.log(oTable);
                 oTable.column(col + 2).search($(this).val()).draw();
             });
 
@@ -163,6 +170,8 @@
             $('#search_updated_at').change(function(){
                 oTable.column(col + 3).search($(this).val()).draw();
             });
+
+            console.log('oTable', oTable.order());
         }
 
         $(document).ready(function() {

@@ -183,7 +183,6 @@
 
         var oTable = $('#table').DataTable();
 
-        console.log('oTable', oTable);
         $('#delete-all').on('click', function(event) {
             event.stopPropagation();
             let data = oTable.rows().data().toArray().map(row => row.id);

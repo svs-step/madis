@@ -424,7 +424,7 @@ class SurveyController extends CRUDController
 
     public function listAction(): Response
     {
-        $surveys      = $this->repository->findAll();
+        $surveys      = $this->getListData();
         $referentiels = [];
         foreach ($surveys as $survey) {
             $referentiels[] = $survey->getReferentiel()->getName();
