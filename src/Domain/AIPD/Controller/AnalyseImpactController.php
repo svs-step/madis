@@ -436,11 +436,6 @@ class AnalyseImpactController extends CRUDController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            if ('saveDraft' !== $form->getClickedButton() && ReponseAvisDictionary::REPONSE_NONE !== $object->getAvisResponsable()->getReponse()) {
-                $object->setDateValidation(new \DateTime());
-                $object->setIsValidated(true);
-                $object->setStatut($object->getAvisResponsable()->getReponse());
-            }
             $this->entityManager->flush();
 
             return $this->redirectToRoute($this->getRouteName('list'));
