@@ -20,6 +20,8 @@ final class Version20220414092438 extends AbstractMigration
     private $answer2;
     private $answer3;
 
+    private $existingQuestion;
+
     private $ids;
     private $ids2;
 
@@ -37,6 +39,8 @@ final class Version20220414092438 extends AbstractMigration
         $this->question1 = $this->getData('SELECT id,position FROM conformite_traitement_question WHERE question = "Exercice des droits d\'accès et à la portabilité"');
         $this->question2 = $this->getData('SELECT id,position FROM conformite_traitement_question WHERE question = "Exercice des droits de rectification et d\'effacement"');
         $this->question3 = $this->getData('SELECT id,position FROM conformite_traitement_question WHERE question = "Exercice des droits de limitation du traitement et d\'opposition"');
+
+        $this->existingQuestion = $this->getData('SELECT id,position FROM conformite_traitement_question WHERE question = "Exercice du droit d\'effacement"');
 
         if (count($this->question3)) {
             $this->lastQuestionPosition = $this->question3[0]['position'];
@@ -199,11 +203,15 @@ final class Version20220414092438 extends AbstractMigration
                 'position'                     => $this->lastQuestionPosition + 9,
             ],
         ];
-        foreach ($data as $k => $item) {
-            $this->addSql('INSERT INTO conformite_traitement_question(id, question, position) VALUES (?, ?, ?)', [$this->ids[$k], $item['question'], $item['position']]);
-        }
-        foreach ($data as $k => $item) {
-            $this->addSql('INSERT INTO aipd_modele_question_conformite(id, question, is_justification_obligatoire, texte_conformite, texte_non_conformite_majeure, texte_non_conformite_mineure, position) VALUES (?, ?, ?, ?, ?, ?, ?)', [$this->ids2[$k], $item['question'], $item['is_justification_obligatoire'], $item['texte_conformite'], $item['texte_non_conformite_majeure'], $item['texte_non_conformite_mineure'], $item['position']]);
+
+        // Only add these items if they don't exist yet
+        if (null === $this->existingQuestion || 0 === count($this->existingQuestion)) {
+            foreach ($data as $k => $item) {
+                $this->addSql('INSERT INTO conformite_traitement_question(id, question, position) VALUES (?, ?, ?)', [$this->ids[$k], $item['question'], $item['position']]);
+            }
+            foreach ($data as $k => $item) {
+                $this->addSql('INSERT INTO aipd_modele_question_conformite(id, question, is_justification_obligatoire, texte_conformite, texte_non_conformite_majeure, texte_non_conformite_mineure, position) VALUES (?, ?, ?, ?, ?, ?, ?)', [$this->ids2[$k], $item['question'], $item['is_justification_obligatoire'], $item['texte_conformite'], $item['texte_non_conformite_majeure'], $item['texte_non_conformite_mineure'], $item['position']]);
+            }
         }
 
         $this->addSql('UPDATE conformite_traitement_question SET question = "Exercice du droit de limitation" WHERE question = "Exercice des droits de limitation du traitement et d\'opposition"');
