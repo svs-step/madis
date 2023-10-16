@@ -10,6 +10,7 @@ class StatutAnalyseImpactDictionary extends SimpleDictionary
 {
     public const NON_REALISEE            = 'non_realisee';
     public const FAVORABLE               = 'favorable';
+    public const FAVORABLE_RESERVE       = 'favorable_reserve';
     public const FAVORABLE_AVEC_RESERVES = 'favorable_avec_reserves';
     public const NON_FAVORABLE           = 'defavorable';
     public const EN_COURS                = 'en_cours';
@@ -24,6 +25,7 @@ class StatutAnalyseImpactDictionary extends SimpleDictionary
         return [
             self::NON_REALISEE            => 'Non réalisée',
             self::FAVORABLE               => 'Favorable',
+            self::FAVORABLE_RESERVE       => 'Favorable avec réserve(s)',
             self::FAVORABLE_AVEC_RESERVES => 'Favorable avec réserve(s)',
             self::NON_FAVORABLE           => 'Non favorable',
             self::EN_COURS                => 'En cours',
