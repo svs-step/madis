@@ -360,8 +360,9 @@ class ModeleAnalyseController extends CRUDController
             $content    = file_get_contents($form->getData()['file']->getPathname());
             $serializer = SerializerBuilder::create()->build();
             /** @var ModeleAnalyse $object */
-            $object = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
+
             try {
+                $object = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
                 $object->deserialize();
             } catch (\Exception $e) {
                 $this->addFlash('danger', "Impossible d'importer ce fichier");
