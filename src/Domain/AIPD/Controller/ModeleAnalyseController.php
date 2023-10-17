@@ -365,6 +365,7 @@ class ModeleAnalyseController extends CRUDController
                 $object->deserialize();
             } catch (\Exception $e) {
                 $this->addFlash('danger', "Impossible d'importer ce fichier");
+
                 return $this->redirectToRoute($this->getRouteName('list'));
             }
 
