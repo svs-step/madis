@@ -424,7 +424,12 @@ class ReferentielController extends CRUDController
             $serializer = SerializerBuilder::create()->build();
             /** @var Model\Referentiel $object */
             $object = $serializer->deserialize($content, Model\Referentiel::class, 'xml');
-            $object->deserialize();
+            try {
+                $object->deserialize();
+            } catch (\Exception $e) {
+                $this->addFlash('danger', "Impossible d'importer ce fichier");
+                return $this->redirectToRoute($this->getRouteName('list'));
+            }
             // $object->setDomains($domain);
 
             $object->setCreatedAt(new \DateTimeImmutable());

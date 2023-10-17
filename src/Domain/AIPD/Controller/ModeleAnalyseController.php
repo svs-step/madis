@@ -361,7 +361,13 @@ class ModeleAnalyseController extends CRUDController
             $serializer = SerializerBuilder::create()->build();
             /** @var ModeleAnalyse $object */
             $object = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
-            $object->deserialize();
+            try {
+                $object->deserialize();
+            } catch (\Exception $e) {
+                $this->addFlash('danger', "Impossible d'importer ce fichier");
+                return $this->redirectToRoute($this->getRouteName('list'));
+            }
+
             $sm = [];
             foreach ($object->getScenarioMenaces() as $scenarioMenace) {
                 /** @var ModeleScenarioMenace $scenarioMenace */

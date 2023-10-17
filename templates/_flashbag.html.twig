@@ -29,10 +29,19 @@
 {% endif %}
 
 {% if app.session.flashbag.has('danger') %}
-    <div role="alert" ="alert alert-danger alert-dismissible">
+    <div role="alert" class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">×</button>
         <i class="icon fa fa-ban"></i>
         {% for flashMessage in app.session.flashbag.get('danger') %}
+            {{ flashMessage }}
+        {% endfor %}
+    </div>
+{% endif %}
+{% if app.session.flashbag.has('error') %}
+    <div role="alert" class="alert alert-danger alert-dismissible">
+        <button type="button" class="close" data-dismiss="alert">×</button>
+        <i class="icon fa fa-ban"></i>
+        {% for flashMessage in app.session.flashbag.get('error') %}
             {{ flashMessage }}
         {% endfor %}
     </div>
