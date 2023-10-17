@@ -357,11 +357,10 @@ class ModeleAnalyseController extends CRUDController
         $form = $this->createForm(ImportModeleType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $content    = file_get_contents($form->getData()['file']->getPathname());
-            $serializer = SerializerBuilder::create()->build();
-            /** @var ModeleAnalyse $object */
-
+            $content = file_get_contents($form->getData()['file']->getPathname());
             try {
+                $serializer = SerializerBuilder::create()->build();
+                /** @var ModeleAnalyse $object */
                 $object = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
                 $object->deserialize();
             } catch (\Exception $e) {

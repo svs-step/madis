@@ -422,8 +422,8 @@ class ReferentielController extends CRUDController
         if ($form->isSubmitted() && $form->isValid()) {
             $content    = file_get_contents($form->getData()['file']->getPathname());
             $serializer = SerializerBuilder::create()->build();
-            /** @var Model\Referentiel $object */
-            
+            /* @var Model\Referentiel $object */
+
             try {
                 $object = $serializer->deserialize($content, Model\Referentiel::class, 'xml');
                 $object->deserialize();
