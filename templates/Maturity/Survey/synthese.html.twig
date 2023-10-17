@@ -91,7 +91,7 @@
                         </div>
                         <div class="box-body">
                             {% for answerSurvey in domainAnswers %}
-                                <div class="row" style="margin-top: 1em">
+                                <div class="row answer-preco" style="margin-top: 1em">
                                     <div class="col-md-12">
                                         <label for="{{ answerSurvey.mesurements.vars.id }}">
                                             {{ answerSurvey.vars.value.answer.recommendation }}
@@ -197,6 +197,16 @@
         {% endif %}
 
         $(document).ready(function() {
+            $('#mesurement-modal').on('shown.bs.modal', function (e) {
+                const btn = $(e.relatedTarget)
+                const mn = $('#mesurement-name');
+                const label = btn.parent().parent().find('label')
+                if (mn.val() === '') {
+                    mn.val(label.text().trim())
+                }
+
+                mn.trigger('focus')
+            })
             if (maturityData.length > 0) {
                 radarChart(
                     'maturity-radar',
