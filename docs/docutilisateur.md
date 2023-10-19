@@ -819,7 +819,7 @@ Si une action de protection associée à un ou plusieurs principes fondamentaux 
 
 Si une action de protection associée à un ou plusieurs principes fondamentaux **a été appliquée**, un icône bleu d'exclamation « **!** » apparaîtra. Il est alors possible de consulter au survol de celui-ci, la liste des actions ayant été appliquées. Ces actions sont alors automatiquement retirées de la liste des actions associées.
 
-![Affichage des actions appliquées et non planifiées](images/Madis-Evaluation-Du-Traitement-Action-Realisée-Et-Non-Planifiee.png)
+![Affichage des actions appliquées et non planifiées](images/Madis-Evaluation-Du-Traitement-Action-Realisee-Et-Non-Planifiee.png)
 
 Il convient donc à présent de reconsidérer le niveau de conformité du ou des critères concernés :
 * « **Conforme** » si la réalisation de l'action de protection permet à présent de considérer le critère comme conforme.
@@ -1109,7 +1109,7 @@ Il est possible d'exporter certaines informations au format Excel :
 
 En tant que Délégué à la Protection des Données (DPD), il est possible de suivre et de contrôler les traitements renseignés par une structure et de préconiser des informations.
 
-![Visualiser un traitement](images/Madis-Visualiser-Un-Traitement-Statut-Et-Préconisations-DPD.png)
+![Visualiser un traitement](images/Madis-Visualiser-Un-Traitement-Statut-Et-Preconisations-DPD.png)
 
 Les traitements peuvent avoir l'un des statuts suivants :
 
@@ -1121,11 +1121,11 @@ Les traitements peuvent avoir l'un des statuts suivants :
 
 Le gestionnaire d'une structure a la possibilité de mettre un traitement en « **Brouillon** » en cliquant sur « **Enregistrer le brouillon** » ou en « **Terminé** » en cliquant sur « **Créer le traitement** » ou « **Modifier le traitement** ».
 
-![Boutons pour enregistrer en brouillon ou pour créer un traitement](images/Madis-Ajouter-Un-Traitement-Boutons-De-Création.png)
+![Boutons pour enregistrer en brouillon ou pour créer un traitement](images/Madis-Ajouter-Un-Traitement-Boutons-De-Creation.png)
 
 L'administrateur a la possibilité de modifier le statut d'un traitement et de renseigner des préconisations. Ces préconisations seront visibles dans la visualisation d'un traitement ainsi qu'en modification.
 
-![Modifier un traitement](images/Madis-Modifier-Un-Traitement-Statut-Et-Préconisations-DPD.png)
+![Modifier un traitement](images/Madis-Modifier-Un-Traitement-Statut-Et-Preconisations-DPD.png)
 
 ``À noter : Seul un administrateur peut mettre un traitement en « Contrôlé ». Si un gestionnaire modifie le traitement, celui-ci repassera en « Brouillon » ou en « Terminé ». De plus, si un gestionnaire évalue la conformité d'un traitement ayant le statut « Contrôlé », celui-ci repassera en « Terminé ».``
 
@@ -1306,7 +1306,7 @@ Le menu « **Gérer les référentiels** » permet de consulter la liste des ré
 
 Un référentiel est un questionnaire permettant à une structure d'évaluer son niveau de maturité par rapport à celui-ci. Ces référentiels peuvent traiter de thématiques et sujets différents, et sont tous constitués d'une ou plusieurs sections, regroupant chacune une ou plusieurs questions, et qui sont à leurs tours constituées d'une ou plusieurs réponses.
 
-![Liste des référentiels](images/Madis-Liste-Des-Référentiels.png)
+![Liste des référentiels](images/Madis-Liste-Des-Referentiels.png)
 
 Il est possible d'effectuer plusieurs actions :
 
@@ -1324,7 +1324,7 @@ Il est possible d'effectuer plusieurs actions :
 
 **Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
 
-![Ajouter un référentiel](images/Madis-Ajouter-Un-Référentiel.png)
+![Ajouter un référentiel](images/Madis-Ajouter-Un-Referentiel.png)
 
 #### Informations générales
 
@@ -1351,7 +1351,7 @@ Dans une section, il est possible de renseigner les éléments suivants :
 * **Nom de la section** : Intitulé de la section. Celui-ci sera notamment repris dans le graphique radar de l'indice de maturité. Il est donc conseillé de renseigner un intitulé court ;
 * **Description** : Description introduisant la section.
 
-![Ajouter une section pour un référentiel](images/Madis-Ajouter-Un-Référentiel-Section.png)
+![Ajouter une section pour un référentiel](images/Madis-Ajouter-Un-Referentiel-Section.png)
 
 #### Questions
 
@@ -1369,7 +1369,7 @@ Dans une question, il est possible de renseigner les éléments suivants :
 * **Nom de la question** : Intitulé de la question ;
 * **Pondération** : Pondère la question vis à vis des autres questions. Une question pondérée à 0 ne sera pas prise en compte lors du calcul du score, alors qu'une question pondérée à 5 comptera 5 fois plus dans le calcul du score.
 
-![Ajouter une question pour un référentiel](images/Madis-Ajouter-Un-Référentiel-Question.png)
+![Ajouter une question pour un référentiel](images/Madis-Ajouter-Un-Referentiel-Question.png)
 
 #### Réponses
 
@@ -1394,7 +1394,7 @@ Dans une réponse, il est possible de renseigner les éléments suivants :
 * **Réponse** : Intitulé de la réponse ;
 * **Préconisation** : Préconisation permettant dans la synthèse, d'aider à la mise en place d'une action de protection. Pour chacune des réponses, il est possible d'adapter la préconisation.
 
-![Ajouter une réponse pour un référentiel](images/Madis-Ajouter-Un-Référentiel-Réponse.png)
+![Ajouter une réponse pour un référentiel](images/Madis-Ajouter-Un-Referentiel-Reponse.png)
 
 ## Registre Public
 
