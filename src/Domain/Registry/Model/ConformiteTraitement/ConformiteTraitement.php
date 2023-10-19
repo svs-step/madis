@@ -109,10 +109,10 @@ class ConformiteTraitement implements LoggableSubject
         return $this->reponses;
     }
 
-    public function getReponseOfPosition(int $position): ?Reponse
+    public function getReponseOfName(string $name): ?Reponse
     {
         foreach ($this->reponses as $reponse) {
-            if ($reponse->getQuestion()->getPosition() === $position) {
+            if ($reponse->getQuestion()->getQuestion() === $name) {
                 return $reponse;
             }
         }

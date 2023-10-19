@@ -145,25 +145,13 @@ class AnalyseImpact
         return $this->questionConformites;
     }
 
-    public function getQuestionConformitesOfPositions(int $start, int $end)
-    {
-        $res = [];
-        foreach ($this->questionConformites as $question) {
-            if ($question->getPosition() >= $start && $question->getPosition() <= $end) {
-                $res[] = $question;
-            }
-        }
-
-        return $res;
-    }
-
     /**
      * @throws QuestionConformiteNotFoundException
      */
-    public function getQuestionConformitesOfPosition(int $position): AnalyseQuestionConformite
+    public function getQuestionConformitesOfName(string $name): AnalyseQuestionConformite
     {
         foreach ($this->questionConformites as $question) {
-            if ($question->getPosition() === $position) {
+            if ($question->getQuestion() === $name) {
                 return $question;
             }
         }

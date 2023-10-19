@@ -36,7 +36,7 @@ class AnalyseImpactExtension extends AbstractExtension
 
     public function getFormattedActionProtectionsFromQuestion(AnalyseQuestionConformite $questionAnalyse)
     {
-        $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
+        $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfName($questionAnalyse->getQuestion());
         $formattedString   = '';
         if (!$reponseConformite) {
             return '<a aria-label="Vérifier la conformité" href="/conformite-traitement/editer/' . $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getId()->toString() . '">Veuillez évaluer à nouveau la conformité du traitement</a>';
@@ -58,7 +58,7 @@ class AnalyseImpactExtension extends AbstractExtension
 
     public function getConformiteLabel(AnalyseQuestionConformite $questionAnalyse): string
     {
-        $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfPosition($questionAnalyse->getPosition());
+        $reponseConformite = $questionAnalyse->getAnalyseImpact()->getConformiteTraitement()->getReponseOfName($questionAnalyse->getQuestion());
         if (!$reponseConformite) {
             return 'Inconnu';
         }

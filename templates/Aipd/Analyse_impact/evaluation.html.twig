@@ -137,7 +137,7 @@
         {% endfor %}
 
         {% for question in analyseImpact.questionConformites|sort((a, b) => a.position >= b.position) %}
-        {% set reponse = analyseImpact.conformiteTraitement.reponseOfPosition(question.position) %}
+        {% set reponse = analyseImpact.conformiteTraitement.reponseOfName(question.question) %}
             {% if reponse and reponse.conforme %}
                 domainesDatas.push(5);
             {% elseif reponse and reponse.actionProtections is not empty %}

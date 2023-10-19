@@ -414,7 +414,7 @@
             <tbody>
             {% for questionConformite in object.questionConformites|sort((a, b) => a.position >= b.position) %}
                 <tr>
-                    {% set reponse = object.conformiteTraitement.getReponseOfPosition(questionConformite.position) %}
+                    {% set reponse = object.conformiteTraitement.getReponseOfName(questionConformite.question) %}
                     <td>{{ questionConformite.question }}
                         {% if questionConformite.justificatif is not null %}
                             <div style="margin-left: 20px;font-size:12px;">
@@ -1595,7 +1595,7 @@
     {% endfor %}
 
     {% for question in object.questionConformites|sort((a, b) => a.position >= b.position) %}
-        {% set reponse = object.conformiteTraitement.reponseOfPosition(question.position) %}
+        {% set reponse = object.conformiteTraitement.reponseOfName(question.question) %}
         {% if reponse and reponse.conforme %}
             domainesDatas.push(5);
         {% elseif reponse and reponse.actionProtections is not empty %}
