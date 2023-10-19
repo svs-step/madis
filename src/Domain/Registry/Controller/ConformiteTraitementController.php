@@ -332,7 +332,7 @@ class ConformiteTraitementController extends CRUDController
     {
         foreach ($conformiteTraitement->getReponses() as $reponse) {
             $q = $reponse->getQuestion()->getQuestion();
-            $q   = $analyseImpact->getQuestionConformitesOfName($q);
+            $q = $analyseImpact->getQuestionConformitesOfName($q);
             $q->setAnalyseImpact($analyseImpact);
             $q->setReponseConformite($reponse);
             $reponse->addAnalyseQuestionConformite($q);
