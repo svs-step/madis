@@ -146,7 +146,7 @@ Pour utiliser cette méthode d'authentification, il est nécessaire d'associer s
 
 # Les registres
 
-## Le registre des traitements
+## Registre des traitements
 
 Le menu « **Traitements** » permet de gérer les traitements. Le registre des traitements recense l’ensemble des traitements de données à caractère personnel de la structure.
 
@@ -269,7 +269,7 @@ Les éléments suivants doivent être cochés dans les cas suivants :
 * Si la personne et/ou la procédure permettant d’ouvrir des comptes sont clairement identifiées ;
 * Si les personnes pouvant avoir accès aux données ont été sensibilisées à la protection des données. Il peut également arriver que le traitement nécessite une sensibilisation spécifique.
 
-## Le registre des sous-traitants
+## Registre des sous-traitants
 
 Le menu « **Sous-traitants** » permet de consulter la liste des sous-traitants et d'en ajouter. Le registre des sous-traitants recense l’ensemble des sous-traitants de la structure et permet d’effectuer le suivi de leur conformité au RGPD (clauses contractuelles vérifiées, conforme au RGPD).
 
@@ -328,71 +328,7 @@ Dans les coordonnées, il est possible de renseigner les éléments suivants :
 * **Email** ;
 * **N° de tel**.
 
-## Module logiciels et supports
-
-Le module logiciels et supports est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module logiciels et supports](#activation-du-module-logiciels-et-supports) pour plus d'information.
-
-L'activation du module ajoute l'élément « **Logiciels et supports** » dans le menu, il ajoute la possibilité de lier un logiciel ou support depuis une preuve ainsi qu'une action de protection. De plus, celui-ci modifie le champ « **Logiciels et supports** » dans le registre des traitements en le replaçant par un champ permettant de lier un ou plusieurs logiciels ou supports au traitement.
-
-``À noter : Si des données ont été renseignées dans le champ libre « Logiciels et supports » dans le registre des traitements, celles-ci seront conservées, mais ne seront plus consultables lorsque le module sera actif. Inversement, si des logiciels et supports sont liés à un traitement et que le module est désactivé, celles-ci seront aussi conservées, mais ne seront plus consultables jusqu'à tant qu'il soit réactivé.``
-
-### Le registre des logiciels et supports
-
-Le menu « **Logiciels et supports** » permet de consulter la liste des logiciels et supports et d'en ajouter. Le registre des logiciels et supports recense l’ensemble des logiciels applicatifs (bureautique, web...) et supports de stockage (disque dur, serveur, clé USB, CD...) de la structure et permet d'apporter des précisions pour le registre des traitements.
-
-![Liste des logiciels et supports](images/Madis-Liste-Des-Logiciels-Et-Supports.png)
-
-Il est possible d'effectuer plusieurs actions : 
-
-- « **+ Nouveau logiciel ou support** » permet d'ajouter un nouveau logiciel ou support ;
-- « **Générer une impression** » permet de générer le registre des logiciels et supports au format Word ;
-- « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
-- « **Modifier** » permet de modifier les informations d'un logiciel ou support ;
-- « **Supprimer** » permet de supprimer définitivement le logiciel ou support. **Cette action est irréversible**.
-
-``Astuce : Il est possible de visualiser les informations d'un logiciel ou support en cliquant sur son nom. Lors de la consultation de celui-ci, un bouton d'action « Imprimer » permet d'imprimer les informations du logiciel ou support au format PDF.``
-
-#### Nouveau logiciel ou support
-
-« **+ Nouveau logiciel ou support** » permet d'ajouter un nouveau logiciel ou support.
-
-**Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
-
-![Ajouter un logiciel ou support](images/Madis-Ajouter-Un-Logiciel-Ou-Support.png)
-
-``Astuce : Recenser un logiciel ou support avant un traitement permet de le rattacher directement au moment de la création du traitement.``
-
-##### Informations générales
-
-Dans les informations générales, il est possible de renseigner les éléments suivants :
-
-* **Nom** : Intitulé du logiciel ou support ;
-* **Type** : Précise le type permettant de distinguer un logiciel (bureautique, web...) ou un support de stockage (disque dur, serveur, clé USB, CD...) ;
-* **Description** : Toute précision sur le logiciel ou support ;
-* **Éditeur** : Nom de l'entreprise éditrice du logiciel ou support ;
-* **Sous-traitants** : Liste des sous-traitants identifiés dans le registre des sous-traitants ;
-* **Date de mise en production** : Date de mise en production dans la structure ;
-* **Pays d’hébergement ou de stockage** : Pays d’hébergement du logiciel ou de stockage du support (logiciel web hébergé dans un autre pays, données stockées sur un serveur à l'étranger...). Si le logiciel ou support est stocké en dehors de la France, il est possible de préciser :
-  * **Nom du pays** ;
-  * **Garanties pour le transfert** : Toute précision permettant de garantir que le pays tiers dispose d’un niveau adéquat de protection des données si le logiciel ou support est hébergé ou stocké dans un pays non-adéquat. Il est possible de prendre connaissance de la [liste des pays considérés comme assurant un niveau de protection adéquat (Anglais)](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_fr) ;
-* **Personne en charge** : Personne(s) ou service qui gère le logiciel ou support ;
-* **Autres informations** : Toute précision complémentaire.
-
-##### Mesures de sécurité et confidentialité
-
-Les mesures de sécurité sont propres à chaque logiciel ou support concerné, il est possible de renseigner les éléments suivants :
-
-* **Archivage** ;
-* **Chiffrement** ;
-* **Contrôle d'accès** : Par exemple, accès via un identifiant/mot de passe ou une certification, une gestion des habilitations, un badge... ;
-* **Mise à jour** : Par exemple, configuration des mises à jour automatique, contrat de mise à jour... ;
-* **Sauvegarde** : Type de sauvegarde (support, interne/externe, fréquence...) ;
-* **Suppression** ;
-* **Traçabilité** : Par exemple, journalisation des accès utilisateurs, données enregistrées (identifiant, date et heure de connexion, actions...) ;
-* **Zone de commentaire libre** ;
-* **Autres** : Précise toute autre mesure à documenter.
-
-## Le registre des demandes
+## Registre des demandes
 
 Le menu « **Demandes** » permet de consulter la liste des demandes et d'en ajouter. Chaque nouvelle demande d'exercice de droit de personne concernée basé sur le RGPD (droit d’accès, d’opposition...) doit être enregistrée dans ce registre.
 
@@ -462,7 +398,7 @@ Dans le cas où le demandeur serait différent de la personne concernée, il fau
 
 Il est possible d'associer une demande à un ou plusieurs traitements.
 
-## Le registre de violations
+## Registre de violations
 
 Le menu « **Violations** » permet de consulter la liste des violations et d'en ajouter. Le registre des violations recense l’ensemble des violations de la structure.
 
@@ -729,7 +665,166 @@ Dans chaque module, un bouton « **Ressources utiles** » permet d'accéder aux 
 
 ![Bouton ressources utiles dans la liste des demandes](images/Madis-Liste-Des-Demandes-Bouton-Ressources-Utiles.png)
 
-# Module conformité des traitements
+# Modules complémentaires
+
+Des modules optionnels peuvent venir compléter les fonctionnalités présentes dans Madis.
+
+## Module notifications
+
+Ce module permet d'être notifié dans Madis ainsi que par e-mail pour certains événements pouvant nécessiter une attention.
+
+Le module notifications est optionnel et peut être activé pour l'ensemble de Madis par le DPD (compte administrateur). Consulter l'[activation du module notifications](#activation-du-module-notifications) pour plus d'information.
+
+L’activation du module ajoute une cloche dans le bandeau d’en-tête permettant de consulter les dernières notifications de la structure ainsi que d'accéder au centre de notification regroupant l'ensemble des notifications. De plus, l'activation du module ajoute des paramètres de notifications dans « **Mon compte** » ainsi que dans « **Ma structure** ».
+
+### Notifications dans Madis
+
+Une cloche présente dans le bandeau d’en-tête permet de consulter les dernières notifications de la structure et de les marquer comme lues. Celle-ci s'incrémente en fonction du nombre de notifications non lues.
+
+![Accès aux notifications depuis l'en-tête](images/Madis-Notifications-Cloche.png)
+
+Il est possible d'effectuer plusieurs actions : 
+
+- « **Tout marquer comme lu** » permet de marquer l'ensemble des notifications comme lues ;
+
+- « **Marquer comme lu** » permet de marquer une notification comme lue ;
+- « **Voir toutes les notifications** » permet d'accéder au centre de notifications regroupant l'ensemble des notifications.
+
+Il est possible de recevoir dans Madis, les notifications suivantes :
+
+* Demande non traitée depuis un certain temps ;
+* Action planifiée en retard ;
+* AIPD nécessaire (Si le module est actif) ;
+* Validation d'une AIPD nécessaire (Si le module est actif) ;
+* Aucun indice de maturité réalisé depuis un certain temps ;
+* Nouveau document déposé par le DPD dans l'espace documentaire.
+
+#### Centre de notifications
+
+Depuis la cloche, « **Voir toutes les notifications** » permet d'accéder au centre de notification regroupant l'ensemble des notifications.
+
+![Centre de notifications](images/Madis-Centre-De-Notifications.png)
+
+Il est possible d'effectuer plusieurs actions : 
+
+- « **Tout marquer comme lu** » permet de marquer l'ensemble des notifications comme lues ;
+
+- « **Marquer comme lu** » et « **Marquer comme non lu** » permet de marquer une notification comme lue ou non lue ;
+- « **Supprimer** » permet de supprimer définitivement la notification. **Cette action est irréversible**.
+
+### Notifications par e-mail : Mon compte
+
+Le menu « **Mon compte** » permet de modifier les informations du compte et de paramétrer les notifications e-mail. Les notifications par e-mails varieront en fonction des informations supplémentaires renseignées.
+
+![Mon profil : paramétrer les notifications](images/Madis-Mon-Profil-Notifications.png)
+
+#### Informations supplémentaires
+
+Il est possible de recevoir des notifications par e-mails. Si les notifications par e-mail sont actives, le type de notification reçu par e-mail variera en fonction des informations supplémentaires renseignées :
+
+* « **Aucune information** » ne permet pas de recevoir d'e-mail ;
+* « **Responsable de traitement** » recevra les notifications suivantes :
+  * Demande non traitée depuis un certain temps ;
+  * Nouvelle violation créée ;
+* « **Référent RGPD** » recevra les notifications suivantes :
+  * Demande non traitée depuis un certain temps ;
+  * Action planifiée en retard ;
+  * Aucune connexion depuis la création du compte d'un utilisateur ;
+  * Nouveau document déposé par le DPD dans l'espace documentaire ;
+* « **Responsable informatique** » ne permet pas de recevoir d'e-mail ;
+* « **Délégué à la protection des données** » ne permet pas de recevoir d'e-mail.
+
+#### Notifications
+
+Dans les notifications, il est possible de renseigner les éléments suivants :
+
+* **Fréquence des notifications par email** : Active les notifications envoyées selon la fréquence définie ;
+* **Recevoir des notifications par email** : Choix des modules générant une notification. **Pour le moment, ce champ n'est pas fonctionnel**.
+
+### Notifications par e-mail : Ma structure
+
+Le menu « **Ma structure** » permet de modifier les informations de la structure. Si un acteur de la conformité de la structure n'a pas de compte Madis, mais que celui-ci est renseigné dans la fiche de la structure, il est possible d'activer les notifications par e-mails pour les acteurs suivants :
+
+* « **Responsable de traitement** » recevra les notifications suivantes :
+  * Demande non traitée depuis un certain temps ;
+  * Nouvelle violation créée ;
+* « **Référent Opérationnel** » (Référent RGPD) recevra les notifications suivantes :
+  * Demande non traitée depuis un certain temps ;
+  * Action planifiée en retard ;
+  * Aucune connexion depuis la création du compte d'un utilisateur ;
+  * Nouveau document déposé par le DPD dans l'espace documentaire ;
+* « **Délégué à la protection des données** » (si celui-ci est différent du DPD moral) recevra les notifications suivantes :
+  * AIPD nécessaire ;
+  * Validation d'une AIPD nécessaire ;
+  * AIPD validée.
+
+![Responsable de traitement : Notifications](images/Madis-Ma-Structure-Notifications.png)
+
+## Module logiciels et supports
+
+Le module logiciels et supports est optionnel et peut être activé dans une structure par le DPD (compte administrateur). Consulter l'[activation du module logiciels et supports](#activation-du-module-logiciels-et-supports) pour plus d'information.
+
+L'activation du module ajoute l'élément « **Logiciels et supports** » dans le menu, il ajoute la possibilité de lier un logiciel ou support depuis une preuve ainsi qu'une action de protection. De plus, celui-ci modifie le champ « **Logiciels et supports** » dans le registre des traitements en le replaçant par un champ permettant de lier un ou plusieurs logiciels ou supports au traitement.
+
+``À noter : Si des données ont été renseignées dans le champ libre « Logiciels et supports » dans le registre des traitements, celles-ci seront conservées, mais ne seront plus consultables lorsque le module sera actif. Inversement, si des logiciels et supports sont liés à un traitement et que le module est désactivé, celles-ci seront aussi conservées, mais ne seront plus consultables jusqu'à tant qu'il soit réactivé.``
+
+### Registre des logiciels et supports
+
+Le menu « **Logiciels et supports** » permet de consulter la liste des logiciels et supports et d'en ajouter. Le registre des logiciels et supports recense l’ensemble des logiciels applicatifs (bureautique, web...) et supports de stockage (disque dur, serveur, clé USB, CD...) de la structure et permet d'apporter des précisions pour le registre des traitements.
+
+![Liste des logiciels et supports](images/Madis-Liste-Des-Logiciels-Et-Supports.png)
+
+Il est possible d'effectuer plusieurs actions : 
+
+- « **+ Nouveau logiciel ou support** » permet d'ajouter un nouveau logiciel ou support ;
+- « **Générer une impression** » permet de générer le registre des logiciels et supports au format Word ;
+- « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
+- « **Modifier** » permet de modifier les informations d'un logiciel ou support ;
+- « **Supprimer** » permet de supprimer définitivement le logiciel ou support. **Cette action est irréversible**.
+
+``Astuce : Il est possible de visualiser les informations d'un logiciel ou support en cliquant sur son nom. Lors de la consultation de celui-ci, un bouton d'action « Imprimer » permet d'imprimer les informations du logiciel ou support au format PDF.``
+
+#### Nouveau logiciel ou support
+
+« **+ Nouveau logiciel ou support** » permet d'ajouter un nouveau logiciel ou support.
+
+**Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
+
+![Ajouter un logiciel ou support](images/Madis-Ajouter-Un-Logiciel-Ou-Support.png)
+
+``Astuce : Recenser un logiciel ou support avant un traitement permet de le rattacher directement au moment de la création du traitement.``
+
+##### Informations générales
+
+Dans les informations générales, il est possible de renseigner les éléments suivants :
+
+* **Nom** : Intitulé du logiciel ou support ;
+* **Type** : Précise le type permettant de distinguer un logiciel (bureautique, web...) ou un support de stockage (disque dur, serveur, clé USB, CD...) ;
+* **Description** : Toute précision sur le logiciel ou support ;
+* **Éditeur** : Nom de l'entreprise éditrice du logiciel ou support ;
+* **Sous-traitants** : Liste des sous-traitants identifiés dans le registre des sous-traitants ;
+* **Date de mise en production** : Date de mise en production dans la structure ;
+* **Pays d’hébergement ou de stockage** : Pays d’hébergement du logiciel ou de stockage du support (logiciel web hébergé dans un autre pays, données stockées sur un serveur à l'étranger...). Si le logiciel ou support est stocké en dehors de la France, il est possible de préciser :
+  * **Nom du pays** ;
+  * **Garanties pour le transfert** : Toute précision permettant de garantir que le pays tiers dispose d’un niveau adéquat de protection des données si le logiciel ou support est hébergé ou stocké dans un pays non-adéquat. Il est possible de prendre connaissance de la [liste des pays considérés comme assurant un niveau de protection adéquat (Anglais)](https://commission.europa.eu/law/law-topic/data-protection/international-dimension-data-protection/adequacy-decisions_fr) ;
+* **Personne en charge** : Personne(s) ou service qui gère le logiciel ou support ;
+* **Autres informations** : Toute précision complémentaire.
+
+##### Mesures de sécurité et confidentialité
+
+Les mesures de sécurité sont propres à chaque logiciel ou support concerné, il est possible de renseigner les éléments suivants :
+
+* **Archivage** ;
+* **Chiffrement** ;
+* **Contrôle d'accès** : Par exemple, accès via un identifiant/mot de passe ou une certification, une gestion des habilitations, un badge... ;
+* **Mise à jour** : Par exemple, configuration des mises à jour automatique, contrat de mise à jour... ;
+* **Sauvegarde** : Type de sauvegarde (support, interne/externe, fréquence...) ;
+* **Suppression** ;
+* **Traçabilité** : Par exemple, journalisation des accès utilisateurs, données enregistrées (identifiant, date et heure de connexion, actions...) ;
+* **Zone de commentaire libre** ;
+* **Autres** : Précise toute autre mesure à documenter.
+
+## Module conformité des traitements
 
 Ce module permet, par itération successive, de faire tendre les traitements vers leur conformité complète. L'évaluation d'un traitement doit être réalisée régulièrement, tout au long de l'année, pour gérer l'avancée de la mise en conformité des traitements au RGPD.
 
@@ -745,7 +840,7 @@ De plus, l'activation du module ajoute l'élément « **Évaluation de la confor
 
 Enfin, l'activation du module activera le module AIPD. Consulter le [module AIPD](#module-aipd) pour plus d'information.
 
-## Conformité des traitements
+### Conformité des traitements
 
 Le menu « **Conformité des traitements** » permet de consulter la conformité des traitements et de les évaluer.
 
@@ -767,7 +862,7 @@ Une barre de progression affiche l'étendue de la conformité des critères.
 
 ![Conformité des questions](images/Madis-Liste-De-Conformite-Des-Traitements-Conformite-Des-Questions.png)
 
-### Nouvelle évaluation
+#### Nouvelle évaluation
 
 « **Évaluer** » permet de procéder à l'évaluation du traitement.
 
@@ -775,7 +870,7 @@ Une barre de progression affiche l'étendue de la conformité des critères.
 
 ![Évaluation du traitement](images/Madis-Evaluation-Du-Traitement.png)
 
-#### Évaluation du traitement
+##### Évaluation du traitement
 
 Dans l'évaluation du traitement, il est possible d'évaluer la conformité du traitement selon les 15 principes fondamentaux du RGPD :
 
@@ -803,11 +898,11 @@ Pour chacun de ces critères, il est possible de dire si le traitement est confo
 
 Une fois les actions de protection planifiées et affectées aux différents points non-conformes, le [plan d'actions](#plan-dactions) permet de les mettre en œuvre et de suivre leur réalisation.
 
-#### Modifier un traitement
+##### Modifier un traitement
 
 Afin de pouvoir vérifier la conformité des critères, le contenu du traitement est affiché en dessous. Il est alors possible de compléter ou de corriger le traitement directement depuis l'évaluation de celui-ci.
 
-### Gestion des évaluations
+#### Gestion des évaluations
 
 Lorsqu'une ou plusieurs actions de protection sont réalisées, dans la liste de conformité des traitements, un icône bleu d'exclamation « **!** » est positionné devant le traitement. Il informe que des actions de protections ont été appliquées (liste au survol de la souris).
 
@@ -827,7 +922,7 @@ Il convient donc à présent de reconsidérer le niveau de conformité du ou des
 
 Ce module permet donc, par itérations successives, de faire tendre chacun des traitements vers leur conformité complète.
 
-# Module conformité de la structure
+## Module conformité de la structure
 
 Ce module permet, par itération successive, de faire tendre l'ensemble de la structure vers la mise en conformité complète. L'évaluation de la structure doit être réalisée régulièrement, idéalement une fois par an. 
 
@@ -839,7 +934,7 @@ L'activation du module ajoute l'élément « **Conformité de la structure** » 
 
 ![Indicateur de la conformité de la structure](images/Madis-Indicateur-Conformite-De-La-Structure.png)
 
-## Conformité de la structure
+### Conformité de la structure
 
 Le menu « **Conformité de la structure** » permet de consulter la conformité de la structure et de l'évaluer.
 
@@ -856,7 +951,7 @@ Il est possible d'effectuer plusieurs actions :
 - « **Modifier** » permet de modifier les informations d'une évaluation. Cette action est possible tant que l'évaluation est en brouillon ;
 - « **Supprimer** » permet de supprimer définitivement l'évaluation. **Cette action est irréversible**.
 
-### Nouvelle évaluation de la structure
+#### Nouvelle évaluation de la structure
 
 « **Nouvelle évaluation de la structure** » permet de procéder à l'évaluation de la structure.
 
@@ -871,7 +966,7 @@ Il est possible d'effectuer plusieurs actions :
 - « **Enregistrer un brouillon** » permet de quitter l'évaluation en prenant en compte les informations saisies ou modifiées. Les informations d'une évaluation en brouillon ne sont pas prises en compte dans le calcul de la conformité ;
 - « **Ajouter un participant** » permet d'ajouter un participant. Les informations du ou des participants sont repris dans l'impression de l'évaluation.
 
-#### Contexte
+##### Contexte
 
 Il est nécessaire de définir les éléments de contexte :
 
@@ -884,7 +979,7 @@ Il est nécessaire que le plus haut niveau hiérarchique de la structure soit as
 
 ![Contexte de l'évaluation de la structure](images/Madis-Evaluation-De-La-Structure-Contexte.png)
 
-#### Évaluation de la structure
+##### Évaluation de la structure
 
 Dans l'évaluation de la structure, il est possible d'évaluer la conformité de chaque processus en répondant à un ensemble de questions appelées « pratiques ». Un processus est donc composé de plusieurs pratiques. Suivant la réponse aux pratiques, un score par processus sera calculé.
 
@@ -904,7 +999,7 @@ Pour chaque processus, il est proposé d'affecter une ou plusieurs actions de pr
 
 **Il n'est pas possible de modifier une évaluation qui a été soumise.**
 
-# Module AIPD
+## Module AIPD
 
 Le Module Analyse d’Impact sur la Protection des Données à caractère personnel (AIPD) permet d’instruire une AIPD sur un traitement et permet de générer les documents nécessaires pour démontrer la conformité.
 
@@ -918,7 +1013,7 @@ De plus, l'activation du module ajoute l'élément « **Dernière analyse d'impa
 
 ![Dernière analyse d'impact réalisée dans la visualisation d'un traitement](images/Madis-Visualiser-Un-Traitement-AIPD.png)
 
-## Analyse d'impacts
+### Analyse d'impacts
 
 Le menu « **Analyse d'impacts** » permet de consulter la liste des Analyses d’Impacts sur la Protection des Données à caractère personnel (AIPD) à valider et terminées.
 
@@ -940,7 +1035,7 @@ Un traitement doit faire l’objet d’une AIPD si :
 - Le traitement est sur la [liste des AIPD obligatoires (PDF - 228 Ko)](https://www.cnil.fr/sites/default/files/atoms/files/liste-traitements-aipd-requise.pdf) ;
 - Le traitement n’est pas sur la [liste des traitements dérogatoire (PDF - 215 Ko)](https://www.cnil.fr/sites/default/files/atoms/files/liste-traitements-aipd-non-requise.pdf) et au moins 2 critères parmi les 8 traitements spécifiques et les données sensibles (origine prétendument raciale ou ethnique ; opinions politiques, philosophiques ou religieuses ; appartenance syndicale ; santé ou orientation sexuelle ; génétiques ou biométriques).
 
-### Instruction d’un dossier d’AIPD
+#### Instruction d’un dossier d’AIPD
 
 L’instruction d’une nouvelle AIPD démarre depuis la liste de conformité des traitements consultables par le menu « **Conformité des traitements** ».
 
@@ -954,7 +1049,7 @@ L’instruction d’une nouvelle AIPD démarre depuis la liste de conformité de
 
 **Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
 
-#### Choix du modèle
+##### Choix du modèle
 
 L’instruction d’une AIPD commence par le choix du modèle. **Selon le modèle choisi, lors des étapes suivantes, certains champs pourront être pré remplis ou en lecture seule.**
 
@@ -967,7 +1062,7 @@ Il est possible d'effectuer plusieurs actions :
 
 ``Astuce : En cas d’erreur lors du choix du modèle, il est nécessaire de supprimer l'AIPD dans la liste des AIPD et d'en recréer une.``
 
-#### Étape 1 : Description
+##### Étape 1 : Description
 
 Cette étape permet de vérifier la conformité des critères relatifs à la description du traitement.
 
@@ -988,7 +1083,7 @@ Il est possible d'effectuer plusieurs actions :
 - « **Retourner à la liste** » permet de quitter l'AIPD en ne prenant pas en compte les informations saisies ou modifiées ;
 - « **Suivant** » permet de passer à l'étape suivante.
 
-#### Étape 2 : Conformité
+##### Étape 2 : Conformité
 
 Cette étape permet de prendre connaissance des informations renseignées par l'évaluation de la conformité du traitement (niveau de conformité et actions de protection associées).
 
@@ -1002,7 +1097,7 @@ Il est possible d'effectuer plusieurs actions :
 - « **Précédent** » permet de passer à l'étape précédente ;
 - « **Suivant** » permet de passer à l'étape suivante.
 
-#### Étape 3 : Gestion des risques
+##### Étape 3 : Gestion des risques
 
 Cette étape permet d'évaluer le niveau d'impact des différents scénarios de menace.
 
@@ -1016,7 +1111,7 @@ Il est possible d'effectuer plusieurs actions :
 - « **Précédent** » permet de passer à l'étape précédente ;
 - « **Suivant** » permet de passer à l'étape suivante.
 
-#### Étape 4 : Mesures
+##### Étape 4 : Mesures
 
 Cette étape permet d'évaluer la mise en œuvre des mesures de protection associées à chaque scénario de menace.
 
@@ -1030,7 +1125,7 @@ Il est possible d'effectuer plusieurs actions :
 - « **Précédent** » permet de passer à l'étape précédente ;
 - « **Enregistrer** » permet d'enregistrer et de passer à l'étape suivante.
 
-#### Étape 5 : Évaluation
+##### Étape 5 : Évaluation
 
 Cette étape d’aide à la décision permet de prendre connaissance de la synthèse des éléments saisis dans les étapes précédentes.
 
@@ -1053,7 +1148,7 @@ Il est possible d'effectuer plusieurs actions :
 - « **Passer en validation** » permet de passer à l'étape finale de l'AIPD pour rendre les avis. Le passage à l'étape finale ajoute dans la liste des AIPD, une action « **Valider** » pour valider l'instruction de l'AIPD ;
 - « **Enregistrer un brouillon** » permet de quitter l'AIPD en prenant en compte les informations saisies ou modifiées.
 
-#### Valider une AIPD
+##### Valider une AIPD
 
 Cette étape finale permet de valider l'instruction de l'AIPD.
 
@@ -1099,11 +1194,85 @@ Plusieurs indicateurs sont disponibles :
 Il est possible d'exporter certaines informations au format Excel :
 
 * « **Exporter les structures** » : Export comprenant toutes les informations enregistrées dans la [gestion des structures](#gestion-des-structures) (Statut actif/inactif ; Nom ; SIREN ; Dernier utilisateur connecté ; Date de la dernière connexion...) ainsi que les informations comprises dans le [module conformité de la structure](#module-conformite-de-la-structure) ;
-* « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#le-registre-des-traitements) (Statut actif/inactif ; Date de dernière modification...) ainsi que les informations comprises dans le [module conformité des traitements](#module-conformite-des-traitements) ;
-* « **Exporter les sous-traitants** » : Export comprenant toutes les informations enregistrées dans le [registre des sous-traitants](#le-registre-des-sous-traitants) (Nom du sous-traitant ; Clauses vérifiées ; Traitements associés...) ;
+* « **Exporter les traitements** » : Export comprenant toutes les informations enregistrées dans le [registre des traitements](#registre-des-traitements) (Statut actif/inactif ; Date de dernière modification...) ainsi que les informations comprises dans le [module conformité des traitements](#module-conformite-des-traitements) ;
+* « **Exporter les sous-traitants** » : Export comprenant toutes les informations enregistrées dans le [registre des sous-traitants](#registre-des-sous-traitants) (Nom du sous-traitant ; Clauses vérifiées ; Traitements associés...) ;
 * « **Exporter les actions de protection** » : Export comprenant toutes les informations enregistrées dans les [actions de protection](#les-actions-de-protection) et dans le [plan d'actions](#plan-dactions) (Nom de l'action ; Statut ; Échéance...).
 
 ``Attention : Les exports, notamment pour le registre des traitements, peuvent être volumineux. L'export peut alors prendre un peu de temps.``
+
+## Gestion des notifications
+
+Le module notifications permet d'être notifié dans Madis ainsi que par e-mail pour certains événements et de suivre les activités des structures. 
+
+Ce module est optionnel et peut être activé pour l'ensemble de Madis. Consulter l'[activation du module notifications](#activation-du-module-notifications) pour plus d'information.
+
+### Notifications dans Madis
+
+Une cloche présente dans le bandeau d’en-tête permet de consulter les dernières notifications de la structure et de les marquer comme lues. Celle-ci s'incrémente en fonction du nombre de notifications non lues.
+
+![Accès aux notifications administrateur depuis l'en-tête](images/Madis-Notifications-Cloche-Administrateur.png)
+
+Il est possible d'effectuer plusieurs actions : 
+
+- « **Tout marquer comme lu** » permet de marquer l'ensemble des notifications comme lues ;
+
+- « **Marquer comme lu** » permet de marquer une notification comme lue ;
+- « **Voir toutes les notifications** » permet d'accéder au centre de notifications regroupant l'ensemble des notifications.
+
+Sur le tableau de bord administrateur, un tableau permet de consulter les dernières notifications de la structure et de les marquer comme lues. Celui-ci peut être activé et configuré dans les variables d'environnement dans le fichier « **.env** ». Consulter l'[activation du module notifications](#activation-du-module-notifications) pour plus d'information.
+
+![Accès aux notifications administrateur depuis le tableau de bord](images/Madis-Tableau-De-Bord-Administrateur-Notifications.png)
+
+Il est possible de recevoir dans Madis, les notifications suivantes :
+
+* Création, modification et suppression d'un traitement par un utilisateur d'une structure ;
+* Création, modification et suppression d'un sous-traitant par un utilisateur d'une structure ;
+* Demande non traitée depuis un certain temps ;
+* Changement d'étape d'une demande par un utilisateur d'une structure ;
+* Création et modification d'une violation par un utilisateur d'une structure ;
+* Création, modification et suppression d'une preuve par un utilisateur d'une structure ;
+* Création, modification et suppression d'une action de protection par un utilisateur d'une structure ;
+* Action planifiée en retard ;
+* AIPD nécessaire (Si le module est actif) ;
+* Validation d'une AIPD nécessaire (Si le module est actif) ;
+* Validation d'une AIPD par un utilisateur d'une structure (Si le module est actif) ;
+* Aucun indice de maturité réalisé depuis un certain temps ;
+* Aucune connexion depuis la création du compte d'un utilisateur.
+
+Le temps d'une demande non traité, d'aucun indice de maturité réalisé et aucune connexion depuis la création du compte d'un utilisateur peut être configuré dans les variables d'environnement dans le fichier « **.env** ». Consulter l'[activation du module notifications](#activation-du-module-notifications) pour plus d'information.
+
+#### Centre de notifications
+
+Depuis la cloche ou depuis le tableau de notifications du tableau de bord, « **Voir toutes les notifications** » permet d'accéder au centre de notification regroupant l'ensemble des notifications.
+
+Celui-ci est différent du centre de notification d'un utilisateur, car toutes les notifications sont partagées entre les comptes administrateurs. C'est-à-dire que si un administrateur marque une notification comme lue, celle-ci sera lue pour tous les autres administrateurs.
+
+![Centre de notifications administrateur](images/Madis-Centre-De-Notifications-Administrateur.png)
+
+Il est possible d'effectuer plusieurs actions : 
+
+- « **Tout marquer comme lu** » permet de marquer l'ensemble des notifications comme lues pour tous les administrateurs ;
+
+- « **Marquer comme lu** » et « **Marquer comme non lu** » permet de marquer une notification comme lue ou non lue pour tous les administrateurs ;
+- « **Supprimer** » permet de supprimer définitivement la notification pour tous les administrateurs. **Cette action est irréversible**.
+
+``À noter : Les notifications sont supprimées automatiquement après un certain temps. Ce temps est basé sur le temps paramétré pour la journalisation des actions.``
+
+### Notifications par e-mail
+
+Un utilisateur pourra depuis son profil, paramétrer les notifications e-mail. Consulter les [notifications par e-mail pour mon compte](#notifications-par-e-mail-mon-compte) pour plus d'information.
+
+Un administrateur a la possibilité de faire en sorte qu'un utilisateur ne génère aucune notification lorsque celui-ci effectue des actions dans Madis. De plus, contrairement à un utilisateur (gestionnaire ou lecteur), si un administrateur a comme information supplémentaire « **Délégué à la protection des données** », celui-ci recevra les notifications suivantes :
+
+* AIPD nécessaire ;
+* Validation d'une AIPD nécessaire ;
+* AIPD validée.
+
+![Paramétrer les notifications d'un utilisateur](images/Madis-Modifier-Un-Utilisateur-Notifications.png)
+
+``À noter : Si l'utilisateur a été paramétré pour qu'il ne génère pas de notifications, et que celui-ci est administrateur, s'il venait à déposer un document dans l'espace documentaire, aucune notification ne sera envoyé aux différentes structures.``
+
+Si un acteur de la conformité d'une structure n'a pas de compte Madis, mais que celui-ci est renseigné dans la fiche d'une structure, un utilisateur pourra lui activer ses notifications e-mail. Consulter les [notifications par e-mail des acteurs de ma structure](#notifications-par-e-mail-ma-structure) pour plus d'information.
 
 ## Gestion de la validation et préconisation des traitements
 
@@ -1128,6 +1297,102 @@ L'administrateur a la possibilité de modifier le statut d'un traitement et de r
 ![Modifier un traitement](images/Madis-Modifier-Un-Traitement-Statut-Et-Preconisations-DPD.png)
 
 ``À noter : Seul un administrateur peut mettre un traitement en « Contrôlé ». Si un gestionnaire modifie le traitement, celui-ci repassera en « Brouillon » ou en « Terminé ». De plus, si un gestionnaire évalue la conformité d'un traitement ayant le statut « Contrôlé », celui-ci repassera en « Terminé ».``
+
+## Gestion des référentiels des indices de maturité
+
+Le menu « **Gérer les référentiels** » permet de consulter la liste des référentiels et d'en ajouter.
+
+Un référentiel est un questionnaire permettant à une structure d'évaluer son niveau de maturité par rapport à celui-ci. Ces référentiels peuvent traiter de thématiques et sujets différents, et sont tous constitués d'une ou plusieurs sections, regroupant chacune une ou plusieurs questions, et qui sont à leurs tours constituées d'une ou plusieurs réponses.
+
+![Liste des référentiels](images/Madis-Liste-Des-Referentiels.png)
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **+ Nouveau référentiel** » permet d'ajouter un nouveau référentiel ;
+- « **+ Importer un référentiel** » permet d'importer un référentiel. Seul un fichier au format XML peut être importé ;
+- « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
+- « **Modifier** » permet de modifier les informations d'un référentiel. La modification de celui-ci entraîne la modification du référentiel utilisé dans un indice de maturité réalisé ;
+- « **Droits** » permet de choisir la ou les structures pouvant utiliser le référentiel. **Par défaut, un référentiel n’a aucun droit, il est donc nécessaire après la création d'un référentiel, d’aller choisir les structures autorisées à l’utiliser** ;
+- « **Exporter** » permet d'exporter le référentiel au format XML ;
+- « **Supprimer** » permet de supprimer définitivement le référentiel. La suppression d’un modèle entraîne la suppression des indices de maturité réalisés à partir de celui-ci. **Cette action est irréversible**.
+
+### Nouveau référentiel
+
+« **+ Nouveau référentiel** » permet d'ajouter un nouveau référentiel.
+
+**Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
+
+![Ajouter un référentiel](images/Madis-Ajouter-Un-Referentiel.png)
+
+#### Informations générales
+
+Dans les informations générales, il est possible de renseigner les éléments suivants :
+
+* **Nom du référentiel** : Intitulé du référentiel ;
+* **Description** : Description du référentiel.
+
+Le nom et la description sont visibles lors du choix du référentiel à la réalisation d'un indice de maturité. Ils permettent d'aider à la sélection du référentiel.
+
+#### Sections
+
+« **+ Ajouter une section** » permet d'ajouter une nouvelle section.
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **Supprimer** » permet de supprimer la section ainsi que toutes les données présentes dans celle-ci ;
+- « **-** » ou « **+** » permet de réduire ou d'agrandir la section ;
+- Cliquer/glisser sur la section permet de modifier l'ordre de celle-ci ;
+- « **+ Ajouter une question** » permet d'ajouter une nouvelle question.
+
+Dans une section, il est possible de renseigner les éléments suivants :
+
+* **Nom de la section** : Intitulé de la section. Celui-ci sera notamment repris dans le graphique radar de l'indice de maturité. Il est donc conseillé de renseigner un intitulé court ;
+* **Description** : Description introduisant la section.
+
+![Ajouter une section pour un référentiel](images/Madis-Ajouter-Un-Referentiel-Section.png)
+
+#### Questions
+
+« **+ Ajouter une question** » permet d'ajouter une nouvelle question dans une section.
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **Supprimer** » permet de supprimer la question ainsi que toutes les données présentes dans celle-ci ;
+- « **-** » ou « **+** » permet de réduire ou d'agrandir la question ;
+- Cliquer/glisser sur la question permet de modifier l'ordre de celle-ci. Il n'est pas possible de transférer une question d'une section vers une autre ;
+- « **+ Ajouter une réponse** » permet d'ajouter une nouvelle réponse.
+
+Dans une question, il est possible de renseigner les éléments suivants :
+
+* **Nom de la question** : Intitulé de la question ;
+* **Pondération** : Pondère la question vis à vis des autres questions. Une question pondérée à 0 ne sera pas prise en compte lors du calcul du score, alors qu'une question pondérée à 5 comptera 5 fois plus dans le calcul du score.
+
+![Ajouter une question pour un référentiel](images/Madis-Ajouter-Un-Referentiel-Question.png)
+
+#### Réponses
+
+« **+ Ajouter une réponse** » permet d'ajouter une nouvelle réponse dans une question.
+
+**Attention : l'ordre des réponses a un impact sur le calcul du score. Il est important de placer les réponses du négatif au positif.**
+
+Par exemple, si les réponses possibles sont Oui/Non/En partie, elles devront être dans l'ordre suivant :
+
+1. **Non** ;
+2. **En partie** ;
+3. **Oui**.
+
+Il est possible d'effectuer plusieurs actions :
+
+- « **Supprimer** » permet de supprimer la réponse ;
+- Cliquer/glisser sur la réponse permet de modifier l'ordre de celle-ci. Il n'est pas possible de transférer une réponse d'une question vers une autre.
+
+Dans une réponse, il est possible de renseigner les éléments suivants :
+
+* **Activer l'option : Non concerné** : Ajout d'une réponse permettant à la question de ne pas être prise en compte lors du calcul du score. Par défaut, si cette option est cochée et qu'aucune précision n'est renseignée, la réponse aura comme intitulé « **Non concerné** » ;
+* **Réponse** : Intitulé de la réponse ;
+* **Préconisation** : Préconisation permettant dans la synthèse, d'aider à la mise en place d'une action de protection. Pour chacune des réponses, il est possible d'adapter la préconisation.
+
+![Ajouter une réponse pour un référentiel](images/Madis-Ajouter-Un-Referentiel-Reponse.png)
 
 ## Gestion des AIPD
 
@@ -1299,102 +1564,6 @@ Dans les informations pour livrable, il est possible de renseigner les élément
 
 * **Label livrable** : Intitulé de la mesure affiché dans le livrable. Il peut être identique au nom de la mesure ;
 * **Phrase préconisation** : Texte de préconisation affiché dans le livrable si la mesure n’est pas appliquée.
-
-## Gestion des référentiels des indices de maturité
-
-Le menu « **Gérer les référentiels** » permet de consulter la liste des référentiels et d'en ajouter.
-
-Un référentiel est un questionnaire permettant à une structure d'évaluer son niveau de maturité par rapport à celui-ci. Ces référentiels peuvent traiter de thématiques et sujets différents, et sont tous constitués d'une ou plusieurs sections, regroupant chacune une ou plusieurs questions, et qui sont à leurs tours constituées d'une ou plusieurs réponses.
-
-![Liste des référentiels](images/Madis-Liste-Des-Referentiels.png)
-
-Il est possible d'effectuer plusieurs actions :
-
-- « **+ Nouveau référentiel** » permet d'ajouter un nouveau référentiel ;
-- « **+ Importer un référentiel** » permet d'importer un référentiel. Seul un fichier au format XML peut être importé ;
-- « **Exporter** » permet d'extraire la liste des éléments filtrés dans l'affichage au format Excel ;
-- « **Modifier** » permet de modifier les informations d'un référentiel. La modification de celui-ci entraîne la modification du référentiel utilisé dans un indice de maturité réalisé ;
-- « **Droits** » permet de choisir la ou les structures pouvant utiliser le référentiel. **Par défaut, un référentiel n’a aucun droit, il est donc nécessaire après la création d'un référentiel, d’aller choisir les structures autorisées à l’utiliser** ;
-- « **Exporter** » permet d'exporter le référentiel au format XML ;
-- « **Supprimer** » permet de supprimer définitivement le référentiel. La suppression d’un modèle entraîne la suppression des indices de maturité réalisés à partir de celui-ci. **Cette action est irréversible**.
-
-### Nouveau référentiel
-
-« **+ Nouveau référentiel** » permet d'ajouter un nouveau référentiel.
-
-**Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
-
-![Ajouter un référentiel](images/Madis-Ajouter-Un-Referentiel.png)
-
-#### Informations générales
-
-Dans les informations générales, il est possible de renseigner les éléments suivants :
-
-* **Nom du référentiel** : Intitulé du référentiel ;
-* **Description** : Description du référentiel.
-
-Le nom et la description sont visibles lors du choix du référentiel à la réalisation d'un indice de maturité. Ils permettent d'aider à la sélection du référentiel.
-
-#### Sections
-
-« **+ Ajouter une section** » permet d'ajouter une nouvelle section.
-
-Il est possible d'effectuer plusieurs actions :
-
-- « **Supprimer** » permet de supprimer la section ainsi que toutes les données présentes dans celle-ci ;
-- « **-** » ou « **+** » permet de réduire ou d'agrandir la section ;
-- Cliquer/glisser sur la section permet de modifier l'ordre de celle-ci ;
-- « **+ Ajouter une question** » permet d'ajouter une nouvelle question.
-
-Dans une section, il est possible de renseigner les éléments suivants :
-
-* **Nom de la section** : Intitulé de la section. Celui-ci sera notamment repris dans le graphique radar de l'indice de maturité. Il est donc conseillé de renseigner un intitulé court ;
-* **Description** : Description introduisant la section.
-
-![Ajouter une section pour un référentiel](images/Madis-Ajouter-Un-Referentiel-Section.png)
-
-#### Questions
-
-« **+ Ajouter une question** » permet d'ajouter une nouvelle question dans une section.
-
-Il est possible d'effectuer plusieurs actions :
-
-- « **Supprimer** » permet de supprimer la question ainsi que toutes les données présentes dans celle-ci ;
-- « **-** » ou « **+** » permet de réduire ou d'agrandir la question ;
-- Cliquer/glisser sur la question permet de modifier l'ordre de celle-ci. Il n'est pas possible de transférer une question d'une section vers une autre ;
-- « **+ Ajouter une réponse** » permet d'ajouter une nouvelle réponse.
-
-Dans une question, il est possible de renseigner les éléments suivants :
-
-* **Nom de la question** : Intitulé de la question ;
-* **Pondération** : Pondère la question vis à vis des autres questions. Une question pondérée à 0 ne sera pas prise en compte lors du calcul du score, alors qu'une question pondérée à 5 comptera 5 fois plus dans le calcul du score.
-
-![Ajouter une question pour un référentiel](images/Madis-Ajouter-Un-Referentiel-Question.png)
-
-#### Réponses
-
-« **+ Ajouter une réponse** » permet d'ajouter une nouvelle réponse dans une question.
-
-**Attention : l'ordre des réponses a un impact sur le calcul du score. Il est important de placer les réponses du négatif au positif.**
-
-Par exemple, si les réponses possibles sont Oui/Non/En partie, elles devront être dans l'ordre suivant :
-
-1. **Non** ;
-2. **En partie** ;
-3. **Oui**.
-
-Il est possible d'effectuer plusieurs actions :
-
-- « **Supprimer** » permet de supprimer la réponse ;
-- Cliquer/glisser sur la réponse permet de modifier l'ordre de celle-ci. Il n'est pas possible de transférer une réponse d'une question vers une autre.
-
-Dans une réponse, il est possible de renseigner les éléments suivants :
-
-* **Activer l'option : Non concerné** : Ajout d'une réponse permettant à la question de ne pas être prise en compte lors du calcul du score. Par défaut, si cette option est cochée et qu'aucune précision n'est renseignée, la réponse aura comme intitulé « **Non concerné** » ;
-* **Réponse** : Intitulé de la réponse ;
-* **Préconisation** : Préconisation permettant dans la synthèse, d'aider à la mise en place d'une action de protection. Pour chacune des réponses, il est possible d'adapter la préconisation.
-
-![Ajouter une réponse pour un référentiel](images/Madis-Ajouter-Un-Referentiel-Reponse.png)
 
 ## Registre Public
 
@@ -1639,7 +1808,7 @@ Il est possible de choisir l'un des rôles suivant :
 - **Lecteur** : L'utilisateur peut consulter les informations comprises dans Madis. Il peut générer des bilans et faire des impressions, mais ne peut modifier les informations ;
 - **Gestionnaire** : L'utilisateur peut consulter et modifier tout ce qui se trouve dans Madis pour sa structure ;
 - **Administrateur** : L'utilisateur peut consulter et modifier tout ce qui se trouve dans Madis pour toutes les structures ;
-- **Référent multi-structures** : L'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour les structures pour lesquels il est référent. Cependant, il ne peut pas créer ou modifier de nouvelles structures ni d'utilisateurs ou modifier son propre profil utilisateur (en ajoutant des structures dans son champ d'action).
+- **Référent multi-structures** : L'utilisateur peut voir et modifier tout ce qui se trouve dans Madis pour les structures pour lesquels il est référent. Cependant, il ne peut pas créer ou modifier de nouvelles structures ni d'utilisateurs ou modifier son propre profil utilisateur en ajoutant des structures dans son champ d'action.
 
 #### Informations facultatives
 
@@ -1661,16 +1830,6 @@ Dans le profil d'un utilisateur, l'élément « **Services et Habilitations** »
 ![Services et habilitations dans le profil utilisateur](images/Madis-Ajouter-Un-Utilisateur-Module-Services-Et-Habilitations.png)
 
 ``Astuce : Il est possible d'utiliser ctrl pour sélectionner plusieurs services à la fois.``
-
-### Activation du module de délégation de l'authentification (SSO)
-
-Le module de délégation de l'authentification (SSO) est optionnel. Il peut être activé et configuré dans les variables d'environnement dans le fichier « **.env** ».
-
-Ce module permet de paramétrer Madis pour qu’il délègue son authentification à un système de Single Sign On (SSO) tiers. Cette fonctionnalité s’appuie sur le protocole OpenID. Deux configurations (provider) sont disponibles : LemonLDAP et Keycloak.
-
-Un gestionnaire ou lecteur pourra depuis son profil, associer ou dissocier son compte au fournisseur d'identité paramétré. Un administrateur a la possibilité d'effectuer cette action à la place de l'utilisateur en renseignant ou non la clé d'authentification.
-
-![Paramétrer la clé d'authentification d'un utilisateur](images/Madis-Modifier-Un-Utilisateur-SSO.png)
 
 ## Journalisation
 
@@ -1750,6 +1909,24 @@ APP_MAX_UPLOAD_SIZE=4M
 # Maximum number of login attempts before the user account is deactivated
 APP_MAX_LOGIN_ATTEMPTS=10
 
+###> Notifications ###
+# Activate notification module
+APP_ACTIVATE_NOTIFICATIONS=true
+# number of unread notificaitons to display on the admin dashboard
+APP_NOTIFICATION_DASHBOARD_NUMBER=15
+# number of unread notificaitons to display on the page header
+APP_NOTIFICATION_HEADER_NUMBER=5
+# Whether to show notifications on the admin dashboard
+APP_NOTIFICATION_DASHBOARD_SHOWN=true
+# Number of days before a inactive user notification is sent
+APP_INACTIVE_USER_NOTIFICATION_DELAY_DAYS=365
+# Number of days before a late request notification is sent
+APP_REQUEST_NOTIFICATION_DELAY_DAYS=365
+# Number of days before a late Survey (indice de maturité) notification is sent
+APP_SURVEY_NOTIFICATION_DELAY_DAYS=365
+APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <a target='_blank' href='https://madis-exemple.fr' rel='noreferrer noopener'>Madis</a>"
+###< Notifications ###
+
 #TRUSTED_PROXIES=127.0.0.1,127.0.0.2
 #TRUSTED_HOSTS=localhost,example.com
 
@@ -1778,6 +1955,62 @@ OAUTH_CLIENT_ID=XXXXX
 OAUTH_CLIENT_SECRET=XXXXX
 ###< SSO LOGIN ###
 ```
+
+### Activation du module de délégation de l'authentification (SSO)
+
+Le module de délégation de l'authentification (SSO) est optionnel. Il peut être activé et configuré dans les variables d'environnement dans le fichier « **.env** ».
+
+Ce module permet de paramétrer Madis pour qu’il délègue son authentification à un système de Single Sign On (SSO) tiers. Cette fonctionnalité s’appuie sur le protocole OpenID. Deux configurations (provider) sont disponibles : LemonLDAP et Keycloak.
+
+```
+###> SSO LOGIN ###
+SSO_TITLE="SSO"
+SSO_ICON="images/sso-icon.png"
+# sso user info field used to identify user on the app
+SSO_KEY_FIELD="sub"
+# leave empty to disable SSO logout on app logout
+SSO_LOGOUT_URL=
+###> Value used for oauth2 client config see config/packages/knpu_oauth2_client.yaml ###
+# leave empty to disable SSO (available types: LemonLDAP and keycloak)
+OAUTH_TYPE=
+OAUTH_URL=https://xxxxxxxxxx/auth
+OAUTH_REALM=REALM
+OAUTH_CLIENT_ID=XXXXX
+OAUTH_CLIENT_SECRET=XXXXX
+###< SSO LOGIN ###
+```
+
+Un gestionnaire ou lecteur pourra depuis son profil, associer ou dissocier son compte au fournisseur d'identité paramétré. Un administrateur a la possibilité d'effectuer cette action à la place de l'utilisateur en renseignant ou non la clé d'authentification.
+
+![Paramétrer la clé d'authentification d'un utilisateur](images/Madis-Modifier-Un-Utilisateur-SSO.png)
+
+### Activation du module notifications
+
+Le module notifications est optionnel. Il peut être activé et configuré dans les variables d'environnement dans le fichier « **.env** ».
+
+```
+###> Notifications ###
+# Activate notification module
+APP_ACTIVATE_NOTIFICATIONS=true
+# number of unread notificaitons to display on the admin dashboard
+APP_NOTIFICATION_DASHBOARD_NUMBER=15
+# number of unread notificaitons to display on the page header
+APP_NOTIFICATION_HEADER_NUMBER=5
+# Whether to show notifications on the admin dashboard
+APP_NOTIFICATION_DASHBOARD_SHOWN=true
+# Number of days before a inactive user notification is sent
+APP_INACTIVE_USER_NOTIFICATION_DELAY_DAYS=365
+# Number of days before a late request notification is sent
+APP_REQUEST_NOTIFICATION_DELAY_DAYS=365
+# Number of days before a late Survey (indice de maturité) notification is sent
+APP_SURVEY_NOTIFICATION_DELAY_DAYS=365
+APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <a target='_blank' href='https://madis-exemple.fr' rel='noreferrer noopener'>Madis</a>"
+###< Notifications ###
+```
+
+``À noter : Les notifications sont supprimées automatiquement après un certain temps. Ce temps est basé sur le temps paramétré pour la journalisation des actions. De plus, l'ensemble des notifications sont supprimées lors de la désactivation du module.``
+
+Consulter le [module notifications](#module-notifications) ainsi que la [gestion des notifications](#gestion-des-notifications) pour plus d'information.
 
 # API
 
