@@ -8,6 +8,7 @@ use App\Domain\Notification\Event\LateActionEvent;
 use App\Domain\Notification\Event\LateRequestEvent;
 use App\Domain\Notification\Event\LateSurveyEvent;
 use App\Domain\Notification\Event\NoLoginEvent;
+use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Model\TreatmentDataCategory;
@@ -99,10 +100,9 @@ class NotificationsGenerateCommand extends Command
             /**
              * @var Mesurement $action
              */
-            if ($action->getPlanificationDate() && $action->getPlanificationDate() < $now) {
+            if ($action->getPlanificationDate() && $action->getPlanificationDate() < $now && MesurementStatusDictionary::STATUS_NOT_APPLIED === $action->getStatus()) {
                 $this->dispatcher->dispatch(new LateActionEvent($action));
                 ++$cnt;
-                //                $this->io->writeln('late action count so far: ' . $cnt);
             }
         }
 
