@@ -39,18 +39,18 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
             $section->addTitle('Évaluation de la mise en conformité', 2);
             if (!isset($data['new'])) {
                 $section->addText('Aucun indice de maturité à l\'heure actuelle.');
+
                 return;
             }
             $section->addTitle('Contexte', 3);
         } else {
             if (!isset($data['new'])) {
                 $section->addText('Aucun indice de maturité à l\'heure actuelle.');
+
                 return;
             }
             $section->addTitle('Contexte', 1);
         }
-
-
 
         $table = $section->addTable([
             'borderColor' => '006699',
