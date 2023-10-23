@@ -37,10 +37,20 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
     {
         if (isset($data['bilanReport']) && $data['bilanReport']) {
             $section->addTitle('Évaluation de la mise en conformité', 2);
+            if (!isset($data['new'])) {
+                $section->addText('Aucun indice de maturité à l\'heure actuelle.');
+                return;
+            }
             $section->addTitle('Contexte', 3);
         } else {
+            if (!isset($data['new'])) {
+                $section->addText('Aucun indice de maturité à l\'heure actuelle.');
+                return;
+            }
             $section->addTitle('Contexte', 1);
         }
+
+
 
         $table = $section->addTable([
             'borderColor' => '006699',
@@ -74,6 +84,9 @@ class MaturityGenerator extends AbstractGenerator implements ImpressionGenerator
 
     public function addSyntheticView(Section $section, array $data): void
     {
+        if (!isset($data['new'])) {
+            return;
+        }
         if (isset($data['bilanReport']) && $data['bilanReport']) {
             $section->addTitle("Résultat de l'évaluation", 3);
         }
