@@ -228,7 +228,7 @@
         <entry>
           <name><![CDATA[Le plan d'action associé à l'analyse de risque est suivi et priorisé.]]></name>
           <position>3</position>
-          <weight>5</weight>
+          <weight>1</weight>
           <optional>true</optional>
           <option_reason><![CDATA[Non applicable]]></option_reason>
           <answers>
@@ -793,7 +793,7 @@
         <entry>
           <name><![CDATA[Une analyse de risque, validée par les responsables métiers des services concernés, est réalisée lors de l'introduction d'un nouveau service numérique (application, matériel IT, équipement biomédical et technique, GTB/GTC).]]></name>
           <position>2</position>
-          <weight>5</weight>
+          <weight>1</weight>
           <optional>false</optional>
           <answers>
             <entry>
