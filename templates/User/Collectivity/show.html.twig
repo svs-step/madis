@@ -71,9 +71,9 @@
                             <td><strong>{{ 'user.collectivity.show.active'|trans }}</strong></td>
                             <td>
                                 {% if object.active %}
-                                    <span class="label label-success">{{ 'label.active'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'label.active'|trans }}</span>
                                 {% else %}
-                                    <span class="label label-danger">{{ 'label.inactive'|trans }}</span>
+                                    <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -90,7 +90,7 @@
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.has_module_conformite_traitement'|trans }}</strong></td>
                             <td>
-                                <span class="badge bg-gr">
+                                <span class="badge">
                                     {% if object.hasModuleConformiteTraitement %}
                                         {{ 'label.yes'|trans }}
                                     {% else %}
@@ -102,7 +102,7 @@
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.has_module_conformite_organisation'|trans }}</strong></td>
                             <td>
-                                <span class="badge bg-gr">
+                                <span class="badge">
                                     {% if object.hasModuleConformiteOrganisation %}
                                         {{ 'label.yes'|trans }}
                                     {% else %}
@@ -114,7 +114,7 @@
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.has_module_tools'|trans }}</strong></td>
                             <td>
-                                <span class="badge bg-gr">
+                                <span class="badge">
                                     {% if object.hasModuleTools %}
                                         {{ 'label.yes'|trans }}
                                     {% else %}
@@ -224,7 +224,7 @@
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.different_it_manager'|trans }}</strong></td>
                             <td>
-                                <span class="badge bg-gr">
+                                <span class="badge">
                                     {% if object.differentItManager %}
                                         {{ 'label.yes'|trans }}
                                     {% else %}
@@ -322,7 +322,7 @@
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.different_dpo'|trans }}</strong></td>
                             <td>
-                                <span class="badge bg-gr">
+                                <span class="badge">
                                     {% if object.differentDpo %}
                                         {{ 'label.yes'|trans }}
                                     {% else %}

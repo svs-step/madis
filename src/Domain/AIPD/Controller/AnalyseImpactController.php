@@ -185,19 +185,19 @@ class AnalyseImpactController extends CRUDController
     {
         switch ($avis->getReponse()) {
             case ReponseAvisDictionary::REPONSE_FAVORABLE:
-                $color = 'success';
+                $color = 'bg-green';
                 break;
             case ReponseAvisDictionary::REPONSE_FAVORABLE_RESERVE:
-                $color = 'warning';
+                $color = 'bg-yellow';
                 break;
             case ReponseAvisDictionary::REPONSE_DEFAVORABLE:
-                $color = 'danger';
+                $color = 'bg-red';
                 break;
             default:
-                $color = 'default';
+                $color = 'bg-gray';
         }
 
-        return '<span class="label label-' . $color . '" style="min-width: 100%; display: inline-block;">' . ReponseAvisDictionary::getReponseAvis()[$avis->getReponse()] . '</span>';
+        return '<span class="badge ' . $color . '">' . ReponseAvisDictionary::getReponseAvis()[$avis->getReponse()] . '</span>';
     }
 
     /**

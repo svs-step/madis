@@ -67,13 +67,13 @@
                                                 <td style="vertical-align: middle">{{ conformite.vars.value.processus.nom }}</td>
                                                 <td style="vertical-align: middle">
                                                     {% if conformite.vars.value.conformite < 2.5 %}
-                                                        {% set type = 'danger' %}
+                                                        {% set type = 'bg-red' %}
                                                     {% elseif conformite.vars.value.conformite < 3.5 %}
-                                                        {% set type = 'warning' %}
+                                                        {% set type = 'bg-yellow' %}
                                                     {% else %}
-                                                        {% set type = 'success' %}
+                                                        {% set type = 'bg-green' %}
                                                     {% endif %}
-                                                    <span style="display: block; width: 50px; margin: auto; " class="label label-{{ type }}">{{ conformite.vars.value.conformite }} / 5</span>
+                                                    <span style="display: block; width: 50px; margin: auto;" class="badge {{ type }}">{{ conformite.vars.value.conformite }} / 5</span>
                                                 </td>
                                                 <td style="vertical-align: middle">
                                                     <ul>
@@ -143,7 +143,7 @@
                                 <td>{% if evaluation.date is not null %}{{ evaluation.date|date('d/m/Y') }}{% endif %}</td>
                                 <td>{{ evaluation.participants|length }}</td>
                                 <td>
-                                    <span class="badge bg-gr">
+                                    <span class="badge">
                                     {% if evaluation.draft %}
                                         {{ 'label.yes'|trans }}
                                     {% else %}
