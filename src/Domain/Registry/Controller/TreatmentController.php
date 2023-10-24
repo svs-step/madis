@@ -347,7 +347,7 @@ class TreatmentController extends CRUDController
             $contractors .= '</ul>';
 
             $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
-            $no  = '<span class="badge bg-yellow">' . $this->translator->trans('label.no') . '</span>';
+            $no  = '<span class="badge bg-orange">' . $this->translator->trans('label.no') . '</span>';
 
             $reponse['data'][] = [
                 'id'                     => $treatment->getId(),
@@ -385,7 +385,7 @@ class TreatmentController extends CRUDController
 
     private function countSensitiveData($categories)
     {
-        $sensitive   = '<span class="badge bg-yellow">' . $this->translator->trans('label.yes') . '</span>';
+        $sensitive   = '<span class="badge bg-orange">' . $this->translator->trans('label.yes') . '</span>';
         $noSensitive = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
 
         $count = 0;
@@ -401,12 +401,12 @@ class TreatmentController extends CRUDController
     private function getAvisAipd(Treatment $treatment)
     {
         if (!$treatment->getConformiteTraitement()) {
-            return '<span class="badge bg-gray">Non réalisée</span>';
+            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
         }
         $conf = $treatment->getConformiteTraitement();
 
         if (null === $conf->getLastAnalyseImpact()) {
-            return '<span class="badge bg-gray">Non réalisée</span>';
+            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non réalisée</span>';
         }
         $analyse_impact = $conf->getLastAnalyseImpact();
         $statut         = $analyse_impact->getStatut();
@@ -414,32 +414,32 @@ class TreatmentController extends CRUDController
         switch ($statut) {
             case 'defavorable':
                 $label = 'Défavorable';
-                $class = 'bg-red';
+                $class = 'label-danger';
                 break;
             case 'favorable_reserve':
                 $label = 'Favorable avec réserve(s)';
-                $class = 'bg-yellow';
+                $class = 'label-warning';
                 break;
             case 'favorable':
                 $label = 'Favorable';
-                $class = 'bg-green';
+                $class = 'label-success';
                 break;
             case 'en_cours':
                 $label = 'En cours';
-                $class = '';
+                $class = 'label-default';
                 break;
             default:
                 $label = 'Non réalisée';
-                $class = 'bg-gray';
+                $class = 'label-default';
         }
 
-        return '<span class="badge ' . $class . '">' . $label . '</span>';
+        return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
     }
 
     private function getTreatmentConformity(Treatment $treatment)
     {
         if (!$treatment->getConformiteTraitement()) {
-            return '<span class="badge bg-gray">Non évalué</span>';
+            return '<span class="label label-default" style="min-width: 100%; display: inline-block;">Non évalué</span>';
         }
         $conf  = $treatment->getConformiteTraitement();
         $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conf);
@@ -449,18 +449,18 @@ class TreatmentController extends CRUDController
         switch ($weight) {
             case 1:
                 $label = 'Conforme';
-                $class = 'bg-green';
+                $class = 'label-success';
                 break;
             case 2:
                 $label = 'Non-conforme mineure';
-                $class = 'bg-yellow';
+                $class = 'label-warning';
                 break;
             default:
                 $label = 'Non-conforme majeure';
-                $class = 'bg-red';
+                $class = 'label-danger';
         }
 
-        return '<span class="badge ' . $class . '">' . $label . '</span>';
+        return '<span class="label ' . $class . '" style="min-width: 100%; display: inline-block;">' . $label . '</span>';
     }
 
     private function getSpecificTraitement(Treatment $treatment)

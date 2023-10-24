@@ -69,12 +69,12 @@ class AnalyseImpactExtension extends AbstractExtension
             return 'Inconnu';
         }
         if ($reponseConformite->isConforme()) {
-            return '<span class="badge bg-green">Conforme</span>';
+            return '<span class="label label-success" style="min-width: 100%; display: inline-block;">Conforme</span>';
         } elseif (!$reponseConformite->getActionProtections()->isEmpty()) {
-            return '<span class="badge bg-yellow">Non-conforme mineure</span>';
+            return '<span class="label label-warning" style="min-width: 100%; display: inline-block;">Non-conforme mineure</span>';
         }
 
-        return '<span class="badge bg-red">Non-conforme majeure</span>';
+        return '<span class="label label-danger" style="min-width: 100%; display: inline-block;">Non-conforme majeure</span>';
     }
 
     public function getScenarioMenaceImpactPotentiel(AnalyseScenarioMenace $scenarioMenace)
@@ -106,20 +106,20 @@ class AnalyseImpactExtension extends AbstractExtension
         $labelColor = null;
         switch ($impact) {
             case VraisemblanceGraviteDictionary::NEGLIGEABLE:
-                $labelColor = 'bg-green';
+                $labelColor = 'success';
                 break;
             case VraisemblanceGraviteDictionary::LIMITEE:
-                $labelColor = 'bg-yellow';
+                $labelColor = 'warning';
                 break;
             case VraisemblanceGraviteDictionary::IMPORTANTE:
-                $labelColor = 'bg-purple';
+                $labelColor = 'default';
                 break;
             default:
-                $labelColor = 'bg-red';
+                $labelColor = 'danger';
                 break;
         }
 
-        return '<span class="badge ' . $labelColor . '">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
+        return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;' . ('default' == $labelColor ? 'background:#605CA8; color:white;' : '') . '">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
     }
 
     public function getScenarioMenaceIndicateurResiduel(AnalyseScenarioMenace $scenarioMenace, string $poidsType)
@@ -138,17 +138,17 @@ class AnalyseImpactExtension extends AbstractExtension
         $labelColor = null;
         switch ($critere->getReponse()) {
             case ReponseCritereFondamentalDictionary::REPONSE_CONFORME:
-                $labelColor = 'bg-green';
+                $labelColor = 'success';
                 break;
             case ReponseCritereFondamentalDictionary::REPONSE_NON_CONFORME:
-                $labelColor = 'bg-red';
+                $labelColor = 'danger';
                 break;
             default:
-                $labelColor = 'bg-gray';
+                $labelColor = 'default';
                 break;
         }
 
-        return '<span class="badge ' . $labelColor . '>' . ReponseCritereFondamentalDictionary::getLabelReponse($critere->getReponse()) . '</span>';
+        return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;">' . ReponseCritereFondamentalDictionary::getLabelReponse($critere->getReponse()) . '</span>';
     }
 
     public function getLastAnalyseImpact(ConformiteTraitement $conformiteTraitement): ?AnalyseImpact

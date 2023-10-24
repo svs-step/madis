@@ -239,7 +239,7 @@ class ToolController extends CRUDController
         $reponse  = $this->getBaseDataTablesResponse($request, $tools, $criteria);
 
         $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
-        $no  = '<span class="badge bg-yellow">' . $this->translator->trans('label.no') . '</span>';
+        $no  = '<span class="badge bg-orange">' . $this->translator->trans('label.no') . '</span>';
 
         /** @var Model\Tool $tool */
         foreach ($tools as $tool) {

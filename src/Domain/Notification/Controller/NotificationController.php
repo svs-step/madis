@@ -151,7 +151,7 @@ class NotificationController extends CRUDController
         /** @var Model\Notification $notification */
         foreach ($notifications as $notification) {
             $read   = '<span class="badge bg-green">' . $this->translator->trans('notification.state.read') . '</span>';
-            $unread = '<span class="badge bg-yellow">' . $this->translator->trans('notification.state.unread') . '</span>';
+            $unread = '<span class="badge bg-orange">' . $this->translator->trans('notification.state.unread') . '</span>';
 
             $link = $this->getObjectLink($notification);
 

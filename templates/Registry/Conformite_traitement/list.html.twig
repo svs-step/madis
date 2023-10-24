@@ -133,16 +133,16 @@
                                         {% set labelNonConformeMineure = 'Non-conforme mineure' %}
                                         {% set labelNonConformeMajeure = 'Non-conforme majeure' %}
 
-                                        {% set labelConformiteColor = 'bg-red' %}
+                                        {% set labelConformiteColor = 'label-danger' %}
                                         {% set labelConformite = labelNonConformeMajeure %}
                                         {% if conformiteBackgroundColor == 1 %}
-                                            {% set labelConformiteColor = 'bg-green' %}
+                                            {% set labelConformiteColor = 'label-success' %}
                                             {% set labelConformite = labelConforme %}
                                         {% elseif conformiteBackgroundColor == 2 %}
-                                            {% set labelConformiteColor = 'bg-yellow' %}
+                                            {% set labelConformiteColor = 'label-warning' %}
                                             {% set labelConformite = labelNonConformeMineure %}
                                         {% endif %}
-                                        <span class="badge {{ labelConformiteColor }}">{{ labelConformite }}</span>
+                                        <span class="label {{ labelConformiteColor }}" style="min-width: 100%; display: inline-block;">{{ labelConformite }}</span>
                                     </td>
                                 {% else %}
                                  <td></td>
@@ -159,21 +159,21 @@
                                 <td>{% if conformiteTraitement is not null %}{{ conformiteTraitement.updatedAt|date('d/m/Y') }}{% else %}<span style="visibility: hidden">01/01/1970</span>{% endif %}</td>
                                 <td>
                                     {% set statut = "non_realisee" %}
-                                    {% set labelAipdColor = "bg-gray" %}
+                                    {% set labelAipdColor = "label-default" %}
                                     {% if conformiteTraitement is not null and analyseImpact is not null %}
                                         {% if analyseImpact.statut == "defavorable" %}
 
-                                            {% set labelAipdColor = "bg-red" %}
+                                            {% set labelAipdColor = "label-danger" %}
                                         {% elseif analyseImpact.statut == "favorable_reserve" %}
-                                            {% set labelAipdColor = "bg-yellow" %}
+                                            {% set labelAipdColor = "label-warning" %}
                                         {% elseif analyseImpact.statut == "favorable" %}
-                                            {% set labelAipdColor = "bg-green" %}
+                                            {% set labelAipdColor = "label-success" %}
                                         {% endif %}
                                         {% set statut = analyseImpact.statut %}
                                     {% endif %}
 
                                     {% set labelStatut = "aipd.analyse_impact.values." ~ statut %}
-                                    <span class="badge {{ labelAipdColor }}">
+                                    <span class="label {{ labelAipdColor }}" style="min-width: 100%; display: inline-block;">
                                             {{ labelStatut|trans}}
                                         </span>
                                 </td>

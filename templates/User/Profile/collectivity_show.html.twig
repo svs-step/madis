@@ -60,9 +60,9 @@
                             <td><strong>{{ 'user.collectivity.show.active'|trans }}</strong></td>
                             <td>
                                 {% if object.active %}
-                                    <span class="badge bg-green">{{ 'label.active'|trans }}</span>
+                                    <span class="label label-success">{{ 'label.active'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
+                                    <span class="label label-danger">{{ 'label.inactive'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -172,7 +172,7 @@
                         <tbody><tr>
                             <td><strong>{{ 'user.collectivity.show.different_it_manager'|trans }}</strong></td>
                             <td>
-                                <span class="badge">
+                                <span class="badge bg-gr">
                                     {% if object.differentItManager %}
                                         {{ 'label.yes'|trans }}
                                     {% else %}
@@ -266,7 +266,7 @@
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.different_dpo'|trans }}</strong></td>
                             <td>
-                                <span class="badge">
+                                <span class="badge bg-gr">
                                     {% if object.differentDpo %}
                                         {{ 'label.yes'|trans }}
                                     {% else %}
