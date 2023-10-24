@@ -11,7 +11,7 @@
         <th scope="col">{{ 'aipd.scenario_menace.list.precision'|trans }}</th>
     </tr>
     {% do form.scenarioMenaces.setRendered() %}
-    {% for scenario in form.scenarioMenaces %}
+    {% for scenario in form.scenarioMenaces|sort((a, b) => compareStrings(a.vars.value.nom, b.vars.value.nom)) %}
         <tr>
             <td>
                 {% if scenario.vars.value.canDicBeModified %}

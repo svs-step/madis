@@ -24,6 +24,7 @@ class AnalyseImpactExtension extends AbstractExtension
             new TwigFunction('getFormattedActionProtectionsFromQuestion', [$this, 'getFormattedActionProtectionsFromQuestion']),
             new TwigFunction('getConformiteLabel', [$this, 'getConformiteLabel']),
             new TwigFunction('getCritereLabel', [$this, 'getCritereLabel']),
+            new TwigFunction('compareStrings', [$this, 'compareStrings']),
             new TwigFunction('getLastAnalyseImpact', [$this, 'getLastAnalyseImpact']),
             new TwigFunction('getScenarioMenaceImpactPotentielLabel', [$this, 'getScenarioMenaceImpactPotentielLabel']),
             new TwigFunction('getScenarioMenaceImpactPotentiel', [$this, 'getScenarioMenaceImpactPotentiel']),
@@ -32,6 +33,11 @@ class AnalyseImpactExtension extends AbstractExtension
             new TwigFunction('getScenarioMenaceIndicateurResiduel', [$this, 'getScenarioMenaceIndicateurResiduel']),
             new TwigFunction('isScenarioMenaceImpactResiduelImpactNotNegligeable', [$this, 'isScenarioMenaceImpactResiduelImpactNotNegligeable']),
         ];
+    }
+
+    public function compareStrings(string $a, string $b)
+    {
+        return strcmp($a, $b);
     }
 
     public function getFormattedActionProtectionsFromQuestion(AnalyseQuestionConformite $questionAnalyse)
