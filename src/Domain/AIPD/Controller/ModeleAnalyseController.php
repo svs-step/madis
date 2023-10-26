@@ -18,6 +18,7 @@ use App\Domain\AIPD\Model\ModeleScenarioMenace;
 use App\Domain\AIPD\Repository;
 use App\Domain\Registry\Repository\ConformiteTraitement\Question;
 use App\Domain\User\Repository\Collectivity;
+use App\Infrastructure\ORM\AIPD\Repository\ModeleMesureProtection as ModeleMesureProtectionRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Gaufrette\Exception\FileNotFound;
 use Gaufrette\FilesystemInterface;
@@ -32,6 +33,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Polyfill\Intl\Icu\Exception\MethodNotImplementedException;
 use Symfony\Polyfill\Intl\Icu\Exception\NotImplementedException;
 
 /**
@@ -48,6 +50,7 @@ class ModeleAnalyseController extends CRUDController
 
     private ModeleAIPDFlow $modeleFlow;
     private Question $questionRepository;
+    private ModeleMesureProtectionRepository $mesureProtectionRepository;
     private RouterInterface $router;
     private FilesystemInterface $fichierFilesystem;
 
@@ -59,17 +62,19 @@ class ModeleAnalyseController extends CRUDController
         UserProvider $userProvider,
         AuthorizationCheckerInterface $authorizationChecker,
         Collectivity $collectivityRepository,
+        ModeleMesureProtectionRepository $mesureProtectionRepository,
         ModeleAIPDFlow $modeleFlow,
         Question $questionRepository,
         RouterInterface $router,
         FilesystemInterface $fichierFilesystem
     ) {
         parent::__construct($entityManager, $translator, $repository, $pdf, $userProvider, $authorizationChecker);
-        $this->collectivityRepository = $collectivityRepository;
-        $this->modeleFlow             = $modeleFlow;
-        $this->questionRepository     = $questionRepository;
-        $this->router                 = $router;
-        $this->fichierFilesystem      = $fichierFilesystem;
+        $this->collectivityRepository     = $collectivityRepository;
+        $this->modeleFlow                 = $modeleFlow;
+        $this->questionRepository         = $questionRepository;
+        $this->mesureProtectionRepository = $mesureProtectionRepository;
+        $this->router                     = $router;
+        $this->fichierFilesystem          = $fichierFilesystem;
     }
 
     protected function getDomain(): string
@@ -364,7 +369,7 @@ class ModeleAnalyseController extends CRUDController
                 $object = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
                 $object->deserialize();
             } catch (\Exception $e) {
-                $this->addFlash('danger', "Impossible d'importer ce fichier");
+                $this->addFlash('danger', "Impossible d'importer ce fichier : " . $e->getMessage());
 
                 return $this->redirectToRoute($this->getRouteName('list'));
             }
@@ -416,6 +421,39 @@ class ModeleAnalyseController extends CRUDController
         return strtr($string, $unwanted_array);
     }
 
+    /**
+     * The deletion action
+     * Delete the data.
+     *
+     * @throws \Exception
+     */
+    public function deleteConfirmationAction(string $id): Response
+    {
+        $object = $this->repository->findOneById($id);
+        if (!$object) {
+            throw new NotFoundHttpException("No object found with ID '{$id}'");
+        }
+
+        if ($this->isSoftDelete()) {
+            if (!\method_exists($object, 'setDeletedAt')) {
+                throw new MethodNotImplementedException('setDeletedAt');
+            }
+            $object->setDeletedAt(new \DateTimeImmutable());
+            $this->repository->update($object);
+        } else {
+            $this->entityManager->remove($object);
+            foreach ($this->mesureProtectionRepository->findToDelete($object) as $measureToDelete) {
+                $this->entityManager->remove($measureToDelete);
+            }
+
+            $this->entityManager->flush();
+        }
+
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
+
+        return $this->redirectToRoute($this->getRouteName('list'));
+    }
+
     private function ScenarioMenacesToDelete($object, $modeleAnalyseId)
     {
         $ScenarioMenacesToDelete = [];
@@ -428,6 +466,7 @@ class ModeleAnalyseController extends CRUDController
         }
 
         foreach ($ScenarioMenacesToDelete as $menaceToDelete) {
+            /** @var ModeleScenarioMenace $menace */
             $menace = $this->entityManager->getRepository(ModeleScenarioMenace::class)->find($menaceToDelete->getId());
             $this->entityManager->remove((object) $menace);
         }

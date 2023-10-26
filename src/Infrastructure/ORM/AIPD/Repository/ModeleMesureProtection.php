@@ -111,4 +111,35 @@ class ModeleMesureProtection extends CRUDRepository implements Repository\Modele
             }
         }
     }
+
+    public function findToDelete(Model\ModeleAnalyse $modele)
+    {
+        $qb    = $this->createQueryBuilder();
+        $smIds = [];
+        foreach ($modele->getScenarioMenaces() as $sm) {
+            $smIds[] = $sm->getId()->toString();
+        }
+
+        // get measure ids that are joined to another ModeleScenarionMenace
+        $qb->select('o.id')->join('o.scenariosMenaces', 'sm', 'sm.modele_analyse_id = o.id')
+            ->where('sm.id NOT IN (:ids)')
+            ->setParameter('ids', $smIds)
+        ;
+        // Keep only measure ids
+        $toNotDelete = array_map(function ($r) {return $r['id']->toString(); }, $qb->getQuery()->getResult());
+
+        // Get measures to delete:
+        // They are in the scenarioMenaces for the current ModeleAnalyse
+        // And are not part of the measures linked to other scenarios.
+        $toDelete = $this->createQueryBuilder()
+            ->select('o')
+            ->join('o.scenariosMenaces', 'sm', 'sm.modele_analyse_id = o.id')
+            ->where('sm.id IN (:ids)')
+            ->andWhere('o.id NOT IN (:mesureids)')
+            ->setParameter('ids', $smIds)
+            ->setParameter('mesureids', $toNotDelete)
+        ;
+
+        return $toDelete->getQuery()->getResult();
+    }
 }
