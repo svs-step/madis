@@ -389,6 +389,9 @@ class NotificationController extends CRUDController
             if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.state_change' === $notification->getAction()) {
                 return $this->router->generate('aipd_analyse_impact_evaluation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
             }
+            if ('notification.modules.aipd' === $notification->getModule() && 'notifications.actions.treatment_needs_aipd' === $notification->getAction()) {
+                return $this->router->generate('registry_conformite_traitement_start_aipd', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
             if ('notification.modules.document' === $notification->getModule() && 'notification.actions.delete' !== $notification->getAction()) {
                 return $notification->getObject()->url;
             }
