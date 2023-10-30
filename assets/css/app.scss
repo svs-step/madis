@@ -30,9 +30,13 @@ body > div.banner-impersonate {
 }
 
 /* Header */
-.main-header .logo-mini img {
-  max-width: 2em;
-  max-height: 2em;
+
+.main-header {
+  z-index: 4000;
+  .logo-mini img {
+    max-width: 2em;
+    max-height: 2em;
+  }
 }
 
 .sidebar-menu, .main-sidebar .user-panel, .sidebar-menu>li.header {
