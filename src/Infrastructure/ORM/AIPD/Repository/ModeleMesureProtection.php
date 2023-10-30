@@ -119,7 +119,6 @@ class ModeleMesureProtection extends CRUDRepository implements Repository\Modele
         foreach ($modele->getScenarioMenaces() as $sm) {
             $smIds[] = $sm->getId()->toString();
         }
-
         // get measure ids that are joined to another ModeleScenarionMenace
         $qb->select('o.id')->join('o.scenariosMenaces', 'sm', 'sm.modele_analyse_id = o.id')
             ->where('sm.id NOT IN (:ids)')
@@ -135,10 +134,15 @@ class ModeleMesureProtection extends CRUDRepository implements Repository\Modele
             ->select('o')
             ->join('o.scenariosMenaces', 'sm', 'sm.modele_analyse_id = o.id')
             ->where('sm.id IN (:ids)')
-            ->andWhere('o.id NOT IN (:mesureids)')
             ->setParameter('ids', $smIds)
-            ->setParameter('mesureids', $toNotDelete)
         ;
+
+        if (count($toNotDelete)) {
+            // Only check if they are in the otherwise linked array if it contains data
+            $toDelete->andWhere('o.id NOT IN (:mesureids)')
+                ->setParameter('mesureids', $toNotDelete)
+            ;
+        }
 
         return $toDelete->getQuery()->getResult();
     }

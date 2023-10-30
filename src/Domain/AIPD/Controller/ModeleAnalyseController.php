@@ -441,10 +441,10 @@ class ModeleAnalyseController extends CRUDController
             $object->setDeletedAt(new \DateTimeImmutable());
             $this->repository->update($object);
         } else {
-            $this->entityManager->remove($object);
             foreach ($this->mesureProtectionRepository->findToDelete($object) as $measureToDelete) {
                 $this->entityManager->remove($measureToDelete);
             }
+            $this->entityManager->remove($object);
 
             $this->entityManager->flush();
         }
