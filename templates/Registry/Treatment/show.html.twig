@@ -505,7 +505,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th scope="row" class="text-bold">{{ 'registry.treatment.form.shelflife_ultimate_fate'|trans }}</th>
-                                                    <td>{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}</td>
+                                                    <td>{% if method.ultimateFate %}{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% else %}Inconnu{% endif %}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>
