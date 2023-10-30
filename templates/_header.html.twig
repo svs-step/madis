@@ -33,7 +33,7 @@
                         <span class="badge bg-yellow navbar-badge">{{ notifs|length }}</span>
                         {% endif %}
                     </a>
-                    <ul class="dropdown-menu dropdown-large" style="width:600px">
+                    <ul class="dropdown-menu dropdown-large" style="width:600px;z-index:1000">
                         {{ block("body", "Notification/Notification/box.html.twig") }}
                     </ul>
                 </li>
