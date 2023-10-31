@@ -101,6 +101,7 @@ class TreatmentCloner extends AbstractCloner
             $treatment->setSecurityOther($referent->getSecurityOther());
         }
         $treatment->setSystematicMonitoring($referent->isSystematicMonitoring());
+        $treatment->setStatut($referent->getStatut());
         $treatment->setLargeScaleCollection($referent->isLargeScaleCollection());
         $treatment->setVulnerablePeople($referent->isVulnerablePeople());
         $treatment->setDataCrossing($referent->isDataCrossing());
