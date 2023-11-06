@@ -231,11 +231,15 @@ class ConformiteTraitement implements LoggableSubject
             || $treatment->isAutomaticExclusionService()
             || $treatment->isInnovativeUse()
         ) {
+            $catCount = 0;
             // If one of these items is true, check if there are sensitive data categories
             /** @var TreatmentDataCategory $cat */
             foreach ($treatment->getDataCategories() as $cat) {
                 if ($cat->isSensible()) {
-                    return true;
+                    ++$catCount;
+                    if ($catCount >= 2) {
+                        return true;
+                    }
                 }
             }
         }
