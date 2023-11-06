@@ -38,6 +38,12 @@ body > div.banner-impersonate {
     max-height: 2em;
   }
 }
+.modal {
+  z-index: 4050;
+}
+.modal-backdrop {
+  z-index: 4040;
+}
 
 .sidebar-menu, .main-sidebar .user-panel, .sidebar-menu>li.header {
     font-size: 14px;
