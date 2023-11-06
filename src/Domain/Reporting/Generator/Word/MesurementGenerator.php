@@ -147,10 +147,11 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
 
         uasort($data, [$this, 'sortMesurementByDate']);
         $appliedMesurement = [];
+        /** @var Mesurement $mesurement */
         foreach ($data as $mesurement) {
             if (MesurementStatusDictionary::STATUS_APPLIED === $mesurement->getStatus()) {
                 $appliedMesurement[] = [
-                    $mesurement->getCreatedAt()->format('d/m/Y'),
+                    $mesurement->getPlanificationDate() ? $mesurement->getPlanificationDate()->format('d/m/Y') : '',
                     $mesurement->getName(),
                 ];
             }
@@ -340,11 +341,11 @@ class MesurementGenerator extends AbstractGenerator implements ImpressionGenerat
 
     private function sortMesurementByDate(Mesurement $a, Mesurement $b)
     {
-        if ($a->getCreatedAt() === $b->getCreatedAt()) {
-            return 0;
+        if ($a->getPlanificationDate() === $b->getPlanificationDate()) {
+            return strcmp($b->getName(), $a->getName());
         }
 
-        return ($a->getCreatedAt() < $b->getCreatedAt()) ? 1 : -1;
+        return ($a->getPlanificationDate() < $b->getPlanificationDate()) ? 1 : -1;
     }
 
     private function sortMesurementByPriority(Mesurement $a, Mesurement $b)
