@@ -364,8 +364,8 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 [
                     'data' => [
                         'Principes fondamentaux',
-                        [['text' => 'Conformité', 'style' => $this->textHeadStyle]],
-                        [['text' => 'Actions de protections', 'style' => $this->textHeadStyle]],
+                        ['text' => 'Conformité', 'style' => $this->textHeadStyle],
+                        ['text' => 'Actions de protections', 'style' => $this->textHeadStyle],
                     ],
                     'style' => [
                         'bgColor' => '3c8dbc',
@@ -387,7 +387,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 $questionsData[] = [
                     $reponse->getQuestion()->getQuestion(),
                     $reponse->isConforme() ? 'Conforme' : 'Non-conforme',
-                    !empty($actionsProtections) ? $actionsProtections : 'Pas d\'action',
+                    !empty($actionsProtections) ? join(', ', $actionsProtections) : 'Pas d\'action',
                 ];
             }
 

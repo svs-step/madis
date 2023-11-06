@@ -358,10 +358,17 @@ abstract class AbstractGenerator implements GeneratorInterface
         $table = $section->addTable($this->tableStyle);
         if ($header) {
             $headersTable = $data[0];
+            if (array_key_exists('data', $headersTable)) {
+                $headersTable = $headersTable['data'];
+            }
             $table->addRow(null, ['tblHeader' => true, 'cantsplit' => true]);
             foreach ($headersTable as $element) {
                 $cell = $table->addCell(2500, $this->cellHeadStyle);
-                $cell->addText($element, $this->textHeadStyle);
+                if (is_array($element) && array_key_exists('text', $element)) {
+                    $cell->addText($element['text'], $element['style']);
+                } else {
+                    $cell->addText($element, $this->textHeadStyle);
+                }
             }
             unset($data[0]);
         }
