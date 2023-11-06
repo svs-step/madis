@@ -13,7 +13,7 @@
         "build": "encore production"
     },
     "dependencies": {
-        "ckeditor4": "^4.0.0",
+        "ckeditor4": "~4.22.0",
         "file-loader": "^6.2.0",
         "jquery": "^3.6"
     }
