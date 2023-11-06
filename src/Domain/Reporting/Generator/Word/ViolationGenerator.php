@@ -302,15 +302,16 @@ class ViolationGenerator extends AbstractGenerator implements ImpressionGenerato
         $cell = $tableViolationAnnexeApplied->addCell(2000, $this->cellHeadStyle);
         $cell->addText('Traitements associés', $this->textHeadStyle);
 
+        /** @var Violation $line */
         foreach ($violations as $line) {
             $tableViolationAnnexeApplied->addRow(null, ['cantSplit' => true]);
             $cell = $tableViolationAnnexeApplied->addCell(1000);
             $date = !$line->isInProgress() ? $line->getDate()->format('d/m/Y') : $line->getDate()->format('d/m/Y') . ' (En cours)';
             $cell->addText($date);
             $cell = $tableViolationAnnexeApplied->addCell(1000);
-            $cell->addText($line->getCommunicationPrecision());
+            $cell->addText($line->getCommunication() ? ViolationCommunicationDictionary::getCommunications()[$line->getCommunication()] : '');
             $cell = $tableViolationAnnexeApplied->addCell(2000);
-            $cell->addText($line->getNotificationDetails());
+            $cell->addText($line->getNotification() ? ViolationNotificationDictionary::getNotifications()[$line->getNotification()] : '');
             $cell = $tableViolationAnnexeApplied->addCell(2000);
             foreach ($line->getContractors() as $item) {
                 $cell->addListItem($item->getName(), null, [], [], ['spaceAfter' => 0]);
