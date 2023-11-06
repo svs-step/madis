@@ -88,7 +88,7 @@
                             <th scope="col" style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
                             <th scope="col" style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
                         </tr>
-                        {% for scenario in analyseImpact.scenarioMenaces %}
+                        {% for scenario in analyseImpact.scenarioMenaces|sort((a, b) => a.nom > b.nom) %}
                             <tr>
                                 <td>{{ scenario.nom }}</td>
                                 <td>{{ getScenarioMenaceImpactPotentielLabel(scenario)|raw }}</td>

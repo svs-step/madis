@@ -4,7 +4,7 @@
         <th scope="col">{{ 'aipd.mesure_protection.list.reponse'|trans }}</th>
         <th scope="col" style="width:  40%">{{ 'aipd.mesure_protection.list.detail'|trans }}</th>
     </tr>
-    {% for mesureProtection in form.mesureProtections %}
+    {% for mesureProtection in form.mesureProtections|sort((a, b) => a.vars.value.nom > b.vars.value.nom) %}
         <tr>
             <td>
                 {{ mesureProtection.vars.value.nom }}
