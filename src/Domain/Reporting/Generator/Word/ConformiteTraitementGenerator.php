@@ -440,8 +440,8 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $section->addTitle('Synthèse de la conformité des traitements évalués', 2);
         $section->addText('Légende :');
         $section->AddListItem('C = Conforme');
-        $section->AddListItem('NCM = Non conforme mineure');
-        $section->AddListItem('NC = Non conforme majeure');
+        $section->AddListItem('NCM = Non conforme majeure');
+        $section->AddListItem('NC = Non conforme mineure');
 
         $styleCellHeader = ['textDirection' => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, 'bgColor' => '3c8dbc', 'vAlign' => 'center'];
 
@@ -462,14 +462,16 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
         $cell->addText('C', $this->textHeadStyle);
         $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
-        $cell->addText('NCM', $this->textHeadStyle);
-        $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
         $cell->addText('NC', $this->textHeadStyle);
+        $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
+        $cell->addText('NCM', $this->textHeadStyle);
+
+        // End header
 
         $listConformityName = [
             'C'   => [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0, 13 => 0, 14 => 0, 15 => 0],
-            'NCM' => [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0, 13 => 0, 14 => 0, 15 => 0],
             'NC'  => [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0, 13 => 0, 14 => 0, 15 => 0],
+            'NCM' => [1 => 0, 2 => 0, 3 => 0, 4 => 0, 5 => 0, 6 => 0, 7 => 0, 8 => 0, 9 => 0, 10 => 0, 11 => 0, 12 => 0, 13 => 0, 14 => 0, 15 => 0],
         ];
 
         // Affichage des données de chaque conformité de traitement
@@ -480,7 +482,6 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                     $NonConformityValue                                                 = count($response->getActionProtections()) > 0 ? 'NC' : 'NCM';
                     $ConformityTreatmentValues[$response->getQuestion()->getPosition()] = $response->isConforme() ? 'C' : $NonConformityValue;
                 }
-                ksort($ConformityTreatmentValues);
 
                 $tableSyntheticAnnexeList->addRow();
                 $cell = $tableSyntheticAnnexeList->addCell(1000);
@@ -507,11 +508,12 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'bce292', 'vAlign' => 'center']);
                 $cell->addText($C, ['bold' => true], ['alignment' => 'center']);
                 $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffff80', 'vAlign' => 'center']);
-                $cell->addText($NCM, ['bold' => true], ['alignment' => 'center']);
-                $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffa7a7', 'vAlign' => 'center']);
                 $cell->addText($NC, ['bold' => true], ['alignment' => 'center']);
+                $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffa7a7', 'vAlign' => 'center']);
+                $cell->addText($NCM, ['bold' => true], ['alignment' => 'center']);
             }
         }
+
         $tableSyntheticAnnexeList->addRow(60, ['exactHeight' => true]);
         $cell = $tableSyntheticAnnexeList->addCell(1000, ['borderLeftColor' => 'ffffff', 'borderLeftSize' => 2, 'borderRightColor' => 'ffffff', 'borderRightSize' => 2]);
         $cell->addText('');
@@ -531,8 +533,8 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
     {
         $return_value = match ($value) {
             'C'   => 'bce292',
-            'NC'  => 'ffa7a7',
-            'NCM' => 'ffff80',
+            'NCM' => 'ffa7a7',
+            'NC'  => 'ffff80',
         };
 
         return $return_value;
