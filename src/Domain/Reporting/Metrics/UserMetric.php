@@ -409,7 +409,9 @@ class UserMetric implements MetricInterface
                 $level = ConformiteTraitementCompletion::getConformiteTraitementLevel($conformiteTraitement);
                 ++$data['conformiteTraitement']['data'][$level];
 
-                if ($conformiteTraitement->getTraitement()->isActive() && 0 === count($conformiteTraitement->getAnalyseImpacts())) {
+                if (
+                    $conformiteTraitement->getNeedsAipd()
+                ) {
                     ++$data['aipd']['toDo'];
                 }
             }

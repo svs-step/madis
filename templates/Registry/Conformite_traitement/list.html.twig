@@ -94,28 +94,7 @@
                                         </div>
                                     {% endif %}
 
-                                    {% if conformiteTraitement %}
-                                        {% set counter = 0 %}
-                                        {% if conformiteTraitement.traitement.systematicMonitoring %}{% set counter = counter + 1 %}{% endif %}
-                                        {% if conformiteTraitement.traitement.largeScaleCollection %}{% set counter = counter + 1 %}{% endif %}
-                                        {% if conformiteTraitement.traitement.vulnerablePeople %}{% set counter = counter + 1 %}{% endif %}
-                                        {% if conformiteTraitement.traitement.dataCrossing %}{% set counter = counter + 1 %}{% endif %}
-                                        {% if conformiteTraitement.traitement.evaluationOrRating %}{% set counter = counter + 1 %}{% endif %}
-                                        {% if conformiteTraitement.traitement.automatedDecisionsWithLegalEffect %}{% set counter = counter + 1 %}{% endif %}
-                                        {% if conformiteTraitement.traitement.automaticExclusionService %}{% set counter = counter + 1 %}{% endif %}
-                                        {% if conformiteTraitement.traitement.innovativeUse %}{% set counter = counter + 1 %}{% endif %}
-
-                                        {% set sensible = false %}
-                                        {% for category in conformiteTraitement.traitement.dataCategories %}
-                                            {% if category.sensible %}{% set sensible = true %}{% endif %}
-                                        {% endfor %}
-
-                                        {% set  critereValid = false %}
-                                        {% if counter > 1  %}{% set critereValid = true %}{% endif %}
-                                        {% if counter is same as 1  and sensible %}{% set critereValid = true %}{% endif %}
-                                    {% endif %}
-
-                                    {% if conformiteTraitement and conformiteTraitement.traitement and not conformiteTraitement.traitement.ExemptAIPD and analyseImpact is null and critereValid %}
+                                    {% if conformiteTraitement and conformiteTraitement.needsAipd and analyseImpact is null %}
                                         <div>
                                             <i class="fa fa-exclamation-triangle" title="Une AIPD doit être réalisée sur ce traitement." style="color:orange;"></i>
                                         </div>

@@ -28,6 +28,7 @@ use App\Application\Traits\Model\CreatorTrait;
 use App\Application\Traits\Model\HistoryTrait;
 use App\Domain\AIPD\Model\AnalyseImpact;
 use App\Domain\Registry\Model\Treatment;
+use App\Domain\Registry\Model\TreatmentDataCategory;
 use App\Domain\Reporting\Model\LoggableSubject;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
@@ -203,5 +204,42 @@ class ConformiteTraitement implements LoggableSubject
     public function setUpdatedBy(?string $updatedBy): void
     {
         $this->updatedBy = $updatedBy;
+    }
+
+    /**
+     * This returns true if the current treatment needs an AIPD to be done.
+     */
+    public function getNeedsAipd(): bool
+    {
+        $treatment = $this->getTraitement();
+
+        if (count($this->getAnalyseImpacts()) > 0) {
+            // Already has AIPD
+            return false;
+        }
+        if ($treatment->isExemptAIPD()) {
+            // Treatment is exempted
+            return false;
+        }
+        if (
+            $treatment->isSystematicMonitoring()
+            || $treatment->isLargeScaleCollection()
+            || $treatment->isVulnerablePeople()
+            || $treatment->isDataCrossing()
+            || $treatment->isEvaluationOrRating()
+            || $treatment->isAutomatedDecisionsWithLegalEffect()
+            || $treatment->isAutomaticExclusionService()
+            || $treatment->isInnovativeUse()
+        ) {
+            // If one of these items is true, check if there are sensitive data categories
+            /** @var TreatmentDataCategory $cat */
+            foreach ($treatment->getDataCategories() as $cat) {
+                if ($cat->isSensible()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }
