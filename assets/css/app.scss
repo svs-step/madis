@@ -44,7 +44,12 @@ body > div.banner-impersonate {
 .modal-backdrop {
   z-index: 4040;
 }
-
+.dt-button-background {
+  z-index: 4001;
+}
+.dt-button-collection {
+  z-index: 4002;
+}
 .sidebar-menu, .main-sidebar .user-panel, .sidebar-menu>li.header {
     font-size: 14px;
     //padding: 0 0 0 15px;
