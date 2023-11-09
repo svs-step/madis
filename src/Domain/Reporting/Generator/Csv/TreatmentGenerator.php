@@ -29,6 +29,7 @@ use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Dictionary\TreatmentAuthorDictionary;
 use App\Domain\Registry\Dictionary\TreatmentCollectingMethodDictionary;
 use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
+use App\Domain\Registry\Dictionary\TreatmentUltimateFateDictionary;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\User\Repository\Collectivity;
 use App\Infrastructure\ORM\Registry\Repository\ConformiteTraitement\Question;
@@ -294,7 +295,7 @@ class TreatmentGenerator extends AbstractGenerator
             foreach ($shelfLifes as $key => $shelfLife) {
                 $duration .= $key + 1 . ': ' . $shelfLife->duration . " \r\n";
                 $name .= $key + 1 . ': ' . $shelfLife->name . "\r\n";
-                $ultimateFate .= $key + 1 . ': ' . $shelfLife->ultimateFate . "\r\n";
+                $ultimateFate .= $key + 1 . ': ' . TreatmentUltimateFateDictionary::getUltimateFates()[$shelfLife->ultimateFate] . "\r\n";
             }
         }
 

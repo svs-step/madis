@@ -202,7 +202,7 @@ class UserController extends CRUDController
             }
 
             $collectivityActifBgColor = 'bg-green';
-            if (!$user->getCollectivity()->isActive()) {
+            if (!$user->getCollectivity() || !$user->getCollectivity()->isActive()) {
                 $collectivityActifBgColor = 'bg-red';
             }
 
@@ -222,7 +222,7 @@ class UserController extends CRUDController
                 'prenom'       => $user->getFirstName(),
                 'nom'          => $user->getLastName(),
                 'email'        => $user->getEmail(),
-                'collectivite' => $user->getCollectivity()->getName(),
+                'collectivite' => $user->getCollectivity() ? $user->getCollectivity()->getName() : '[Structure supprimée]',
                 'roles'        => $roles,
                 'moreInfos'    => $infos,
                 'actif'        => $actif,

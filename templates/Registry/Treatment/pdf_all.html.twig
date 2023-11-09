@@ -396,7 +396,7 @@
                                                 </tr>
                                                 <tr>
                                                     <th class="text-bold">{{ 'registry.treatment.form.shelflife_ultimate_fate'|trans }}</th>
-                                                    <td>{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}</td>
+                                                    <td>{% if method.ultimateFate %}{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% else %}Non déterminé{% endif %}</td>
                                                 </tr>
                                                 </tbody>
                                             </table>

@@ -32,6 +32,8 @@ class TreatmentUltimateFateDictionary extends SimpleDictionary
     public const FATE_CONSERVATION = 'conservation';
     public const FATE_DEPOSIT      = 'deposit';
     public const FATE_SORT         = 'sort';
+    public const FATE_UNKNOWN      = 'unknown';
+    public const FATE_NULL         = null;
 
     public function __construct()
     {
@@ -50,6 +52,8 @@ class TreatmentUltimateFateDictionary extends SimpleDictionary
             self::FATE_CONSERVATION => 'Conservation',
             self::FATE_DEPOSIT      => 'Versement',
             self::FATE_SORT         => 'Tri',
+            self::FATE_UNKNOWN      => 'Non déterminé',
+            self::FATE_NULL         => 'Non déterminé',
         ];
     }
 
