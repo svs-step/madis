@@ -73,7 +73,7 @@
                                                     {% else %}
                                                         {% set type = 'success' %}
                                                     {% endif %}
-                                                    <span style="display: block; width: 50px; margin: auto; " class="label label-{{ type }}">{{ conformite.vars.value.conformite }} / 5</span>
+                                                    <span style="width: 50px;" class="badge {{ type }}">{{ conformite.vars.value.conformite }} / 5</span>
                                                 </td>
                                                 <td style="vertical-align: middle">
                                                     <ul>
@@ -103,13 +103,13 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     <a aria-label="{{ 'registry.conformite_organisation.action.create'|trans }}" href="{{ path('registry_conformite_organisation_create') }}" class="btn btn-default">
-                        <i class="fa fa-clipboard-list"></i>
+                        <i class="fa fa-plus"></i>
                         {{ 'registry.conformite_organisation.action.create'|trans }}
                     </a>
 
                     {% if category and category.documents|length > 0 %}
                         <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i class="far fa-file"></i>
+                            <i class="fa fa-circle-info"></i>
                             {{ 'documentation.document.link.button'|trans }}
                         </a>
                     {% endif %}
@@ -143,13 +143,12 @@
                                 <td>{% if evaluation.date is not null %}{{ evaluation.date|date('d/m/Y') }}{% endif %}</td>
                                 <td>{{ evaluation.participants|length }}</td>
                                 <td>
-                                    <span class="badge bg-gr">
                                     {% if evaluation.draft %}
-                                        {{ 'label.yes'|trans }}
+                                        <span class="badge">{{ 'label.yes'|trans }}</span>
                                     {% else %}
-                                        {{ 'label.no'|trans }}
+                                        <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
                                     {% endif %}
-                                </span></td>
+                                </td>
                                 <td>
                                     <a aria-label="{{ 'registry.conformite_organisation.action.print'|trans }}" href="{{ path('registry_conformite_organisation_report', {'id': evaluation.id}) }}">
                                         <i class="fa fa-clipboard-list"></i>
@@ -158,7 +157,7 @@
                                     {% if is_granted('ROLE_USER') %}
                                         {% if evaluation.isDraft %}
                                             <a aria-label="{{ 'registry.conformite_organisation.action.edit'|trans }}" href="{{ path('registry_conformite_organisation_edit', {'id': evaluation.id}) }}">
-                                                <i class="fa fa-pencil-alt"></i>
+                                                <i class="fa fa-pencil"></i>
                                                 {{ 'registry.conformite_organisation.action.edit'|trans }}
                                             </a>
                                         {% endif %}

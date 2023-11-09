@@ -346,7 +346,7 @@ registry:
         title:
             archive: Archiver une preuve
             create: Créer une preuve
-            edit: Éditer une preuve
+            edit: Modifier une preuve
             list: Liste des preuves
             delete: Supprimer une preuve
 
@@ -439,7 +439,7 @@ registry:
             treatment: Traitements associés
         title:
             create: Créer une demande
-            edit: Éditer une demande
+            edit: Modifier une demande
             delete: Archiver une demande
             list: Liste des demandes
             show: Visualiser
@@ -529,7 +529,7 @@ registry:
             public_registry: Registre public
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
-            security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
+            security_entitled_persons: À tout moment il est possible de ressortir les personnes habilitées
             security_open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
             security_other: Autres
             security_saving: Sauvegarde
@@ -569,7 +569,7 @@ registry:
             conformite_traitement: Conformité du traitement
             created_at: Date de création
             avis_aipd: Avis AIPD
-            entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
+            entitled_persons: À tout moment il est possible de ressortir les personnes habilitées
             goal: Finalité
             legal_basis: Base légale
             manager: Gestionnaire
@@ -638,7 +638,7 @@ registry:
             public_register: Registre public
             recipient_category: Catégorie de destinataires
             security_access_control: Contrôle d'accès
-            security_entitled_persons: A tout moment il est possible de ressortir les personnes habilitées
+            security_entitled_persons: À tout moment il est possible de ressortir les personnes habilitées
             security_open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
             security_other: Autres
             security_saving: Sauvegarde
@@ -799,8 +799,8 @@ registry:
             edit_submit: Modifier l'évaluation du traitement
         title:
             list: Conformité des traitements
-            create: Evaluer un traitement
-            edit: Evaluer un traitement
+            create: Évaluer un traitement
+            edit: Évaluer un traitement
         form:
             action_protection: Action de protection
             conformite: Conformité

@@ -12,7 +12,7 @@
 
 {% block body_head %}
     <h1>{{ 'documentation.category.title.list'|trans }}
-        <small><i class="fas fa-tag"></i> {{ 'label.category'|trans }}</small>
+        <small>{{ 'label.category'|trans }}</small>
     </h1>
 {% endblock %}
 
@@ -63,7 +63,7 @@
                             <td>
                                 {% if object.systeme == 0 %}
                                     <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('documentation_category_edit', { 'id': object.id }) }}">
-                                        <i class="fa fa-pencil-alt"></i>
+                                        <i class="fa fa-pencil"></i>
                                         {{ 'action.edit'|trans }}
                                     </a>
                                     <a aria-label="{{ 'action.delete'|trans }}" href="{{ path('documentation_category_delete', { 'id': object.id }) }}">

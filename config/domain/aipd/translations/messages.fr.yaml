@@ -18,7 +18,7 @@ aipd:
             confirmation: Souhaitez vous vraiment supprimer le modèle d'analyse %name% ?
         list:
             description: Description
-            name: Nom du modèle d'analyse d'impact
+            name: Nom
             updated_at: Date de modification
             created_at: Date de création
         flashbag:
@@ -30,7 +30,7 @@ aipd:
                 import: Modèle d'analyse "%object%" importé avec succès
         form:
             scenario_menace:
-                add: Ajouter un scenario de menace
+                add: Ajouter un scénario de menace
     mesure_protection:
         action:
             new: Nouvelle mesure
@@ -53,7 +53,7 @@ aipd:
                 delete: Mesure de protection "%object%" supprimée avec succès
         list:
             detail: Détail
-            nom: Nom de la mesure
+            nom: Nom
             title: Mesures de protection
             nom_court: Nom court
             poids_vraisemblance: Poids de la vraisemblance

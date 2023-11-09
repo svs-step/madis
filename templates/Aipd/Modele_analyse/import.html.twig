@@ -32,15 +32,17 @@
                 </div>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="box-footer text-center">
-            <a aria-label="{{ 'aipd.modele_analyse.action.back_to_list'|trans }}" href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">
-                {{ 'aipd.modele_analyse.action.back_to_list'|trans }}
-            </a>
-            <input type="submit" class="btn btn-primary" value="Enregistrer">
-        </div>
 
+        <div class="col-md-12">
+            <div class="box box-solid">
+                  <div class="box-body text-center">
+                      <a aria-label="{{ 'aipd.modele_analyse.action.back_to_list'|trans }}" href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">
+                          {{ 'aipd.modele_analyse.action.back_to_list'|trans }}
+                      </a>
+                      <input type="submit" class="btn btn-primary" value="Importer le modèle">
+                  </div>
+            </div>
+        </div>
 
         {{ form_end(form) }}
     </div>

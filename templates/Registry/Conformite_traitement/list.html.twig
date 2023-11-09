@@ -31,7 +31,7 @@
                     </a>
                     {% if category and category.documents|length > 0 %}
                         <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i class="far fa-file"></i>
+                            <i class="fa fa-circle-info"></i>
                             {{ 'documentation.document.link.button'|trans }}
                         </a>
                     {% endif %}
@@ -166,7 +166,7 @@
                                 {% if is_granted('ROLE_USER') and ((services_user is empty) or ((object.service is defined) and (object.service in services_user)))%}
                                     <td>
                                         <a aria-label="{{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}" href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
-                                            <i class="fa fa-pencil-alt"></i>
+                                            <i class="fa fa-pencil"></i>
                                             {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
                                         </a>
                                         {% if conformiteTraitement is not null %}

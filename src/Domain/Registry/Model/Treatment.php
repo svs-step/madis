@@ -395,7 +395,7 @@ class Treatment implements LoggableSubject, CollectivityRelated
     private $service;
 
     /**
-     * FR: Préconisation DPO.
+     * FR: Préconisation DPD.
      *
      * @var string|null
      */

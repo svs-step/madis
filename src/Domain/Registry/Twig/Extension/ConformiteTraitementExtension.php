@@ -92,15 +92,15 @@ class ConformiteTraitementExtension extends AbstractExtension
         $label = ConformiteTraitementLevelDictionary::getConformites()[array_flip(ConformiteTraitementLevelDictionary::getConformitesWeight())[$level]];
         switch ($level) {
             case 1:
-                $color = 'green';
+                $color = 'label-success';
                 break;
             case 2:
-                $color = 'orange';
+                $color = 'label-warning';
                 break;
             default:
-                $color = 'red';
+                $color = 'label-danger';
         }
 
-        return '<span class="badge bg-' . $color . '">' . $label . '</span>';
+        return '<span class="label ' . $color . '" style="display: inline-block;">' . $label . '</span>';
     }
 }

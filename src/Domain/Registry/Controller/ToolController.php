@@ -286,7 +286,7 @@ class ToolController extends CRUDController
     {
         return '<a href="' .
             $this->router->generate('registry_tool_edit', ['id' => $tool->getId()]) . '">
-            <i class="fa fa-pencil-alt"></i> ' .
+            <i class="fa fa-pencil"></i> ' .
             $this->translator->trans('registry.tool.action.edit')
             . '</a>
             

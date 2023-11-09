@@ -19,130 +19,130 @@
 {% endblock %}
 
 {% block body %}
-<nav role="navigation" aria-label="Menu secondaire" tabindex="-1">
+<nav role="navigation" aria-label="Plan du site" tabindex="-1">
 
     <ul data-widget="tree">
         <li><a href="{{ path('logout') }}">Déconnexion</a></li>
 
         <li>
-            <a aria-label="{{ 'sidebar_menu.dashboard'|trans }}" href="{{ path('reporting_dashboard_index') }}">
+            <a href="{{ path('reporting_dashboard_index') }}">
                 <span>{{ 'sidebar_menu.dashboard'|trans }}</span>
             </a>
             <ul>
                 {% if app_activate_notifications %}
-                    <li><a aria-label="Notifications" href="{{ path('notification_notification_list') }}">Centre de notifications</a></li>
+                    <li><a href="{{ path('notification_notification_list') }}">Centre de notifications</a></li>
                 {% endif %}
-                <li><a aria-label="{{ 'sidebar_menu.registry_treatments'|trans }}" href="{{ path('registry_treatment_list') }}">
+                <li><a href="{{ path('registry_treatment_list') }}">
                     <span>Liste des traitements (Actif)</span>
                     </a>
                     <ul>
-                        <li><a aria-label="{{ 'sidebar_menu.registry_treatments'|trans }}" href="{{ path('registry_treatment_list', {'active' : 'false'}) }}">
+                        <li><a href="{{ path('registry_treatment_list', {'active' : 'false'}) }}">
                             <span>Liste des traitements (Inactif)</span>
                         </a></li>
                     {% if is_granted('ROLE_ADMIN') %}
                         <li>
-                            <a aria-label="{{ 'sidebar_menu.configuration_treatments'|trans }}" href="{{ path('registry_treatment_configuration') }}">
+                            <a href="{{ path('registry_treatment_configuration') }}">
                                 <span>{{ 'sidebar_menu.configuration_treatments'|trans }}</span>
                             </a>
                         </li>
                     {% endif %}
                     </ul>
                 </li>
-                <li><a aria-label="{{ 'sidebar_menu.registry_contractors'|trans }}" href="{{ path('registry_contractor_list') }}">
+                <li><a href="{{ path('registry_contractor_list') }}">
                     <span>Liste des sous-traitants</span>
                 </a></li>
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleTools == true %}
-                    <li><a aria-label="{{ 'sidebar_menu.registry_tools'|trans }}" href="{{ path('registry_tool_list') }}">
+                    <li><a href="{{ path('registry_tool_list') }}">
                             <span>Liste des logiciels et supports</span>
                         </a></li>
                 {% endif %}
-                <li><a aria-label="{{ 'sidebar_menu.registry_requests'|trans }}" href="{{ path('registry_request_list') }}">
+                <li><a href="{{ path('registry_request_list') }}">
                     <span>Liste des demandes (Non archivés)</span>
                     </a>
                     <ul>
-                        <li><a aria-label="{{ 'sidebar_menu.registry_requests'|trans }}" href="{{ path('registry_request_list', {'archive' : 'true'}) }}">
+                        <li><a href="{{ path('registry_request_list', {'archive' : 'true'}) }}">
                             <span>Liste des demandes (Archivés)</span>
                         </a></li>
                     </ul>
                 </li>
-                <li><a aria-label="{{ 'sidebar_menu.registry_violations'|trans }}" href="{{ path('registry_violation_list') }}">
+                <li><a href="{{ path('registry_violation_list') }}">
                     <span>Liste des violations (Non archivés)</span>
                     </a>
                     <ul>
-                        <li><a aria-label="{{ 'sidebar_menu.registry_violations'|trans }}" href="{{ path('registry_violation_list', {'archive' : 'true'}) }}">
+                        <li><a href="{{ path('registry_violation_list', {'archive' : 'true'}) }}">
                             <span>Liste des violations (Archivés)</span>
                         </a></li>
                     </ul>
                 </li>
-                <li><a aria-label="{{ 'sidebar_menu.registry_proofs'|trans }}" href="{{ path('registry_proof_list') }}">
+                <li><a href="{{ path('registry_proof_list') }}">
                     <span>Liste des preuves (Non archivés)</span>
                     </a>
                     <ul>
-                        <li><a aria-label="{{ 'sidebar_menu.registry_proofs'|trans }}" href="{{ path('registry_proof_list', {'archive' : 'true'}) }}">
+                        <li><a href="{{ path('registry_proof_list', {'archive' : 'true'}) }}">
                             <span>Liste des preuves (Archivés)</span>
                         </a></li>
                     </ul>
                 </li>
-                <li><a aria-label="{{ 'sidebar_menu.registry_mesurements'|trans }}" href="{{ path('registry_mesurement_list') }}">
+                <li><a href="{{ path('registry_mesurement_list') }}">
                     <span>Liste des actions de protection</span>
                 </a></li>
-                <li><a aria-label="{{ 'sidebar_menu.registry_action_plan'|trans }}" href="{{ path('registry_mesurement_action_plan') }}">
+                <li><a href="{{ path('registry_mesurement_action_plan') }}">
                     <span>Plan d'actions</span>
                 </a></li>
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <li>
-                        <a aria-label="{{ 'sidebar_menu.aipd_modele'|trans }}" href="{{ path('aipd_modele_analyse_list') }}">
+                        <a href="{{ path('aipd_modele_analyse_list') }}">
                             Liste des modèles d'analyse
                         </a>
                     </li>
                     <li>
-                        <a aria-label="{{ 'sidebar_menu.aipd_mesure_protection'|trans }}" href="{{ path('aipd_mesure_protection_list') }}">
+                        <a href="{{ path('aipd_mesure_protection_list') }}">
                             <span>Liste des mesures de protection</span>
                         </a>
                     </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement == true %}
                     <li>
-                        <a aria-label="{{ 'sidebar_menu.aipd_analyse_impact'|trans }}" href="{{ path('aipd_analyse_impact_list') }}">
+                        <a href="{{ path('aipd_analyse_impact_list') }}">
                             <span>{{ 'sidebar_menu.aipd_analyse_impact'|trans }}</span>
                         </a>
                     </li>
                 {% endif %}
                 <li>
-                    <a aria-label="{{ 'sidebar_menu.maturity_survey'|trans }}" href="{{ path('maturity_survey_list') }}">
+                    <a href="{{ path('maturity_survey_list') }}">
                         <span>Liste des indices de maturité</span>
                     </a>
                 </li>
                 {% if is_granted('ROLE_ADMIN') %}
                     <li>
-                        <a aria-label="{{ 'sidebar_menu.maturity_referentiel'|trans }}" href="{{ path('maturity_referentiel_list') }}">
+                        <a href="{{ path('maturity_referentiel_list') }}">
                             <span>{{ 'sidebar_menu.maturity_referentiel'|trans }}</span>
                         </a>
                     </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement %}
                 <li>
-                    <a aria-label="{{ 'sidebar_menu.conformite_traitements'|trans }}" href="{{ path('registry_conformite_traitement_list') }}">
+                    <a href="{{ path('registry_conformite_traitement_list') }}">
                         <span>{{ 'sidebar_menu.conformite_traitements'|trans }}</span>
                     </a>
                 </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteOrganisation %}
                     <li>
-                        <a aria-label="Conformité" href="{{ path('registry_conformite_organisation_list') }}">
+                        <a href="{{ path('registry_conformite_organisation_list') }}">
                             <span>{{ 'sidebar_menu.conformite_structure'|trans }}</span>
                         </a>
                     </li>
                 {% endif %}
                 <li>
-                    <a aria-label="{{ 'sidebar_menu.documentation'|trans }}" href="{{ path('documentation_document_index') }}">
+                    <a href="{{ path('documentation_document_index') }}">
                         <span>{{ 'sidebar_menu.documentation'|trans }}</span>
                     </a>
 
                 {% if is_granted('ROLE_ADMIN') %}
                     <ul>
-                        <li><a aria-label="{{ 'documentation.category.action.list'|trans }}" href="{{ path('documentation_category_list') }}">
+                        <li><a href="{{ path('documentation_category_list') }}">
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
                     </li>
@@ -153,35 +153,35 @@
                     {# Referent is not allowed to duplicate#}
                     {% if is_granted('ROLE_ADMIN') %}
                         <li>
-                            <a aria-label="{{ 'sidebar_menu.admin_duplication'|trans }}" href="{{ path('admin_duplication_new') }}">
+                            <a href="{{ path('admin_duplication_new') }}">
                                 <span>{{ 'sidebar_menu.admin_duplication'|trans }}</span>
                             </a>
                         </li>
                     {% endif %}
                     <li>
-                        <a aria-label="{{ 'sidebar_menu.user_collectivities'|trans }}" href="{{ path('user_collectivity_list') }}">
+                        <a href="{{ path('user_collectivity_list') }}">
                             Liste des structures
                         </a>
                         <ul>
                             <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
-                                <a aria-label="{{ 'sidebar_menu.user_profile_collectivity'|trans }}" href="{{ path('user_profile_collectivity_show') }}">
+                                <a href="{{ path('user_profile_collectivity_show') }}">
                                     <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
                                 </a>
                             </li>
                         </ul>
                     </li>
                     <li>
-                        <a aria-label="{{ 'sidebar_menu.user_users'|trans }}" href="{{ path('user_user_list') }}">
+                        <a href="{{ path('user_user_list') }}">
                             Liste des utilisateurs (Non archivés)
                         </a>
                         <ul>
                             <li>
-                                <a aria-label="{{ 'sidebar_menu.user_users'|trans }}" href="{{ path('user_user_list', {'archive' : 'true'}) }}">
+                                <a href="{{ path('user_user_list', {'archive' : 'true'}) }}">
                                     Liste des utilisateurs (Archivés)
                                 </a>
                             </li>
                             <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
-                                <a aria-label="{{ 'sidebar_menu.user_profile_user'|trans }}" href="{{ path('user_profile_user_edit') }}">
+                                <a href="{{ path('user_profile_user_edit') }}">
                                     <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
                                 </a>
                             </li>
@@ -190,25 +190,25 @@
                 {% endif %}
                 {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_REFERENT')%}
                     <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
-                        <a aria-label="{{ 'sidebar_menu.user_profile_collectivity'|trans }}" href="{{ path('user_profile_collectivity_show') }}">
+                        <a href="{{ path('user_profile_collectivity_show') }}">
                             <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
                         </a>
                     </li>
                     <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
-                        <a aria-label="{{ 'sidebar_menu.user_profile_user'|trans }}" href="{{ path('user_profile_user_edit') }}">
+                        <a href="{{ path('user_profile_user_edit') }}">
                             <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
                         </a>
                     </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <li>
-                        <a aria-label="{{ 'sidebar_menu.reporting_journalisation'|trans }}" href="{{ path('reporting_journalisation_index') }}">
+                        <a href="{{ path('reporting_journalisation_index') }}">
                             <span>{{ 'sidebar_menu.reporting_journalisation'|trans }} des actions</span>
                         </a>
                     </li>
                 {% endif %}
-                <li><a aria-label="sitemap" href="{{ path('page_sitemap') }}">Plan du site</a></li>
-                <li><a aria-label="credit" href="{{ path('page_credit') }}">Crédit</a></li>
+                <li><a href="{{ path('page_sitemap') }}">Plan du site</a></li>
+                <li><a href="{{ path('page_credit') }}">Crédit</a></li>
             </ul>
         </li>
     </ul>

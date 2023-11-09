@@ -331,27 +331,27 @@ class ReferentielController extends CRUDController
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $htmltoReturnIfAdmin = '<a href="' . $this->router->generate('maturity_referentiel_rights', ['id' => $id]) . '">
-                <i class="fa fa-user-shield"></i>'
+                <i class="fa fa-user-shield"></i> '
                 . $this->translator->trans('action.rights') .
                 '</a>';
         }
 
         return
             '<a href="' . $this->router->generate('maturity_referentiel_edit', ['id' => $id]) . '">
-                <i class="fa fa-pencil-alt"></i>'
+                <i class="fa fa-pencil"></i> '
             . $this->translator->trans('action.edit') .
             '</a>'
             . $htmltoReturnIfAdmin .
             '<a href="' . $this->router->generate('maturity_referentiel_duplicate', ['id' => $id]) . '">
-                <i class="fa fa-clone"></i>' .
+                <i class="fa fa-clone"></i> ' .
             $this->translator->trans('action.duplicate') .
             '</a>' .
             '<a href="' . $this->router->generate('maturity_referentiel_export', ['id' => $id]) . '">
-                <i class="fa fa-file-code"></i>' .
+                <i class="fa fa-file-code"></i> ' .
             $this->translator->trans('action.export') .
             '</a>' .
             '<a href="' . $this->router->generate('maturity_referentiel_delete', ['id' => $id]) . '">
-                <i class="fa fa-trash"></i>' .
+                <i class="fa fa-trash"></i> ' .
             $this->translator->trans('action.delete') .
             '</a>';
     }

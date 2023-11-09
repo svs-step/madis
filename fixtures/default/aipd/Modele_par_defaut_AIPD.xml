@@ -2,7 +2,7 @@
 <result>
   <nom><![CDATA[Modèle par défaut]]></nom>
   <description><![CDATA[Modèle par défaut [12 Risques, 28 Mesures] (A1 v1.01)]]></description>
-  <label_amelioration_prevue><![CDATA[Amelioration prévue]]></label_amelioration_prevue>
+  <label_amelioration_prevue><![CDATA[Amélioration prévue]]></label_amelioration_prevue>
   <label_insatisfaisant><![CDATA[Insatisfaisant]]></label_insatisfaisant>
   <label_satisfaisant><![CDATA[Satisfaisant]]></label_satisfaisant>
   <critere_principe_fondamentaux>

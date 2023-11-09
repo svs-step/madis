@@ -28,14 +28,14 @@ use App\Application\Dictionary\SimpleDictionary;
 
 class DocumentTypeDictionary extends SimpleDictionary
 {
-    public const TYPE_PDF   = 'PDF';
-    public const TYPE_MP4   = 'Vidéos';
-    public const TYPE_AUDIO = 'Audios';
-    public const TYPE_LINK  = 'Liens';
-    public const TYPE_DOCX  = 'Documents';
-    public const TYPE_IMG   = 'Images';
-    public const TYPE_PPT   = 'PowerPoint';
+    public const TYPE_AUDIO = 'Audio';
+    public const TYPE_DOCX  = 'Document';
     public const TYPE_EXCEL = 'Excel';
+    public const TYPE_IMG   = 'Image';
+    public const TYPE_LINK  = 'Lien';
+    public const TYPE_PDF   = 'PDF';
+    public const TYPE_PPT   = 'PowerPoint';
+    public const TYPE_MP4   = 'Vidéo';
 
     public function __construct()
     {
@@ -50,14 +50,14 @@ class DocumentTypeDictionary extends SimpleDictionary
     public static function getTypes()
     {
         return [
-            self::TYPE_PDF   => 'PDF',
-            self::TYPE_MP4   => 'Vidéos',
-            self::TYPE_AUDIO => 'Audios',
-            self::TYPE_LINK  => 'Liens',
-            self::TYPE_DOCX  => 'Documents',
-            self::TYPE_IMG   => 'Images',
-            self::TYPE_PPT   => 'PowerPoint',
+            self::TYPE_AUDIO => 'Audio',
+            self::TYPE_DOCX  => 'Document',
             self::TYPE_EXCEL => 'Excel',
+            self::TYPE_IMG   => 'Image',
+            self::TYPE_LINK  => 'Lien',
+            self::TYPE_PDF   => 'PDF',
+            self::TYPE_PPT   => 'PowerPoint',
+            self::TYPE_MP4   => 'Vidéo',
         ];
     }
 

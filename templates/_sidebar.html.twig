@@ -52,7 +52,7 @@
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'registry_proof' %}class="active"{% endif %}>
                     <a aria-label="{{ 'sidebar_menu.registry_proofs'|trans }}" href="{{ path('registry_proof_list') }}">
-                        <i class="fa fa-file"></i>
+                        <i class="fa fa-file-shield"></i>
                         <span>{{ 'sidebar_menu.registry_proofs'|trans }}</span>
                     </a>
                 </li>
@@ -98,7 +98,7 @@
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement == true %}
                 <li {% if menuItem == 'aipd_analyse_impact' %}class="active"{% endif %}>
                     <a aria-label="{{ 'sidebar_menu.aipd_analyse_impact'|trans }}" href="{{ path('aipd_analyse_impact_list') }}">
-                        <i class="fa fa-chart-bar"></i>
+                        <i class="fa fa-magnifying-glass-chart"></i>
                         <span>{{ 'sidebar_menu.aipd_analyse_impact'|trans }}</span>
                     </a>
                 </li>
@@ -111,7 +111,7 @@
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'maturity_survey' %}class="active"{% endif %}>
                     <a aria-label="{{ 'sidebar_menu.maturity_survey'|trans }}" href="{{ path('maturity_survey_list') }}">
-                        <i class="fa fa-chart-bar"></i>
+                        <i class="fa fa-chart-line"></i>
                         <span>{{ 'sidebar_menu.maturity_survey'|trans }}</span>
                     </a>
                 </li>
@@ -139,7 +139,7 @@
                     {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement %}
                         <li {% if menuItem == 'registry_conformite_traitement' %}class="active"{% endif %}>
                             <a aria-label="{{ 'sidebar_menu.conformite_traitements'|trans }}" href="{{ path('registry_conformite_traitement_list') }}">
-                                <i class="fa fa-clipboard-list"></i>
+                                <i class="fa fa-list-check"></i>
                                 <span>{{ 'sidebar_menu.conformite_traitements'|trans }}</span>
                             </a>
                         </li>
@@ -147,24 +147,8 @@
                     {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteOrganisation %}
                         <li  {% if menuItem == 'registry_conformite_organisation' %}class="active"{% endif %}>
                             <a aria-label="Conformité de la structure" href="{{ path('registry_conformite_organisation_list') }}">
-                                <i class="fa fa-clipboard-list"></i>
+                                <i class="fa fa-house-circle-check"></i>
                                 <span>{{ 'sidebar_menu.conformite_structure'|trans }}</span>
-                            </a>
-                        </li>
-                    {% endif %}
-                </ul>
-            </li>
-        {% endif %}
-        {# CONFIGURATION #}
-        {% if is_granted('ROLE_ADMIN') %}
-            <li class="header">
-                <span>Configuration</span>
-                <ul class="sidebar-menu">
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <li {% if menuItem == 'registry_treatment_configuration' %}class="active"{% endif %}>
-                            <a aria-label="{{ 'sidebar_menu.configuration_treatments'|trans }}" href="{{ path('registry_treatment_configuration') }}">
-                                <i class="fa fa-clipboard-list"></i>
-                                <span>{{ 'sidebar_menu.configuration_treatments'|trans }}</span>
                             </a>
                         </li>
                     {% endif %}
@@ -237,9 +221,25 @@
                 {% endif %}
             </ul>
         </li>
+        {# CONFIGURATION #}
+        {% if is_granted('ROLE_ADMIN') %}
+            <li class="header">
+                <span>Configuration</span>
+                <ul class="sidebar-menu">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <li {% if menuItem == 'registry_treatment_configuration' %}class="active"{% endif %}>
+                            <a aria-label="{{ 'sidebar_menu.configuration_treatments'|trans }}" href="{{ path('registry_treatment_configuration') }}">
+                                <i class="fa fa-gears"></i>
+                                <span>{{ 'sidebar_menu.configuration_treatments'|trans }}</span>
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </li>
+        {% endif %}
         <li class="sidebar-logo">
-            <a aria-label="logo" href="{{ app_image_sidebar_bottom_target_url }}" target="_blank" rel="nofollow noreferrer noopener">
-                <img src="{{ asset(app_image_sidebar_bottom_path) }}" alt="Logo du provider Madis" />
+            <a aria-label="Gestionnaire de Madis" href="{{ app_image_sidebar_bottom_target_url }}" target="_blank" rel="nofollow noreferrer noopener">
+                <img src="{{ asset(app_image_sidebar_bottom_path) }}" alt="" />
             </a>
         </li>
     </ul>

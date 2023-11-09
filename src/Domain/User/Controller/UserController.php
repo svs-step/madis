@@ -288,7 +288,7 @@ class UserController extends CRUDController
             if (\is_null($user->getDeletedAt())) {
                 $cellContent .=
                     '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('user_user_edit', ['id' => $user->getId()]) . '">
-                        <i class="fa fa-pencil-alt"></i> ' .
+                        <i class="fa fa-pencil"></i> ' .
                     $this->translator->trans('action.edit') .
                     '</a> ';
             }
@@ -310,7 +310,7 @@ class UserController extends CRUDController
 
                 $cellContent .=
                 '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
-                    <i class="fa fa-trash-alt"></i> ' .
+                    <i class="fa fa-trash"></i> ' .
                 $this->translator->trans('action.delete') .
                 '</a> ';
             }

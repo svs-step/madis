@@ -29,7 +29,7 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-file"></i></span>
+                <span class="info-box-icon bg-red"><i class="fa fa-file-shield"></i></span>
 
                 <div class="info-box-content">
                     <span>Preuves déposées (moyenne)</span>
@@ -45,7 +45,7 @@
                 <span class="info-box-icon bg-green"><i class="fa fa-clipboard-list"></i></span>
 
                 <div class="info-box-content">
-                    <span style="white-space: normal;">Structures ayant déposé un bilan (12 der mois)</span>
+                    <span style="white-space: normal;">Structures ayant déposé un bilan (12 derniers mois)</span>
                     <span class="info-box-number">{{ data.balanceSheetProofByCollectivity.average|number_format }}<small>%</small></span>
                 </div>
             </div>
@@ -53,10 +53,10 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="fa fa-chart-bar"></i></span>
+                <span class="info-box-icon bg-yellow"><i class="fa fa-chart-line"></i></span>
 
                 <div class="info-box-content">
-                    <span style="white-space: normal;">Structures ayant fait un indice de mat. (12 der mois)</span>
+                    <span style="white-space: normal;">Structures ayant fait un indice de maturité (12 derniers mois)</span>
                     <span class="info-box-number">{{ data.surveyLastYear.average|number_format }}<small>%</small></span>
                 </div>
             </div>
@@ -79,16 +79,16 @@
               </div>
             <div class="col-md-4 col-sm-4 bg-green">
               <div class="pad">
-                <br />
-                <div class="report text-center">
-                  <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
+                <p class="report text-center">
+                  <i class="fa fa-house"></i>
                   <span class="info-box-number">{{data.collectivityByAddressInsee.value.all}}</span>
-                  <span class="info-box-text">Nombre de structures</span>
-                  <br />
-                  <span class="info-box-text "> <i class="far fa-chart-bar"></i></span>
-                  <span class="info-box-number">{{data.collectivityByAddressInsee.value.dpoPercent}}</span>
-                  <span class="info-box-text">% DPO</span>
-                </div>
+                  <span class="info-box-text">Structures</span>
+                <p class="report text-center">
+                </p>
+                  <i class="fa fa-user-shield"></i>
+                  <span class="info-box-number">{{data.collectivityByAddressInsee.value.dpoPercent}} %</span>
+                  <span class="info-box-text">DPD</span>
+                </p>
               </div>
             </div>
             </div>

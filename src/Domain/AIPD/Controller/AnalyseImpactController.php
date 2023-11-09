@@ -119,7 +119,7 @@ class AnalyseImpactController extends CRUDController
         /** @var AnalyseImpact $analyse */
         foreach ($analyses as $analyse) {
             $response['data'][] = [
-                'traitement'       => '<a aria-label="' . $analyse->getConformiteTraitement()->getTraitement()->getName() . '" href="' . $this->router->generate('registry_treatment_show', ['id' => $analyse->getConformiteTraitement()->getTraitement()->getId()]) . '">' . $analyse->getConformiteTraitement()->getTraitement()->getName() . '</a>',
+                'traitement'       => '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $analyse->getConformiteTraitement()->getTraitement()->getId()]) . '">' . $analyse->getConformiteTraitement()->getTraitement()->getName() . '</a>',
                 'dateDeCreation'   => $analyse->getCreatedAt()->format('d/m/Y'),
                 'dateDeValidation' => null === $analyse->getDateValidation() ? '' : $analyse->getDateValidation()->format('d/m/Y'),
                 'modele'           => $analyse->getModeleAnalyse(),
@@ -154,7 +154,7 @@ class AnalyseImpactController extends CRUDController
     private function generateActionCell(AnalyseImpact $analyseImpact): string
     {
         $cell = '<a aria-label="' . $this->translator->trans('action.print') . '" href="' . $this->router->generate('aipd_analyse_impact_print', ['id' => $analyseImpact->getId()]) . '">
-        <i class="fa fa-print"></i>' .
+        <i class="fa fa-print"></i> ' .
             $this->translator->trans('action.print') . '
         </a>';
 
@@ -162,12 +162,12 @@ class AnalyseImpactController extends CRUDController
         if ('ROLE_PREVIEW' !== $user->getRoles()[0]) {
             if (!$analyseImpact->isValidated()) {
                 $cell .= '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
-                    <i class="fa fa-pencil-alt"></i>' .
+                    <i class="fa fa-pencil"></i> ' .
                     $this->translator->trans('action.edit') . '
                     </a>';
                 if ($analyseImpact->isReadyForValidation()) {
                     $cell .= '<a aria-label="' . $this->translator->trans('action.validate') . '" href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
-                    <i class="fa fa-check-square"></i>' .
+                    <i class="fa fa-check-square"></i> ' .
                         $this->translator->trans('action.validate') . '
                     </a>';
                 }
@@ -185,19 +185,19 @@ class AnalyseImpactController extends CRUDController
     {
         switch ($avis->getReponse()) {
             case ReponseAvisDictionary::REPONSE_FAVORABLE:
-                $color = 'success';
+                $color = 'label-success';
                 break;
             case ReponseAvisDictionary::REPONSE_FAVORABLE_RESERVE:
-                $color = 'warning';
+                $color = 'label-warning';
                 break;
             case ReponseAvisDictionary::REPONSE_DEFAVORABLE:
-                $color = 'danger';
+                $color = 'label-danger';
                 break;
             default:
-                $color = 'default';
+                $color = 'label-default';
         }
 
-        return '<span class="label label-' . $color . '" style="min-width: 100%; display: inline-block;">' . ReponseAvisDictionary::getReponseAvis()[$avis->getReponse()] . '</span>';
+        return '<span class="label ' . $color . '" style="min-width: 100%; display: inline-block;">' . ReponseAvisDictionary::getReponseAvis()[$avis->getReponse()] . '</span>';
     }
 
     /**
