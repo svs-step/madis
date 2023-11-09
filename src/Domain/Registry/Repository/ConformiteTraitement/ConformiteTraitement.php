@@ -37,4 +37,6 @@ interface ConformiteTraitement extends CRUDRepositoryInterface
      * @return array The array of conformiteTraitement given by the collectivity
      */
     public function findAllByCollectivity(Collectivity $collectivity);
+
+    public function findActiveByCollectivity(Collectivity $collectivity);
 }

@@ -400,7 +400,7 @@ class UserMetric implements MetricInterface
                 $data['conformiteTraitement']['colors'][]   = ConformiteTraitementLevelDictionary::getRgbConformitesColorsForChartView()[$key];
             }
 
-            $conformiteTraitements                                                                 = $this->conformiteTraitementRepository->findAllByCollectivity($collectivity);
+            $conformiteTraitements                                                                 = $this->conformiteTraitementRepository->findActiveByCollectivity($collectivity);
             $nbTreatmentWithNoConformiteTraitements                                                = $this->treatmentRepository->countAllWithNoConformiteTraitementByCollectivity($collectivity);
             $data['conformiteTraitement']['data'][ConformiteTraitementLevelDictionary::NON_EVALUE] = $nbTreatmentWithNoConformiteTraitements;
 

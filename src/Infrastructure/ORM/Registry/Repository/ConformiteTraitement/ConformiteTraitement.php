@@ -52,4 +52,23 @@ class ConformiteTraitement extends CRUDRepository implements Repository\Conformi
             ->getResult()
         ;
     }
+
+    public function findActiveByCollectivity(Collectivity $collectivity)
+    {
+        $qb = $this->createQueryBuilder();
+
+        $qb
+            ->leftJoin('o.traitement', 't')
+            ->andWhere($qb->expr()->eq('t.collectivity', ':collectivity'))
+            ->andWhere($qb->expr()->eq('t.active', ':active'))
+            ->setParameter('collectivity', $collectivity)
+            ->setParameter('active', true)
+            ->orderBy('t.name')
+        ;
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+        ;
+    }
 }
