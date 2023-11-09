@@ -488,7 +488,7 @@ class SurveyController extends CRUDController
             $this->translator->trans('action.synthesis') .
             '</a>' .
             '<a href="' . $this->router->generate('maturity_survey_edit', ['id' => $id]) . '">
-                <i class="fa fa-pencil-alt"></i> '
+                <i class="fa fa-pencil"></i> '
             . $this->translator->trans('action.edit') .
             '</a>' .
             '<a href="' . $this->router->generate('maturity_survey_delete', ['id' => $id]) . '">

@@ -54,7 +54,7 @@
 
 {% block body_head %}
     <h1>{{ 'documentation.document.title.list'|trans }}
-    <small><i class="fas fa-file"></i> {{ 'documentation.document.title.subtitle'|trans }}</small>
+    <small>{{ 'documentation.document.title.subtitle'|trans }}</small>
     </h1>
 {% endblock %}
 
@@ -176,21 +176,21 @@
                                             <img src="{{ object.thumbUrl }}" alt="" height="150" style="object-fit : cover;width:100%" />
                                         {% else %}
                                             <div class="text-muted m-0" style="height:150px;padding: 50px;background: #f2f2f2;font-size: 60px;">
-                                                {% if object.typeName == "Vidéos" %}
+                                                {% if object.typeName == "Vidéo" %}
                                                     <i class="far fa-file-video"></i>
                                                 {% elseif object.typeName == "PDF" %}
                                                     <i class="far fa-file-pdf"></i>
-                                                {% elseif object.typeName == "Documents" %}
+                                                {% elseif object.typeName == "Document" %}
                                                     <i class="far fa-file-word"></i>
-                                                {% elseif object.typeName == "Liens" %}
-                                                    <i class="fas fa-globe"></i>
-                                                {% elseif object.typeName == "Images" %}
+                                                {% elseif object.typeName == "Lien" %}
+                                                    <i class="fas fa-link"></i>
+                                                {% elseif object.typeName == "Image" %}
                                                     <i class="fas fa-image"></i>
                                                 {% elseif object.typeName == "PowerPoint" %}
                                                     <i class="fas fa-file-powerpoint"></i>
                                                 {% elseif object.typeName == "Excel" %}
                                                     <i class="fas fa-file-excel"></i>
-                                                {% elseif object.typeName == "Audios" %}
+                                                {% elseif object.typeName == "Audio" %}
                                                     <i class="fas fa-file-audio"></i>
                                                 {% endif %}
                                             </div>
@@ -214,15 +214,15 @@
 
                                 <td style="display: flex; flex-direction: row;justify-content: space-between">
                                     <div>
-                                    {% if object.typeName == "Vidéos" %}
+                                    {% if object.typeName == "Vidéo" %}
                                         <i class="far fa-file-video"></i>
                                     {% elseif object.typeName == "PDF" %}
                                         <i class="far fa-file-pdf"></i>
-                                    {% elseif object.typeName == "Documents" %}
+                                    {% elseif object.typeName == "Document" %}
                                         <i class="far fa-file-word"></i>
-                                    {% elseif object.typeName == "Liens" %}
-                                        <i class="fas fa-globe"></i>
-                                    {% elseif object.typeName == "Images" %}
+                                    {% elseif object.typeName == "Lien" %}
+                                        <i class="fas fa-link"></i>
+                                    {% elseif object.typeName == "Image" %}
                                             <i class="fas fa-image"></i>
                                     {% endif %}
                                     {{ object.typeName }}
@@ -247,7 +247,7 @@
                                         </a>
                                         <div class="col-md-12" style="padding: 5px 0 0 0">
                                             <a aria-label="{{ 'action.edit'|trans }}" class="btn btn-block text-info" href="{{ path('documentation_document_edit', { 'id': object.id }) }}" style="border-color:#31708f">
-                                                <i class="fa fa-pencil-alt"></i>&nbsp;{{ 'action.edit'|trans }}
+                                                <i class="fa fa-pencil"></i>&nbsp;{{ 'action.edit'|trans }}
                                             </a>
                                         </div>
                                         <div class="col-md-12" style="padding: 5px 0 0 0">

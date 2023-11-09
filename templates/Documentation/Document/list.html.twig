@@ -148,7 +148,7 @@
                             <td class="text-center">
                                 {%  if object.pinned == 1 %}
                                     <span style="visibility: hidden">{{ object.pinned }}</span>
-                                    <i class="fas fa-paperclip"></i>
+                                    <i class="fas fa-thumbtack"></i>
                                 {% endif %}
                             </td>
                             <td class="text-center favorite">
@@ -161,21 +161,21 @@
                                 </a>
                             </td>
                             <td>
-                                {% if object.typeName == "Vidéos" %}
+                                {% if object.typeName == "Vidéo" %}
                                     <i class="far fa-file-video"></i>
                                 {% elseif object.typeName == "PDF" %}
                                     <i class="far fa-file-pdf"></i>
-                                {% elseif object.typeName == "Documents" %}
+                                {% elseif object.typeName == "Document" %}
                                     <i class="far fa-file-word"></i>
-                                {% elseif object.typeName == "Liens" %}
-                                    <i class="fas fa-globe"></i>
-                                {% elseif object.typeName == "Images" %}
+                                {% elseif object.typeName == "Lien" %}
+                                    <i class="fas fa-link"></i>
+                                {% elseif object.typeName == "Image" %}
                                     <i class="fas fa-image"></i>
                                 {% elseif object.typeName == "PowerPoint" %}
                                     <i class="fas fa-file-powerpoint"></i>
                                 {% elseif object.typeName == "Excel" %}
                                     <i class="fas fa-file-excel"></i>
-                                {% elseif object.typeName == "Audios" %}
+                                {% elseif object.typeName == "Audio" %}
                                     <i class="fas fa-file-audio"></i>
                                 {% endif %}
                                 {{ object.typeName }}
@@ -193,7 +193,7 @@
                             <td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
-                                        <i class="fa fa-pencil-alt"></i>&nbsp;{{ 'action.edit'|trans }}
+                                        <i class="fa fa-pencil"></i>&nbsp;{{ 'action.edit'|trans }}
                                     </a>
                                     <a aria-label="{{ 'action.delete'|trans }}" href="{{ path('documentation_document_delete', { 'id': object.id }) }}">
                                         <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}

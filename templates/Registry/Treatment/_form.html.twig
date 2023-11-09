@@ -4,7 +4,7 @@
     <div class="js-collection-item nopadding">
         <div class="box box-default">
             <div class="box-tools pull-right">
-                <a href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Remove">
+                <a href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Supprimer le délai">
                     <i class="fa fa-times"></i>
                 </a>
             </div>
@@ -139,8 +139,8 @@
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
             <div class="box-body">
               <div class="form-group" style="margin-bottom: 0;">
-                <label class="col-sm-2 control-label">
-                  {{ 'registry.treatment.show.concerned_people'|trans }}*
+                <label class="col-sm-2 control-label required">
+                  {{ 'registry.treatment.show.concerned_people'|trans }}
                 </label>
 
                 {% set concernedPeopleErrorBlock = null %}
@@ -150,7 +150,7 @@
                             <span class="help-block">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <span class="glyphicon glyphicon-exclamation-sign"></span> {{ error.message }}
+                                        <i class="fa-solid fa-circle-exclamation"></i> {{ error.message }}
                                     </li>
                                 </ul>
                             </span>
@@ -222,4 +222,3 @@
     </div>
 
 </div>
-

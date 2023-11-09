@@ -516,7 +516,7 @@ class TreatmentController extends CRUDController
 
             if ($this->authorizationChecker->isGranted('ROLE_USER')) {
                 return '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $editPath . '">
-             <i class="fa fa-pencil-alt"></i>
+             <i class="fa fa-pencil"></i>
                  ' . $this->translator->trans('action.edit') . '
              </a>
              <a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $deletePath . '">

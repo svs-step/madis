@@ -218,7 +218,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     public function onNoLogin(NoLoginEvent $event)
     {
         // Send email to référent opérationnel
-        // Add notification for DPO
+        // Add notification for DPD
         $user     = $event->getUser();
         $existing = $this->notificationRepository->findBy([
             'module'       => 'notification.modules.user',

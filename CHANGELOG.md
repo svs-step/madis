@@ -75,7 +75,7 @@ APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <
 ## [1.8.6] - 2022-02-17
 ### Changement
 - Correction d'un bug entraînant la multiplication du nombre d'éléments dupliqués
-- Correction d'un bug affichant toujours les services comme inactifs lors de la modification d'une structure, empêchant de les désactiver 
+- Correction d'un bug affichant toujours les services comme inactifs lors de la modification d'une structure, empêchant de les désactiver
 
 ## [1.8.5] - 2022-02-15
 ### Changement
@@ -158,7 +158,7 @@ APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <
 ## [1.8.6] - 2022-02-17
 ### Changement
 - Correction d'un bug entraînant la multiplication du nombre d'éléments dupliqués
-- Correction d'un bug affichant toujours les services comme inactifs lors de la modification d'une collectivité, empêchant de les désactiver 
+- Correction d'un bug affichant toujours les services comme inactifs lors de la modification d'une collectivité, empêchant de les désactiver
 
 ## [1.8.5] - 2022-02-15
 ### Changement
@@ -215,12 +215,12 @@ APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <
 
 ## [1.7.9] - 2020-10-06
 ### Changement
-- Ajout des liens pour accéder à la vue de consultation depuis la vue la liste d'un sous-traitant et d'une violation 
+- Ajout des liens pour accéder à la vue de consultation depuis la vue la liste d'un sous-traitant et d'une violation
 
 
 ## [1.7.8] - 2020-09-30
 ### Changement
-- Correction sur le dashboard utilisateur et correction des placeholders sur la liste des structures. 
+- Correction sur le dashboard utilisateur et correction des placeholders sur la liste des structures.
 
 ## [1.7.7] - 2020-09-21
 ### Ajout
@@ -251,7 +251,7 @@ APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <
 - [MA COLLECTIVITE] Comité IL afficher dans le bilan, #258
 - [BILAN] Ajout de paragraphes, #257
 - [DASHBOARD] Cartographie, stats, export csv traitement, export csv structure, #255
-- [DASHBOARD] Nombre de structures (par type)(par DPO), #225
+- [DASHBOARD] Nombre de structures (par type)(par DPD), #225
 ### Changement
 - [SOUS-TRAITANT] Fiche sous-traitants - traitements effectués par sous-traitant, #260
 - [TRAITEMENTS] Fiche Traitements - Précision des personnes concernées, #259
@@ -271,7 +271,7 @@ APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <
 
 ## [1.6.1] - 2019-09-23
 ### Fix
-- [ADMINISTRATION] Subrogation / Créer une donnée avec l'admin en tant que créateur ne génère plus de 500, #207 
+- [ADMINISTRATION] Subrogation / Créer une donnée avec l'admin en tant que créateur ne génère plus de 500, #207
 
 ## [1.6.0] - 2019-09-20
 ### Ajout
@@ -282,7 +282,7 @@ APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <
 ### Changement
 - [USER] La suppression (non fonctionnelle) a été remplacée par un archivage, #199
 ### Fix
-- [COLLECTIVITE] Il est maintenant possible de supprimer le site web d'une structure, #202 
+- [COLLECTIVITE] Il est maintenant possible de supprimer le site web d'une structure, #202
 - [PREUVE] Un administrateur peut maintenant télécharger les documents qui ne sont pas de sa structure, #197
 - [GLOBAL] Passage des dates au format FR (DD/MM/YYYY) dans les listes, #37 #205
 
@@ -323,7 +323,7 @@ APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <
 ### Changement
 - [TECH] Mise à jour Symfony 4.2.2 à 4.2.8 + MAJ des vulnérabilités, #153
 ### Fix
-- [CONNEXION] Modification de la durée de session et du temps d'invalidation de la session selon l'inactivité, #152 
+- [CONNEXION] Modification de la durée de session et du temps d'invalidation de la session selon l'inactivité, #152
 
 ## [1.4.1] - 2019-04-03
 ### Fix
@@ -344,7 +344,7 @@ APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <
 - [TRAITEMENT] Remplacement de la catégorie de données "Etat civil" par "Nom, prénom", "Date et lieu de naissance", "Situation pro", #105
 ### Fix
 - [TRAITEMENT] Le champ de formulaire "Délai de conservation" n'était pas bien aligné, #149
-- [USER] Lors de la création d'un utilisateur, la saisie de son mot de passe n'était pas prise en compte, #147 
+- [USER] Lors de la création d'un utilisateur, la saisie de son mot de passe n'était pas prise en compte, #147
 - [TRAITEMENT] Le champ "Autre délai" ne s'affichait pas dans la visualisation d'un traitement, #144
 - [TRAITEMENT] Le champ "Délai de conservation" n'étais pas traduit sur le word (on pouvait lire "month" par exemple), #144
 - [USER] Modifier uniquement un mot de passe ne fonctionnait pas, #139
@@ -356,7 +356,7 @@ APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <
 ### Changement
 - [TECH] Mise à jour Symfony 4.2.1 à 4.2.2, #133
 ### Fix
-- [BILAN] Le DPO moral par défaut est bien chargé au lieu des coordonnés SOLURIS, #132
+- [BILAN] Le DPD moral par défaut est bien chargé au lieu des coordonnés SOLURIS, #132
 
 ## [1.3.0] - 2018-12-12
 ### Changement
@@ -371,11 +371,11 @@ APP_NOTIFICATION_EMAIL_FIRST_LINE="Des modifications ont été apportées dans <
 
 ## [1.2.0] - 2018-11-07
 ### Changement
-- [MATURITE] Les catégories sont ordonnées lors de la visualisation et la génération Word, #109 
+- [MATURITE] Les catégories sont ordonnées lors de la visualisation et la génération Word, #109
 ### Fix
 - [GLOBAL] Le numéro de téléphone respecte maintenant les normes 0[1-9]XXXXXXXX, #119
 - [GLOBAL] Le code postal peut maintenant commencer par 0 (07100 ne fonctionnait pas par exemple), #119
-- [UTILISATEUR] Le mot de passe s'encode maintenant correctement lors de la création/édition, #113 
+- [UTILISATEUR] Le mot de passe s'encode maintenant correctement lors de la création/édition, #113
 
 ## [1.1.0] - 2018-09-20
 ### Ajout

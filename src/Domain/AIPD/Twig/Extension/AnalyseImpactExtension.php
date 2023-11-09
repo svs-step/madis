@@ -106,20 +106,20 @@ class AnalyseImpactExtension extends AbstractExtension
         $labelColor = null;
         switch ($impact) {
             case VraisemblanceGraviteDictionary::NEGLIGEABLE:
-                $labelColor = 'success';
+                $labelColor = 'label-success';
                 break;
             case VraisemblanceGraviteDictionary::LIMITEE:
-                $labelColor = 'warning';
+                $labelColor = 'label-warning';
                 break;
             case VraisemblanceGraviteDictionary::IMPORTANTE:
-                $labelColor = 'default';
+                $labelColor = 'label-default';
                 break;
             default:
-                $labelColor = 'danger';
+                $labelColor = 'label-danger';
                 break;
         }
 
-        return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;' . ('default' == $labelColor ? 'background:#605CA8; color:white;' : '') . '">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
+        return '<span class="label ' . $labelColor . '" style="min-width: 100%; display: inline-block;' . ('label-default' == $labelColor ? 'background:#605CA8; color:white;' : '') . '">' . VraisemblanceGraviteDictionary::getMasculineValues()[$impact] . '</span>';
     }
 
     public function getScenarioMenaceIndicateurResiduel(AnalyseScenarioMenace $scenarioMenace, string $poidsType)
@@ -138,17 +138,17 @@ class AnalyseImpactExtension extends AbstractExtension
         $labelColor = null;
         switch ($critere->getReponse()) {
             case ReponseCritereFondamentalDictionary::REPONSE_CONFORME:
-                $labelColor = 'success';
+                $labelColor = 'label-success';
                 break;
             case ReponseCritereFondamentalDictionary::REPONSE_NON_CONFORME:
-                $labelColor = 'danger';
+                $labelColor = 'label-danger';
                 break;
             default:
-                $labelColor = 'default';
+                $labelColor = 'label-default';
                 break;
         }
 
-        return '<span class="label label-' . $labelColor . '" style="min-width: 100%; display: inline-block;">' . ReponseCritereFondamentalDictionary::getLabelReponse($critere->getReponse()) . '</span>';
+        return '<span class="label ' . $labelColor . '" style="min-width: 100%; display: inline-block;">' . ReponseCritereFondamentalDictionary::getLabelReponse($critere->getReponse()) . '</span>';
     }
 
     public function getLastAnalyseImpact(ConformiteTraitement $conformiteTraitement): ?AnalyseImpact

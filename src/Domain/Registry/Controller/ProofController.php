@@ -401,7 +401,7 @@ class ProofController extends CRUDController
         if ($this->authorizationChecker->isGranted('ROLE_USER')) {
             if (\is_null($proof->getDeletedAt())) {
                 $cellContent .= '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_proof_edit', ['id' => $proof->getId()]) . '">
-                    <i class="fa fa-pencil-alt"></i> ' .
+                    <i class="fa fa-pencil"></i> ' .
                         $this->translator->trans('action.edit') . '
                 </a>
                 <a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('registry_proof_archive', ['id' => $proof->getId()]) . '">

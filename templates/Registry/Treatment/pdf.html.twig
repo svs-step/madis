@@ -651,7 +651,7 @@
             {% if object.collectivity.hasModuleConformiteTraitement %}
                 <div class="box box-solid box-success">
                     <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
-                    <div class="box-body">
+                    <div class="box-body no-padding">
                         <table class="table">
                             <tr>
                                 <td style="width: 35%">
@@ -661,7 +661,7 @@
                                     {% if object.conformiteTraitement is not null %}
                                         {{ getConformiteTraitementLabel(object.conformiteTraitement)|raw }}
                                     {% else %}
-                                        <span class="badge bg-gray">Non-réalisée</span>
+                                        <span class="label label-default" style="display: inline-block;">Non-réalisée</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -696,7 +696,7 @@
                 {% if object.conformiteTraitement is not null and object.conformiteTraitement.lastAnalyseImpact is not null %}
                     <div class="box box-solid box-primary">
                         <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
-                        <div class="box-body">
+                        <div class="box-body no-padding">
                             <table class="table">
                                 <tr>
                                     <td style="width: 35%">
@@ -715,7 +715,7 @@
                                         {% endif %}
                                         {% set statut = analyseImpact.statut %}
                                         {% set labelStatut = "aipd.analyse_impact.values." ~ object.conformiteTraitement.lastAnalyseImpact.statut %}
-                                        <span class="label {{ labelAipdColor }}" style="min-width: 100%; display: inline-block;">
+                                        <span class="label {{ labelAipdColor }}" style="display: inline-block;">
                                             {{ labelStatut|trans}}
                                         </span>
                                     </td>

@@ -31,7 +31,7 @@
                 </a>
                 {% if is_granted('ROLE_USER') and object.deletedAt is null and (actionEnabled) %}
                     <a href="{{ path('registry_violation_edit', {'id': object.id}) }}" class="btn btn-default">
-                        <i class="fa fa-pencil-alt"></i>
+                        <i class="fa fa-pencil"></i>
                         {{ 'action.edit'|trans }}
                     </a>
                 {% endif %}

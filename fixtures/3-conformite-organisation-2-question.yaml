@@ -161,7 +161,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_37:
         processus: '@processus_7'
         position: 4
-        nom: "Les résultats des analyses sont documentés, partagés avec le DPD ou le référent DPD. Ils font l'objet d'un plan d'action formalisé et approuvé par le responsable de traitement. Le DPO ou référent RGPD contrôle la réalisation du plan de traitement."
+        nom: "Les résultats des analyses sont documentés, partagés avec le DPD ou le référent DPD. Ils font l'objet d'un plan d'action formalisé et approuvé par le responsable de traitement. Le DPD ou référent RGPD contrôle la réalisation du plan de traitement."
     conformite_organisation_question_38:
         processus: '@processus_8'
         position: 1

@@ -40,7 +40,7 @@
 
                 {% if category is defined and category and category.documents|length > 0 %}
                     <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                        <i class="far fa-file"></i>
+                        <i class="fa fa-circle-info"></i>
                         {{ 'documentation.document.link.button'|trans }}
                     </a>
                 {% endif %}

@@ -2,8 +2,8 @@ user:
     address:
         form:
             insee: Code INSEE
-            line_one: Ligne 1
-            line_two: Ligne 2
+            line_one: Adresse
+            line_two: Complément d'adresse
             city: Ville
             zip_code: Code postal
 
@@ -55,7 +55,7 @@ user:
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
-            edit: Éditer "%name%"
+            edit: Modifier "%name%"
             list: Liste des structures
             show: Visualiser "%name%"
         form:
@@ -74,7 +74,7 @@ user:
             short_name: Nom court
             siren: SIREN
             type: Type
-            website: Site internet
+            website: Site Internet
             informations_complementaires: Informations complémentaires
             finess_geo: FINESS Géo
             population: Population
@@ -97,11 +97,11 @@ user:
             nbr_agents: Nombre de salariés
             nbr_cnil: Numéro de désignation CNIL
             population: Population
-            tel_referent_rgpd: Tel Référent RGPD
+            tel_referent_rgpd: Téléphone Référent RGPD
             created_at: Date de création
             updated_at: Date de modification
         modal:
-            confirm_deletion: Voulez-vous vraiment supprimer cette Structure ?
+            confirm_deletion: Voulez-vous vraiment supprimer cette structure ?
         show:
             active: Statut
             address_line_one: Adresse
@@ -118,7 +118,7 @@ user:
             contact_phone_number: Téléphone
             created_at: Date de création
             different_dpo: Différent du DPD moral
-            different_it_manager: Différent du Référent Opérationnel
+            different_it_manager: Différent du Référent RGPD
             informations_complementaires: Informations complémentaires
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de la structure
@@ -144,7 +144,7 @@ user:
           historic: Historique
           it_manager: Responsable informatique
           legal_manager: Responsable de traitement
-          referent: Référent Opérationnel
+          referent: Référent RGPD
           reporting_block:
             management_commitment: Bilan paragraphe "Engagement de la direction"
             continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
@@ -154,25 +154,25 @@ user:
         title:
             create: Créer une structure
             delete: Supprimer une structure
-            edit: Éditer une structure
+            edit: Modifier une structure
             label: Structure
             list: Liste des structures
             show: Visualiser une structure
 
     profile:
         breadcrumb:
-            collectivity_edit: Éditer
-            collectivity_show: Ma Structure
-            user_edit: Éditer mon profil
+            collectivity_edit: Modifier ma structure
+            collectivity_show: Ma structure
+            user_edit: Modifier mon compte
         flashbag:
             success:
-                collectivity_edit: Votre Structure vient d'être mise à jour
+                collectivity_edit: Votre structure vient d'être mise à jour
                 user_edit: Votre compte vient d'être mis à jour
                 sso_associated: Le compte a été associé
                 sso_unlink: Le compte a été dissocié
             error:
                 sso_already_associated: La délégation d'authentification est déjà paramétrée
-                sso_key_duplicate: 'Identifiant SSO déjà utilisé pour le compte: email'
+                sso_key_duplicate: 'Identifiant SSO déjà utilisé pour le compte : email'
             #                ...
         form_user:
             tab:
@@ -188,7 +188,7 @@ user:
                 unlink: Dissocier le compte
 
         title:
-            collectivity_edit: Éditer ma Structure
+            collectivity_edit: Modifier ma structure
 
     security:
         forget_password:
@@ -237,14 +237,14 @@ user:
             list: Liste des utilisateurs
             create: Créer
             delete: Archiver "%name%"
-            edit: Éditer "%name%"
+            edit: Modifier "%name%"
             unarchive: Rétablir "%name%"
         form:
             notifications: Notifications
-            apiAuthorized: Accès aux Webservices (API)
+            apiAuthorized: Accès aux Web Services (API)
             collectivity: Structure
             collectivitesReferees: Structures rattachées
-            email: E-mail
+            email: Email
             not_generates_notifications: Les actions de cet utilisateur ne génèrent pas de notification
             enabled: Actif
             first_name: Prénom
@@ -253,14 +253,14 @@ user:
             last_name: Nom
             password: Mot de passe
             password_repeat: Répéter le mot de passe
-            roles: Role
+            roles: Rôle
             moreInfos: Informations supplémentaires
             services: Services
             sso_key: Fournisseur d'identité
             respInfo: Responsable informatique
             respTreat: Responsable traitement
             refOp: Référent RGPD
-            dpo: DPO
+            dpo: DPD
         flashbag:
             success:
                 create: Utilisateur "%object%" crée avec succès
@@ -269,12 +269,12 @@ user:
                 unarchive: Utilisateur "%object%" rétabli avec succès
         list:
             collectivity: Structure
-            email: E-mail
+            email: Email
             enabled: Actif
             first_name: Prénom
             last_login: Dernière connexion
             last_name: Nom
-            roles: Role
+            roles: Rôle
             moreInfos: Informations supplémentaires
             services: Service
             services_list: Liste des services
@@ -289,7 +289,7 @@ user:
             services: Services & Habilitations
         title:
             create: Créer un utilisateur
-            edit: Éditer un utilisateur
+            edit: Modifier un utilisateur
             delete: Archiver un utilisateur
             label: Utilisateur
             list: Liste des utilisateurs

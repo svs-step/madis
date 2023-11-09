@@ -5,7 +5,7 @@ Vous avez une certaine flexibilité dans la configuration de votre application M
 Pour cela, vous pouvez modifier les variables d'environnement,
 généralement trouvable dans le fichier `.env` de votre application.
 
-Vous trouverez ci-dessous une liste exhaustive des variables de ce fichier ainsi que des explications de ses dernières 
+Vous trouverez ci-dessous une liste exhaustive des variables de ce fichier ainsi que des explications de ses dernières
 
 ```bash
 # APP_MAIL_RECEIVER_DEV : redirige tous les mails envoyés sur un seul destinataire (ça écrase la liste des destinataires pour celle-ci)
@@ -45,10 +45,10 @@ APP_COOKIE_IDLE_TIMEOUT=5400
 # Durée de vie du cookie (en secondes)
 APP_COOKIE_LIFETIME=14400
 
-# Nom du référent RGPD (DPO/DPD) par défaut
+# Nom du référent RGPD par défaut
 APP_DEFAULT_REFERENT="Référent RGPD"
 
-# Adresse du DPO par défaut.
+# Adresse du DPD par défaut.
 # Si vous êtes une structure mutualisante assurant le rôle de DPD, saisissez votre adresse
 APP_DPO_ADDRESS_CITY="Saintes"
 APP_DPO_ADDRESS_STREET="2 rue des Rochers"
@@ -79,7 +79,7 @@ APP_IMAGE_SIDEBAR_BOTTOM_TARGET_URL="htpps//example.fr"
 # Lien vers l'image utilisée dans la sidebar lorsqu'elle est étendue
 # (chemin à configurer à partir du dossier `public` présent à la racine du projet)
 APP_IMAGE_SIDEBAR_BOTTOM_PATH="images/soluris-logo-white.png"
-# Lien vers l'image utilisée dans la sidebar lorsqu'elle est réduite 
+# Lien vers l'image utilisée dans la sidebar lorsqu'elle est réduite
 # (chemin à configurer à partir du dossier `public` présent à la racine du projet)
 APP_IMAGE_SIDEBAR_REDUCED_PATH="images/icon-32x32.png"
 
@@ -94,10 +94,10 @@ APP_MAIL_SENDER_EMAIL=ne-pas-repondre@example.fr
 APP_MAIL_SENDER_NAME="Madis"
 
 # Date relative permettant de supprimer, lors de la connexion de l'admin, les logs antérieurs à cette date.
-Doit respecter le format de date relative de PHP (ligne "unit") : https://www.php.net/manual/fr/datetime.formats.relative.php 
+Doit respecter le format de date relative de PHP (ligne "unit") : https://www.php.net/manual/fr/datetime.formats.relative.php
 APP_LOG_JOURNAL_DURATION=6months
 
-# Valeurs utilisées pour les tooltips sur les réponses dans les formulaires de création/édition 
+# Valeurs utilisées pour les tooltips sur les réponses dans les formulaires de création/édition
 d'évaluation de conformité d'organisation
 ###> CONFORMITE ORGANISATION TOOLTIP ###
 TOOLTIP_CONFORMITE_ORGANISATION_INEXISTANTE="Rien n'est fait"

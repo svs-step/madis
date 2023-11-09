@@ -73,7 +73,7 @@ class UserGenerator extends AbstractGenerator implements ImpressionGeneratorInte
         $cell = $userAnnexListTable->addCell(1500, $this->cellHeadStyle);
         $cell->addText('Nom', $this->textHeadStyle);
         $cell = $userAnnexListTable->addCell(3000, $this->cellHeadStyle);
-        $cell->addText('E-mail', $this->textHeadStyle);
+        $cell->addText('Email', $this->textHeadStyle);
         $cell = $userAnnexListTable->addCell(1000, $this->cellHeadStyle);
         $cell->addText('Actif', $this->textHeadStyle);
 

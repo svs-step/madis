@@ -170,7 +170,7 @@ class CollectivityController extends CRUDController
         }
 
         $cellContent = '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('user_collectivity_edit', ['id' => $collectivity->getId()]) . '">
-            <i class="fa fa-pencil-alt"></i> ' .
+            <i class="fa fa-pencil"></i> ' .
             $this->translator->trans('action.edit') .
         '</a>';
 
