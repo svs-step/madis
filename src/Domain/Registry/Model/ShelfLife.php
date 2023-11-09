@@ -23,7 +23,7 @@ class ShelfLife
     public $duration;
 
     /**
-     * @var string
+     * @var string|null
      */
     public $ultimateFate;
 
@@ -77,7 +77,7 @@ class ShelfLife
         return $this->ultimateFate;
     }
 
-    public function setUltimateFate(string $ultimateFate): void
+    public function setUltimateFate(?string $ultimateFate): void
     {
         $this->ultimateFate = $ultimateFate;
     }

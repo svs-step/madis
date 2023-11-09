@@ -83,6 +83,7 @@ class TreatmentCloner extends AbstractCloner
                 $newsl->setDuration($sl->getDuration());
                 $newsl->setUltimateFate($sl->getUltimateFate());
                 $newsl->setTreatment($treatment);
+                $treatment->addShelfLife($newsl);
             }
         }
         if (null !== $referent->getSecurityAccessControl()) {
