@@ -44,12 +44,7 @@ body > div.banner-impersonate {
 .modal-backdrop {
   z-index: 4040;
 }
-.dt-button-background {
-  z-index: 4001;
-}
-.dt-button-collection {
-  z-index: 4002;
-}
+
 .sidebar-menu, .main-sidebar .user-panel, .sidebar-menu>li.header {
     font-size: 14px;
     //padding: 0 0 0 15px;
@@ -477,7 +472,7 @@ div.dt-button-background {
   background: -webkit-gradient(radial, center center, 0, center center, 497, color-stop(0, rgba(0,0,0,0.3)), color-stop(1, rgba(0,0,0,0.7)));
   background: -webkit-radial-gradient(center, ellipse farthest-corner, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
   background: radial-gradient(ellipse farthest-corner at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.7) 100%);
-  z-index: 2001;
+  z-index: 4001;
 }
 
 div.dt-button-collection {
@@ -490,7 +485,7 @@ div.dt-button-collection {
   border: 1px solid rgba(0,0,0,0.4);
   background-color: white;
   overflow: hidden;
-  z-index: 2002;
+  z-index: 4002;
   border-radius: 5px;
   box-shadow: 3px 3px 5px #000;
   box-sizing: border-box;
