@@ -728,7 +728,7 @@
                                     {% if traitement.public == true %}
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -864,7 +864,7 @@
                                 <td>
                                     <ul>
                                         {% if traitement.systematicMonitoring %}
-                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
                                         {% else %}
                                             <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                         {% endif %}
@@ -876,7 +876,7 @@
                                 <td>
                                     <ul>
                                         {% if traitement.largeScaleCollection %}
-                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
                                         {% else %}
                                             <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                         {% endif %}
@@ -888,7 +888,7 @@
                                 <td>
                                     <ul>
                                         {% if traitement.vulnerablePeople %}
-                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
                                         {% else %}
                                             <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                         {% endif %}
@@ -900,7 +900,7 @@
                                 <td>
                                     <ul>
                                         {% if traitement.dataCrossing %}
-                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
                                         {% else %}
                                             <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                         {% endif %}
@@ -912,7 +912,7 @@
                                 <td>
                                     <ul>
                                         {% if traitement.evaluationOrRating %}
-                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
                                         {% else %}
                                             <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                         {% endif %}
@@ -924,7 +924,7 @@
                                 <td>
                                     <ul>
                                         {% if traitement.automatedDecisionsWithLegalEffect %}
-                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
                                         {% else %}
                                             <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                         {% endif %}
@@ -936,7 +936,7 @@
                                 <td>
                                     <ul>
                                         {% if traitement.automaticExclusionService %}
-                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
                                         {% else %}
                                             <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                         {% endif %}
@@ -948,7 +948,7 @@
                                 <td>
                                     <ul>
                                         {% if traitement.innovativeUse %}
-                                            <span class="badge bg-orange">{{ 'label.yes'|trans }}</span>
+                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
                                         {% else %}
                                             <span class="badge bg-green">{{ 'label.no'|trans }}</span>
                                         {% endif %}
@@ -978,7 +978,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.concernedPeopleParticular.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -989,7 +989,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.concernedPeopleUser.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1000,7 +1000,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.concernedPeopleAgent.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1011,7 +1011,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.concernedPeopleElected.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1022,7 +1022,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.concernedPeopleCompany.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1033,7 +1033,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.concernedPeoplePartner.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1044,7 +1044,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.concernedPeopleOther.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1125,7 +1125,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.securityAccessControl.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1136,7 +1136,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.securitytracability.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1147,7 +1147,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.securitySaving.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1158,7 +1158,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.securityUpdate.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1169,7 +1169,7 @@
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                         <p>{{ traitement.securityOther.comment }}</p>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1179,7 +1179,7 @@
                                     {% if traitement.securityEntitledPersons %}
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1189,7 +1189,7 @@
                                     {% if traitement.securityOpenAccounts %}
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -1199,7 +1199,7 @@
                                     {% if traitement.securitySpecificitiesDelivered %}
                                         <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
                                     {% else %}
-                                        <span class="badge bg-orange">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>

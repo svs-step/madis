@@ -347,7 +347,7 @@ class TreatmentController extends CRUDController
             $contractors .= '</ul>';
 
             $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
-            $no  = '<span class="badge bg-orange">' . $this->translator->trans('label.no') . '</span>';
+            $no  = '<span class="badge bg-yellow">' . $this->translator->trans('label.no') . '</span>';
 
             $reponse['data'][] = [
                 'id'                     => $treatment->getId(),
@@ -385,7 +385,7 @@ class TreatmentController extends CRUDController
 
     private function countSensitiveData($categories)
     {
-        $sensitive   = '<span class="badge bg-orange">' . $this->translator->trans('label.yes') . '</span>';
+        $sensitive   = '<span class="badge bg-yellow">' . $this->translator->trans('label.yes') . '</span>';
         $noSensitive = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
 
         $count = 0;
