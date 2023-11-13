@@ -49,12 +49,12 @@
                     {% endif %}
                     {% if app.request.query.get('archive') == 'true' %}
                         <a aria-label="{{ 'registry.request.action.not_archived'|trans }}" href="{{ path('registry_request_list', {'archive' : 'false'}) }}" class="btn btn-default">
-                            <i class="fa fa-trash"></i>
+                            <i class="fa fa-archive"></i>
                             {{ 'registry.request.action.not_archived'|trans }}
                         </a>
                     {% else %}
                         <a aria-label="{{ 'registry.request.action.archived'|trans }}" href="{{ path('registry_request_list', {'archive' : 'true'}) }}" class="btn btn-default">
-                            <i class="fa fa-trash"></i>
+                            <i class="fa fa-archive"></i>
                             {{ 'registry.request.action.archived'|trans }}
                         </a>
                     {% endif %}

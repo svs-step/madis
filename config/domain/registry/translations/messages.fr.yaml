@@ -4,7 +4,7 @@ registry:
         form:
             city: Ville
             line_one: Adresse
-            line_two: Compl. adresse
+            line_two: Complément d'adresse
             mail: Email
             phone_number: Téléphone
             zip_code: Code postal
@@ -442,7 +442,7 @@ registry:
             edit: Modifier une demande
             delete: Archiver une demande
             list: Liste des demandes
-            show: Visualiser
+            show: Visualiser une demande
 
     request_answer:
         form:
@@ -819,7 +819,7 @@ registry:
             list: Conformité de la structure
             delete: Supprimer une évaluation
         list:
-            collectivite: Nom de la structure
+            collectivite: Structure
             draft: Brouillon
             pilote: Pilote
             processus: Processus
