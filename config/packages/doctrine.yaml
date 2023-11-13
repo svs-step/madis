@@ -24,6 +24,7 @@ doctrine:
                 JSON_EXTRACT: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonExtract
                 JSON_UNQUOTE: Scienta\DoctrineJsonFunctions\Query\AST\Functions\Mysql\JsonUnquote
                 IFELSE: DoctrineExtensions\Query\Mysql\IfElse
+                group_concat:   Oro\ORM\Query\AST\Functions\String\GroupConcat
         auto_mapping: true
         mappings:
             Admin:

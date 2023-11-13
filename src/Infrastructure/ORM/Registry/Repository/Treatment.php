@@ -288,6 +288,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                 $queryBuilder->addOrderBy('o.legalBasis', $orderDir);
                 break;
             case 'logiciel':
+                // TODO order on joined table if tools module is active ?
                 $queryBuilder->addOrderBy('o.software', $orderDir);
                 break;
             case 'enTantQue':
@@ -362,7 +363,30 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     $this->addWhereClause($queryBuilder, 'legalBasis', '%' . $search . '%', 'LIKE');
                     break;
                 case 'logiciel':
-                    $this->addWhereClause($queryBuilder, 'software', '%' . $search . '%', 'LIKE');
+                    // If collectivity has tools modules active, search in tools
+                    $queryBuilder->join('o.tools', 'tools')
+                        //->addSelect('GROUP_CONCAT(tools.name)')
+                        ->andHaving("GROUP_CONCAT(tools.name) LIKE :soft")
+                        ->andHaving('collectivite.hasModuleTools = 1')
+                        ->andHaving('COUNT(tools.name) > 0')
+                        ->setParameter('soft', '%' . $search . '%')
+                        ->groupBy('o.id')
+
+                    ;
+
+//                    $queryBuilder->addSelect('(case
+//                WHEN collectivite.hasModuleTools = 1 THEN 1
+//                ELSE 0 END) AS HIDDEN hidden_tools');
+
+//
+//                    $queryBuilder->leftJoin('o.dataCategories', 'dcs', 'WITH', 'dcs.sensible = :sensitiveDatas')
+//                    ->addSelect('dcs.sensible AS sensitiveData')
+//                    ->andHaving('COUNT(dcs.code) > 0')
+//                    ->setParameter('sensitiveDatas', 1)
+//                    ->groupBy('o.id')
+
+
+                    //$this->addWhereClause($queryBuilder, 'software', '%' . $search . '%', 'LIKE');
                     break;
                 case 'enTantQue':
                     $this->addWhereClause($queryBuilder, 'author', '%' . $search . '%', 'LIKE');
