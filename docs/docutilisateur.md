@@ -152,7 +152,7 @@ Le menu « **Traitements** » permet de gérer les traitements. Le registre des 
 
 ![Liste des traitements](images/Madis-Liste-Des-Traitements.png)
 
-Il est possible d'effectuer plusieurs actions : 
+Il est possible d'effectuer plusieurs actions :
 
 - « **+ Nouveau traitement** » permet d'ajouter un nouveau traitement ;
 - « **Générer une impression** » permet de générer le registre des traitements au format Word ;
@@ -277,7 +277,7 @@ Un sous-traitant est un prestataire de services qui traite des données à carac
 
 ![Liste des sous-traitants](images/Madis-Liste-Des-Sous-Traitants.png)
 
-Il est possible d'effectuer plusieurs actions : 
+Il est possible d'effectuer plusieurs actions :
 
 - « **+ Nouveau sous-traitant** » permet d'ajouter un nouveau sous-traitant ;
 - « **Générer une impression** » permet de générer le registre des sous-traitants au format Word ;
@@ -326,7 +326,7 @@ Dans les coordonnées, il est possible de renseigner les éléments suivants :
 * **Ville** ;
 * **Pays** ;
 * **Email** ;
-* **N° de tel**.
+* **Téléphone**.
 
 ## Registre des demandes
 
@@ -386,7 +386,7 @@ Dans le demandeur, il est possible de renseigner les éléments suivants :
 * **Nom** ;
 * **Adresse** ;
 * **Email** ;
-* **N° de téléphone** ;
+* **Téléphone**.
 
 Par défaut, la case « **Est la personne concernée** » est cochée, cependant, dans le cas où le demandeur est différent de la personne concernée, il faut la décocher et compléter les coordonnées de l'élément « [**Personne concernée**](#personne-concernee) ».
 
@@ -600,7 +600,7 @@ Il est possible d'effectuer plusieurs actions :
 
 ## Nouvel indice de maturité
 
-« **+ Nouvel indice de maturité** » permet d'ajouter un nouvel indice de maturité. 
+« **+ Nouvel indice de maturité** » permet d'ajouter un nouvel indice de maturité.
 
 **Pour rappel, dans le formulaire, les champs précédés d’un astérisque « * » sont obligatoires.**
 
@@ -683,7 +683,7 @@ Une cloche présente dans le bandeau d’en-tête permet de consulter les derni�
 
 ![Accès aux notifications depuis l'en-tête](images/Madis-Notifications-Cloche.png)
 
-Il est possible d'effectuer plusieurs actions : 
+Il est possible d'effectuer plusieurs actions :
 
 - « **Tout marquer comme lu** » permet de marquer l'ensemble des notifications comme lues ;
 
@@ -705,7 +705,7 @@ Depuis la cloche, « **Voir toutes les notifications** » permet d'accéder au c
 
 ![Centre de notifications](images/Madis-Centre-De-Notifications.png)
 
-Il est possible d'effectuer plusieurs actions : 
+Il est possible d'effectuer plusieurs actions :
 
 - « **Tout marquer comme lu** » permet de marquer l'ensemble des notifications comme lues ;
 
@@ -774,7 +774,7 @@ Le menu « **Logiciels et supports** » permet de consulter la liste des logicie
 
 ![Liste des logiciels et supports](images/Madis-Liste-Des-Logiciels-Et-Supports.png)
 
-Il est possible d'effectuer plusieurs actions : 
+Il est possible d'effectuer plusieurs actions :
 
 - « **+ Nouveau logiciel ou support** » permet d'ajouter un nouveau logiciel ou support ;
 - « **Générer une impression** » permet de générer le registre des logiciels et supports au format Word ;
@@ -924,7 +924,7 @@ Ce module permet donc, par itérations successives, de faire tendre chacun des t
 
 ## Module conformité de la structure
 
-Ce module permet, par itération successive, de faire tendre l'ensemble de la structure vers la mise en conformité complète. L'évaluation de la structure doit être réalisée régulièrement, idéalement une fois par an. 
+Ce module permet, par itération successive, de faire tendre l'ensemble de la structure vers la mise en conformité complète. L'évaluation de la structure doit être réalisée régulièrement, idéalement une fois par an.
 
 Les obligations décrites dans le RGPD et ses lignes directrices sont réparties en **Processus**, dont le **Pilote** a la responsabilité de faire augmenter le score de conformité.
 
@@ -1129,7 +1129,7 @@ Il est possible d'effectuer plusieurs actions :
 
 Cette étape d’aide à la décision permet de prendre connaissance de la synthèse des éléments saisis dans les étapes précédentes.
 
-**C’est la dernière étape avant le passage en validation.** 
+**C’est la dernière étape avant le passage en validation.**
 
 ![Étape 5 : Évaluation](images/Madis-Realiser-Une-AIPD-Etape-5.png)
 
@@ -1202,7 +1202,7 @@ Il est possible d'exporter certaines informations au format Excel :
 
 ## Gestion des notifications
 
-Le module notifications permet d'être notifié dans Madis ainsi que par e-mail pour certains événements et de suivre les activités des structures. 
+Le module notifications permet d'être notifié dans Madis ainsi que par e-mail pour certains événements et de suivre les activités des structures.
 
 Ce module est optionnel et peut être activé pour l'ensemble de Madis. Consulter l'[activation du module notifications](#activation-du-module-notifications) pour plus d'information.
 
@@ -1212,7 +1212,7 @@ Une cloche présente dans le bandeau d’en-tête permet de consulter les derni�
 
 ![Accès aux notifications administrateur depuis l'en-tête](images/Madis-Notifications-Cloche-Administrateur.png)
 
-Il est possible d'effectuer plusieurs actions : 
+Il est possible d'effectuer plusieurs actions :
 
 - « **Tout marquer comme lu** » permet de marquer l'ensemble des notifications comme lues ;
 
@@ -1249,7 +1249,7 @@ Celui-ci est différent du centre de notification d'un utilisateur, car toutes l
 
 ![Centre de notifications administrateur](images/Madis-Centre-De-Notifications-Administrateur.png)
 
-Il est possible d'effectuer plusieurs actions : 
+Il est possible d'effectuer plusieurs actions :
 
 - « **Tout marquer comme lu** » permet de marquer l'ensemble des notifications comme lues pour tous les administrateurs ;
 
@@ -1757,7 +1757,7 @@ La gestion par service permet de restreindre la modification des éléments des 
 
 ![Activation du module services et habilitations](images/Madis-Activation-Module-Services-Et-Habilitations.png)
 
-L'activation du module ajoute un élément « **Services et Habilitations** » dans le profil des utilisateurs de la structure. Consulter la [gestion des services et habilitations](#gestion-des-services-et-habilitations) pour plus d'information. 
+L'activation du module ajoute un élément « **Services et Habilitations** » dans le profil des utilisateurs de la structure. Consulter la [gestion des services et habilitations](#gestion-des-services-et-habilitations) pour plus d'information.
 
 ![Services et habilitations dans le profil utilisateur](images/Madis-Ajouter-Un-Utilisateur-Module-Services-Et-Habilitations.png)
 
@@ -1771,7 +1771,7 @@ Le menu « **Utilisateurs** » permet de consulter la liste des utilisateurs et 
 
 ![Liste des utilisateurs](images/Madis-Liste-Des-Utilisateurs.png)
 
-Il est possible d'effectuer plusieurs actions : 
+Il est possible d'effectuer plusieurs actions :
 
 - « **+ Nouvel utilisateur** » permet d'ajouter un nouvel utilisateur ;
 - « **Voir les utilisateurs archivés** » permet d'accéder aux utilisateurs archivés. Un utilisateur archivé ne pourra plus se connecter à Madis ;

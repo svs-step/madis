@@ -196,8 +196,8 @@ class ContractorController extends CRUDController
         $contractors = $this->getResults($request, $criteria);
         $reponse     = $this->getBaseDataTablesResponse($request, $contractors, $criteria);
 
-        $yes = '<span class="label label-success">' . $this->translator->trans('label.yes') . '</span>';
-        $no  = '<span class="label label-danger">' . $this->translator->trans('label.no') . '</span>';
+        $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
+        $no  = '<span class="badge bg-red">' . $this->translator->trans('label.no') . '</span>';
 
         /** @var Model\Contractor $contractor */
         foreach ($contractors as $contractor) {
@@ -213,8 +213,8 @@ class ContractorController extends CRUDController
                 'element_securite'       => $contractor->isAdoptedSecurityFeatures() ? $yes : $no,
                 'registre_traitements'   => $contractor->isMaintainsTreatmentRegister() ? $yes : $no,
                 'donnees_hors_eu'        => $contractor->isSendingDataOutsideEu() ?
-                    '<span class="label label-danger">' . $this->translator->trans('label.yes') . '</span>' :
-                    '<span class="label label-success">' . $this->translator->trans('label.no') . '</span>',
+                    '<span class="badge bg-red">' . $this->translator->trans('label.yes') . '</span>' :
+                    '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>',
                 'createdAt' => date_format($contractor->getCreatedAt(), 'd-m-Y H:i'),
                 'updatedAt' => date_format($contractor->getUpdatedAt(), 'd-m-Y H:i'),
                 'actions'   => $this->getActionCellsContent($contractor),

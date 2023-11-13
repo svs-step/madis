@@ -62,7 +62,7 @@ user:
             active: Statut
             address: Adresse
             different_dpo: Différent du DPD moral
-            different_it_manager: Différent du Référent Opérationnel
+            different_it_manager: Différent du Référent RGPD
             has_module_conformite_traitement: Module conformité des traitements
             has_module_conformite_organisation: Module conformité de la structure
             has_module_tools: Module logiciels et supports

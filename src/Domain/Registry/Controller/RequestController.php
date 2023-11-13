@@ -174,8 +174,8 @@ class RequestController extends CRUDController
 
         $reponse = $this->getBaseDataTablesResponse($request, $demandes, $criteria);
 
-        $yes = '<span class="label label-success">' . $this->translator->trans('label.yes') . '</span>';
-        $no  = '<span class="label label-danger">' . $this->translator->trans('label.no') . '</span>';
+        $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
+        $no  = '<span class="badge bg-red">' . $this->translator->trans('label.no') . '</span>';
         // die();
         /** @var Model\Request $demande */
         foreach ($demandes as $demande) {
@@ -258,7 +258,7 @@ class RequestController extends CRUDController
                     $this->translator->trans('action.edit') . '
                 </a>
                 <a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('registry_request_delete', ['id' => $demande->getId()]) . '">
-                    <i class="fa fa-trash"></i> ' .
+                    <i class="fa fa-archive"></i> ' .
                     $this->translator->trans('action.archive') .
                 '</a>';
         }

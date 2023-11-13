@@ -67,11 +67,11 @@
                                                 <td style="vertical-align: middle">{{ conformite.vars.value.processus.nom }}</td>
                                                 <td style="vertical-align: middle">
                                                     {% if conformite.vars.value.conformite < 2.5 %}
-                                                        {% set type = 'danger' %}
+                                                        {% set type = 'bg-red' %}
                                                     {% elseif conformite.vars.value.conformite < 3.5 %}
-                                                        {% set type = 'warning' %}
+                                                        {% set type = 'bg-orange' %}
                                                     {% else %}
-                                                        {% set type = 'success' %}
+                                                        {% set type = 'bg-green' %}
                                                     {% endif %}
                                                     <span style="width: 50px;" class="badge {{ type }}">{{ conformite.vars.value.conformite }} / 5</span>
                                                 </td>
@@ -122,13 +122,13 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <table role="presentation" id="table" class="table table-bordered table-hover">
+                    <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
+                            <th scope="col">{{ 'registry.conformite_organisation.list.date_creation'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">{{ 'registry.conformite_organisation.list.collectivite'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'registry.conformite_organisation.list.date_creation'|trans }}</th>
                             <th scope="col">{{ 'registry.conformite_organisation.list.nb_participants'|trans }}</th>
                             <th scope="col">{{ 'registry.conformite_organisation.list.draft'|trans }}</th>
                             <th scope="col">{{ 'registry.conformite_organisation.list.actions'|trans }}</th>
@@ -137,10 +137,10 @@
                         <tbody>
                         {% for evaluation in evaluations %}
                             <tr>
+                                <td>{% if evaluation.date is not null %}{{ evaluation.date|date('d/m/Y') }}{% endif %}</td>
                                 {% if is_granted('ROLE_REFERENT') %}
                                     <td>{{ evaluation.collectivity.name }}</td>
                                 {% endif %}
-                                <td>{% if evaluation.date is not null %}{{ evaluation.date|date('d/m/Y') }}{% endif %}</td>
                                 <td>{{ evaluation.participants|length }}</td>
                                 <td>
                                     {% if evaluation.draft %}
