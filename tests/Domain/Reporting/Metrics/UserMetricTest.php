@@ -150,7 +150,7 @@ class UserMetricTest extends TestCase
         $violationRepo->findBy(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $this->requestRepository->findAllByCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $collectivity->setHasModuleConformiteTraitement(true);
-        $this->conformiteTraitementRepository->findAllByCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
+        $this->conformiteTraitementRepository->findActiveByCollectivity(Argument::cetera())->shouldBeCalled()->willReturn([]);
         $this->evaluationRepository->findLastByOrganisation(Argument::any())->shouldBeCalled()->willReturn(null);
         $this->logJournalRepository->findAllByCollectivityWithoutSubjects($collectivity, 15, Argument::any())->shouldBeCalled()->willReturn([]);
 
