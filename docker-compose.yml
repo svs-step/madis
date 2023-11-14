@@ -2,7 +2,9 @@ version: '3'
 
 services:
   db:
-    image: mariadb:10.8
+    image: mysql:8
+    volumes:
+      - alpilles_mysql:/var/lib/mysql
     env_file:
       - .env
 
@@ -34,3 +36,5 @@ services:
     depends_on:
       - db
 
+volumes:
+  alpilles_mysql:
