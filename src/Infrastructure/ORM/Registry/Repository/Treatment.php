@@ -364,28 +364,15 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     break;
                 case 'logiciel':
                     // If collectivity has tools modules active, search in tools
-                    //                    $queryBuilder->join('o.tools', 'tools')
-                    //                        // ->addSelect('GROUP_CONCAT(tools.name)')
-                    //                        ->andHaving('GROUP_CONCAT(tools.name) LIKE :soft')
-                    //                        ->andHaving('collectivite.hasModuleTools = 1')
-                    //                        ->andHaving('COUNT(tools.name) > 0')
-                    //                        ->setParameter('soft', '%' . $search . '%')
-                    //                        ->groupBy('o.id')
-                    //
-                    //                    ;
+                    $queryBuilder->join('o.tools', 'tools')
+                        ->addSelect('GROUP_CONCAT(tools.name) as HIDDEN toolsNames')
+                        ->groupBy('o.id')
 
-                    //                    $queryBuilder->addSelect('(case
-                    //                WHEN collectivite.hasModuleTools = 1 THEN 1
-                    //                ELSE 0 END) AS HIDDEN hidden_tools');
+                    ;
 
-                    //
-                    //                    $queryBuilder->leftJoin('o.dataCategories', 'dcs', 'WITH', 'dcs.sensible = :sensitiveDatas')
-                    //                    ->addSelect('dcs.sensible AS sensitiveData')
-                    //                    ->andHaving('COUNT(dcs.code) > 0')
-                    //                    ->setParameter('sensitiveDatas', 1)
-                    //                    ->groupBy('o.id')
-
-                    $this->addWhereClause($queryBuilder, 'software', '%' . $search . '%', 'LIKE');
+                    $queryBuilder->andHaving($queryBuilder->expr()->orX('(toolsNames LIKE :software_tool AND collectivite.hasModuleTools = 1)', '(o.software LIKE :software_tool AND collectivite.hasModuleTools = 0)'))
+                        ->setParameter('software_tool', '%' . $search . '%')
+                    ;
                     break;
                 case 'enTantQue':
                     $this->addWhereClause($queryBuilder, 'author', '%' . $search . '%', 'LIKE');
