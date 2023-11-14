@@ -241,7 +241,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 }
             }
 
-            if ($treatment->getConformiteTraitement() && $aipd = $treatment->getConformiteTraitement()->getLastAnalyseImpact()) {
+            if (!$treatment->isExemptAIPD() && $treatment->getConformiteTraitement() && $aipd = $treatment->getConformiteTraitement()->getLastAnalyseImpact()) {
                 if ('non_realisee' !== $aipd->getStatut() && 'en_cours' !== $aipd->getStatut()) {
                     $aipdFinished[] = [
                         $treatment->getName(),

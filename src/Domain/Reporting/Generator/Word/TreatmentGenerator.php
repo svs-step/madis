@@ -567,7 +567,7 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
                 $cell->addText($title, $this->textHeadStyle);
             }
         }
-
+        /** @var Treatment $item */
         foreach ($treatments as $item) {
             $cnt_sensible                                                        = 0;
             $sensibleDatas                                                       = [];
@@ -625,8 +625,12 @@ class TreatmentGenerator extends AbstractGenerator implements ImpressionGenerato
             $cell = $RiskTreatmentAnnexListTable->addCell(10, ['borderTopColor' => 'ffffff', 'borderTopSize' => 2, 'borderBottomColor' => 'ffffff', 'borderBottomSize' => 2]);
             $cell->addText('');
             // https://gitlab.adullact.net/soluris/madis/-/issues/859
-            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => ((($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories > 1 || ($cnt_sensible > 2)) && false === $item->isExemptAIPD()) ? 'bce292' : 'ffa7a7', 'valign' => 'center']);
-            $cell->addText(((($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories > 1 || ($cnt_sensible > 2)) && false === $item->isExemptAIPD()) ? 'Oui' : 'Non', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
+            $aipdRequired = ($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories > 1 || ($cnt_sensible > 2);
+            if ($item->isExemptAIPD()) {
+                $aipdRequired = false;
+            }
+            $cell = $RiskTreatmentAnnexListTable->addCell(null, ['bgColor' => $aipdRequired ? 'bce292' : 'ffa7a7', 'valign' => 'center']);
+            $cell->addText($aipdRequired ? 'Oui' : 'Non', ['size' => 8, 'bold' => true], ['alignment' => 'center']);
         }
         $riskAipdSection->addPageBreak();
     }
