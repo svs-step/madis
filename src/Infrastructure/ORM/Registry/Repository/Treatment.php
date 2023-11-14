@@ -364,29 +364,28 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     break;
                 case 'logiciel':
                     // If collectivity has tools modules active, search in tools
-                    $queryBuilder->join('o.tools', 'tools')
-                        //->addSelect('GROUP_CONCAT(tools.name)')
-                        ->andHaving("GROUP_CONCAT(tools.name) LIKE :soft")
-                        ->andHaving('collectivite.hasModuleTools = 1')
-                        ->andHaving('COUNT(tools.name) > 0')
-                        ->setParameter('soft', '%' . $search . '%')
-                        ->groupBy('o.id')
+                    //                    $queryBuilder->join('o.tools', 'tools')
+                    //                        // ->addSelect('GROUP_CONCAT(tools.name)')
+                    //                        ->andHaving('GROUP_CONCAT(tools.name) LIKE :soft')
+                    //                        ->andHaving('collectivite.hasModuleTools = 1')
+                    //                        ->andHaving('COUNT(tools.name) > 0')
+                    //                        ->setParameter('soft', '%' . $search . '%')
+                    //                        ->groupBy('o.id')
+                    //
+                    //                    ;
 
-                    ;
+                    //                    $queryBuilder->addSelect('(case
+                    //                WHEN collectivite.hasModuleTools = 1 THEN 1
+                    //                ELSE 0 END) AS HIDDEN hidden_tools');
 
-//                    $queryBuilder->addSelect('(case
-//                WHEN collectivite.hasModuleTools = 1 THEN 1
-//                ELSE 0 END) AS HIDDEN hidden_tools');
+                    //
+                    //                    $queryBuilder->leftJoin('o.dataCategories', 'dcs', 'WITH', 'dcs.sensible = :sensitiveDatas')
+                    //                    ->addSelect('dcs.sensible AS sensitiveData')
+                    //                    ->andHaving('COUNT(dcs.code) > 0')
+                    //                    ->setParameter('sensitiveDatas', 1)
+                    //                    ->groupBy('o.id')
 
-//
-//                    $queryBuilder->leftJoin('o.dataCategories', 'dcs', 'WITH', 'dcs.sensible = :sensitiveDatas')
-//                    ->addSelect('dcs.sensible AS sensitiveData')
-//                    ->andHaving('COUNT(dcs.code) > 0')
-//                    ->setParameter('sensitiveDatas', 1)
-//                    ->groupBy('o.id')
-
-
-                    //$this->addWhereClause($queryBuilder, 'software', '%' . $search . '%', 'LIKE');
+                    $this->addWhereClause($queryBuilder, 'software', '%' . $search . '%', 'LIKE');
                     break;
                 case 'enTantQue':
                     $this->addWhereClause($queryBuilder, 'author', '%' . $search . '%', 'LIKE');
