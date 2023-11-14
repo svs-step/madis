@@ -32,7 +32,7 @@
         "knpuniversity/oauth2-client-bundle": "^2.10",
         "lexik/jwt-authentication-bundle": "^2.12",
         "nelmio/cors-bundle": "^2.1",
-        "oro/doctrine-extensions": "*",
+        "oro/doctrine-extensions": "^2.0",
         "phpdocumentor/reflection-docblock": "^5",
         "phpoffice/phpword": "^1.0",
         "phpspec/prophecy-phpunit": "^2.0",

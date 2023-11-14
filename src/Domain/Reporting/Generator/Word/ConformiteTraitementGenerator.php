@@ -478,8 +478,17 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         foreach ($treatments as $treatment) {
             if ($treatment->getConformiteTraitement()) {
                 $ConformityTreatmentValues = [];
+                /** @var Reponse $response */
                 foreach ($treatment->getConformiteTraitement()->getReponses() as $response) {
-                    $NonConformityValue                                                 = count($response->getActionProtections()) > 0 ? 'NC' : 'NCM';
+                    // get number of planned actions for this response
+                    $plannedActions = 0;
+                    /** @var Mesurement $actionProtection */
+                    foreach ($response->getActionProtections() as $actionProtection) {
+                        if (!$actionProtection->getPlanificationDate()) {
+                            ++$plannedActions;
+                        }
+                    }
+                    $NonConformityValue                                                 = $plannedActions > 0 ? 'NC' : 'NCM';
                     $ConformityTreatmentValues[$response->getQuestion()->getPosition()] = $response->isConforme() ? 'C' : $NonConformityValue;
                 }
 
@@ -492,6 +501,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 $NCM = 0;
 
                 foreach ($ConformityTreatmentValues as $key => $value) {
+                    // For each question add a cell saying if conforme or not
                     $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => $this->BgColorSyntheticTreatment($value), 'vAlign' => 'center']);
                     $cell->addText($value, ['size' => 8], ['alignment' => 'center']);
                     ++$listConformityName[$value][$key];
