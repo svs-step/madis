@@ -1,4 +1,4 @@
-FROM php:8.1-fpm
+FROM php:8.1-fpm-bullseye
 
 ENV DEBIAN_FRONTEND noninteractive
 
@@ -39,7 +39,7 @@ RUN curl -L https://github.com/fabpot/local-php-security-checker/releases/downlo
 
 # INSTALL WKHTMLTOPDF
 # ===================
-RUN apt-get install -y fontconfig libfreetype6 libjpeg62-turbo libpng16-16 libxrender1 xfonts-75dpi xfonts-base libxext6 netcat
+RUN apt-get install -y fontconfig libfreetype6 libjpeg62-turbo libpng16-16 libxrender1 xfonts-75dpi xfonts-base libxext6 netcat-openbsd libssl-dev
 RUN dpkgArch="$(dpkg --print-architecture)"; \
     curl -L https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_${dpkgArch}.deb --output wkhtmltox_0.12.6-1.buster_${dpkgArch}.deb && \
     dpkg -i wkhtmltox_0.12.6-1.buster_${dpkgArch}.deb
