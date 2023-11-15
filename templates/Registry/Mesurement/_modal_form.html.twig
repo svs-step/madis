@@ -8,7 +8,7 @@
             <div class="modal-body">
                 <form id="mesurement-modal-form" data-target="#mesurement-modal" action="{{ path('api_registry_mesurement_modal_create') }}" method="POST">
                     <div class="form-group">
-                        <label for="mesurement-name" class="control-label">{{ 'registry.mesurement.form.name'|trans }} *</label>
+                        <label for="mesurement-name" class="control-label required">{{ 'registry.mesurement.form.name'|trans }}</label>
                         <input type="text" class="form-control" id="mesurement-name" name="mesurement[name]" maxlength="255" required>
                     </div>
                     <div class="form-group">

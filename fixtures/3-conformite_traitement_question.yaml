@@ -15,7 +15,7 @@ App\Domain\Registry\Model\ConformiteTraitement\Question:
         question: "Durées de conservation : limitées"
         position: 5
     conformite_traitement_question_6:
-        question: "Information des personnes concernées (traitement loyal et transparent"
+        question: "Information des personnes concernées (traitement loyal et transparent)"
         position: 6
     conformite_traitement_question_7:
         question: "Recueil du consentement"
