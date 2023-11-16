@@ -410,19 +410,6 @@
 
 
 
-        $(document).ready(function() {
-
-            $('.sharelink').on('click', function() {
-                setTimeout(() => { $('.linkDoc').val($(this).data('id')); }, 200);
-                $('.copyLink').hide();
-            })
-
-            // SET FAVORITE ICON
-            $('.favorite > a').each( (fav, obj) => {
-                obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i><span style="position: absolute;left:-9999px">1</span>' : '<i data-value="0" class="far fa-star"></i><span style="position: absolute;left:-9999px">0</span>'
-            })
-
-        })
 
         function copyToClipBoard() {
             var text = $('.linkDoc').val();
@@ -505,6 +492,18 @@
 
             $('.dataTables_paginate').on('click',function() {
                 setTimeout(starShow,250);
+            })
+
+            $('body').on('click', '.sharelink', function() {
+                var el = $(this)
+                console.log(el, el.data('id'))
+                setTimeout(() => { $('.linkDoc').val(el.data('id')); }, 200);
+                $('.copyLink').hide();
+            })
+
+            // SET FAVORITE ICON
+            $('.favorite > a').each( (fav, obj) => {
+                obj.innerHTML = obj.innerHTML.includes("1") ? '<i data-value="1" class="fas fa-star"></i><span style="position: absolute;left:-9999px">1</span>' : '<i data-value="0" class="far fa-star"></i><span style="position: absolute;left:-9999px">0</span>'
             })
         } );
 
