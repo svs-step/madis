@@ -25,6 +25,7 @@ notifications:
         validation: Validation nécéssaire
         treatment_needs_aipd: Nécéssité de faire une AIPD
         state_change: Changement d'étape
+        validated: Validation
     subject:
         no_login: Aucune connexion depuis la création du compte
         late_request: Demande non traitée depuis au moins %days% jours depuis la date de la dernière modification
@@ -66,6 +67,7 @@ notification:
         validation: Validation nécéssaire
         treatment_needs_aipd: Nécéssité de faire une AIPD
         state_change: Changement d'étape
+        validated: Validation
     email:
         subject: Nouvelles notifications Madis
         madis: Accéder à madis

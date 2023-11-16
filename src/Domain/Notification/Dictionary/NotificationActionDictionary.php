@@ -38,6 +38,7 @@ class NotificationActionDictionary extends SimpleDictionary
     public const VALIDATION           = 'validation';
     public const TREATMENT_NEEDS_AIPD = 'treatment_needs_aipd';
     public const STATE_CHANGE         = 'state_change';
+    public const VALIDATED            = 'validated';
 
     public function __construct()
     {
@@ -57,6 +58,7 @@ class NotificationActionDictionary extends SimpleDictionary
             self::STATE_CHANGE         => 'Changement d\'étape',
             self::TREATMENT_NEEDS_AIPD => 'AIPD nécéssaire',
             self::VALIDATION           => 'Validation nécéssaire',
+            self::VALIDATED            => 'Validation',
             self::DELETE               => 'Suppression',
             self::AUTOMATIC            => 'Rappel automatique',
         ];

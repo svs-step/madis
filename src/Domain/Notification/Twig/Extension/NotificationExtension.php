@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Notification\Twig\Extension;
 
+use App\Domain\AIPD\Dictionary\StatutAnalyseImpactDictionary;
 use App\Domain\Documentation\Model\Document;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Model\Notification as NotificationModel;
@@ -11,6 +12,7 @@ use App\Domain\Registry\Dictionary\ProofTypeDictionary;
 use App\Domain\Registry\Dictionary\ViolationNatureDictionary;
 use App\Domain\Registry\Model\Proof;
 use App\Domain\Registry\Model\Violation;
+use App\Infrastructure\ORM\AIPD\Repository\AnalyseImpact;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Security;
@@ -23,19 +25,21 @@ class NotificationExtension extends AbstractExtension
     protected TranslatorInterface $translator;
     protected RouterInterface $router;
     protected \App\Domain\Notification\Repository\Notification $repository;
+    protected AnalyseImpact $aipdRepository;
     protected Security $security;
 
     protected string $requestDays;
     protected string $surveyDays;
 
-    public function __construct(TranslatorInterface $translator, RouterInterface $router, Security $security, \App\Domain\Notification\Repository\Notification $repository, string $requestDays, string $surveyDays)
+    public function __construct(TranslatorInterface $translator, RouterInterface $router, Security $security, \App\Domain\Notification\Repository\Notification $repository, AnalyseImpact $aipdRepository, string $requestDays, string $surveyDays)
     {
-        $this->translator  = $translator;
-        $this->router      = $router;
-        $this->security    = $security;
-        $this->repository  = $repository;
-        $this->requestDays = $requestDays;
-        $this->surveyDays  = $surveyDays;
+        $this->translator     = $translator;
+        $this->router         = $router;
+        $this->security       = $security;
+        $this->repository     = $repository;
+        $this->requestDays    = $requestDays;
+        $this->aipdRepository = $aipdRepository;
+        $this->surveyDays     = $surveyDays;
     }
 
     public function getFilters()
@@ -93,6 +97,10 @@ class NotificationExtension extends AbstractExtension
                 }
         }
 
+        if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.state_change' === $notification->getAction()) {
+            $sentence .= '<strong>(' . StatutAnalyseImpactDictionary::getStatuts()[$notification->getObject()->statut] . ') </strong>';
+        }
+
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Violation::class]) {
             $natures = [];
 
@@ -122,14 +130,17 @@ class NotificationExtension extends AbstractExtension
     public function getObjectLink(Notification $notification): string
     {
         try {
-            if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.validation' === $notification->getAction()) {
-                return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.validated' === $notification->getAction()) {
+                /** @var \App\Domain\AIPD\Model\AnalyseImpact $aipd */
+                $aipd = $this->aipdRepository->findOneById($notification->getObject()->id);
+
+                return $this->router->generate('registry_treatment_show', ['id' => $aipd->getConformiteTraitement()->getTraitement()->getId()->toString()], UrlGeneratorInterface::ABSOLUTE_URL);
             }
             if ('notification.modules.aipd' === $notification->getModule() && 'notifications.actions.treatment_needs_aipd' === $notification->getAction()) {
                 return $this->router->generate('registry_conformite_traitement_start_aipd', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
             }
-            if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.state_change' === $notification->getAction()) {
-                return $this->router->generate('aipd_analyse_impact_evaluation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.validation' === $notification->getAction()) {
+                return $this->router->generate('aipd_analyse_impact_validation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
             }
             if ('notification.modules.document' === $notification->getModule() && 'notification.actions.delete' !== $notification->getAction()) {
                 return $notification->getObject()->url;

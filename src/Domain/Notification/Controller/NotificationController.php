@@ -32,6 +32,7 @@ use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Repository;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
+use App\Infrastructure\ORM\AIPD\Repository\AnalyseImpact;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Tools\Pagination\Paginator;
@@ -67,11 +68,14 @@ class NotificationController extends CRUDController
      */
     protected $userProvider;
 
+    protected AnalyseImpact $aipdRepository;
+
     public function __construct(
         RouterInterface $router,
         EntityManagerInterface $entityManager,
         TranslatorInterface $translator,
         Repository\Notification $repository,
+        AnalyseImpact $aipdRepository,
         AuthorizationCheckerInterface $authorizationChecker,
         UserProvider $userProvider,
         Pdf $pdf
@@ -80,6 +84,7 @@ class NotificationController extends CRUDController
         $this->router               = $router;
         $this->authorizationChecker = $authorizationChecker;
         $this->userProvider         = $userProvider;
+        $this->aipdRepository       = $aipdRepository;
     }
 
     protected function getDomain(): string
@@ -388,6 +393,12 @@ class NotificationController extends CRUDController
             }
             if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.state_change' === $notification->getAction()) {
                 return $this->router->generate('aipd_analyse_impact_evaluation', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);
+            }
+            if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.validated' === $notification->getAction()) {
+                /** @var \App\Domain\AIPD\Model\AnalyseImpact $aipd */
+                $aipd = $this->aipdRepository->findOneById($notification->getObject()->id);
+
+                return $this->router->generate('registry_treatment_show', ['id' => $aipd->getConformiteTraitement()->getTraitement()->getId()->toString()], UrlGeneratorInterface::ABSOLUTE_URL);
             }
             if ('notification.modules.aipd' === $notification->getModule() && 'notifications.actions.treatment_needs_aipd' === $notification->getAction()) {
                 return $this->router->generate('registry_conformite_traitement_start_aipd', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);

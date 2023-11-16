@@ -63,6 +63,7 @@ class NotificationEventSubscriber implements EventSubscriber
 
     protected NotificationRepository $notificationRepository;
     protected NotificationUserRepository $notificationUserRepository;
+    protected \App\Infrastructure\ORM\AIPD\Repository\AnalyseImpact $aipdRepository;
     protected UserRepository $userRepository;
     protected Security $security;
     protected NormalizerInterface $normalizer;
@@ -75,6 +76,7 @@ class NotificationEventSubscriber implements EventSubscriber
         NotificationNormalizer $normalizer,
         UserRepository $userRepository,
         NotificationUserRepository $notificationUserRepository,
+        \App\Infrastructure\ORM\AIPD\Repository\AnalyseImpact $aipdRepository,
         Security $security,
         TranslatorInterface $translator,
         string $requestDays,
@@ -84,6 +86,7 @@ class NotificationEventSubscriber implements EventSubscriber
         $this->normalizer                 = $normalizer;
         $this->userRepository             = $userRepository;
         $this->notificationUserRepository = $notificationUserRepository;
+        $this->aipdRepository             = $aipdRepository;
         $this->security                   = $security;
         $this->translator                 = $translator;
         $this->requestDays                = $requestDays;
@@ -142,7 +145,7 @@ class NotificationEventSubscriber implements EventSubscriber
                 }
 
                 if (isset($ch['statut'])) {
-                    $action = 'state_change';
+                    $action = 'validated';
                 } elseif (isset($ch['isReadyForValidation'])) {
                     $action = 'validation';
                 }
@@ -449,6 +452,10 @@ class NotificationEventSubscriber implements EventSubscriber
         }
 
         if ('notification.modules.aipd' === $notification->getModule() && ('notifications.actions.state_change' === $notification->getAction() || 'notification.actions.state_change' === $notification->getAction())) {
+            return StatutAnalyseImpactDictionary::getStatuts()[$notification->getObject()->statut];
+        }
+
+        if ('notification.modules.aipd' === $notification->getModule() && ('notifications.actions.validated' === $notification->getAction() || 'notification.actions.validated' === $notification->getAction())) {
             return StatutAnalyseImpactDictionary::getStatuts()[$notification->getObject()->statut];
         }
 
