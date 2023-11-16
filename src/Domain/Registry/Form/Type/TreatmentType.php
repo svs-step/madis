@@ -73,7 +73,7 @@ class TreatmentType extends AbstractType
         $user = $this->security->getUser();
         $builder
             ->add('public', CheckboxType::class, [
-                'label'    => ' ',
+                'label'    => 'registry.treatment.form.public_registry',
                 'required' => false,
             ])
             ->add('name', TextType::class, [
@@ -340,17 +340,14 @@ class TreatmentType extends AbstractType
             ->add('securityEntitledPersons', CheckboxType::class, [
                 'label'        => 'registry.treatment.form.security_entitled_persons',
                 'required'     => false,
-                'block_prefix' => 'custom_checkbox',
             ])
             ->add('securityOpenAccounts', CheckboxType::class, [
                 'label'        => 'registry.treatment.form.security_open_accounts',
                 'required'     => false,
-                'block_prefix' => 'custom_checkbox',
             ])
             ->add('securitySpecificitiesDelivered', CheckboxType::class, [
                 'label'        => 'registry.treatment.form.security_specificities_delivered',
                 'required'     => false,
-                'block_prefix' => 'custom_checkbox',
             ])
             ->add('shelfLifes', CollectionType::class, [
                 'entry_type'   => ShelfLifeType::class,

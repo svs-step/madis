@@ -1,4 +1,4 @@
-{% use "bootstrap_3_horizontal_layout.html.twig" %}
+{% use "bootstrap_3_layout.html.twig" %}
 
 {%- block form_widget_simple -%}
     {%- set type = type|default('text') -%}
@@ -20,10 +20,6 @@
 {#    </select>#}
 {#{% endblock wrapped_choice_widget %}#}
 
-{% block form_group_class -%}
-    col-sm-10
-{%- endblock form_group_class %}
-
 {# Override form_row only for password type #}
 {% block password_row -%}
     {%- set widget_attr = {} -%}
@@ -32,7 +28,7 @@
     {%- endif -%}
     <div class="form-group{% if (not compound or force_error|default(false)) and not valid %} has-error{% endif %}">
         {{- form_label(form) -}}
-        <div class="{{ block('form_group_class') }} has-feedback">
+        <div class="has-feedback">
             {{- form_widget(form, widget_attr) -}}
             {{- form_help(form) -}}
             {{- form_errors(form) -}}
@@ -45,7 +41,7 @@
     {%- if help is not empty -%}
         {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
     {%- endif -%}
-    <div class="col-sm-12 complex-choice-group{% if not valid %} has-error{% endif %}{% if form.vars.attr.class is defined %} {{form.vars.attr.class}}{% endif %} ">
+    <div class="row complex-choice-group{% if not valid %} has-error{% endif %}{% if form.vars.attr.class is defined %} {{form.vars.attr.class}}{% endif %}">
         <div class="col-sm-1 check">{{ form_row(form.check) }}</div>
         <div class="col-sm-3">{{ form_label(form, null, {'label_attr': {'for': form.check.vars.id, 'style': 'cursor: pointer;'}}) }}</div>
         <div class="col-sm-8 comment">
@@ -61,24 +57,13 @@
         {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
     {%- endif -%}
     <div class="form-group{% if not valid %} has-error{% endif %}">
-        <div class="{{ block('form_group_class') }}">
+        <div class="">
             {{- form_widget(form.response, widget_attr) -}}
             {{- form_help(form) -}}
             {{- form_errors(form) -}}
         </div>
     </div>
 {%- endblock answer_row %}
-
-{% block custom_checkbox_row -%}
-    <div class="col-sm-12 custom-checkbox">
-        <div class="col-sm-1">
-            <input type="checkbox" id="{{ form.vars.id }}" name="{{ form.vars.full_name }}" value="1" {% if form.vars.data %}checked="checked"{% endif %}>
-        </div>
-        <div class="col-sm-11">
-            <label class="col-sm-12" for="{{ form.vars.id }}">{{ form.vars.label|trans() }}</label>
-        </div>
-    </div>
-{%- endblock custom_checkbox_row %}
 
 {% block _evaluation_conformites_entry_reponses_entry_widget %}
     <div id="{{ form.vars.id }}" class="conformite-organisation-reponse">
