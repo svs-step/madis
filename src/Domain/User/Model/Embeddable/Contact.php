@@ -126,7 +126,7 @@ class Contact
         $this->phoneNumber = $phoneNumber;
     }
 
-    public function getNotification(): bool
+    public function getNotification(): ?bool
     {
         return $this->notification;
     }
