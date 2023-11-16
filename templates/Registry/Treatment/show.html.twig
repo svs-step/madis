@@ -549,6 +549,7 @@
                                 {% endif %}
                             </td>
                         </tr>
+                        {% if object.legalBasis == 'consent' %}
                         <tr>
                             <td><strong>{{ 'registry.treatment.show.consentRequest'|trans }}</strong></td>
                             <td>
@@ -559,11 +560,12 @@
                                 {% endif %}
                             </td>
                         </tr>
-                        {% if  object.consentRequestFormat is not null %}
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.consentRequestFormat'|trans }}</strong></td>
-                                <td>{{ object.consentRequestFormat }}</td>
-                            </tr>
+                            {% if  object.consentRequestFormat is not null %}
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.show.consentRequestFormat'|trans }}</strong></td>
+                            <td>{{ object.consentRequestFormat }}</td>
+                        </tr>
+                            {% endif %}
                         {% endif %}
                     </table>
                 </div>
