@@ -55,9 +55,7 @@ App\Domain\Registry\Model\Treatment:
         securityOther:
             - Valid: ~
         dpoMessage:
-            - Length:
-                  max: 255
-                  groups: [ 'default' ]
+          - Valid: ~
         otherCollectingMethod:
             - Length:
                   max: 255
