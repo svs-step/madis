@@ -11,7 +11,7 @@
 {#         LEFT#}
         <div class="col-md-6">
 {#             GENERAL INFORMATIONS#}
-            <div class="box box-solid box-info">
+            <div class="box box-solid box-info" style="page-break-inside: avoid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -83,7 +83,7 @@
 
             {# DPO Message  #}
             {% if object.dpoMessage is not null %}
-                <div class="box box-solid box-primary">
+                <div class="box box-solid box-primary" style="page-break-inside: avoid">
                     <div class="box-header with-border">
                         <h3 class="box-title">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
                     </div>
@@ -94,7 +94,7 @@
             {% endif %}
 
 {#             DATA CATEGORY#}
-            <div class="box box-solid box-warning">
+            <div class="box box-solid box-warning" style="page-break-inside: avoid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -123,7 +123,7 @@
             </div>
 
 {#             RECIPIENTS#}
-            <div class="box box-solid box-primary">
+            <div class="box box-solid box-primary" style="page-break-inside: avoid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -148,7 +148,7 @@
             </div>
 
 {#             SPECIFIC#}
-            <div class="box box-solid box-info">
+            <div class="box box-solid box-info" style="page-break-inside: avoid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -257,7 +257,7 @@
 {#         RIGHT#}
         <div class="col-md-6">
 {#             DETAILS#}
-            <div class="box box-solid box-primary">
+            <div class="box box-solid box-primary" style="page-break-inside: avoid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -472,7 +472,7 @@
             </div>
 
 {#             SECURITY#}
-            <div class="box box-solid box-success">
+            <div class="box box-solid box-success" style="page-break-inside: avoid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -568,7 +568,7 @@
             </div>
 
             {#             PROOFS#}
-            <div class="box box-solid box-warning">
+            <div class="box box-solid box-warning" style="page-break-inside: avoid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_documents'|trans }}</h3></div>
                 <div class="box-body">
                     {% set activeProofs = object.proofs|filter(proof => proof.deletedAt is null) -%}
@@ -590,7 +590,7 @@
 
 
             {# REQUESTS #}
-            <div class="box box-solid box-warning">
+            <div class="box box-solid box-warning" style="page-break-inside: avoid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_request'|trans }}</h3></div>
                 <div class="box-body">
                     {% set activeRequests = object.requests %}
@@ -610,7 +610,7 @@
             </div>
 
             {# VIOLATIONS #}
-            <div class="box box-solid box-warning">
+            <div class="box box-solid box-warning" style="page-break-inside: avoid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_violations'|trans }}</h3></div>
                 <div class="box-body">
                     {% set activeViolations = object.violations %}
@@ -630,7 +630,7 @@
             </div>
 
             {# Mesurements #}
-            <div class="box box-solid box-warning">
+            <div class="box box-solid box-warning" style="page-break-inside: avoid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_mesurement'|trans }}</h3></div>
                 <div class="box-body">
                     {% if object.mesurements|length > 0 %}
@@ -649,7 +649,7 @@
 
 
             {% if object.collectivity.hasModuleConformiteTraitement %}
-                <div class="box box-solid box-success">
+                <div class="box box-solid box-success" style="page-break-inside: avoid">
                     <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
@@ -694,7 +694,7 @@
                     </div>
                 </div>
                 {% if object.conformiteTraitement is not null and object.conformiteTraitement.lastAnalyseImpact is not null %}
-                    <div class="box box-solid box-primary">
+                    <div class="box box-solid box-primary" style="page-break-inside: avoid">
                         <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
                         <div class="box-body no-padding">
                             <table class="table">
@@ -746,7 +746,7 @@
             {% endif %}
 
             {#             HISTORIC#}
-            <div class="box box-solid box-default">
+            <div class="box box-solid box-default" style="page-break-inside: avoid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table class="table">
