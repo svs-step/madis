@@ -213,7 +213,15 @@ class ConformiteTraitement implements LoggableSubject
     {
         $treatment = $this->getTraitement();
 
-        if (count($this->getAnalyseImpacts()) > 0) {
+        $doneAipds = 0;
+        /** @var AnalyseImpact $aipd */
+        foreach ($this->getAnalyseImpacts() as $aipd) {
+            if ('non_realisee' !== $aipd->getStatut() && 'en_cours' !== $aipd->getStatut()) {
+                ++$doneAipds;
+            }
+        }
+
+        if ($doneAipds) {
             // Already has AIPD
             return false;
         }
@@ -231,15 +239,23 @@ class ConformiteTraitement implements LoggableSubject
             || $treatment->isAutomaticExclusionService()
             || $treatment->isInnovativeUse()
         ) {
-            $catCount = 0;
+            $sensitiveCount = 0;
+            $categoryCount  = 0;
             // If one of these items is true, check if there are sensitive data categories
             /** @var TreatmentDataCategory $cat */
             foreach ($treatment->getDataCategories() as $cat) {
+                ++$categoryCount;
+                if ($categoryCount > 2) {
+                    return true;
+                }
                 if ($cat->isSensible()) {
-                    ++$catCount;
-                    if ($catCount >= 2) {
+                    ++$sensitiveCount;
+                    if ($sensitiveCount > 1) {
                         return true;
                     }
+                }
+                if ($categoryCount > 0 && $sensitiveCount > 0) {
+                    return true;
                 }
             }
         }

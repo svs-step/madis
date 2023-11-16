@@ -179,9 +179,10 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 $aipd = $conformite->getLastAnalyseImpact();
             }
 
-            if (false === $treatment->getExemptAIPD() && $aipd && ('non_realisee' === $aipd->getStatut() || 'en_cours' === $aipd->getStatut())) {
+            if ($conformite && $conformite->getNeedsAipd()) {
                 ++$cntAipdToDo;
             }
+
             if ($aipd) {
                 ++$cntAipdRealised;
             }
@@ -219,15 +220,12 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
             $treatment->isAutomaticExclusionService() ? $specificTreatments[]         = "Exclusion automatique d'un service" : null;
             $treatment->isInnovativeUse() ? $specificTreatments[]                     = 'Usage innovant' : null;
 
-            $cnt_categories = count(array_filter($specificTreatments));
-
             foreach ($treatment->getDataCategories() as $category) {
                 if ($category->isSensible()) {
-                    ++$cnt_sensible;
                     $sensibleDatas[] = $category;
                 }
             }
-            if (($cnt_sensible > 0 && $cnt_categories > 0) || $cnt_categories > 1 || ($cnt_sensible > 2)) {
+            if ($treatment->getConformiteTraitement() && $treatment->getConformiteTraitement()->getNeedsAipd()) {
                 $tableNeedAipd->addRow(null, ['cantsplit' => true]);
                 $cell = $tableNeedAipd->addCell(2500);
                 $cell->addText($treatment->getName());
@@ -241,7 +239,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 }
             }
 
-            if (!$treatment->isExemptAIPD() && $treatment->getConformiteTraitement() && $aipd = $treatment->getConformiteTraitement()->getLastAnalyseImpact()) {
+            if ($treatment->getConformiteTraitement() && $aipd = $treatment->getConformiteTraitement()->getLastAnalyseImpact()) {
                 if ('non_realisee' !== $aipd->getStatut() && 'en_cours' !== $aipd->getStatut()) {
                     $aipdFinished[] = [
                         $treatment->getName(),
