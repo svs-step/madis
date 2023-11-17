@@ -10,34 +10,22 @@
 
 {% macro printParticipant(participant) %}
     <div class="js-collection-item col-md-6 nopadding">
-        <div class="box box-default">
-            <div class="box-tools pull-right">
-                <a aria-label="Supprimer" href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Remove">
-                    <i class="fa fa-times"></i>
-                </a>
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="box-title"></div>
+                    <div class="box-tools pull-right">
+                        <a aria-label="Supprimer" href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Supprimer">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
             <div class="box-body">
                 {{ form_errors(participant) }}
-                <table role="presentation" class="table" role="presentation">
-                    <tbody>
-                        <tr>
-                            <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.civilite'|trans }}</td>
-                            <td>{{ form_widget(participant.civilite, {'attr': {'autocomplete': 'honorific-prefix'}}) }}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.prenom'|trans }}</td>
-                            <td>{{ form_widget(participant.prenom, {'attr': {'autocomplete': 'given-name'}}) }}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.nom_famille'|trans }}</td>
-                            <td>{{ form_widget(participant.nomDeFamille, {'attr': {'autocomplete': 'family-name'}}) }}</td>
-                        </tr>
-                        <tr>
-                            <td class="text-bold">{{ 'registry.conformite_organisation.participant.form.fonction'|trans }}</td>
-                            <td>{{ form_widget(participant.fonction, {'attr': {'autocomplete': 'organization-title'}}) }}</td>
-                        </tr>
-                    </tbody>
-                </table>
+                {{ form_row(participant.civilite, {'attr': {'autocomplete': 'honorific-prefix'}}) }}
+                {{ form_row(participant.prenom, {'attr': {'autocomplete': 'given-name'}}) }}
+                {{ form_row(participant.nomDeFamille, {'attr': {'autocomplete': 'family-name'}}) }}
+                {{ form_row(participant.fonction, {'attr': {'autocomplete': 'organization-title'}}) }}
             </div>
         </div>
     </div>
@@ -61,18 +49,20 @@
             </div>
         </div>
     </div>
-</div>
 
     <div class="col-md-12">
-        <div class="box box-solid box-header with-border">
-            <h3 class="box-title">
-                {{ 'registry.conformite_organisation.form.contexte'|trans }}
-            </h3>
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">
+                    {{ 'registry.conformite_organisation.form.contexte'|trans }}
+                </h3>
+            </div>
             <div class="box-body">
-                <div class="col-sm-6">
+                <div class="col-sm-4">
                     {{ form_row(form.date) }}
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-8">
+                    <label class="control-label">Participants</label>
                     <div class="js-collection-wrapper"
                          data-prototype="{{ formMacros.printParticipant(form.participants.vars.prototype)|e('html_attr') }}"
                          data-index="{{ form.participants|length }}"
@@ -91,9 +81,8 @@
         </div>
     </div>
 
-{% include 'Registry/Conformite_organisation/_form_conformites.html.twig' with {'form': form.conformites} %}
+    {% include 'Registry/Conformite_organisation/_form_conformites.html.twig' with {'form': form.conformites} %}
 
-<div class="row">
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
@@ -105,6 +94,5 @@
             </div>
         </div>
     </div>
-</div>
 
 {{ form_end(form) }}

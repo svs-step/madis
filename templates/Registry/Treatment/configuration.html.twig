@@ -100,7 +100,7 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3>
                 </div>
-                <div class="box-body no-padding">
+                <div class="box-body">
                     {{ form_row(form.creator) }}
                     {{ form_row(form.collectivity) }}
                 </div>
@@ -135,7 +135,7 @@
                                 {% endset %}
                             {% endif %}
                         {% endfor %}
-                        <div class="{% if concernedPeopleErrorBlock is not null %} has-error{% endif %}">
+                        <div class="ms-2{% if concernedPeopleErrorBlock is not null %} has-error{% endif %}">
                             {{ form_row(form.concernedPeopleParticular) }}
                             {{ form_row(form.concernedPeopleUser) }}
                             {{ form_row(form.concernedPeopleAgent) }}

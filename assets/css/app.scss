@@ -3,6 +3,10 @@ a:not([href]).banner-impersonate {
   cursor: not-allowed;
 }
 
+.ms-2 {
+  padding-left: 2rem;
+}
+
 /* Impersonate */
 body > div.banner-impersonate {
   min-height: 50px;
@@ -138,6 +142,11 @@ a:focus {
     margin-bottom: 0;
   }
 }
+.question-no-margin {
+  .form-group {
+    margin-bottom: 0;
+  }
+}
 .delay-group {
   .one-line {
     vertical-align: middle;
@@ -249,10 +258,6 @@ body.show .content ul {
   i{
     font-size: 33px;
   }
-}
-
-.btn.add_question {
-  margin-left: 30px;
 }
 
 .map-wrapper {

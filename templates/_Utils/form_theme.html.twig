@@ -67,12 +67,12 @@
 
 {% block _evaluation_conformites_entry_reponses_entry_widget %}
     <div id="{{ form.vars.id }}" class="conformite-organisation-reponse">
-        <div class="form-group {% if form.reponse.vars.valid == false or form.reponseRaison.vars.valid == false %}has-error{% endif %}" style="margin-top: 15px;">
-            <div class="col-sm-3">
+        <div class="row form-group{% if form.reponse.vars.valid == false or form.reponseRaison.vars.valid == false %}has-error{% endif %}">
+            <div class="col-sm-4">
                 {{ form_widget(form.reponse) }}
                 {{ form_errors(form.reponse) }}
             </div>
-            <div class="col-sm-9">
+            <div class="col-sm-8">
                 {{ form_widget(form.reponseRaison) }}
                 {% if form.reponseRaison.vars.valid == false %}
                     <div class="form-error">

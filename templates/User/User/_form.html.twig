@@ -4,11 +4,6 @@
     {% set submitValue = submitValue|default('user.user.action.new_submit'|trans) %}
 {% endif %}
 
-<style>
-    .radio {
-        padding-left: 2em;
-    }
-</style>
 <div class="row">
     {{ form_start(form) }}
     {{ form_row(form._token) }}
@@ -60,9 +55,9 @@
 
                 <div class="box-body">
                     <div class="form-group {% if form.ssoKey.vars.valid==false %}has-error{% endif %}">
-                        <label class="col-sm-2">{{ 'user.user.form.sso_key'|trans }}</label>
-                        <div class="col-sm-10" style="display: flex; align-items: center;">
-                            <span class="col-sm-4" style="display: flex; align-items: center;"><img src="{{ asset(sso_icon) }}" alt="">{{ sso_title }}</span>
+                        <label>{{ 'user.user.form.sso_key'|trans }}</label>
+                        <div style="display: flex; align-items: center;">
+                            <div class="col-sm-4" style="display: flex; align-items: center;"><img src="{{ asset(sso_icon) }}" alt=""><span style="padding-left: 0.5;">{{ sso_title }}</span></div>
                             <div class="col-sm-8" style="padding-right: 0;">
                                 <div class="input-group">
                                     <span class="input-group-addon"><i class="fa fa-key"></i></span>

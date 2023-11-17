@@ -1,68 +1,52 @@
 {% import _self as formMacros %}
 {% macro printAnswerRow(answer) %}
-    <li class="col-md-12 answer-item">
+    <li class="answer-item">
         {% include 'Maturity/Referentiel/_form_referentiel_answer.html.twig' with {'form': answer} %}
     </li>
 {% endmacro %}
 
-<div class="box box-solid" style="border: 1px solid #D2D6DE;">
-    <div class="box-header">
-        <div class="float-left">
-            <i class="fas fa-grip-vertical" style="padding: 0 0.5em 0 0.4em; cursor: grab;line-height: 2em"></i>
-        </div>
-        <div class="col-md-7 col-lg-8">
-            {{ form_row(form.name) }}
-            {{ form_row(form.position) }}
-        </div>
-        <div class="col-md-3 col-lg-2">
-            <div class="form-group">
-                <div class="col-md-6">
-                    <label class="control-label" for="{{ form.weight.vars.id }}">Pondération</label>
-                </div>
-                <div class="col-md-6">
-                    {{ form_widget(form.weight) }}
-                </div>
+<div class="box">
+    <div class="box-header with-border" style="padding-right: 0;display: flex;align-items: end;cursor: grab;">
+        <span style="padding: 7px 0;">
+            <i class="fas fa-grip-vertical"></i>
+        </span>
+        <div class="question-no-margin" style="gap: 10px;display: flex;flex-grow: 1;padding: 0 10px;">
+            <div style="flex-grow: 1;">
+              {{ form_row(form.name) }}
+              {{ form_row(form.position) }}
             </div>
+            {{ form_widget(form.weight) }}
         </div>
-
-        <a href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}"
-                class="box-link btn btn-default" data-toggle="collapse" style="float:right;border:none"><i class="fa fa-plus"></i></a>
-
-        <a href="#" class="delete-question btn btn-default" style="float:right;border:none"><i class="fa fa-trash"></i></a>
+        <div style="padding: 1px 0;">
+            <a href="#" class="delete-question btn btn-default" style="border:none"><i class="fa fa-trash"></i></a>
+            <a href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}" class="box-link btn btn-default" data-toggle="collapse" style="border:none"><i class="fa fa-plus"></i></a>
+        </div>
     </div>
 
-    <div class="collapse" id="question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}">
-        <div class="box-body">
-            <div class="row mx-0" >
-                <div class="col-md-12">
-                    <div>Réponses :</div>
+    <div class="collapse box-body" id="question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}">
 
-                    <div class="col-md-2">
-                        {{ form_row(form.optional) }}
-                    </div>
-                    <div class="col-md-2">
-                        {{ form_row(form.optionReason) }}
-                    </div>
-                </div>
+        <p>Réponses :</p>
 
-                <div class="col-md-12">
-                    <ul class="referentielAnswers"
-                        style="margin: 0;list-style: none; padding:0"
-                        data-index="{{ form.answers|length > 0 ? form.answers|last.vars.name + 1 : 0 }}"
-                        data-question="{{ form.vars.name ? form.vars.name : 0 }}"
-                        data-section="{{ form.parent.parent.vars.name ? form.parent.parent.vars.name : 0 }}"
-                    >
-                            {% if question.answers is not empty %}
-                                {% for answer in question.answers|sort((a, b) => a.vars['value'].position >= b.vars['value'].position) %}
-                                    {{ formMacros.printAnswerRow(answer) }}
-                                {% endfor %}
-                            {% endif %}
-                    </ul>
-                </div>
-                <div class="col-md-12" style="padding-left: 2em">
-                    {{ form_row(form.addAnswer) }}
-                </div>
+        <div style="display: flex;align-items: center;gap: 10px;">
+            {{ form_row(form.optional) }}
+            <div style="flex-grow: 1;">
+                {{ form_row(form.optionReason) }}
             </div>
         </div>
+
+        <ul class="list-unstyled referentielAnswers"
+            data-index="{{ form.answers|length > 0 ? form.answers|last.vars.name + 1 : 0 }}"
+            data-question="{{ form.vars.name ? form.vars.name : 0 }}"
+            data-section="{{ form.parent.parent.vars.name ? form.parent.parent.vars.name : 0 }}"
+        >
+            {% if question.answers is not empty %}
+                {% for answer in question.answers|sort((a, b) => a.vars['value'].position >= b.vars['value'].position) %}
+                    {{ formMacros.printAnswerRow(answer) }}
+                {% endfor %}
+            {% endif %}
+        </ul>
+
+        {{ form_row(form.addAnswer) }}
+
     </div>
 </div>
