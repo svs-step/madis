@@ -1,15 +1,17 @@
 <div class="box box-solid">
-    <div class="box-body">
-        <div class="float-left">
-        <i class="fas fa-grip-vertical" style="padding: 0 0.5em 0 0.4em; cursor: grab;line-height: 2em"></i>
+    <div class="box-header with-border" style="display: flex;align-items: end;gap: 10px;padding-right: 0;cursor: grab;">
+        <span style="padding: 7px 0;">
+            <i class="fas fa-grip-vertical"></i>
+        </span>
+        <div class="question-no-margin" style="display: flex;flex-grow: 1;gap: 10px;padding: 0 10px;">>
+            <div style="flex-grow: 1;">
+                {{ form_row(form.position) }}
+                {{ form_row(form.name) }}
+            </div>
+            <div style="flex-grow: 1;">
+                {{ form_row(form.recommendation) }}
+            </div>
         </div>
-        <div class="col-md-5">
-            {{ form_row(form.position) }}
-            {{ form_row(form.name) }}
-        </div>
-        <div class="col-md-5">
-            {{ form_row(form.recommendation) }}
-        </div>
-        <a href="#" class="delete-answer" style="float:right;padding: 0 1em"><i class="fa fa-trash"></i></a>
+        <a href="#" class="delete-answer btn"><i class="fa fa-trash"></i></a>
     </div>
 </div>

@@ -13,11 +13,10 @@
         <div class="box">
             <div class="box-header with-border">
                 <div class="box-title"></div>
-                    <div class="box-tools pull-right">
-                        <a aria-label="Supprimer" href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Supprimer">
-                            <i class="fa fa-times"></i>
-                        </a>
-                    </div>
+                <div class="box-tools pull-right">
+                    <a aria-label="Supprimer" href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Supprimer">
+                        <i class="fa fa-times"></i>
+                    </a>
                 </div>
             </div>
             <div class="box-body">
@@ -67,15 +66,13 @@
                          data-prototype="{{ formMacros.printParticipant(form.participants.vars.prototype)|e('html_attr') }}"
                          data-index="{{ form.participants|length }}"
                     >
-
-                    {% for participant in form.participants %}
-                        {{ formMacros.printParticipant(participant) }}
-                    {% endfor %}
-                    <a aria-label="{{ 'registry.conformite_organisation.participant.form.add'|trans }}" href="#" class="js-collection-add btn btn-default">
-                        <span class="fa fa-pencil"></span>
-                        {{ 'registry.conformite_organisation.participant.form.add'|trans }}
-                    </a>
-                        </div>
+                        {% for participant in form.participants %}
+                            {{ formMacros.printParticipant(participant) }}
+                        {% endfor %}
+                        <button class="js-collection-add btn btn-default">
+                            <span class="fa fa-plus"></span> {{ 'registry.conformite_organisation.participant.form.add'|trans }}
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

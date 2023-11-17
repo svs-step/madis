@@ -6,21 +6,19 @@
 {% endmacro %}
 
 <div class="box">
-    <div class="box-header with-border" style="padding-right: 0;display: flex;align-items: end;cursor: grab;">
+    <div class="box-header with-border" style="display: flex;align-items: end;padding-right: 0;cursor: grab;">
         <span style="padding: 7px 0;">
             <i class="fas fa-grip-vertical"></i>
         </span>
-        <div class="question-no-margin" style="gap: 10px;display: flex;flex-grow: 1;padding: 0 10px;">
+        <div class="question-no-margin" style="display: flex;flex-grow: 1;gap: 10px;padding: 0 10px;">
             <div style="flex-grow: 1;">
               {{ form_row(form.name) }}
               {{ form_row(form.position) }}
             </div>
-            {{ form_widget(form.weight) }}
+            {{ form_row(form.weight) }}
         </div>
-        <div style="padding: 1px 0;">
-            <a href="#" class="delete-question btn btn-default" style="border:none"><i class="fa fa-trash"></i></a>
-            <a href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}" class="box-link btn btn-default" data-toggle="collapse" style="border:none"><i class="fa fa-plus"></i></a>
-        </div>
+        <a href="#" class="delete-question btn"><i class="fa fa-trash"></i></a>
+        <a href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}" class="box-link btn" data-toggle="collapse"><i class="fa fa-plus"></i></a>
     </div>
 
     <div class="collapse box-body" id="question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}">

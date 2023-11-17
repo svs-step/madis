@@ -8,7 +8,11 @@
     {{ form_start(form) }}
 
     <div class="col-md-12">
-            {{ form_row(form.name) }}
+        <div class="box box-solid">
+            <div class="box-body">
+                {{ form_row(form.name) }}
+            </div>
+        </div>
         <div class="box box-solid">
             <div class="box-body text-center">
                 <a aria-label="{{ 'documentation.category.action.back_to_list'|trans }}" href="{{ path('documentation_category_list') }}" class="btn btn-default">
@@ -20,4 +24,3 @@
     </div>
     {{ form_end(form) }}
 </div>
-
