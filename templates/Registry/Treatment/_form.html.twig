@@ -1,31 +1,21 @@
 {% import _self as formMacros %}
 
 {% macro printShelfLife(shelfLife) %}
-    <div class="js-collection-item nopadding">
-        <div class="box box-default">
-            <div class="box-tools pull-right">
-                <a href="#" class="btn btn-box-tool js-remove-item" data-toggle="tooltip" title="Supprimer le délai">
-                    <i class="fa fa-times"></i>
-                </a>
+    <div class="js-collection-item">
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="box-title"></div>
+                <div class="box-tools pull-right">
+                    <button aria-label="Supprimer le délai" title="Supprimer le délai" class="btn btn-box-tool js-remove-item" data-toggle="tooltip">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
             </div>
             <div class="box-body">
                 {{ form_errors(shelfLife) }}
-                <table class="table">
-                    <tbody>
-                    <tr>
-                        <td class="text-bold">{{ 'registry.treatment.form.shelflife_name'|trans }}</td>
-                        <td>{{ form_widget(shelfLife.name) }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-bold">{{ 'registry.treatment.form.shelflife_duration'|trans }}</td>
-                        <td>{{ form_widget(shelfLife.duration) }}</td>
-                    </tr>
-                    <tr>
-                        <td class="text-bold">{{ 'registry.treatment.form.shelflife_ultimate_fate'|trans }}</td>
-                        <td>{{ form_widget(shelfLife.ultimate_fate) }}</td>
-                    </tr>
-                    </tbody>
-                </table>
+                {{ form_row(shelfLife.name) }}
+                {{ form_row(shelfLife.duration) }}
+                {{ form_row(shelfLife.ultimate_fate) }}
             </div>
         </div>
     </div>
@@ -182,9 +172,9 @@
                         {% for shelfLife in form.shelfLifes %}
                             {{ formMacros.printShelfLife(shelfLife) }}
                         {% endfor %}
-                        <a href="#" class="js-collection-add btn btn-default">
+                        <button class="js-collection-add btn btn-default">
                             <i class="fa fa-plus"></i> Ajouter un délai de conservation
-                        </a>
+                        </button>
                     </div>
                 </div>
 

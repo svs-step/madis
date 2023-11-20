@@ -8,25 +8,39 @@
 
 {% macro printService(service) %}
     <div class="js-collection-item">
-        {{ form_errors(service) }}
-        <div class="col-sm-10">
-            {{ form_widget(service) }}
-        </div>
-        <div class="col-sm-2">
-            <a href="#" class="js-remove-item pull-right">
-                <i class="fa fa-times" style="color:#ff746d;"></i>
-            </a>
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="box-title"></div>
+                <div class="box-tools pull-right">
+                    <button aria-label="Supprimer le service" title="Supprimer le service" class="btn btn-box-tool js-remove-item" data-toggle="tooltip">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                {{ form_errors(service) }}
+                {{ form_widget(service) }}
+            </div>
         </div>
     </div>
 {% endmacro %}
 
 {% macro printComiteIlContact(contact) %}
     <div class="js-collection-item">
-        <a href="#" class="js-remove-item pull-right">
-            <i class="fa fa-times" style="color:#ff746d;"></i>
-        </a>
-        {{ form_errors(contact) }}
-        {{ form_widget(contact) }}
+        <div class="box">
+            <div class="box-header with-border">
+                <div class="box-title"></div>
+                <div class="box-tools pull-right">
+                    <button aria-label="Supprimer le membre" title="Supprimer le membre" class="btn btn-box-tool js-remove-item" data-toggle="tooltip">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="box-body">
+                {{ form_errors(contact) }}
+                {{ form_widget(contact) }}
+            </div>
+        </div>
     </div>
 {% endmacro %}
 
@@ -52,7 +66,6 @@
                 {{ form_row(form.nbrAgents) }}
                 {{ form_row(form.population) }}
                 {{ form_row(form.informationsComplementaires) }}
-
             </div>
         </div>
 
@@ -86,20 +99,18 @@
         {% do form.services.setRendered() %}
         <div class="box box-solid" id="box-services">
             <div class="box-header with-border"><h3 class="box-title"> {{ form_widget(form.isServicesEnabled) }}</h3></div>
-                <div class="box-body">
-                    <div class="js-collection-wrapper"
-                        data-prototype="{{ formMacros.printService(form.services.vars.prototype)|e('html_attr') }}"
-                        data-index="{{ form.services|length }}">
-                            {% for service in form.services %}
-                                {{ formMacros.printService(service) }}
-                            {% endfor %}
-                        <a aria-label="Ajouter un service" id="add-services" href="#" class="js-collection-add">
-                            <span class="fa fa-plus-circle"></span>
-                            Ajouter un service
-                        </a>
-                    </div>
+            <div class="box-body">
+                <div class="js-collection-wrapper"
+                    data-prototype="{{ formMacros.printService(form.services.vars.prototype)|e('html_attr') }}"
+                    data-index="{{ form.services|length }}">
+                        {% for service in form.services %}
+                            {{ formMacros.printService(service) }}
+                        {% endfor %}
+                    <button id="add-services" class="js-collection-add btn btn-default">
+                        <i class="fa fa-plus"></i> Ajouter un service
+                    </button>
                 </div>
-
+            </div>
         </div>
     </div>
 
@@ -149,12 +160,10 @@
                 >
                     {% for contact in form.comiteIlContacts %}
                         {{ formMacros.printComiteIlContact(contact) }}
-                        <hr style="border-top-color: #dddddd" />
                     {% endfor %}
-                    <a aria-label="Ajouter un membre" href="#" class="js-collection-add">
-                        <span class="fa fa-plus-circle"></span>
-                        Ajouter un membre
-                    </a>
+                    <button class="js-collection-add btn btn-default">
+                        <i class="fa fa-plus"></i> Ajouter un membre
+                    </button>
                 </div>
             </div>
         </div>
@@ -176,5 +185,3 @@
 
     {{ form_end(form) }}
 </div>
-
-

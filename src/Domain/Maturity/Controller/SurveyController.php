@@ -363,7 +363,7 @@ class SurveyController extends CRUDController
                 || $authorizedCollectivities->contains($collectivity)
             ) {
                 $reponse['data'][] = [
-                    'name'        => '<label class="required" for="' . $referentiel->getId() . '" style="font-weight:normal;"><input type="radio" id="' . $referentiel->getId() . '" value="' . $referentiel->getId() . '" name="referentiel_choice" required="true"/> ' . $referentiel->getName() . '</label>',
+                    'name'        => '<div class="radio"><label class="required" for="' . $referentiel->getId() . '"><input type="radio" id="' . $referentiel->getId() . '" value="' . $referentiel->getId() . '" name="referentiel_choice" required="true"/> ' . $referentiel->getName() . '</label></div>',
                     'description' => $referentiel->getDescription(),
                 ];
             }

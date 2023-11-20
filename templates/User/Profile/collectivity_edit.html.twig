@@ -109,10 +109,9 @@
                             {% for contact in form.comiteIlContacts %}
                                 {{ formMacros.printComiteIlContact(contact) }}
                             {% endfor %}
-                            <a aria-label="Ajouter un membre" href="#" class="js-collection-add">
-                                <span class="fa fa-plus-circle"></span>
-                                Ajouter un membre
-                            </a>
+                            <button class="js-collection-add btn btn-default">
+                                <i class="fa fa-plus"></i> Ajouter un membre
+                            </button>
                         </div>
                     </div>
                     </div>
