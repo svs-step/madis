@@ -4,10 +4,10 @@ namespace App\Tests\Domain\Notification\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
-use App\Infrastructure\ORM\AIPD\Repository\AnalyseImpact;
 use App\Domain\Notification\Controller\NotificationController;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Subscriber\NotificationEventSubscriber;
+use App\Infrastructure\ORM\AIPD\Repository\AnalyseImpact;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
 use App\Tests\Utils\ReflectionTrait;
 use Doctrine\ORM\EntityManagerInterface;
