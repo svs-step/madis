@@ -295,7 +295,7 @@ registry:
             list: Liste des actions de protection
             show: Visualiser une action de protection
         modal:
-          cancel: Annuler la création
+          cancel: Annuler
           create: Créer l'action de protection
           title: Créer une action de protection
 

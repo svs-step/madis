@@ -174,7 +174,12 @@ user:
                 sso_already_associated: La délégation d'authentification est déjà paramétrée
                 sso_key_duplicate: 'Identifiant SSO déjà utilisé pour le compte : email'
             #                ...
+        form_collectivity:
+            action:
+                submit: Modifier ma structure
         form_user:
+            action:
+                submit: Modifier mon compte
             tab:
                 general: Vos informations
                 moreInfo: Informations supplémentaires
@@ -249,7 +254,7 @@ user:
             enabled: Actif
             first_name: Prénom
             help:
-                password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe pour cet utilisateur
+                password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
             last_name: Nom
             password: Mot de passe
             password_repeat: Répéter le mot de passe

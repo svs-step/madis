@@ -41,12 +41,14 @@
     {%- if help is not empty -%}
         {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
     {%- endif -%}
-    <div class="row complex-choice-group{% if not valid %} has-error{% endif %}{% if form.vars.attr.class is defined %} {{form.vars.attr.class}}{% endif %}">
-        <div class="col-sm-1 check">{{ form_row(form.check) }}</div>
-        <div class="col-sm-3">{{ form_label(form, null, {'label_attr': {'for': form.check.vars.id, 'style': 'cursor: pointer;'}}) }}</div>
-        <div class="col-sm-8 comment">
-            {{ form_widget(form.comment, widget_attr) }}
-            {{ form_errors(form.comment) }} {# -#}
+    <div class="complex-choice-group{% if not valid %} has-error{% endif %}{% if form.vars.attr.class is defined %} {{form.vars.attr.class}}{% endif %}">
+        <div class="check">{{ form_row(form.check) }}</div>
+        <div style="flex-grow: 1;">
+            {{ form_label(form, null, {'label_attr': {'for': form.check.vars.id, 'style': 'cursor: pointer;'}}) }}
+            <div class="comment">
+                {{ form_widget(form.comment, widget_attr) }}
+                {{ form_errors(form.comment) }} {# -#}
+            </div>
         </div>
     </div> {# -#}
 {%- endblock complex_choice_row %}

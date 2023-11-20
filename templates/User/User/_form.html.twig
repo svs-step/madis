@@ -54,20 +54,18 @@
                 </div>
 
                 <div class="box-body">
-                    <div class="form-group {% if form.ssoKey.vars.valid==false %}has-error{% endif %}">
+                    <div class="form-group{% if form.ssoKey.vars.valid==false %} has-error{% endif %}">
                         <label>{{ 'user.user.form.sso_key'|trans }}</label>
                         <div style="display: flex; align-items: center;">
-                            <div class="col-sm-4" style="display: flex; align-items: center;"><img src="{{ asset(sso_icon) }}" alt=""><span style="padding-left: 0.5;">{{ sso_title }}</span></div>
-                            <div class="col-sm-8" style="padding-right: 0;">
-                                <div class="input-group">
-                                    <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                                    {{ form_widget(form.ssoKey) }}
-                                </div>
-                                {{ form_errors(form.ssoKey) }}
+                            <img src="{{ asset(sso_icon) }}" alt="">
+                            <p class="no-margin" style="padding: 0 0.5rem;">{{ sso_title }}</p>
+                            <div class="input-group" style="flex-grow: 1;">
+                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                {{ form_widget(form.ssoKey) }}
                             </div>
+                            {{ form_errors(form.ssoKey) }}
                         </div>
                     </div>
-
                 </div>
             </div>
         {% endif %}

@@ -4,7 +4,7 @@ a:not([href]).banner-impersonate {
 }
 
 .ms-2 {
-  padding-left: 2rem;
+  margin-left: 2rem;
 }
 
 /* Impersonate */
@@ -137,9 +137,9 @@ a:focus {
 }
 .complex-choice-group {
   display: flex;
-  align-items: center;
-  .form-group {
-    margin-bottom: 0;
+  align-items: start;
+  .checkbox {
+    margin: 0.5rem 0;
   }
 }
 .question-no-margin {
