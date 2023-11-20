@@ -21,6 +21,7 @@ use App\Domain\Registry\Model\Request;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Model\Violation;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
+use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
@@ -279,7 +280,7 @@ class NotificationEventSubscriber implements EventSubscriber
             $notification->setNotificationUsers($nus);
         } else {
             if (AnalyseImpact::class === get_class($object)) {
-                $nus = $this->saveEmailNotificationForDPO($notification);
+                $nus = $this->saveEmailNotificationForDPO($notification, $object->getConformiteTraitement()->getTraitement()->getCollectivity());
                 $notification->setNotificationUsers($nus);
             }
         }
@@ -326,14 +327,20 @@ class NotificationEventSubscriber implements EventSubscriber
         return $nus;
     }
 
-    private function saveEmailNotificationForDPO(Notification $notification): array
+    private function saveEmailNotificationForDPO(Notification $notification, Collectivity $collectivity): array
     {
         // Get DPOS
-        $refs = (new ArrayCollection($this->userRepository->findAll()))->filter(function (User $u) {
+        $refs = (new ArrayCollection($this->userRepository->findAll()))->filter(function (User $u) use ($collectivity) {
             $mi = $u->getMoreInfos();
 
+            $refColIds = [];
+            /** @var Collectivity $col */
+            foreach ($u->getCollectivitesReferees() as $col) {
+                $refColIds[] = $col->getId()->toString();
+            }
+
             return in_array('ROLE_ADMIN', $u->getRoles())
-                || in_array('ROLE_REFERENT', $u->getRoles())
+                || (in_array('ROLE_REFERENT', $u->getRoles()) && in_array($collectivity->getId()->toString(), $refColIds))
                 || ($mi && isset($mi[UserMoreInfoDictionary::MOREINFO_DPD]) && $mi[UserMoreInfoDictionary::MOREINFO_DPD]);
         });
 
