@@ -219,7 +219,7 @@ class NotificationGenerationTest extends WebTestCase
         $notif           = $notifRepository->findOneBy([
             'name'   => $aipd->__toString(),
             'module' => 'notification.modules.aipd',
-            'action' => 'notification.actions.state_change',
+            'action' => 'notification.actions.validated',
         ]);
 
         $this->assertNotNull($notif);

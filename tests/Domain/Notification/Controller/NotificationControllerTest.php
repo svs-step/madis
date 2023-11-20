@@ -4,6 +4,7 @@ namespace App\Tests\Domain\Notification\Controller;
 
 use App\Application\Controller\CRUDController;
 use App\Application\Symfony\Security\UserProvider;
+use App\Infrastructure\ORM\AIPD\Repository\AnalyseImpact;
 use App\Domain\Notification\Controller\NotificationController;
 use App\Domain\Notification\Model\Notification;
 use App\Domain\Notification\Subscriber\NotificationEventSubscriber;
@@ -32,6 +33,7 @@ class NotificationControllerTest extends TestCase
     private ObjectProphecy $authorizationChecker;
     private ObjectProphecy $userProvider;
     private ObjectProphecy $pdf;
+    private ObjectProphecy $AIPDRepository;
 
     private NotificationEventSubscriber $subscriber;
 
@@ -44,12 +46,14 @@ class NotificationControllerTest extends TestCase
         $this->authorizationChecker = $this->prophesize(AuthorizationCheckerInterface::class);
         $this->userProvider         = $this->prophesize(UserProvider::class);
         $this->pdf                  = $this->prophesize(Pdf::class);
+        $this->AIPDRepository       = $this->prophesize(AnalyseImpact::class);
 
         $this->controller = new NotificationController(
             $this->router->reveal(),
             $this->entityManager->reveal(),
             $this->translator->reveal(),
             $this->repository->reveal(),
+            $this->AIPDRepository->reveal(),
             $this->authorizationChecker->reveal(),
             $this->userProvider->reveal(),
             $this->pdf->reveal()

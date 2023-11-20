@@ -35,6 +35,7 @@ class NotificationGenerationSubscriberTest extends TestCase
     private ObjectProphecy $security;
     private ObjectProphecy $notificationUserRepository;
     private ObjectProphecy $translator;
+    private ObjectProphecy $aipdRepository;
 
     private NotificationEventSubscriber $subscriber;
 
@@ -50,6 +51,7 @@ class NotificationGenerationSubscriberTest extends TestCase
         $this->userRepository             = $this->prophesize(User::class);
         $this->notificationUserRepository = $this->prophesize(NotificationUser::class);
         $this->translator                 = $this->prophesize(TranslatorInterface::class);
+        $this->aipdRepository             = $this->prophesize(\App\Infrastructure\ORM\AIPD\Repository\AnalyseImpact::class);
 
         $this->security   = $this->prophesize(Security::class);
         $this->subscriber = new NotificationEventSubscriber(
@@ -57,6 +59,7 @@ class NotificationGenerationSubscriberTest extends TestCase
             $this->notificationNormalizer->reveal(),
             $this->userRepository->reveal(),
             $this->notificationUserRepository->reveal(),
+            $this->aipdRepository->reveal(),
             $this->security->reveal(),
             $this->translator->reveal(),
             30,
