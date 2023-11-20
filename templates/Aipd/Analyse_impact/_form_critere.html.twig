@@ -12,8 +12,8 @@
     <td>
         {% if form.vars.data and form.vars.data.fichier %}
             <div class="file_{{ form.vars.data.fichier|slice(0,8) }}">
-                <a aria-label="Fichier existant" class="exist_file" href="/uploads/aipd/critere_principe_fondamentaux/fichier/{{ form.vars.data.fichier }}">Fichier existant</a><br/>
-                <a aria-label="Enlever" href="#" class="remove_file" id="{{ form.vars.data.fichier }}">Enlever le fichier joint</a>
+                <a class="exist_file" href="/uploads/aipd/critere_principe_fondamentaux/fichier/{{ form.vars.data.fichier }}">Fichier existant</a><br/>
+                <a href="#" class="remove_file" id="{{ form.vars.data.fichier }}">Enlever le fichier joint</a>
             </div>
         {% endif %}
         <span>
@@ -22,4 +22,3 @@
         {{ form_errors(form.fichierFile) }}
     </td>
 </tr>
-
