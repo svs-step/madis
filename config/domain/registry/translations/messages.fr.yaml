@@ -383,7 +383,7 @@ registry:
             reason: Motif
             service: Service
             state: État de la demande
-            state_rejection_reason: Motifs du refus*
+            state_rejection_reason: Motifs du refus
             treatment: Traitements associés
         list:
             answer_date: Date de traitement

@@ -133,7 +133,13 @@ a:focus {
 
 /* Form */
 .form-group>label.required:after {
-  content: '*';
+  content: " (Obligatoire)";
+  font-size: 85%;
+  font-style: italic;
+  font-weight: normal;
+}
+.radio {
+  margin-top: 0;
 }
 .complex-choice-group {
   display: flex;
