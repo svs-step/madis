@@ -166,7 +166,7 @@ class RequestType extends AbstractType
             ])
             ->add('stateRejectionReason', TextareaType::class, [
                 'label'    => 'registry.request.form.state_rejection_reason',
-                'required' => false,
+                'required' => true,
                 'attr'     => [
                     'rows' => 4,
                 ],

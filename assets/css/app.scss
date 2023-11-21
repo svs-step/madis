@@ -3,6 +3,10 @@ a:not([href]).banner-impersonate {
   cursor: not-allowed;
 }
 
+.ms-2 {
+  margin-left: 2rem;
+}
+
 /* Impersonate */
 body > div.banner-impersonate {
   min-height: 50px;
@@ -129,11 +133,25 @@ a:focus {
 
 /* Form */
 .form-group>label.required:after {
-  content: '*';
+  content: " (Obligatoire)";
+  font-size: 85%;
+  font-style: italic;
+  font-weight: normal;
 }
-.complex-choice-group label.col-sm-2 {
-  text-align: left;
-  width: 100%;
+.radio {
+  margin-top: 0;
+}
+.complex-choice-group {
+  display: flex;
+  align-items: start;
+  .checkbox {
+    margin: 0.5rem 0;
+  }
+}
+.question-no-margin {
+  .form-group {
+    margin-bottom: 0;
+  }
 }
 .delay-group {
   .one-line {
@@ -149,6 +167,14 @@ a:focus {
 .has-feedback .form-control-feedback {
   pointer-events: auto;
   cursor: pointer;
+}
+textarea {
+  max-width: 100%;
+  min-width: 100%;
+}
+
+.js-collection-wrapper i.fa-times {
+  color: #ff746d;
 }
 
 /* Pages */
@@ -244,10 +270,6 @@ body.show .content ul {
   }
 }
 
-.btn.add_question {
-  margin-left: 30px;
-}
-
 .map-wrapper {
   .row{
     overflow: hidden;
@@ -263,16 +285,6 @@ body.show .content ul {
 
 .table > tbody > tr > td.concerned-people-type{
   padding-left: 30px;
-}
-
-.is-paddingless{
-  .complex-choice-group{
-    padding-left:0;
-
-    .check{
-      padding-left: 0;
-    }
-  }
 }
 
 .custom-checkbox{

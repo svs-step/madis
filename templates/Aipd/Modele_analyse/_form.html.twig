@@ -104,9 +104,9 @@
                     data-prototype="{{ formMacros.printScenariosMenaces(form.scenarioMenaces.vars.prototype)|e('html_attr') }}"
                     data-index="{{ form.scenarioMenaces|length }}"
                 >
-                    <a aria-label="{{ 'aipd.modele_analyse.form.scenario_menace.add'|trans }}" href="#" class="js-table-collection-add btn btn-default">
-                        {{ 'aipd.modele_analyse.form.scenario_menace.add'|trans }}
-                    </a>
+                    <button class="js-table-collection-add btn btn-default">
+                        <i class="fa fa-plus"></i> {{ 'aipd.modele_analyse.form.scenario_menace.add'|trans }}
+                    </button>
                     <table role="presentation" id="js-table-collection" class="table table-bordered">
                         <tr>
                             <th scope="col">{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
@@ -151,5 +151,3 @@
         </div>
     </div>
 {{ form_end(form) }}
-
-

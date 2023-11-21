@@ -93,7 +93,6 @@ class ReponseType extends AbstractType
                         'class'            => 'selectpicker',
                         'title'            => 'placeholder.multiple_select',
                         'data-live-search' => true,
-                        'data-width'       => '450px',
                     ],
                     'choice_attr' => function (Mesurement $choice) {
                         $name = $choice->getName();

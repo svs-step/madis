@@ -97,4 +97,4 @@ documentation:
                 fileorurl: Vous devez choisir un fichier ou une URL pour le document
                 missingurl: Vous devez entrer une URL si votre document est un lien
             label:
-                name: Nom de la catégorie
+                name: Catégorie

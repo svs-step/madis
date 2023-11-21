@@ -325,7 +325,7 @@ class AnalyseImpactController extends CRUDController
                 || $authorizedCollectivities->contains($collectivity)
             ) {
                 $reponse['data'][] = [
-                    'nom'         => '<input type="radio" value="' . $modele->getId() . '" name="modele_choice" required="true"/> ' . $modele->getNom(),
+                    'nom'         => '<div class="radio"><label class="required" for="' . $modele->getId() . '"><input type="radio" id="' . $modele->getId() . '" value="' . $modele->getId() . '" name="modele_choice" required="true"/> ' . $modele->getNom() . '</label></div>',
                     'description' => $modele->getDescription(),
                 ];
             }

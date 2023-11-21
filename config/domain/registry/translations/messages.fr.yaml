@@ -295,7 +295,7 @@ registry:
             list: Liste des actions de protection
             show: Visualiser une action de protection
         modal:
-          cancel: Annuler la création
+          cancel: Annuler
           create: Créer l'action de protection
           title: Créer une action de protection
 
@@ -383,7 +383,7 @@ registry:
             reason: Motif
             service: Service
             state: État de la demande
-            state_rejection_reason: Motifs du refus*
+            state_rejection_reason: Motifs du refus
             treatment: Traitements associés
         list:
             answer_date: Date de traitement

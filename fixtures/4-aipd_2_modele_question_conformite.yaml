@@ -46,7 +46,7 @@ App\Domain\AIPD\Model\ModeleQuestionConformite:
         texteNonConformiteMajeure: "Non-conformite majeure"
     modele_question_conformite_6:
         __construct:
-            - "Information des personnes concernées (traitement loyal et transparent"
+            - "Information des personnes concernées (traitement loyal et transparent)"
             - 6
             - '@modele_analyse_1'
         isJustificationObligatoire: false
