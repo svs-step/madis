@@ -8,7 +8,7 @@
     {% do form.questions.setRendered() %}
     {% do form.referentiel.setRendered() %}
     {{ form_errors(form) }}
-    <div class="row">
+    <div class="row" style="display: flex;flex-wrap: wrap;">
         {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
         <input type="hidden" name="referentiel" value="{{ form.vars.value.referentiel ? form.vars.value.referentiel.id : '' }}" />
         {% set domains = form.vars.value.referentiel ? form.vars.value.referentiel.domains|sort((a, b) => a.position > b.position) : [] %}

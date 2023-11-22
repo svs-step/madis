@@ -145,13 +145,16 @@ a:focus {
   display: flex;
   align-items: start;
   .checkbox {
-    margin: 0.5rem 0;
+    margin: 0;
   }
 }
 .question-no-margin {
   .form-group {
     margin-bottom: 0;
   }
+}
+td div.bootstrap-select {
+  max-width: 450px;
 }
 .delay-group {
   .one-line {

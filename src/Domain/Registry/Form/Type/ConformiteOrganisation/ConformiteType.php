@@ -51,6 +51,7 @@ class ConformiteType extends AbstractType
                     'title'            => 'placeholder.multiple_select',
                     'data-live-search' => true,
                     'aria-label'       => 'Actions de protection',
+                    'data-width'       => 'calc(100% - 40px)',
                 ],
                 'choice_attr' => function (Mesurement $choice) {
                     $name = $choice->getName();
