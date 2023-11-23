@@ -364,15 +364,15 @@ class Treatment extends CRUDRepository implements Repository\Treatment
                     break;
                 case 'logiciel':
                     // If collectivity has tools modules active, search in tools
-                    $queryBuilder->join('o.tools', 'tools')
+                    $queryBuilder->leftJoin('o.tools', 'tools')
                         ->addSelect('GROUP_CONCAT(tools.name) as HIDDEN toolsNames')
                         ->groupBy('o.id')
-
                     ;
 
                     $queryBuilder->andHaving($queryBuilder->expr()->orX('(toolsNames LIKE :software_tool AND collectivite.hasModuleTools = 1)', '(o.software LIKE :software_tool AND collectivite.hasModuleTools = 0)'))
                         ->setParameter('software_tool', '%' . $search . '%')
                     ;
+
                     break;
                 case 'enTantQue':
                     $this->addWhereClause($queryBuilder, 'author', '%' . $search . '%', 'LIKE');
