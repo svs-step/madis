@@ -14,7 +14,7 @@ App\Domain\Registry\Model\Embeddable\Address:
                 groups: ['default']
         zipCode:
             - Regex:
-                pattern: '/^[0-9]{5}$/'
+                pattern: '/^[0-9]{2,5}$/'
                 message: 'registry_address.zip_code.regex'
                 groups: ['default']
         lineOne:
