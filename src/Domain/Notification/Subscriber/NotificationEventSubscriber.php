@@ -14,6 +14,7 @@ use App\Domain\Notification\Model\NotificationUser;
 use App\Domain\Notification\Serializer\NotificationNormalizer;
 use App\Domain\Registry\Model\ConformiteTraitement\ConformiteTraitement;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
+use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\User;
 use App\Domain\User\Repository\User as UserRepository;
 use App\Infrastructure\ORM\Notification\Repository\Notification as NotificationRepository;
@@ -91,12 +92,12 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setObject((object) $norm);
         $notification->setDpo(true);
         $notification->setSubject('');
-        $this->notificationRepository->insert($notification);
+        // $this->notificationRepository->insert($notification);
 
         $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
         $notification->setNotificationUsers($nus);
-        $this->notificationRepository->update($notification);
+        $this->notificationRepository->insert($notification);
         $this->saveEmailNotificationForDPOs($notification, $conformite);
     }
 
@@ -129,11 +130,10 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setObject((object) $norm);
         $notification->setDpo(true);
         $notification->setSubject($this->translator->trans('notifications.subject.late_survey', ['%days%' => $this->surveyDays]));
-        $this->notificationRepository->insert($notification);
         $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
         $notification->setNotificationUsers($nus);
-        $this->notificationRepository->update($notification);
+        $this->notificationRepository->insert($notification);
     }
 
     /**
@@ -168,12 +168,10 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $date = \DateTime::createFromFormat(DATE_ATOM, $ob->planificationDate)->format('d/m/Y');
 
         $notification->setSubject($this->translator->trans('notifications.subject.late_action', ['%date%' => $date]));
-        $this->notificationRepository->insert($notification);
-
         $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
         $notification->setNotificationUsers($nus);
-        $this->notificationRepository->update($notification);
+        $this->notificationRepository->insert($notification);
 
         // Send email to référent opérationnel
         $this->saveEmailNotificationForRefOp($notification, $action);
@@ -204,12 +202,10 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setObject((object) $norm);
         $notification->setDpo(true);
         $notification->setSubject($this->translator->trans('notifications.subject.late_request', ['%days%' => $this->requestDays]));
-        $this->notificationRepository->insert($notification);
-
         $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
         $notification->setNotificationUsers($nus);
-        $this->notificationRepository->update($notification);
+        $this->notificationRepository->insert($notification);
         // Send email to référent opérationnel and responsable de traitement
         $this->saveEmailNotificationForRefOp($notification, $request);
         $this->saveEmailNotificationForRespTrait($notification, $request);
@@ -290,18 +286,25 @@ class NotificationEventSubscriber implements EventSubscriberInterface
     {
         // TODO envoyer à tous les ADMINS + MOREINFO_DPD
         // Get DPOs
-        $t    = $object->getTraitement();
-        $refs = $t->getCollectivity()->getUsers()->filter(function (User $u) {
+        $t            = $object->getTraitement();
+        $collectivity = $t->getCollectivity();
+        $refs         = $collectivity->getUsers()->filter(function (User $u) use ($collectivity) {
             $mi = $u->getMoreInfos();
 
+            $refColIds = [];
+            /** @var Collectivity $col */
+            foreach ($u->getCollectivitesReferees() as $col) {
+                $refColIds[] = $col->getId()->toString();
+            }
+
             return in_array('ROLE_ADMIN', $u->getRoles())
-                || in_array('ROLE_REFERENT', $u->getRoles())
+                || (in_array('ROLE_REFERENT', $u->getRoles()) && in_array($collectivity->getId()->toString(), $refColIds))
                 || ($mi && isset($mi[UserMoreInfoDictionary::MOREINFO_DPD]) && $mi[UserMoreInfoDictionary::MOREINFO_DPD]);
         });
 
         // Also get DPOs from collectivity
-        if ($t->getCollectivity() && $t->getCollectivity()->getDpo()) {
-            if ($t->getCollectivity()->getDpo()->getNotification()) {
+        if ($collectivity->getDpo()) {
+            if ($collectivity->getDpo()->getNotification()) {
                 $refs[] = $t->getCollectivity()->getDpo()->getMail();
             }
         }

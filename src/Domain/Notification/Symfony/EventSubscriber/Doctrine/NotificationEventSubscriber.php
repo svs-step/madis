@@ -344,6 +344,13 @@ class NotificationEventSubscriber implements EventSubscriber
                 || ($mi && isset($mi[UserMoreInfoDictionary::MOREINFO_DPD]) && $mi[UserMoreInfoDictionary::MOREINFO_DPD]);
         });
 
+        // Also get DPOs from collectivity
+        if ($collectivity->getDpo()) {
+            if ($collectivity->getDpo()->getNotification()) {
+                $refs[] = $collectivity->getDpo()->getMail();
+            }
+        }
+
         $nus = [];
         // Add notification with email address for the référents
         foreach ($refs as $ref) {
