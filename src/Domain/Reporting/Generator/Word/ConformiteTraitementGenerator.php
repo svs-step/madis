@@ -438,8 +438,8 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $section->addTitle('Synthèse de la conformité des traitements évalués', 2);
         $section->addText('Légende :');
         $section->AddListItem('C = Conforme');
-        $section->AddListItem('NCM = Non conforme majeure');
-        $section->AddListItem('NC = Non conforme mineure');
+        $section->AddListItem('NCM = Non conforme mineure');
+        $section->AddListItem('NC = Non conforme majeure');
 
         $styleCellHeader = ['textDirection' => \PhpOffice\PhpWord\Style\Cell::TEXT_DIR_BTLR, 'bgColor' => '3c8dbc', 'vAlign' => 'center'];
 
@@ -460,9 +460,9 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
         $cell->addText('C', $this->textHeadStyle);
         $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
-        $cell->addText('NC', $this->textHeadStyle);
-        $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
         $cell->addText('NCM', $this->textHeadStyle);
+        $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
+        $cell->addText('NC', $this->textHeadStyle);
 
         // End header
 
@@ -482,11 +482,11 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                     $plannedActions = 0;
                     /** @var Mesurement $actionProtection */
                     foreach ($response->getActionProtections() as $actionProtection) {
-                        if (!$actionProtection->getPlanificationDate()) {
+                        if (!\is_null($actionProtection->getPlanificationDate())) {
                             ++$plannedActions;
                         }
                     }
-                    $NonConformityValue                                                 = $plannedActions > 0 ? 'NC' : 'NCM';
+                    $NonConformityValue                                                 = $plannedActions > 0 ? 'NCM' : 'NC';
                     $ConformityTreatmentValues[$response->getQuestion()->getPosition()] = $response->isConforme() ? 'C' : $NonConformityValue;
                 }
 
@@ -516,9 +516,9 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
                 $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'bce292', 'vAlign' => 'center']);
                 $cell->addText($C, ['bold' => true], ['alignment' => 'center']);
                 $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffff80', 'vAlign' => 'center']);
-                $cell->addText($NC, ['bold' => true], ['alignment' => 'center']);
-                $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffa7a7', 'vAlign' => 'center']);
                 $cell->addText($NCM, ['bold' => true], ['alignment' => 'center']);
+                $cell = $tableSyntheticAnnexeList->addCell(300, ['bgColor' => 'ffa7a7', 'vAlign' => 'center']);
+                $cell->addText($NC, ['bold' => true], ['alignment' => 'center']);
             }
         }
 
@@ -541,8 +541,8 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
     {
         $return_value = match ($value) {
             'C'   => 'bce292',
-            'NCM' => 'ffa7a7',
-            'NC'  => 'ffff80',
+            'NC'  => 'ffa7a7',
+            'NCM' => 'ffff80',
         };
 
         return $return_value;
