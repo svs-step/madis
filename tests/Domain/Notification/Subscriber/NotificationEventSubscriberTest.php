@@ -105,15 +105,12 @@ class NotificationEventSubscriberTest extends TestCase
             ],
         ]);
 
-        $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalled();
-
         $nu = new NotificationUser();
         $nu->setUser($user);
         $nu->setNotification($notification);
 
         $notification->setNotificationUsers([$user]);
-
-        $this->notificationRepository->update(new NotificationToken($notification))->shouldBeCalled();
+        $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalled();
 
         $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldBeCalled()->willReturn([$user]);
 
@@ -163,15 +160,13 @@ class NotificationEventSubscriberTest extends TestCase
             ],
         ]);
 
-        $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalled();
-
         $nu = new NotificationUser();
         $nu->setUser($user);
         $nu->setNotification($notification);
 
         $notification->setNotificationUsers([$user]);
 
-        $this->notificationRepository->update(new NotificationToken($notification))->shouldBeCalled();
+        $this->notificationRepository->insert(new NotificationToken($notification))->shouldBeCalled();
 
         $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldBeCalled()->willReturn([$user]);
 
@@ -226,14 +221,12 @@ class NotificationEventSubscriberTest extends TestCase
             'planificationDate' => (new \DateTime())->sub(new \DateInterval('P3M'))->format(DATE_ATOM),
         ]);
 
-        $this->notificationRepository->insert(Argument::any())->shouldBeCalled();
-
         $nu = new NotificationUser();
         $nu->setUser($user);
         $nu->setNotification($notification);
         $notification->setNotificationUsers([$nu]);
 
-        $this->notificationRepository->update(Argument::any())->shouldBeCalled();
+        $this->notificationRepository->insert(Argument::any())->shouldBeCalled();
         $this->userRepository->findNonDpoUsersForCollectivity($collectivity)->shouldBeCalled()->willReturn([$user]);
         $this->notificationUserRepository->saveUsers(Argument::any(), Argument::any())
             ->shouldBeCalled()
