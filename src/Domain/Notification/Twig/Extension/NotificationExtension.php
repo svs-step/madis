@@ -97,7 +97,7 @@ class NotificationExtension extends AbstractExtension
                 }
         }
 
-        if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.state_change' === $notification->getAction()) {
+        if ('notification.modules.aipd' === $notification->getModule() && ('notification.actions.state_change' === $notification->getAction() || 'notification.actions.validated' === $notification->getAction())) {
             $sentence .= '<strong>(' . StatutAnalyseImpactDictionary::getStatuts()[$notification->getObject()->statut] . ') </strong>';
         }
 

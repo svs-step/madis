@@ -34,6 +34,7 @@ class NotificationActionUserDictionary extends SimpleDictionary
     public const NO_LOGIN             = 'no_login';
     public const VALIDATION           = 'validation';
     public const TREATMENT_NEEDS_AIPD = 'treatment_needs_aipd';
+    public const VALIDATED            = 'validated';
 
     public function __construct()
     {
@@ -51,6 +52,7 @@ class NotificationActionUserDictionary extends SimpleDictionary
             self::CREATE               => 'Création',
             self::TREATMENT_NEEDS_AIPD => 'AIPD nécéssaire',
             self::VALIDATION           => 'Validation nécéssaire',
+            self::VALIDATED            => 'Validation',
             self::AUTOMATIC            => 'Rappel automatique',
         ];
     }
