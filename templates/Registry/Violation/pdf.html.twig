@@ -16,7 +16,7 @@
             <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.information'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table role="presentation" class="table">
+                    <table class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.violation.show.date'|trans }}</strong></td>
@@ -87,7 +87,7 @@
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table role="presentation" class="table">
+                    <table class="table">
                         <tbody>
                         {% if is_granted('ROLE_ADMIN') %}
                             <tr>
@@ -124,7 +124,7 @@
             <div class="box box-solid box-success">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.consequence'|trans }}</h3></div>
                 <div class="box-body no-padding">
-                    <table role="presentation" class="table">
+                    <table class="table">
                         <tbody>
                         <tr>
                             <td><strong>{{ 'registry.violation.show.potential_impacts_nature'|trans }}</strong></td>
