@@ -80,7 +80,7 @@ class TreatmentCloner extends AbstractCloner
                 /** @var RegistryModel\ShelfLife $sl */
                 $newsl = new RegistryModel\ShelfLife();
                 $newsl->setName($sl->getName());
-                $newsl->setDuration($sl->getDuration());
+                $newsl->setDuration(is_null($sl->getDuration()) ? '' : $sl->getDuration());
                 $newsl->setUltimateFate($sl->getUltimateFate());
                 $newsl->setTreatment($treatment);
                 $treatment->addShelfLife($newsl);

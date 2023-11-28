@@ -67,7 +67,7 @@ class ShelfLife
         return $this->duration;
     }
 
-    public function setDuration(string $duration): void
+    public function setDuration(?string $duration): void
     {
         $this->duration = $duration;
     }
