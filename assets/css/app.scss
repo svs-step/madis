@@ -159,7 +159,7 @@ td div.bootstrap-select {
     width: calc(100% - 20px);
     overflow: hidden;
     text-overflow: ellipsis;
-    margin-right: 0;
+    margin-right: 0 !important;
   }
   span.glyphicon {
     right: 0 !important;
