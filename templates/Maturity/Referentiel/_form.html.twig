@@ -20,31 +20,31 @@
     {% if index matches '/^\\d+$/' %}
         {% set colorSection = (index - 1) % 4 %}
     {% endif %}
-
-    <div class="box box-solid {{ colors[colorSection] }}">
-        <div class="box-header" style="padding: 0 0 0 10px;display: flex;align-items: center;cursor: grab;">
-            {{ form_row(section.position) }}
-            {{ form_row(section.color) }}
-            <span style="flex-grow: 1;">
-                <i class="fas fa-grip-vertical" style="padding-right: 2px"></i>
-                {{ index }}. {{ section.vars['value'] ? section.vars['value'].name : 'Nouvelle section' }}
-            </span>
-            <div class="btn-group">
-                <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: none">
-                    <i class="fa fa-cog"></i> <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" style="left: -100px;">
-                    <li><a href="#" style="color: #777" class="delete-section"><i class="fa fa-trash"></i> Supprimer</a></li>
-                    {#<li><a href="#" style="color: #777" class="duplicate-section"><i class="fa fa-clone"></i> Dupliquer</a></li>#}
-                </ul>
+    <li>
+        <div class="box box-solid {{ colors[colorSection] }}">
+            <div class="box-header" style="padding: 0 0 0 10px;display: flex;align-items: center;cursor: grab;">
+                {{ form_row(section.position) }}
+                {{ form_row(section.color) }}
+                <span style="flex-grow: 1;">
+                    <i class="fas fa-grip-vertical" style="padding-right: 2px"></i>
+                    {{ index }}. {{ section.vars['value'] ? section.vars['value'].name : 'Nouvelle section' }}
+                </span>
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: none">
+                        <i class="fa fa-cog"></i> <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" style="left: -100px;">
+                        <li><a href="#" style="color: #777" class="delete-section"><i class="fa fa-trash"></i> Supprimer</a></li>
+                        {#<li><a href="#" style="color: #777" class="duplicate-section"><i class="fa fa-clone"></i> Dupliquer</a></li>#}
+                    </ul>
+                </div>
+                <a href="#section_{{ index }}" class="box-link btn btn-default " data-toggle="collapse" style="border:none;"><i class="fa fa-plus"></i></a>
             </div>
-            <a href="#section_{{ index }}" class="box-link btn btn-default " data-toggle="collapse" style="border:none;"><i class="fa fa-plus"></i></a>
+            <div class="box-body collapse section" id="section_{{ index }}">
+                {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': section} %}
+            </div>
         </div>
-        <div class="box-body collapse section" id="section_{{ index }}">
-            {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': section} %}
-        </div>
-    </div>
-
+    </li>
 {% endmacro %}
     {{ form_start(form) }}
     <div class="row">
