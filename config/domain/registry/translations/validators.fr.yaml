@@ -11,7 +11,7 @@ registry_address:
         not_blank: Vous devez renseigner un numéro de téléphone
     zip_code:
         not_blank: Vous devez renseigner un code postal
-        regex: Le code postal doit être composé de 5 chiffres
+        regex: Le code postal doit être composé de 2 à 5 chiffres
 
 registry_contractor:
     adopted_security_features:
