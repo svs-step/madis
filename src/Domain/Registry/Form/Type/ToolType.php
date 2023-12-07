@@ -27,6 +27,7 @@ namespace App\Domain\Registry\Form\Type;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Tool;
+use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
 use Doctrine\ORM\EntityRepository;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
@@ -132,14 +133,16 @@ class ToolType extends AbstractType
                     $qb                = $er->createQueryBuilder('c');
                     $qb->addOrderBy('c.name', 'asc');
                     if ($collectivity && $collectivity->getIsServicesEnabled()) {
+                        // Services enabled on user collectivity, check if that contractor belongs to this service
                         $ors = $qb->expr()->orX();
 
                         if (count($authenticatedUser->getServices()) > 0) {
-                            foreach ($authenticatedUser->getServices() as $service) {
-                                $ors->add($qb->expr()->eq('c.service', $service));
+                            /** @var Service $service */
+                            foreach ($authenticatedUser->getServices() as $i => $service) {
+                                $ors->add($qb->expr()->eq('c.service', ':service'.$i));
+                                $qb->setParameter(':service'.$i, $service);
                             }
-                            // Services enabled on user collectivity, check if that contractor belongs to this service
-                            $qb->andWhere($qb->expr()->orX($ors));
+                            $qb->andWhere($ors);
                         }
                     } else {
                         $qb->andWhere('c.collectivity = :collectivity')
