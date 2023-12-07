@@ -13,7 +13,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         position: 2
         description: "Disposer d’un registre des activités de traitement à jour.
                       S'assurer que les mesures de conformité des traitements de DCP sont effectivement prises en compte en cas de traitements nouveaux ou modifiés.
-                      Gérer les transferts de données"
+                      Gérer les transferts de données."
     processus_3:
         nom: "Droits de la personne concernée"
         couleur: info #TODO Temp, need more info
@@ -25,7 +25,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         couleur: info #TODO Temp, need more info
         position: 4
         description: "En tant que responsable du traitement, s'assurer de la conformité  des contrats de sous-traitance
-                      Si l'entreprise agit en tant que sous-traitant, s'assurer que le responsable du traitement a pris en compte ses obligations"
+                      Si l'entreprise agit en tant que sous-traitant, s'assurer que le responsable du traitement a pris en compte ses obligations."
     processus_5:
         nom: "Protection des données dès la conception"
         couleur: info #TODO Temp, need more info
@@ -39,7 +39,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         position: 6
         description: "En relation avec le service sécurité de l'information de l'entreprise, mettre en œuvre les mesures de protection sélectionnées afin de répondre aux objectifs de disponibilité,
                       d’intégrité et de confidentialité des données à caractère personnel.
-                      Détecter les incidents de sécurité pouvant avoir pour conséquence une violation de données"
+                      Détecter les incidents de sécurité pouvant avoir pour conséquence une violation de données."
 
     processus_7:
         nom: "Analyse d'impacts sur la protection des données"
@@ -61,25 +61,25 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         position: 9
         description: "Connaître la réglementation applicable et ses évolutions.
                       Etre en capacité de répondre à des sollicitations ou à des poursuites.
-                      Réagir en cas de violations de données"
+                      Réagir en cas de violations de données."
 
     processus_10:
         nom: "Évaluer et auditer"
         couleur: info #TODO Temp, need more info
         position: 10
-        description: "A intervalles réguliers, vérifier que le Système de management de la protection des données est conforme à la politique définie.
+        description: "À intervalles réguliers, vérifier que le Système de management de la protection des données est conforme à la politique définie.
                       Apporter la preuve que les traitements effectués par le responsable du traitement et les sous-traitants sont conformes au règlement"
 
     processus_11:
         nom: "Gestion de la documentation et des preuves"
         couleur: info #TODO Temp, need more info
         position: 11
-        description: "Gérer le patrimoine documentaire attaché à la protection des données
-                      Etablir et conserver des enregistrements pour apporter la preuve des mesures techniques et organisationnelles"
+        description: "Gérer le patrimoine documentaire attaché à la protection des données.
+                      Établir et conserver des enregistrements pour apporter la preuve des mesures techniques et organisationnelles."
 
     processus_12:
         nom: "Piloter le SMDCP"
         couleur: info #TODO Temp, need more info
         position: 12
         description: "Disposer d'indicateurs pour piloter l'efficacité des processus du SMDCP.
-                      Produire le bilan (rapport) annuel"
+                      Produire le bilan (rapport) annuel."
