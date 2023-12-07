@@ -1084,7 +1084,7 @@
                                 <td>
                                     <ul>
                                         {% for duration in traitement.shelfLifes %}
-                                            <li>{{ duration.name }} - {{ duration.duration }} - {{ duration.ultimateFate }} </li>
+                                            <li>{{ duration.name }} - {{ duration.duration }} - {{ duration.ultimateFate | dictionary('registry_treatment_ultimate_fate') }} </li>
                                         {% endfor %}
                                     </ul>
                                 </td>
