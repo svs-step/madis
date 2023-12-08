@@ -11,6 +11,7 @@ framework:
             - '%kernel.project_dir%/config/domain/reporting/translations'
             - '%kernel.project_dir%/config/domain/user/translations'
             - '%kernel.project_dir%/config/domain/notification/translations'
+            - '%kernel.project_dir%/config/domain/page/translations'
             - '%kernel.project_dir%/config/translations'
         fallbacks:
             - '%locale%'

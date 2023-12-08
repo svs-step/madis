@@ -2,28 +2,24 @@
 
 {% set bodyClass = 'page_sitemap' %}
 {% set menuItem = 'page_sitemap' %}
-{% set title = 'Plan du site' %}
 
-{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'page.sitemap.title'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}{% endblock %}
 
 {% block body_head %}
-    <h1>{{ title }}</h1>
+    <h1>{{ 'page.sitemap.title'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': title }
+        { 'name': 'page.sitemap.breadcrumb'|trans }
     ] %}
 {% endblock %}
 
 {% block body %}
-<nav role="navigation" aria-label="Plan du site" tabindex="-1">
-
     <ul data-widget="tree">
         <li><a href="{{ path('logout') }}">Déconnexion</a></li>
-
         <li>
             <a href="{{ path('reporting_dashboard_index') }}">
                 <span>{{ 'sidebar_menu.dashboard'|trans }}</span>
@@ -207,10 +203,22 @@
                         </a>
                     </li>
                 {% endif %}
-                <li><a href="{{ path('page_sitemap') }}">Plan du site</a></li>
-                <li><a href="{{ path('page_credit') }}">Crédit</a></li>
+                <li>
+                    <a href="{{ path('page_declaration') }}">{{ 'page.declaration.title'|trans }}</a>
+                    <ul>
+                        <li>
+                            <a href="{{ path('page_schema_pluriannuel_2022_2024') }}">{{ 'page.schema_pluriannuel_2022_2024.title'|trans }}</a>
+                            <ul>
+                                <li><a href="{{ path('page_plan_annuel_2022') }}">{{ 'page.plan_annuel_2022.title'|trans }}</a></li>
+                                <li><a href="{{ path('page_plan_annuel_2023') }}">{{ 'page.plan_annuel_2023.title'|trans }}</a></li>
+                                <li><a href="{{ path('page_plan_annuel_2024') }}">{{ 'page.plan_annuel_2024.title'|trans }}</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="{{ path('page_credit') }}">{{ 'page.credit.title'|trans }}</a></li>
+                <li><a href="{{ path('page_sitemap') }}">{{ 'page.sitemap.title'|trans }}</a></li>
             </ul>
         </li>
     </ul>
-</nav>
 {% endblock %}

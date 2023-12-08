@@ -5,6 +5,8 @@
 
     <div class="pull-right">
         {% if app.user %}
+            <a href="{{ path('page_declaration') }}">Accessibilité : {{ 'page.declaration.result'|trans }}</a>
+            <span aria-hidden="true" style="padding: 0 5px;">|</span>
             <a href="{{ path('page_sitemap') }}">Plan du site</a>
             <span aria-hidden="true" style="padding: 0 5px;">|</span>
             <a href="{{ path('page_credit') }}">Crédit</a>
