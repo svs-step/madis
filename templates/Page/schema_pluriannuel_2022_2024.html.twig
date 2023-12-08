@@ -13,7 +13,7 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'page.declaration.breadcrumb'|trans }
+        { 'name': 'page.declaration.breadcrumb'|trans, 'link': path('page_declaration') },
         { 'name': 'page.schema_pluriannuel_2022_2024.breadcrumb'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}

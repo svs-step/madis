@@ -13,8 +13,8 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'page.declaration.breadcrumb'|trans }
-        { 'name': 'page.schema_pluriannuel_2022_2024.breadcrumb'|trans }
+        { 'name': 'page.declaration.breadcrumb'|trans, 'link': path('page_declaration') },
+        { 'name': 'page.schema_pluriannuel_2022_2024.breadcrumb'|trans, 'link': path('page_schema_pluriannuel_2022_2024') },
         { 'name': 'page.plan_annuel_2023.breadcrumb'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
@@ -35,7 +35,7 @@
             <h2>Détail du plan annuel</h2>
             <p>Ci-après, un tableau récapitulatif des actions qui ont été ou seront mises en œuvre en 2023, avec leur date d’échéance si elles sont connues, ainsi que leur état d’avancement et de réalisation.</p>
             <h3>Comité d’évolution</h3>
-            <table aria-label="Actions – Comité d’évolution" class="box table table-bordered table-hover table-responsive">
+            <table aria-label="Actions – Comité d’évolution" class="box table table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">Action</th>
@@ -54,7 +54,7 @@
                 </tbody>
             </table>
             <h3>Élaboration et suivi du schéma pluriannuel d’accessibilité numérique</h3>
-            <table aria-label="Actions – Élaboration et suivi du schéma pluriannuel d’accessibilité numérique" class="box table table-bordered table-hover table-responsive">
+            <table aria-label="Actions – Élaboration et suivi du schéma pluriannuel d’accessibilité numérique" class="box table table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">Action</th>
@@ -97,7 +97,7 @@
                 </tbody>
             </table>
             <h3>Audits et obligations légales</h3>
-            <table aria-label="Actions – Audits et obligations légales" class="box table table-bordered table-hover table-responsive">
+            <table aria-label="Actions – Audits et obligations légales" class="box table table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">Action</th>
@@ -110,31 +110,25 @@
                     <tr>
                         <th scope="row">Sélection des critères</th>
                         <td>Suite à priorisation des non-conformités de 2022, sélection des critères à intégrer dans les prochains développements liés à l’accessibilité</td>
-                        <td>Août</td>
+                        <td>Août 2023</td>
                         <td><span class="badge bg-green">Réalisé</span></td>
                     </tr>
                     <tr>
                         <th scope="row">Rédaction des correctifs retenus</th>
                         <td>Suite à la sélection des critères, rédaction du correctif attendu pour chacun des critères retenus pour chiffrage</td>
-                        <td>Août</td>
+                        <td>Août 2023</td>
                         <td><span class="badge bg-green">Réalisé</span></td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Chiffrage des développements</th>
-                        <td>Estimation du second lot</td>
-                        <td>3<sup>ème</sup> trimestre 2023</td>
-                        <td><span class="badge bg-yellow">En cours</span></td>
                     </tr>
                     <tr>
                         <th scope="row">Audit rapide</th>
                         <td>Audit rapide du site <a target="_blank" rel="noreferrer noopener" href="https://madis.soluris.fr" title="madis.soluris.fr (Nouvelle fenêtre)" aria-label="madis.soluris.fr (Nouvelle fenêtre)">madis.soluris.fr</a> suite à la livraison du premier lot</td>
-                        <td>2023</td>
-                        <td><span class="badge bg-gray">À programmer</span></td>
+                        <td>2024</td>
+                        <td><span class="badge bg-gray">Reporté</span></td>
                     </tr>
                 </tbody>
             </table>
             <h3>Développements, recettages et mise en conformité</h3>
-            <table aria-label="Actions – Développements, recettages et mise en conformité" class="box table table-bordered table-hover table-responsive">
+            <table aria-label="Actions – Développements, recettages et mise en conformité" class="box table table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">Action</th>
@@ -154,20 +148,26 @@
                         <th scope="row">Recettage</th>
                         <td>Suite à la livraison du premier lot, recettage des correctifs</td>
                         <td>3<sup>ème</sup> trimestre 2023</td>
-                        <td><span class="badge bg-yellow">En cours</span></td>
+                        <td><span class="badge bg-green">Réalisé</span></td>
                     </tr>
                     <tr>
                         <th scope="row">Mise à jour Madis</th>
                         <td>Suite au recettage, mise à jour de Madis en production</td>
-                        <td>2023</td>
-                        <td><span class="badge bg-gray">À programmer</span></td>
+                        <td>4<sup>ème</sup> trimestre 2023</td>
+                        <td><span class="badge bg-green">Réalisé</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Chiffrage des développements</th>
+                        <td>Estimation du second lot : 12 240€ TTC</td>
+                        <td>3<sup>ème</sup> trimestre 2023</td>
+                        <td><span class="badge bg-green">Réalisé</span></td>
                     </tr>
                 </tbody>
             </table>
 
             {% if default_dpo_company == "Soluris" %}
                 <h3>Action de formation et de sensibilisation</h3>
-                <table aria-label="Actions – Action de formation et de sensibilisation" class="box table table-bordered table-hover table-responsive">
+                <table aria-label="Actions – Action de formation et de sensibilisation" class="box table table-bordered table-responsive">
                     <thead>
                         <tr>
                             <th scope="col">Action</th>

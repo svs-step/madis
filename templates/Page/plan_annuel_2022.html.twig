@@ -13,8 +13,8 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'page.declaration.breadcrumb'|trans }
-        { 'name': 'page.schema_pluriannuel_2022_2024.breadcrumb'|trans }
+        { 'name': 'page.declaration.breadcrumb'|trans, 'link': path('page_declaration') },
+        { 'name': 'page.schema_pluriannuel_2022_2024.breadcrumb'|trans, 'link': path('page_schema_pluriannuel_2022_2024') },
         { 'name': 'page.plan_annuel_2022.breadcrumb'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
@@ -35,7 +35,7 @@
             <h2>Détail du plan annuel</h2>
             <p>Ci-après, un tableau récapitulatif des actions qui ont été ou seront mises en œuvre en 2022, avec leur date d’échéance si elles sont connues, ainsi que leur état d’avancement et de réalisation.</p>
             <h3>Traitement des retours usagers</h3>
-            <table aria-label="Actions – Traitement des retours usagers" class="box table table-bordered table-hover table-responsive">
+            <table aria-label="Actions – Traitement des retours usagers" class="box table table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">Action</th>
@@ -49,12 +49,12 @@
                         <th scope="row">Demande d’un OPSN</th>
                         <td>Recensement du Sitiv des déclarations d’accessibilité de leurs prestataires, dont Madis</td>
                         <td>Décembre 2021</td>
-                        <td><span class="class="badge bg-green"">Réalisé</span></td>
+                        <td><span class="class="badge bg-green">Réalisé</span></td>
                     </tr>
                 </tbody>
             </table>
             <h3>Audits et obligations légales</h3>
-            <table aria-label="Actions – Audits et obligations légales" class="box table table-bordered table-hover table-responsive">
+            <table aria-label="Actions – Audits et obligations légales" class="box table table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">Action</th>
@@ -68,32 +68,45 @@
                         <th scope="row">Audit initial</th>
                         <td>Audit complet (RGAA 4.1) du site <a target="_blank" rel="noreferrer noopener" href="https://madis.soluris.fr" title="madis.soluris.fr (Nouvelle fenêtre)" aria-label="madis.soluris.fr (Nouvelle fenêtre)">madis.soluris.fr</a>. Taux de conformité : 24,62 %</td>
                         <td>Janvier 2022</td>
-                        <td><span class="class="badge bg-green"">Réalisé</span></td>
+                        <td><span class="class="badge bg-green">Réalisé</span></td>
                     </tr>
                     <tr>
                         <th scope="row">Priorisation des non-conformités</th>
                         <td>Suite à l’audit initial, priorisation des critères selon la complexité de correction et la récurrence</td>
                         <td>Février</td>
-                        <td><span class="class="badge bg-green"">Réalisé</span></td>
+                        <td><span class="class="badge bg-green">Réalisé</span></td>
                     </tr>
                     <tr>
                         <th scope="row">Sélection du taux de conformité</th>
                         <td>Suite à la priorisation des critères non-conformes, choix du taux de conformité visé pour le premier lot à présenter au comité d’évolution d’octobre. Taux de conformité visé : 52,31 %</td>
                         <td>Juin</td>
-                        <td><span class="class="badge bg-green"">Réalisé</span></td>
+                        <td><span class="class="badge bg-green">Réalisé</span></td>
                     </tr>
                     <tr>
                         <th scope="row">Rédaction des correctifs retenus</th>
                         <td>Suite à la sélection du taux de conformité, rédaction des correctifs attendus pour chacun des critères retenus pour chiffrage</td>
                         <td>Juin</td>
-                        <td><span class="class="badge bg-green"">Réalisé</span></td>
+                        <td><span class="class="badge bg-green">Réalisé</span></td>
                     </tr>
+                </tbody>
+            </table>
+            <h3>Développements, recettages et mise en conformité</h3>
+            <table aria-label="Actions – Développements, recettages et mise en conformité" class="box table table-bordered table-responsive">
+                <thead>
                     <tr>
-                        <th scope="row">Chiffrage des développements</th>
-                        <td>Estimation du premier lot : 8 640€ TTC</td>
-                        <td>Août</td>
-                        <td><span class="class="badge bg-green"">Réalisé</span></td>
+                        <th scope="col">Action</th>
+                        <th scope="col">Détail</th>
+                        <th scope="col">Mise en œuvre</th>
+                        <th scope="col">Statut</th>
                     </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Chiffrage des développements</th>
+                    <td>Estimation du premier lot : 8 640€ TTC</td>
+                    <td>Août</td>
+                    <td><span class="class="badge bg-green">Réalisé</span></td>
+                </tr>
                 </tbody>
             </table>
         </div>

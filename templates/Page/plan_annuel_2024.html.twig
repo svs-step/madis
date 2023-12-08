@@ -13,8 +13,8 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'page.declaration.breadcrumb'|trans }
-        { 'name': 'page.schema_pluriannuel_2022_2024.breadcrumb'|trans }
+        { 'name': 'page.declaration.breadcrumb'|trans, 'link': path('page_declaration') },
+        { 'name': 'page.schema_pluriannuel_2022_2024.breadcrumb'|trans, 'link': path('page_schema_pluriannuel_2022_2024') },
         { 'name': 'page.plan_annuel_2024.breadcrumb'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
@@ -35,7 +35,7 @@
             <h2>Détail du plan annuel</h2>
             <p>Ci-après, un tableau récapitulatif des actions qui ont été ou seront mises en œuvre en 2024, avec leur date d’échéance si elles sont connues, ainsi que leur état d’avancement et de réalisation.</p>
             <h3>Comité d’évolution</h3>
-            <table aria-label="Actions – Comité d’évolution" class="box table table-bordered table-hover table-responsive">
+            <table aria-label="Actions – Comité d’évolution" class="box table table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">Action</th>
@@ -47,14 +47,14 @@
                 <tbody>
                     <tr>
                         <th scope="row">Budget 2024</th>
-                        <td>Vote du budget 2024 pour les développements du second lot lié à l’accessibilité : X XXX€ TTC</td>
-                        <td>Octobre 2023</td>
-                        <td><span class="label label-primary">Programmé</span></td>
+                        <td>Le vote du budget 2024 pour les développements du second lot lié à l’accessibilité n'a pas été retenu. Une partie des développements du second lot a été réalisée par l'équipe Madis sur les moyens humains consacrés au projet.</td>
+                        <td>Décembre 2023</td>
+                        <td><span class="badge bg-blue">Programmé</span></td>
                     </tr>
                 </tbody>
             </table>
             <h3>Audits et obligations légales</h3>
-            <table aria-label="Actions – Audits et obligations légales" class="box table table-bordered table-hover table-responsive">
+            <table aria-label="Actions – Audits et obligations légales" class="box table table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">Action</th>
@@ -66,9 +66,15 @@
                 <tbody>
                     <tr>
                         <th scope="row">Audit de conformité RGAA</th>
-                        <td>Audit complet (RGAA 4.2) du site <a target="_blank" rel="noreferrer noopener" href="https://madis.soluris.fr" title="madis.soluris.fr (Nouvelle fenêtre)" aria-label="madis.soluris.fr (Nouvelle fenêtre)">madis.soluris.fr</a>. pour faire un point d’avancement et préparer le troisième lot</td>
-                        <td>4<sup>ème</sup> trimestre 2023</td>
-                        <td><span class="label label-primary">Programmé</span></td>
+                        <td>Audit complet (RGAA 4.2) du site <a target="_blank" rel="noreferrer noopener" href="https://madis.soluris.fr" title="madis.soluris.fr (Nouvelle fenêtre)" aria-label="madis.soluris.fr (Nouvelle fenêtre)">madis.soluris.fr</a> pour faire un point d’avancement et préparer le troisième lot</td>
+                        <td>1<sup>er</sup> trimestre 2024</td>
+                        <td><span class="badge bg-blue">Programmé</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Déclaration d'accessibilité</th>
+                        <td>Mise à jour de la déclaration d'accessibilité suite à l'audit complet.</td>
+                        <td>1<sup>er</sup> trimestre 2024</td>
+                        <td><span class="badge bg-gray">À programmer</span></td>
                     </tr>
                     <tr>
                         <th scope="row">Priorisation des non-conformités</th>
@@ -88,16 +94,10 @@
                         <td>2024</td>
                         <td><span class="badge bg-gray">À programmer</span></td>
                     </tr>
-                    <tr>
-                        <th scope="row">Chiffrage des développements</th>
-                        <td>Estimation du troisième lot : XXX€ TTC</td>
-                        <td>2024</td>
-                        <td><span class="badge bg-gray">À programmer</span></td>
-                    </tr>
                 </tbody>
             </table>
             <h3>Développements, recettages et mise en conformité</h3>
-            <table aria-label="Actions – Développements, recettages et mise en conformité" class="box table table-bordered table-hover table-responsive">
+            <table aria-label="Actions – Développements, recettages et mise en conformité" class="box table table-bordered table-responsive">
                 <thead>
                     <tr>
                         <th scope="col">Action</th>
@@ -109,20 +109,26 @@
                 <tbody>
                     <tr>
                         <th scope="row">Développement du second lot</th>
-                        <td>Développement du second lot lié à l’accessibilité</td>
-                        <td>1<sup>er</sup> semestre 2024</td>
-                        <td><span class="label label-primary">Programmé</span></td>
+                        <td>Développement partiel du second lot lié à l’accessibilité</td>
+                        <td>4<sup>ème</sup> trimestre 2023</td>
+                        <td><span class="badge bg-green">Réalisé</span></td>
                     </tr>
                     <tr>
                         <th scope="row">Recettage</th>
                         <td>Suite à la livraison du second lot, recettage des correctifs</td>
-                        <td>3<sup>ème</sup> trimestre 2024</td>
-                        <td><span class="label label-primary">Programmé</span></td>
+                        <td>4<sup>ème</sup> trimestre 2023</td>
+                        <td><span class="badge bg-green">Réalisé</span></td>
                     </tr>
                     <tr>
                         <th scope="row">Mise à jour Madis</th>
                         <td>Suite au recettage, mise à jour de Madis en production</td>
                         <td>2024</td>
+                        <td><span class="badge bg-gray">À programmer</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Chiffrage des développements</th>
+                        <td>Estimation du troisième lot <!-- : XXX€ TTC --></td>
+                        <td>3<sup>ème</sup> trimestre 2024</td>
                         <td><span class="badge bg-gray">À programmer</span></td>
                     </tr>
                 </tbody>
