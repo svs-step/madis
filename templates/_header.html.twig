@@ -9,44 +9,52 @@
 
 <header class="main-header" role="banner">
     <!-- Logo -->
-    <a aria-label="logo" href="{{ path('reporting_dashboard_index') }}" class="logo">
-        <span class="logo-mini"><img src="{{ asset(app_image_sidebar_reduced_path) }}" alt="Madis"/></span>
-
-        <span class="logo-lg"><img class="fit-picture" src={{ asset(app_image_logo_blanc) }} width="65%" alt="Logo Madis"></span>
+    <a aria-label="Tableau de bord" href="{{ path('reporting_dashboard_index') }}" class="logo">
+        <span class="logo-mini"><img src="{{ asset(app_image_sidebar_reduced_path) }}" alt=""/></span>
+        <span class="logo-lg"><img class="fit-picture" src={{ asset(app_image_logo_blanc) }} width="65%" alt=""></span>
     </a>
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation" aria-label="En-tête principal">
         <!-- Sidebar toggle button-->
-        <a aria-label="Sidebar" href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-            <i class="fa fa-bars"></i>
-        </a>
-        <!-- Navbar Right Menu -->
+        <button aria-label="Ouvrir/fermer le menu" aria-expanded="true" class="btn sidebar-toggle" data-toggle="push-menu" >
+            <i aria-hidden="true" class="fa fa-bars"></i>
+        </button>
 
+        <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
+                <!-- Notifications -->
                 {% if app_activate_notifications %}
-                <li id="notifications" class="nav-item dropdown notifications-menu">
-                    <a class="nav-link" data-toggle="dropdown" href="#">
-                        <i class="fa fa-bell"></i>
+                <li id="notifications" class="dropdown notifications-menu">
+                    <button aria-label="{% if notifs|length %}{{ notifs|length }} {% endif %}Notifications" aria-expanded="false" class="btn nav-button" data-toggle="dropdown">
+                        <i aria-hidden="true" class="fa fa-bell"></i>
                         {% if notifs|length %}
                         <span class="badge bg-yellow navbar-badge">{{ notifs|length }}</span>
                         {% endif %}
-                    </a>
+                    </button>
                     <ul class="dropdown-menu dropdown-large" style="width:600px">
                         {{ block("body", "Notification/Notification/box.html.twig") }}
                     </ul>
                 </li>
                 {% endif %}
-                {% if app.user is defined %}
                 <!-- User Account Menu -->
-                <li class="dropdown user user-menu">
+                {% if app.user is defined %}
                     <!-- Menu Toggle Button -->
-                    <a {% if not is_granted('ROLE_PREVIOUS_ADMIN') %} href="{{ path('logout') }}"{% endif %} class="dropdown-toggle">
-                        <span style="margin-right: 5px;">{{ app.user }} - {{ app.user.roles[0]|dictionary('user_user_role') }}</span>
-                        <i class="fa fa-power-off"></i>
-                    </a>
-                </li>
+                    {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}
+                        <li class="dropdown user user-menu">
+                            <a href="{{ path('logout') }}" class="btn">
+                                <span style="margin-right: 5px;">{{ app.user }} - {{ app.user.roles[0]|dictionary('user_user_role') }}</span>
+                                <i aria-label="Déconnexion" class="fa fa-power-off"></i>
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% elseif is_granted('ROLE_PREVIOUS_ADMIN') %}
+                        <li class="dropdown user user-menu nav-button">
+                            <span style="margin-right: 5px;">{{ app.user }} - {{ app.user.roles[0]|dictionary('user_user_role') }}</span>
+                            <i aria-hidden="true" class="fa fa-power-off"></i>
+                        </li>
+                    {% endif %}
                 {% endif %}
             </ul>
         </div>
