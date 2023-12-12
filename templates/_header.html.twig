@@ -48,7 +48,6 @@
                                 <i aria-label="Déconnexion" class="fa fa-power-off"></i>
                             </a>
                         </li>
-                    {% endif %}
                     {% elseif is_granted('ROLE_PREVIOUS_ADMIN') %}
                         <li class="dropdown user user-menu nav-button">
                             <span style="margin-right: 5px;">{{ app.user }} - {{ app.user.roles[0]|dictionary('user_user_role') }}</span>

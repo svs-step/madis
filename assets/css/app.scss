@@ -3,16 +3,16 @@ a:focus, button:focus {
   outline: 1px dashed !important;
 }
 .p-0 {
-    padding: 0!important;
+  padding: 0!important;
 }
 .p-2 {
   padding: 2rem;
 }
 .m-0 {
-    margin : 0!important;
+  margin : 0!important;
 }
 .float-left {
-    float: left;
+  float: left;
 }
 
 /* Bootstrap v5.3 */
@@ -63,8 +63,8 @@ a:not([href]).banner-impersonate {
     max-height: 2em;
   }
   .sidebar-toggle:before {
-      content: "";
-    }
+    content: "";
+  }
   .btn {
     border: none;
     border-radius: 0;
@@ -73,7 +73,8 @@ a:not([href]).banner-impersonate {
     color: #fff;
     padding: 15px;
     background-color: transparent;
-    button.nav-button:hover, button.nav-button:focus,
+  }
+  button.nav-button:hover, button.nav-button:focus {
     color: #fff;
     background: rgba(0,0,0,0.1);
   }
@@ -93,36 +94,36 @@ a:not([href]).banner-impersonate {
 .footer-public > footer {
   margin-left:0;
 }
-footer p a{
+footer p a {
   text-decoration: underline;
 }
 
 /* Sidebar */
 .sidebar-logo {
-    & img {
-      width: 195px;
-      height: auto;
-    }
+  & img {
+    width: 195px;
+    height: auto;
+  }
 }
 .sidebar-collapse .sidebar-logo {
-    display: none;
+  display: none;
 }
 .sidebar-menu, .main-sidebar .user-panel, .sidebar-menu>li.header {
-    font-size: 14px;
+  font-size: 14px;
   > span {
     display:block;
     padding: 25px 10px 10px 0;
   }
 }
 .sidebar-menu {
-    background-color: #222d32;
-    li.header > span:first-child {
-        padding: 10px 25px 10px 0;
-        font-size: 12px;
-    }
-    li.header {
-        padding: 0 0 0 15px;
-    }
+  background-color: #222d32;
+  li.header > span:first-child {
+    padding: 10px 25px 10px 0;
+    font-size: 12px;
+  }
+  li.header {
+    padding: 0 0 0 15px;
+  }
 }
 .sidebar-mini.sidebar-collapse .main-sidebar > .sidebar > .sidebar-menu li.header:hover {
   overflow: visible;
