@@ -18,7 +18,7 @@
                     {{ form_widget(scenario.isDisponibilite) }}
                 {% else %}
                     {% if scenario.vars.value.isDisponibilite %}
-                        <i class="fa fa-check"></i>
+                        <i aria-hidden="true" class="fa fa-check"></i>
                     {% endif %}
                 {% endif %}
             </td>
@@ -27,7 +27,7 @@
                     {{ form_widget(scenario.isIntegrite) }}
                 {% else %}
                     {% if scenario.vars.value.isIntegrite %}
-                        <i class="fa fa-check"></i>
+                        <i aria-hidden="true" class="fa fa-check"></i>
                     {% endif %}
                 {% endif %}
             </td>
@@ -36,7 +36,7 @@
                     {{ form_widget(scenario.isConfidentialite) }}
                 {% else %}
                     {% if scenario.vars.value.isConfidentialite %}
-                        <i class="fa fa-check"></i>
+                        <i aria-hidden="true" class="fa fa-check"></i>
                     {% endif %}
                 {% endif %}
             </td>

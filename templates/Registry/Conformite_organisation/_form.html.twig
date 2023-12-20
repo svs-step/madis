@@ -15,7 +15,7 @@
                 <div class="box-title"></div>
                 <div class="box-tools pull-right">
                     <button aria-label="Supprimer le participant" title="Supprimer le participant" class="btn btn-box-tool js-remove-item" data-toggle="tooltip">
-                        <i class="fa fa-times"></i>
+                        <i aria-hidden="true" class="fa fa-times"></i>
                     </button>
                 </div>
             </div>
@@ -70,7 +70,7 @@
                             {{ formMacros.printParticipant(participant) }}
                         {% endfor %}
                         <button class="js-collection-add btn btn-default">
-                            <i class="fa fa-plus"></i> {{ 'registry.conformite_organisation.participant.form.add'|trans }}
+                            <i aria-hidden="true" class="fa fa-plus"></i> {{ 'registry.conformite_organisation.participant.form.add'|trans }}
                         </button>
                     </div>
                 </div>

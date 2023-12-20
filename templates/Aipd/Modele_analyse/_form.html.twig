@@ -20,7 +20,7 @@
         <td>{{ form_widget(scenarioMenace.precisions) }}</td>
         <td>
             <a aria-label="{{ 'action.delete'|trans }}" href="#" class="js-table-remove-item">
-                <i class="fa fa-trash"></i>
+                <i aria-hidden="true" class="fa fa-trash"></i>
                 {{ 'action.delete'|trans }}
             </a>
         </td>
@@ -105,7 +105,7 @@
                     data-index="{{ form.scenarioMenaces|length }}"
                 >
                     <button class="js-table-collection-add btn btn-default">
-                        <i class="fa fa-plus"></i> {{ 'aipd.modele_analyse.form.scenario_menace.add'|trans }}
+                        <i aria-hidden="true" class="fa fa-plus"></i> {{ 'aipd.modele_analyse.form.scenario_menace.add'|trans }}
                     </button>
                     <table id="js-table-collection" class="table table-bordered">
                         <tr>

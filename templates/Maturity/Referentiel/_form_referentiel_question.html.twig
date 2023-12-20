@@ -8,7 +8,7 @@
 <div class="box">
     <div class="box-header with-border" style="display: flex;align-items: end;padding-right: 0;cursor: grab;">
         <span style="padding: 7px 0;">
-            <i class="fas fa-grip-vertical"></i>
+            <i aria-hidden="true" class="fas fa-grip-vertical"></i>
         </span>
         <div class="question-no-margin" style="display: flex;flex-grow: 1;gap: 10px;padding: 0 10px;">
             <div style="flex-grow: 1;">
@@ -17,8 +17,8 @@
             </div>
             {{ form_row(form.weight) }}
         </div>
-        <a href="#" class="delete-question btn"><i class="fa fa-trash"></i></a>
-        <a href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}" class="box-link btn" data-toggle="collapse"><i class="fa fa-plus"></i></a>
+        <a href="#" class="delete-question btn"><i aria-hidden="true" class="fa fa-trash"></i></a>
+        <a href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}" class="box-link btn" data-toggle="collapse"><i aria-hidden="true" class="fa fa-plus"></i></a>
     </div>
 
     <div class="collapse box-body" id="question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}">

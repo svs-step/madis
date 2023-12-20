@@ -36,30 +36,30 @@
                 <div class="action-bar" id="action-top-buttons">
                     {% if is_granted('ROLE_USER') %}
                     <a aria-label="{{ 'registry.treatment.action.new'|trans }}" href="{{ path('registry_treatment_create') }}" class="btn btn-default">
-                        <i class="fa fa-plus"></i>
+                        <i aria-hidden="true" class="fa fa-plus"></i>
                         {{ 'registry.treatment.action.new'|trans }}
                     </a>
                     {% endif %}
                     {% if app.user.roles[0] != 'ROLE_REFERENT' %}
                     <a aria-label="{{ 'registry.treatment.action.report'|trans }}" href="{{ path('registry_treatment_report') }}" class="btn btn-default">
-                        <i class="fa fa-clipboard-list"></i>
+                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
                         {{ 'registry.treatment.action.report'|trans }}
                     </a>
                     {% endif %}
                     {% if app.request.query.get('active') == 'false' %}
                         <a aria-label="{{ 'registry.treatment.action.active'|trans }}" href="{{ path('registry_treatment_list', {'active' : 'true'}) }}" class="btn btn-default">
-                            <i class="fa fa-list"></i>
+                            <i aria-hidden="true" class="fa fa-list"></i>
                             {{ 'registry.treatment.action.active'|trans }}
                         </a>
                     {% else %}
                         <a aria-label="{{ 'registry.treatment.action.inactive'|trans }}" href="{{ path('registry_treatment_list', {'active' : 'false'}) }}" class="btn btn-default">
-                            <i class="fa fa-list"></i>
+                            <i aria-hidden="true" class="fa fa-list"></i>
                             {{ 'registry.treatment.action.inactive'|trans }}
                         </a>
                     {% endif %}
                     {% if category and category.documents|length > 0 %}
                     <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                        <i class="fa fa-circle-info"></i>
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
                         {{ 'documentation.document.link.button'|trans }}
                     </a>
                     {% endif %}
@@ -361,7 +361,7 @@
             const exportButton = $('.dt-buttons .dt-button.buttons-excel.buttons-html5');
             //
             // exportButton.remove();
-            exportButton.html('<i class="fa fa-download"></i> Exporter')
+            exportButton.html('<i aria-hidden="true" class="fa fa-download"></i> Exporter')
             exportButton.addClass('btn')
             exportButton.addClass('btn-default')
             exportButton.removeClass('dt-button')

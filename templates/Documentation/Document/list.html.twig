@@ -40,7 +40,7 @@
 {#                            Fix https://gitlab.adullact.net/soluris/madis/-/issues/535#}
                             {% if is_granted('ROLE_ADMIN') %}
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-plus"></i>
+                                <i aria-hidden="true" class="fa fa-plus"></i>
                                 {{ 'documentation.document.action.new'|trans }}
                                 <span class="caret"></span>
                             </button>
@@ -55,7 +55,7 @@
                     {# Uniquement pour les DPO #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a aria-label="{{ 'documentation.category.action.list'|trans }}" href="{{ path('documentation_category_list') }}" class="btn btn-default">
-                            <i class="fas fa-tag"></i>
+                            <i aria-hidden="true" class="fas fa-tag"></i>
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
                     {% endif %}
@@ -71,7 +71,7 @@
                         {# SWITCH GRID LIST #}
                         {% if is_granted('ROLE_USER') %}
                             <a aria-label="{{ 'documentation.document.action.grid'|trans }}" href="{{ path('documentation_document_grid') }}" class="btn btn-default">
-                                <i class="fas fa-th"></i>
+                                <i aria-hidden="true" class="fas fa-th"></i>
                                 {{ 'documentation.document.action.grid'|trans }}
                             </a>
                         {% endif %}
@@ -148,7 +148,7 @@
                             <td class="text-center">
                                 {%  if object.pinned == 1 %}
                                     <span style="visibility: hidden">{{ object.pinned }}</span>
-                                    <i class="fas fa-thumbtack"></i>
+                                    <i aria-hidden="true" class="fas fa-thumbtack"></i>
                                 {% endif %}
                             </td>
                             <td class="text-center favorite">
@@ -162,21 +162,21 @@
                             </td>
                             <td>
                                 {% if object.typeName == "Vidéo" %}
-                                    <i class="far fa-file-video"></i>
+                                    <i aria-hidden="true" class="far fa-file-video"></i>
                                 {% elseif object.typeName == "PDF" %}
-                                    <i class="far fa-file-pdf"></i>
+                                    <i aria-hidden="true" class="far fa-file-pdf"></i>
                                 {% elseif object.typeName == "Document" %}
-                                    <i class="far fa-file-word"></i>
+                                    <i aria-hidden="true" class="far fa-file-word"></i>
                                 {% elseif object.typeName == "Lien" %}
-                                    <i class="fas fa-link"></i>
+                                    <i aria-hidden="true" class="fas fa-link"></i>
                                 {% elseif object.typeName == "Image" %}
-                                    <i class="fas fa-image"></i>
+                                    <i aria-hidden="true" class="fas fa-image"></i>
                                 {% elseif object.typeName == "PowerPoint" %}
-                                    <i class="fas fa-file-powerpoint"></i>
+                                    <i aria-hidden="true" class="fas fa-file-powerpoint"></i>
                                 {% elseif object.typeName == "Excel" %}
-                                    <i class="fas fa-file-excel"></i>
+                                    <i aria-hidden="true" class="fas fa-file-excel"></i>
                                 {% elseif object.typeName == "Audio" %}
-                                    <i class="fas fa-file-audio"></i>
+                                    <i aria-hidden="true" class="fas fa-file-audio"></i>
                                 {% endif %}
                                 {{ object.typeName }}
                             </td>
@@ -193,18 +193,18 @@
                             <td>
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
-                                        <i class="fa fa-pencil"></i>&nbsp;{{ 'action.edit'|trans }}
+                                        <i aria-hidden="true" class="fa fa-pencil"></i>&nbsp;{{ 'action.edit'|trans }}
                                     </a>
                                     <a aria-label="{{ 'action.delete'|trans }}" href="{{ path('documentation_document_delete', { 'id': object.id }) }}">
-                                        <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
+                                        <i aria-hidden="true" class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
                                     </a>
                                     <a aria-label="{{ 'action.share'|trans }}" class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
-                                        <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                        <i aria-hidden="true" class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                     </a>
                                 {% endif %}
                                 {% if is_granted('ROLE_REFERENT') and not is_granted('ROLE_ADMIN') %}
                                     <a aria-label="{{ 'action.share'|trans }}" class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
-                                        <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                        <i aria-hidden="true" class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                     </a>
                                 {% endif %}
                             </td>
@@ -224,13 +224,13 @@
                     <div class="box-tools pull-right">
                         <!-- Collapse Button -->
                         <button type="button" class="btn btn-box-tool" data-dismiss="modal">
-                            <i class="fa fa-times"></i>
+                            <i aria-hidden="true" class="fa fa-times"></i>
                         </button>
                     </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body text-center copyLink" style="display: none">
-                    <i class="fa fa-check fa-3x" style="color:green"></i>
+                    <i aria-hidden="true" class="fa fa-check fa-3x" style="color:green"></i>
                     <h4><b>Lien copié</b></h4>
                 </div>
                 <div class="box-body text-center">

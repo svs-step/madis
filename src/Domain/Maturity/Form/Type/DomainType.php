@@ -87,7 +87,7 @@ class DomainType extends AbstractType
             $form = $event->getForm();
             if (null !== $data = $event->getData()) {
                 $form->add('addQuestion', ButtonType::class, [
-                    'label'      => '<i class="fa fa-plus"></i> Ajouter une question',
+                    'label'      => '<i aria-hidden="true" class="fa fa-plus"></i> Ajouter une question',
                     'label_html' => true,
                     'attr'       => [
                         'class'                        => 'add_question btn btn-primary',
@@ -97,7 +97,7 @@ class DomainType extends AbstractType
                 ]);
             } else {
                 $form->add('addQuestion', ButtonType::class, [
-                    'label'      => '<i class="fa fa-plus"></i> Ajouter une question',
+                    'label'      => '<i aria-hidden="true" class="fa fa-plus"></i> Ajouter une question',
                     'label_html' => true,
                     'attr'       => [
                         'class'                        => 'add_question btn btn-primary',

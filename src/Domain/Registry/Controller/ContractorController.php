@@ -274,13 +274,13 @@ class ContractorController extends CRUDController
         $user = $this->userProvider->getAuthenticatedUser();
         if ($user->getServices()->isEmpty() || $this->isContractorInUserServices($sousTraitant)) {
             $cellContent = '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
-                    <i class="fa fa-pencil"></i> ' .
+                    <i aria-hidden="true" class="fa fa-pencil"></i> ' .
                     $this->translator->trans('action.edit') .
                 '</a>';
 
             $cellContent .=
                 '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('registry_contractor_delete', ['id' => $sousTraitant->getId()]) . '">
-                    <i class="fa fa-trash"></i> ' .
+                    <i aria-hidden="true" class="fa fa-trash"></i> ' .
                     $this->translator->trans('action.delete') .
                 '</a>';
 

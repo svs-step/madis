@@ -27,17 +27,17 @@
         <div class="col-xs-12">
             <div class="action-bar">
                 <a aria-label="{{ 'registry.treatment.action.back_to_list'|trans }}" href="{{ path('registry_treatment_list') }}" class="btn btn-default">
-                    <i class="fa fa-arrow-left"></i>
+                    <i aria-hidden="true" class="fa fa-arrow-left"></i>
                     {{ 'registry.treatment.action.back_to_list'|trans }}
                 </a>
                 {% if (actionEnabled) %}
                     <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
-                        <i class="fa fa-pencil"></i>
+                        <i aria-hidden="true" class="fa fa-pencil"></i>
                         {{ 'action.edit'|trans }}
                     </a>
                 {% endif %}
                 <a aria-label="{{ 'action.print'|trans }}" href="{{ path('registry_treatment_pdf', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-print"></i>
+                    <i aria-hidden="true" class="fa fa-print"></i>
                     {{ 'action.print'|trans }}
                 </a>
             </div>
@@ -723,7 +723,7 @@
                                             {% else %}
                                                 {{ path('registry_conformite_traitement_edit', {'id': object.conformiteTraitement.id}) }}
                                             {% endif %}
-                                        "><i class="fa fa-pencil"></i> {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}</a>
+                                        "><i aria-hidden="true" class="fa fa-pencil"></i> {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}</a>
                                     </td>
                                 </tr>
                             {%  endif %}
@@ -776,7 +776,7 @@
                                         </td>
                                         <td>
                                             <a  aria-label="{{ 'aipd.analyse_impact.action.edit'|trans }} href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
-                                                <i class="fa fa-chalkboard-teacher"></i>
+                                                <i aria-hidden="true" class="fa fa-chalkboard-teacher"></i>
                                                 {{ 'aipd.analyse_impact.action.edit'|trans }}
                                             </a>
                                         </td>

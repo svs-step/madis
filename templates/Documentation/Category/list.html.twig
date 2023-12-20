@@ -29,11 +29,11 @@
                 <div class="action-bar">
                     {% if is_granted('ROLE_ADMIN') %}
                     <a aria-label="{{ 'documentation.category.action.new'|trans }}" href="{{ path('documentation_category_create') }}" class="btn btn-default">
-                        <i class="fa fa-plus"></i>
+                        <i aria-hidden="true" class="fa fa-plus"></i>
                         {{ 'documentation.category.action.new'|trans }}
                     </a>
                     <a aria-label="{{ 'documentation.category.action.files'|trans }}" href="{{ path('documentation_document_index') }}" class="btn btn-default">
-                        <i class="fa fa-file"></i>
+                        <i aria-hidden="true" class="fa fa-file"></i>
                         {{ 'documentation.category.action.files'|trans }}
                     </a>
                     {% endif %}
@@ -63,11 +63,11 @@
                             <td>
                                 {% if object.systeme == 0 %}
                                     <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('documentation_category_edit', { 'id': object.id }) }}">
-                                        <i class="fa fa-pencil"></i>
+                                        <i aria-hidden="true" class="fa fa-pencil"></i>
                                         {{ 'action.edit'|trans }}
                                     </a>
                                     <a aria-label="{{ 'action.delete'|trans }}" href="{{ path('documentation_category_delete', { 'id': object.id }) }}">
-                                        <i class="fa fa-trash"></i>
+                                        <i aria-hidden="true" class="fa fa-trash"></i>
                                         {{ 'action.delete'|trans }}
                                     </a>
                                 {% endif %}

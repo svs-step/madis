@@ -26,12 +26,12 @@
         <div class="col-xs-12">
             <div class="action-bar">
                 <a aria-label="{{ 'user.collectivity.action.back_to_list'|trans }}" href="{{ path('user_collectivity_list') }}" class="btn btn-default">
-                    <i class="fa fa-arrow-left"></i>
+                    <i aria-hidden="true" class="fa fa-arrow-left"></i>
                     {{ 'user.collectivity.action.back_to_list'|trans }}
                 </a>
                 {% if is_granted('ROLE_ADMIN') %}
                     <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('user_collectivity_edit', {'id': object.id}) }}" class="btn btn-default">
-                        <i class="fa fa-pencil"></i>
+                        <i aria-hidden="true" class="fa fa-pencil"></i>
                         {{ 'action.edit'|trans }}
                     </a>
                 {% endif %}

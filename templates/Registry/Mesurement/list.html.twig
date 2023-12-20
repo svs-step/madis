@@ -27,19 +27,19 @@
                 <div class="action-bar">
                     {% if is_granted('ROLE_USER') %}
                     <a aria-label="{{ 'registry.mesurement.action.new'|trans }}" href="{{ path('registry_mesurement_create') }}" class="btn btn-default">
-                        <i class="fa fa-plus"></i>
+                        <i aria-hidden="true" class="fa fa-plus"></i>
                         {{ 'registry.mesurement.action.new'|trans }}
                     </a>
                     {% endif %}
                     {% if app.user.roles[0] != 'ROLE_REFERENT' %}
                     <a aria-label="{{ 'registry.treatment.action.report'|trans }}" href="{{ path('registry_mesurement_report') }}" class="btn btn-default">
-                        <i class="fa fa-clipboard-list"></i>
+                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
                         {{ 'registry.treatment.action.report'|trans }}
                     </a>
                     {% endif %}
                     {% if category and category.documents|length > 0 %}
                         <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i class="fa fa-circle-info"></i>
+                            <i aria-hidden="true" class="fa fa-circle-info"></i>
                             {{ 'documentation.document.link.button'|trans }}
                         </a>
                     {% endif %}

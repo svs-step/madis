@@ -26,12 +26,12 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     <a aria-label="{{ 'registry.conformite_traitement.action.report'|trans }}" href="{{ path('registry_conformite_traitement_report') }}" class="btn btn-default">
-                        <i class="fa fa-clipboard-list"></i>
+                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
                         {{ 'registry.conformite_traitement.action.report'|trans }}
                     </a>
                     {% if category and category.documents|length > 0 %}
                         <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i class="fa fa-circle-info"></i>
+                            <i aria-hidden="true" class="fa fa-circle-info"></i>
                             {{ 'documentation.document.link.button'|trans }}
                         </a>
                     {% endif %}
@@ -82,7 +82,7 @@
                                 <td>
                                     {% if planifiedMesurementToBeNotified is not empty %}
                                         <div class="mesurement-hide">
-                                            <i class="primary-i fas fa-exclamation-circle"></i>
+                                            <i aria-hidden="true" class="primary-i fas fa-exclamation-circle"></i>
                                             <div class="primary">
                                                 <span>Action de protections appliquées : </span>
                                                 <ul>
@@ -96,7 +96,7 @@
 
                                     {% if conformiteTraitement and conformiteTraitement.needsAipd and analyseImpact is null %}
                                         <div>
-                                            <i class="fa fa-exclamation-triangle" title="Une AIPD doit être réalisée sur ce traitement." style="color:#f39c12;"></i>
+                                            <i aria-hidden="true" class="fa fa-exclamation-triangle" title="Une AIPD doit être réalisée sur ce traitement." style="color:#f39c12;"></i>
                                         </div>
                                     {% endif %}
                                 </td>
@@ -166,19 +166,19 @@
                                 {% if is_granted('ROLE_USER') and ((services_user is empty) or ((object.service is defined) and (object.service in services_user)))%}
                                     <td>
                                         <a aria-label="{{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}" href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
-                                            <i class="fa fa-pencil"></i>
+                                            <i aria-hidden="true" class="fa fa-pencil"></i>
                                             {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
                                         </a>
                                         {% if conformiteTraitement is not null %}
                                             {% if analyseImpact is not null %}
                                                 <a aria-label="{{ 'aipd.analyse_impact.action.edit'|trans }}" href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
-                                                    <i class="fa fa-chalkboard-teacher"></i>
+                                                    <i aria-hidden="true" class="fa fa-chalkboard-teacher"></i>
                                                     {{ 'aipd.analyse_impact.action.edit'|trans }}
                                                 </a>
                                             {% else %}
                                                 {% if not conformiteTraitement.traitement.ExemptAIPD and analyseImpact is null %}
                                                     <a aria-label="{{ 'aipd.analyse_impact.action.create'|trans }}" href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
-                                                        <i class="fa fa-chalkboard-teacher"></i>
+                                                        <i aria-hidden="true" class="fa fa-chalkboard-teacher"></i>
                                                         {{ 'aipd.analyse_impact.action.create'|trans }}
                                                     </a>
                                                 {% endif %}

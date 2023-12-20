@@ -7,7 +7,7 @@
                 <div class="box-title"></div>
                 <div class="box-tools pull-right">
                     <button aria-label="Supprimer le délai" title="Supprimer le délai" class="btn btn-box-tool js-remove-item" data-toggle="tooltip">
-                        <i class="fa fa-times"></i>
+                        <i aria-hidden="true" class="fa fa-times"></i>
                     </button>
                 </div>
             </div>
@@ -133,7 +133,7 @@
                             <span class="help-block">
                                 <ul class="list-unstyled">
                                     <li>
-                                        <i class="fa-solid fa-circle-exclamation"></i> {{ error.message }}
+                                        <i aria-hidden="true" class="fa-solid fa-circle-exclamation"></i> {{ error.message }}
                                     </li>
                                 </ul>
                             </span>
@@ -173,7 +173,7 @@
                             {{ formMacros.printShelfLife(shelfLife) }}
                         {% endfor %}
                         <button class="js-collection-add btn btn-default">
-                            <i class="fa fa-plus"></i> Ajouter un délai de conservation
+                            <i aria-hidden="true" class="fa fa-plus"></i> Ajouter un délai de conservation
                         </button>
                     </div>
                 </div>

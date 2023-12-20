@@ -72,7 +72,7 @@
                     {% if is_granted('ROLE_ADMIN') %}
                         <div class="btn-group">
                             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <i class="fa fa-plus"></i>
+                                <i aria-hidden="true" class="fa fa-plus"></i>
                                 {{ 'documentation.document.action.new'|trans }}
                                 <span class="caret"></span>
                             </button>
@@ -85,7 +85,7 @@
                     {# Uniquement pour les DPO #}
                     {% if is_granted('ROLE_ADMIN') %}
                         <a aria-label="{{ 'documentation.category.action.list'|trans }}" href="{{ path('documentation_category_list') }}" class="btn btn-default">
-                            <i class="fas fa-tag"></i>
+                            <i aria-hidden="true" class="fas fa-tag"></i>
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
                     {% endif %}
@@ -104,7 +104,7 @@
                         <div class="col-md-12 col-xl-2">
                             <div class="ml2">
                                 <a aria-label="{{ 'documentation.document.action.list'|trans }}" href="{{ path('documentation_document_list') }}" class="btn btn-default">
-                                    <i class="fas fa-list"></i>
+                                    <i aria-hidden="true" class="fas fa-list"></i>
                                     {{ 'documentation.document.action.list'|trans }}
                                 </a>
                                 {# RESET FILTERS #}
@@ -177,21 +177,21 @@
                                         {% else %}
                                             <div class="text-muted m-0" style="height:150px;padding: 50px;background: #f2f2f2;font-size: 60px;">
                                                 {% if object.typeName == "Vidéo" %}
-                                                    <i class="far fa-file-video"></i>
+                                                    <i aria-hidden="true" class="far fa-file-video"></i>
                                                 {% elseif object.typeName == "PDF" %}
-                                                    <i class="far fa-file-pdf"></i>
+                                                    <i aria-hidden="true" class="far fa-file-pdf"></i>
                                                 {% elseif object.typeName == "Document" %}
-                                                    <i class="far fa-file-word"></i>
+                                                    <i aria-hidden="true" class="far fa-file-word"></i>
                                                 {% elseif object.typeName == "Lien" %}
-                                                    <i class="fas fa-link"></i>
+                                                    <i aria-hidden="true" class="fas fa-link"></i>
                                                 {% elseif object.typeName == "Image" %}
-                                                    <i class="fas fa-image"></i>
+                                                    <i aria-hidden="true" class="fas fa-image"></i>
                                                 {% elseif object.typeName == "PowerPoint" %}
-                                                    <i class="fas fa-file-powerpoint"></i>
+                                                    <i aria-hidden="true" class="fas fa-file-powerpoint"></i>
                                                 {% elseif object.typeName == "Excel" %}
-                                                    <i class="fas fa-file-excel"></i>
+                                                    <i aria-hidden="true" class="fas fa-file-excel"></i>
                                                 {% elseif object.typeName == "Audio" %}
-                                                    <i class="fas fa-file-audio"></i>
+                                                    <i aria-hidden="true" class="fas fa-file-audio"></i>
                                                 {% endif %}
                                             </div>
                                         {% endif %}
@@ -215,15 +215,15 @@
                                 <td style="display: flex; flex-direction: row;justify-content: space-between">
                                     <div>
                                     {% if object.typeName == "Vidéo" %}
-                                        <i class="far fa-file-video"></i>
+                                        <i aria-hidden="true" class="far fa-file-video"></i>
                                     {% elseif object.typeName == "PDF" %}
-                                        <i class="far fa-file-pdf"></i>
+                                        <i aria-hidden="true" class="far fa-file-pdf"></i>
                                     {% elseif object.typeName == "Document" %}
-                                        <i class="far fa-file-word"></i>
+                                        <i aria-hidden="true" class="far fa-file-word"></i>
                                     {% elseif object.typeName == "Lien" %}
-                                        <i class="fas fa-link"></i>
+                                        <i aria-hidden="true" class="fas fa-link"></i>
                                     {% elseif object.typeName == "Image" %}
-                                            <i class="fas fa-image"></i>
+                                            <i aria-hidden="true" class="fas fa-image"></i>
                                     {% endif %}
                                     {{ object.typeName }}
                                     | {{ object.size }}
@@ -243,16 +243,16 @@
                                     {% if is_granted('ROLE_ADMIN') %}
                                     <div class="row" style="padding: 0 20px; position: relative; bottom: 0;">
                                         <a aria-label="{{ 'action.share'|trans }}" class="sharelink btn btn-block text-info col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
-                                            <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                            <i aria-hidden="true" class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                         </a>
                                         <div class="col-md-12" style="padding: 5px 0 0 0">
                                             <a aria-label="{{ 'action.edit'|trans }}" class="btn btn-block text-info" href="{{ path('documentation_document_edit', { 'id': object.id }) }}" style="border-color:#31708f">
-                                                <i class="fa fa-pencil"></i>&nbsp;{{ 'action.edit'|trans }}
+                                                <i aria-hidden="true" class="fa fa-pencil"></i>&nbsp;{{ 'action.edit'|trans }}
                                             </a>
                                         </div>
                                         <div class="col-md-12" style="padding: 5px 0 0 0">
                                             <a aria-label="{{ 'action.delete'|trans }}" class="btn btn-block text-info col-md-6" href="{{ path('documentation_document_delete', { 'id': object.id }) }}" style="border-color:#31708f">
-                                                <i class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
+                                                <i aria-hidden="true" class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
                                             </a>
                                         </div>
                                     </div>
@@ -260,7 +260,7 @@
                                     {% if is_granted('ROLE_REFERENT') and not is_granted('ROLE_ADMIN') %}
                                         <div class="row" style="padding: 0 20px; position: relative; bottom: 0;">
                                             <a aria-label="{{ 'action.share'|trans }}" class="sharelink btn btn-block text-info col-md-12" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal" style="border-color:#31708f">
-                                                <i class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                                <i aria-hidden="true" class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
                                             </a>
                                         </div>
                                     {% endif %}
@@ -282,13 +282,13 @@
                     <div class="box-tools pull-right">
                         <!-- Collapse Button -->
                         <button type="button" class="btn btn-box-tool" data-dismiss="modal">
-                            <i class="fa fa-times"></i>
+                            <i aria-hidden="true" class="fa fa-times"></i>
                         </button>
                     </div>
                 </div>
                 <!-- /.box-header -->
                 <div class="box-body text-center copyLink" style="display: none">
-                    <i class="fa fa-check fa-3x" style="color:green"></i>
+                    <i aria-hidden="true" class="fa fa-check fa-3x" style="color:green"></i>
                     <h4><b>Lien copié</b></h4>
                 </div>
                 <div class="box-body text-center">

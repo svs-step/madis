@@ -27,11 +27,11 @@
             <div class="action-bar">
                 {% if is_granted('ROLE_USER') %}
                     <a aria-label="{{ 'aipd.modele_analyse.action.new'|trans }}" href="{{ path('aipd_modele_analyse_create') }}" class="btn btn-default">
-                        <i class="fa fa-plus"></i>
+                        <i aria-hidden="true" class="fa fa-plus"></i>
                         {{ 'aipd.modele_analyse.action.new'|trans }}
                     </a>
                     <a aria-label="{{ 'aipd.modele_analyse.action.import'|trans }}" href="{{ path('aipd_modele_analyse_import') }}" class="btn btn-default">
-                        <i class="fa fa-file-import"></i>
+                        <i aria-hidden="true" class="fa fa-file-import"></i>
                         {{ 'aipd.modele_analyse.action.import'|trans }}
                     </a>
                 {% endif %}

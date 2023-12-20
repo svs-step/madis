@@ -60,7 +60,7 @@
                             <img src="{{ asset(sso_icon) }}" alt="">
                             <p class="no-margin" style="padding: 0 0.5rem;">{{ sso_title }}</p>
                             <div class="input-group" style="flex-grow: 1;">
-                                <span class="input-group-addon"><i class="fa fa-key"></i></span>
+                                <span class="input-group-addon"><i aria-hidden="true" class="fa fa-key"></i></span>
                                 {{ form_widget(form.ssoKey) }}
                             </div>
                             {{ form_errors(form.ssoKey) }}

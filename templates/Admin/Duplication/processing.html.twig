@@ -109,8 +109,8 @@
 
         // ROW STATUS UPDATES
         const showRowProcess = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
-        const showRowSuccess = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<i class="fa fa-check text-green"></i>');
-        const showRowError = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<i class="fa fa-times text-red"></i>');
+        const showRowSuccess = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<i aria-hidden="true" class="fa fa-check text-green"></i>');
+        const showRowError = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<i aria-hidden="true" class="fa fa-times text-red"></i>');
 
         // Pipe actions to handle when every duplication queries are done
         const handleCompleteDuplication = () => {

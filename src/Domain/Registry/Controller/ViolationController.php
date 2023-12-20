@@ -252,11 +252,11 @@ class ViolationController extends CRUDController
         && \is_null($violation->getDeletedAt())
         && ($user->getServices()->isEmpty() || $this->isRequestInUserServices($violation))) {
             $cellContent .= '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_violation_edit', ['id' => $violation->getId()]) . '">
-                    <i class="fa fa-pencil"></i> ' .
+                    <i aria-hidden="true" class="fa fa-pencil"></i> ' .
                     $this->translator->trans('action.edit') . '
                 </a>
                 <a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('registry_violation_delete', ['id' => $violation->getId()]) . '">
-                    <i class="fa fa-archive"></i> ' .
+                    <i aria-hidden="true" class="fa fa-archive"></i> ' .
                     $this->translator->trans('action.archive') . '
                 </a>';
         }

@@ -27,15 +27,15 @@
         <div class="col-xs-12">
             <div class="action-bar">
                 <a aria-label="{{ 'registry.mesurement.action.back_to_list'|trans }}" href="{{ referer }}" class="btn btn-default">
-                    <i class="fa fa-arrow-left"></i>
+                    <i aria-hidden="true" class="fa fa-arrow-left"></i>
                     {{ 'registry.mesurement.action.back_to_list'|trans }}
                 </a>
                 <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('registry_mesurement_edit', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-pencil"></i>
+                    <i aria-hidden="true" class="fa fa-pencil"></i>
                     {{ 'action.edit'|trans }}
                 </a>
                 <a aria-label="{{ 'action.print'|trans }}" href="{{ path('registry_mesurement_pdf', {'id': object.id}) }}" class="btn btn-default">
-                    <i class="fa fa-print"></i>
+                    <i aria-hidden="true" class="fa fa-print"></i>
                     {{ 'action.print'|trans }}
                 </a>
             </div>
