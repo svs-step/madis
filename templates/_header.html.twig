@@ -9,17 +9,15 @@
 
 <header class="main-header" role="banner">
     <!-- Logo -->
-    <a aria-label="Tableau de bord" href="{{ path('reporting_dashboard_index') }}" class="logo">
-        <span class="logo-mini"><img src="{{ asset(app_image_sidebar_reduced_path) }}" alt=""/></span>
+    <div class="logo">
+        <span class="logo-mini"><img src="{{ asset(app_image_sidebar_reduced_path) }}" alt="Madis"/></span>
         <span class="logo-lg"><img class="fit-picture" src={{ asset(app_image_logo_blanc) }} width="65%" alt=""></span>
-    </a>
+    </div>
 
     <!-- Header Navbar -->
     <nav class="navbar navbar-static-top" role="navigation" aria-label="En-tête principal">
         <!-- Sidebar toggle button-->
         <button aria-label="Ouvrir/fermer le menu" aria-expanded="true" class="btn sidebar-toggle" data-toggle="push-menu" >
-            <i aria-hidden="true" class="fa fa-bars"></i>
-        </button>
 
         <!-- Navbar Right Menu -->
         <div class="navbar-custom-menu">
@@ -40,20 +38,34 @@
                 {% endif %}
                 <!-- User Account Menu -->
                 {% if app.user is defined %}
-                    <!-- Menu Toggle Button -->
-                    {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}
-                        <li class="dropdown user user-menu">
-                            <a href="{{ path('logout') }}" class="btn">
-                                <span style="margin-right: 5px;">{{ app.user }} - {{ app.user.roles[0]|dictionary('user_user_role') }}</span>
-                                <i aria-label="Déconnexion" class="fa fa-power-off"></i>
-                            </a>
-                        </li>
-                    {% elseif is_granted('ROLE_PREVIOUS_ADMIN') %}
-                        <li class="dropdown user user-menu nav-button">
+                    <li>
+                        <button aria-expanded="false" class="btn nav-button {% if (menuItem == 'user_profile_user' or menuItem == 'user_profile_collectivity') %} header-menu-active{% endif %}" data-toggle="dropdown">
                             <span style="margin-right: 5px;">{{ app.user }} - {{ app.user.roles[0]|dictionary('user_user_role') }}</span>
-                            <i aria-hidden="true" class="fa fa-power-off"></i>
-                        </li>
-                    {% endif %}
+                                <i aria-hidden="true" class="fa fa-caret-down"></i>
+                        </button>
+                        <ul class="dropdown-menu header-menu">
+                            <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
+                                <a href="{{ path('user_profile_user_edit') }}">
+                                    <i aria-hidden="true" class="fa fa-user"></i>
+                                    <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
+                                </a>
+                            </li>
+                            <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
+                                <a href="{{ path('user_profile_collectivity_show') }}">
+                                    <i aria-hidden="true" class="fa fa-home"></i>
+                                    <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
+                                </a>
+                            </li>
+                            {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}
+                                <li>
+                                    <a href="{{ path('logout') }}" >
+                                        <i aria-hidden="true" class="fa fa-power-off"></i>
+                                        <span>Déconnexion</span>
+                                    </a>
+                                </li>
+                            {% endif %}
+                        </ul>
+                    </li>
                 {% endif %}
             </ul>
         </div>

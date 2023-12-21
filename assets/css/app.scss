@@ -60,7 +60,12 @@ a:not([href]).banner-impersonate {
 
 /* Header */
 .main-header {
-  z-index: 811;
+  .logo {
+    background-color: #3c8dbc !important;
+    &:hover {
+        background-color: initial;
+    }
+  }
   .logo-mini img {
     max-width: 2em;
     max-height: 2em;
@@ -81,6 +86,32 @@ a:not([href]).banner-impersonate {
     color: #fff;
     background: rgba(0,0,0,0.1);
   }
+}
+button.header-menu-active {
+    background-color: rgba(0,0,0,0.1) !important;
+}
+.header-menu {
+    background-color: #222d32;
+    width:100%;
+    border:none;
+    padding: 0;
+    a {
+        padding: 12px 15px !important;
+        color: #b8c7ce !important;
+        &:hover {
+            background-color: #1e282c !important;
+            color: #fff !important;
+        }
+        &:focus {
+            background-color: #222d32 !important;
+            color: #b8c7ce !important;
+        }
+    }
+    li.active a {
+        border-left: 3px solid #3c8dbc;
+        color: #fff !important;
+        background-color: #1e282c !important;
+    }
 }
 
 /* Skiplinks */

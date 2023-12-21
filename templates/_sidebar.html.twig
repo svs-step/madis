@@ -168,10 +168,10 @@
             </ul>
         </li>
         {# ADMINISTRATION #}
-        <li class="header">
-            <span>Espace d'administration</span>
-            <ul class="sidebar-menu">
-                {% if is_granted('ROLE_REFERENT') %}
+        {% if is_granted('ROLE_REFERENT') %}
+            <li class="header">
+                <span>Espace d'administration</span>
+                <ul class="sidebar-menu">
                     {# Referent is not allowed to duplicate#}
                     {% if is_granted('ROLE_ADMIN') %}
                         <li {% if menuItem == 'admin_duplication' %}class="active"{% endif %}>
@@ -202,25 +202,9 @@
                             </a>
                         </li>
                     {% endif %}
-                    {# If not an admin nor a referent & is write granted, let user edit informations #}
-                {% else %}
-                    <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
-                        <a aria-label="{{ 'sidebar_menu.user_profile_collectivity'|trans }}" href="{{ path('user_profile_collectivity_show') }}">
-                            <i aria-hidden="true" class="fa fa-home"></i>
-                            <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
-                        </a>
-                    </li>
-                {% endif %}
-                {% if not is_granted('ROLE_ADMIN') %}
-                    <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
-                        <a aria-label="{{ 'sidebar_menu.user_profile_user'|trans }}" href="{{ path('user_profile_user_edit') }}">
-                            <i aria-hidden="true" class="fa fa-user"></i>
-                            <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
-                        </a>
-                    </li>
-                {% endif %}
-            </ul>
-        </li>
+                </ul>
+            </li>
+        {% endif %}
         {# CONFIGURATION #}
         {% if is_granted('ROLE_ADMIN') %}
             <li class="header">
