@@ -1,5 +1,32 @@
 CHANGELOG
 =========
+## [2.3.6] - 2023-12-22
+Détails des modifications #894
+### Ajout
+- [Formulaire] Largeur fixe sur les textarea.
+- [Accessibilité] Ajout de pages obligatoires (déclaration, schéma, plans annuels) depuis le pied de page et le plan du site
+- [Traductions] Ajout d'un fichier de traduction pour les nouvelles pages
+### Changement
+- [Global] Divers renommages et traductions
+- [Global] Migration de la font Awesome v5.0.13 en v6.4.2
+- [Global] Modification de nombreuses icônes
+- [Configuration] Le menu « Configuration des traitements » est déplacé et renommé en « Registre public ».
+- [Preuves] Renommage de la partie menu « Preuves » en « Justificatifs », et du menu « Documents » en « Preuves ».
+- [Mon compte & Ma structure] Déplacement des menus « Mon compte » et « Ma structure » dans un dropdown de l'en-tête.
+- [Formulaire] Modification de tous les champs de formulaire en vertical et refonte de certains formulaires comme les référentiels
+- [Formulaire] Modification de l'astérisque « * » d'obligation d'un champ en indication explicite « (Obligatoire) ».
+- [Ergonomie] Modification de l'apparence de pastilles de couleur
+- [CSS] Amélioration générale du fichier de CSS
+- [Accessibilité] Refonte de l'en-tête et du pied de page
+### Fix
+- [Plan du site] Le fil d'Ariane est désormais présent pour l'ensemble des rôles.
+- [Global] Corrections diverses d'accents et majuscules.
+- [Accessibilité] Focus visible des liens et boutons.
+- [Formulaire] Fix du bloc dans le formulaire de gestion des droits (modèles AIPD et référentiels) qui s'affichait mal dans certaines résolutions.
+- [Conformité de la structure] Fix des blocs dans le formulaire de conformité qui s'affichaient mal dans certaines résolutions.
+### Suppression
+- [Tableau de bord] Suppression de la colonne « Lien » dans le plan d’actions du tableau de bord gestionnaire et transfère du lien vers le nom de l'action.
+
 ## [2.3.0] - 2023-09-14
 ### Changement
 - Ajout du module de gestion des logiciels et supports.

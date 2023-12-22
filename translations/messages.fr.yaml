@@ -39,7 +39,7 @@ label:
     danger_zone: Zone de danger
     for_your_information: Pour votre information
     inactive: Inactif
-    linked_documents: Documents associés
+    linked_documents: Preuves associées
     linked_treatment: Traitements associés
     linked_mesurement: Actions de protection associées
     linked_mesurements: Actions de protection associées
@@ -50,8 +50,8 @@ label:
     linked_tools: Logiciels et supports associés
     no: Non
     yes: Oui
-    no_linked_document: Aucun document associé
-    no_linked_contractor: Aucun sous traitant associé
+    no_linked_document: Aucune preuve associée
+    no_linked_contractor: Aucun sous-traitant associé
     no_linked_treatment: Aucun traitement associé
     no_linked_mesurement: Aucune action de protection associée
     no_linked_mesurements: Aucune action de protection associée
@@ -91,7 +91,7 @@ sidebar_menu:
   registry_action_plan: Plan d'actions
   registry_contractors: Sous-traitants
   registry_mesurements: Actions de protection
-  registry_proofs: Documents
+  registry_proofs: Preuves
   registry_requests: Demandes
   registry_tools: Logiciels et supports
   registry_treatments: Traitements

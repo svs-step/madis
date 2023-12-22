@@ -48,7 +48,7 @@
         </li>
         {# PROOF #}
         <li class="header">
-            <span>Preuves</span>
+            <span>Justificatifs</span>
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'registry_proof' %}class="active"{% endif %}>
                     <a aria-label="{{ 'sidebar_menu.registry_proofs'|trans }}" href="{{ path('registry_proof_list') }}">
@@ -90,7 +90,7 @@
                     </li>
                     <li {% if menuItem == 'aipd_mesure_protection' %}class="active"{% endif %}>
                         <a aria-label="{{ 'sidebar_menu.aipd_mesure_protection'|trans }}" href="{{ path('aipd_mesure_protection_list') }}">
-                            <i aria-hidden="true" class="fa fa-chart-bar"></i>
+                            <i aria-hidden="true" class="fa fa-shield-halved"></i>
                             <span>{{ 'sidebar_menu.aipd_mesure_protection'|trans }}</span>
                         </a>
                     </li>
