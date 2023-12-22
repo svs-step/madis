@@ -166,7 +166,7 @@ registry:
             treatments: Traitements
             contractors: Sous-traitants
             mesurements: Actions de protection
-            proofs: Documents
+            proofs: Preuves
             access_control: Contrôle d'accès
             created_at: Date de création
             updated_at: Date de modification
@@ -633,7 +633,7 @@ registry:
             name: Nom
             observation: Observations
             paper_processing: Traitement papier
-            proofs: Documents associés
+            proofs: Preuves associées
             public: Public
             public_register: Registre public
             recipient_category: Catégorie de destinataires

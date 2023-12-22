@@ -1,7 +1,7 @@
 {% if app.session.flashbag.has('success') %}
     <div role="status" class="alert alert-success alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        <i class="icon fa fa-check"></i>
+        <i aria-hidden="true" class="icon fa fa-check"></i>
         {% for flashMessage in app.session.flashbag.get('success') %}
             {{ flashMessage }}
         {% endfor %}
@@ -11,7 +11,7 @@
 {% if app.session.flashbag.has('info') %}
     <div role="status" class="alert alert-info alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        <i class="icon fa fa-info"></i>
+        <i aria-hidden="true" class="icon fa fa-info"></i>
         {% for flashMessage in app.session.flashbag.get('info') %}
             {{ flashMessage }}
         {% endfor %}
@@ -21,7 +21,7 @@
 {% if app.session.flashbag.has('warning') %}
     <div role="status" class="alert alert-warning alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        <i class="icon fa fa-warning"></i>
+        <i aria-hidden="true" class="icon fa fa-warning"></i>
         {% for flashMessage in app.session.flashbag.get('warning') %}
             {{ flashMessage }}
         {% endfor %}
@@ -31,7 +31,7 @@
 {% if app.session.flashbag.has('danger') %}
     <div role="alert" class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        <i class="icon fa fa-ban"></i>
+        <i aria-hidden="true" class="icon fa fa-ban"></i>
         {% for flashMessage in app.session.flashbag.get('danger') %}
             {{ flashMessage }}
         {% endfor %}
@@ -40,7 +40,7 @@
 {% if app.session.flashbag.has('error') %}
     <div role="alert" class="alert alert-danger alert-dismissible">
         <button type="button" class="close" data-dismiss="alert">×</button>
-        <i class="icon fa fa-ban"></i>
+        <i aria-hidden="true" class="icon fa fa-ban"></i>
         {% for flashMessage in app.session.flashbag.get('error') %}
             {{ flashMessage }}
         {% endfor %}

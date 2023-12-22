@@ -27,20 +27,20 @@
             <div class="action-bar">
                 {% if is_granted('ROLE_USER') %}
                 <a href="{{ path('registry_tool_create') }}" class="btn btn-default">
-                    <i class="fa fa-plus"></i>
+                    <i aria-hidden="true" class="fa fa-plus"></i>
                     {{ 'registry.tool.action.new'|trans }}
                 </a>
                 {% endif %}
                 {% if app.user.roles[0] != 'ROLE_REFERENT' %}
                     <a href="{{ path('registry_tool_report') }}" class="btn btn-default">
-                        <i class="fa fa-clipboard-list"></i>
+                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
                         {{ 'registry.treatment.action.report'|trans }}
                     </a>
                 {% endif %}
 
                 {% if category is defined and category and category.documents|length > 0 %}
                     <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                        <i class="fa fa-circle-info"></i>
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
                         {{ 'documentation.document.link.button'|trans }}
                     </a>
                 {% endif %}

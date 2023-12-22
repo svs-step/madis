@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-4 text-center">
                     <a  href="{{ path('notification_notification_mark_as_read', { 'id': notif.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
-                        <i class="fas fa-clipboard-check"></i> {{ 'notification.notification.action.mark_as_read'|trans }}
+                        <i aria-hidden="true" class="fas fa-clipboard-check"></i> {{ 'notification.notification.action.mark_as_read'|trans }}
                     </a>
                 </div>
             </div>
@@ -40,13 +40,10 @@
     {% endif %}
 
     {% set notifsLeft = notifs|length - maxNotifs > 0 ? notifs|length - maxNotifs : 0 %}
-    <div class="text-center box-header">
+    <div class="text-center box-footer">
         <a href="{{ path('notification_notification_list') }}">
             Voir toutes les notifications
-            {% if notifs|length > maxNotifs %} ({{ notifsLeft }} autres non lues) {% endif %}
         </a>
     </div>
     </div>
 {% endblock %}
-
-

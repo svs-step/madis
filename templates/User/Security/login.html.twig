@@ -4,7 +4,7 @@
 
 {% block body %}
     <div class="login-logo">
-        <img class="fit-picture" src="{{ asset(app_image_logo_couleur) }}" width="80%" alt="Logo Madis">
+        <img class="fit-picture" src="{{ asset(app_image_logo_couleur) }}" width="80%" alt="Madis">
     </div>
     <div class="login-box-body">
         <p class="login-box-msg">{{ 'user.security.login.verbatim'|trans }}</p>
@@ -12,7 +12,7 @@
 
             {% if error %}
                 <div role="alert" class="alert alert-danger">
-                    <i class="icon fa fa-ban"></i>
+                    <i aria-hidden="true" class="icon fa fa-ban"></i>
                     {{ error.messageKey|trans(error.messageData, 'security') }}
                 </div>
             {% endif %}

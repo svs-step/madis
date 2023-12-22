@@ -27,11 +27,11 @@
                 <div class="action-bar">
                     {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('maturity_referentiel_create') }}" class="btn btn-default">
-                        <i class="fa fa-plus"></i>
+                        <i aria-hidden="true" class="fa fa-plus"></i>
                         {{ 'maturity.referentiel.action.new'|trans }}
                     </a>
                     <a href="{{ path('maturity_referentiel_import') }}" class="btn btn-default">
-                        <i class="fa fa-file-import"></i>
+                        <i aria-hidden="true" class="fa fa-file-import"></i>
                         {{ 'maturity.referentiel.action.import'|trans }}
                     </a>
                     {% endif %}

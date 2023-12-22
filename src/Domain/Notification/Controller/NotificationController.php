@@ -215,12 +215,12 @@ class NotificationController extends CRUDController
         ) {
             if (null === $notification->getReadAt()) {
                 $html .= '<a href="' . $this->router->generate('notification_notification_mark_as_read', ['id' => $id]) . '">
-<i class="fas fa-clipboard-check"></i>&nbsp;
+<i aria-hidden="true" class="fas fa-clipboard-check"></i>&nbsp;
                 ' . $this->translator->trans('notification.notification.action.mark_as_read') . '
                 </a>';
             } else {
                 $html .= ' <a href="' . $this->router->generate('notification_notification_mark_as_unread', ['id' => $id]) . '">
-<i class="fas fa-clipboard"></i>&nbsp;
+<i aria-hidden="true" class="fas fa-clipboard"></i>&nbsp;
                 ' . $this->translator->trans('notification.notification.action.mark_as_unread') . '
                 </a>';
             }
@@ -230,19 +230,19 @@ class NotificationController extends CRUDController
             });
             if ($notificationUser && null === $notificationUser->getReadAt()) {
                 $html .= '<a href="' . $this->router->generate('notification_notification_mark_as_read', ['id' => $id]) . '">
-<i class="fas fa-clipboard-check"></i>&nbsp;
+<i aria-hidden="true" class="fas fa-clipboard-check"></i>&nbsp;
                 ' . $this->translator->trans('notification.notification.action.mark_as_read') . '
                 </a>';
             } else {
                 $html .= ' <a href="' . $this->router->generate('notification_notification_mark_as_unread', ['id' => $id]) . '">
-<i class="fas fa-clipboard"></i>&nbsp;
+<i aria-hidden="true" class="fas fa-clipboard"></i>&nbsp;
                 ' . $this->translator->trans('notification.notification.action.mark_as_unread') . '
                 </a>';
             }
         }
 
         $html .= ' <a href="' . $this->router->generate('notification_notification_delete', ['id' => $id]) . '">
-<i class="fas fa-trash"></i>&nbsp;
+<i aria-hidden="true" class="fas fa-trash"></i>&nbsp;
                 ' . $this->translator->trans('notification.notification.action.delete') . '
                 </a>';
 

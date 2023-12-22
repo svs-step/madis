@@ -393,7 +393,7 @@ class ProofController extends CRUDController
         if ($this->userProvider->getAuthenticatedUser()->getCollectivity() === $proof->getCollectivity()
             || $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $cellContent .= '<a aria-label="' . $this->translator->trans('action.download') . '" href="' . $this->router->generate('registry_proof_download', ['id' => $proof->getId()]) . '">
-                <i class="fa fa-download"></i> ' .
+                <i aria-hidden="true" class="fa fa-download"></i> ' .
                 $this->translator->trans('action.download') . '
             </a>';
         }
@@ -401,16 +401,16 @@ class ProofController extends CRUDController
         if ($this->authorizationChecker->isGranted('ROLE_USER')) {
             if (\is_null($proof->getDeletedAt())) {
                 $cellContent .= '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_proof_edit', ['id' => $proof->getId()]) . '">
-                    <i class="fa fa-pencil"></i> ' .
+                    <i aria-hidden="true" class="fa fa-pencil"></i> ' .
                         $this->translator->trans('action.edit') . '
                 </a>
                 <a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('registry_proof_archive', ['id' => $proof->getId()]) . '">
-                    <i class="fa fa-archive"></i> ' .
+                    <i aria-hidden="true" class="fa fa-archive"></i> ' .
                     $this->translator->trans('action.archive') . '
                 </a>';
             }
             $cellContent .= '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('registry_proof_delete', ['id' => $proof->getId()]) . '">
-                <i class="fa fa-trash"></i> ' .
+                <i aria-hidden="true" class="fa fa-trash"></i> ' .
                 $this->translator->trans('action.delete') . '
             </a>';
         }

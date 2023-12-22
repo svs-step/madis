@@ -1,10 +1,35 @@
+page_declaration:
+    path: /accessibilite
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+        template: Page/declaration.html.twig
+page_schema_pluriannuel_2022_2024:
+    path: /accessibilite/schema-pluriannuel-2022-2024
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+        template: Page/schema_pluriannuel_2022_2024.html.twig
+page_plan_annuel_2022:
+    path: /accessibilite/schema-pluriannuel-2022-2024/plan-annuel-2022
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+        template: Page/plan_annuel_2022.html.twig
+page_plan_annuel_2023:
+    path: /accessibilite/schema-pluriannuel-2022-2024/plan-annuel-2023
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+        template: Page/plan_annuel_2023.html.twig
+page_plan_annuel_2024:
+    path: /accessibilite/schema-pluriannuel-2022-2024/plan-annuel-2024
+    controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
+    defaults:
+        template: Page/plan_annuel_2024.html.twig
 page_credit:
-    path: /page/credit
+    path: /credit
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
     defaults:
         template: Page/credit.html.twig
 page_sitemap:
-    path: /page/sitemap
+    path: /plan-du-site
     controller: Symfony\Bundle\FrameworkBundle\Controller\TemplateController::templateAction
     defaults:
         template: Page/sitemap.html.twig

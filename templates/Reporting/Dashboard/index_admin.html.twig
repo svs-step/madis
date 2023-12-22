@@ -18,7 +18,7 @@
     <div class="row">
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="fa fa-adjust"></i></span>
+                <span class="info-box-icon bg-aqua"><i aria-hidden="true" class="fa fa-crosshairs"></i></span>
 
                 <div class="info-box-content">
                     <span>Actions planifiées (moyenne)</span>
@@ -29,7 +29,7 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-red"><i class="fa fa-file-shield"></i></span>
+                <span class="info-box-icon bg-red"><i aria-hidden="true" class="fa fa-file-shield"></i></span>
 
                 <div class="info-box-content">
                     <span>Preuves déposées (moyenne)</span>
@@ -42,7 +42,7 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-green"><i class="fa fa-clipboard-list"></i></span>
+                <span class="info-box-icon bg-green"><i aria-hidden="true" class="fa fa-clipboard-list"></i></span>
 
                 <div class="info-box-content">
                     <span style="white-space: normal;">Structures ayant déposé un bilan (12 derniers mois)</span>
@@ -53,7 +53,7 @@
 
         <div class="col-md-3 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-yellow"><i class="fa fa-chart-line"></i></span>
+                <span class="info-box-icon bg-yellow"><i aria-hidden="true" class="fa fa-chart-line"></i></span>
 
                 <div class="info-box-content">
                     <span style="white-space: normal;">Structures ayant fait un indice de maturité (12 derniers mois)</span>
@@ -80,12 +80,12 @@
             <div class="col-md-4 col-sm-4 bg-green">
               <div class="pad">
                 <p class="report text-center">
-                  <i class="fa fa-house"></i>
+                  <i aria-hidden="true" class="fa fa-house"></i>
                   <span class="info-box-number">{{data.collectivityByAddressInsee.value.all}}</span>
                   <span class="info-box-text">Structures</span>
                 </p>
                 <p class="report text-center">
-                  <i class="fa fa-user-shield"></i>
+                  <i aria-hidden="true" class="fa fa-user-shield"></i>
                   <span class="info-box-number">{{data.collectivityByAddressInsee.value.dpoPercent}} %</span>
                   <span class="info-box-text">DPD</span>
                 </p>
@@ -125,35 +125,35 @@
         {# EXPORT CSV #}
         <div class="col-sm-6 col-xs-12">
             <div class="small-box bg-yellow">
-                <div class="inner">
-                    <p>Exporter les structures</p>
-                </div>
-                <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::COLLECTIVITY_TYPE')}) }}" class="small-box-footer">
-                    Exporter <i class="fa fa-arrow-circle-right"></i>
-                </a>
-            </div>
-            <div class="small-box bg-yellow">
               <div class="inner">
                   <p>Exporter les traitements</p>
               </div>
-              <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::TREATMENT_TYPE')}) }}" class="small-box-footer">
-                  Exporter <i class="fa fa-arrow-circle-right"></i>
+              <a aria-label="Exporter les traitements en CSV" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::TREATMENT_TYPE')}) }}" class="small-box-footer">
+                  Exporter <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
               </a>
             </div>
             <div class="small-box bg-yellow">
                 <div class="inner">
                     <p>Exporter les sous-traitants</p>
                 </div>
-                <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::CONTRACTOR_TYPE')}) }}" class="small-box-footer">
-                    Exporter <i class="fa fa-arrow-circle-right"></i>
+                <a aria-label="Exporter les sous-traitants en CSV" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::CONTRACTOR_TYPE')}) }}" class="small-box-footer">
+                    Exporter <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
             <div class="small-box bg-yellow">
                 <div class="inner">
                     <p>Exporter les actions de protection</p>
                 </div>
-                <a href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::MESUREMENT_TYPE')}) }}" class="small-box-footer">
-                    Exporter <i class="fa fa-arrow-circle-right"></i>
+                <a aria-label="Exporter les actions de protection en CSV" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::MESUREMENT_TYPE')}) }}" class="small-box-footer">
+                    Exporter <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
+                </a>
+            </div>
+            <div class="small-box bg-yellow">
+                <div class="inner">
+                    <p>Exporter les structures</p>
+                </div>
+                <a aria-label="Exporter les structures en CSV" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::COLLECTIVITY_TYPE')}) }}" class="small-box-footer">
+                    Exporter <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>

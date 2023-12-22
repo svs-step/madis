@@ -1,0 +1,36 @@
+page:
+    declaration:
+        title: Déclaration d'accessibilité
+        breadcrumb: Déclaration d'accessibilité
+        version: 1.7.12
+        result: non conforme
+        rate: 24,62
+        average_rate: 37,82
+        created_at: 31 août 2023
+        updated_at: 06 septembre 2023
+    schema_pluriannuel_2022_2024:
+        title: Schéma pluriannuel de mise en accessibilité 2022 – 2024
+        breadcrumb: Schéma pluriannuel 2022 – 2024
+        created_at: 31 août 2023
+        updated_at: 06 septembre 2023
+    plan_annuel_2022:
+        title: Plan annuel 2022
+        breadcrumb: Plan annuel 2022
+        created_at: 08 août 2023
+        updated_at: 06 septembre 2023
+    plan_annuel_2023:
+        title: Plan annuel 2023
+        breadcrumb: Plan annuel 2023
+        created_at: 08 août 2023
+        updated_at: 08 décembre 2023
+    plan_annuel_2024:
+        title: Plan annuel 2024
+        breadcrumb: Plan annuel 2024
+        created_at: 08 décembre 2023
+        updated_at: 08 décembre 2023
+    credit:
+        title: Crédit
+        breadcrumb: Crédit
+    sitemap:
+        title: Plan du site
+        breadcrumb: Plan du site

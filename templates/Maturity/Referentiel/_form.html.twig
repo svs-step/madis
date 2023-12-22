@@ -26,19 +26,19 @@
                 {{ form_row(section.position) }}
                 {{ form_row(section.color) }}
                 <span style="flex-grow: 1;">
-                    <i class="fas fa-grip-vertical" style="padding-right: 2px"></i>
+                    <i aria-hidden="true" class="fas fa-grip-vertical" style="padding-right: 2px"></i>
                     {{ index }}. {{ section.vars['value'] ? section.vars['value'].name : 'Nouvelle section' }}
                 </span>
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: none">
-                        <i class="fa fa-cog"></i> <span class="caret"></span>
+                        <i aria-hidden="true" class="fa fa-cog"></i> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" style="left: -100px;">
-                        <li><a href="#" style="color: #777" class="delete-section"><i class="fa fa-trash"></i> Supprimer</a></li>
-                        {#<li><a href="#" style="color: #777" class="duplicate-section"><i class="fa fa-clone"></i> Dupliquer</a></li>#}
+                        <li><a href="#" style="color: #777" class="delete-section"><i aria-hidden="true" class="fa fa-trash"></i> Supprimer</a></li>
+                        {#<li><a href="#" style="color: #777" class="duplicate-section"><i aria-hidden="true" class="fa fa-clone"></i> Dupliquer</a></li>#}
                     </ul>
                 </div>
-                <a href="#section_{{ index }}" class="box-link btn btn-default " data-toggle="collapse" style="border:none;"><i class="fa fa-plus"></i></a>
+                <a href="#section_{{ index }}" class="box-link btn btn-default " data-toggle="collapse" style="border:none;"><i aria-hidden="true" class="fa fa-plus"></i></a>
             </div>
             <div class="box-body collapse section" id="section_{{ index }}">
                 {% include 'Maturity/Referentiel/_form_referentiel_section.html.twig' with {'form': section} %}
@@ -82,7 +82,7 @@
                     {% endfor %}
                 {% endif %}
             </ul>
-            <button type="button" class="add_section btn btn-primary" style="margin-bottom: 15px;" data-collection-holder-class="referentielSections"><i class="fa fa-plus"></i> Ajouter une section</button>
+            <button type="button" class="add_section btn btn-primary" style="margin-bottom: 15px;" data-collection-holder-class="referentielSections"><i aria-hidden="true" class="fa fa-plus"></i> Ajouter une section</button>
         </div>
 
         <div class="col-md-12">

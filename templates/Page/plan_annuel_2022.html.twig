@@ -1,0 +1,114 @@
+{% extends 'base.html.twig' %}
+
+{% set bodyClass = 'page_declaration' %}
+{% set menuItem = 'page_declaration' %}
+
+{% block title %}{{ 'page.plan_annuel_2022.title'|trans }} - {{ parent() }}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body_head %}
+    <h1>{{ 'page.plan_annuel_2022.title'|trans }}</h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'page.declaration.breadcrumb'|trans, 'link': path('page_declaration') },
+        { 'name': 'page.schema_pluriannuel_2022_2024.breadcrumb'|trans, 'link': path('page_schema_pluriannuel_2022_2024') },
+        { 'name': 'page.plan_annuel_2022.breadcrumb'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-xs-12">
+            <p>L’<a target="_blank" rel="noreferrer noopener" href="https://www.legifrance.gouv.fr/loda/article_lc/LEGIARTI000047293300" title="article 47 de la loi n° 2005-102 (Nouvelle fenêtre)" aria-label="article 47 de la loi n° 2005-102 (Nouvelle fenêtre)">article 47 de la loi n° 2005-102</a> du 11 février 2005 pour l’égalité des droits et des chances, la participation et la citoyenneté des personnes handicapées et le <a target="_blank" rel="noreferrer noopener" href="https://www.legifrance.gouv.fr/jorf/id/JORFTEXT000038811937" title="décret n° 2019-768 (Nouvelle fenêtre)" aria-label="décret n° 2019-768 (Nouvelle fenêtre)">décret n° 2019-768</a> du 24 juillet 2019 relatif à l’accessibilité aux personnes handicapées des services de communication au public en ligne, rendent obligatoires à tout service de communication publique en ligne d’être accessible à tous, ainsi que de réaliser un schéma pluriannuel de mise en accessibilité numérique.</p>
+            <p>D’une durée de trois ans, le schéma pluriannuel définit le cadre d’intervention de Madis en matière d’accessibilité numérique et se décline en plans annuels d’actions qui décrivent en détail les opérations mises en œuvre pour prendre en charge l’ensemble des besoins en termes d’accessibilité numérique.</p>
+            <p>Le début des plans annuels est basé sur la date du comité d’évolution tenu annuellement en octobre.</p>
+            <p>Le présent document est le plan annuel 2022 associé au <a href="{{ path('page_schema_pluriannuel_2022_2024') }}">{{ 'page.schema_pluriannuel_2022_2024.title'|trans }}</a>.</p>
+            <h2>Mise à jour</h2>
+            <p>Ce plan est susceptible d’être mis à jour sans préavis. La version en ligne est la seule version qui peut faire référence.</p>
+            <p>Publié le {{ 'page.plan_annuel_2022.created_at'|trans }}, il a été mis à jour le {{ 'page.plan_annuel_2022.updated_at'|trans }}.</p>
+            <h2>Contact</h2>
+            <p>L’élaboration, le suivi et la mise à jour de ce document sont placés sous la responsabilité de l’équipe Madis de Soluris (<a href="mailto:contact@soluris.fr">contact@soluris.fr</a>).</p>
+            <h2>Détail du plan annuel</h2>
+            <p>Ci-après, un tableau récapitulatif des actions qui ont été ou seront mises en œuvre en 2022, avec leur date d’échéance si elles sont connues, ainsi que leur état d’avancement et de réalisation.</p>
+            <h3>Traitement des retours usagers</h3>
+            <table aria-label="Actions – Traitement des retours usagers" class="box table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Action</th>
+                        <th scope="col">Détail</th>
+                        <th scope="col">Mise en œuvre</th>
+                        <th scope="col">Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Demande d’un OPSN</th>
+                        <td>Recensement du Sitiv des déclarations d’accessibilité de leurs prestataires, dont Madis</td>
+                        <td>Décembre 2021</td>
+                        <td><span class="badge bg-green">Réalisé</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Audits et obligations légales</h3>
+            <table aria-label="Actions – Audits et obligations légales" class="box table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Action</th>
+                        <th scope="col">Détail</th>
+                        <th scope="col">Mise en œuvre</th>
+                        <th scope="col">Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Audit initial</th>
+                        <td>Audit complet (RGAA 4.1) du site <a target="_blank" rel="noreferrer noopener" href="https://madis.soluris.fr" title="madis.soluris.fr (Nouvelle fenêtre)" aria-label="madis.soluris.fr (Nouvelle fenêtre)">madis.soluris.fr</a>. Taux de conformité : 24,62 %</td>
+                        <td>Janvier 2022</td>
+                        <td><span class="badge bg-green">Réalisé</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Priorisation des non-conformités</th>
+                        <td>Suite à l’audit initial, priorisation des critères selon la complexité de correction et la récurrence</td>
+                        <td>Février 2022</td>
+                        <td><span class="badge bg-green">Réalisé</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Sélection du taux de conformité</th>
+                        <td>Suite à la priorisation des critères non-conformes, choix du taux de conformité visé pour le premier lot à présenter au comité d’évolution d’octobre. Taux de conformité visé : 52,31 %</td>
+                        <td>Juin 2022</td>
+                        <td><span class="badge bg-green">Réalisé</span></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Rédaction des correctifs retenus</th>
+                        <td>Suite à la sélection du taux de conformité, rédaction des correctifs attendus pour chacun des critères retenus pour chiffrage</td>
+                        <td>Juin 2022</td>
+                        <td><span class="badge bg-green">Réalisé</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            <h3>Développements, recettages et mise en conformité</h3>
+            <table aria-label="Actions – Développements, recettages et mise en conformité" class="box table table-bordered table-responsive">
+                <thead>
+                    <tr>
+                        <th scope="col">Action</th>
+                        <th scope="col">Détail</th>
+                        <th scope="col">Mise en œuvre</th>
+                        <th scope="col">Statut</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th scope="row">Chiffrage des développements</th>
+                    <td>Estimation du premier lot : 8 640€ TTC</td>
+                    <td>Août 2022</td>
+                    <td><span class="badge bg-green">Réalisé</span></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

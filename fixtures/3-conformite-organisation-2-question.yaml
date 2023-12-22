@@ -22,7 +22,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_6:
         processus: '@processus_2'
         position: 2
-        nom: "A chaque traitement est associé un gestionnaire. Tout nouveau traitement est signalé par le gestionnaire au DPD ou au référent DPD pour mise à jour du registre. Tout traitement ultérieur est porté à la connaissance du DPD ou du référent DPD pour avis puis partagé par la gouvernance."
+        nom: "À chaque traitement est associé un gestionnaire. Tout nouveau traitement est signalé par le gestionnaire au DPD ou au référent DPD pour mise à jour du registre. Tout traitement ultérieur est porté à la connaissance du DPD ou du référent DPD pour avis puis partagé par la gouvernance."
     conformite_organisation_question_7:
         processus: '@processus_2'
         position: 3
@@ -34,7 +34,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_9:
         processus: '@processus_3'
         position: 1
-        nom: "Les modalités de l'exercice des droits sont communiquées à la personne concernée : Droit d’accès aux données (Art 15) ; Droit de rectification des données (Art 16) ; Droit d’effacement des données (Art 17) ; Droit de limitation du traitement (Art 18) ; Droit de portabilité des données (Art 20) ; Droit d’opposition au traitement (Art 21) ; Droit d’opposition au transfert de données (Art 46)"
+        nom: "Les modalités de l'exercice des droits sont communiquées à la personne concernée : Droit d’accès aux données (Art 15) ; Droit de rectification des données (Art 16) ; Droit d’effacement des données (Art 17) ; Droit de limitation du traitement (Art 18) ; Droit de portabilité des données (Art 20) ; Droit d’opposition au traitement (Art 21) ; Droit d’opposition au transfert de données (Art 46)."
     conformite_organisation_question_10:
         processus: '@processus_3'
         position: 2
@@ -153,11 +153,11 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_35:
         processus: '@processus_7'
         position: 2
-        nom: "L'organisation a déjà procédé à une ou plusieurs analyses de risques de son système d'information. Elle dispose d'une compétence interne ou externe pouvant réaliser des analyses d'impacts sur la protection des données"
+        nom: "L'organisation a déjà procédé à une ou plusieurs analyses de risques de son système d'information. Elle dispose d'une compétence interne ou externe pouvant réaliser des analyses d'impacts sur la protection des données."
     conformite_organisation_question_36:
         processus: '@processus_7'
         position: 3
-        nom: "Conformément à l'article 35 du RGPD et aux lignes directrices portant sur le PIA/AIPD , les nouveaux traitements de DCP &quot;à risque élevé&quot; pour les droits et libertés des personnes comme par exemple de contrôle des personnes, d'évaluations systématiques font l'objet d'une analyse d'impact. La structure a pris connaissance des listes pour lesquelles les analyses sont obligatoires ou non publié pa rla CNIL. Dans le cas ou le traitement ne figure pas sur cette liste , elle applique la règle des critères determinants l'analyse (Cf.Infographie &quot;Dois-je faire une AIPD&quot;)"
+        nom: "Conformément à l'article 35 du RGPD et aux lignes directrices portant sur le PIA/AIPD , les nouveaux traitements de DCP &quot;à risque élevé&quot; pour les droits et libertés des personnes comme par exemple de contrôle des personnes, d'évaluations systématiques font l'objet d'une analyse d'impact. La structure a pris connaissance des listes pour lesquelles les analyses sont obligatoires ou non publié pa rla CNIL. Dans le cas ou le traitement ne figure pas sur cette liste , elle applique la règle des critères determinants l'analyse (Cf.Infographie &quot;Dois-je faire une AIPD&quot;)."
     conformite_organisation_question_37:
         processus: '@processus_7'
         position: 4
@@ -225,7 +225,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_53:
         processus: '@processus_11'
         position: 4
-        nom: "Les documents à valeur de preuve sont enregistrés (signés par le responsable du traitement). Ils sont protégés contre les pertes, les divulgations, les falsifications et les accès non autorisés. La liste des documents à valeur de preuve est disponible et tenue à jour (voir onglet liste preuves)"
+        nom: "Les documents à valeur de preuve sont enregistrés (signés par le responsable du traitement). Ils sont protégés contre les pertes, les divulgations, les falsifications et les accès non autorisés. La liste des documents à valeur de preuve est disponible et tenue à jour (voir onglet liste preuves)."
     conformite_organisation_question_54:
         processus: '@processus_12'
         position: 1
@@ -237,8 +237,8 @@ App\Domain\Registry\Model\ConformiteOrganisation\Question:
     conformite_organisation_question_56:
         processus: '@processus_12'
         position: 3
-        nom: "Le DPD ou le référent DPD  a mis en place un tableau de bord qui comprend des indicateurs permettant de mesurer la conformité au règlement et les progrès réalisés.Les indicateurs sont simples à comprendre et partageable avec les membres de la gouvernance. Exemple d'indicateurs : maturité des processus du système de gestion, ratio d'actions réalisées et à réaliser, ratio nombre de traitement interne/sous-traités."
+        nom: "Le DPD ou le référent DPD  a mis en place un tableau de bord qui comprend des indicateurs permettant de mesurer la conformité au règlement et les progrès réalisés. Les indicateurs sont simples à comprendre et partageable avec les membres de la gouvernance. Exemple d'indicateurs : maturité des processus du système de gestion, ratio d'actions réalisées et à réaliser, ratio nombre de traitement interne/sous-traités."
     conformite_organisation_question_57:
         processus: '@processus_12'
         position: 4
-        nom: "Conformément aux lignes directrices relatifs au DPD, le DPD ou le référent DPD produit un bilan annuel (Rapport annuel) partagé avec la structure de gouvernance et validé par le responsable du traitement.Ce rapport comprend entre autre : bilan de conformité des traitements, bilan des opérations de sensibilisation, bilan des PIA, bilan de plan d'actions."
+        nom: "Conformément aux lignes directrices relatifs au DPD, le DPD ou le référent DPD produit un bilan annuel (Rapport annuel) partagé avec la structure de gouvernance et validé par le responsable du traitement. Ce rapport comprend entre autre : bilan de conformité des traitements, bilan des opérations de sensibilisation, bilan des PIA, bilan de plan d'actions."

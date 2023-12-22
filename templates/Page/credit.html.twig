@@ -2,19 +2,18 @@
 
 {% set bodyClass = 'page_credit' %}
 {% set menuItem = 'page_credit' %}
-{% set title = 'Crédit' %}
 
-{% block title %}{{ title }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'page.credit.title'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}{% endblock %}
 
 {% block body_head %}
-    <h1>{{ title }}</h1>
+    <h1>{{ 'page.credit.title'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': title }
+        { 'name': 'page.credit.breadcrumb'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -23,32 +22,22 @@
     <div class="row">
         <div class="col-xs-12">
             <h2>Madis</h2>
-            <p>
-                L'application
-                <strong><a href="/" target="_blank" rel="noreferrer nofollow">MADIS</a></strong>
-                est une application pensée par
-                <strong><a href="//soluris.fr" target="_blank" rel="noreferrer nofollow">Soluris</a></strong>
-                pour vous accompagner dans la gestion du Règlement Général à la Protection des Données (RGPD).
-            </p>
+            <p>L'application <strong><a href="/" target="_blank" rel="noreferrer nofollow">Madis</a></strong> est une application pensée par <strong><a href="//soluris.fr" target="_blank" rel="noreferrer nofollow">Soluris</a></strong> pour vous accompagner dans la gestion du Règlement Général à la Protection des Données (RGPD).</p>
 
             <h3>Parties prenantes</h3>
-            <p>
-                <strong>Cadrage & gestion du projet</strong>
-                <ul>
-                    <li><strong>Benoît LIÉNARD</strong>, Directeur (b.lienard@soluris.fr)</li>
-                    <li><strong>Michaël EDLICH</strong>, Chef de projet (m.edlich@soluris.fr)</li>
-                    <li><strong>Lisa CROIZET</strong>, Formatrice (l.croizet@soluris.fr)</li>
-                    <li><strong>Vincent ALONSO</strong>, Expert métier (v.alonso@soluris.fr)</li>
-                    <li><strong>Théo BOYER</strong>, UX/UI Designer (t.boyer@soluris.fr)</li>
-                </ul>
-            </p>
-            <p>
-                <strong>Développement</strong>
+            <p><strong>Cadrage & gestion du projet</strong></p>
+            <ul>
+                <li><strong>Benoît LIÉNARD</strong>, Directeur (b.lienard@soluris.fr)</li>
+                <li><strong>Michaël EDLICH</strong>, Chef de projet (m.edlich@soluris.fr)</li>
+                <li><strong>Lisa CROIZET</strong>, Formatrice (l.croizet@soluris.fr)</li>
+                <li><strong>Vincent ALONSO</strong>, Expert métier (v.alonso@soluris.fr)</li>
+                <li><strong>Théo BOYER</strong>, UX/UI Designer (t.boyer@soluris.fr)</li>
+            </ul>
+            <p><strong>Développement</strong></p>
             <ul>
                 <li><strong><a href="https://datakode.fr/" target="_blank" rel="noreferrer nofollow">Agence Datakode</a></strong></li>
                 <li><strong>Jonathan FOUCHER</strong>, Développement & maintenance (foucher@datakode.fr)</li>
             </ul>
-            </p>
         </div>
     </div>
 {% endblock %}

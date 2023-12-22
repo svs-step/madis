@@ -301,23 +301,23 @@ class ModeleAnalyseController extends CRUDController
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $htmltoReturnIfAdmin = '<a aria-label="' . $this->translator->trans('action.rights') . '" href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
-                <i class="fa fa-user-shield"></i> '
+                <i aria-hidden="true" class="fa fa-user-shield"></i> '
                 . $this->translator->trans('action.rights') .
             '</a>';
         }
 
         return
             '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('aipd_modele_analyse_edit', ['id' => $id]) . '">
-                <i class="fa fa-pencil"></i> '
+                <i aria-hidden="true" class="fa fa-pencil"></i> '
                 . $this->translator->trans('action.edit') .
             '</a>'
             . $htmltoReturnIfAdmin .
             '<a aria-label="' . $this->translator->trans('action.export') . '" href="' . $this->router->generate('aipd_modele_analyse_export', ['id' => $id]) . '">
-                <i class="fa fa-file-code"></i> ' .
+                <i aria-hidden="true" class="fa fa-file-code"></i> ' .
                 $this->translator->trans('action.export') .
             '</a>' .
             '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('aipd_modele_analyse_delete', ['id' => $id]) . '">
-                <i class="fa fa-trash"></i> ' .
+                <i aria-hidden="true" class="fa fa-trash"></i> ' .
                 $this->translator->trans('action.delete') .
             '</a>';
     }

@@ -37,13 +37,13 @@
 
 {% set bodyClass = bodyClass|default('') %}
 <body class="hold-transition skin-blue sidebar-mini {{ bodyClass }}">
-<nav class="skiplinks" role="navigation" aria-label="Accès rapide">
-    <ul>
-      <li><a href="#sidebar">Menu</a></li>
-      <li><a href="#main-content">Contenu</a></li>
-      <li><a href="#main-footer">Pied de page</a></li>
-    </ul>
-</nav>
+    <nav class="skiplinks" role="navigation" aria-label="Accès rapide">
+        <ul class="list-unstyled list-inline">
+            <li><a class="btn" href="#sidebar">Menu</a></li>
+            <li><a class="btn" href="#main-content">Contenu</a></li>
+            <li><a class="btn" href="#main-footer">Pied de page</a></li>
+        </ul>
+    </nav>
     {# Impersonate banner #}
     {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
     <div class="banner-impersonate bg-danger text-red">

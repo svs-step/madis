@@ -254,11 +254,11 @@ class RequestController extends CRUDController
         if ($user->getServices()->isEmpty() || $this->isRequestInUserServices($demande)) {
             return
                 '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_request_edit', ['id' => $demande->getId()]) . '">
-                    <i class="fa fa-pencil"></i> ' .
+                    <i aria-hidden="true" class="fa fa-pencil"></i> ' .
                     $this->translator->trans('action.edit') . '
                 </a>
                 <a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('registry_request_delete', ['id' => $demande->getId()]) . '">
-                    <i class="fa fa-archive"></i> ' .
+                    <i aria-hidden="true" class="fa fa-archive"></i> ' .
                     $this->translator->trans('action.archive') .
                 '</a>';
         }

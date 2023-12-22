@@ -170,12 +170,12 @@ class CollectivityController extends CRUDController
         }
 
         $cellContent = '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('user_collectivity_edit', ['id' => $collectivity->getId()]) . '">
-            <i class="fa fa-pencil"></i> ' .
+            <i aria-hidden="true" class="fa fa-pencil"></i> ' .
             $this->translator->trans('action.edit') .
         '</a>';
 
         $cellContent .= '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('user_collectivity_delete', ['id' => $collectivity->getId()]) . '">
-            <i class="fa fa-trash"></i> ' .
+            <i aria-hidden="true" class="fa fa-trash"></i> ' .
             $this->translator->trans('action.delete') .
         '</a>';
 

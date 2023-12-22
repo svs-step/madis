@@ -28,7 +28,7 @@
             <div class="col-md-12">
                 <div class="action-bar">
                     <a aria-label="{{ 'action.print'|trans }}" href="{{ path('maturity_survey_report', {'id': object.id}) }}" class="btn btn-default">
-                        <i class="fa fa-print"></i>
+                        <i aria-hidden="true" class="fa fa-print"></i>
                         {{ 'action.print'|trans }}
                     </a>
                 </div>
@@ -52,7 +52,7 @@
             </div>
             <div class="col-md-3">
                 <div class="info-box bg-aqua">
-                    <span class="info-box-icon bg-aqua"><i class="fa fa-chart-line"></i></span>
+                    <span class="info-box-icon bg-aqua"><i aria-hidden="true" class="fa fa-chart-line"></i></span>
                     <div class="info-box-content" style="padding-top: 20px">
                         <span class="info-box-text">Score</span>
                         <span class="info-box-number">{{ object.score/10|round(1) }}</span>

@@ -516,11 +516,11 @@ class TreatmentController extends CRUDController
 
             if ($this->authorizationChecker->isGranted('ROLE_USER')) {
                 return '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $editPath . '">
-             <i class="fa fa-pencil"></i>
+             <i aria-hidden="true" class="fa fa-pencil"></i>
                  ' . $this->translator->trans('action.edit') . '
              </a>
              <a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $deletePath . '">
-                 <i class="fa fa-trash"></i>
+                 <i aria-hidden="true" class="fa fa-trash"></i>
                  ' . $this->translator->trans('action.delete') . '
              </a>'
                 ;
