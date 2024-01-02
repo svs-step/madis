@@ -672,7 +672,7 @@ registry:
             edit: Modifier un traitement
             list: Liste des traitements
             show: Visualiser un traitement
-            configure: Configurer les traitements
+            configure: Configurer le registre des traitements
             archive: Désactiver un traitement
         tab:
           conformite: Évaluation de la conformité du traitement
