@@ -24,115 +24,158 @@
 {% endblock %}
 
 {% block body %}
-    <div class="row">
-        <div class="col-xs-12">
+<div class="row">
+    {{ form_start(form) }}
 
-            <div class="row">
-                {{ form_start(form) }}
+    {# LEFT #}
+    <div class="col-md-6">
+        {# GENERAL #}
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.general'|trans }}</h3></div>
+            <div class="box-body">
+                {% if is_granted('ROLE_ADMIN') %}
+                    {{ form_row(form.name) }}
+                    {{ form_row(form.shortName) }}
+                    {{ form_row(form.type) }}
+                    {{ form_row(form.siren) }}
+                    {{ form_row(form.finessGeo) }}
+                    {{ form_row(form.active) }}
+                {% endif %}
+                {{ form_row(form.website) }}
+                {{ form_row(form.nbrAgents) }}
+                {{ form_row(form.population) }}
+                {% if is_granted('ROLE_ADMIN') %}
+                    {{ form_row(form.informationsComplementaires) }}
+                {% endif %}
+            </div>
+        </div>
 
-                <div class="col-md-6">
-                    {# GENERAL #}
-                    <div class="box box-solid">
-                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.general'|trans }}</h3></div>
-                        <div class="box-body">
-                            {{ form_row(form.website) }}
-                            {{ form_row(form.nbrAgents) }}
-                            {{ form_row(form.population) }}
-                        </div>
-                    </div>
+        {% if is_granted('ROLE_ADMIN') %}
+            {# ADDRESS #}
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.address'|trans }}</h3></div>
+                <div class="box-body">
+                    {{ form_widget(form.address) }}
                 </div>
-                <div class="col-md-6">
-                    <div class="box box-solid">
-                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.legal_manager'|trans }}</h3></div>
-                        <div class="box-body">
-                            {{ form_widget(form.legalManager) }}
-                        </div>
-                    </div>
-                </div>
+            </div>
 
-                <div class="col-md-6">
-                    <div class="box box-solid">
-                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.referent'|trans }}</h3></div>
-                        <div class="box-body">
-                            {{ form_widget(form.referent) }}
-                        </div>
-                    </div>
+            {# MODULES #}
+            <div class="box box-solid">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.modules'|trans }}</h3></div>
+                <div class="box-body">
+                    {{ form_row(form.hasModuleTools) }}
+                    {{ form_row(form.hasModuleConformiteTraitement) }}
+                    {{ form_row(form.hasModuleConformiteOrganisation) }}
+                    {{ form_row(form.isServicesEnabled) }}
                 </div>
+            </div>
 
-                <div class="col-md-6">
-                    <div id="box-it-manager" class="box box-solid">
-                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.it_manager'|trans }}</h3></div>
-                        <div class="box-body">
-                            {{ form_row(form.differentItManager) }}
-                            {{ form_widget(form.itManager) }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div id="box-dpo" class="box box-solid">
-                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.dpo'|trans }}</h3></div>
-                        <div class="box-body">
-                            {{ form_row(form.differentDpo) }}
-                            {{ form_widget(form.dpo) }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div id="box-reporting-management-commitment" class="box box-solid">
-                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.reporting_block.management_commitment'|trans }}</h3></div>
-                        <div class="box-body">
-                            {{ form_widget(form.reportingBlockManagementCommitment) }}
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div id="box-reporting-continuous-improvement" class="box box-solid">
-                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.reporting_block.continuous_improvement'|trans }}</h3></div>
-                        <div class="box-body">
-                            {{ form_widget(form.reportingBlockContinuousImprovement) }}
-                        </div>
-                    </div>
-                </div>
-
-                {# COMITE IL CONTACT #}
-                <div class="col-md-6">
-                    <div class="box box-solid">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.comite_il'|trans }}</h3></div>
-                    <div class="box-body">
-                        <div class="js-collection-wrapper"
-                             data-prototype="{{ formMacros.printComiteIlContact(form.comiteIlContacts.vars.prototype)|e('html_attr') }}"
-                             data-index="{{ form.comiteIlContacts|length }}"
-                        >
-                            {% for contact in form.comiteIlContacts %}
-                                {{ formMacros.printComiteIlContact(contact) }}
+            {# SERVICES TODO #}
+            {% do form.services.setRendered() %}
+            <div class="box box-solid" id="box-services">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.show.has_module_services'|trans }}</h3></div>
+                <div class="box-body">
+                    <div class="js-collection-wrapper"
+                        data-prototype="{{ formMacros.printService(form.services.vars.prototype)|e('html_attr') }}"
+                        data-index="{{ form.services|length }}">
+                            {% for service in form.services %}
+                                {{ formMacros.printService(service) }}
                             {% endfor %}
-                            <button class="js-collection-add btn btn-default">
-                                <i aria-hidden="true" class="fa fa-plus"></i> Ajouter un membre
-                            </button>
-                        </div>
-                    </div>
+                        <button id="add-services" class="js-collection-add btn btn-default">
+                            <i aria-hidden="true" class="fa fa-plus"></i> Ajouter un service
+                        </button>
                     </div>
                 </div>
+            </div>
+        {% endif %}
 
-                <div class="col-md-12">
-                    <div class="box box-solid">
-                        <div class="box-body text-center">
-                            <a aria-label="{{ 'user.collectivity.action.back_to_show'|trans }}" href="{{ path('user_profile_collectivity_show') }}" class="btn btn-default">
-                                {{ 'user.collectivity.action.back_to_show'|trans }}
-                            </a>
-                            <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
-                        </div>
-                    </div>
-                </div>
-
-
-                {{ form_end(form) }}
+        {# BILAN #}
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.bilan'|trans }}</h3></div>
+            <div class="box-body">
+                {# REPORTING MANAGEMENT COMMITMENT #}
+                {{ form_row(form.reportingBlockManagementCommitment) }}
+                {# REPORTING CONTINUOUS IMPROVEMENT #}
+                {{ form_row(form.reportingBlockContinuousImprovement) }}
             </div>
         </div>
     </div>
+
+    {# RIGHT #}
+    <div class="col-md-6">
+        {# LEGAL MANAGER #}
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.legal_manager'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_widget(form.legalManager) }}
+            </div>
+        </div>
+
+        {# DPO #}
+        <div id="box-dpo" class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.dpo'|trans }}</h3></div>
+            <div class="box-body">
+                {% if is_granted('ROLE_ADMIN') %}
+                    {{ form_row(form.nbrCnil) }}
+                {% endif %}
+                {{ form_row(form.differentDpo) }}
+                {{ form_widget(form.dpo) }}
+            </div>
+        </div>
+
+        {# REFERENT #}
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.referent'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_widget(form.referent) }}
+            </div>
+        </div>
+
+        {# IT MANAGER #}
+        <div id="box-it-manager" class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.it_manager'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.differentItManager) }}
+                {{ form_widget(form.itManager) }}
+            </div>
+        </div>
+
+        {# COMITE IL CONTACT #}
+        {% do form.comiteIlContacts.setRendered() %}
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.comite_il'|trans }}</h3></div>
+            <div class="box-body">
+                <div class="js-collection-wrapper"
+                     data-prototype="{{ formMacros.printComiteIlContact(form.comiteIlContacts.vars.prototype)|e('html_attr') }}"
+                     data-index="{{ form.comiteIlContacts|length }}"
+                >
+                    {% for contact in form.comiteIlContacts %}
+                        {{ formMacros.printComiteIlContact(contact) }}
+                    {% endfor %}
+                    <button class="js-collection-add btn btn-default">
+                        <i aria-hidden="true" class="fa fa-plus"></i> Ajouter un membre
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        {# prevents weird label from showing up in new #}
+        {# {{ form_widget(form.comiteIlContacts) }}#}
+    </div>
+
+    <div class="col-md-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a aria-label="{{ 'user.collectivity.action.back_to_list'|trans }}" href="{{ path('user_collectivity_list') }}" class="btn btn-default">
+                    {{ 'user.collectivity.action.back_to_list'|trans }}
+                </a>
+                <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
+            </div>
+        </div>
+    </div>
+
+    {{ form_end(form) }}
+</div>
 {% endblock %}
 
 {% block javascripts %}

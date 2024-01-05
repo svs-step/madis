@@ -63,11 +63,7 @@ user:
             address: Adresse
             different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent RGPD
-            has_module_conformite_traitement: Module conformité des traitements
-            has_module_conformite_organisation: Module conformité de la structure
-            has_module_tools: Module logiciels et supports
-            is_services_enabled: Activation des services
-
+            is_services_enabled: Services
             name: Nom
             placeholder:
                 website: https://
@@ -83,7 +79,7 @@ user:
         flashbag:
             success:
                 create: Structure "%object%" créée avec succès
-                edit: Structure "%object%" éditée avec succès
+                edit: Structure "%object%" modifiée avec succès
                 delete: Structure "%object%" supprimée avec succès
         list:
             active: Statut
@@ -91,7 +87,6 @@ user:
             short_name: Nom court
             siren: SIREN
             type: Type
-            other: Autre (Description)
             informations_complementaires: Informations complémentaires
             date_maj: Date Mise à jour
             nbr_agents: Nombre de salariés
@@ -120,9 +115,10 @@ user:
             different_dpo: Différent du DPD moral
             different_it_manager: Différent du Référent RGPD
             informations_complementaires: Informations complémentaires
-            has_module_conformite_traitement: Module conformité des traitements
-            has_module_conformite_organisation: Module conformité de la structure
-            has_module_tools: Module logiciels et supports
+            has_module_conformite_traitement: Conformité des traitements
+            has_module_conformite_organisation: Conformité de la structure
+            has_module_tools: Logiciels et supports
+            has_module_services: Services
             name: Nom
             short_name: Nom court
             services: Services
@@ -136,21 +132,21 @@ user:
             nbr_agents: Nombre de salariés
             nbr_cnil: Numéro de désignation CNIL
             registre_public: Registre public
+            services_empty: Aucun service à afficher
+            management_commitment: Engagement de la direction
+            continuous_improvement: Principe d'amélioration continue
         tab:
           address: Adresse
           comite_il: Composition du comité Informatique et Libertés
-          dpo: DPD
+          dpo: Délégué à la protection des données
           general: Informations générales
           historic: Historique
           it_manager: Responsable informatique
           legal_manager: Responsable de traitement
           referent: Référent RGPD
-          reporting_block:
-            management_commitment: Bilan paragraphe "Engagement de la direction"
-            continuous_improvement: Bilan paragraphe "Principe d'amélioration continue"
+          modules: Modules complémentaires
+          bilan: Bilan
           services: Services
-          population: Population
-          nbr_agents: Nombre de salariés
         title:
             create: Créer une structure
             delete: Supprimer une structure
@@ -194,6 +190,7 @@ user:
 
         title:
             collectivity_edit: Modifier ma structure
+            show: Visualiser ma structure
 
     security:
         forget_password:
@@ -283,7 +280,7 @@ user:
             moreInfos: Informations supplémentaires
             services: Service
             services_list: Liste des services
-            service_number_users: Nombre d'utilisateurs dans ce service
+            service_number_users: Nombre d'utilisateurs
             created_at: Date de création
             updated_at: Date de modification
         modal:

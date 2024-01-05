@@ -118,15 +118,15 @@ class CollectivityType extends AbstractType
                     'required' => true,
                 ])
                 ->add('hasModuleConformiteTraitement', CheckboxType::class, [
-                    'label'    => 'user.collectivity.form.has_module_conformite_traitement',
+                    'label'    => 'user.collectivity.show.has_module_conformite_traitement',
                     'required' => false,
                 ])
                 ->add('hasModuleConformiteOrganisation', CheckboxType::class, [
-                    'label'    => 'user.collectivity.form.has_module_conformite_organisation',
+                    'label'    => 'user.collectivity.show.has_module_conformite_organisation',
                     'required' => false,
                 ])
                 ->add('hasModuleTools', CheckboxType::class, [
-                    'label'    => 'user.collectivity.form.has_module_tools',
+                    'label'    => 'user.collectivity.show.has_module_tools',
                     'required' => false,
                 ])
                 ->add('informationsComplementaires', TextareaType::class, [
@@ -197,8 +197,14 @@ class CollectivityType extends AbstractType
                 'label'    => 'user.collectivity.form.it_manager',
                 'required' => false,
             ])
-            ->add('reportingBlockManagementCommitment', CKEditorType::class)
-            ->add('reportingBlockContinuousImprovement', CKEditorType::class)
+            ->add('reportingBlockManagementCommitment', CKEditorType::class, [
+                'label'    => 'user.collectivity.show.management_commitment',
+                'required' => false,
+            ])
+            ->add('reportingBlockContinuousImprovement', CKEditorType::class, [
+                'label'    => 'user.collectivity.show.continuous_improvement',
+                'required' => false,
+            ])
             ->add('comiteIlContacts', CollectionType::class, [
                 'label'        => false,
                 'entry_type'   => ComiteIlContactType::class,

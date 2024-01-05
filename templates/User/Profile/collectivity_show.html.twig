@@ -3,11 +3,11 @@
 {% set bodyClass = 'user_profile_collectivity show' %}
 {% set menuItem = 'user_profile_collectivity' %}
 
-{% block title %}{{ 'user.collectivity.title.show'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'user.profile.title.show'|trans }} - {{ parent() }}{% endblock %}
 
 {% block body_head %}
     <h1>
-        {{ 'user.collectivity.title.show'|trans }}
+        {{ 'user.profile.title.show'|trans }}
         <small>{{ object }}</small>
     </h1>
 {% endblock %}
@@ -34,7 +34,9 @@
     {% endif %}
 
     <div class="row">
+        {# LEFT #}
         <div class="col-md-6">
+            {# GENERAL #}
             <div class="box box-solid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -56,19 +58,31 @@
                             <td><strong>{{ 'user.collectivity.show.siren'|trans }}</strong></td>
                             <td>{{ object.siren|number_format(0, '.', ' ') }}</td>
                         </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.active'|trans }}</strong></td>
-                            <td>
-                                {% if object.active %}
-                                    <span class="badge bg-green">{{ 'label.active'|trans }}</span>
-                                {% else %}
-                                    <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
-                                {% endif %}
-                            </td>
-                        </tr>
+                        {% if is_granted('ROLE_REFERENT') or is_granted('ROLE_ADMIN') %}
+                            <tr>
+                                <td><strong>{{ 'user.collectivity.show.finess_geo'|trans }}</strong></td>
+                                <td>{{ object.finessGeo }}</td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'user.collectivity.show.active'|trans }}</strong></td>
+                                <td>
+                                    {% if object.active %}
+                                        <span class="badge bg-green">{{ 'label.active'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endif %}
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.website'|trans }}</strong></td>
                             <td>{{ object.website }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'user.collectivity.show.registre_public'|trans }}</strong></td>
+                            <td><a target="_blank" rel="nofollow noreferrer noopener" href="{{ path('registry_public_treatment_list', {id: object.id}) }}">
+                                Accéder au registre public
+                            </a></td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'user.collectivity.show.nbr_agents'|trans }}</strong></td>
@@ -78,19 +92,17 @@
                             <td><strong>{{ 'user.collectivity.show.population'|trans }}</strong></td>
                             <td>{{ object.population }}</td>
                         </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.registre_public'|trans }}</strong></td>
-                            <td><a target="_blank" rel="nofollow noreferrer noopener" href="{{ path('registry_public_treatment_list', {id: object.id}) }}">
-                                Accéder au registre public
-                            </a></td>
-                        </tr>
+                        {% if is_granted('ROLE_REFERENT') or is_granted('ROLE_ADMIN') %}
+                            <tr>
+                                <td><strong>{{ 'user.collectivity.show.informations_complementaires'|trans }}</strong></td>
+                                <td>{{ object.informationsComplementaires|nl2br }}</td>
+                            </tr>
+                        {% endif %}
                         </tbody>
                     </table>
                 </div>
             </div>
-        </div>
-
-        <div class="col-md-6">
+            {# ADDRESS #}
             <div class="box box-solid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.address'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -120,220 +132,329 @@
                     </table>
                 </div>
             </div>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="col-lg-3 col-md-6">
+            {% if is_granted('ROLE_REFERENT') or is_granted('ROLE_ADMIN') %}
+                {# MODULES #}
+                <div class="box box-solid">
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.modules'|trans }}</h3></div>
+                    <div class="box-body no-padding">
+                        <table role="presentation" class="table">
+                            <tbody>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.has_module_tools'|trans }}</strong></td>
+                                    <td>
+                                        <span class="badge">
+                                            {% if object.hasModuleTools %}
+                                                {{ 'label.yes'|trans }}
+                                            {% else %}
+                                                {{ 'label.no'|trans }}
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.has_module_conformite_traitement'|trans }}</strong></td>
+                                    <td>
+                                        <span class="badge">
+                                            {% if object.hasModuleConformiteTraitement %}
+                                                {{ 'label.yes'|trans }}
+                                            {% else %}
+                                                {{ 'label.no'|trans }}
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.has_module_conformite_organisation'|trans }}</strong></td>
+                                    <td>
+                                        <span class="badge">
+                                            {% if object.hasModuleConformiteOrganisation %}
+                                                {{ 'label.yes'|trans }}
+                                            {% else %}
+                                                {{ 'label.no'|trans }}
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.has_module_services'|trans }}</strong></td>
+                                    <td>
+                                        <span class="badge">
+                                            {% if object.isServicesEnable %}
+                                                {{ 'label.yes'|trans }}
+                                            {% else %}
+                                                {{ 'label.no'|trans }}
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            {% endif %}
+            {# SERVICES #}
+            {% if object.isServicesEnabled %}
+                <div class="box box-solid box-default">
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.services'|trans }}</h3></div>
+                    {% if object.services is not empty %}
+                        <div class="box-body no-padding">
+                            <table role="presentation" class="table">
+                                <thead>
+                                <tr>
+                                    <th><strong>{{ 'user.collectivity.show.name'|trans }}</strong></th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for service in object.services %}
+                                    <tr>
+                                        <td>{{ service.name }}</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% else %}
+                        <div class="box-body"><i>{{ 'user.collectivity.show.services_empty'|trans }}</i></div>
+                    {% endif %}
+                </div>
+            {% endif %}
+            {# BILAN #}
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.legal_manager'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.bilan'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table role="presentation" class="table">
                         <tbody>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
-                            <td>
-                                {% if object.legalManager.civility is not null %}
-                                    {{ object.legalManager.civility|dictionary('user_contact_civility') }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
-                            <td>{{ object.legalManager.firstName }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
-                            <td>{{ object.legalManager.lastName }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
-                            <td>{{ object.legalManager.job }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
-                            <td>{{ object.legalManager.mail }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
-                            <td>{{ object.legalManager.phoneNumber }}</td>
-                        </tr>
+                            <tr>
+                                <td><strong>{{ 'user.collectivity.show.management_commitment'|trans }}</strong></td>
+                                <td>
+                                    {{ object.reportingBlockManagementCommitment|raw }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>{{ 'user.collectivity.show.continuous_improvement'|trans }}</strong></td>
+                                <td>
+                                    {{ object.reportingBlockContinuousImprovement|raw }}
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-3">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.it_manager'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table role="presentation" class="table">
-                        <tbody><tr>
-                            <td><strong>{{ 'user.collectivity.show.different_it_manager'|trans }}</strong></td>
-                            <td>
-                                <span class="badge">
-                                    {% if object.differentItManager %}
-                                        {{ 'label.yes'|trans }}
-                                    {% else %}
-                                        {{ 'label.no'|trans }}
-                                    {% endif %}
-                                </span>
-                            </td>
-                        </tr>
-                        {% if object.differentItManager %}
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
-                            <td>
-                                {% if object.itManager.civility is not null %}
-                                    {{ object.itManager.civility|dictionary('user_contact_civility') }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
-                            <td>{{ object.itManager.firstName }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
-                            <td>{{ object.itManager.lastName }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
-                            <td>{{ object.itManager.job }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
-                            <td>{{ object.itManager.mail }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
-                            <td>{{ object.itManager.phoneNumber }}</td>
-                        </tr>
-                        {% endif %}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.referent'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table role="presentation" class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
-                            <td>
-                                {% if object.referent.civility is not null %}
-                                    {{ object.referent.civility|dictionary('user_contact_civility') }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
-                            <td>{{ object.referent.firstName }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
-                            <td>{{ object.referent.lastName }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
-                            <td>{{ object.referent.job }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
-                            <td>{{ object.referent.mail }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
-                            <td>{{ object.referent.phoneNumber }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.dpo'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table role="presentation" class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.different_dpo'|trans }}</strong></td>
-                            <td>
-                                <span class="badge">
+        {# RIGHT #}
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6 col-md-12 col-lg-6">
+                    {# LEGAL MANAGER #}
+                    <div class="box box-solid">
+                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.legal_manager'|trans }}</h3></div>
+                        <div class="box-body no-padding">
+                            <table role="presentation" class="table">
+                                <tbody>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
+                                    <td>
+                                        {% if object.legalManager.civility is not null %}
+                                            {{ object.legalManager.civility|dictionary('user_contact_civility') }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
+                                    <td>{{ object.legalManager.firstName }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
+                                    <td>{{ object.legalManager.lastName }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
+                                    <td>{{ object.legalManager.job }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
+                                    <td>{{ object.legalManager.mail }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
+                                    <td>{{ object.legalManager.phoneNumber }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {# DPO #}
+                    <div class="box box-solid">
+                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.dpo'|trans }}</h3></div>
+                        <div class="box-body no-padding">
+                            <table role="presentation" class="table">
+                                <tbody>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.nbr_cnil'|trans }}</strong></td>
+                                    <td>{{ object.nbrCnil }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.different_dpo'|trans }}</strong></td>
+                                    <td>
+                                        <span class="badge">
+                                            {% if object.differentDpo %}
+                                                {{ 'label.yes'|trans }}
+                                            {% else %}
+                                                {{ 'label.no'|trans }}
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
+                                    <td>
+                                        {% if object.differentDpo %}
+                                            {{ object.dpo.civility|dictionary('user_contact_civility') }}
+                                        {% else %}
+                                            {{ default_dpo_civility }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
                                     {% if object.differentDpo %}
-                                        {{ 'label.yes'|trans }}
+                                        <td>{{ object.dpo.firstName }}</td>
                                     {% else %}
-                                        {{ 'label.no'|trans }}
+                                        <td>{{ default_dpo_firstName }}</td>
                                     {% endif %}
-                                </span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
-                            <td>
-                                {% if object.dpo.firstname is not null %}
-                                    {{ object.dpo.civility|dictionary('user_contact_civility') }}
-                                {% else %}
-                                    {{ default_dpo_civility }}
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
+                                    {% if object.differentDpo %}
+                                        <td>{{ object.dpo.lastName }}</td>
+                                    {% else %}
+                                        <td>{{ default_dpo_lastName }}</td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
+                                    {% if object.differentDpo %}
+                                        <td>{{ object.dpo.job }}</td>
+                                    {% else %}
+                                        <td>{{ default_dpo_job }}</td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
+                                    {% if object.differentDpo %}
+                                        <td>{{ object.dpo.mail }}</td>
+                                    {% else %}
+                                        <td>{{ default_dpo_mail }}</td>
+                                    {% endif %}
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
+                                    {% if object.differentDpo %}
+                                        <td>{{ object.dpo.phoneNumber }}</td>
+                                    {% else %}
+                                        <td>{{ default_dpo_phoneNumber }}</td>
+                                    {% endif %}
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6 col-md-12 col-lg-6">
+                    {# REFERENT #}
+                    <div class="box box-solid">
+                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.referent'|trans }}</h3></div>
+                        <div class="box-body no-padding">
+                            <table role="presentation" class="table">
+                                <tbody>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
+                                    <td>
+                                        {% if object.referent.civility is not null %}
+                                            {{ object.referent.civility|dictionary('user_contact_civility') }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
+                                    <td>{{ object.referent.firstName }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
+                                    <td>{{ object.referent.lastName }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
+                                    <td>{{ object.referent.job }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
+                                    <td>{{ object.referent.mail }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
+                                    <td>{{ object.referent.phoneNumber }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {# IT MANAGER #}
+                    <div class="box box-solid">
+                        <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.it_manager'|trans }}</h3></div>
+                        <div class="box-body no-padding">
+                            <table role="presentation" class="table">
+                                <tbody>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.different_it_manager'|trans }}</strong></td>
+                                    <td>
+                                        <span class="badge">
+                                            {% if object.differentItManager %}
+                                                {{ 'label.yes'|trans }}
+                                            {% else %}
+                                                {{ 'label.no'|trans }}
+                                            {% endif %}
+                                        </span>
+                                    </td>
+                                </tr>
+                                {% if object.differentItManager %}
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_civility'|trans }}</strong></td>
+                                    <td>
+                                        {% if object.itManager.civility is not null %}
+                                            {{ object.itManager.civility|dictionary('user_contact_civility') }}
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
+                                    <td>{{ object.itManager.firstName }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
+                                    <td>{{ object.itManager.lastName }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
+                                    <td>{{ object.itManager.job }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
+                                    <td>{{ object.itManager.mail }}</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
+                                    <td>{{ object.itManager.phoneNumber }}</td>
+                                </tr>
                                 {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_first_name'|trans }}</strong></td>
-                            <td>{{ object.dpo.firstName|default(default_dpo_firstName) }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_last_name'|trans }}</strong></td>
-                            <td>{{ object.dpo.lastName|default(default_dpo_lastName) }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_job'|trans }}</strong></td>
-                            <td>{{ object.dpo.job|default(default_dpo_job) }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_mail'|trans }}</strong></td>
-                            <td>{{ object.dpo.mail|default(default_dpo_mail) }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'user.collectivity.show.contact_phone_number'|trans }}</strong></td>
-                            <td>{{ object.dpo.phoneNumber|default(default_dpo_phoneNumber) }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="col-md-6">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.reporting_block.management_commitment'|trans }}</h3></div>
-                <div class="box-body">
-                    {{ object.reportingBlockManagementCommitment|raw }}
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.reporting_block.continuous_improvement'|trans }}</h3></div>
-                <div class="box-body">
-                    {{ object.reportingBlockContinuousImprovement|raw }}
-                </div>
-            </div>
-        </div>
-
-        <div class="clearfix"></div>
-
-        <div class="col-md-9">
+            {# COMITE IL CONTACT #}
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.comite_il'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -363,10 +484,39 @@
                     </table>
                 </div>
             </div>
-        </div>
-
-
-        <div class="col-md-3">
+            {# USERS LIST #}
+            <div class="box box-solid box-default">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.user.title.list'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table role="presentation" class="table">
+                        <thead>
+                            <tr>
+                                <th scope="col"><strong>{{ 'user.user.list.first_name'|trans }}</strong></th>
+                                <th scope="col"><strong>{{ 'user.user.list.last_name'|trans }}</strong></th>
+                                <th scope="col"><strong>{{ 'user.user.list.email'|trans }}</strong></th>
+                                <th scope="col"><strong>{{ 'user.user.list.enabled'|trans }}</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        {% for user in object.users|filter(user => user.deletedAt is null) %}
+                            <tr>
+                                <td>{{ user.firstName }}</td>
+                                <td>{{ user.lastName }}</td>
+                                <td>{{ user.email }}</td>
+                                <td>
+                                    {% if user.enabled %}
+                                        <span class="badge bg-green">{{ 'label.active'|trans }}</span>
+                                    {% else %}
+                                        <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
+                                    {% endif %}
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            {# HISTORIC #}
             <div class="box box-solid box-default">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.historic'|trans }}</h3></div>
                 <div class="box-body no-padding">
@@ -388,67 +538,5 @@
                 </div>
             </div>
         </div>
-
-        {% if is_granted('ROLE_USER') %}
-            <div class="col-md-6">
-                <div class="box box-solid box-default">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'user.user.title.list'|trans }}</h3></div>
-                    <div class="box-body no-padding">
-                        <table role="presentation" class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col"><strong>{{ 'user.user.list.first_name'|trans }}</strong></th>
-                                    <th scope="col"><strong>{{ 'user.user.list.last_name'|trans }}</strong></th>
-                                    <th scope="col"><strong>{{ 'user.user.list.email'|trans }}</strong></th>
-                                    <th scope="col"><strong>{{ 'user.user.list.enabled'|trans }}</strong></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for user in object.users|filter(u => u.deletedAt is null) %}
-                                <tr>
-                                    <td>{{ user.firstName }}</td>
-                                    <td>{{ user.lastName }}</td>
-                                    <td>{{ user.email }}</td>
-                                    <td>
-                                        {% if user.enabled %}
-                                            <span class="badge bg-green">{{ 'label.active'|trans }}</span>
-                                        {% else %}
-                                            <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
-
-        {% if object.isServicesEnabled %}
-            <div class="col-md-6 pull-right">
-                <div class="box box-solid box-default">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'user.user.list.services_list'|trans }}</h3></div>
-                    <div class="box-body no-padding">
-                        <table role="presentation" class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col"><strong>{{ 'user.user.list.last_name'|trans }}</strong></th>
-                                    <th scope="col"><strong>{{ 'user.user.list.service_number_users'|trans }}</strong></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for service in object.services %}
-                                <tr>
-                                    <td>{{ service.name }}</td>
-                                    <td>{{ service.users|length }}</td>
-                                </tr>
-                            {% endfor %}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-        {% endif %}
     </div>
 {% endblock %}

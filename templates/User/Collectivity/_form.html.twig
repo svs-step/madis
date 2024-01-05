@@ -60,15 +60,63 @@
                 {{ form_row(form.finessGeo) }}
                 {{ form_row(form.active) }}
                 {{ form_row(form.website) }}
-                {{ form_row(form.hasModuleConformiteTraitement) }}
-                {{ form_row(form.hasModuleConformiteOrganisation) }}
-                {{ form_row(form.hasModuleTools) }}
                 {{ form_row(form.nbrAgents) }}
                 {{ form_row(form.population) }}
                 {{ form_row(form.informationsComplementaires) }}
             </div>
         </div>
 
+        {# ADDRESS #}
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.address'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_widget(form.address) }}
+            </div>
+        </div>
+
+        {# MODULES #}
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.modules'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.hasModuleTools) }}
+                {{ form_row(form.hasModuleConformiteTraitement) }}
+                {{ form_row(form.hasModuleConformiteOrganisation) }}
+                {{ form_row(form.isServicesEnabled) }}
+            </div>
+        </div>
+
+        {# SERVICES TODO #}
+        {% do form.services.setRendered() %}
+        <div class="box box-solid" id="box-services">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.show.has_module_services'|trans }}</h3></div>
+            <div class="box-body">
+                <div class="js-collection-wrapper"
+                    data-prototype="{{ formMacros.printService(form.services.vars.prototype)|e('html_attr') }}"
+                    data-index="{{ form.services|length }}">
+                        {% for service in form.services %}
+                            {{ formMacros.printService(service) }}
+                        {% endfor %}
+                    <button id="add-services" class="js-collection-add btn btn-default">
+                        <i aria-hidden="true" class="fa fa-plus"></i> Ajouter un service
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        {# BILAN #}
+        <div class="box box-solid">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.bilan'|trans }}</h3></div>
+            <div class="box-body">
+                {# REPORTING MANAGEMENT COMMITMENT #}
+                {{ form_row(form.reportingBlockManagementCommitment) }}
+                {# REPORTING CONTINUOUS IMPROVEMENT #}
+                {{ form_row(form.reportingBlockContinuousImprovement) }}
+            </div>
+        </div>
+    </div>
+
+    {# RIGHT #}
+    <div class="col-md-6">
         {# LEGAL MANAGER #}
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.legal_manager'|trans }}</h3></div>
@@ -87,43 +135,6 @@
             </div>
         </div>
 
-        {# REPORTING MANAGEMENT COMMITMENT #}
-        <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.reporting_block.management_commitment'|trans }}</h3></div>
-            <div class="box-body">
-                {{ form_widget(form.reportingBlockManagementCommitment) }}
-            </div>
-        </div>
-
-        {# SERVICES TODO #}
-        {% do form.services.setRendered() %}
-        <div class="box box-solid" id="box-services">
-            <div class="box-header with-border"><h3 class="box-title"> {{ form_widget(form.isServicesEnabled) }}</h3></div>
-            <div class="box-body">
-                <div class="js-collection-wrapper"
-                    data-prototype="{{ formMacros.printService(form.services.vars.prototype)|e('html_attr') }}"
-                    data-index="{{ form.services|length }}">
-                        {% for service in form.services %}
-                            {{ formMacros.printService(service) }}
-                        {% endfor %}
-                    <button id="add-services" class="js-collection-add btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i> Ajouter un service
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {# RIGHT #}
-    <div class="col-md-6">
-        {# ADDRESS #}
-        <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.address'|trans }}</h3></div>
-            <div class="box-body">
-                {{ form_widget(form.address) }}
-            </div>
-        </div>
-
         {# REFERENT #}
         <div class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.referent'|trans }}</h3></div>
@@ -138,14 +149,6 @@
             <div class="box-body">
                 {{ form_row(form.differentItManager) }}
                 {{ form_widget(form.itManager) }}
-            </div>
-        </div>
-
-        {# REPORTING CONTINUOUS IMPROVEMENT #}
-        <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.reporting_block.continuous_improvement'|trans }}</h3></div>
-            <div class="box-body">
-                {{ form_widget(form.reportingBlockContinuousImprovement) }}
             </div>
         </div>
 
@@ -169,12 +172,12 @@
         </div>
 
         {# prevents weird label from showing up in new #}
-{#        {{ form_widget(form.comiteIlContacts) }}#}
+        {# {{ form_widget(form.comiteIlContacts) }}#}
     </div>
 
     <div class="col-md-12">
         <div class="box box-solid">
-                <div class="box-body text-center">
+            <div class="box-body text-center">
                 <a aria-label="{{ 'user.collectivity.action.back_to_list'|trans }}" href="{{ path('user_collectivity_list') }}" class="btn btn-default">
                     {{ 'user.collectivity.action.back_to_list'|trans }}
                 </a>
