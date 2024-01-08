@@ -61,7 +61,7 @@ Il est possible de naviguer dans les différentes pages :
 
 ![Menu Madis](images/Madis-Navigation-Menu-Desktop.png)
 
-Dans le bandeau d'en-tête, le bouton « **☰** » permet d'agrandir ou de réduire le bandeau du menu.
+Dans le bandeau d'en-tête, le bouton permet d'agrandir ou de réduire le bandeau du menu.
 
 ![Menu réduit](images/Madis-Navigation-Menu.png)
 
