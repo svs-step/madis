@@ -13,7 +13,7 @@ author = 'Soluris'
 language = "fr"
 html_theme = 'sphinx_rtd_theme'
 html_baseurl = 'docutilisateur.html'
-#html_logo = "_images/Madis-Logo.png"
+html_logo = "images/Madis-Logo.png"
 html_title = "Documentation Madis"
 html_theme_options = {
     'display_version': True,
