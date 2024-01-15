@@ -449,7 +449,7 @@ class ConformiteTraitementGenerator extends AbstractGenerator implements Impress
         $cell = $tableSyntheticAnnexeList->addCell(1000, ['bgColor' => '3c8dbc', 'vAlign' => 'bottom']);
         $cell->addText('Traitements', $this->textHeadStyle);
 
-        $ConformiteNames = ['Finalités', 'Licéité du traitement', 'Minimisation des données', 'Qualité des données', 'Durées de conservation', 'Information des personnes', 'Recueil du consentement', "Droit d'Accès", 'Droit de portabilité', 'Droit de rectification', "Droit d'effacement", 'Droit de limitation', "Droit d'opposition", 'Sous-traitance', 'Transferts hors UE'];
+        $ConformiteNames = ['Finalités', 'Durées de conservation', 'Droit de limitation', 'Droit de rectification', "Droit d'Accès", 'Licéité du traitement', "Droit d'opposition", 'Minimisation des données', 'Transferts hors UE', 'Information des personnes', 'Recueil du consentement', 'Droit de portabilité', 'Qualité des données', "Droit d'effacement", 'Sous-traitance'];
         foreach ($ConformiteNames as $item) {
             $cell = $tableSyntheticAnnexeList->addCell(300, $styleCellHeader);
             $cell->addText($item, $this->textHeadStyle);
