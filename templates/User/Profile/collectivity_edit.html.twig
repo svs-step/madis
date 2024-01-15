@@ -39,7 +39,7 @@
                     {{ form_row(form.type) }}
                     {{ form_row(form.siren) }}
                     {{ form_row(form.finessGeo) }}
-                    {{ form_row(form.active) }}
+                    <!-- Pas d'option du statut, car rendre inactif la structure bloquerait l'utilisateur -->
                 {% endif %}
                 {{ form_row(form.website) }}
                 {{ form_row(form.nbrAgents) }}
@@ -49,8 +49,6 @@
                 {% endif %}
             </div>
         </div>
-
-        {% if is_granted('ROLE_ADMIN') %}
             {# ADDRESS #}
             <div class="box box-solid">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.address'|trans }}</h3></div>
@@ -58,6 +56,8 @@
                     {{ form_widget(form.address) }}
                 </div>
             </div>
+
+            {% if is_granted('ROLE_ADMIN') %}
 
             {# MODULES #}
             <div class="box box-solid">
