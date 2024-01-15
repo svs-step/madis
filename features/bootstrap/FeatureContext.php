@@ -42,7 +42,7 @@ class FeatureContext implements Context
     public function theResponseShouldBeReceived()
     {
         if (null === $this->response) {
-            throw new \RuntimeException('No response received');
+            throw new RuntimeException('No response received');
         }
     }
 }

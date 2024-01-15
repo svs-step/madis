@@ -7,10 +7,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class LateActionEvent extends Event
 {
-    /**
-     * @var Mesurement
-     *                 The object that generated the notification
-     */
     protected Mesurement $mesurement;
 
     public function __construct(Mesurement $mesurement)

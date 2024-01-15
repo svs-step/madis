@@ -74,7 +74,7 @@ class Proof implements Repository\Proof
      *
      * @throws \Exception
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
     protected function createQueryBuilder()
     {

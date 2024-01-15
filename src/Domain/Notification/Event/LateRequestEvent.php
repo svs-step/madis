@@ -7,10 +7,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class LateRequestEvent extends Event
 {
-    /**
-     * @var Request
-     *              The object that generated the notification
-     */
     protected Request $request;
 
     public function __construct(Request $request)
