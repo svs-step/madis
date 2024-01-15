@@ -341,7 +341,7 @@ class ProofController extends CRUDController
         foreach ($users as $proof) {
             $reponse['data'][] = [
                 'nom'          => $proof->getName(),
-                'collectivite' => $proof->getCollectivity()->getName(),
+                'collectivite' => $this->isGranted('ROLE_REFERENT') ? $proof->getCollectivity()->getName() : '',
                 'type'         => !\is_null($proof->getType()) ? ProofTypeDictionary::getTypes()[$proof->getType()] : null,
                 'commentaire'  => $proof->getComment(),
                 'date'         => \date_format($proof->getCreatedAt(), 'd/m/Y H:i'),
@@ -358,14 +358,25 @@ class ProofController extends CRUDController
 
     protected function getLabelAndKeysArray(): array
     {
+        if ($this->isGranted('ROLE_REFERENT')) {
+            return [
+                0 => 'nom',
+                1 => 'collectivite',
+                2 => 'type',
+                3 => 'commentaire',
+                4 => 'date',
+                5 => 'updatedAt',
+                6 => 'actions',
+            ];
+        }
+
         return [
             0 => 'nom',
-            1 => 'collectivite',
-            2 => 'type',
-            3 => 'commentaire',
-            4 => 'date',
-            5 => 'updatedAt',
-            6 => 'actions',
+            1 => 'type',
+            2 => 'commentaire',
+            3 => 'date',
+            4 => 'updatedAt',
+            5 => 'actions',
         ];
     }
 

@@ -183,13 +183,15 @@
 
             $('#search_nom').off('keyup');
             $('#search_nom').keyup($.debounce(250, function(){
-                oTable.column('0').search($(this).val()).draw() ;
+                oTable.column(0).search($(this).val()).draw() ;
             }));
 
+            {% if is_granted('ROLE_REFERENT') %}
             $('#search_collectivite').off('keyup');
             $('#search_collectivite').keyup($.debounce(250, function(){
-                oTable.column('1').search($(this).val()).draw() ;
+                oTable.column(1).search($(this).val()).draw() ;
             }));
+            {% endif %}
 
             $('#search_type').off('change');
             $('#search_type').change(function(){
