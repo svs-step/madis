@@ -202,12 +202,14 @@
                                 <thead>
                                 <tr>
                                     <th><strong>{{ 'user.collectivity.show.name'|trans }}</strong></th>
+                                    <th><strong>{{ 'user.user.list.service_number_users'|trans }}</strong></th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 {% for service in object.services %}
                                     <tr>
                                         <td>{{ service.name }}</td>
+                                        <td>{{ service.users|length }}</td>
                                     </tr>
                                 {% endfor %}
                                 </tbody>

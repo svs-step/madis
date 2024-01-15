@@ -113,10 +113,6 @@ class CollectivityType extends AbstractType
                     'multiple' => false,
                     'expanded' => true,
                 ])
-                ->add('address', AddressType::class, [
-                    'label'    => 'user.collectivity.form.address',
-                    'required' => true,
-                ])
                 ->add('hasModuleConformiteTraitement', CheckboxType::class, [
                     'label'    => 'user.collectivity.show.has_module_conformite_traitement',
                     'required' => false,
@@ -142,10 +138,6 @@ class CollectivityType extends AbstractType
                     ],
                     'purify_html' => true,
                 ])
-                ->add('nbrCnil', NumberType::class, [
-                    'label'    => 'user.collectivity.form.nbr_cnil',
-                    'required' => false,
-                ])
                 ->add('services', CollectionType::class, [
                     'label'        => false,
                     'entry_type'   => ServiceType::class,
@@ -170,6 +162,10 @@ class CollectivityType extends AbstractType
                 'label'    => 'user.collectivity.form.nbr_agents',
                 'required' => false,
             ])
+            ->add('address', AddressType::class, [
+                'label'    => 'user.collectivity.form.address',
+                'required' => true,
+            ])
             ->add('legalManager', ContactType::class, [
                 'label'             => 'user.collectivity.form.legal_manager',
                 'required'          => true,
@@ -179,6 +175,10 @@ class CollectivityType extends AbstractType
                 'label'             => 'user.collectivity.form.referent',
                 'required'          => true,
                 'validation_groups' => ['default', 'collectivity_referent'],
+            ])
+            ->add('nbrCnil', NumberType::class, [
+                'label'    => 'user.collectivity.form.nbr_cnil',
+                'required' => false,
             ])
             ->add('differentDpo', CheckboxType::class, [
                 'label'    => 'user.collectivity.form.different_dpo',

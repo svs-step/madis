@@ -115,9 +115,7 @@
         <div id="box-dpo" class="box box-solid">
             <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.dpo'|trans }}</h3></div>
             <div class="box-body">
-                {% if is_granted('ROLE_ADMIN') %}
-                    {{ form_row(form.nbrCnil) }}
-                {% endif %}
+                {{ form_row(form.nbrCnil) }}
                 {{ form_row(form.differentDpo) }}
                 {{ form_widget(form.dpo) }}
             </div>
