@@ -1,8 +1,11 @@
 App\Domain\Registry\Model\Request:
     attributes:
+
+        denormalization_context:
+            groups: ['request_write']
         normalization_context:
             groups: [ 'request_read' ]
     collectionOperations: ~
     itemOperations:
-        get: ~ 
-        put: ~ 
+        get: ~
+        put: ~
