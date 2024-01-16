@@ -310,35 +310,66 @@ class MesurementController extends CRUDController
         $isActionPlan = $request->query->getBoolean('action_plan');
 
         if ($isActionPlan) {
+            if ($this->isGranted('ROLE_REFERENT')) {
+                return [
+                    0  => 'nom',
+                    1  => 'collectivite',
+                    2  => 'date_planification',
+                    3  => 'cout',
+                    4  => 'charge',
+                    5  => 'priorite',
+                    6  => 'responsable_action',
+                    7  => 'description',
+                    8  => 'observation',
+                    9  => 'createdAt',
+                    10 => 'updatedAt',
+                    11 => 'actions',
+                ];
+            }
+
             return [
-                0  => 'nom',
-                1  => 'collectivite',
-                2  => 'date_planification',
-                3  => 'cout',
-                4  => 'charge',
-                5  => 'priorite',
-                6  => 'responsable_action',
-                7  => 'description',
-                8  => 'observation',
-                9  => 'createdAt',
-                10 => 'updatedAt',
-                11 => 'actions',
+               'nom',
+                'date_planification',
+                'cout',
+                'charge',
+                'priorite',
+                'responsable_action',
+                'description',
+                'observation',
+                'createdAt',
+                'updatedAt',
+                'actions',
+            ];
+        }
+        if ($this->isGranted('ROLE_REFERENT')) {
+            return [
+                'nom',
+                'collectivite',
+                'statut',
+                'cout',
+                'charge',
+                'priorite',
+                'responsable_action',
+                'description',
+                'observation',
+                'createdAt',
+                'updatedAt',
+                'actions',
             ];
         }
 
         return [
-            0  => 'nom',
-            1  => 'collectivite',
-            2  => 'statut',
-            3  => 'cout',
-            4  => 'charge',
-            5  => 'priorite',
-            6  => 'responsable_action',
-            7  => 'description',
-            8  => 'observation',
-            9  => 'createdAt',
-            10 => 'updatedAt',
-            11 => 'actions',
+            'nom',
+            'statut',
+            'cout',
+            'charge',
+            'priorite',
+            'responsable_action',
+            'description',
+            'observation',
+            'createdAt',
+            'updatedAt',
+            'actions',
         ];
     }
 
