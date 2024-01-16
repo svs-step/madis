@@ -46,7 +46,8 @@
                     {% endif %}
                     {{ form_row(form.moreInfos) }}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <!-- Pas d'option du statut, car rendre inactif la structure bloquerait l'utilisateur -->
+                        <!-- L'option du statut ne derait pas être présente dans son compte, car ça bloquerait l'utilisateur, cependant, l'option se décoche toute seule si le champ n'est pas présent, ce qui bloque l'utilisateur. -->
+                        {{ form_row(form.enabled) }}
                         {{ form_row(form.apiAuthorized) }}
                     {% endif %}
                 </div>
