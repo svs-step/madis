@@ -109,6 +109,9 @@ class UserType extends AbstractType
                             ->orderBy('c.name', 'ASC');
                     },
                     'required' => true,
+                    'attr'     => [
+                        'autocomplete' => 'organization',
+                    ],
                 ])
                 ->add('roles', DictionaryType::class, [
                     'label'    => 'user.user.form.roles',
@@ -141,6 +144,7 @@ class UserType extends AbstractType
                         'title'            => 'placeholder.multiple_select',
                         'data-live-search' => true,
                         'aria-label'       => 'Structures rattachées',
+                        'autocomplete'     => 'organization',
                     ],
                 ])
                 ->add('ssoKey', TextType::class, [
@@ -213,6 +217,7 @@ class UserType extends AbstractType
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
+                    'autocomplete' => 'given-name',
                 ],
                 'purify_html' => true,
             ])
@@ -221,6 +226,7 @@ class UserType extends AbstractType
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
+                    'autocomplete' => 'family-name',
                 ],
                 'purify_html' => true,
             ])
@@ -229,6 +235,7 @@ class UserType extends AbstractType
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
+                    'autocomplete' => 'email',
                 ],
             ])
             ->add('moreInfos', DictionaryType::class, [

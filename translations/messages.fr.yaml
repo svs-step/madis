@@ -5,7 +5,7 @@ action:
     confirm: Confirmer
     confirm_archive: Confirmer l'archivage
     confirm_delete: Confirmer la suppression
-    confirm_unarchive: Confirmer le rétablissement
+    confirm_unarchive: Confirmer le désarchivement
     connexion: Connexion
     create: Créer
     delete: Supprimer
@@ -25,7 +25,7 @@ action:
     submit: Enregistrer
     new_submit: Créer
     edit_submit: Modifier
-    unarchive: Rétablir
+    unarchive: Désarchiver
     validate: Valider
 
 label:

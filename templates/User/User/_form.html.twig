@@ -10,49 +10,32 @@
 
     {# LEFT #}
     <div class="col-md-6">
-        <div class="box box-solid box-primary">
+        {# GENERAL #}
+        <div class="box box-solid box-info">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ 'user.user.tab.general'|trans }}</h3>
             </div>
             <div class="box-body">
-
-                {{ form_row(form.firstName, {'attr': {'autocomplete': 'given-name'}}) }}
-                {{ form_row(form.lastName, {'attr': {'autocomplete': 'family-name'}}) }}
-                {{ form_row(form.email, {'attr': {'autocomplete': 'email'}}) }}
-                {{ form_row(form.collectivity, {'attr': {'autocomplete': 'organization'}}) }}
+                {{ form_row(form.firstName) }}
+                {{ form_row(form.lastName) }}
+                {{ form_row(form.email) }}
+                {{ form_row(form.collectivity) }}
                 {{ form_row(form.roles) }}
-
-                {{ form_row(form.apiAuthorized) }}
                 <div id="user_collectivitesReferees_div">
                     {{ form_row(form.collectivitesReferees) }}
                 </div>
                 {{ form_row(form.moreInfos) }}
                 {{ form_row(form.enabled) }}
-            </div>
-        </div>
-    </div>
-
-    {# RIGHT #}
-    <div class="col-md-6">
-        <div class="box box-solid box-danger">
-            <div class="box-header with-border">
-                <h3 class="box-title">{{ 'user.user.tab.optional'|trans }}</h3>
-            </div>
-            <div class="box-body">
-                <blockquote>
-                    <small>{{ 'user.user.form.help.password'|trans }}</small>
-                </blockquote>
-                {{ form_row(form.plainPassword) }}
+                {{ form_row(form.apiAuthorized) }}
             </div>
         </div>
 
         {# SSO #}
         {% if sso_title %}
-            <div class="box box-solid box-primary">
+            <div class="box box-solid box-warning">
                 <div class="box-header">
                     <h3 class="box-title">{{ 'user.profile.form_user.tab.login_delegation'|trans }}</h3>
                 </div>
-
                 <div class="box-body">
                     <div class="form-group{% if form.ssoKey.vars.valid==false %} has-error{% endif %}">
                         <label>{{ 'user.user.form.sso_key'|trans }}</label>
@@ -69,9 +52,26 @@
                 </div>
             </div>
         {% endif %}
+    </div>
 
+    {# RIGHT #}
+    <div class="col-md-6">
+        {# PASSWORD #}
+        <div class="box box-solid box-danger">
+            <div class="box-header with-border">
+                <h3 class="box-title">{{ 'user.user.tab.optional'|trans }}</h3>
+            </div>
+            <div class="box-body">
+                <blockquote>
+                    <small>{{ 'user.user.form.help.password'|trans }}</small>
+                </blockquote>
+                {{ form_row(form.plainPassword) }}
+            </div>
+        </div>
+
+        {# SERVICES #}
         {% if serviceEnabled %}
-            <div class="box box-solid box-success">
+            <div class="box box-solid box-primary">
                 <div class="box-header with-border">
                     <h3 class="box-title">{{ 'user.user.tab.services'|trans }}</h3>
                 </div>
@@ -80,12 +80,12 @@
                 </div>
             </div>
         {% endif %}
+
+        {# NOTIFICATIONS #}
         {% if app_activate_notifications %}
-        {% include('@templates_path/User/Profile/notifications.html.twig') %}
+            {% include('@templates_path/User/Profile/notifications.html.twig') %}
         {% endif %}
     </div>
-
-
 
     <div class="col-md-12">
         <div class="box box-solid">

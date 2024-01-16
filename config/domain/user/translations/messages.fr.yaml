@@ -191,6 +191,7 @@ user:
         title:
             collectivity_edit: Modifier ma structure
             show: Visualiser ma structure
+            user_edit: Modifier mon compte
 
     security:
         forget_password:
@@ -240,7 +241,7 @@ user:
             create: Créer
             delete: Archiver "%name%"
             edit: Modifier "%name%"
-            unarchive: Rétablir "%name%"
+            unarchive: Désarchiver "%name%"
         form:
             notifications: Notifications
             apiAuthorized: Accès aux Web Services (API)
@@ -295,4 +296,4 @@ user:
             delete: Archiver un utilisateur
             label: Utilisateur
             list: Liste des utilisateurs
-            unarchive: Rétablir un utilisateur
+            unarchive: Désarchiver un utilisateur

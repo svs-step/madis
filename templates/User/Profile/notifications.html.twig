@@ -1,17 +1,17 @@
-<div class="box box-solid box-info">
+<div class="box box-solid box-success">
     <div class="box-header with-border">
-        <h3 class="box-title">{{ 'user.user.form.notifications'|trans }}</h3>
+        <h3 class="box-title">{{ 'user.user.tab.notifications'|trans }}</h3>
     </div>
     <div class="box-body">
         {% if form.notGeneratesNotifications is defined %}
         <div class="form-group">
-            <label class="control-label">Génération des notifications</label>
+            <label class="control-label">{{ 'notification.notificationMailParameters.form.not_generates_notifications_label'|trans }}</label>
             {{ form_widget(form.notGeneratesNotifications) }}
         </div>
         {% endif %}
 
         <div class="form-group">
-            <label class="control-label required">Fréquence des notifications par email</label>
+            <label class="control-label required">{{ 'notification.notificationMailParameters.form.frequency'|trans }}</label>
             <table role="presentation" style="border: 0; vertical-align: top">
                 {% for f in form.emailNotificationPreference.frequency %}
                     <tr>
