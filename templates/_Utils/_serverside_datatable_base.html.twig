@@ -153,17 +153,18 @@
                 var api = $('#table').DataTable();
 
                 var visible = api.columns().visible();
-                console.log('api.ajax', api.ajax.params())
-                var params = api.ajax.params();
 
-                params.columns = params.columns.filter(function(c, i) { return visible[i] })
+                var params = api.ajax.params();
+                params.columns = params.columns.filter(function(c, i) {
+                    return visible[i] && c.data !== 'actions'
+                })
                 if (options.excludeId) {
                     params.columns = params.columns.filter( (c) => c.data !== "id")
                 }
 
                 var exportBody = getFullData(params);
 
-                console.log('full data', exportBody)
+                d.body = [];
                 d.body.length = 0;
                 d.body.push.apply(d.body, exportBody);
             })
