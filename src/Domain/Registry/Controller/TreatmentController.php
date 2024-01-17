@@ -346,8 +346,8 @@ class TreatmentController extends CRUDController
             }
             $contractors .= '</ul>';
 
-            $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
-            $no  = '<span class="badge bg-yellow">' . $this->translator->trans('label.no') . '</span>';
+            $yes = '<span class="badge bg-green">' . $this->translator->trans('global.label.yes') . '</span>';
+            $no  = '<span class="badge bg-yellow">' . $this->translator->trans('global.label.no') . '</span>';
 
             $reponse['data'][] = [
                 'id'                     => $treatment->getId(),
@@ -385,8 +385,8 @@ class TreatmentController extends CRUDController
 
     private function countSensitiveData($categories)
     {
-        $sensitive   = '<span class="badge bg-yellow">' . $this->translator->trans('label.yes') . '</span>';
-        $noSensitive = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
+        $sensitive   = '<span class="badge bg-yellow">' . $this->translator->trans('global.label.yes') . '</span>';
+        $noSensitive = '<span class="badge bg-green">' . $this->translator->trans('global.label.no') . '</span>';
 
         $count = 0;
         foreach ($categories as $category) {
@@ -515,13 +515,13 @@ class TreatmentController extends CRUDController
             $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
 
             if ($this->authorizationChecker->isGranted('ROLE_USER')) {
-                return '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $editPath . '">
+                return '<a aria-label="' . $this->translator->trans('global.action.edit') . '" href="' . $editPath . '">
              <i aria-hidden="true" class="fa fa-pencil"></i>
-                 ' . $this->translator->trans('action.edit') . '
+                 ' . $this->translator->trans('global.action.edit') . '
              </a>
-             <a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $deletePath . '">
+             <a aria-label="' . $this->translator->trans('global.action.delete') . '" href="' . $deletePath . '">
                  <i aria-hidden="true" class="fa fa-trash"></i>
-                 ' . $this->translator->trans('action.delete') . '
+                 ' . $this->translator->trans('global.action.delete') . '
              </a>'
                 ;
             }

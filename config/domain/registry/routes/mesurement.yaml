@@ -19,7 +19,7 @@ registry_mesurement_create:
     controller: 'App\Domain\Registry\Controller\MesurementController:createAction'
 
 registry_mesurement_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Registry\Controller\MesurementController:editAction'
 

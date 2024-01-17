@@ -15,9 +15,9 @@
         {{ 'registry.treatment.title.list'|trans }} - {{ collectivity }}
         <small>
             {% if app.request.query.get('active') == 'false' %}
-                {{ 'label.inactive'|trans }}
+                {{ 'global.label.inactive'|trans }}
             {% else %}
-                {{ 'label.active'|trans }}
+                {{ 'global.label.active'|trans }}
             {% endif %}
         </small>
     </h1>

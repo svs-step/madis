@@ -49,20 +49,20 @@
                             <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
                                 <a href="{{ path('user_profile_user_edit') }}">
                                     <i aria-hidden="true" class="fa fa-user"></i>
-                                    <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
+                                    <span>{{ 'global.sidebar_menu.user_profile'|trans }}</span>
                                 </a>
                             </li>
                             <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
                                 <a href="{{ path('user_profile_collectivity_show') }}">
                                     <i aria-hidden="true" class="fa fa-home"></i>
-                                    <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
+                                    <span>{{ 'global.sidebar_menu.user_organization'|trans }}</span>
                                 </a>
                             </li>
                             {% if not is_granted('ROLE_PREVIOUS_ADMIN') %}
                                 <li>
                                     <a href="{{ path('logout') }}" >
                                         <i aria-hidden="true" class="fa fa-power-off"></i>
-                                        <span>Déconnexion</span>
+                                        <span>{{ 'global.sidebar_menu.logout'|trans }}</span>
                                     </a>
                                 </li>
                             {% endif %}

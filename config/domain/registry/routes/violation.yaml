@@ -14,7 +14,7 @@ registry_violation_create:
     controller: 'App\Domain\Registry\Controller\ViolationController:createAction'
 
 registry_violation_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Registry\Controller\ViolationController:editAction'
 

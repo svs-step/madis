@@ -1,111 +1,77 @@
 notifications:
-    module: Notifications
-    modules:
-        treatment: Traitements
-        contractor: Sous-traitants
-        subcontractor: Sous-traitants
-        violation: Violations
-        proof: Preuves
-        document: Espace documentaire
-        action: Actions de protection
-        action_plan: Plan d'actions
-        protect_action: Actions de protection
-        request: Demandes
-        user: Utilisateurs
-        documentation: Documentation
-        maturity: Indices de maturité
-    actions:
-        delete: Suppression
-        create: Ajout
-        update: Modification
-        late_action: Rappel automatique
-        late_request: Rappel automatique
-        late_survey: Rappel automatique
+    action:
+        mark_as_read: Marquer comme lu
+        mark_as_unread: Marquer comme non lu
+        mark_as_read_all: Tout marquer comme lu
+    title:
+        list: Centre de notifications
+        delete: Supprimer une notification
+    breadcrumb:
+        list: Centre de notifications
+        delete: Supprimer une notification
+    label:
         no_login: Inactif
         validation: Validation nécéssaire
         treatment_needs_aipd: Nécéssité de faire une AIPD
         state_change: Changement d'étape
         validated: Validation
-    subject:
-        no_login: Aucune connexion depuis la création du compte
-        late_request: Demande non traitée depuis au moins %days% jours depuis la date de la dernière modification
-        late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
-        validation: Validation nécéssaire
-        late_action: Retard %date%
-    sentence:
-        late_request: La demande de %name% n'a pas été traitée depuis au moins %days% jours depuis la date de la dernière modification
-        late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
-notification:
-    module: Notifications
-    state:
+        activate_notification_email: Notification par email
+        late_action: Rappel automatique
         read: Lu
         unread: Non Lu
-    modules:
-        aipd: AIPD
-        treatment: Traitements
-        contractor: Sous-traitants
-        subcontractor: Sous-traitants
-        violation: Violations
-        proof: Preuves
-        document: Espace documentaire
-        action: Actions de protection
-        protect_action: Actions de protection
-        action_plan: Plan d'actions
-        request: Demandes
-        user: Utilisateurs
-        documentation: Documentation
-        maturity: Indices de maturité
-
-    actions:
-        delete: Suppression
-        create: Création
-        update: Modification
-        late_action: Rappel automatique
-        late_request: Rappel automatique
-        late_survey: Rappel automatique
-        no_login: Inactif
-        validation: Validation nécéssaire
-        treatment_needs_aipd: Nécéssité de faire une AIPD
-        state_change: Changement d'étape
-        validated: Validation
-    email:
-        subject: Nouvelles notifications Madis
-        madis: Accéder à madis
-    notification:
-        flashbag:
-            success:
-                markall: Toutes les notifications sont marquées comme lu
-                delete: Notification "%object%" supprimée avec succès
-        title:
-            list: Centre de notifications
-            delete: Supprimer une notification
-        breadcrumb:
-            list: Centre de notifications
-            delete: Supprimer une notification
-        list:
-            state: État
-            module: Module
-            action: Action
-            name: Nom
-            object: Objet
-            collectivity: Structure
-            date: Date
-            user: Nom d'utilisateur
-            read_date: Lu le
-            read_by: Lu par
-        action:
-            back_to_list: Retour à la liste
-            mark_as_read: Marquer comme lu
-            mark_as_unread: Marquer comme non lu
-            mark_as_read_all: Tout marquer comme lu
-            delete: Supprimer
-    notificationMailParameters:
-        title: Notifications
-        breadcrumb:
-            create: Nouvelle notification
-            edit: Modifier notification
-            list: Espace notification
-            delete: Supprimernotification
-        form:
-            not_generates_notifications_label: Génération des notifications
-            frequency: Fréquence des notifications par email
+        not_generates_notifications_label: Génération des notifications
+        notification_email_subject: Nouvelles notifications Madis
+        notification_email_madis: Accéder à madis
+        frequency:
+            label: Fréquence des notifications par email
+            month: Mensuelle
+            week: Hebdomadaire
+            day: Quotidien
+            hour: Toutes les
+            each: À chaque notification
+            none: Aucune notification
+            label_hour: heures
+            monthly: Mensuelle le
+            weekly: Hebdomadaire le
+            dayly: Quotidien à
+            hourly: Toutes les
+        modules:
+            treatment: Traitements
+            contractor: Sous-traitants
+            request: Demandes
+            violation: Violations
+            proof: Preuves
+            mesurement: Actions de protection
+            action_plan: Plan d'actions
+            maturity_survey: Indice de maturité
+            treatment_conformity: Conformité des traitements
+            organization_conformity: Conformité de la structure
+            aipd: AIPD
+            documentation: Espace documentaire
+            user: Utilisateurs
+        subject:
+            no_login: Aucune connexion depuis la création du compte
+            late_request: Demande non traitée depuis au moins %days% jours depuis la date de la dernière modification
+            late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
+            validation: Validation nécéssaire
+            late_action: Retard %date%
+        sentence:
+            late_request: La demande de %name% n'a pas été traitée depuis au moins %days% jours depuis la date de la dernière modification
+            late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
+    flashbag:
+        success:
+            markall: Toutes les notifications sont marquées comme lu
+            delete: Notification "%object%" supprimée avec succès
+    list:
+        state: État
+        module: Module
+        action: Action
+        name: Nom
+        object: Objet
+        collectivity: Structure
+        date: Date
+        user: Nom d'utilisateur
+        read_date: Lu le
+        read_by: Lu par
+    tab:
+        notification: Notifications

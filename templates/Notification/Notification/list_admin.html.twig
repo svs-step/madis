@@ -61,7 +61,7 @@
                                 </th>
                                 {% endif %}
                                 <th>
-                                    <select class="form-control" id="search_module" style="width: 100%;"> 
+                                    <select class="form-control" id="search_module" style="width: 100%;">
                                             <option value="">{{ 'notification.notification.list.module'|trans }}</option>
                                         {% for module in activeModules %}
                                             <option value="{{ module|trans }}">
@@ -71,7 +71,7 @@
                                     </select>
                                 </th>
                                 <th>
-                                    <select class="form-control" id="search_action" style="width: 100%;"> 
+                                    <select class="form-control" id="search_action" style="width: 100%;">
                                             <option value="">{{ 'notification.notification.list.action'|trans }}</option>
                                         {% for action in activeActions %}
                                             <option value="{{ action|trans }}">
@@ -121,7 +121,7 @@
                                 <th>{{ 'notification.notification.list.object'|trans }}</th>
 
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <th>{{ 'notification.notification.list.collectivity'|trans }}</th>
+                                    <th>{{ 'global.label.organization'|trans }}</th>
                                 {% endif %}
 
                                 <th>{{ 'notification.notification.list.date'|trans }}</th>
@@ -130,7 +130,7 @@
                                 {% if is_granted('ROLE_ADMIN') %}
                                     <th>{{ 'notification.notification.list.read_date'|trans }}</th>
                                     <th>{{ 'notification.notification.list.read_by'|trans }}</th>
-                                    <th>{{ 'label.actions'|trans }}</th>
+                                    <th>{{ 'global.label.actions'|trans }}</th>
                                 {% endif %}
                             </tr>
                         </thead>
@@ -153,7 +153,7 @@
                                         <i aria-hidden="true" class="fas fa-check-circle" style="color:green;"></i> Lu
                                         {% else %}
                                         Non lu
-                                        {% endif %} 
+                                        {% endif %}
                                     </td>
                                 {% endif %}
                                 <td>{{ object.module|trans }}</td>
@@ -193,7 +193,7 @@
                                         </a>
                                     {% endif %}
                                     <a href="{{ path('notification_notification_delete', { 'id': object.id }) }}">
-                                        <i aria-hidden="true" class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
+                                        <i aria-hidden="true" class="fa fa-trash"></i>&nbsp;{{ 'global.action.delete'|trans }}
                                     </a>
                                 </td>
                                 {% endif %}
@@ -360,7 +360,7 @@
             $('#search_action').change(function(){
                 isAdmin ? oTable.column('2').search($(this).val()).draw() : oTable.column('1').search($(this).val()).draw() ;
             });
-            
+
 
             $('#search_name').off('keyup');
             $('#search_name').keyup($.debounce(250, function(){

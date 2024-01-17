@@ -14,7 +14,7 @@ user_collectivity_create:
     controller: 'App\Domain\User\Controller\CollectivityController:createAction'
 
 user_collectivity_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\User\Controller\CollectivityController:editAction'
 
@@ -47,5 +47,3 @@ user_collectivity_delete_related:
     path: '/supprimer/{id}/{objectType}'
     methods: ['POST']
     controller: 'App\Domain\User\Controller\CollectivityController:deleteRelatedObjectsAction'
-
-

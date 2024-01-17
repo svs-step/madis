@@ -104,9 +104,9 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
-                    <a aria-label="{{ 'action.back_to_list'|trans }}" href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
-                    <a aria-label="{{ 'aipd.analyse_impact.action.validation'|trans }}" href="{{ path('aipd_analyse_impact_validation', {'id': analyseImpact.id}) }}" class="btn btn-primary">{{ 'aipd.analyse_impact.action.validation'|trans }}</a>
-                    <a aria-label="{{ 'action.draft'|trans }}" href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-info">{{ 'action.draft'|trans }}</a>
+                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'global.action.back_to_list'|trans }}</a>
+                    <a href="{{ path('aipd_analyse_impact_validation', {'id': analyseImpact.id}) }}" class="btn btn-primary">{{ 'aipd.analyse_impact.action.validation'|trans }}</a>
+                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-info">{{ 'global.action.draft'|trans }}</a>
                 </div>
             </div>
         </div>

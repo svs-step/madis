@@ -38,7 +38,7 @@
                 </div>
                 <div class="box-body">
                     <div class="form-group{% if form.ssoKey.vars.valid==false %} has-error{% endif %}">
-                        <label>{{ 'user.user.form.sso_key'|trans }}</label>
+                        <label>{{ 'user.user.label.sso_key'|trans }}</label>
                         <div style="display: flex; align-items: center;">
                             <img src="{{ asset(sso_icon) }}" alt="">
                             <p class="no-margin" style="padding: 0 0.5rem;">{{ sso_title }}</p>
@@ -63,7 +63,7 @@
             </div>
             <div class="box-body">
                 <blockquote>
-                    <small>{{ 'user.user.form.help.password'|trans }}</small>
+                    <small>{{ 'user.user.label.help.password'|trans }}</small>
                 </blockquote>
                 {{ form_row(form.plainPassword) }}
             </div>
@@ -90,8 +90,8 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a aria-label="{{ 'user.user.action.back_to_list'|trans }}" href="{{ path('user_user_list') }}" class="btn btn-default">
-                    {{ 'user.user.action.back_to_list'|trans }}
+                <a href="{{ path('user_user_list') }}" class="btn btn-default">
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>

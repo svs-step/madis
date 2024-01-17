@@ -68,9 +68,9 @@
                             <td><strong>{{ 'registry.tool.form.archival'|trans }}</strong></td>
                             <td>
                                 {% if object.archival.check == true %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                             <td>{{ object.archival.comment }}</td>
@@ -79,9 +79,9 @@
                             <td><strong>{{ 'registry.tool.form.encrypted'|trans }}</strong></td>
                             <td>
                                 {% if object.encrypted.check == true %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                             <td>{{ object.encrypted.comment }}</td>
@@ -90,9 +90,9 @@
                             <td><strong>{{ 'registry.tool.form.access_control'|trans }}</strong></td>
                             <td>
                                 {% if object.accessControl.check == true %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                             <td>{{ object.accessControl.comment }}</td>
@@ -101,9 +101,9 @@
                             <td><strong>{{ 'registry.tool.form.update'|trans }}</strong></td>
                             <td>
                                 {% if object.update.check == true %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                             <td>{{ object.update.comment }}</td>
@@ -112,9 +112,9 @@
                             <td><strong>{{ 'registry.tool.form.backup'|trans }}</strong></td>
                             <td>
                                 {% if object.backup.check == true %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                             <td>{{ object.backup.comment }}</td>
@@ -123,9 +123,9 @@
                             <td><strong>{{ 'registry.tool.form.deletion'|trans }}</strong></td>
                             <td>
                                 {% if object.deletion.check == true %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                             <td>{{ object.deletion.comment }}</td>
@@ -134,9 +134,9 @@
                             <td><strong>{{ 'registry.tool.form.tracking'|trans }}</strong></td>
                             <td>
                                 {% if object.tracking.check == true %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                             <td>{{ object.tracking.comment }}</td>
@@ -145,9 +145,9 @@
                             <td><strong>{{ 'registry.tool.form.has_comment'|trans }}</strong></td>
                             <td>
                                 {% if object.hasComment.check == true %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                             <td>{{ object.hasComment.comment }}</td>
@@ -156,9 +156,9 @@
                             <td><strong>{{ 'registry.tool.form.other'|trans }}</strong></td>
                             <td>
                                 {% if object.other.check == true %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                             <td>{{ object.other.comment }}</td>
@@ -211,7 +211,7 @@
 
             {# CONTRACTORS #}
             <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_contractors'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.label.linked_contractor'|trans }}</h3></div>
                 <div class="box-body">
                     {% if object.contractors and object.contractors |length %}
                         <ul>
@@ -222,14 +222,14 @@
                             {% endfor %}
                         </ul>
                     {% else %}
-                        {{ 'label.no_linked_contractors'|trans }}
+                        {{ 'global.label.no_linked_contractor'|trans }}
                     {% endif %}
                 </div>
             </div>
 
             {# TREATMENTS #}
             <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_treatment'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.label.linked_treatment'|trans }}</h3></div>
                 <div class="box-body">
                     {% if object.treatments and object.treatments |length %}
                         <ul>
@@ -240,7 +240,7 @@
                             {% endfor %}
                         </ul>
                     {% else %}
-                        {{ 'label.no_linked_treatment'|trans }}
+                        {{ 'global.label.no_linked_treatment'|trans }}
                     {% endif %}
                 </div>
             </div>
@@ -248,7 +248,7 @@
 
             {# Mesurements #}
             <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_mesurements'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.label.linked_mesurement'|trans }}</h3></div>
                 <div class="box-body">
                     {% if object.mesurements and object.mesurements |length %}
                         <ul>
@@ -259,7 +259,7 @@
                             {% endfor %}
                         </ul>
                     {% else %}
-                        {{ 'label.no_linked_mesurements'|trans }}
+                        {{ 'global.label.no_linked_mesurement'|trans }}
                     {% endif %}
                 </div>
             </div>

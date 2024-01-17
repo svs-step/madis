@@ -273,8 +273,8 @@ class CollectivityGenerator extends AbstractGenerator
 
     private function initializeCollectivity(\App\Domain\User\Model\Collectivity $collectivity)
     {
-        $yes = $this->translator->trans('label.yes');
-        $no  = $this->translator->trans('label.no');
+        $yes = $this->translator->trans('global.label.yes');
+        $no  = $this->translator->trans('global.label.no');
 
         $legalManager = $collectivity->getLegalManager();
         $itManager    = $collectivity->getItManager();
@@ -288,7 +288,7 @@ class CollectivityGenerator extends AbstractGenerator
             $collectivity->getShortName(),
             !\is_null($collectivity->getType()) ? CollectivityTypeDictionary::getTypes()[$collectivity->getType()] : '',
             $collectivity->getSiren(),
-            $collectivity->isActive() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
+            $collectivity->isActive() ? $this->translator->trans('global.label.active') : $this->translator->trans('global.label.inactive'),
             $collectivity->getWebsite(),
             $collectivity->isHasModuleConformiteTraitement() ? $yes : $no,
             $collectivity->isHasModuleConformiteOrganisation() ? $yes : $no,

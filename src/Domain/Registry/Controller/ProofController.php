@@ -392,26 +392,26 @@ class ProofController extends CRUDController
         $cellContent = '';
         if ($this->userProvider->getAuthenticatedUser()->getCollectivity() === $proof->getCollectivity()
             || $this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $cellContent .= '<a aria-label="' . $this->translator->trans('action.download') . '" href="' . $this->router->generate('registry_proof_download', ['id' => $proof->getId()]) . '">
+            $cellContent .= '<a aria-label="' . $this->translator->trans('global.action.download') . '" href="' . $this->router->generate('registry_proof_download', ['id' => $proof->getId()]) . '">
                 <i aria-hidden="true" class="fa fa-download"></i> ' .
-                $this->translator->trans('action.download') . '
+                $this->translator->trans('global.action.download') . '
             </a>';
         }
 
         if ($this->authorizationChecker->isGranted('ROLE_USER')) {
             if (\is_null($proof->getDeletedAt())) {
-                $cellContent .= '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_proof_edit', ['id' => $proof->getId()]) . '">
+                $cellContent .= '<a aria-label="' . $this->translator->trans('global.action.edit') . '" href="' . $this->router->generate('registry_proof_edit', ['id' => $proof->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-pencil"></i> ' .
-                        $this->translator->trans('action.edit') . '
+                        $this->translator->trans('global.action.edit') . '
                 </a>
-                <a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('registry_proof_archive', ['id' => $proof->getId()]) . '">
+                <a aria-label="' . $this->translator->trans('global.action.archive') . '" href="' . $this->router->generate('registry_proof_archive', ['id' => $proof->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-archive"></i> ' .
-                    $this->translator->trans('action.archive') . '
+                    $this->translator->trans('global.action.archive') . '
                 </a>';
             }
-            $cellContent .= '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('registry_proof_delete', ['id' => $proof->getId()]) . '">
+            $cellContent .= '<a aria-label="' . $this->translator->trans('global.action.delete') . '" href="' . $this->router->generate('registry_proof_delete', ['id' => $proof->getId()]) . '">
                 <i aria-hidden="true" class="fa fa-trash"></i> ' .
-                $this->translator->trans('action.delete') . '
+                $this->translator->trans('global.action.delete') . '
             </a>';
         }
 

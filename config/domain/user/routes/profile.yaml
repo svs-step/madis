@@ -1,15 +1,15 @@
 user_profile_collectivity_show:
-    path: '/ma-collectivite/visualiser'
+    path: '/ma-structure/visualiser'
     methods: ['GET']
     controller: 'App\Domain\User\Controller\ProfileController:collectivityShowAction'
 
 user_profile_collectivity_edit:
-    path: '/ma-collectivite/editer'
+    path: '/ma-structure/modifier'
     methods: ['GET', 'POST']
     controller: 'App\Domain\User\Controller\ProfileController:collectivityEditAction'
 
 user_profile_user_edit:
-    path: '/mon-compte/editer'
+    path: '/mon-compte/modifier'
     methods: ['GET', 'POST']
     controller: 'App\Domain\User\Controller\ProfileController:userEditAction'
 

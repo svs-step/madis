@@ -243,7 +243,7 @@ class NotificationController extends CRUDController
 
         $html .= ' <a href="' . $this->router->generate('notification_notification_delete', ['id' => $id]) . '">
 <i aria-hidden="true" class="fas fa-trash"></i>&nbsp;
-                ' . $this->translator->trans('notification.notification.action.delete') . '
+                ' . $this->translator->trans('global.action.delete') . '
                 </a>';
 
         return $html;

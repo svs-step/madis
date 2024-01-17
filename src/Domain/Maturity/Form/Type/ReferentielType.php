@@ -41,7 +41,7 @@ class ReferentielType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'maturity.referentiel.form.referentiel_name',
+                'label'    => 'maturity.referentiel.label.referentiel',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 1000,
@@ -49,7 +49,7 @@ class ReferentielType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('description', TextareaType::class, [
-                'label'    => 'maturity.referentiel.form.description',
+                'label'    => 'maturity.referentiel.label.description',
                 'required' => false,
                 'attr'     => [
                     'rows' => 3,

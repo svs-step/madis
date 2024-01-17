@@ -32,12 +32,12 @@
                 {% if is_granted('ROLE_USER') and object.deletedAt is null and (actionEnabled) %}
                     <a href="{{ path('registry_violation_edit', {'id': object.id}) }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-pencil"></i>
-                        {{ 'action.edit'|trans }}
+                        {{ 'global.action.edit'|trans }}
                     </a>
                 {% endif %}
                 <a href="{{ path('registry_violation_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-print"></i>
-                    {{ 'action.print'|trans }}
+                    {{ 'global.action.print'|trans }}
                 </a>
             </div>
         </div>
@@ -60,9 +60,9 @@
                             <td><strong>{{ 'registry.violation.show.in_progress'|trans }}</strong></td>
                             <td>
                                 {% if object.inProgress %}
-                                    <span class="badge bg-red">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-red">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-green">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>

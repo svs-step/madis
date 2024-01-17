@@ -186,7 +186,7 @@ class RequestType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Traitements',
                 ],
                 'required' => false,

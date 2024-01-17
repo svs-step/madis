@@ -31,7 +31,7 @@ class ParticipantType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('civilite', DictionaryType::class, [
-                'label'    => 'user.contact.form.civility',
+                'label'    => 'global.label.contact.civility',
                 'required' => true,
                 'name'     => 'user_contact_civility',
             ])

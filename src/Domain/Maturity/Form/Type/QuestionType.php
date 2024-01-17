@@ -47,7 +47,7 @@ class QuestionType extends AbstractType
         /* @var Question $question */
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'maturity.referentiel.form.question_name',
+                'label'    => 'maturity.referentiel.label.question',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 1000,
@@ -55,7 +55,7 @@ class QuestionType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('weight', ChoiceType::class, [
-                'label'    => 'maturity.referentiel.form.weight',
+                'label'    => 'maturity.referentiel.label.weight',
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
@@ -68,20 +68,19 @@ class QuestionType extends AbstractType
                 ],
             ])
             ->add('optional', CheckboxType::class, [
-                'label'    => "Activer l'option : Non concerné",
+                'label'    => 'maturity.referentiel.label.not_concerned',
                 'required' => false,
             ])
             ->add('optionReason', TextType::class, [
                 'label'    => false,
                 'required' => false,
                 'attr'     => [
-                    'placeholder' => 'Précisez',
                     'maxlength'   => 1000,
                 ],
                 'purify_html' => true,
             ])
             ->add('answers', CollectionType::class, [
-                    'label'          => 'maturity.referentiel.form.answer',
+                    'label'          => false,
                     'entry_type'     => AnswerType::class,
                     'required'       => true,
                     'allow_add'      => true,

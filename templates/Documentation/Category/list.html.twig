@@ -3,7 +3,7 @@
 {% set bodyClass = 'documentation_category list' %}
 {% set menuItem = 'documentation' %}
 
-{% block title %}{{ 'documentation.category.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'documentation.document.title.title'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
@@ -11,14 +11,14 @@
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'documentation.category.title.list'|trans }}
-        <small>{{ 'label.category'|trans }}</small>
+    <h1>{{ 'documentation.document.title.title'|trans }}
+        <small>{{ 'documentation.category.title.subtitle'|trans }}</small>
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'documentation.category.title.list'|trans }
+        { 'name': 'documentation.document.title.title'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -48,9 +48,9 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">{{ 'documentation.category.list.name'|trans }}</th>
+                                <th scope="col">{{ 'documentation.category.label.name'|trans }}</th>
                                 <th scope="col">{{ 'documentation.category.list.count'|trans }}</th>
-                                <th scope="col">{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'global.label.actions'|trans }}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -62,13 +62,13 @@
                             </td>
                             <td>
                                 {% if object.systeme == 0 %}
-                                    <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('documentation_category_edit', { 'id': object.id }) }}">
+                                    <a href="{{ path('documentation_category_edit', { 'id': object.id }) }}">
                                         <i aria-hidden="true" class="fa fa-pencil"></i>
-                                        {{ 'action.edit'|trans }}
+                                        {{ 'global.action.edit'|trans }}
                                     </a>
-                                    <a aria-label="{{ 'action.delete'|trans }}" href="{{ path('documentation_category_delete', { 'id': object.id }) }}">
+                                    <a href="{{ path('documentation_category_delete', { 'id': object.id }) }}">
                                         <i aria-hidden="true" class="fa fa-trash"></i>
-                                        {{ 'action.delete'|trans }}
+                                        {{ 'global.action.delete'|trans }}
                                     </a>
                                 {% endif %}
                             </td>

@@ -32,8 +32,8 @@
                     <a aria-label="{{ 'registry.request.action.back_to_list'|trans }}" href="{{ path('registry_request_list') }}" class="btn btn-default">
                         {{ 'registry.request.action.back_to_list'|trans }}
                     </a>
-                    <a aria-label="{{ 'action.confirm_archive'|trans }}" href="{{ path('registry_request_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_archive'|trans }}
+                    <a href="{{ path('registry_request_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'global.action.confirm_archive'|trans }}
                     </a>
                 </div>
             </div>

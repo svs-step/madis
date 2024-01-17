@@ -30,11 +30,11 @@
                     Souhaitez vous vraiment supprimer l'analyse d'impact du traitement "{{ object.conformiteTraitement.traitement.name }}" réalisée le {{ object.createdAt|date('d/m/Y')}} ?
                 </div>
                 <div class="box-footer">
-                    <a aria-label="{{ 'action.back_to_list'|trans }}" href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">
-                        {{ 'action.back_to_list'|trans }}
+                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
-                    <a aria-label="{{ 'action.confirm_delete'|trans }}" href="{{ path('aipd_analyse_impact_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_delete'|trans }}
+                    <a href="{{ path('aipd_analyse_impact_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'global.action.confirm_delete'|trans }}
                     </a>
                 </div>
             </div>

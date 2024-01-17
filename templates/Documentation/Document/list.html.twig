@@ -11,7 +11,7 @@
     {% endfor %}
 {% endfor %}
 
-{% block title %}{{ 'documentation.document.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'documentation.document.title.title'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
@@ -19,14 +19,14 @@
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'documentation.document.title.list'|trans }}
+    <h1>{{ 'documentation.document.title.title'|trans }}
     <small>{{ 'documentation.document.title.subtitle'|trans }}</small>
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'documentation.document.title.list'|trans }
+        { 'name': 'documentation.document.title.title'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -130,15 +130,15 @@
                             </tr>
 
                             <tr>
-                                <th scope="col">{{ 'documentation.document.list.pinned'|trans }}</th>
-                                <th scope="col">{{ 'documentation.document.list.favorited'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.label.pinned'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.list.favorite'|trans }}</th>
                                 <th scope="col">{{ 'documentation.document.list.type'|trans }}</th>
                                 <th scope="col">{{ 'documentation.document.list.weight'|trans }}</th>
-                                <th scope="col">{{ 'documentation.document.list.name'|trans }}</th>
-                                <th scope="col">{{ 'documentation.document.list.category'|trans }}</th>
-                                <th scope="col">{{ 'documentation.document.list.created_at'|trans }}</th>
-                                <th scope="col">{{ 'documentation.document.list.updated_at'|trans }}</th>
-                                <th scope="col">{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.label.name'|trans }}</th>
+                                <th scope="col">{{ 'documentation.document.label.categories'|trans }}</th>
+                                <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                                <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
+                                <th scope="col">{{ 'global.label.actions'|trans }}</th>
                             </tr>
 
                         </thead>
@@ -152,7 +152,7 @@
                                 {% endif %}
                             </td>
                             <td class="text-center favorite">
-                                <a aria-label="" href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
+                                <a href="{{ path('documentation_document_favorite', { 'id': object.id, 'back': app.request.uri }) }}" style="color:#f39c12;">
                                     {% if object.favoritedUsers |filter(f => f.id == app.user.id)|length > 0 %}
                                         1
                                     {% else %}
@@ -192,19 +192,19 @@
 
                             <td>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                    <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
-                                        <i aria-hidden="true" class="fa fa-pencil"></i>&nbsp;{{ 'action.edit'|trans }}
+                                    <a href="{{ path('documentation_document_edit', { 'id': object.id }) }}">
+                                        <i aria-hidden="true" class="fa fa-pencil"></i>&nbsp;{{ 'global.action.edit'|trans }}
                                     </a>
-                                    <a aria-label="{{ 'action.delete'|trans }}" href="{{ path('documentation_document_delete', { 'id': object.id }) }}">
-                                        <i aria-hidden="true" class="fa fa-trash"></i>&nbsp;{{ 'action.delete'|trans }}
+                                    <a href="{{ path('documentation_document_delete', { 'id': object.id }) }}">
+                                        <i aria-hidden="true" class="fa fa-trash"></i>&nbsp;{{ 'global.action.delete'|trans }}
                                     </a>
-                                    <a aria-label="{{ 'action.share'|trans }}" class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
-                                        <i aria-hidden="true" class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                    <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
+                                        <i aria-hidden="true" class="fa fa-share"></i>&nbsp;{{ 'global.action.share'|trans }}
                                     </a>
                                 {% endif %}
                                 {% if is_granted('ROLE_REFERENT') and not is_granted('ROLE_ADMIN') %}
-                                    <a aria-label="{{ 'action.share'|trans }}" class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
-                                        <i aria-hidden="true" class="fa fa-share"></i>&nbsp;{{ 'action.share'|trans }}
+                                    <a class="sharelink" href='#' data-id="{{ url('documentation_document_share', {id: object.id}) }}" data-toggle="modal" data-target="#shareModal">
+                                        <i aria-hidden="true" class="fa fa-share"></i>&nbsp;{{ 'global.action.share'|trans }}
                                     </a>
                                 {% endif %}
                             </td>
@@ -220,10 +220,10 @@
         <div class="modal-dialog">
             <div class="box box-solid">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Partager le lien du document</h3>
+                    <h3 class="box-title">{{ 'documentation.document.title.share_link'|trans }}</h3>
                     <div class="box-tools pull-right">
                         <!-- Collapse Button -->
-                        <button type="button" class="btn btn-box-tool" data-dismiss="modal">
+                        <button aria-label="{{ 'global.action.close'|trans }}" type="button" class="btn btn-box-tool" data-dismiss="modal">
                             <i aria-hidden="true" class="fa fa-times"></i>
                         </button>
                     </div>
@@ -231,19 +231,19 @@
                 <!-- /.box-header -->
                 <div class="box-body text-center copyLink" style="display: none">
                     <i aria-hidden="true" class="fa fa-check fa-3x" style="color:green"></i>
-                    <h4><b>Lien copié</b></h4>
+                    <h4><b>{{ 'documentation.document.list.copied_link'|trans }}</b></h4>
                 </div>
                 <div class="box-body text-center">
                     <div class="input-group">
                         <input type="text" class="form-control linkDoc">
                         <span class="input-group-btn">
-                            <button type="button" class="btn btn-primary btn-flat" data-dashlane-label="true" onclick="copyToClipBoard()" data-form-type="other">Copier</button>
+                            <button type="button" class="btn btn-primary btn-flat" data-dashlane-label="true" onclick="copyToClipBoard()" data-form-type="other">{{ 'documentation.document.action.copy'|trans }}</button>
                         </span>
                     </div>
                 </div>
                 <div class="box-body">
                     <blockquote>
-                        <p style="color:grey;font-size:14px;">-Seuls les utilisateurs ayant un compte Madis pourront accéder au document.</p>
+                        <small>{{ 'documentation.document.list.help'|trans }}</small>
                     </blockquote>
                 </div>
                 <!-- box-footer -->

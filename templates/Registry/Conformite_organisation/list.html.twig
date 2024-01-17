@@ -2,7 +2,7 @@
 
 {% set bodyClass = 'registry_conformite_organisation list' %}
 {% set menuItem = 'registry_conformite_organisation' %}
-{% set submitValue = submitValue|default('action.save'|trans) %}
+{% set submitValue = submitValue|default('registry.conformite_organisation.action.pilote_submit'|trans) %}
 
 {% block title %}{{ 'registry.conformite_organisation.title.list'|trans }} - {{ parent() }}{% endblock %}
 
@@ -32,9 +32,9 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     {% if evaluations is not empty and not is_granted('ROLE_ADMIN') %}
-                        <a aria-label="{{ 'registry.conformite_organisation.action.report'|trans }}" href="{{ path('registry_conformite_organisation_report', {'id': evaluations[0].id, 'all_actions' : false}) }}" class="btn btn-default">
+                        <a href="{{ path('registry_conformite_organisation_report', {'id': evaluations[0].id, 'all_actions' : false}) }}" class="btn btn-default">
                             <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                            {{ 'registry.conformite_organisation.action.report'|trans }}
+                            {{ 'global.action.report'|trans }}
                         </a>
                     {% endif %}
                     {% if userRole == 'ROLE_USER' %}
@@ -108,9 +108,9 @@
                     </a>
 
                     {% if category and category.documents|length > 0 %}
-                        <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                             <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'documentation.document.link.button'|trans }}
+                            {{ 'global.action.documentation'|trans }}
                         </a>
                     {% endif %}
                 </div>
@@ -144,26 +144,26 @@
                                 <td>{{ evaluation.participants|length }}</td>
                                 <td>
                                     {% if evaluation.draft %}
-                                        <span class="badge">{{ 'label.yes'|trans }}</span>
+                                        <span class="badge">{{ 'global.label.yes'|trans }}</span>
                                     {% else %}
-                                        <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
+                                        <span class="badge bg-gray">{{ 'global.label.no'|trans }}</span>
                                     {% endif %}
                                 </td>
                                 <td>
-                                    <a aria-label="{{ 'registry.conformite_organisation.action.print'|trans }}" href="{{ path('registry_conformite_organisation_report', {'id': evaluation.id}) }}">
+                                    <a href="{{ path('registry_conformite_organisation_report', {'id': evaluation.id}) }}">
                                         <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                                        {{ 'registry.conformite_organisation.action.print'|trans }}
+                                        {{ 'global.action.print'|trans }}
                                     </a>
                                     {% if is_granted('ROLE_USER') %}
                                         {% if evaluation.isDraft %}
-                                            <a aria-label="{{ 'registry.conformite_organisation.action.edit'|trans }}" href="{{ path('registry_conformite_organisation_edit', {'id': evaluation.id}) }}">
+                                            <a href="{{ path('registry_conformite_organisation_edit', {'id': evaluation.id}) }}">
                                                 <i aria-hidden="true" class="fa fa-pencil"></i>
-                                                {{ 'registry.conformite_organisation.action.edit'|trans }}
+                                                {{ 'global.action.edit'|trans }}
                                             </a>
                                         {% endif %}
-                                        <a aria-label="{{ 'registry.conformite_organisation.action.delete'|trans }}" href="{{ path('registry_conformite_organisation_delete', {'id': evaluation.id}) }}">
+                                        <a href="{{ path('registry_conformite_organisation_delete', {'id': evaluation.id}) }}">
                                             <i aria-hidden="true" class="fa fa-trash"></i>
-                                            {{ 'registry.conformite_organisation.action.delete'|trans }}
+                                            {{ 'global.action.delete'|trans }}
                                         </a>
                                     {% endif %}
                                 </td>

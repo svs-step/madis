@@ -103,7 +103,7 @@ class UserType extends AbstractType
             $builder
                 ->add('collectivity', EntityType::class, [
                     'class'         => Collectivity::class,
-                    'label'         => 'user.user.form.collectivity',
+                    'label'         => 'global.label.organization',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.name', 'ASC');
@@ -114,24 +114,24 @@ class UserType extends AbstractType
                     ],
                 ])
                 ->add('roles', DictionaryType::class, [
-                    'label'    => 'user.user.form.roles',
+                    'label'    => 'user.user.label.roles',
                     'required' => true,
                     'name'     => 'user_user_role',
                     'multiple' => false,
                     'expanded' => true,
                 ])
                 ->add('apiAuthorized', CheckboxType::class, [
-                    'label'    => 'user.user.form.apiAuthorized',
+                    'label'    => 'user.user.label.apiAuthorized',
                     'required' => false,
                 ])
 
                 ->add('enabled', CheckboxType::class, [
-                    'label'    => 'user.user.form.enabled',
+                    'label'    => 'user.user.label.enabled',
                     'required' => false,
                 ])
                 ->add('collectivitesReferees', EntityType::class, [
                     'class'         => Collectivity::class,
-                    'label'         => 'user.user.form.collectivitesReferees',
+                    'label'         => 'user.user.label.collectivitesReferees',
                     'query_builder' => function (EntityRepository $er) {
                         return $er->createQueryBuilder('c')
                             ->orderBy('c.name', 'ASC');
@@ -141,14 +141,14 @@ class UserType extends AbstractType
                     'expanded' => false,
                     'attr'     => [
                         'class'            => 'selectpicker',
-                        'title'            => 'placeholder.multiple_select',
+                        'title'            => 'global.placeholder.multiple_select',
                         'data-live-search' => true,
                         'aria-label'       => 'Structures rattachées',
                         'autocomplete'     => 'organization',
                     ],
                 ])
                 ->add('ssoKey', TextType::class, [
-                    'label'    => 'user.user.form.sso_key',
+                    'label'    => 'user.user.label.sso_key',
                     'required' => false,
                     'attr'     => [
                         'maxlength' => 255,
@@ -179,7 +179,7 @@ class UserType extends AbstractType
             if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
                 $form->add('services', EntityType::class, [
                     'class'         => Service::class,
-                    'label'         => 'user.user.form.services',
+                    'label'         => 'user.user.label.services',
                     'disabled'      => $serviceDisabled,
                     'required'      => false,
                     'multiple'      => true,
@@ -189,7 +189,7 @@ class UserType extends AbstractType
             } else {
                 $form->add('services', EntityType::class, [
                     'class'         => Service::class,
-                    'label'         => 'user.user.form.services',
+                    'label'         => 'user.user.label.services',
                     'disabled'      => true,
                     'required'      => false,
                     'multiple'      => true,
@@ -213,7 +213,7 @@ class UserType extends AbstractType
         // Now add standard information
         $builder
             ->add('firstName', TextType::class, [
-                'label'    => 'user.user.form.first_name',
+                'label'    => 'user.user.label.first_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -222,7 +222,7 @@ class UserType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('lastName', TextType::class, [
-                'label'    => 'user.user.form.last_name',
+                'label'    => 'user.user.label.last_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -231,7 +231,7 @@ class UserType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('email', EmailType::class, [
-                'label'    => 'user.user.form.email',
+                'label'    => 'user.user.label.email',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -239,7 +239,7 @@ class UserType extends AbstractType
                 ],
             ])
             ->add('moreInfos', DictionaryType::class, [
-                'label'       => 'user.user.form.moreInfos',
+                'label'       => 'user.user.label.moreInfos',
                 'required'    => false,
                 'name'        => 'user_user_moreInfo',
                 'multiple'    => false,
@@ -249,13 +249,13 @@ class UserType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type'          => PasswordType::class,
                 'first_options' => [
-                    'label' => 'user.user.form.password',
+                    'label' => 'user.user.label.password',
                     'attr'  => [
                         'maxlength' => 255,
                     ],
                 ],
                 'second_options' => [
-                    'label' => 'user.user.form.password_repeat',
+                    'label' => 'user.user.label.password_repeat',
                     'attr'  => [
                         'maxlength' => 255,
                     ],
@@ -268,7 +268,7 @@ class UserType extends AbstractType
             $builder->add('emailNotificationPreference', EmailNotificationPreferenceType::class);
             if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
                 $builder->add('notGeneratesNotifications', CheckboxType::class, [
-                    'label'    => 'user.user.form.not_generates_notifications',
+                    'label'    => 'user.user.label.not_generates_notifications',
                     'required' => false,
                 ]);
             }

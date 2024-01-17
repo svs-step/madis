@@ -5,7 +5,7 @@
 
 {% block body_head %}
     <h1>
-        {{ 'reporting.dashboard.title.index'|trans }}
+        {{ 'reporting.dashboard.title'|trans }}
     </h1>
 {% endblock %}
 
@@ -21,7 +21,7 @@
                 <span class="info-box-icon bg-aqua"><i aria-hidden="true" class="fa fa-crosshairs"></i></span>
 
                 <div class="info-box-content">
-                    <span>Actions planifiées (moyenne)</span>
+                    <span>{{ 'reporting.dashboard.label.planified_action_average'|trans }}</span>
                     <span class="info-box-number">{{ data.mesurementByCollectivity.average|number_format(2, ',')}}</span>
                 </div>
             </div>
@@ -32,7 +32,7 @@
                 <span class="info-box-icon bg-red"><i aria-hidden="true" class="fa fa-file-shield"></i></span>
 
                 <div class="info-box-content">
-                    <span>Preuves déposées (moyenne)</span>
+                    <span>{{ 'reporting.dashboard.label.proof_average'|trans }}</span>
                     <span class="info-box-number">{{ data.proofByCollectivity.average|number_format(2, ',')}}</span>
                 </div>
             </div>
@@ -45,7 +45,7 @@
                 <span class="info-box-icon bg-green"><i aria-hidden="true" class="fa fa-clipboard-list"></i></span>
 
                 <div class="info-box-content">
-                    <span style="white-space: normal;">Structures ayant déposé un bilan (12 derniers mois)</span>
+                    <span style="white-space: normal;">{{ 'reporting.dashboard.label.reporting_review_average'|trans }}</span>
                     <span class="info-box-number">{{ data.balanceSheetProofByCollectivity.average|number_format }}<small>%</small></span>
                 </div>
             </div>
@@ -56,7 +56,7 @@
                 <span class="info-box-icon bg-yellow"><i aria-hidden="true" class="fa fa-chart-line"></i></span>
 
                 <div class="info-box-content">
-                    <span style="white-space: normal;">Structures ayant fait un indice de maturité (12 derniers mois)</span>
+                    <span style="white-space: normal;">{{ 'reporting.dashboard.label.maturity_survey_average'|trans }}</span>
                     <span class="info-box-number">{{ data.surveyLastYear.average|number_format }}<small>%</small></span>
                 </div>
             </div>
@@ -68,30 +68,33 @@
       <div class="col-sm-6 col-xs-12">
         <div class="box box-solid">
           <div class="box-header with-border">
-            <h3 class="box-title">Carte du territoire</h3>
+            <h3 class="box-title">{{ 'reporting.dashboard.tab.map'|trans }}</h3>
           </div>
           <div class="box-body no-padding map-wrapper">
             <div class="row">
               <div class="col-md-8 col-sm-8">
-                <div class="pad"> <div id="svg-map">
-                  {{source('@public_path'~asset(app_commune_svg_reduced_path))}}
-                </div></div>
+                <div class="pad">
+                  <div id="svg-map">
+                    {{source('@public_path'~asset(app_commune_svg_reduced_path))}}
+                  </div>
+                </div>
               </div>
-            <div class="col-md-4 col-sm-4 bg-green">
-              <div class="pad">
-                <p class="report text-center">
-                  <i aria-hidden="true" class="fa fa-house"></i>
-                  <span class="info-box-number">{{data.collectivityByAddressInsee.value.all}}</span>
-                  <span class="info-box-text">Structures</span>
-                </p>
-                <p class="report text-center">
-                  <i aria-hidden="true" class="fa fa-user-shield"></i>
-                  <span class="info-box-number">{{data.collectivityByAddressInsee.value.dpoPercent}} %</span>
-                  <span class="info-box-text">DPD</span>
-                </p>
+              <div class="col-md-4 col-sm-4 bg-green">
+                <div class="pad">
+                  <p class="report text-center">
+                    <i aria-hidden="true" class="fa fa-house"></i>
+                    <span class="info-box-number">{{data.collectivityByAddressInsee.value.all}}</span>
+                    <span class="info-box-text">{{ 'reporting.dashboard.label.total_structures'|trans }}</span>
+                  </p>
+                  <p class="report text-center">
+                    <i aria-hidden="true" class="fa fa-user-shield"></i>
+                    <span class="info-box-number">{{data.collectivityByAddressInsee.value.dpoPercent}} %</span>
+                    <span class="info-box-text">{{ 'reporting.dashboard.label.mutual_dpd'|trans }}</span>
+                  </p>
+                </div>
               </div>
             </div>
-            </div>
+            <div id="tooltip" class="tooltip-box text-left"></div>
           </div> <!-- end box body-->
         </div>
       </div>
@@ -109,11 +112,11 @@
         <div class="col-sm-6 col-xs-12">
           <div class="box box-solid">
               <div class="box-header with-border">
-                <h3 class="box-title">Structures</h3>
+                <h3 class="box-title">{{ 'reporting.dashboard.tab.structures'|trans }}</h3>
               </div>
               <div class="box-body">
                   {% if 0 == data.collectivityByType.value.all %}
-                      Aucune donnée à afficher
+                      {{ 'global.label.no_data'|trans }}
                   {% else %}
                       <div>
                           <canvas id="collectivity-type" width="400" height="200"></canvas>
@@ -126,41 +129,39 @@
         <div class="col-sm-6 col-xs-12">
             <div class="small-box bg-yellow">
               <div class="inner">
-                  <p>Exporter les traitements</p>
+                  <p>{{ 'reporting.dashboard.label.export_registry_treatments'|trans }}</p>
               </div>
-              <a aria-label="Exporter les traitements en CSV" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::TREATMENT_TYPE')}) }}" class="small-box-footer">
-                  Exporter <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
+              <a aria-label="{{ 'reporting.dashboard.label.export_registry_treatments_csv'|trans }}" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::TREATMENT_TYPE')}) }}" class="small-box-footer">
+                  {{ 'global.action.export'|trans }} <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
               </a>
             </div>
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <p>Exporter les sous-traitants</p>
+                    <p>{{ 'reporting.dashboard.label.export_registry_contractors'|trans }}</p>
                 </div>
-                <a aria-label="Exporter les sous-traitants en CSV" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::CONTRACTOR_TYPE')}) }}" class="small-box-footer">
-                    Exporter <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
+                <a aria-label="{{ 'reporting.dashboard.label.export_registry_contractors_csv'|trans }}" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::CONTRACTOR_TYPE')}) }}" class="small-box-footer">
+                    {{ 'global.action.export'|trans }} <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <p>Exporter les actions de protection</p>
+                    <p>{{ 'reporting.dashboard.label.export_registry_mesurements'|trans }}</p>
                 </div>
-                <a aria-label="Exporter les actions de protection en CSV" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::MESUREMENT_TYPE')}) }}" class="small-box-footer">
-                    Exporter <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
+                <a aria-label="{{ 'reporting.dashboard.label.export_registry_mesurements_csv'|trans }}" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::MESUREMENT_TYPE')}) }}" class="small-box-footer">
+                    {{ 'global.action.export'|trans }} <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
             <div class="small-box bg-yellow">
                 <div class="inner">
-                    <p>Exporter les structures</p>
+                    <p>{{ 'reporting.dashboard.label.export_user_collectivities'|trans }}</p>
                 </div>
-                <a aria-label="Exporter les structures en CSV" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::COLLECTIVITY_TYPE')}) }}" class="small-box-footer">
-                    Exporter <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
+                <a aria-label="{{ 'reporting.dashboard.label.export_user_collectivities_csv'|trans }}" href="{{ path('reporting_dashboard_generate_csv', {'exportType': constant('App\\Domain\\Reporting\\Handler\\ExportCsvHandler::COLLECTIVITY_TYPE')}) }}" class="small-box-footer">
+                    {{ 'global.action.export'|trans }} <i aria-hidden="true" class="fa fa-arrow-circle-right"></i>
                 </a>
             </div>
         </div>
     </div>
 
-
-    <div id="tooltip" class="tooltip-box text-left" title="commune"></div>
 {% endblock %}
 
 {% set inseeObjectFlatten = data.collectivityByAddressInsee.value.addressInsee %}

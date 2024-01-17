@@ -45,7 +45,7 @@ class DomainType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'maturity.referentiel.form.name',
+                'label'    => 'maturity.referentiel.label.section',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 1000,
@@ -54,7 +54,7 @@ class DomainType extends AbstractType
             ])
 
             ->add('description', TextareaType::class, [
-                'label'    => 'maturity.referentiel.form.description',
+                'label'    => 'maturity.referentiel.label.description',
                 'required' => false,
                 'attr'     => [
                     'rows' => 3,

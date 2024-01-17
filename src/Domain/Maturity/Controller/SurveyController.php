@@ -481,19 +481,19 @@ class SurveyController extends CRUDController
         return
             '<a href="' . $this->router->generate('maturity_survey_report', ['id' => $id]) . '">
                 <i aria-hidden="true" class="fa fa-print"></i> '
-            . $this->translator->trans('action.print') .
+            . $this->translator->trans('global.action.print') .
             '</a>' .
             '<a href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $id]) . '">
                 <i aria-hidden="true" class="fa fa-chart-line"></i> ' .
-            $this->translator->trans('action.synthesis') .
+            $this->translator->trans('global.action.synthesis') .
             '</a>' .
             '<a href="' . $this->router->generate('maturity_survey_edit', ['id' => $id]) . '">
                 <i aria-hidden="true" class="fa fa-pencil"></i> '
-            . $this->translator->trans('action.edit') .
+            . $this->translator->trans('global.action.edit') .
             '</a>' .
             '<a href="' . $this->router->generate('maturity_survey_delete', ['id' => $id]) . '">
                 <i aria-hidden="true" class="fa fa-trash"></i> ' .
-            $this->translator->trans('action.delete') .
+            $this->translator->trans('global.action.delete') .
             '</a>';
     }
 

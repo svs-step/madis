@@ -39,7 +39,8 @@
                     {{ form_row(form.type) }}
                     {{ form_row(form.siren) }}
                     {{ form_row(form.finessGeo) }}
-                    <!-- Pas d'option du statut, car rendre inactif la structure bloquerait l'utilisateur -->
+                    <!-- L'option du statut ne derait pas être présente dans sa structure, car ça bloquerait l'utilisateur, cependant, l'option s'affiche à la fin du formulaire si le champ n'est pas présent. -->
+                    {{ form_row(form.active) }}
                 {% endif %}
                 {{ form_row(form.website) }}
                 {{ form_row(form.nbrAgents) }}
@@ -164,8 +165,8 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a aria-label="{{ 'user.collectivity.action.back_to_list'|trans }}" href="{{ path('user_collectivity_list') }}" class="btn btn-default">
-                    {{ 'user.collectivity.action.back_to_list'|trans }}
+                <a href="{{ path('user_collectivity_list') }}" class="btn btn-default">
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>

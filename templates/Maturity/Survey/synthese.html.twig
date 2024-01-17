@@ -27,9 +27,9 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="action-bar">
-                    <a aria-label="{{ 'action.print'|trans }}" href="{{ path('maturity_survey_report', {'id': object.id}) }}" class="btn btn-default">
+                    <a href="{{ path('maturity_survey_report', {'id': object.id}) }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-print"></i>
-                        {{ 'action.print'|trans }}
+                        {{ 'global.action.print'|trans }}
                     </a>
                 </div>
             </div>
@@ -115,7 +115,7 @@
                 <div class="box box-solid">
                     <div class="box-body text-center">
                         <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
-                            {{ 'maturity.survey.action.back_to_list'|trans }}
+                            {{ 'global.action.back_to_list'|trans }}
                         </a>
                         <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
                     </div>

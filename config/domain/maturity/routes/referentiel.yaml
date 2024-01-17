@@ -9,7 +9,7 @@ maturity_referentiel_create:
     controller: 'App\Domain\Maturity\Controller\ReferentielController:createAction'
 
 maturity_referentiel_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Maturity\Controller\ReferentielController:editAction'
 

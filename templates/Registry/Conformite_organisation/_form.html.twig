@@ -5,7 +5,7 @@
 {% endif %}
 
 
-{% set draftValue = draftValue|default('action.draft'|trans) %}
+{% set draftValue = draftValue|default('global.action.draft'|trans) %}
 {% import _self as formMacros %}
 
 {% macro printParticipant(participant) %}
@@ -36,8 +36,8 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a aria-label="{{ 'registry.conformite_organisation.action.back_to_list'|trans }}" href="{{ path('registry_conformite_organisation_list') }}" class="btn btn-default">
-                    {{ 'registry.conformite_organisation.action.back_to_list'|trans }}
+                <a href="{{ path('registry_conformite_organisation_list') }}" class="btn btn-default">
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
                 {# Prevent those fields from being automatically rendered #}
                 {% do form.save.setRendered() %}

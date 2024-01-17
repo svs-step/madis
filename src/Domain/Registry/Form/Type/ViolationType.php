@@ -123,7 +123,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Natures de la violation',
                 ],
             ])
@@ -135,7 +135,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Origine de la perte de données',
                 ],
             ])
@@ -153,7 +153,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Nature des données concernées',
                 ],
             ])
@@ -165,7 +165,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Catégorie des personnes concernées',
                 ],
             ])
@@ -189,7 +189,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Nature des impacts potentiels pour les personnes',
                 ],
             ])
@@ -260,7 +260,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Traitements',
                 ],
             ])
@@ -281,7 +281,7 @@ class ViolationType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Sous-traitants',
                 ],
             ])

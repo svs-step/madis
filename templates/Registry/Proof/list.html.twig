@@ -15,9 +15,9 @@
         {{ 'registry.proof.title.list'|trans }}
         <small>
             {% if app.request.query.get('archive') == 'true' %}
-                {{ 'label.archived'|trans }}
+                {{ 'global.label.archived'|trans }}
             {% else %}
-                {{ 'label.not_archived'|trans }}
+                {{ 'global.label.not_archived'|trans }}
             {% endif %}
         </small>
     </h1>
@@ -56,9 +56,9 @@
                         </a>
                     {% endif %}
                     {% if category and category.documents|length > 0 %}
-                        <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                             <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'documentation.document.link.button'|trans }}
+                            {{ 'global.action.documentation'|trans }}
                         </a>
                     {% endif %}
                     {% if app.request.query.get('archive') != 'true' %}
@@ -115,7 +115,7 @@
                             <th scope="col">{{ 'registry.proof.list.comment'|trans }}</th>
                             <th scope="col">{{ 'registry.proof.list.created_at'|trans }}</th>
                             <th scope="col">{{ 'registry.proof.list.updated_at'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

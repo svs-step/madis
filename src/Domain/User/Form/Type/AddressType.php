@@ -39,7 +39,7 @@ class AddressType extends AbstractType
     {
         $builder
             ->add('lineOne', TextType::class, [
-                'label'    => 'user.address.form.line_one',
+                'label'    => 'global.label.address.line_one',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -47,7 +47,7 @@ class AddressType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('lineTwo', TextType::class, [
-                'label'    => 'user.address.form.line_two',
+                'label'    => 'global.label.address.line_two',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -55,7 +55,7 @@ class AddressType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('city', TextType::class, [
-                'label'    => 'user.address.form.city',
+                'label'    => 'global.label.address.city',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -63,7 +63,7 @@ class AddressType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('zipCode', TextType::class, [
-                'label'    => 'user.address.form.zip_code',
+                'label'    => 'global.label.address.zip_code',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 5,
@@ -71,7 +71,7 @@ class AddressType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('insee', TextType::class, [
-                'label'    => 'user.address.form.insee',
+                'label'    => 'global.label.address.insee',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,

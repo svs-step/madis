@@ -13,5 +13,5 @@ admin:
         title:
             duplicate: Traitement de la duplication
             new: Module de duplication
-        revert: Annuler la dernière duplication
-
+        action:
+            revert: Annuler la dernière duplication

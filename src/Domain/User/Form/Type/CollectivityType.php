@@ -107,8 +107,8 @@ class CollectivityType extends AbstractType
                     'label'    => 'user.collectivity.form.active',
                     'required' => true,
                     'choices'  => [
-                        'label.active'   => true,
-                        'label.inactive' => false,
+                        'global.label.active'   => true,
+                        'global.label.inactive' => false,
                     ],
                     'multiple' => false,
                     'expanded' => true,

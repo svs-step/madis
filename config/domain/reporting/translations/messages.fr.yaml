@@ -1,30 +1,53 @@
 reporting:
     dashboard:
-        breadcrumb:
-            index: Tableau de bord
+        title: Tableau de bord
+        breadcrumb: Tableau de bord
         tab:
-            contractor: Sous-traitants
-            maturity: Indice de maturité
-        title:
-            index: Tableau de bord
-        contractor:
-            adopted_security_features:
-                title: Adopte les éléments de sécurité
-            contractual_clauses_verified:
-                title: Clauses contractuelles
-            maintains_treatment_register:
-                title: Registre des traitements
-            sending_data_outside_eu:
-                title: Données hors UE
-        mesurement:
-            status:
-                title: Actions de protection
-        request:
-            type:
-                title: Type des demandes
-            status:
-                title: Statut des demandes
+            registry_contractors: Sous-traitants
+            registry_action_plan: Plan d'actions
+            registry_action_plan_subtitle: prochaines
+            maturity_survey: Indice de maturité
+            conformite_traitements: Conformité des traitements
+            conformite_structure: Conformité de la structure
+            reporting_journalisation: Journalisation
+            reporting_journalisation_subtitle: dernières actions
+            structures: Structures
+            security_measures: Mesures de sécurité
+            map: Carte du territoire
+        label:
+            requests_type: Type des demandes
+            requests_state: Statut des demandes
+            requests_to_do: Demandes à traiter
+            aipd_to_do: AIPD à réaliser
+            planified_action: Actions planifiées
+            planified_action_average: Actions planifiées (moyenne)
+            violation_to_do: Violations
+            action_done: Actions mises en place
+            proof_average: Preuves déposées (moyenne)
+            progress: Progression
+            reporting_review_average: Structures ayant déposé un bilan (12 derniers mois)
+            maturity_referentiel_error: Le référentiel contient moins de trois sections
+            maturity_survey_average: Structures ayant fait un indice de maturité (12 derniers mois)
+            total_structures: Structures
+            mutual_dpd: DPD
+            export_registry_treatments: Exporter les traitements
+            export_registry_treatments_csv: Exporter les traitements en CSV
+            export_registry_contractors: Exporter les sous-traitants
+            export_registry_contractors_csv: Exporter les sous-traitants en CSV
+            export_registry_mesurements: Exporter les actions de protection
+            export_registry_mesurements_csv: Exporter les actions de protection en CSV
+            export_user_collectivities: Exporter les structures
+            export_user_collectivities_csv: Exporter les structures en CSV
 
     journalisation:
-        title:
-            list: Journalisation des actions
+        title: Journalisation des actions
+        breadcrumb: Journalisation des actions
+        list:
+            id: Id
+            user_name: Nom d'utilisateur
+            email: Email utilisateur
+            date: Date
+            subject: Sujet
+            action: Action
+            action_name: Nom
+            link: Lien

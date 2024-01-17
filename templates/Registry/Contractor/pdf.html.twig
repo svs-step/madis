@@ -26,9 +26,9 @@
                             <td><strong>{{ 'registry.contractor.show.contractual_clauses_verified'|trans }}</strong></td>
                             <td>
                                 {% if object.contractualClausesVerified %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-red">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-red">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -36,9 +36,9 @@
                             <td><strong>{{ 'registry.contractor.show.adopted_security_features'|trans }}</strong></td>
                             <td>
                                 {% if object.adoptedSecurityFeatures %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-red">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-red">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -46,9 +46,9 @@
                             <td><strong>{{ 'registry.contractor.show.maintains_treatment_register'|trans }}</strong></td>
                             <td>
                                 {% if object.maintainsTreatmentRegister %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-red">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-red">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -56,9 +56,9 @@
                             <td><strong>{{ 'registry.contractor.show.sending_data_outside_eu'|trans }}</strong></td>
                             <td>
                                 {% if object.sendingDataOutsideEu %}
-                                    <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
                                 {% else %}
-                                    <span class="badge bg-red">{{ 'label.no'|trans }}</span>
+                                    <span class="badge bg-red">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
                             </td>
                         </tr>
@@ -82,9 +82,9 @@
                             <td>
                                 <span class="badge">
                                     {% if object.hasDpo %}
-                                        {{ 'label.yes'|trans }}
+                                        {{ 'global.label.yes'|trans }}
                                     {% else %}
-                                        {{ 'label.no'|trans }}
+                                        {{ 'global.label.no'|trans }}
                                     {% endif %}
                                 </span>
                             </td>

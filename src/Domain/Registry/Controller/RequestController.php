@@ -174,8 +174,8 @@ class RequestController extends CRUDController
 
         $reponse = $this->getBaseDataTablesResponse($request, $demandes, $criteria);
 
-        $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
-        $no  = '<span class="badge bg-red">' . $this->translator->trans('label.no') . '</span>';
+        $yes = '<span class="badge bg-green">' . $this->translator->trans('global.label.yes') . '</span>';
+        $no  = '<span class="badge bg-red">' . $this->translator->trans('global.label.no') . '</span>';
         // die();
         /** @var Model\Request $demande */
         foreach ($demandes as $demande) {
@@ -253,13 +253,13 @@ class RequestController extends CRUDController
         $user = $this->userProvider->getAuthenticatedUser();
         if ($user->getServices()->isEmpty() || $this->isRequestInUserServices($demande)) {
             return
-                '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_request_edit', ['id' => $demande->getId()]) . '">
+                '<a aria-label="' . $this->translator->trans('global.action.edit') . '" href="' . $this->router->generate('registry_request_edit', ['id' => $demande->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-pencil"></i> ' .
-                    $this->translator->trans('action.edit') . '
+                    $this->translator->trans('global.action.edit') . '
                 </a>
-                <a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('registry_request_delete', ['id' => $demande->getId()]) . '">
+                <a aria-label="' . $this->translator->trans('global.action.archive') . '" href="' . $this->router->generate('registry_request_delete', ['id' => $demande->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-archive"></i> ' .
-                    $this->translator->trans('action.archive') .
+                    $this->translator->trans('global.action.archive') .
                 '</a>';
         }
 

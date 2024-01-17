@@ -15,9 +15,9 @@
         {{ 'user.user.title.list'|trans }}
         <small>
             {% if app.request.query.get('archive') == 'true' %}
-                {{ 'label.archived'|trans }}
+                {{ 'global.label.archived'|trans }}
             {% else %}
-                {{ 'label.not_archived'|trans }}
+                {{ 'global.label.not_archived'|trans }}
             {% endif %}
         </small>
     </h1>
@@ -118,7 +118,7 @@
                             <th scope="col">{{ 'user.user.list.services'|trans }}</th>
                             <th scope="col">{{ 'user.user.list.created_at'|trans }}</th>
                             <th scope="col">{{ 'user.user.list.updated_at'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

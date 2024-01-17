@@ -26,9 +26,9 @@
         <div class="col-xs-12">
             <div class="action-bar">
                 {% if category and category.documents|length > 0 %}
-                    <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                         <i aria-hidden="true" class="fa fa-circle-info"></i>
-                        {{ 'documentation.document.link.button'|trans }}
+                        {{ 'global.action.documentation'|trans }}
                     </a>
                 {% endif %}
             </div>
@@ -88,7 +88,7 @@
                             <th scope="col">{{ 'registry.mesurement.list.observation'|trans }}</th>
                             <th scope="col">{{ 'registry.mesurement.list.created_at'|trans }}</th>
                             <th scope="col">{{ 'registry.mesurement.list.updated_at'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

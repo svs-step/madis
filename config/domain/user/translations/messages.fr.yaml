@@ -1,53 +1,6 @@
 user:
-    address:
-        form:
-            insee: Code INSEE
-            line_one: Adresse
-            line_two: Complément d'adresse
-            city: Ville
-            zip_code: Code postal
-
-    contact:
-        form:
-            civility: Civilité
-            first_name: Prénom
-            last_name: Nom
-            job: Fonction
-            mail: Email
-            phone_number: Téléphone
-            notification: Notification par email
-
-    notifications:
-        form:
-            frequency:
-                label: Fréquence
-                month: Mensuelle
-                week: Hebdomadaire
-                day: Quotidien
-                hour: Toutes les
-                each: À chaque notification
-                none: Aucune notification
-                label_hour: heures
-                monthly: Mensuelle le
-                weekly: Hebdomadaire le
-                dayly: Quotidien à
-                hourly: Toutes les
-            modules:
-                treatment: Traitements
-                subcontractor: Sous-traitants
-                request: Demandes
-                violation: Violations
-                proof: Preuves
-                protect_action: Actions de protection
-                maturity: Indice de maturité
-                treatment_conformity: Conformité des traitements
-                organization_conformity: Conformité de la structure
-                aipd: AIPD
-                document: Espace documentaire
-
     collectivity:
         action:
-            back_to_list: Retour à la liste
             back_to_show: Retour à la visualisation
             new: Nouvelle structure
             edit_submit: Modifier la structure
@@ -231,21 +184,18 @@ user:
     user:
         action:
             archived: Voir les utilisateurs archivés
-            back_to_list: Retour à la liste
-            new: Nouvel utilisateur
             not_archived: Voir les utilisateurs non archivés
-            edit_submit: Modifier l'utilisateur
+            new: Nouvel utilisateur
             new_submit: Créer l'utilisateur
+            edit_submit: Modifier l'utilisateur
         breadcrumb:
             list: Liste des utilisateurs
             create: Créer
-            delete: Archiver "%name%"
             edit: Modifier "%name%"
+            delete: Archiver "%name%"
             unarchive: Désarchiver "%name%"
-        form:
-            notifications: Notifications
+        label:
             apiAuthorized: Accès aux Web Services (API)
-            collectivity: Structure
             collectivitesReferees: Structures rattachées
             email: Email
             not_generates_notifications: Les actions de cet utilisateur ne génèrent pas de notification

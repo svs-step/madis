@@ -397,13 +397,13 @@ class MesurementController extends CRUDController
         return '<a href="' .
             $this->router->generate('registry_mesurement_edit', ['id' => $mesurement->getId()]) . '">
             <i aria-hidden="true" class="fa fa-pencil"></i> ' .
-            $this->translator->trans('action.edit')
+            $this->translator->trans('global.action.edit')
             . '</a>
 
             <a href="' .
             $this->router->generate('registry_mesurement_delete', ['id' => $mesurement->getId()]) .
             '"><i aria-hidden="true" class="fa fa-trash"></i> ' .
-            $this->translator->trans('action.delete')
+            $this->translator->trans('global.action.delete')
             . '</a>';
     }
 

@@ -23,7 +23,7 @@
         <li><a href="{{ path('logout') }}">Déconnexion</a></li>
         <li>
             <a href="{{ path('reporting_dashboard_index') }}">
-                <span>{{ 'sidebar_menu.dashboard'|trans }}</span>
+                <span>{{ 'global.sidebar_menu.dashboard'|trans }}</span>
             </a>
             <ul>
                 {% if app_activate_notifications %}
@@ -39,7 +39,7 @@
                     {% if is_granted('ROLE_ADMIN') %}
                         <li>
                             <a href="{{ path('registry_treatment_configuration') }}">
-                                <span>{{ 'sidebar_menu.configuration_treatments'|trans }}</span>
+                                <span>{{ 'global.sidebar_menu.configuration_treatments'|trans }}</span>
                             </a>
                         </li>
                     {% endif %}
@@ -102,7 +102,7 @@
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement == true %}
                     <li>
                         <a href="{{ path('aipd_analyse_impact_list') }}">
-                            <span>{{ 'sidebar_menu.aipd_analyse_impact'|trans }}</span>
+                            <span>{{ 'global.sidebar_menu.aipd_analyse_impact'|trans }}</span>
                         </a>
                     </li>
                 {% endif %}
@@ -114,27 +114,27 @@
                 {% if is_granted('ROLE_ADMIN') %}
                     <li>
                         <a href="{{ path('maturity_referentiel_list') }}">
-                            <span>{{ 'sidebar_menu.maturity_referentiel'|trans }}</span>
+                            <span>{{ 'global.sidebar_menu.maturity_referentiel'|trans }}</span>
                         </a>
                     </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement %}
                 <li>
                     <a href="{{ path('registry_conformite_traitement_list') }}">
-                        <span>{{ 'sidebar_menu.conformite_traitements'|trans }}</span>
+                        <span>{{ 'global.sidebar_menu.conformite_treatments'|trans }}</span>
                     </a>
                 </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteOrganisation %}
                     <li>
                         <a href="{{ path('registry_conformite_organisation_list') }}">
-                            <span>{{ 'sidebar_menu.conformite_structure'|trans }}</span>
+                            <span>{{ 'global.sidebar_menu.conformite_organization'|trans }}</span>
                         </a>
                     </li>
                 {% endif %}
                 <li>
                     <a href="{{ path('documentation_document_index') }}">
-                        <span>{{ 'sidebar_menu.documentation'|trans }}</span>
+                        <span>{{ 'global.sidebar_menu.documentation'|trans }}</span>
                     </a>
 
                 {% if is_granted('ROLE_ADMIN') %}
@@ -151,7 +151,7 @@
                     {% if is_granted('ROLE_ADMIN') %}
                         <li>
                             <a href="{{ path('admin_duplication_new') }}">
-                                <span>{{ 'sidebar_menu.admin_duplication'|trans }}</span>
+                                <span>{{ 'global.sidebar_menu.admin_duplication'|trans }}</span>
                             </a>
                         </li>
                     {% endif %}
@@ -162,7 +162,7 @@
                         <ul>
                             <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
                                 <a href="{{ path('user_profile_collectivity_show') }}">
-                                    <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
+                                    <span>{{ 'global.sidebar_menu.user_organization'|trans }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -179,7 +179,7 @@
                             </li>
                             <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
                                 <a href="{{ path('user_profile_user_edit') }}">
-                                    <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
+                                    <span>{{ 'global.sidebar_menu.user_profile'|trans }}</span>
                                 </a>
                             </li>
                         </ul>
@@ -188,19 +188,19 @@
                 {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_REFERENT')%}
                     <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
                         <a href="{{ path('user_profile_collectivity_show') }}">
-                            <span>{{ 'sidebar_menu.user_profile_collectivity'|trans }}</span>
+                            <span>{{ 'global.sidebar_menu.user_organization'|trans }}</span>
                         </a>
                     </li>
                     <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
                         <a href="{{ path('user_profile_user_edit') }}">
-                            <span>{{ 'sidebar_menu.user_profile_user'|trans }}</span>
+                            <span>{{ 'global.sidebar_menu.user_profile'|trans }}</span>
                         </a>
                     </li>
                 {% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <li>
                         <a href="{{ path('reporting_journalisation_index') }}">
-                            <span>{{ 'sidebar_menu.reporting_journalisation'|trans }} des actions</span>
+                            <span>{{ 'global.sidebar_menu.reporting_journalisation'|trans }} des actions</span>
                         </a>
                     </li>
                 {% endif %}

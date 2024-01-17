@@ -32,8 +32,8 @@
                     <a aria-label="{{ 'registry.mesurement.action.back_to_list'|trans }}" href="{{ path('registry_mesurement_list') }}" class="btn btn-default">
                         {{ 'registry.mesurement.action.back_to_list'|trans }}
                     </a>
-                    <a aria-label="{{ 'action.confirm_delete'|trans }}" href="{{ path('registry_mesurement_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_delete'|trans }}
+                    <a href="{{ path('registry_mesurement_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'global.action.confirm_delete'|trans }}
                     </a>
                 </div>
             </div>

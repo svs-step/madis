@@ -42,13 +42,13 @@ class ResetPasswordType extends AbstractType
                 'type'          => PasswordType::class,
                 'first_options' => [
                     'attr' => [
-                        'placeholder' => 'user.user.form.password',
+                        'placeholder' => 'user.user.label.password',
                     ],
                     'label' => false,
                 ],
                 'second_options' => [
                     'attr' => [
-                        'placeholder' => 'user.user.form.password_repeat',
+                        'placeholder' => 'user.user.label.password_repeat',
                     ],
                     'label' => false,
                 ],

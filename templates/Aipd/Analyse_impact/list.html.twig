@@ -29,7 +29,7 @@
                 {% if category and category.documents|length > 0 %}
                     <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                         <i aria-hidden="true" class="fa fa-circle-info"></i>
-                        {{ 'documentation.document.link.button'|trans }}
+                        {{ 'global.action.documentation'|trans }}
                     </a>
                 {% endif %}
             </div>
@@ -71,7 +71,7 @@
                             <th scope="col">{{ 'aipd.analyse_impact.list.avis_dpd'|trans }}</th>
                             <th scope="col">{{ 'aipd.analyse_impact.list.avis_representant'|trans }}</th>
                             <th scope="col">{{ 'aipd.analyse_impact.list.avis_responsable'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

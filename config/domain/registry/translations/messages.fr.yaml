@@ -1,5 +1,4 @@
 registry:
-
     address:
         form:
             city: Ville
@@ -811,7 +810,6 @@ registry:
                 edit: Conformité du traitement "%object%" modifiée avec succès
                 create: Conformité du traitement "%object%" créée avec succès
 
-
     conformite_organisation:
         title:
             create: Créer une évaluation
@@ -848,10 +846,6 @@ registry:
                 delete: Conformité de la structure "%object%" supprimée avec succès
         action:
             create: Nouvelle évaluation de la structure
-            back_to_list: Retour à la liste
-            edit: Modifier
-            delete: Supprimer
-            report: Générer une impression
-            print: Imprimer
+            pilote_submit: Modifier les pilotes
             new_submit: Créer l'évaluation de la structure
             edit_submit: Modifier l'évaluation de la structure

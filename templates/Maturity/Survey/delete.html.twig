@@ -29,11 +29,11 @@
                     Souhaitez vous vraiment supprimer l'indice de maturité du {{ object.createdAt|date('d/m/Y') }} ?
                 </div>
                 <div class="box-footer">
-                    <a aria-label="{{ 'maturity.survey.action.back_to_list'|trans }}" href="{{ path('maturity_survey_list') }}" class="btn btn-default">
-                        {{ 'maturity.survey.action.back_to_list'|trans }}
+                    <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
-                    <a aria-label="{{ 'action.confirm_delete'|trans }}" href="{{ path('maturity_survey_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_delete'|trans }}
+                    <a href="{{ path('maturity_survey_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'global.action.confirm_delete'|trans }}
                     </a>
                 </div>
             </div>

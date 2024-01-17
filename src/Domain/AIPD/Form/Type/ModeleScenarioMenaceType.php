@@ -35,7 +35,7 @@ class ModeleScenarioMenaceType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                 ],
             ])
             ->add('isVisible', CheckboxType::class, [

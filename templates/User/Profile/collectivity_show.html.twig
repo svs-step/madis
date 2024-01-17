@@ -24,9 +24,9 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('user_profile_collectivity_edit') }}" class="btn btn-default">
+                <a href="{{ path('user_profile_collectivity_edit') }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-pencil"></i>
-                    {{ 'action.edit'|trans }}
+                    {{ 'global.action.edit'|trans }}
                 </a>
             </div>
         </div>
@@ -67,9 +67,9 @@
                                 <td><strong>{{ 'user.collectivity.show.active'|trans }}</strong></td>
                                 <td>
                                     {% if object.active %}
-                                        <span class="badge bg-green">{{ 'label.active'|trans }}</span>
+                                        <span class="badge bg-green">{{ 'global.label.active'|trans }}</span>
                                     {% else %}
-                                        <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
+                                        <span class="badge bg-red">{{ 'global.label.inactive'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -144,9 +144,9 @@
                                     <td>
                                         <span class="badge">
                                             {% if object.hasModuleTools %}
-                                                {{ 'label.yes'|trans }}
+                                                {{ 'global.label.yes'|trans }}
                                             {% else %}
-                                                {{ 'label.no'|trans }}
+                                                {{ 'global.label.no'|trans }}
                                             {% endif %}
                                         </span>
                                     </td>
@@ -156,9 +156,9 @@
                                     <td>
                                         <span class="badge">
                                             {% if object.hasModuleConformiteTraitement %}
-                                                {{ 'label.yes'|trans }}
+                                                {{ 'global.label.yes'|trans }}
                                             {% else %}
-                                                {{ 'label.no'|trans }}
+                                                {{ 'global.label.no'|trans }}
                                             {% endif %}
                                         </span>
                                     </td>
@@ -168,9 +168,9 @@
                                     <td>
                                         <span class="badge">
                                             {% if object.hasModuleConformiteOrganisation %}
-                                                {{ 'label.yes'|trans }}
+                                                {{ 'global.label.yes'|trans }}
                                             {% else %}
-                                                {{ 'label.no'|trans }}
+                                                {{ 'global.label.no'|trans }}
                                             {% endif %}
                                         </span>
                                     </td>
@@ -180,9 +180,9 @@
                                     <td>
                                         <span class="badge">
                                             {% if object.isServicesEnabled %}
-                                                {{ 'label.yes'|trans }}
+                                                {{ 'global.label.yes'|trans }}
                                             {% else %}
-                                                {{ 'label.no'|trans }}
+                                                {{ 'global.label.no'|trans }}
                                             {% endif %}
                                         </span>
                                     </td>
@@ -301,9 +301,9 @@
                                     <td>
                                         <span class="badge">
                                             {% if object.differentDpo %}
-                                                {{ 'label.yes'|trans }}
+                                                {{ 'global.label.yes'|trans }}
                                             {% else %}
-                                                {{ 'label.no'|trans }}
+                                                {{ 'global.label.no'|trans }}
                                             {% endif %}
                                         </span>
                                     </td>
@@ -413,9 +413,9 @@
                                     <td>
                                         <span class="badge">
                                             {% if object.differentItManager %}
-                                                {{ 'label.yes'|trans }}
+                                                {{ 'global.label.yes'|trans }}
                                             {% else %}
-                                                {{ 'label.no'|trans }}
+                                                {{ 'global.label.no'|trans }}
                                             {% endif %}
                                         </span>
                                     </td>
@@ -507,9 +507,9 @@
                                 <td>{{ user.email }}</td>
                                 <td>
                                     {% if user.enabled %}
-                                        <span class="badge bg-green">{{ 'label.active'|trans }}</span>
+                                        <span class="badge bg-green">{{ 'global.label.active'|trans }}</span>
                                     {% else %}
-                                        <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
+                                        <span class="badge bg-red">{{ 'global.label.inactive'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>

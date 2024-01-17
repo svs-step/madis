@@ -30,13 +30,13 @@
                     <i aria-hidden="true" class="fa fa-arrow-left"></i>
                     {{ 'registry.mesurement.action.back_to_list'|trans }}
                 </a>
-                <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('registry_mesurement_edit', {'id': object.id}) }}" class="btn btn-default">
+                <a href="{{ path('registry_mesurement_edit', {'id': object.id}) }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-pencil"></i>
-                    {{ 'action.edit'|trans }}
+                    {{ 'global.action.edit'|trans }}
                 </a>
-                <a aria-label="{{ 'action.print'|trans }}" href="{{ path('registry_mesurement_pdf', {'id': object.id}) }}" class="btn btn-default">
+                <a href="{{ path('registry_mesurement_pdf', {'id': object.id}) }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-print"></i>
-                    {{ 'action.print'|trans }}
+                    {{ 'global.action.print'|trans }}
                 </a>
             </div>
         </div>
@@ -162,7 +162,7 @@
 
             {# CONTRACTORS #}
             <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_contractors'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.label.linked_contractor'|trans }}</h3></div>
                 <div class="box-body">
                     {% if object.contractors and object.contractors |length %}
                         <ul>
@@ -173,14 +173,14 @@
                             {% endfor %}
                         </ul>
                     {% else %}
-                        {{ 'label.no_linked_contractors'|trans }}
+                        {{ 'global.label.no_linked_contractor'|trans }}
                     {% endif %}
                 </div>
             </div>
 
             {# TREATMENTS #}
             <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_treatment'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.label.linked_treatment'|trans }}</h3></div>
                 <div class="box-body">
                     {% if object.treatments and object.treatments |length %}
                         <ul>
@@ -191,14 +191,14 @@
                             {% endfor %}
                         </ul>
                     {% else %}
-                        {{ 'label.no_linked_treatment'|trans }}
+                        {{ 'global.label.no_linked_treatment'|trans }}
                     {% endif %}
                 </div>
             </div>
 
             {# DEMANDS #}
             <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_request'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.label.linked_request'|trans }}</h3></div>
                 <div class="box-body">
                     {% if object.requests and object.requests |length %}
                         <ul>
@@ -210,14 +210,14 @@
                         </ul>
 
                     {% else %}
-                        {{ 'label.no_linked_requests'|trans }}
+                        {{ 'global.label.no_linked_request'|trans }}
                     {% endif %}
                 </div>
             </div>
 
             {# VIOLATIONS #}
             <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_violations'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.label.linked_violation'|trans }}</h3></div>
                 <div class="box-body">
                     {% if object.violations and object.violations |length %}
                         <ul>
@@ -228,7 +228,7 @@
                             {% endfor %}
                         </ul>
                     {% else %}
-                        {{ 'label.no_linked_violations'|trans }}
+                        {{ 'global.label.no_linked_violation'|trans }}
                     {% endif %}
                 </div>
             </div>

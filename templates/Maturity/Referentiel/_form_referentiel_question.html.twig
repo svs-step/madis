@@ -23,7 +23,7 @@
 
     <div class="collapse box-body" id="question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}">
 
-        <p>Réponses :</p>
+        <p>{{ 'maturity.referentiel.label.answers'|trans }}</p>
 
         <div style="display: flex;align-items: center;gap: 10px;">
             {{ form_row(form.optional) }}

@@ -76,8 +76,8 @@ class MesurementGenerator extends AbstractGenerator
 
     public function initializeExtract(): array
     {
-        $this->yes = $this->translator->trans('label.yes');
-        $this->no  = $this->translator->trans('label.no');
+        $this->yes = $this->translator->trans('global.label.yes');
+        $this->no  = $this->translator->trans('global.label.no');
 
         $headers = array_merge(
             ['Nom'],
@@ -175,7 +175,7 @@ class MesurementGenerator extends AbstractGenerator
     private function mesurementProofHeaders()
     {
         return [
-            $this->translator->trans('label.linked_documents'),
+            $this->translator->trans('global.label.linked_document'),
         ];
     }
 

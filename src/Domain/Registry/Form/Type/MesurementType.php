@@ -178,7 +178,7 @@ class MesurementType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Sous-traitants',
                 ],
             ])
@@ -207,7 +207,7 @@ class MesurementType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Traitements',
                 ],
             ])
@@ -235,7 +235,7 @@ class MesurementType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Violations',
                 ],
             ])
@@ -263,7 +263,7 @@ class MesurementType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Demandes',
                 ],
             ])
@@ -299,7 +299,7 @@ class MesurementType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Logiciels et supports',
                 ],
             ]);

@@ -40,7 +40,7 @@ class AnswerType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'maturity.referentiel.form.answer.name',
+                'label'    => 'maturity.referentiel.label.answer',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 1000,
@@ -49,7 +49,7 @@ class AnswerType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('recommendation', TextType::class, [
-                'label'    => 'maturity.referentiel.form.recommendation',
+                'label'    => 'maturity.referentiel.label.recommendation',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 1000,

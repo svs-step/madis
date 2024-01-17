@@ -52,7 +52,7 @@
             <div class="box box-solid" >
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        {{ 'maturity.referentiel.form.informations_generales'|trans }}
+                        {{ 'global.tab.general'|trans }}
                     </h3>
                 </div>
                 <div class="box-body">
@@ -65,7 +65,7 @@
         </div>
 
         <div class="col-md-12">
-            <h3 style="margin-top: 0;">Référentiel</h3>
+            <h3 style="margin-top: 0;">{{ 'maturity.referentiel.title.referentiel'|trans }}</h3>
 
             {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
             <div id="prototypes"
@@ -89,7 +89,7 @@
             <div class="box box-solid">
                 <div class="box-body text-center">
                     <a href="{{ path('maturity_referentiel_list') }}" class="btn btn-default">
-                        {{ 'maturity.referentiel.action.back_to_list'|trans }}
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
                     <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
                 </div>

@@ -160,8 +160,8 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function initializeTreatmentGeneralInformations(\App\Domain\Registry\Model\Treatment $treatment): array
     {
-        $yes = $this->translator->trans('label.yes');
-        $no  = $this->translator->trans('label.no');
+        $yes = $this->translator->trans('global.label.yes');
+        $no  = $this->translator->trans('global.label.no');
 
         $goal                    = $treatment->getGoal();
         $legalBasisJustification = $treatment->getLegalBasisJustification();
@@ -181,7 +181,7 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getCoordonneesResponsableTraitement(),
             $goal,
             $treatment->getManager(),
-            $treatment->isActive() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
+            $treatment->isActive() ? $this->translator->trans('global.label.active') : $this->translator->trans('global.label.inactive'),
             !\is_null($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
             $legalBasisJustification,
             $observation,
@@ -282,8 +282,8 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function initializeTreatmentDetails(\App\Domain\Registry\Model\Treatment $treatment): array
     {
-        $yes = $this->translator->trans('label.yes');
-        $no  = $this->translator->trans('label.no');
+        $yes = $this->translator->trans('global.label.yes');
+        $no  = $this->translator->trans('global.label.no');
 
         $shelfLifes = $treatment->getShelfLifes();
 
@@ -318,7 +318,7 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getConcernedPeopleOther()->getComment(),
             $treatment->getEstimatedConcernedPeople(),
             $treatment->getCollectivity() && $treatment->getCollectivity()->isHasModuleTools() ? $treatment->getToolsString() : $treatment->getSoftware(),
-            $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
+            $treatment->isPaperProcessing() ? $this->translator->trans('global.label.active') : $this->translator->trans('global.label.inactive'),
             $duration,
             $name,
             $ultimateFate,
@@ -352,8 +352,8 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function initializeTreatmentSecurity(\App\Domain\Registry\Model\Treatment $treatment): array
     {
-        $yes = $this->translator->trans('label.yes');
-        $no  = $this->translator->trans('label.no');
+        $yes = $this->translator->trans('global.label.yes');
+        $no  = $this->translator->trans('global.label.no');
 
         return [
             $treatment->getSecurityAccessControl()->isCheck() ? $yes : $no,
@@ -390,8 +390,8 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function initializeTreatmentSpecific(\App\Domain\Registry\Model\Treatment $treatment): array
     {
-        $yes = $this->translator->trans('label.yes');
-        $no  = $this->translator->trans('label.no');
+        $yes = $this->translator->trans('global.label.yes');
+        $no  = $this->translator->trans('global.label.no');
 
         return [
             $treatment->isSystematicMonitoring() ? $yes : $no,
@@ -408,7 +408,7 @@ class TreatmentGenerator extends AbstractGenerator
     private function treatmentProofHeaders()
     {
         return [
-            'Nb ' . $this->translator->trans('label.linked_documents'),
+            'Nb ' . $this->translator->trans('global.label.linked_document'),
         ];
     }
 

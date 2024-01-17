@@ -67,12 +67,12 @@ class ContactType extends AbstractType
 
         $builder
             ->add('civility', DictionaryType::class, [
-                'label'    => 'user.contact.form.civility',
+                'label'    => 'global.label.contact.civility',
                 'required' => $required,
                 'name'     => 'user_contact_civility',
             ])
             ->add('firstName', TextType::class, [
-                'label'    => 'user.contact.form.first_name',
+                'label'    => 'global.label.contact.first_name',
                 'required' => $required,
                 'attr'     => [
                     'maxlength' => 255,
@@ -80,7 +80,7 @@ class ContactType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('lastName', TextType::class, [
-                'label'    => 'user.contact.form.last_name',
+                'label'    => 'global.label.contact.last_name',
                 'required' => $required,
                 'attr'     => [
                     'maxlength' => 255,
@@ -88,7 +88,7 @@ class ContactType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('job', TextType::class, [
-                'label'    => 'user.contact.form.job',
+                'label'    => 'global.label.contact.job',
                 'required' => $required,
                 'attr'     => [
                     'maxlength' => 255,
@@ -96,7 +96,7 @@ class ContactType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('mail', EmailType::class, [
-                'label'    => 'user.contact.form.mail',
+                'label'    => 'global.label.contact.email',
                 'required' => $isComiteIl ? false : $required,
                 'attr'     => [
                     'maxlength' => 255,
@@ -114,13 +114,13 @@ class ContactType extends AbstractType
             )
         ) {
             $builder->add('notification', CheckboxType::class, [
-                'label'    => 'user.contact.form.notification',
+                'label'    => 'notifications.label.activate_notification_email',
                 'required' => false,
             ]);
         }
 
         $builder->add('phoneNumber', TextType::class, [
-            'label'    => 'user.contact.form.phone_number',
+            'label'    => 'global.label.contact.phone_number',
             'required' => $isComiteIl ? false : $required,
             'attr'     => [
                 'maxlength' => 10,

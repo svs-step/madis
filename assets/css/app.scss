@@ -225,6 +225,9 @@ td div.bootstrap-select {
     }
   }
 }
+.dropdown.bootstrap-select {
+    width: 100% !important;
+}
 .bootstrap-select > div.dropdown-menu {
   width: 100%;
   min-width: 100% !important;

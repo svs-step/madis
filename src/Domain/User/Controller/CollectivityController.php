@@ -136,8 +136,8 @@ class CollectivityController extends CRUDController
         $collectivities = $this->getResults($request, $criteria);
         $reponse        = $this->getBaseDataTablesResponse($request, $collectivities, $criteria);
 
-        $active   = '<span class="badge bg-green">' . $this->translator->trans('label.active') . '</span>';
-        $inactive = '<span class="badge bg-red">' . $this->translator->trans('label.inactive') . '</span>';
+        $active   = '<span class="badge bg-green">' . $this->translator->trans('global.label.active') . '</span>';
+        $inactive = '<span class="badge bg-red">' . $this->translator->trans('global.label.inactive') . '</span>';
         /** @var Model\Collectivity $collectivity */
         foreach ($collectivities as $collectivity) {
             $reponse['data'][] = [
@@ -169,14 +169,14 @@ class CollectivityController extends CRUDController
             return;
         }
 
-        $cellContent = '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('user_collectivity_edit', ['id' => $collectivity->getId()]) . '">
+        $cellContent = '<a aria-label="' . $this->translator->trans('global.action.edit') . '" href="' . $this->router->generate('user_collectivity_edit', ['id' => $collectivity->getId()]) . '">
             <i aria-hidden="true" class="fa fa-pencil"></i> ' .
-            $this->translator->trans('action.edit') .
+            $this->translator->trans('global.action.edit') .
         '</a>';
 
-        $cellContent .= '<a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $this->router->generate('user_collectivity_delete', ['id' => $collectivity->getId()]) . '">
+        $cellContent .= '<a aria-label="' . $this->translator->trans('global.action.delete') . '" href="' . $this->router->generate('user_collectivity_delete', ['id' => $collectivity->getId()]) . '">
             <i aria-hidden="true" class="fa fa-trash"></i> ' .
-            $this->translator->trans('action.delete') .
+            $this->translator->trans('global.action.delete') .
         '</a>';
 
         return $cellContent;

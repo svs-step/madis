@@ -153,7 +153,7 @@ class ProofType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Traitements',
                 ],
                 'required' => false,
@@ -173,7 +173,7 @@ class ProofType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Sous-traitants',
                 ],
                 'required' => false,
@@ -193,7 +193,7 @@ class ProofType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Actions de protection',
                 ],
                 'required' => false,
@@ -224,7 +224,7 @@ class ProofType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Demandes',
                 ],
                 'required' => false,
@@ -254,7 +254,7 @@ class ProofType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Violations',
                 ],
                 'required' => false,
@@ -289,7 +289,7 @@ class ProofType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Logiciels et supports',
                 ],
             ]);

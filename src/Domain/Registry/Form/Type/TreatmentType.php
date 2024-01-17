@@ -184,7 +184,7 @@ class TreatmentType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Catégorie des données',
                 ],
             ])
@@ -237,7 +237,7 @@ class TreatmentType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Sous-traitants',
                 ],
             ])
@@ -297,8 +297,8 @@ class TreatmentType extends AbstractType
                 'label'    => 'registry.treatment.form.active',
                 'required' => true,
                 'choices'  => [
-                    'label.active'   => true,
-                    'label.inactive' => false,
+                    'global.label.active'   => true,
+                    'global.label.inactive' => false,
                 ],
                 'multiple' => false,
                 'expanded' => true,
@@ -322,11 +322,11 @@ class TreatmentType extends AbstractType
                 'required'    => false,
                 'expanded'    => false,
                 'multiple'    => true,
-                'placeholder' => 'placeholder.precision',
+                'placeholder' => 'global.placeholder.precision',
                 'attr'        => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Moyens de la collecte',
                 ],
             ])
@@ -425,7 +425,7 @@ class TreatmentType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Logiciels et supports',
                 ],
             ]);
