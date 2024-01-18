@@ -75,6 +75,7 @@ class QuestionType extends AbstractType
                 'label'    => false,
                 'required' => false,
                 'attr'     => [
+                    'placeholder' => 'maturity.referentiel.placeholder.not_concerned',
                     'maxlength'   => 1000,
                 ],
                 'purify_html' => true,

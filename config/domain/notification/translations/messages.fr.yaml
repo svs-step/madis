@@ -10,6 +10,11 @@ notifications:
         list: Centre de notifications
         delete: Supprimer une notification
     label:
+        de: de
+        par: par
+        du: du
+        update: Modification
+        delete: Suppression
         no_login: Inactif
         validation: Validation nécéssaire
         treatment_needs_aipd: Nécéssité de faire une AIPD

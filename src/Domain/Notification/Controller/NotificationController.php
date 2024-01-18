@@ -155,8 +155,8 @@ class NotificationController extends CRUDController
 
         /** @var Model\Notification $notification */
         foreach ($notifications as $notification) {
-            $read   = '<span class="badge bg-green">' . $this->translator->trans('notification.state.read') . '</span>';
-            $unread = '<span class="badge bg-yellow">' . $this->translator->trans('notification.state.unread') . '</span>';
+            $read   = '<span class="badge bg-green">' . $this->translator->trans('notifications.label.read') . '</span>';
+            $unread = '<span class="badge bg-yellow">' . $this->translator->trans('notifications.label.unread') . '</span>';
 
             $link = $this->getObjectLink($notification);
 
@@ -216,12 +216,12 @@ class NotificationController extends CRUDController
             if (null === $notification->getReadAt()) {
                 $html .= '<a href="' . $this->router->generate('notification_notification_mark_as_read', ['id' => $id]) . '">
 <i aria-hidden="true" class="fas fa-clipboard-check"></i>&nbsp;
-                ' . $this->translator->trans('notification.notification.action.mark_as_read') . '
+                ' . $this->translator->trans('notifications.action.mark_as_read') . '
                 </a>';
             } else {
                 $html .= ' <a href="' . $this->router->generate('notification_notification_mark_as_unread', ['id' => $id]) . '">
 <i aria-hidden="true" class="fas fa-clipboard"></i>&nbsp;
-                ' . $this->translator->trans('notification.notification.action.mark_as_unread') . '
+                ' . $this->translator->trans('notifications.action.mark_as_unread') . '
                 </a>';
             }
         } else {
@@ -231,12 +231,12 @@ class NotificationController extends CRUDController
             if ($notificationUser && null === $notificationUser->getReadAt()) {
                 $html .= '<a href="' . $this->router->generate('notification_notification_mark_as_read', ['id' => $id]) . '">
 <i aria-hidden="true" class="fas fa-clipboard-check"></i>&nbsp;
-                ' . $this->translator->trans('notification.notification.action.mark_as_read') . '
+                ' . $this->translator->trans('notifications.action.mark_as_read') . '
                 </a>';
             } else {
                 $html .= ' <a href="' . $this->router->generate('notification_notification_mark_as_unread', ['id' => $id]) . '">
 <i aria-hidden="true" class="fas fa-clipboard"></i>&nbsp;
-                ' . $this->translator->trans('notification.notification.action.mark_as_unread') . '
+                ' . $this->translator->trans('notifications.action.mark_as_unread') . '
                 </a>';
             }
         }

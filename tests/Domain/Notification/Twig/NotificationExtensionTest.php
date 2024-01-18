@@ -59,9 +59,9 @@ class NotificationExtensionTest
         $this->translatorProphecy->trans('notification.modules.treatment')->willReturn('Traitements');
         $this->translatorProphecy->trans('notification.modules.violation')->willReturn('Violations');
         $this->translatorProphecy->trans('notification.actions.create')->willReturn('Création');
-        $this->translatorProphecy->trans('global.label.de')->willReturn('de');
-        $this->translatorProphecy->trans('global.label.par')->willReturn('par');
-        $this->translatorProphecy->trans('global.label.du')->willReturn('du');
+        $this->translatorProphecy->trans('notifications.label.de')->willReturn('de');
+        $this->translatorProphecy->trans('notifications.label.par')->willReturn('par');
+        $this->translatorProphecy->trans('notifications.label.du')->willReturn('du');
 
         $this->extension = new NotificationExtension(
             $this->translatorProphecy->reveal(),

@@ -11,7 +11,6 @@ global:
         connexion: Connexion
         create: Créer
         delete: Supprimer
-        deletion: Suppression
         documentation: Ressources utiles
         download: Télécharger
         draft: Enregistrer un brouillon
@@ -30,9 +29,6 @@ global:
         read_more: Plus d'informations
 
     label:
-        de: de
-        par: par
-        du: du
         actions: Actions
         active: Actif
         inactive: Inactif

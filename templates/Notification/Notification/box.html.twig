@@ -4,7 +4,7 @@
     <div class="box-header with-border" style="list-style: none;">
         <h3 class="box-title">Vous avez {{ notifs|length }} notifications non lues</h3>
         {% if notifs|length > 0 %}
-            <a id="read-all" href="{{ path('notification_notification_mark_as_read_all') }}" style="float:right;">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
+            <a id="read-all" href="{{ path('notification_notification_mark_as_read_all') }}" style="float:right;">{{ 'notifications.action.mark_as_read_all'|trans }}</a>
         {% endif %}
     </div>
 
@@ -26,7 +26,7 @@
                 </div>
                 <div class="col-md-4 text-center">
                     <a  href="{{ path('notification_notification_mark_as_read', { 'id': notif.id }) }}" class="btn btn-block text-info" style="border-color: #31708f;background-color:white;">
-                        <i aria-hidden="true" class="fas fa-clipboard-check"></i> {{ 'notification.notification.action.mark_as_read'|trans }}
+                        <i aria-hidden="true" class="fas fa-clipboard-check"></i> {{ 'notifications.action.mark_as_read'|trans }}
                     </a>
                 </div>
             </div>

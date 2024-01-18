@@ -29,13 +29,8 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    <p>
-                        Souhaitez vous vraiment supprimer le referentiel <b>{{ object.name }}</b> du {{ object.createdAt|date('d/m/Y') }} ?
-                    </p>
-                    <p>
-                        <b>La suppression de ce référentiel entraînera la suppression des indices de maturité liés pour les structures suivantes&nbsp;:</b>
-                    </p>
-
+                    <p>{{ 'maturity.referentiel.label.delete_related_objects_error'|trans({'%object%': object.name, '%date%': object.createdAt|date('d/m/Y')}) }}</p>
+                    <p><b>{{ 'maturity.referentiel.label.delete_info'|trans }}</b></p>
                     <ul>
                         {% for collectivity in object.surveys|map(s => s.collectivity.name)|reduce(
                             (unique, item) => item in unique ? unique : unique|merge([item]), []
@@ -45,7 +40,6 @@
                             </li>
                         {% endfor %}
                     </ul>
-
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('maturity_referentiel_list') }}" class="btn btn-default">

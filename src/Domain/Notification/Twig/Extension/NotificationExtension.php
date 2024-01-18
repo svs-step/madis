@@ -62,14 +62,14 @@ class NotificationExtension extends AbstractExtension
             case 'notifications.actions.late_request':
             case 'notification.actions.late_request':
                 $link = $this->getObjectLink($notification);
-                $sentence .= $this->translator->trans('notifications.sentence.late_request', [
+                $sentence .= $this->translator->trans('notifications.label.sentence.late_request', [
                     '%name%' => '<a href="' . $link . '">' . $notification->getName() . '</a> ',
                     '%days%' => $this->requestDays,
                 ]) . ' ';
                 break;
             case 'notifications.actions.late_survey':
             case 'notification.actions.late_survey':
-                $sentence .= ' ' . $this->translator->trans('notifications.sentence.late_survey', [
+                $sentence .= ' ' . $this->translator->trans('notifications.label.sentence.late_survey', [
                     '%days%' => $this->surveyDays,
                 ]) . ' ';
                 break;

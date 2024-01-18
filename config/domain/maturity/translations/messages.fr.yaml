@@ -51,10 +51,14 @@ maturity:
             description: Description
             question: Question
             weight: Pondération
-            not_concerned: Activer l'option : Non concerné
+            not_concerned: "Activer l'option : Non concerné"
             answers: Réponses :
             answer: Réponse
             recommendation: Préconisation
+            delete_confirm: Souhaitez-vous vraiment supprimer le référentiel %object% du %date% ?
+            delete_info: La suppression de ce référentiel entraînera la suppression des indices de maturité liés pour les structures suivantes :
+        placeholder:
+            not_concerned: Non concerné
         list:
             name: Nom
         title:
