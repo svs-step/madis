@@ -55,7 +55,7 @@ class NotificationExtension extends AbstractExtension
         $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ';
 
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Document::class]) {
-            $sentence .= ' Nouveau document déposé par le DPD ';
+            $sentence .= $this->translator->trans('notifications.label.sentence.new_documentation');
         }
 
         switch ($notification->getAction()) {
@@ -121,7 +121,7 @@ class NotificationExtension extends AbstractExtension
         }
 
         if ($notification->getCollectivity() && $this->security->getToken() && $this->security->isGranted('ROLE_REFERENT')) {
-            $sentence .= $this->translator->trans('label.par') . ' <strong>' . $notification->getCollectivity()->getName() . '</strong>';
+            $sentence .= $this->translator->trans('notifications.label.par') . ' <strong>' . $notification->getCollectivity()->getName() . '</strong>';
         }
 
         return $sentence;
@@ -158,7 +158,7 @@ class NotificationExtension extends AbstractExtension
     private function getRouteForModule($module): string
     {
         switch ($module) {
-            case 'notification.modules.treatment':
+            case 'notifications.label.modules.treatment':
                 return 'registry_treatment_show';
             case 'notification.modules.subcontractor':
             case 'notification.modules.contractor':

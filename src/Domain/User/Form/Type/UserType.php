@@ -268,7 +268,7 @@ class UserType extends AbstractType
             $builder->add('emailNotificationPreference', EmailNotificationPreferenceType::class);
             if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
                 $builder->add('notGeneratesNotifications', CheckboxType::class, [
-                    'label'    => 'user.user.label.not_generates_notifications',
+                    'label'    => 'notifications.label.not_generates_notifications',
                     'required' => false,
                 ]);
             }

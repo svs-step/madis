@@ -29,7 +29,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    <p>{{ 'maturity.referentiel.label.delete_related_objects_error'|trans({'%object%': object.name, '%date%': object.createdAt|date('d/m/Y')}) }}</p>
+                    <p>{{ 'maturity.referentiel.label.delete_confirm'|trans({'%object%': object.name, '%date%': object.createdAt|date('d/m/Y')}) }}</p>
                     <p><b>{{ 'maturity.referentiel.label.delete_info'|trans }}</b></p>
                     <ul>
                         {% for collectivity in object.surveys|map(s => s.collectivity.name)|reduce(

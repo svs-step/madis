@@ -1,7 +1,7 @@
 {% extends 'base_mail.html.twig' %}
 
 {% block body %}
-    <h1>{{ 'notification.email.subject'|trans }}</h1>
+    <h1>{{ 'notifications.label.email_subject'|trans }}</h1>
 
     <p>Bonjour{{ user ? ' ' ~ user.firstname : '' }},</p>
     <p>
@@ -19,6 +19,6 @@
     {% endfor %}
 
     <p>
-        <a href="{{ url('reporting_dashboard_index') }}">{{ 'notification.email.madis'|trans }}</a>
+        <a href="{{ url('reporting_dashboard_index') }}">{{ 'notifications.label.email_app_access'|trans }}</a>
     </p>
 {% endblock %}

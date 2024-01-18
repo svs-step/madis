@@ -25,8 +25,9 @@ notifications:
         read: Lu
         unread: Non Lu
         not_generates_notifications_label: Génération des notifications
-        notification_email_subject: Nouvelles notifications Madis
-        notification_email_madis: Accéder à madis
+        not_generates_notifications: Les actions de cet utilisateur ne génèrent pas de notification
+        email_subject: Nouvelles notifications Madis
+        email_app_access: Accéder à madis
         frequency:
             label: Fréquence des notifications par email
             month: Mensuelle
@@ -63,6 +64,7 @@ notifications:
         sentence:
             late_request: La demande de %name% n'a pas été traitée depuis au moins %days% jours depuis la date de la dernière modification
             late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
+            new_documentation: Nouveau document déposé par le DPD
     flashbag:
         success:
             markall: Toutes les notifications sont marquées comme lu
@@ -80,3 +82,51 @@ notifications:
         read_by: Lu par
     tab:
         notification: Notifications
+
+# Old to transfert
+    actions:
+        delete: Suppression
+        create: Ajout
+        update: Modification
+        late_action: Rappel automatique
+        late_request: Rappel automatique
+        late_survey: Rappel automatique
+        no_login: Inactif
+        validation: Validation nécéssaire
+        treatment_needs_aipd: Nécéssité de faire une AIPD
+        state_change: Changement d'étape
+        validated: Validation
+
+notification:
+    notification:
+        flashbag:
+            success:
+                markall: Toutes les notifications sont marquées comme lu
+                delete: Notification "%object%" supprimée avec succès
+    modules:
+        aipd: AIPD
+        treatment: Traitements
+        contractor: Sous-traitants
+        subcontractor: Sous-traitants
+        violation: Violations
+        proof: Preuves
+        document: Espace documentaire
+        action: Actions de protection
+        protect_action: Actions de protection
+        action_plan: Plan d'actions
+        request: Demandes
+        user: Utilisateurs
+        documentation: Documentation
+        maturity: Indices de maturité
+    actions:
+        delete: Suppression
+        create: Création
+        update: Modification
+        late_action: Rappel automatique
+        late_request: Rappel automatique
+        late_survey: Rappel automatique
+        no_login: Inactif
+        validation: Validation nécéssaire
+        treatment_needs_aipd: Nécéssité de faire une AIPD
+        state_change: Changement d'étape
+        validated: Validation

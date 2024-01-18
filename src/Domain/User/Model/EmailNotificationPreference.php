@@ -31,16 +31,16 @@ class EmailNotificationPreference
 
     public const MODULES = [
         'treatment'               => self::NOTIF_TREATMENT,
-        'subcontractor'           => self::NOTIF_SUBCONTRACTOR,
+        'contractor'              => self::NOTIF_SUBCONTRACTOR,
         'request'                 => self::NOTIF_REQUEST,
         'violation'               => self::NOTIF_VIOLATION,
         'proof'                   => self::NOTIF_PROOF,
-        'protect_action'          => self::NOTIF_PROTECT_ACTION,
-        'maturity'                => self::NOTIF_MATURITY,
+        'mesurement'              => self::NOTIF_PROTECT_ACTION,
+        'maturity_survey'         => self::NOTIF_MATURITY,
         'treatment_conformity'    => self::NOTIF_TREATMENT_CONFORMITY,
         'organization_conformity' => self::NOTIF_ORGANIZATION_CONFORMITY,
         'aipd'                    => self::NOTIF_AIPD,
-        'document'                => self::NOTIF_DOCUMENT,
+        'documentation'           => self::NOTIF_DOCUMENT,
     ];
 
     /**
