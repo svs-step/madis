@@ -126,9 +126,9 @@ class TreatmentGenerator extends AbstractGenerator
         $collectivityTrans = $this->translator->trans('registry.treatment.list.collectivity');
 
         return [
-            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.name'),
-            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.siren'),
-            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.address_insee'),
+            $collectivityTrans . ' - ' . $this->translator->trans('user.organization.label.name'),
+            $collectivityTrans . ' - ' . $this->translator->trans('user.organization.label.siren'),
+            $collectivityTrans . ' - ' . $this->translator->trans('global.label.address.insee'),
         ];
     }
 

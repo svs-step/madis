@@ -207,8 +207,8 @@ class UserController extends CRUDController
             }
 
             $actif = '
-                <span class="badge ' . $userActifBgColor . '">' . $this->translator->trans('user.user.title.label') . '</span>
-                <span class="badge ' . $collectivityActifBgColor . '">' . $this->translator->trans('user.collectivity.title.label') . '</span>'
+                <span class="badge ' . $userActifBgColor . '">' . $this->translator->trans('user.user.list.user') . '</span>
+                <span class="badge ' . $collectivityActifBgColor . '">' . $this->translator->trans('global.label.organization') . '</span>'
             ;
 
             $services = '<ul>';

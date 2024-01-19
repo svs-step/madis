@@ -213,7 +213,7 @@ class UserType extends AbstractType
         // Now add standard information
         $builder
             ->add('firstName', TextType::class, [
-                'label'    => 'user.user.label.first_name',
+                'label'    => 'global.label.contact.first_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -222,7 +222,7 @@ class UserType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('lastName', TextType::class, [
-                'label'    => 'user.user.label.last_name',
+                'label'    => 'global.label.contact.last_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -231,7 +231,7 @@ class UserType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('email', EmailType::class, [
-                'label'    => 'user.user.label.email',
+                'label'    => 'global.label.contact.email',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,

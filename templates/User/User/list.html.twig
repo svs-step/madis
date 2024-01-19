@@ -35,18 +35,18 @@
         <div class="col-xs-12">
             <div class="action-bar">
                 {% if is_granted('ROLE_ADMIN') %}
-                <a aria-label="{{ 'user.user.action.new'|trans }}" href="{{ path('user_user_create') }}" class="btn btn-default">
+                <a href="{{ path('user_user_create') }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-plus"></i>
                     {{ 'user.user.action.new'|trans }}
                 </a>
                 {% endif %}
                 {% if app.request.query.get('archive') == 'true' %}
-                    <a aria-label="{{ 'user.user.action.not_archived'|trans }}" href="{{ path('user_user_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                    <a href="{{ path('user_user_list', {'archive' : 'false'}) }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-archive"></i>
                         {{ 'user.user.action.not_archived'|trans }}
                     </a>
                 {% else %}
-                    <a aria-label="{{ 'user.user.action.archived'|trans }}" href="{{ path('user_user_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                    <a href="{{ path('user_user_list', {'archive' : 'true'}) }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-archive"></i>
                         {{ 'user.user.action.archived'|trans }}
                     </a>
@@ -107,17 +107,17 @@
                             <th scope="col"></th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'user.user.list.first_name'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.last_name'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.email'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.collectivity'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.roles'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.moreInfos'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.enabled'|trans }}</th>
+                            <th scope="col">{{ 'global.label.contact.first_name'|trans }}</th>
+                            <th scope="col">{{ 'global.label.contact.last_name'|trans }}</th>
+                            <th scope="col">{{ 'global.label.contact.email'|trans }}</th>
+                            <th scope="col">{{ 'global.label.organization'|trans }}</th>
+                            <th scope="col">{{ 'user.user.label.roles'|trans }}</th>
+                            <th scope="col">{{ 'user.user.label.moreInfos'|trans }}</th>
+                            <th scope="col">{{ 'global.label.active'|trans }}</th>
                             <th scope="col">{{ 'user.user.list.last_login'|trans }}</th>
                             <th scope="col">{{ 'user.user.list.services'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.created_at'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
                             <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>

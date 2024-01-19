@@ -37,7 +37,7 @@ class ServiceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('name', TextType::class, [
-            'label'             => 'Nom',
+            'label'             => 'user.organization.label.service_name',
             'validation_groups' => ['default'],
             'purify_html'       => true,
         ]);

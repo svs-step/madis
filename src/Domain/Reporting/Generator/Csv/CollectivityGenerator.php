@@ -215,59 +215,59 @@ class CollectivityGenerator extends AbstractGenerator
 
     private function collectivityHeaders(): array
     {
-        $legalManager = $this->translator->trans('user.collectivity.tab.legal_manager');
-        $itManager    = $this->translator->trans('user.collectivity.tab.it_manager');
-        $referent     = $this->translator->trans('user.collectivity.tab.referent');
-        $dpo          = $this->translator->trans('user.collectivity.tab.dpo');
+        $legalManager = $this->translator->trans('user.organization.tab.legal_manager');
+        $itManager    = $this->translator->trans('user.organization.tab.it_manager');
+        $referent     = $this->translator->trans('user.organization.tab.referent');
+        $dpo          = $this->translator->trans('user.organization.tab.dpo');
 
         return [
             'Id',
-            $this->translator->trans('user.collectivity.show.name'),
-            $this->translator->trans('user.collectivity.show.short_name'),
-            $this->translator->trans('user.collectivity.show.type'),
-            $this->translator->trans('user.collectivity.show.siren'),
-            $this->translator->trans('user.collectivity.show.active'),
-            $this->translator->trans('user.collectivity.show.website'),
-            $this->translator->trans('user.collectivity.show.has_module_conformite_traitement'),
-            $this->translator->trans('user.collectivity.show.has_module_conformite_organisation'),
-            $this->translator->trans('user.collectivity.show.address_line_one'),
-            $this->translator->trans('user.collectivity.show.address_line_two'),
-            $this->translator->trans('user.collectivity.show.address_zip_code'),
-            $this->translator->trans('user.collectivity.show.address_city'),
-            $this->translator->trans('user.collectivity.show.address_insee'),
-            $this->translator->trans('user.collectivity.show.services'),
-            $this->translator->trans('user.collectivity.show.informations_complementaires'),
-            $legalManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_civility'),
-            $legalManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_first_name'),
-            $legalManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_last_name'),
-            $legalManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_job'),
-            $legalManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_mail'),
-            $legalManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_phone_number'),
-            $itManager . ' - ' . $this->translator->trans('user.collectivity.show.different_it_manager'),
-            $itManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_civility'),
-            $itManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_first_name'),
-            $itManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_last_name'),
-            $itManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_job'),
-            $itManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_mail'),
-            $itManager . ' - ' . $this->translator->trans('user.collectivity.show.contact_phone_number'),
-            $referent . ' - ' . $this->translator->trans('user.collectivity.show.contact_civility'),
-            $referent . ' - ' . $this->translator->trans('user.collectivity.show.contact_first_name'),
-            $referent . ' - ' . $this->translator->trans('user.collectivity.show.contact_last_name'),
-            $referent . ' - ' . $this->translator->trans('user.collectivity.show.contact_job'),
-            $referent . ' - ' . $this->translator->trans('user.collectivity.show.contact_mail'),
-            $referent . ' - ' . $this->translator->trans('user.collectivity.show.contact_phone_number'),
-            $dpo . ' - ' . $this->translator->trans('user.collectivity.show.different_dpo'),
-            $dpo . ' - ' . $this->translator->trans('user.collectivity.show.contact_civility'),
-            $dpo . ' - ' . $this->translator->trans('user.collectivity.show.contact_first_name'),
-            $dpo . ' - ' . $this->translator->trans('user.collectivity.show.contact_last_name'),
-            $dpo . ' - ' . $this->translator->trans('user.collectivity.show.contact_job'),
-            $dpo . ' - ' . $this->translator->trans('user.collectivity.show.contact_mail'),
-            $dpo . ' - ' . $this->translator->trans('user.collectivity.show.contact_phone_number'),
-            $this->translator->trans('user.collectivity.show.management_commitment'),
-            $this->translator->trans('user.collectivity.show.continuous_improvement'),
-            $this->translator->trans('user.collectivity.show.comite_il_short'),
-            $this->translator->trans('user.collectivity.show.created_at'),
-            $this->translator->trans('user.collectivity.show.updated_at'),
+            $this->translator->trans('user.organization.label.name'),
+            $this->translator->trans('user.organization.label.short_name'),
+            $this->translator->trans('user.organization.label.type'),
+            $this->translator->trans('user.organization.label.siren'),
+            $this->translator->trans('user.organization.label.active'),
+            $this->translator->trans('user.organization.label.website'),
+            $this->translator->trans('user.organization.label.has_module_conformite_traitement'),
+            $this->translator->trans('user.organization.label.has_module_conformite_organisation'),
+            $this->translator->trans('global.label.address.line_one'),
+            $this->translator->trans('global.label.address.line_two'),
+            $this->translator->trans('global.label.address.zip_code'),
+            $this->translator->trans('global.label.address.city'),
+            $this->translator->trans('global.label.address.insee'),
+            $this->translator->trans('user.organization.label.export_service_csv'),
+            $this->translator->trans('user.organization.label.other_information'),
+            $legalManager . ' - ' . $this->translator->trans('global.label.contact.civility'),
+            $legalManager . ' - ' . $this->translator->trans('global.label.contact.first_name'),
+            $legalManager . ' - ' . $this->translator->trans('global.label.contact.last_name'),
+            $legalManager . ' - ' . $this->translator->trans('global.label.contact.job'),
+            $legalManager . ' - ' . $this->translator->trans('global.label.contact.email'),
+            $legalManager . ' - ' . $this->translator->trans('global.label.contact.phone_number'),
+            $itManager . ' - ' . $this->translator->trans('user.organization.label.different_it_manager'),
+            $itManager . ' - ' . $this->translator->trans('global.label.contact.civility'),
+            $itManager . ' - ' . $this->translator->trans('global.label.contact.first_name'),
+            $itManager . ' - ' . $this->translator->trans('global.label.contact.last_name'),
+            $itManager . ' - ' . $this->translator->trans('global.label.contact.job'),
+            $itManager . ' - ' . $this->translator->trans('global.label.contact.email'),
+            $itManager . ' - ' . $this->translator->trans('global.label.contact.phone_number'),
+            $referent . ' - ' . $this->translator->trans('global.label.contact.civility'),
+            $referent . ' - ' . $this->translator->trans('global.label.contact.first_name'),
+            $referent . ' - ' . $this->translator->trans('global.label.contact.last_name'),
+            $referent . ' - ' . $this->translator->trans('global.label.contact.job'),
+            $referent . ' - ' . $this->translator->trans('global.label.contact.email'),
+            $referent . ' - ' . $this->translator->trans('global.label.contact.phone_number'),
+            $dpo . ' - ' . $this->translator->trans('user.organization.label.different_dpo'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.civility'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.first_name'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.last_name'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.job'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.email'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.phone_number'),
+            $this->translator->trans('user.organization.label.management_commitment'),
+            $this->translator->trans('user.organization.label.continuous_improvement'),
+            $this->translator->trans('user.organization.label.comite_il_short'),
+            $this->translator->trans('global.label.created_at'),
+            $this->translator->trans('global.label.updated_at'),
         ];
     }
 
@@ -468,7 +468,7 @@ class CollectivityGenerator extends AbstractGenerator
     private function collectivityServiceHeaders()
     {
         return [
-            $this->translator->trans('user.collectivity.show.services'),
+            $this->translator->trans('user.organization.label.export_service_csv'),
         ];
     }
 

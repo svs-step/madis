@@ -3,7 +3,7 @@
 {% set bodyClass = 'user_collectivity list' %}
 {% set menuItem = 'user_collectivity' %}
 
-{% block title %}{{ 'user.collectivity.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'user.organization.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
@@ -11,12 +11,12 @@
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'user.collectivity.title.list'|trans }}</h1>
+    <h1>{{ 'user.organization.title.list'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'user.collectivity.title.list'|trans }
+        { 'name': 'user.organization.title.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -28,7 +28,7 @@
             <div class="action-bar">
                 <a href="{{ path('user_collectivity_create') }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-plus"></i>
-                    {{ 'user.collectivity.action.new'|trans }}
+                    {{ 'user.organization.action.new'|trans }}
                 </a>
             </div>
         </div>
@@ -87,17 +87,17 @@
                             </th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'user.collectivity.list.name'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.short_name'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.type'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.informations_complementaires'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.siren'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.active'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.nbr_cnil'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.nbr_agents'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.population'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.created_at'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.name'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.short_name'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.type'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.other_information'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.siren'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.active'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.nbr_cnil'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.nbr_agents'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.population'|trans }}</th>
+                            <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
                             <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>

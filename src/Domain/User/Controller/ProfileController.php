@@ -130,7 +130,7 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->collectivityRepository->update($object);
 
-            $this->helper->addFlash('success', $this->helper->trans('user.profile.flashbag.success.collectivity_edit'));
+            $this->helper->addFlash('success', $this->helper->trans('user.organization.flashbag.success.my_organization_edit'));
 
             return $this->helper->redirectToRoute('user_profile_collectivity_show', ['id' => $object->getId()]);
         }
@@ -174,7 +174,7 @@ class ProfileController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->userRepository->update($object);
 
-            $this->helper->addFlash('success', $this->helper->trans('user.profile.flashbag.success.user_edit'));
+            $this->helper->addFlash('success', $this->helper->trans('user.user.flashbag.success.my_profil_edit'));
 
             return $this->helper->redirectToRoute('user_profile_user_edit');
         }
@@ -195,7 +195,7 @@ class ProfileController extends AbstractController
         $this->entityManager->persist($object);
         $this->entityManager->flush();
         $this->helper->addFlash('success',
-            $this->helper->trans('user.profile.flashbag.success.sso_unlink')
+            $this->helper->trans('user.user.flashbag.success.sso_unlink')
         );
 
         return $this->helper->redirectToRoute('user_profile_user_edit');

@@ -1,249 +1,164 @@
 user:
-    collectivity:
+    organization:
+        title:
+            create: Créer une structure
+            delete: Supprimer une structure
+            edit: Modifier une structure
+            my_organization_edit: Modifier ma structure
+            list: Liste des structures
+            show: Visualiser une structure
+            my_organization_show: Visualiser ma structure
+        breadcrumb:
+            create: Créer
+            edit: Modifier "%name%"
+            my_organization_edit: Modifier ma structure
+            delete: Supprimer "%name%"
+            list: Liste des structures
+            show: Visualiser "%name%"
+            my_organization_show: Ma structure
         action:
             back_to_show: Retour à la visualisation
             new: Nouvelle structure
-            edit_submit: Modifier la structure
             new_submit: Créer la structure
-        breadcrumb:
-            create: Créer
-            delete: Supprimer "%name%"
-            edit: Modifier "%name%"
-            list: Liste des structures
-            show: Visualiser "%name%"
-        form:
-            active: Statut
-            address: Adresse
-            different_dpo: Différent du DPD moral
-            different_it_manager: Différent du Référent RGPD
-            is_services_enabled: Services
-            name: Nom
-            placeholder:
-                website: https://
-            short_name: Nom court
-            siren: SIREN
-            type: Type
-            website: Site Internet
-            informations_complementaires: Informations complémentaires
-            finess_geo: FINESS Géo
-            population: Population
-            nbr_agents: Nombre de salariés
-            nbr_cnil: Numéro de désignation CNIL
-        flashbag:
-            success:
-                create: Structure "%object%" créée avec succès
-                edit: Structure "%object%" modifiée avec succès
-                delete: Structure "%object%" supprimée avec succès
-        list:
-            active: Statut
-            name: Nom
-            short_name: Nom court
-            siren: SIREN
-            type: Type
-            informations_complementaires: Informations complémentaires
-            date_maj: Date Mise à jour
-            nbr_agents: Nombre de salariés
-            nbr_cnil: Numéro de désignation CNIL
-            population: Population
-            tel_referent_rgpd: Téléphone Référent RGPD
-            created_at: Date de création
-            updated_at: Date de modification
-        modal:
-            confirm_deletion: Voulez-vous vraiment supprimer cette structure ?
-        show:
-            active: Statut
-            address_line_one: Adresse
-            address_line_two: Complément d'adresse
-            address_zip_code: Code postal
-            address_city: Ville
-            address_insee: Code INSEE
-            comite_il_short: Comité IL
-            contact_civility: Civilité
-            contact_first_name: Prénom
-            contact_last_name: Nom
-            contact_job: Fonction
-            contact_mail: Email
-            contact_phone_number: Téléphone
-            created_at: Date de création
-            different_dpo: Différent du DPD moral
-            different_it_manager: Différent du Référent RGPD
-            informations_complementaires: Informations complémentaires
-            has_module_conformite_traitement: Conformité des traitements
-            has_module_conformite_organisation: Conformité de la structure
-            has_module_tools: Logiciels et supports
-            has_module_services: Services
-            name: Nom
-            short_name: Nom court
-            services: Services
-            siren: SIREN
-            type: Type
-            updated_at: Date de modification
-            updated_by: Modifié par
-            website: Site internet
-            finess_geo: FINESS Géo
-            population: Population
-            nbr_agents: Nombre de salariés
-            nbr_cnil: Numéro de désignation CNIL
-            registre_public: Registre public
-            services_empty: Aucun service à afficher
-            management_commitment: Engagement de la direction
-            continuous_improvement: Principe d'amélioration continue
+            edit_submit: Modifier la structure
+            my_organization_submit: Modifier ma structure
         tab:
           address: Adresse
           comite_il: Composition du comité Informatique et Libertés
           dpo: Délégué à la protection des données
-          general: Informations générales
-          historic: Historique
           it_manager: Responsable informatique
           legal_manager: Responsable de traitement
           referent: Référent RGPD
           modules: Modules complémentaires
           bilan: Bilan
           services: Services
-        title:
-            create: Créer une structure
-            delete: Supprimer une structure
-            edit: Modifier une structure
-            label: Structure
-            list: Liste des structures
-            show: Visualiser une structure
-
-    profile:
-        breadcrumb:
-            collectivity_edit: Modifier ma structure
-            collectivity_show: Ma structure
-            user_edit: Modifier mon compte
+        label:
+            name: Nom
+            short_name: Nom court
+            type: Type
+            siren: SIREN
+            finess_geo: FINESS Géo
+            active: Statut
+            website: Site Internet
+            nbr_agents: Nombre de salariés
+            population: Population
+            other_information: Informations complémentaires
+            nbr_cnil: Numéro de désignation CNIL
+            different_dpo: Différent du DPD moral
+            different_it_manager: Différent du Référent RGPD
+            comite_il_short: Comité IL
+            comite_il_add: Ajouter un membre
+            comite_il_delete: Supprimer le membre
+            has_module_conformite_traitement: Conformité des traitements
+            has_module_conformite_organisation: Conformité de la structure
+            has_module_tools: Logiciels et supports
+            has_module_services: Services
+            export_service_csv: Services
+            service_name: Nom
+            service_number_users: Nombre d'utilisateurs
+            service_add: Ajouter un service
+            service_delete: Supprimer le service
+            service_empty: Aucun service à afficher
+            registre_public: Registre public
+            management_commitment: Engagement de la direction
+            continuous_improvement: Principe d'amélioration continue
+        placeholder:
+            website: https://
         flashbag:
             success:
-                collectivity_edit: Votre structure vient d'être mise à jour
-                user_edit: Votre compte vient d'être mis à jour
-                sso_associated: Le compte a été associé
-                sso_unlink: Le compte a été dissocié
-            error:
-                sso_already_associated: La délégation d'authentification est déjà paramétrée
-                sso_key_duplicate: 'Identifiant SSO déjà utilisé pour le compte : email'
-            #                ...
-        form_collectivity:
-            action:
-                submit: Modifier ma structure
-        form_user:
-            action:
-                submit: Modifier mon compte
-            tab:
-                general: Vos informations
-                moreInfo: Informations supplémentaires
-                optional: Informations facultatives
-                login_delegation: Délégation de l'authentification
-            help:
-                password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
-            sso:
-                linked: Associé
-                link: Associer le compte
-                unlink: Dissocier le compte
+                my_organization_edit: Votre structure vient d'être mise à jour
 
-        title:
-            collectivity_edit: Modifier ma structure
-            show: Visualiser ma structure
-            user_edit: Modifier mon compte
-
-    security:
-        forget_password:
-            back_to_login: Retour à la page de connexion
-            email: Email
-            verbatim: Réinitialisation du mot de passe
-        forget_password_confirm:
-            back_to_login: Retour à la page de connexion
-            flashbag:
-                error: Aucun compte n'est associé à l'email %email%
-            message: Cliquez sur le lien présent dans ce dernier pour réinitialiser votre mot de passe.
-            verbatim: Un email vient de vous être envoyé !
-        login:
-            forget_password: Mot de passe oublié ?
-            password: Mot de passe
-            remember_me: Se souvenir de moi
-            username: Email
-            verbatim: Connectez vous pour accéder à l'application
-        reset_password:
-          flashbag:
-              error: Aucun compte associé à cette clé d'authentification
-              success: Votre mot de passe vient d'être réinitialisé
-          verbatim: Réinitialisation de votre mot de passe
-        sso_login:
-            link: Se connecter avec %service%
-            flashbag:
-                sso_client_error: Erreur service SSO
-        title:
-            forget_password: Mot de passe oublié
-            forget_password_confirm: Mot de passe oublié
-            login: Connexion
-            locked: Compte bloqué
-            reset_password: Réinitialisation de mot de passe
-        locked:
-            message: Votre compte a été bloqué suite à de trop nombreuses tentatives de connexion. Veuillez contacter votre administrateur.
+    collectivity:
+        flashbag:
+            success:
+                create: Structure "%object%" créée avec succès
+                edit: Structure "%object%" modifiée avec succès
+                delete: Structure "%object%" supprimée avec succès
 
     user:
+        title:
+            create: Créer un utilisateur
+            edit: Modifier un utilisateur
+            my_profil_edit: Modifier mon compte
+            delete: Archiver un utilisateur
+            list: Liste des utilisateurs
+            unarchive: Désarchiver un utilisateur
+        breadcrumb:
+            list: Liste des utilisateurs
+            create: Créer
+            edit: Modifier "%name%"
+            my_profil_edit: Modifier mon compte
+            delete: Archiver "%name%"
+            unarchive: Désarchiver "%name%"
         action:
             archived: Voir les utilisateurs archivés
             not_archived: Voir les utilisateurs non archivés
             new: Nouvel utilisateur
             new_submit: Créer l'utilisateur
             edit_submit: Modifier l'utilisateur
-        breadcrumb:
-            list: Liste des utilisateurs
-            create: Créer
-            edit: Modifier "%name%"
-            delete: Archiver "%name%"
-            unarchive: Désarchiver "%name%"
+            my_profil_submit: Modifier mon compte
+            sso_link: Associer le compte
+            sso_unlink: Dissocier le compte
+        tab:
+            optional: Informations facultatives
+            sso: Délégation de l'authentification
+            services: Services & Habilitations
         label:
-            apiAuthorized: Accès aux Web Services (API)
+            roles: Rôle
             collectivitesReferees: Structures rattachées
-            email: Email
-            not_generates_notifications: Les actions de cet utilisateur ne génèrent pas de notification
+            moreInfos: Informations supplémentaires
             enabled: Actif
-            first_name: Prénom
-            help:
-                password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
-            last_name: Nom
+            apiAuthorized: Accès aux Web Services (API)
             password: Mot de passe
             password_repeat: Répéter le mot de passe
-            roles: Rôle
-            moreInfos: Informations supplémentaires
+            help:
+                password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
             services: Services
             sso_key: Fournisseur d'identité
-            respInfo: Responsable informatique
-            respTreat: Responsable traitement
-            refOp: Référent RGPD
-            dpo: DPD
+            sso_linked: Associé
+        list:
+            user: Utilisateur
+            last_login: Dernière connexion
+            services: Service
         flashbag:
             success:
                 create: Utilisateur "%object%" crée avec succès
                 edit: Utilisateur "%object%" édité avec succès
                 delete: Utilisateur "%object%" supprimé avec succès
                 unarchive: Utilisateur "%object%" rétabli avec succès
-        list:
-            collectivity: Structure
-            email: Email
-            enabled: Actif
-            first_name: Prénom
-            last_login: Dernière connexion
-            last_name: Nom
-            roles: Rôle
-            moreInfos: Informations supplémentaires
-            services: Service
-            services_list: Liste des services
-            service_number_users: Nombre d'utilisateurs
-            created_at: Date de création
-            updated_at: Date de modification
-        modal:
-            confirm_deletion: Voulez-vous vraiment supprimer cet utilisateur ?
-        tab:
-            general: Informations générales
-            optional: Informations facultatives
-            services: Services & Habilitations
+                my_profil_edit: Votre compte vient d'être mis à jour
+                sso_associated: Le compte a été associé
+                sso_unlink: Le compte a été dissocié
+            error:
+                sso_already_associated: La délégation d'authentification est déjà paramétrée
+                sso_key_duplicate: 'Identifiant SSO déjà utilisé pour le compte : email'
+
+    security:
         title:
-            create: Créer un utilisateur
-            edit: Modifier un utilisateur
-            delete: Archiver un utilisateur
-            label: Utilisateur
-            list: Liste des utilisateurs
-            unarchive: Désarchiver un utilisateur
+            forget_password: Mot de passe oublié
+            forget_password_confirm: Mot de passe réinitialisé
+            login: Connexion
+            locked: Compte bloqué
+            reset_password: Réinitialisation de mot de passe
+        action:
+            back_to_login: Retour à la page de connexion
+            forget_password: Mot de passe oublié ?
+            sso_login: Se connecter avec %service%
+        label:
+            reset_password_message: Réinitialisation du mot de passe
+            reset_password: Réinitialisation de votre mot de passe
+            reset_message: Cliquez sur le lien présent dans ce dernier pour réinitialiser votre mot de passe.
+            email_sent: Un email vient de vous être envoyé !
+            remember_me: Se souvenir de moi
+            welcome_message: Connectez-vous pour accéder à l'application
+            locked_message: Votre compte a été bloqué suite à de trop nombreuses tentatives de connexion. Veuillez contacter votre administrateur.
+        placeholder:
+            username: Email
+            password: Mot de passe
+        flashbag:
+            success:
+                reset_password: Votre mot de passe vient d'être réinitialisé
+            error:
+                account_email: Aucun compte n'est associé à l'email %email%
+                sso_linked_auth: Aucun compte associé à cette clé d'authentification
+                sso_client_error: Erreur service SSO

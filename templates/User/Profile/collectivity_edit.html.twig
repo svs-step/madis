@@ -3,21 +3,21 @@
 
 {% set bodyClass = 'user_profile_collectivity form edit' %}
 {% set menuItem = 'user_profile_collectivity' %}
-{% set submitValue = submitValue|default('user.profile.form_collectivity.action.submit'|trans) %}
+{% set submitValue = submitValue|default('user.organization.action.my_organization_submit'|trans) %}
 
-{% block title %}{{ 'user.profile.title.collectivity_edit'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'user.organization.title.my_organization_edit'|trans }} - {{ parent() }}{% endblock %}
 
 {% block body_head %}
     <h1>
-        {{ 'user.profile.title.collectivity_edit'|trans }}
+        {{ 'user.organization.title.my_organization_edit'|trans }}
         <small>{{ form.vars.value }}</small>
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'user.profile.breadcrumb.collectivity_show'|trans, 'link': path('user_profile_collectivity_show') },
-        { 'name': 'user.profile.breadcrumb.collectivity_edit'|trans }
+        { 'name': 'user.organization.breadcrumb.my_organization_show'|trans, 'link': path('user_profile_collectivity_show') },
+        { 'name': 'user.organization.breadcrumb.my_organization_edit'|trans }
 
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
@@ -31,7 +31,7 @@
     <div class="col-md-6">
         {# GENERAL #}
         <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.general'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.general'|trans }}</h3></div>
             <div class="box-body">
                 {% if is_granted('ROLE_ADMIN') %}
                     {{ form_row(form.name) }}
@@ -52,7 +52,7 @@
         </div>
             {# ADDRESS #}
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.address'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.organization.tab.address'|trans }}</h3></div>
                 <div class="box-body">
                     {{ form_widget(form.address) }}
                 </div>
@@ -62,7 +62,7 @@
 
             {# MODULES #}
             <div class="box box-solid">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.modules'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.organization.tab.modules'|trans }}</h3></div>
                 <div class="box-body">
                     {{ form_row(form.hasModuleTools) }}
                     {{ form_row(form.hasModuleConformiteTraitement) }}
@@ -74,7 +74,7 @@
             {# SERVICES TODO #}
             {% do form.services.setRendered() %}
             <div class="box box-solid" id="box-services">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.show.has_module_services'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'user.organization.label.has_module_services'|trans }}</h3></div>
                 <div class="box-body">
                     <div class="js-collection-wrapper"
                         data-prototype="{{ formMacros.printService(form.services.vars.prototype)|e('html_attr') }}"
@@ -83,7 +83,7 @@
                                 {{ formMacros.printService(service) }}
                             {% endfor %}
                         <button id="add-services" class="js-collection-add btn btn-default">
-                            <i aria-hidden="true" class="fa fa-plus"></i> Ajouter un service
+                            <i aria-hidden="true" class="fa fa-plus"></i> {{ 'user.organization.label.service_add'|trans }}
                         </button>
                     </div>
                 </div>
@@ -92,7 +92,7 @@
 
         {# BILAN #}
         <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.bilan'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.organization.tab.bilan'|trans }}</h3></div>
             <div class="box-body">
                 {# REPORTING MANAGEMENT COMMITMENT #}
                 {{ form_row(form.reportingBlockManagementCommitment) }}
@@ -106,7 +106,7 @@
     <div class="col-md-6">
         {# LEGAL MANAGER #}
         <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.legal_manager'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.organization.tab.legal_manager'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_widget(form.legalManager) }}
             </div>
@@ -114,7 +114,7 @@
 
         {# DPO #}
         <div id="box-dpo" class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.dpo'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.organization.tab.dpo'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.nbrCnil) }}
                 {{ form_row(form.differentDpo) }}
@@ -124,7 +124,7 @@
 
         {# REFERENT #}
         <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.referent'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.organization.tab.referent'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_widget(form.referent) }}
             </div>
@@ -132,7 +132,7 @@
 
         {# IT MANAGER #}
         <div id="box-it-manager" class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.it_manager'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.organization.tab.it_manager'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.differentItManager) }}
                 {{ form_widget(form.itManager) }}
@@ -142,7 +142,7 @@
         {# COMITE IL CONTACT #}
         {% do form.comiteIlContacts.setRendered() %}
         <div class="box box-solid">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'user.collectivity.tab.comite_il'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'user.organization.tab.comite_il'|trans }}</h3></div>
             <div class="box-body">
                 <div class="js-collection-wrapper"
                      data-prototype="{{ formMacros.printComiteIlContact(form.comiteIlContacts.vars.prototype)|e('html_attr') }}"
@@ -152,7 +152,7 @@
                         {{ formMacros.printComiteIlContact(contact) }}
                     {% endfor %}
                     <button class="js-collection-add btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i> Ajouter un membre
+                        <i aria-hidden="true" class="fa fa-plus"></i> {{ 'user.organization.label.comite_il_add'|trans }}
                     </button>
                 </div>
             </div>
@@ -166,7 +166,7 @@
         <div class="box box-solid">
             <div class="box-body text-center">
                 <a href="{{ path('user_collectivity_list') }}" class="btn btn-default">
-                    {{ 'global.action.back_to_list'|trans }}
+                    {{ 'user.organization.action.back_to_show'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>

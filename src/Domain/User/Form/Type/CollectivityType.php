@@ -74,7 +74,7 @@ class CollectivityType extends AbstractType
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
             $builder
                 ->add('name', TextType::class, [
-                    'label'    => 'user.collectivity.form.name',
+                    'label'    => 'user.organization.label.name',
                     'required' => true,
                     'attr'     => [
                         'maxlength' => 255,
@@ -82,7 +82,7 @@ class CollectivityType extends AbstractType
                     'purify_html' => true,
                 ])
                 ->add('shortName', TextType::class, [
-                    'label'    => 'user.collectivity.form.short_name',
+                    'label'    => 'user.organization.label.short_name',
                     'required' => true,
                     'attr'     => [
                         'maxlength' => 20,
@@ -90,21 +90,21 @@ class CollectivityType extends AbstractType
                     'purify_html' => true,
                 ])
                 ->add('type', DictionaryType::class, [
-                    'label'    => 'user.collectivity.form.type',
+                    'label'    => 'user.organization.label.type',
                     'required' => true,
                     'name'     => 'user_collectivity_type',
                     'multiple' => false,
                     'expanded' => true,
                 ])
                 ->add('siren', NumberType::class, [
-                    'label'    => 'user.collectivity.form.siren',
+                    'label'    => 'user.organization.label.siren',
                     'required' => true,
                     'attr'     => [
                         'maxlength' => 9,
                     ],
                 ])
                 ->add('active', ChoiceType::class, [
-                    'label'    => 'user.collectivity.form.active',
+                    'label'    => 'user.organization.label.active',
                     'required' => true,
                     'choices'  => [
                         'global.label.active'   => true,
@@ -114,24 +114,24 @@ class CollectivityType extends AbstractType
                     'expanded' => true,
                 ])
                 ->add('hasModuleConformiteTraitement', CheckboxType::class, [
-                    'label'    => 'user.collectivity.show.has_module_conformite_traitement',
+                    'label'    => 'user.organization.label.has_module_conformite_traitement',
                     'required' => false,
                 ])
                 ->add('hasModuleConformiteOrganisation', CheckboxType::class, [
-                    'label'    => 'user.collectivity.show.has_module_conformite_organisation',
+                    'label'    => 'user.organization.label.has_module_conformite_organisation',
                     'required' => false,
                 ])
                 ->add('hasModuleTools', CheckboxType::class, [
-                    'label'    => 'user.collectivity.show.has_module_tools',
+                    'label'    => 'user.organization.label.has_module_tools',
                     'required' => false,
                 ])
                 ->add('informationsComplementaires', TextareaType::class, [
-                    'label'       => 'user.collectivity.form.informations_complementaires',
+                    'label'       => 'user.organization.label.other_information',
                     'required'    => false,
                     'purify_html' => true,
                 ])
                 ->add('finessGeo', TextType::class, [
-                    'label'    => 'user.collectivity.form.finess_geo',
+                    'label'    => 'user.organization.label.finess_geo',
                     'required' => false,
                     'attr'     => [
                         'maxlength' => 255,
@@ -146,7 +146,7 @@ class CollectivityType extends AbstractType
                     'by_reference' => false,
                 ])
                 ->add('isServicesEnabled', CheckboxType::class, [
-                    'label'    => 'user.collectivity.form.is_services_enabled',
+                    'label'    => 'user.organization.label.has_module_services',
                     'required' => false,
                 ])
             ;
@@ -155,15 +155,15 @@ class CollectivityType extends AbstractType
         // Now add standard information
         $builder
             ->add('population', NumberType::class, [
-                'label'    => 'user.collectivity.form.population',
+                'label'    => 'user.organization.label.population',
                 'required' => false,
             ])
             ->add('nbrAgents', NumberType::class, [
-                'label'    => 'user.collectivity.form.nbr_agents',
+                'label'    => 'user.organization.label.nbr_agents',
                 'required' => false,
             ])
             ->add('address', AddressType::class, [
-                'label'    => 'user.collectivity.form.address',
+                'label'    => false,
                 'required' => true,
             ])
             ->add('legalManager', ContactType::class, [
@@ -177,11 +177,11 @@ class CollectivityType extends AbstractType
                 'validation_groups' => ['default', 'collectivity_referent'],
             ])
             ->add('nbrCnil', NumberType::class, [
-                'label'    => 'user.collectivity.form.nbr_cnil',
+                'label'    => 'user.organization.label.nbr_cnil',
                 'required' => false,
             ])
             ->add('differentDpo', CheckboxType::class, [
-                'label'    => 'user.collectivity.form.different_dpo',
+                'label'    => 'user.organization.label.different_dpo',
                 'required' => false,
             ])
             ->add('dpo', ContactType::class, [
@@ -190,7 +190,7 @@ class CollectivityType extends AbstractType
                 'validation_groups' => ['default', 'collectivity_dpo'],
             ])
             ->add('differentItManager', CheckboxType::class, [
-                'label'    => 'user.collectivity.form.different_it_manager',
+                'label'    => 'user.organization.label.different_it_manager',
                 'required' => false,
             ])
             ->add('itManager', ContactType::class, [
@@ -198,11 +198,11 @@ class CollectivityType extends AbstractType
                 'required' => false,
             ])
             ->add('reportingBlockManagementCommitment', CKEditorType::class, [
-                'label'    => 'user.collectivity.show.management_commitment',
+                'label'    => 'user.organization.label.management_commitment',
                 'required' => false,
             ])
             ->add('reportingBlockContinuousImprovement', CKEditorType::class, [
-                'label'    => 'user.collectivity.show.continuous_improvement',
+                'label'    => 'user.organization.label.continuous_improvement',
                 'required' => false,
             ])
             ->add('comiteIlContacts', CollectionType::class, [
@@ -213,10 +213,10 @@ class CollectivityType extends AbstractType
                 'by_reference' => false,
             ])
             ->add('website', UrlType::class, [
-                'label'    => 'user.collectivity.form.website',
+                'label'    => 'user.organization.label.website',
                 'required' => false,
                 'attr'     => [
-                    'placeholder' => 'user.collectivity.form.placeholder.website',
+                    'placeholder' => 'user.organization.placeholder.website',
                 ],
             ])
             ->add('updatedBy', HiddenType::class, [

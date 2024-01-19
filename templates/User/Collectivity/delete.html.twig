@@ -4,22 +4,22 @@
 {% set menuItem = 'user_collectivity' %}
 
 {% block title %}
-    {{ 'user.collectivity.title.delete'|trans }}
+    {{ 'user.organization.title.delete'|trans }}
     -
     {{ parent() }}
 {% endblock %}
 
 {% block body_head %}
     <h1>
-        {{ 'user.collectivity.title.delete'|trans }}
+        {{ 'user.organization.title.delete'|trans }}
         <small>{{ object }}</small>
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'user.collectivity.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
-        { 'name': 'user.collectivity.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'user.organization.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
+        { 'name': 'user.organization.breadcrumb.delete'|trans({'%name%': object}) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}

@@ -3,16 +3,16 @@
 {% set bodyClass = 'user_collectivity form create' %}
 {% set menuItem = 'user_collectivity' %}
 
-{% block title %}{{ 'user.collectivity.title.create'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'user.organization.title.create'|trans }} - {{ parent() }}{% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'user.collectivity.title.create'|trans }}</h1>
+    <h1>{{ 'user.organization.title.create'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'user.collectivity.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
-        { 'name': 'user.collectivity.breadcrumb.create'|trans }
+        { 'name': 'user.organization.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
+        { 'name': 'user.organization.breadcrumb.create'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
