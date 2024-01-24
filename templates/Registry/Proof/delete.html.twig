@@ -29,8 +29,8 @@
                     Souhaitez vous vraiment supprimer la preuve "{{ object }}" ?
                 </div>
                 <div class="box-footer">
-                    <a aria-label="{{ 'registry.proof.action.back_to_list'|trans }}" href="{{ path('registry_proof_list') }}" class="btn btn-default">
-                        {{ 'registry.proof.action.back_to_list'|trans }}
+                    <a href="{{ path('registry_proof_list') }}" class="btn btn-default">
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
                     <a href="{{ path('registry_proof_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
                         {{ 'global.action.confirm_delete'|trans }}

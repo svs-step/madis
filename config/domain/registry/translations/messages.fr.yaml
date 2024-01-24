@@ -1,91 +1,115 @@
 registry:
-    address:
-        form:
-            city: Ville
-            line_one: Adresse
-            line_two: Complément d'adresse
-            mail: Email
-            phone_number: Téléphone
-            zip_code: Code postal
-            country: Pays
+    label:
+        service: Service
 
-        show:
-            city: Ville
-            line_one: Adresse
-            line_two: Complément d'adresse
-            mail: Email
-            phone_number: Téléphone
-            zip_code: Code postal
-            country: Pays
-
-    contractor:
+    treatment:
         action:
-            back_to_list: Retour à la liste
-            new: Nouveau sous-traitant
-            report: Générer une impression
-            new_submit: Créer le sous-traitant
-            edit_submit: Modifier le sous-traitant
+            active: Voir les traitements actifs
+            inactive: Voir les traitements inactifs
+            new: Nouveau traitement
+            new_submit: Créer le traitement
+            edit_submit: Modifier le traitement
+            edit_config_submit: Modifier la configuration
+            add_delay: Ajouter un délai de conservation
+            delete_delay: Supprimer le délai de conservation
+        title:
+            create: Créer un traitement
+            delete: Supprimer un traitement
+            edit: Modifier un traitement
+            list: Liste des traitements
+            show: Visualiser un traitement
+            configure: Configurer le registre des traitements
+            archive: Désactiver un traitement
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
             delete_many: Suppression
             edit: Modifier "%name%"
-            list: Liste des sous-traitants
+            list: Liste des traitements
             show: Visualiser "%name%"
-        form:
-            adopted_security_features: A adopté les éléments de sécurité nécessaires
-            contractual_clauses_verified: Clauses contractuelles vérifiées
-            has_dpo: Le sous-traitant a désigné un DPD
-            maintains_treatment_register: Tient à jour un registre des traitements
+            archive: Désactiver
+        label:
+            statut: Statut
+            dpoMessage: Préconisations
             name: Nom
-            other_informations: Autres informations
-            referent: Agent référent
-            sending_data_outside_eu: Envoi des données hors UE
-            service: Service
+            goal: Finalités
+            author: En tant que
+            coordonnees_responsable_traitement: Coordonnées du responsable de traitement
+            manager: Gestionnaire
+            active: État
+            legal_basis: Base légale
+            legal_basis_justification: Justification de la base légale
+            observation: Observations
+            public_registry: Registre public
+            data_category: Catégorie de données
+            data_category_other: Autres catégories
+            recipient_category: Catégorie de destinataires
+            exempt_AIPD: Est exempté d'AIPD
+            systematic_monitoring: Surveillance systématique
+            large_scale_collection: Collecte à large échelle
+            vulnerable_people: Personnes vulnérables
+            data_crossing: Croisement de données
+            evaluation_or_rating: Évaluation ou notation
+            automated_decisions_with_legal_effect: Décisions automatisées avec effet
+            automatic_exclusion_service : Exclusion automatique d'un service
+            innovative_use: Usage innovant
+            concerned_people: Personnes concernées
+            concerned_people_particular: Particuliers
+            concerned_people_user: Internautes
+            concerned_people_agent: Salariés
+            concerned_people_elected: Élus
+            concerned_people_company: Professionnels
+            concerned_people_partner: Partenaires
+            concerned_people_usager: Usagers
+            concerned_people_other: Autres
+            estimated_concerned_people: Nombre de personnes concernées
+            tools_if_inactif: Logiciels et supports
+            paper_processing: Traitement papier
+            delay: Délai de conservation
+            shelflife_name: Nom
+            shelflife_duration: Durée
+            shelflife_ultimate_fate: Sort final
+            data_origin: Origine des données
+            collecting_method: Moyens de la collecte
+            otherCollectingMethod: Autre moyen de collecte
+            legalMentions: Mentions légales apposées
+            consentRequest: Consentement demandé
+            consentRequestFormat: Format de la demande du consentement
+            security_access_control: Contrôle d'accès
+            security_tracability: Traçabilité
+            security_saving: Sauvegarde
+            security_update: Mise à jour
+            security_other: Autres
+            security_entitled_persons: À tout moment il est possible de ressortir les personnes habilitées
+            security_open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
+            security_specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
+            conformite_traitement: Conformité du traitement
+            conformite_traitement_created_at: Conformité du traitement - Date création
+            conformite_traitement_updated_at: Conformité du traitement - Date modification
+        list:
+            sensitive_data: Données sensibles
+            entitled_persons: Ressortir les personnes habilitées
+            open_accounts: Procédure d’ouverture des comptes clairement identifiée
+            specificities_delivered: Sensibilisation délivrée
+            responsable_traitement: Responsable traitement
+            specific_traitement: Traitements spécifiques
+        tab:
+            conformite: Conformité du traitement
+            data_category: Catégorie des données
+            details: Détails
+            last_aipd: Dernière analyse d'impact réalisée
+            recipients: Destination
+            security: Mesures de sécurité et confidentialité
+            specific: Traitement spécifique
+            statut_dpo: Statut et préconisations DPD
         flashbag:
             success:
-                create: Sous-traitant "%object%" créé avec succès
-                edit: Sous-traitant "%object%" modifié avec succès
-                delete: Sous-traitant "%object%" supprimé avec succès
-        list:
-            adopted_security_features: Adopte les éléments de sécurité
-            collectivity: Structure
-            contractual_clauses_verified: Clauses contractuelles vérifiées
-            created_at: Date de création
-            maintains_treatment_register: Registre des traitements
-            name: Nom
-            sending_data_outside_eu: Données hors UE
-            updated_at: Date de modification
-        modal:
-            confirm_deletion: Voulez-vous vraiment supprimer ce sous-traitant ?
-        show:
-            adopted_security_features: A adopté les éléments de sécurité nécessaires
-            collectivity: Structure
-            contractual_clauses_verified: Clauses contractuelles vérifiées
-            contact_civility: Civilité
-            contact_first_name: Prénom
-            contact_last_name: Nom
-            contact_job: Fonction
-            contact_mail: Email
-            contact_phone_number: Téléphone
-            created_at: Date de création
-            creator: Créateur
-            deleted_user: Utilisateur supprimé
-            has_dpo: Le sous-traitant a désigné un DPD
-            maintains_treatment_register: Tient à jour un registre des traitements
-            name: Nom
-            other_informations: Autres informations
-            referent: Agent référent
-            sending_data_outside_eu: Envoi des données hors UE
-            updated_at: Date de modification
-            updated_by: Modifié par
-        tab:
-            coordinates: Coordonnées
-            dpo: DPD
-            general: Informations générales
-            historic: Historique
-            legal_manager: Responsable de traitement
-            contractor: Sous-traitant
+                create: Traitement "%object%" créé avec succès
+                edit: Traitement "%object%" modifié avec succès
+                delete: Traitement "%object%" supprimé avec succès
+                archive: Traitement "%object%" archivé avec succès
+
+    contractor:
         title:
             create: Créer un sous-traitant
             delete: Supprimer un sous-traitant
@@ -93,11 +117,82 @@ registry:
             edit: Modifier un sous-traitant
             list: Liste des sous-traitants
             show: Visualiser un sous-traitant
+        breadcrumb:
+            create: Créer
+            delete: Supprimer "%name%"
+            delete_many: Suppression
+            edit: Modifier "%name%"
+            list: Liste des sous-traitants
+            show: Visualiser "%name%"
+        action:
+            new: Nouveau sous-traitant
+            new_submit: Créer le sous-traitant
+            edit_submit: Modifier le sous-traitant
+        label:
+            name: Nom
+            referent: Agent référent
+            contractual_clauses_verified: Clauses contractuelles vérifiées
+            adopted_security_features: Adopte les éléments de sécurité nécessaires
+            maintains_treatment_register: Tient à jour un registre des traitements
+            sending_data_outside_eu: Envoi des données hors UE
+            other_informations: Autres informations
+            has_dpo: Le sous-traitant a désigné un DPD
+        list:
+            adopted_security_features: Adopte les éléments de sécurité
+            maintains_treatment_register: Registre des traitements
+            sending_data_outside_eu: Données hors UE
+        tab:
+            coordinates: Coordonnées
+            dpo: DPD
+        flashbag:
+            success:
+                create: Sous-traitant "%object%" créé avec succès
+                edit: Sous-traitant "%object%" modifié avec succès
+                delete: Sous-traitant "%object%" supprimé avec succès
 
-    delay:
-        form:
-            other_delay: Autre délai
     tool:
+        title:
+            list: Liste des logiciels et supports
+            create: Création d'un logiciel ou support
+            edit: Modification d'un logiciel ou support
+            delete: Suppression d'un logiciel ou support
+            show: Visualiser un logiciel ou support
+        breadcrumb:
+            list: Liste des logiciels et supports
+            create: Créer
+            show: Visualiser "%name%"
+            edit: Modifier "%name%"
+            delete: Supprimer "%name%"
+        label:
+            name: Nom
+            type: Type
+            description: Description
+            editor: Éditeur
+            prod_date: Date de mise en production
+            country_type: Pays d’hébergement ou de stockage
+            country_name: Nom du pays
+            country_guarantees: Garanties pour le transfert
+            manager: Personne en charge
+            other_info: Autres informations
+            archival: Archivage
+            encrypted: Chiffrement
+            access_control: Contrôle d'accès
+            update: Mise à jour
+            backup: Sauvegarde
+            deletion: Suppression
+            tracking: Traçabilité
+            has_comment: Zone de commentaire libre
+            other: Autres
+            country:
+                france: France
+                eu: Pays de l’Union Européenne ou pays adéquats
+                other: Autre pays d’hébergement de la donnée
+        tab:
+            measures: Mesures de sécurité et confidentialité
+        action:
+            new: Nouveau logiciel ou support
+            new_submit: Créer le logiciel ou support
+            edit_submit: Modifier le logiciel ou support
         flashbag:
             success:
                 create: Logiciel ou support "%object%" créé avec succès
@@ -108,184 +203,141 @@ registry:
         name:
             not_blank: Le nom de l'outil est indispensable
 
-        country:
-            france: France
-            eu: Pays de l’Union Européenne ou pays adéquats
-            other: Autre pays d’hébergement de la donnée
-        breadcrumb:
-            list: Liste des logiciels et supports
-            create: Créer
-            show: Visualiser "%name%"
-            edit: Modifier "%name%"
-            delete: Supprimer "%name%"
-        form:
-            name: Nom
-            type: Type
-            editor: Éditeur
-            contractors: Sous-traitants
-            description: Description
-            other_info: Autres informations
-            prod_date: Date de mise en production
-            country_type: Pays d’hébergement ou de stockage
-            country_name: Nom du pays
-            country_guarantees: Garanties pour le transfert
-            manager: Personne en charge
-            archival: Archivage
-            tracking: Traçabilité
-            encrypted: Chiffrement
-            access_control: Contrôle d'accès
-            update: Mise à jour
-            backup: Sauvegarde
-            deletion: Suppression
-            has_comment: Zone de commentaire libre
-            other: Autres
-        tab:
-            relations: Relations
-            measures: Mesures de sécurité et confidentialité
-            general: Informations générales
-            historic: Historique
+    request:
         title:
-            list: Logiciels et supports
-            create: Création d'un logiciel ou support
-            edit: Modification d'un logiciel ou support
-            delete: Suppression d'un logiciel ou support
-            show: Visualiser un logiciel ou support
-        action:
-            new: Nouveau logiciel ou support
-            edit: Modifier
-            delete: Supprimer
-            new_submit: Créer le logiciel ou support
-            edit_submit: Modifier le logiciel ou support
-            back_to_list: Retour à la liste
-            print_all: Générer une impression
-            print: Imprimer
-        list:
-            name: Nom
-            collectivity: Structure
-            treatments: Traitements
-            contractors: Sous-traitants
-            mesurements: Actions de protection
-            proofs: Preuves
-            access_control: Contrôle d'accès
-            created_at: Date de création
-            updated_at: Date de modification
-            update: Mise à jour
-            backup: Sauvegarde
-            tracking: Traçabilité
-            deletion: Suppression
-            has_comment: Zone de commentaire libre
-            other: Autres
-            type: Type
-            editor: Éditeur
-            archival: Archivage
-            encrypted: Chiffrement
-        show:
-            name: Nom
-            collectivity: Structure
-            treatments: Traitements
-            contractors: Sous-traitants
-            mesurements: Actions de protection
-            documents: Documents
-            access_control: Contrôle d'accès
-            created_at: Date de création
-            updated_at: Date de modification
-            updated_by: Modifié par
-            update: Mise à jour
-            backup: Sauvegarde
-            tracking: Traçabilité
-            deletion: Suppression
-            has_comment: Zone de commentaire libre
-            other: Autre
-            type: Type
-            editor: Éditeur
-            manager: Personne en charge
-            archival: Archivage
-            encrypted: Chiffrement
-            creator: Créateur
-            description: Description
-            other_info: Autres informations
-            prod_date: Date de mise en production
-            country: Pays d’hébergement ou de stockage
-
-
-    mesurement:
-        action:
-            back_to_list: Retour à la liste
-            new: Nouvelle action
-            show_mesurement: Voir l'action de protection
-            new_submit: Créer l'action de protection
-            edit_submit: Modifier l'action de protection
+            create: Créer une demande
+            edit: Modifier une demande
+            delete: Archiver une demande
+            list: Liste des demandes
+            show: Visualiser une demande
         breadcrumb:
             create: Créer
-            delete: Supprimer "%name%"
-            delete_many: Suppression
+            delete: Archiver "%name%"
             edit: Modifier "%name%"
-            list: Liste des actions
+            list: Liste des demandes
             show: Visualiser "%name%"
-        form:
-            charge: Charge
-            comment: Observations
-            cost: Coût
-            description: Description
-            manager: Responsable d'action
-            name: Nom
-            planification_date: Échéance
-            priority: Priorité
-            status: Statut
-            type: Type
-            contractor: Sous-traitant
-            treatment: Traitement
-            violation: Violation
+        action:
+            archived: Voir les demandes archivées
+            new: Nouvelle demande
+            not_archived: Voir les demandes non archivées
+            new_submit: Créer la demande
+            edit_submit: Modifier la demande
+        label:
+            concerned_people: Personne concernée
+            object: Objet de la demande
+            other_object: Demande explicite
+            date: Date de la demande
+            reason: Motif
+            complete: Demande complète
+            legitimate_applicant: Demandeur légitime
+            legitimate_request: Demande légitime
+            state: Statut
+            state_rejection_reason: Motifs du refus
+            answer_date: Date de traitement
+            answer_response: Réponse apportée
+            answer_type: Moyen de la réponse
+            is_concerned_people: Est la personne concernée
+            link_with_applicant: Lien avec le demandeur
+            help:
+                concerned_people: Si différente du demandeur
+        tab:
             request: Demande
+            answer: Réponse
+            applicant: Demandeur
+            concerned_people: Personne concernée
         flashbag:
             success:
-                create: Action de protection "%object%" créée avec succès
-                edit: Action de protection "%object%" modifiée avec succès
-                delete: Action de protection "%object%" supprimée avec succès
+                create: Demande de "%object%" créée avec succès
+                edit: Demande de "%object%" modifiée avec succès
+                delete: Demande de "%object%" archivée avec succès
+
+    violation:
+        action:
+            archived: Voir les violations archivées
+            new: Nouvelle violation
+            not_archived: Voir les violations non archivées
+            new_submit: Créer la violation
+            edit_submit: Modifier la violation
+        title:
+            create: Créer une violation
+            delete: Archiver une violation
+            edit: Modifier une violation
+            list: Liste des violations
+            show: Visualiser une violation
+        breadcrumb:
+            create: Créer
+            delete: Archiver "%name%"
+            edit: Modifier "%name%"
+            list: Liste des violations
+            show: Visualiser "%name%"
+        form:
+            date: Date de la violation
+            in_progress: La violation est toujours en cours
+            violation_natures: Natures de la violation
+            origins: Origine de la perte de données
+            cause: Cause de la violation
+            concerned_data_nature: Nature des données concernées
+            concerned_people_categories: Catégorie des personnes concernées
+            nb_affected_rows: Nombre approximatif d'enregistrements concernés par la violation
+            nb_affected_persons: Nombre approximatif de personnes concernées par la violation
+            potential_impacts_nature: Nature des impacts potentiels pour les personnes
+            gravity: Niveau de gravité
+            communication: Communications aux personnes concernées
+            communication_precision: Précisions sur les communications
+            applied_measures_after_violation: Mesures techniques et organisationnelles appliquées suite à la violation
+            notification: Notification
+            notification_details: Précisions sur les notifications
+            comment: Commentaire
         list:
-            charge: Charge
-            collectivity: Structure
-            cost: Coût
-            created_at: Date de création
-            manager: Responsable d'action
-            name: Nom
-            planification_date: Échéance
-            priority: Priorité
-            description: Description
-            observation: Observations
-            status: Statut
-            updated_at: Date de modification
-            type:
-                legal: Actions juridiques
-                organisational: Actions organisationnelles
-                technical: Actions techniques
-            responsable: Responsable d'action
-        show:
-            charge: Charge
-            collectivity: Structure
-            comment: Observations
-            created_at: Date de création
-            creator: Créateur
-            cost: Coût
-            description: Description
-            manager: Responsable d'action
-            name: Nom
-            planification_date: Échéance
-            priority: Priorité
-            status: Statut
-            type: Type
-            updated_at: Date de modification
-            updated_by: Modifié par
-            contractor: Sous-traitants
-            treatment: Traitements
-            violation: Violations
-            request: Demandes
-            none: Aucun
+            violation_nature: Nature
+            in_progress: Violation en cours
+            cause: Cause
         tab:
-            application: Application
-            general: Informations générales
-            historic: Historique
-            relations: Éléments liés
+            consequence: Conséquences de la violation
+            information: Informations sur la violation
+        flashbag:
+            success:
+                create: '"%object%" créée avec succès'
+                edit: '"%object%" modifiée avec succès'
+                delete: '"%object%" archivée avec succès'
+
+    proof:
+        title:
+            archive: Archiver une preuve
+            create: Créer une preuve
+            edit: Modifier une preuve
+            list: Liste des preuves
+            delete: Supprimer une preuve
+        breadcrumb:
+            archive: Archiver "%name%"
+            create: Créer
+            edit: Modifier "%name%"
+            list: Liste des preuves
+            delete: Supprimer "%name%"
+        action:
+            archived: Voir les preuves archivées
+            new: Ajouter une preuve
+            not_archived: Voir les preuves non archivées
+            download: Télécharger tous les documents
+            new_submit: Créer la preuve
+            edit_submit: Modifier la preuve
+        label:
+            name: Nom
+            type: Type
+            comment: Commentaire
+            file: Fichier
+            help:
+                file: "Un seul fichier. Taille maximale autorisée : max_size. Types de fichiers autorisés : Image, Documents"
+        flashbag:
+            success:
+                archive: Preuve "%object%" archivée avec succès
+                create: Preuve "%object%" créée avec succès
+                edit: Preuve "%object%" modifiée avec succès
+                delete: Preuve "%object%" supprimée avec succès
+        tab:
+            upload: Document
+
+    mesurement:
         title:
             action_plan: Plan d'actions
             create: Créer une action de protection
@@ -293,518 +345,65 @@ registry:
             edit: Modifier une action de protection
             list: Liste des actions de protection
             show: Visualiser une action de protection
-        modal:
-          cancel: Annuler
-          create: Créer l'action de protection
-          title: Créer une action de protection
-
-    proof:
-        action:
-            archived: Voir les preuves archivées
-            back_to_list: Retour à la liste
-            new: Ajouter une preuve
-            not_archived: Voir les preuves non archivées
-            download: Télécharger tous les documents
-            new_submit: Créer la preuve
-            edit_submit: Modifier la preuve
-        breadcrumb:
-            archive: Archiver "%name%"
-            create: Créer
-            edit: Modifier "%name%"
-            list: Liste des preuves
-            delete: Supprimer "%name%"
-        form:
-            comment: Commentaire
-            contractors: Sous-traitants
-            help:
-                link: Vous pouvez associer ce document s'il vient compléter une(des) donnée(s) saisie(s) dans MADIS
-            mesurements: Actions de protections
-            name: Nom
-            requests: Demandes de personnes concernées
-            treatments: Traitements
-            type: Type
-            violations: Violations
-        flashbag:
-            success:
-                archive: Preuve "%object%" archivée avec succès
-                create: Preuve "%object%" créée avec succès
-                edit: Preuve "%object%" modifiée avec succès
-                delete: Preuve "%object%" supprimée avec succès
-        list:
-            collectivity: Structure
-            comment: Commentaire
-            created_at: Date de création
-            name: Nom
-            type: Type
-            updated_at: Date de modification
-
-        tab:
-            general: Informations générales
-            link: Association
-            upload: Document
-        title:
-            archive: Archiver une preuve
-            create: Créer une preuve
-            edit: Modifier une preuve
-            list: Liste des preuves
-            delete: Supprimer une preuve
-
-    request:
-        action:
-            archived: Voir les demandes archivées
-            back_to_list: Retour à la liste
-            new: Nouvelle demande
-            not_archived: Voir les demandes non archivées
-            report: Générer une impression
-            print: Imprimer
-            new_submit: Créer la demande
-            edit_submit: Modifier la demande
-        breadcrumb:
-            create: Créer
-            delete: Archiver "%name%"
-            edit: Modifier "%name%"
-            list: Liste des demandes
-            show: Visualiser "%name%"
-        flashbag:
-            success:
-                create: Demande de "%object%" créée avec succès
-                edit: Demande de "%object%" modifiée avec succès
-                delete: Demande de "%object%" archivée avec succès
-        form:
-            complete: Demande complète
-            date: Date de la demande
-            help:
-                concerned_people: Si différente du demandeur
-            legitimate_applicant: Demandeur légitime
-            legitimate_request: Demande légitime
-            object: Objet de la demande
-            other_object: Demande explicite
-            reason: Motif
-            service: Service
-            state: État de la demande
-            state_rejection_reason: Motifs du refus
-            treatment: Traitements associés
-        list:
-            answer_date: Date de traitement
-            collectivity: Structure
-            complete: Demande complète
-            concerned_people: Personne concernée
-            created_at: Date de création
-            date: Date de la demande
-            legitimate_applicant: Demandeur légitime
-            legitimate_request: Demande légitime
-            object: Objet de la demande
-            state: État de la demande
-            updated_at: Date de modification
-        show:
-            answer_response: Réponse apportée
-            answer_date: Date de traitement
-            answer_type: Moyen de la réponse
-            applicant_address: Adresse
-            applicant_civility: Civilité
-            applicant_concerned_people: Personne concernée
-            applicant_first_name: Prénom
-            applicant_last_name: Nom
-            applicant_mail: Email
-            applicant_phone_number: Téléphone
-            collectivity: Structure
-            complete: Demande complète
-            concerned_people_address: Adresse
-            concerned_people_civility: Civilité
-            concerned_people_first_name: Prénom
-            concerned_people_last_name: Nom
-            concerned_people_link_with_applicant: Lien avec le demandeur
-            concerned_people_mail: Email
-            concerned_people_phone_number: Téléphone
-            created_at: Date de création
-            creator: Créateur
-            date: Date
-            deleted_user: Utilisateur supprimé
-            legitimate_applicant: Demandeur légitime
-            legitimate_request: Demande légitime
-            object: Objet de la demande
-            other_object: Demande explicite
-            reason: Motif
-            state: État de la demande
-            state_rejection_reason: Motifs du refus
-            updated_at: Date de modification
-            updated_by: Modifié par
-        tab:
-            answer: Réponse
-            applicant: Demandeur
-            concerned_people: Personne concernée
-            historic: Historique
-            request: Demande
-            treatment: Traitements associés
-        title:
-            create: Créer une demande
-            edit: Modifier une demande
-            delete: Archiver une demande
-            list: Liste des demandes
-            show: Visualiser une demande
-
-    request_answer:
-        form:
-            date: Date de la réponse
-            response: Réponse apportée
-            type: Moyen de la réponse
-
-    request_applicant:
-        form:
-            civility: Civilité
-            first_name: Prénom
-            last_name: Nom
-            address: Adresse
-            mail: Email
-            phone_number: Téléphone
-            concerned_people: Est la personne concernée
-
-    request_concerned_people:
-        form:
-            civility: Civilité
-            first_name: Prénom
-            last_name: Nom
-            address: Adresse
-            mail: Email
-            phone_number: Téléphone
-            link_with_applicant: Lien avec le demandeur
-
-    treatment:
-        action:
-            active: Voir les traitements actifs
-            back_to_list: Retour à la liste
-            inactive: Voir les traitements inactifs
-            new: Nouveau traitement
-            report: Générer une impression
-            new_submit: Créer le traitement
-            edit_submit: Modifier le traitement
-            edit_config_submit: Modifier la configuration
-            draft: Enregistrer le brouillon
         breadcrumb:
             create: Créer
             delete: Supprimer "%name%"
             delete_many: Suppression
             edit: Modifier "%name%"
-            list: Liste des traitements
+            list: Liste des actions
             show: Visualiser "%name%"
-            archive: Désactiver
-        form:
-            active: Statut
-            author: En tant que
-            authorized_people: Personnes habilitées
-            automated_decisions_with_legal_effect: Décisions automatisées  avec  effet
-            automatic_exclusion_service : Exclusion automatique d'un service
-            collecting_method: Moyens de la collecte
-            otherCollectingMethod: Autre moyen de collecte
-            concerned_people: Personnes concernées
-            concerned_people_agent: Salariés
-            concerned_people_company: Professionnels
-            concerned_people_elected: Élus
-            concerned_people_particular: Particuliers
-            concerned_people_partner: Partenaires
-            concerned_people_other: Autres
-            concerned_people_user: Internautes
-            concerned_people_usager: Usagers
-            contractors: Sous-traitants
-            data_crossing: Croisement de données
-            data_category: Catégorie de données
-            data_category_other: Autres catégories
-            coordonnees_responsable_traitement: Coordonnées du responsable de traitement
-            data_origin: Origine des données
-            delay: Délai de conservation
-            estimated_concerned_people: Nombre de personnes concernées
-            evaluation_or_rating: Évaluation ou notation
-            exempt_AIPD: Est exempté d'AIPD
-            goal: Finalités
-            innovative_use: Usage innovant
-            large_scale_collection: Collecte à large échelle
-            legal_basis: Base légale
-            legal_basis_justification: Justification de la base légale
-            manager: Gestionnaire
-            name: Nom
-            observation: Observations
-            paper_processing: Traitement papier
-            public: Public
-            public_registry: Registre public
-            recipient_category: Catégorie de destinataires
-            security_access_control: Contrôle d'accès
-            security_entitled_persons: À tout moment il est possible de ressortir les personnes habilitées
-            security_open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
-            security_other: Autres
-            security_saving: Sauvegarde
-            security_specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
-            security_tracability: Traçabilité
-            security_update: Mise à jour
-            service: Service
-            shelflife_name: Nom
-            shelflife_duration: Durée
-            shelflife_ultimate_fate: Sort final
-            statut: Statut
-            systematic_monitoring: Surveillance systématique
-            software: Logiciels et supports
-            tools: Logiciels et supports
-            ultimate_fate: Sort final
-            vulnerable_people: Personnes vulnérables
-            dpoMessage: Préconisations
-            legalMentions: Mentions légales apposées
-            consentRequest: Consentement demandé
-            consentRequestFormat: Format de la demande du consentement
-            exemptAipd: Est exempté d’AIPD
-
-        flashbag:
-            success:
-                create: Traitement "%object%" créé avec succès
-                edit: Traitement "%object%" modifié avec succès
-                delete: Traitement "%object%" supprimé avec succès
-                archive: Traitement "%object%" archivé avec succès
-        list:
-            sensitive_data: Données sensibles
-            access_control: Contrôle d'accès
-            active: Statut
-            author: En tant que
-            collectivity: Structure
-            completion: Taux de complétion
-            contractors: Sous-traitants
-            conformite_traitement: Conformité du traitement
-            created_at: Date de création
-            avis_aipd: Avis AIPD
-            entitled_persons: À tout moment il est possible de ressortir les personnes habilitées
-            goal: Finalité
-            legal_basis: Base légale
-            manager: Gestionnaire
-            name: Nom
-            open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
-            other: Autres
-            public: Public
-            responsable_traitement: Responsable traitement
-            saving: Sauvegarde
-            specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
-            software: Logiciels et supports
-            tracability: Traçabilité
-            updated_at: Date de modification
-            update: Mise à jour
-            specific_traitement: Traitements spécifiques
-            statut: Statut
-        modal:
-            confirm_deletion: Voulez-vous vraiment supprimer ce traitement ?
-        show:
-            active: Statut
-            author: En tant que
-            authorized_people: Personnes habilitées
-            automated_decisions_with_legal_effect: Décisions automatisées  avec  effet
-            automatic_exclusion_service: Exclusion automatique d'un service
-            collecting_method: Moyens de la collecte
-            concerned_people: Personnes concernées
-            concerned_people_agent: Salariés
-            concerned_people_company: Professionnels
-            concerned_people_elected: Élus
-            concerned_people_particular: Particuliers
-            concerned_people_partner: Partenaires
-            concerned_people_other: Autres
-            concerned_people_user: Internautes
-            concerned_people_usagers: Usagers
-            concerned_people_usager: Usagers
-            conformite_traitement: Conformité du traitement
-            conformite_traitement_created_at: Conformité du traitement - Date création
-            conformite_traitement_updated_at: Conformité du traitement - Date modification
-            collectivity: Structure
-            otherCollectingMethod: Autre moyen de collecte
-            contractors: Sous-traitants
-            coordonnees_responsable_traitement: Coordonnées responsable
-            created_at: Date de création
-            creator: Créateur
-            data_crossing: Croisement de données
-            data_categories: Catégorie de données
-            data_category: Catégorie de données
-            data_category_other: Autres catégories
-            data_origin: Origine des données
-            delay: Délais de conservation
-            deleted_user: Utilisateur supprimé
-            dpo_message: Préconisations
-            estimated_concerned_people: Nombre de personnes concernées
-            evaluation_or_rating: Évaluation ou notation
-            goal: Finalités
-            innovative_use: Usage innovant
-            large_scale_collection: Collecte à large échelle
-            legal_basis: Base légale
-            legal_basis_justification: Justification de la base légale
-            manager: Gestionnaire
-            name: Nom
-            observation: Observations
-            paper_processing: Traitement papier
-            proofs: Preuves associées
-            public: Public
-            public_register: Registre public
-            recipient_category: Catégorie de destinataires
-            security_access_control: Contrôle d'accès
-            security_entitled_persons: À tout moment il est possible de ressortir les personnes habilitées
-            security_open_accounts: La personne ou la procédure qui permet d’ouvrir des comptes est clairement identifiée
-            security_other: Autres
-            security_saving: Sauvegarde
-            security_specificities_delivered: Les spécificités de sensibilisation liées à ce traitement sont délivrées
-            security_tracability: Traçabilité
-            security_update: Mise à jour
-            service: Service
-            shelf_lifes: Délai de conservation
-            software: Logiciels et supports
-            statut: Statut
-            ultimate_fate: Sort final
-            systematic_monitoring: Surveillance systématique
-            updated_at: Date de modification
-            updated_by: Modifié par
-            vulnerable_people: Personnes vulnérables
-            delete_related_objects_error: Une erreur est survenue lors de la suppression des %relateds% de la structure "%object%"
-            legalMentions: Mentions légales apposées
-            consentRequest: Consentement demandé
-            consentRequestFormat: Format de la demande du consentement
-            legal_mentions: Mentions légales apposées
-            consent_request: Consentement demandé
-            consent_request_format: Format de la demande du consentement
-            exempt_aipd: Est exempté d'AIPD
-            exempt_AIPD: Est exempté d'AIPD
-            tools: Logiciels et supports
-
-            preconization_dpo: Préconisations
-        title:
-            create: Créer un traitement
-            delete: Supprimer un traitement
-            edit: Modifier un traitement
-            list: Liste des traitements
-            show: Visualiser un traitement
-            configure: Configurer le registre des traitements
-            archive: Désactiver un traitement
-        tab:
-          conformite: Évaluation de la conformité du traitement
-          data_category: Catégorie des données
-          details: Détails
-          general: Informations générales
-          historic: Historique
-          last_aipd: Dernière analyse d'impact réalisée
-          exempt_AIPD: Est exempté d'AIPD
-          proofs: Documents associés
-          public: Registre public
-          recipients: Destination
-          security: Mesures de sécurité et confidentialité
-          specific: Traitement spécifique
-          dpo_message: Préconisations
-          statut_dpo: Statut et préconisations DPD
-
-    violation:
         action:
-            archived: Voir les violations archivées
-            back_to_list: Retour à la liste
-            new: Nouvelle violation
-            report: Générer une impression
-            not_archived: Voir les violations non archivées
-            new_submit: Créer la violation
-            edit_submit: Modifier la violation
-        breadcrumb:
-            create: Créer
-            delete: Archiver "%name%"
-            edit: Modifier "%name%"
-            list: Liste des violations
-            show: Visualiser "%name%"
+            new: Nouvelle action
+            show_mesurement: Voir l'action de protection
+            new_submit: Créer l'action de protection
+            edit_submit: Modifier l'action de protection
+        label:
+            name: Nom
+            description: Description
+            manager: Responsable d'action
+            priority: Priorité
+            cost: Coût
+            charge: Charge
+            status: Statut
+            planification_date: Échéance
+            comment: Observations
+        tab:
+            application: Application
         flashbag:
             success:
-                create: '"%object%" créée avec succès'
-                edit: '"%object%" modifiée avec succès'
-                delete: '"%object%" archivée avec succès'
-        form:
-            applied_measures_after_violation: Mesures techniques et organisationnelles appliquées suite à la violation
-            cause: Cause de la violation
-            comment: Commentaire
-            communication: Communications aux personnes concernées
-            communication_precision: Précisions sur les communications
-            concerned_data_nature: Nature des données concernées
-            concerned_people_categories: Catégorie des personnes concernées
-            date: Date de la violation
-            gravity: Niveau de gravité
-            in_progress: La violation est toujours en cours
-            nb_affected_persons: Nombre approximatif de personnes concernées par la violation
-            nb_affected_rows: Nombre approximatif d'enregistrements concernés par la violation
-            notification: Notification
-            notification_details: Précisions sur les notifications
-            origins: Origine de la perte de données
-            potential_impacts_nature: Nature des impacts potentiels pour les personnes
-            service: Service
-            contractor: Sous-traitants
-            violation_nature: Nature de la violation
-            violation_natures: Natures de la violation
-            treatment: Traitements associés
-        list:
-            cause: Cause
-            collectivity: Structure
-            created_at: Date de création
-            date: Date de violation
-            gravity: Niveau de gravité
-            violation_nature: Nature
-            violation_natures: Natures
+                create: Action de protection "%object%" créée avec succès
+                edit: Action de protection "%object%" modifiée avec succès
+                delete: Action de protection "%object%" supprimée avec succès
 
-            updated_at: Date de modification
-            in_progress: Violation en cours
-            notification: Notification
-
-        show:
-            applied_measures_after_violation: Mesures techniques et organisationnelles appliquées suite à la violation
-            cause: Cause de la violation
-            collectivity: Structure
-            comment: Commentaire
-            communication: Communications aux personnes concernées
-            communication_precision: Précisions sur les communications
-            concerned_data_nature: Nature des données concernées
-            concerned_people_categories: Catégorie des personnes concernées
-            created_at: Date de création
-            creator: Créateur
-            date: Date de la violation
-            gravity: Niveau de gravité
-            deleted_user: Utilisateur supprimé
-            in_progress: La violation est toujours en cours
-            nb_affected_persons: Nombre approximatif de personnes concernées par la violation
-            nb_affected_rows: Nombre approximatif d'enregistrements concernés par la violation
-            notification: Notification
-            notification_details: Précisions sur les notifications
-            origins: Origine de la perte de données
-            potential_impacts_nature: Nature des impacts potentiels pour les personnes
-            updated_at: Date de modification
-            updated_by: Modifié par
-            violation_nature: Nature de la violation
-        tab:
-            consequence: Conséquences de la violation
-            historic: Historique
-            information: Informations sur la violation
-            treatment: Traitements associés
-            contractor: Sous traitants associés
-        title:
-            create: Créer une violation
-            delete: Archiver une violation
-            edit: Modifier une violation
-            list: Liste des violations
-            show: Visualiser une violation
     conformite_traitement:
-        list:
-            collectivity: Structure
-            conformite: Conformité
-            conformite_reponse: Conformité des questions
-            date_conformite: Date de l'évaluation
-            gestionnaire: Gestionnaire
-            traitement: Traitement
-            avis_aipd: Avis AIPD
-            date_aipd: Date de l'AIPD
-        action:
-            back_to_list: Retour à la liste
-            report: Générer une impression
-            show_conformite_traitement: Évaluer
-            new_submit: Créer l'évaluation du traitement
-            edit_submit: Modifier l'évaluation du traitement
         title:
             list: Conformité des traitements
             create: Évaluer un traitement
             edit: Évaluer un traitement
-        form:
-            action_protection: Action de protection
-            conformite: Conformité
-            header: Évaluation du traitement
+        breadcrumb:
+            list: Conformité des traitements
+            create: Évaluer un traitement
+            edit: Évaluer un traitement
+        label:
             question: Principes fondamentaux
+            conformite: Conformité
+            conformite_traitement: Conformité du traitement
+            conformite_reponse: Conformité des questions
+            not_done: Non-réalisée
+            tooltip:
+                conforme: 'Conforme :'
+                minor_conforme: 'Non-conforme mineure :'
+                major_conforme: 'Non-conforme majeure :'
+        list:
+            traitement: Traitement
+            date_conformite: Date de l'évaluation
+            date_aipd: Date de l'AIPD
+        action:
+            show_conformite_traitement: Évaluer
+            new_submit: Créer l'évaluation du traitement
+            edit_submit: Modifier l'évaluation du traitement
+        tab:
+            evaluate: Évaluation du traitement
         flashbag:
             success:
                 edit: Conformité du traitement "%object%" modifiée avec succès
@@ -812,32 +411,26 @@ registry:
 
     conformite_organisation:
         title:
+            list: Conformité de la structure
             create: Créer une évaluation
             edit: Modifier une évaluation
-            list: Conformité de la structure
             delete: Supprimer une évaluation
+        breadcrumb:
+            list: Conformité de la structure
+            create: Créer
+            edit: Modifier une évaluation
+            delete: Supprimer une évaluation
+        label:
+            date: Date de l'évaluation
+            participants: Participants
         list:
-            collectivite: Structure
-            draft: Brouillon
             pilote: Pilote
             processus: Processus
             conformite: Conformité
-            action_protection: Action de protection
-            date_creation: Date de l'évaluation
-            actions: Actions
             nb_participants: Nombre de participants
-        form:
-            date: Date
-            participants: Participants
+            draft: Brouillon
+        tab:
             contexte: Contexte
-            actions_protection: Actions de protection
-        participant:
-            form:
-                civilite: Civilité
-                prenom: Prénom
-                nom_famille: Nom
-                fonction: Fonction
-                add: Ajouter un participant
         flashbag:
             success:
                 create: Conformité de la structure "%object%" créée avec succès
@@ -849,3 +442,4 @@ registry:
             pilote_submit: Modifier les pilotes
             new_submit: Créer l'évaluation de la structure
             edit_submit: Modifier l'évaluation de la structure
+            add_participant: Ajouter un participant

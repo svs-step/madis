@@ -52,8 +52,8 @@
                     <hr style="border: 0"/>
                     <table class="table table-bordered">
                         <tr>
-                            <th scope="col">{{ 'registry.conformite_traitement.form.question'|trans }}</th>
-                            <th scope="col" style="width: 25%">{{ 'registry.conformite_traitement.form.conformite'|trans }}</th>
+                            <th scope="col">{{ 'registry.conformite_traitement.label.question'|trans }}</th>
+                            <th scope="col" style="width: 25%">{{ 'registry.conformite_traitement.label.conformite'|trans }}</th>
                         </tr>
                         {% for question in analyseImpact.questionConformites|sort((a, b) => a.position >= b.position) %}
                             <tr>

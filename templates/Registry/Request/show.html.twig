@@ -25,9 +25,9 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a aria-label="{{ 'registry.request.action.back_to_list'|trans }}" href="{{ path('registry_request_list') }}" class="btn btn-default">
+                <a href="{{ path('registry_request_list') }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-arrow-left"></i>
-                    {{ 'registry.request.action.back_to_list'|trans }}
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
                 {% if is_granted('ROLE_USER') and object.deletedAt is null and (actionEnabled) %}
                 <a href="{{ path('registry_request_edit', {'id': object.id}) }}" class="btn btn-default">
@@ -47,13 +47,13 @@
         {# LEFT #}
         <div class="col-md-6">
             {# REQUEST #}
-            <div class="box box-solid box-primary">
+            <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.request'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table role="presentation" class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.object'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.object'|trans }}</strong></td>
                             <td>{% if object.object in dictionary('registry_request_object').values|keys %}
                                     {{ object.object|dictionary('registry_request_object') }}
                                 {% else %}
@@ -61,19 +61,19 @@
                                 {% endif %}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.other_object'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.other_object'|trans }}</strong></td>
                             <td>{{ object.otherObject }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.date'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.date'|trans }}</strong></td>
                             <td>{{ object.date|date('d/m/Y') }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.reason'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.reason'|trans }}</strong></td>
                             <td>{{ object.reason }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.complete'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.complete'|trans }}</strong></td>
                             <td>
                                 {% if object.complete %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -83,7 +83,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.legitimate_applicant'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.legitimate_applicant'|trans }}</strong></td>
                             <td>
                                 {% if object.legitimateApplicant %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -93,7 +93,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.legitimate_request'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.legitimate_request'|trans }}</strong></td>
                             <td>
                                 {% if object.legitimateRequest %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -108,25 +108,25 @@
             </div>
 
             {# ANSWER #}
-            <div class="box box-solid box-info">
+            <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.answer'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table role="presentation" class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.answer_response'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.answer_response'|trans }}</strong></td>
                             <td>{{ object.answer.response|nl2br }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.answer_date'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.answer_date'|trans }}</strong></td>
                             <td>{% if object.answer.date %}{{ object.answer.date|date('d/m/Y') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.answer_type'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.answer_type'|trans }}</strong></td>
                             <td>{% if object.answer.type is not null %}{{ object.answer.type|dictionary('registry_request_answer_type') }}{% endif %}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.state'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.state'|trans }}</strong></td>
                             <td>{% if object.state in (dictionary('registry_request_state').values|keys) %}
                                     {{ object.state|dictionary('registry_request_state') }}
                                 {% else %}
@@ -136,7 +136,7 @@
                         </tr>
                         {% if object.state == constant('App\\Domain\\Registry\\Dictionary\\RequestStateDictionary::STATE_DENIED') %}
                         <tr>
-                            <td><strong>{{ 'registry.request.show.state_rejection_reason'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.state_rejection_reason'|trans }}</strong></td>
                             <td>{{ object.stateRejectionReason }}</td>
                         </tr>
                         {% endif %}
@@ -147,30 +147,30 @@
 
             {# HISTORIC #}
             <div class="box box-solid box-default">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.historic'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.history'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table role="presentation" class="table">
                         <tbody>
                         {% if is_granted('ROLE_ADMIN') %}
                             <tr>
-                                <td><strong>{{ 'registry.request.show.collectivity'|trans }}</strong></td>
+                                <td><strong>{{ 'global.label.organization'|trans }}</strong></td>
                                 <td>
-                                    <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                         {{ object.collectivity }}
                                     </a>
                                 </td>
                             </tr>
                         {% endif %}
                         <tr>
-                            <td><strong>{{ 'registry.request.show.created_at'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.created_at'|trans }}</strong></td>
                             <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.updated_at'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.updated_at'|trans }}</strong></td>
                             <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.updated_by'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.updated_by'|trans }}</strong></td>
                             <td>{{ object.updatedBy }}</td>
                         </tr>
                         </tbody>
@@ -183,37 +183,37 @@
         {# RIGHT #}
         <div class="col-md-6">
             {# APPLICANT #}
-            <div class="box box-solid box-success">
+            <div class="box box-solid box-primary">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.applicant'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table role="presentation" class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.applicant_civility'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.contact.civility'|trans }}</strong></td>
                             <td>{{ object.applicant.civility|dictionary('registry_request_civility') }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.applicant_first_name'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.contact.first_name'|trans }}</strong></td>
                             <td>{{ object.applicant.firstName }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.applicant_last_name'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.contact.last_name'|trans }}</strong></td>
                             <td>{{ object.applicant.lastName }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.applicant_address'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.address.line_one'|trans }}</strong></td>
                             <td>{{ object.applicant.address }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.applicant_mail'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.contact.email'|trans }}</strong></td>
                             <td>{{ object.applicant.mail }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.applicant_phone_number'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.contact.phone_number'|trans }}</strong></td>
                             <td>{{ object.applicant.phoneNumber }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.applicant_concerned_people'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.concerned_people'|trans }}</strong></td>
                             <td>
                                 {% if object.applicant.concernedPeople %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -229,13 +229,13 @@
 
             {# CONCERNED PEOPLE #}
             {% if not object.applicant.concernedPeople %}
-            <div class="box box-solid box-warning">
+            <div class="box box-solid box-success">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.concerned_people'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table role="presentation" class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.concerned_people_civility'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.contact.civility'|trans }}</strong></td>
                             <td>
                                 {% if object.concernedPeople.civility %}
                                     {{ object.concernedPeople.civility|dictionary('registry_request_civility') }}
@@ -243,27 +243,27 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.concerned_people_first_name'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.contact.first_name'|trans }}</strong></td>
                             <td>{{ object.concernedPeople.firstName }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.concerned_people_last_name'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.contact.last_name'|trans }}</strong></td>
                             <td>{{ object.concernedPeople.lastName }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.concerned_people_address'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.address.line_one'|trans }}</strong></td>
                             <td>{{ object.concernedPeople.address }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.concerned_people_mail'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.contact.email'|trans }}</strong></td>
                             <td>{{ object.concernedPeople.mail }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.concerned_people_phone_number'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.contact.phone_number'|trans }}</strong></td>
                             <td>{{ object.concernedPeople.phoneNumber }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.request.show.concerned_people_link_with_applicant'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.request.label.link_with_applicant'|trans }}</strong></td>
                             <td>{{ object.concernedPeople.linkWithApplicant }}</td>
                         </tr>
                         </tbody>
@@ -272,14 +272,18 @@
             </div>
             {% endif %}
 
-            {# PROOFS #}
-            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
-
-            {# TREATMENTS #}
-            {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
-
-            {# Mesurements #}
-            {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+            {# LINKED MODULES #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
+                <div class="box-body">
+                    {# TREATMENTS #}
+                    {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
+                    {# PROOFS #}
+                    {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                    {# MESUREMENTS #}
+                    {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+                </div>
+            </div>
         </div>
 
     </div>

@@ -32,12 +32,12 @@
     {{ form_widget(form._token) }}
 
     <div class="row">
-        <div
-            class="col-md-6">
-            {# GENERAL INFORMATIONS #}
+        {# LEFT #}
+        <div class="col-md-6">
+            {# GENERAL #}
             <div class="box box-solid box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3>
+                    <h3 class="box-title">{{ 'global.tab.general'|trans }}</h3>
                 </div>
                 <div class="box-body">
                     {{ form_row(form.name) }}
@@ -98,18 +98,17 @@
             {# HISTORIC #}
             <div class="box box-solid box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3>
+                    <h3 class="box-title">{{ 'global.tab.history'|trans }}</h3>
                 </div>
                 <div class="box-body">
                     {{ form_row(form.creator) }}
                     {{ form_row(form.collectivity) }}
                 </div>
             </div>
-
         </div>
 
-        <div
-            class="col-md-6">
+        {# RIGHT #}
+        <div class="col-md-6">
             {# DETAILS #}
             <div class="box box-solid box-primary">
                 <div class="box-header with-border">
@@ -118,7 +117,7 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label class="control-label">
-                            {{ 'registry.treatment.show.concerned_people'|trans }}
+                            {{ 'registry.treatment.label.concerned_people'|trans }}
                         </label>
 
                         {% set concernedPeopleErrorBlock = null %}
@@ -179,9 +178,11 @@
                     {{ form_row(form.securitySpecificitiesDelivered) }}
                 </div>
             </div>
+
+            {# LINKED MODULES #}
             <div class="box box-solid box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ 'global.label.linked_document'|trans }}</h3>
+                    <h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3>
                 </div>
                 <div class="box-body">
                     {{ form_row(form.proofs) }}

@@ -26,9 +26,9 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="action-bar">
-                <a aria-label="{{ 'registry.treatment.action.back_to_list'|trans }}" href="{{ path('registry_treatment_list') }}" class="btn btn-default">
+                <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-arrow-left"></i>
-                    {{ 'registry.treatment.action.back_to_list'|trans }}
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
                 {% if (actionEnabled) %}
                     <a href="{{ path('registry_treatment_edit', {'id': object.id}) }}" class="btn btn-default">
@@ -55,7 +55,7 @@
                     <table role="presentation" class="table">
                         <tbody>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.statut'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.statut'|trans }}</strong></td>
                                 <td>
                                     {% if object.statut is defined and object.statut %}
                                     {{ object.statut|dictionary('treatment_statut') }}
@@ -64,7 +64,7 @@
                             </tr>
                             {% if is_granted('ROLE_ADMIN') or (is_granted('ROLE_USER') and object.dpoMessage is not null) %}
                                 <tr>
-                                    <td><strong>{{ 'registry.treatment.show.preconization_dpo'|trans }}</strong></td>
+                                    <td><strong>{{ 'registry.treatment.label.dpoMessage'|trans }}</strong></td>
                                     <td>{{ object.dpoMessage }}</td>
                                 </tr>
                             {% endif %}
@@ -73,14 +73,14 @@
                 </div>
             </div>
 
-            {# GENERAL INFORMATIONS #}
+            {# GENERAL #}
             <div class="box box-solid box-info">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.general'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table role="presentation" class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.public'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.public_register'|trans }}</strong></td>
                             <td>
                                 {% if object.public == true %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -90,35 +90,35 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.name'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.name'|trans }}</strong></td>
                             <td>{{ object.name }}</td>
                         </tr>
                         {% if serviceEnabled %}
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.service'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.label.service'|trans }}</strong></td>
                                 <td>{{ object.service }}</td>
                             </tr>
                         {% endif %}
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.goal'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.goal'|trans }}</strong></td>
                             <td>{{ object.goal|nl2br }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.author'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.author'|trans }}</strong></td>
                             <td>{% if object.author is not null %}{{ object.author|dictionary('registry_treatment_author') }}{% endif %}</td>
                         </tr>
                         {% if object.author != "processing_manager" %}
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.coordonnees_responsable_traitement'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.coordonnees_responsable_traitement'|trans }}</strong></td>
                                 <td>{{ object.coordonneesResponsableTraitement|nl2br }}</td>
                             </tr>
                         {% endif %}
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.manager'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.manager'|trans }}</strong></td>
                             <td>{{ object.manager }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.active'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.active'|trans }}</strong></td>
                             <td>
                                 {% if object.active %}
                                     <span class="badge bg-green">{{ 'global.label.active'|trans }}</span>
@@ -128,15 +128,15 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.legal_basis'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.legal_basis'|trans }}</strong></td>
                             <td>{{ object.legalBasis|dictionary('registry_treatment_legal_basis') }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.legal_basis_justification'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.legal_basis_justification'|trans }}</strong></td>
                             <td>{{ object.legalBasisJustification|nl2br }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.observation'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.observation'|trans }}</strong></td>
                             <td>{{ object.observation|nl2br }}</td>
                         </tr>
                         </tbody>
@@ -151,7 +151,7 @@
                     <table role="presentation" class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.data_category'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.data_category'|trans }}</strong></td>
                             <td>
                                 <ul>
                                 {% for category in object.dataCategories %}
@@ -165,7 +165,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.data_category_other'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.data_category_other'|trans }}</strong></td>
                             <td>{{ object.dataCategoryOther|nl2br }}</td>
                         </tr>
                         </tbody>
@@ -180,11 +180,11 @@
                     <table role="presentation" class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.recipient_category'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.recipient_category'|trans }}</strong></td>
                             <td>{{ object.recipientCategory|nl2br }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.contractors'|trans }}</strong></td>
+                            <td><strong>{{ 'global.label.linked_contractor'|trans }}</strong></td>
                             <td>
                                 <ul>
                                     {% for contractor in object.contractors %}
@@ -205,7 +205,7 @@
                     <table role="presentation" class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.exempt_AIPD'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.exempt_AIPD'|trans }}</strong></td>
                             <td>
                                 <ul>
                                     {% if object.ExemptAIPD %}
@@ -217,7 +217,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.systematic_monitoring'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.systematic_monitoring'|trans }}</strong></td>
                             <td>
                                 <ul>
                                     {% if object.systematicMonitoring %}
@@ -229,7 +229,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.large_scale_collection'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.large_scale_collection'|trans }}</strong></td>
                             <td>
                                 <ul>
                                     {% if object.largeScaleCollection %}
@@ -241,7 +241,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.vulnerable_people'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.vulnerable_people'|trans }}</strong></td>
                             <td>
                                 <ul>
                                     {% if object.vulnerablePeople %}
@@ -253,7 +253,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.data_crossing'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.data_crossing'|trans }}</strong></td>
                             <td>
                                 <ul>
                                     {% if object.dataCrossing %}
@@ -265,7 +265,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.evaluation_or_rating'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.evaluation_or_rating'|trans }}</strong></td>
                             <td>
                                 <ul>
                                     {% if object.evaluationOrRating %}
@@ -277,7 +277,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.automated_decisions_with_legal_effect'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.automated_decisions_with_legal_effect'|trans }}</strong></td>
                             <td>
                                 <ul>
                                     {% if object.automatedDecisionsWithLegalEffect %}
@@ -289,7 +289,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.automatic_exclusion_service'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.automatic_exclusion_service'|trans }}</strong></td>
                             <td>
                                 <ul>
                                     {% if object.automaticExclusionService %}
@@ -301,7 +301,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.innovative_use'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.innovative_use'|trans }}</strong></td>
                             <td>
                                 <ul>
                                     {% if object.innovativeUse %}
@@ -318,7 +318,7 @@
 
             {# HISTORIC #}
             <div class="box box-solid box-default">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.history'|trans }}</h3></div>
                 <div class="box-body no-padding">
                     <table role="presentation" class="table">
                         <tbody>
@@ -326,7 +326,7 @@
                             <tr>
                                 <td><strong>{{ 'global.tab.history'|trans }}</strong></td>
                                 <td>
-                                    <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
+                                    <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
                                         {{ object.collectivity }}
                                     </a>
                                 </td>
@@ -359,10 +359,10 @@
                     <table role="presentation" class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.concerned_people'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.concerned_people'|trans }}</strong></td>
                         </tr>
                         <tr>
-                            <td class="concerned-people-type col-md-8"><strong>{{ 'registry.treatment.show.concerned_people_particular'|trans }}</strong></td>
+                            <td class="concerned-people-type col-md-8"><strong>{{ 'registry.treatment.label.concerned_people_particular'|trans }}</strong></td>
                             <td class="col-md-4">
                                 {% if object.concernedPeopleParticular.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -373,7 +373,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_user'|trans }}</strong></td>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_user'|trans }}</strong></td>
                             <td>
                                 {% if object.concernedPeopleUser.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -384,7 +384,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_agent'|trans }}</strong></td>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_agent'|trans }}</strong></td>
                             <td>
                                 {% if object.concernedPeopleAgent.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -395,7 +395,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_elected'|trans }}</strong></td>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_elected'|trans }}</strong></td>
                             <td>
                                 {% if object.concernedPeopleElected.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -406,7 +406,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_company'|trans }}</strong></td>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_company'|trans }}</strong></td>
                             <td>
                                 {% if object.concernedPeopleCompany.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -417,7 +417,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_partner'|trans }}</strong></td>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_partner'|trans }}</strong></td>
                             <td>
                                 {% if object.concernedPeoplePartner.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -428,7 +428,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_usager'|trans }}</strong></td>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_usager'|trans }}</strong></td>
                             <td>
                                 {% if object.concernedPeopleUsager.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -439,7 +439,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_other'|trans }}</strong></td>
+                            <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_other'|trans }}</strong></td>
                             <td>
                                 {% if object.concernedPeopleOther.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -450,14 +450,14 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.estimated_concerned_people'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.estimated_concerned_people'|trans }}</strong></td>
                             <td>{{ object.estimatedConcernedPeople }}</td>
                         </tr>
                         <tr>
                             <td><strong>{% if object.collectivity.hasModuleTools %}
-                                    {{ 'registry.treatment.show.software'|trans }}
+                                    {{ 'registry.treatment.label.tools_if_inactif'|trans }}
                                     {% else %}
-                                        {{ 'registry.treatment.show.tools'|trans }}
+                                        {{ 'global.label.linked_tool'|trans }}
                                     {% endif %}</strong></td>
                             <td>
                                 {% if object.collectivity.hasModuleTools %}
@@ -467,14 +467,14 @@
                                         {% endfor %}
                                     </ul>
 
-{#                                {{ object.tools|map(t => t.name)|join(', ') }}#}
+                                {# {{ object.tools|map(t => t.name)|join(', ') }} #}
                                 {% else %}
                                 {{ object.software }}
                                 {% endif %}
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.paper_processing'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.paper_processing'|trans }}</strong></td>
                             <td>
                                 {% if object.paperProcessing %}
                                     <span class="badge bg-gray">{{ 'global.label.yes'|trans }}</span>
@@ -488,7 +488,7 @@
                     <table style="border-top: #f4f4f4 1px solid">
                         <tbody>
                         <tr>
-                            <td class="col-sm-2" style="vertical-align: top; padding-left: 10px; padding-top: 10px"><strong>{{ 'registry.treatment.show.shelf_lifes'|trans }}</strong></td>
+                            <td class="col-sm-2" style="vertical-align: top; padding-left: 10px; padding-top: 10px"><strong>{{ 'registry.treatment.label.delay'|trans }}</strong></td>
                             <td class="col-sm-10" style="padding-top: 10px">
                                 {% for method in object.shelfLifes %}
                                     <div class="box box-default">
@@ -496,15 +496,15 @@
                                             <table class="table">
                                                 <tbody>
                                                 <tr>
-                                                    <th scope="row" class="text-bold" style="width: 40%">{{ 'registry.treatment.form.shelflife_name'|trans }}</th>
+                                                    <th scope="row" class="text-bold" style="width: 40%">{{ 'registry.treatment.label.shelflife_name'|trans }}</th>
                                                     <td>{{ method.name }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row" class="text-bold">{{ 'registry.treatment.form.shelflife_duration'|trans }}</th>
+                                                    <th scope="row" class="text-bold">{{ 'registry.treatment.label.shelflife_duration'|trans }}</th>
                                                     <td>{{ method.duration }}</td>
                                                 </tr>
                                                 <tr>
-                                                    <th scope="row" class="text-bold">{{ 'registry.treatment.form.shelflife_ultimate_fate'|trans }}</th>
+                                                    <th scope="row" class="text-bold">{{ 'registry.treatment.label.shelflife_ultimate_fate'|trans }}</th>
                                                     <td>{% if method.ultimateFate %}{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% else %}Non déterminé{% endif %}</td>
                                                 </tr>
                                                 </tbody>
@@ -519,11 +519,11 @@
                     <table class="table">
                         <tbody>
                         <tr>
-                            <td class="col-md-8"><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
+                            <td class="col-md-8"><strong>{{ 'registry.treatment.label.data_origin'|trans }}</strong></td>
                             <td class="col-md-4">{{ object.dataOrigin }}</td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.collecting_method'|trans }}</strong></td>
                             <td>
                                 <ul>
                                     {% for method in object.collectingMethod %}
@@ -535,12 +535,12 @@
                         </tr>
                         {% if  object.otherCollectingMethod is not null %}
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.otherCollectingMethod'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.otherCollectingMethod'|trans }}</strong></td>
                                 <td>{{ object.otherCollectingMethod }}</td>
                             </tr>
                         {% endif %}
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.legalMentions'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.legalMentions'|trans }}</strong></td>
                             <td>
                                 {% if object.legalMentions %}
                                     <span class="badge bg-gray">{{ 'global.label.yes'|trans }}</span>
@@ -551,7 +551,7 @@
                         </tr>
                         {% if object.legalBasis == 'consent' %}
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.consentRequest'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.consentRequest'|trans }}</strong></td>
                             <td>
                                 {% if object.consentRequest %}
                                     <span class="badge bg-gray">{{ 'global.label.yes'|trans }}</span>
@@ -562,7 +562,7 @@
                         </tr>
                             {% if  object.consentRequestFormat is not null %}
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.consentRequestFormat'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.consentRequestFormat'|trans }}</strong></td>
                             <td>{{ object.consentRequestFormat }}</td>
                         </tr>
                             {% endif %}
@@ -578,7 +578,7 @@
                     <table role="presentation" class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.security_access_control'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.security_access_control'|trans }}</strong></td>
                             <td>
                                 {% if object.securityAccessControl.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -589,7 +589,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.security_tracability'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.security_tracability'|trans }}</strong></td>
                             <td>
                                 {% if object.securitytracability.check %}
                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -600,7 +600,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.security_saving'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.security_saving'|trans }}</strong></td>
                             <td>
                                 {% if object.securitySaving.check %}
                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -611,7 +611,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.security_update'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.security_update'|trans }}</strong></td>
                             <td>
                                 {% if object.securityUpdate.check %}
                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -622,7 +622,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.security_other'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.security_other'|trans }}</strong></td>
                             <td>
                                 {% if object.securityOther.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -633,7 +633,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.security_entitled_persons'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.security_entitled_persons'|trans }}</strong></td>
                             <td>
                                 {% if object.securityEntitledPersons %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -644,7 +644,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.security_open_accounts'|trans }}</strong></td>
                             <td>
                                 {% if object.securityOpenAccounts %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -654,7 +654,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.show.security_specificities_delivered'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.security_specificities_delivered'|trans }}</strong></td>
                             <td>
                                 {% if object.securitySpecificitiesDelivered %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -668,34 +668,43 @@
                 </div>
             </div>
 
-            {# PROOFS #}
-            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
-            {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
-            {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
+            {# LINKED MODULES #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
+                <div class="box-body">
+                    {# REQUESTS #}
+                    {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
+                    {# VIOLATIONS #}
+                    {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
+                    {# PROOFS #}
+                    {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                    {# MESUREMENTS #}
+                    {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+                </div>
+            </div>
 
-            {# Mesurements #}
-            {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
-
+            {# TREATMENT CONFORMITY & AIPD #}
             {% if object.collectivity.hasModuleConformiteTraitement and object.ExemptAIPD == false %}
+                {# TREATMENT CONFORMITY #}
                 <div class="box box-solid box-success">
                     <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table role="presentation" class="table">
                             <tr>
                                 <td style="width: 35%">
-                                    <strong>Conformité</strong>
+                                    <strong>{{ 'registry.conformite_traitement.label.conformite_traitement'|trans }}</strong>
                                 </td>
                                 <td>
                                     {% if object.conformiteTraitement is not null %}
                                         {{ getConformiteTraitementLabel(object.conformiteTraitement)|raw }}
                                     {% else %}
-                                        <span class="label label-default" style="display: inline-block;">Non-réalisée</span>
+                                        <span class="label label-default" style="display: inline-block;">{{ 'registry.conformite_traitement.label.not_done'|trans }}</span>
                                     {% endif %}
                                 </td>
                             </tr>
                             <tr>
                                 <td>
-                                    <strong>Conformité des questions</strong>
+                                    <strong>{{ 'registry.conformite_traitement.label.conformite_reponse'|trans }}</strong>
                                 </td>
                                 <td>
                                     {% if object.conformiteTraitement is not null %}
@@ -704,9 +713,9 @@
                                         {% set widthnbNonConformesMineures = ((object.conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
                                         {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
                                         <div class="stacked-bar-graph">
-                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">Conforme : {{ object.conformiteTraitement.nbConformes }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">Non-conforme mineure : {{ object.conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
-                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">Non-conforme majeure : {{ object.conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
+                                            {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">{{ 'registry.conformite_traitement.label.tooltip.conforme'|trans }} {{ object.conformiteTraitement.nbConformes }}</span></span>{% endif %}
+                                            {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">{{ 'registry.conformite_traitement.label.tooltip.minor_conforme'|trans }} {{ object.conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
+                                            {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">{{ 'registry.conformite_traitement.label.tooltip.major_conforme'|trans }} {{ object.conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
                                         </div>
                                     {% endif %}
                                 </td>
@@ -714,10 +723,10 @@
                             {% if not is_granted('ROLE_PREVIEW') %}
                                 <tr>
                                     <td>
-                                        <strong>Actions</strong>
+                                        <strong>{{ 'global.label.actions'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <a  aria-label="{{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}" href="
+                                        <a href="
                                             {% if object.conformiteTraitement is null %}
                                                 {{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}
                                             {% else %}
@@ -726,10 +735,11 @@
                                         "><i aria-hidden="true" class="fa fa-pencil"></i> {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}</a>
                                     </td>
                                 </tr>
-                            {%  endif %}
+                            {% endif %}
                         </table>
                     </div>
                 </div>
+                {# AIPD #}
                 {% if object.conformiteTraitement is not null and object.conformiteTraitement.lastAnalyseImpact is not null %}
                     <div class="box box-solid box-primary">
                         <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
@@ -737,7 +747,7 @@
                             <table class="table" role="presentation">
                                 <tr>
                                     <td style="width: 35%">
-                                        <strong>Avis</strong>
+                                        <strong>{{ 'aipd.treatment.label.avis_aipd'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% set analyseImpact = object.conformiteTraitement.lastAnalyseImpact %}
@@ -759,23 +769,23 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <strong>Date de validation</strong>
+                                        <strong>{{ 'aipd.treatment.label.date_validation'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if analyseImpact.isValidated %}
                                             {{ analyseImpact.dateValidation|date('d/m/Y') }}
                                         {% else %}
-                                            En cours de validation
+                                            {{ 'aipd.treatment.label.validation_in_progress'|trans }}
                                         {% endif %}
                                     </td>
                                 </tr>
                                 {% if not is_granted('ROLE_PREVIEW') %}
                                     <tr>
                                         <td>
-                                            <strong>Actions</strong>
+                                            <strong>{{ 'global.label.actions'|trans }}</strong>
                                         </td>
                                         <td>
-                                            <a  aria-label="{{ 'aipd.analyse_impact.action.edit'|trans }} href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
+                                            <a href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
                                                 <i aria-hidden="true" class="fa fa-chalkboard-teacher"></i>
                                                 {{ 'aipd.analyse_impact.action.edit'|trans }}
                                             </a>
@@ -789,44 +799,4 @@
             {% endif %}
         </div>
     </div>
-{% endblock %}
-
-{% block style %}
-    <style>
-        .stacked-bar-graph .tooltipchart {
-            position: relative;
-        }
-
-        .tooltipchart .tooltipcharttext {
-            visibility: hidden;
-            background-color: black;
-            color: #fff;
-            text-align: center;
-            padding: 5px;
-            border-radius: 6px;
-            height: 30px;
-            display: block;
-            position: absolute;
-            z-index: 2;
-            top: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap;
-        }
-
-        .tooltipchart:hover .tooltipcharttext {
-            visibility: visible;
-        }
-
-        .tooltipchart .tooltipcharttext::after {
-            content: " ";
-            position: absolute;
-            bottom: 100%;  /* At the top of the tooltip */
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent black transparent;
-        }
-    </style>
 {% endblock %}

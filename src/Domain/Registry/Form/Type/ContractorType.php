@@ -67,7 +67,7 @@ class ContractorType extends AbstractType
         $contractor = $options['data'];
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'registry.contractor.form.name',
+                'label'    => 'registry.contractor.label.name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -79,7 +79,7 @@ class ContractorType extends AbstractType
             $builder
                 ->add('service', EntityType::class, [
                     'class'         => Service::class,
-                    'label'         => 'registry.treatment.form.service',
+                    'label'         => 'registry.label.service',
                     'query_builder' => function (EntityRepository $er) use ($contractor) {
                         /** @var User $authenticatedUser */
                         $authenticatedUser = $this->security->getUser();
@@ -108,7 +108,7 @@ class ContractorType extends AbstractType
         $user = $this->security->getUser();
         $builder
             ->add('referent', TextType::class, [
-                'label'    => 'registry.contractor.form.referent',
+                'label'    => 'registry.contractor.label.referent',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -116,23 +116,23 @@ class ContractorType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('contractualClausesVerified', CheckboxType::class, [
-                'label'    => 'registry.contractor.form.contractual_clauses_verified',
+                'label'    => 'registry.contractor.label.contractual_clauses_verified',
                 'required' => false,
             ])
             ->add('adoptedSecurityFeatures', CheckboxType::class, [
-                'label'    => 'registry.contractor.form.adopted_security_features',
+                'label'    => 'registry.contractor.label.adopted_security_features',
                 'required' => false,
             ])
             ->add('maintainsTreatmentRegister', CheckboxType::class, [
-                'label'    => 'registry.contractor.form.maintains_treatment_register',
+                'label'    => 'registry.contractor.label.maintains_treatment_register',
                 'required' => false,
             ])
             ->add('sendingDataOutsideEu', CheckboxType::class, [
-                'label'    => 'registry.contractor.form.sending_data_outside_eu',
+                'label'    => 'registry.contractor.label.sending_data_outside_eu',
                 'required' => false,
             ])
             ->add('otherInformations', TextareaType::class, [
-                'label'    => 'registry.contractor.form.other_informations',
+                'label'    => 'registry.contractor.label.other_informations',
                 'required' => false,
                 'attr'     => [
                     'rows' => 4,
@@ -149,7 +149,7 @@ class ContractorType extends AbstractType
                 'required' => false,
             ])
             ->add('hasDpo', CheckboxType::class, [
-                'label'    => 'registry.contractor.form.has_dpo',
+                'label'    => 'registry.contractor.label.has_dpo',
                 'required' => false,
             ])
             ->add('dpo', ContactType::class, [

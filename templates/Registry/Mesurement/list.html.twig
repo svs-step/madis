@@ -32,9 +32,9 @@
                     </a>
                     {% endif %}
                     {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a aria-label="{{ 'registry.treatment.action.report'|trans }}" href="{{ path('registry_mesurement_report') }}" class="btn btn-default">
+                    <a href="{{ path('registry_mesurement_report') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.treatment.action.report'|trans }}
+                        {{ 'global.action.report'|trans }}
                     </a>
                     {% endif %}
                     {% if category and category.documents|length > 0 %}
@@ -110,17 +110,17 @@
                             </th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'registry.mesurement.list.name'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.collectivity'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.status'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.cost'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.charge'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.priority'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.responsable'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.description'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.observation'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.created_at'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.name'|trans }}</th>
+                            <th scope="col">{{ 'global.label.organization'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.status'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.cost'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.charge'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.priority'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.manager'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.description'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.comment'|trans }}</th>
+                            <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th scope="col">{{ 'global.label.actions'|trans }}</th>
                             {% endif %}

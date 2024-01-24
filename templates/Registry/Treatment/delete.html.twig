@@ -29,8 +29,8 @@
                     Souhaitez vous vraiment supprimer le traitement "{{ object }}" ?
                 </div>
                 <div class="box-footer">
-                    <a aria-label="{{ 'registry.treatment.action.back_to_list'|trans }}" href="{{ path('registry_treatment_list') }}" class="btn btn-default">
-                        {{ 'registry.treatment.action.back_to_list'|trans }}
+                    <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
                     <a href="{{ path('registry_treatment_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
                         {{ 'global.action.confirm_delete'|trans }}

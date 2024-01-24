@@ -107,14 +107,14 @@
                             <th scope="col"></th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'registry.proof.list.name'|trans }}</th>
+                            <th scope="col">{{ 'registry.proof.label.name'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'registry.proof.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'registry.proof.list.type'|trans }}</th>
-                            <th scope="col">{{ 'registry.proof.list.comment'|trans }}</th>
-                            <th scope="col">{{ 'registry.proof.list.created_at'|trans }}</th>
-                            <th scope="col">{{ 'registry.proof.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'registry.proof.label.type'|trans }}</th>
+                            <th scope="col">{{ 'registry.proof.label.comment'|trans }}</th>
+                            <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
                             <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>

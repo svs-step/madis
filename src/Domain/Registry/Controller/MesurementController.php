@@ -389,7 +389,7 @@ class MesurementController extends CRUDController
         if ($isActionPlan) {
             return '<a href="' .
                 $this->router->generate('registry_mesurement_show', ['id' => $mesurement->getId()]) . '">
-                <i aria-hidden="true" class="fa fa-pencil"></i> ' .
+                <i aria-hidden="true" class="fa fa-eye"></i> ' .
                 $this->translator->trans('registry.mesurement.action.show_mesurement')
                 . '</a>';
         }

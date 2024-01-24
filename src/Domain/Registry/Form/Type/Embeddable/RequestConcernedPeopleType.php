@@ -41,12 +41,12 @@ class RequestConcernedPeopleType extends AbstractType
     {
         $builder
             ->add('civility', DictionaryType::class, [
-                'label'    => 'registry.request_concerned_people.form.civility',
+                'label'    => 'global.label.contact.civility',
                 'required' => false,
                 'name'     => 'registry_request_civility',
             ])
             ->add('firstName', TextType::class, [
-                'label'    => 'registry.request_concerned_people.form.first_name',
+                'label'    => 'global.label.contact.first_name',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -54,7 +54,7 @@ class RequestConcernedPeopleType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('lastName', TextType::class, [
-                'label'    => 'registry.request_concerned_people.form.last_name',
+                'label'    => 'global.label.contact.last_name',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -62,7 +62,7 @@ class RequestConcernedPeopleType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('address', TextType::class, [
-                'label'    => 'registry.request_concerned_people.form.address',
+                'label'    => 'global.label.address.line_one',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -70,16 +70,16 @@ class RequestConcernedPeopleType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('mail', EmailType::class, [
-                'label'    => 'registry.request_concerned_people.form.mail',
+                'label'    => 'global.label.contact.email',
                 'required' => false,
             ])
             ->add('phoneNumber', TextType::class, [
-                'label'       => 'registry.request_concerned_people.form.phone_number',
+                'label'       => 'global.label.contact.phone_number',
                 'required'    => false,
                 'purify_html' => true,
             ])
             ->add('linkWithApplicant', TextType::class, [
-                'label'    => 'registry.request_concerned_people.form.link_with_applicant',
+                'label'    => 'registry.request.label.link_with_applicant',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,

@@ -16,7 +16,7 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'registry.conformite_traitement.title.list'|trans }
+        { 'name': 'registry.conformite_traitement.breadcrumb.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -25,9 +25,9 @@
     <div class="row">
             <div class="col-xs-12">
                 <div class="action-bar">
-                    <a aria-label="{{ 'registry.conformite_traitement.action.report'|trans }}" href="{{ path('registry_conformite_traitement_report') }}" class="btn btn-default">
+                    <a href="{{ path('registry_conformite_traitement_report') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.conformite_traitement.action.report'|trans }}
+                        {{ 'global.action.report'|trans }}
                     </a>
                     {% if category and category.documents|length > 0 %}
                         <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
@@ -49,13 +49,13 @@
                             <th scope="col"></th>
                             <th scope="col">{{ 'registry.conformite_traitement.list.traitement'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'registry.conformite_traitement.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'registry.conformite_traitement.list.gestionnaire'|trans }}</th>
-                            <th scope="col">{{ 'registry.conformite_traitement.list.conformite'|trans }}</th>
-                            <th scope="col">{{ 'registry.conformite_traitement.list.conformite_reponse'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.manager'|trans }}</th>
+                            <th scope="col">{{ 'registry.conformite_traitement.label.conformite_reponse'|trans }}</th>
+                            <th scope="col">{{ 'registry.conformite_traitement.label.conformite_reponse'|trans }}</th>
                             <th scope="col">{{ 'registry.conformite_traitement.list.date_conformite'|trans }}</th>
-                            <th scope="col">{{ 'registry.conformite_traitement.list.avis_aipd'|trans }}</th>
+                            <th scope="col">{{ 'aipd.treatment.label.avis_aipd'|trans }}</th>
                             <th scope="col">{{ 'registry.conformite_traitement.list.date_aipd'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th scope="col">{{ 'global.label.actions'|trans }}</th>
@@ -165,7 +165,7 @@
                                 </td>
                                 {% if is_granted('ROLE_USER') and ((services_user is empty) or ((object.service is defined) and (object.service in services_user)))%}
                                     <td>
-                                        <a aria-label="{{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}" href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
+                                        <a href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
                                             <i aria-hidden="true" class="fa fa-pencil"></i>
                                             {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
                                         </a>

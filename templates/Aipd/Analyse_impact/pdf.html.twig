@@ -718,12 +718,12 @@
             <div class="col-md-6">
                 {#             GENERAL INFORMATIONS#}
                 <div class="box box-solid box-info">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'global.tab.general'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
                             <tbody>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.public'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.public_register'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.public == true %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -733,35 +733,35 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.name'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.name'|trans }}</strong></td>
                                 <td>{{ traitement.name }}</td>
                             </tr>
                             {% if traitement.service %}
                                 <tr>
-                                    <td><strong>{{ 'registry.treatment.show.service'|trans }}</strong></td>
+                                    <td><strong>{{ 'registry.label.service'|trans }}</strong></td>
                                     <td>{{ traitement.service }}</td>
                                 </tr>
                             {% endif %}
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.goal'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.goal'|trans }}</strong></td>
                                 <td>{{ traitement.goal|nl2br }}</td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.author'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.author'|trans }}</strong></td>
                                 <td>{% if traitement.author is not null %}{{ traitement.author|dictionary('registry_treatment_author') }}{% endif %}</td>
                             </tr>
                             {% if traitement.author != "processing_manager" %}
                                 <tr>
-                                    <td><strong>{{ 'registry.treatment.show.coordonnees_responsable_traitement'|trans }}</strong></td>
+                                    <td><strong>{{ 'registry.treatment.label.coordonnees_responsable_traitement'|trans }}</strong></td>
                                     <td>{{ traitement.coordonneesResponsableTraitement|nl2br }}</td>
                                 </tr>
                             {% endif %}
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.manager'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.manager'|trans }}</strong></td>
                                 <td>{{ traitement.manager }}</td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.active'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.active'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.active %}
                                         <span class="badge bg-green">{{ 'global.label.active'|trans }}</span>
@@ -771,15 +771,15 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.legal_basis'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.legal_basis'|trans }}</strong></td>
                                 <td>{{ traitement.legalBasis|dictionary('registry_treatment_legal_basis') }}</td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.legal_basis_justification'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.legal_basis_justification'|trans }}</strong></td>
                                 <td>{{ traitement.legalBasisJustification|nl2br }}</td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.observation'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.observation'|trans }}</strong></td>
                                 <td>{{ traitement.observation|nl2br }}</td>
                             </tr>
                             </tbody>
@@ -791,7 +791,7 @@
                 {% if traitement.dpoMessage is not null %}
                     <div class="box box-solid box-primary">
                         <div class="box-header with-border">
-                            <h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
+                            <h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.statut_dpo'|trans }}</h3>
                         </div>
                         <div class="box-body">
                             {{  traitement.dpoMessage }}
@@ -806,7 +806,7 @@
                         <table class="table">
                             <tbody>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.data_category'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.data_category'|trans }}</strong></td>
                                 <td>
                                     <ul>
                                         {% for category in traitement.dataCategories %}
@@ -820,7 +820,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.data_category_other'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.data_category_other'|trans }}</strong></td>
                                 <td>{{ traitement.dataCategoryOther|nl2br }}</td>
                             </tr>
                             </tbody>
@@ -835,11 +835,11 @@
                         <table class="table">
                             <tbody>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.recipient_category'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.recipient_category'|trans }}</strong></td>
                                 <td>{{ traitement.recipientCategory|nl2br }}</td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.contractors'|trans }}</strong></td>
+                                <td><strong>{{ 'global.label.linked_contractor'|trans }}</strong></td>
                                 <td>
                                     <ul>
                                         {% for contractor in traitement.contractors %}
@@ -860,7 +860,7 @@
                         <table class="table">
                             <tbody>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.systematic_monitoring'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.systematic_monitoring'|trans }}</strong></td>
                                 <td>
                                     <ul>
                                         {% if traitement.systematicMonitoring %}
@@ -872,7 +872,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.large_scale_collection'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.large_scale_collection'|trans }}</strong></td>
                                 <td>
                                     <ul>
                                         {% if traitement.largeScaleCollection %}
@@ -884,7 +884,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.vulnerable_people'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.vulnerable_people'|trans }}</strong></td>
                                 <td>
                                     <ul>
                                         {% if traitement.vulnerablePeople %}
@@ -896,7 +896,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.data_crossing'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.data_crossing'|trans }}</strong></td>
                                 <td>
                                     <ul>
                                         {% if traitement.dataCrossing %}
@@ -908,7 +908,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.evaluation_or_rating'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.evaluation_or_rating'|trans }}</strong></td>
                                 <td>
                                     <ul>
                                         {% if traitement.evaluationOrRating %}
@@ -920,7 +920,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.automated_decisions_with_legal_effect'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.automated_decisions_with_legal_effect'|trans }}</strong></td>
                                 <td>
                                     <ul>
                                         {% if traitement.automatedDecisionsWithLegalEffect %}
@@ -932,7 +932,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.automatic_exclusion_service'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.automatic_exclusion_service'|trans }}</strong></td>
                                 <td>
                                     <ul>
                                         {% if traitement.automaticExclusionService %}
@@ -944,7 +944,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.innovative_use'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.innovative_use'|trans }}</strong></td>
                                 <td>
                                     <ul>
                                         {% if traitement.innovativeUse %}
@@ -969,10 +969,10 @@
                         <table class="table">
                             <tbody>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.concerned_people'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.concerned_people'|trans }}</strong></td>
                             </tr>
                             <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_particular'|trans }}</strong></td>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_particular'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.concernedPeopleParticular.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -983,7 +983,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_user'|trans }}</strong></td>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_user'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.concernedPeopleUser.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -994,7 +994,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_agent'|trans }}</strong></td>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_agent'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.concernedPeopleAgent.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1005,7 +1005,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_elected'|trans }}</strong></td>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_elected'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.concernedPeopleElected.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1016,7 +1016,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_company'|trans }}</strong></td>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_company'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.concernedPeopleCompany.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1027,7 +1027,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_partner'|trans }}</strong></td>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_partner'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.concernedPeoplePartner.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1038,7 +1038,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_other'|trans }}</strong></td>
+                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_other'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.concernedPeopleOther.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1049,16 +1049,16 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.estimated_concerned_people'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.estimated_concerned_people'|trans }}</strong></td>
                                 <td>{{ traitement.estimatedConcernedPeople }}</td>
                             </tr>
                             <tr>
                                 <td><strong>
 
                                         {% if traitement.collectivity.hasModuleTools %}
-                                            {{ 'registry.treatment.show.tools'|trans }}
+                                            {{ 'global.label.linked_tool'|trans }}
                                         {% else %}
-                                            {{ 'registry.treatment.show.software'|trans }}
+                                            {{ 'registry.treatment.label.tools_if_inactif'|trans }}
                                         {% endif %}
                                     </strong></td>
                                 <td>
@@ -1070,7 +1070,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.paper_processing'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.paper_processing'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.paperProcessing %}
                                         <span class="badge bg-gray">{{ 'global.label.yes'|trans }}</span>
@@ -1080,7 +1080,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.delay'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.delay'|trans }}</strong></td>
                                 <td>
                                     <ul>
                                         {% for duration in traitement.shelfLifes %}
@@ -1090,11 +1090,11 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.data_origin'|trans }}</strong></td>
                                 <td>{{ traitement.dataOrigin }}</td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.collecting_method'|trans }}</strong></td>
                                 {# <td>{% if (traitement.collectingMethod is not null) %} #}
                                 <td>
                                     {% if (traitement.collectingMethod|length) %}
@@ -1104,7 +1104,7 @@
                             </tr>
                             {% if  traitement.otherCollectingMethod is not null %}
                                 <tr>
-                                    <td><strong>{{ 'registry.treatment.show.otherCollectingMethod'|trans }}</strong></td>
+                                    <td><strong>{{ 'registry.treatment.label.otherCollectingMethod'|trans }}</strong></td>
                                     <td>{{ traitement.otherCollectingMethod }}</td>
                                 </tr>
                             {% endif %}
@@ -1119,7 +1119,7 @@
                         <table class="table">
                             <tbody>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_access_control'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.security_access_control'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.securityAccessControl.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1130,7 +1130,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_tracability'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.security_tracability'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.securitytracability.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1141,7 +1141,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_saving'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.security_saving'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.securitySaving.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1152,7 +1152,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_update'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.security_update'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.securityUpdate.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1163,7 +1163,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_other'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.security_other'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.securityOther.check %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1174,7 +1174,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_entitled_persons'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.security_entitled_persons'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.securityEntitledPersons %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1184,7 +1184,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.security_open_accounts'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.securityOpenAccounts %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1194,7 +1194,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_specificities_delivered'|trans }}</strong></td>
+                                <td><strong>{{ 'registry.treatment.label.security_specificities_delivered'|trans }}</strong></td>
                                 <td>
                                     {% if traitement.securitySpecificitiesDelivered %}
                                         <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -1210,7 +1210,7 @@
 
                 {#             PROOFS#}
                 <div class="box box-solid box-warning">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'global.label.linked_document'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'global.label.linked_proof'|trans }}</h3></div>
                     <div class="box-body">
                         {% set activeProofs = traitement.proofs|filter(proof => proof.deletedAt is null) -%}
 
@@ -1224,7 +1224,7 @@
                                 {% endfor %}
                             </ul>
                         {% else %}
-                            <span><i>{{ 'global.label.no_linked_document'|trans }}</i></span>
+                            <span><i>{{ 'global.label.no_linked_proof'|trans }}</i></span>
                         {% endif %}
                     </div>
                 </div>
@@ -1387,28 +1387,28 @@
 
                 {#             HISTORIC#}
                 <div class="box box-solid box-default">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'global.tab.history'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
                             <tbody>
                             {% if is_granted('ROLE_ADMIN') %}
                                 <tr>
-                                    <td><strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong></td>
+                                    <td><strong>{{ 'global.label.organization'|trans }}</strong></td>
                                     <td>
                                         {{ traitement.collectivity }}
                                     </td>
                                 </tr>
                             {% endif %}
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.created_at'|trans }}</strong></td>
+                                <td><strong>{{ 'global.label.created_at'|trans }}</strong></td>
                                 <td>{{ traitement.createdAt|date('d/m/Y H:i') }}</td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.updated_at'|trans }}</strong></td>
+                                <td><strong>{{ 'global.label.updated_at'|trans }}</strong></td>
                                 <td>{{ traitement.updatedAt|date('d/m/Y H:i') }}</td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.updated_by'|trans }}</strong></td>
+                                <td><strong>{{ 'global.label.updated_by'|trans }}</strong></td>
                                 <td>{{ traitement.updatedBy }}</td>
                             </tr>
                             </tbody>

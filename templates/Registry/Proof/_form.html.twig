@@ -7,10 +7,11 @@
 <div class="row">
     {{ form_start(form) }}
 
-    {# LEFT SIDE #}
+    {# LEFT #}
     <div class="col-md-6">
+        {# GENERAL #}
         <div class="box box-solid box-primary">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.proof.tab.general'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.general'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.name) }}
                 {{ form_row(form.type) }}
@@ -18,30 +19,32 @@
             </div>
         </div>
 
+        {# FILE #}
         <div class="box box-solid box-success">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.proof.tab.upload'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.documentFile) }}
+                <div class="callout callout-default text-muted">
+                    {{ 'registry.proof.label.help.file' | trans({'max_size': app_max_upload_size}) }}
+                </div>
             </div>
         </div>
     </div>
 
-    {# RIGHT SIDE #}
+    {# RIGHT #}
     <div class="col-md-6">
+        {# LINKED MODULES #}
         <div class="box box-solid box-warning">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.proof.tab.link'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
             <div class="box-body">
-                <blockquote>
-                    <small>{{ 'registry.proof.form.help.link'|trans }}</small>
-                </blockquote>
                 {{ form_row(form.treatments) }}
                 {{ form_row(form.contractors) }}
-                {{ form_row(form.mesurements) }}
-                {{ form_row(form.requests) }}
-                {{ form_row(form.violations) }}
                 {% if form.tools is defined %}
                     {{ form_row(form.tools) }}
                 {% endif %}
+                {{ form_row(form.requests) }}
+                {{ form_row(form.violations) }}
+                {{ form_row(form.mesurements) }}
             </div>
         </div>
     </div>
@@ -49,8 +52,8 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a aria-label="{{ 'registry.proof.action.back_to_list'|trans }}" href="{{ path('registry_proof_list') }}" class="btn btn-default">
-                    {{ 'registry.proof.action.back_to_list'|trans }}
+                <a href="{{ path('registry_proof_list') }}" class="btn btn-default">
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>

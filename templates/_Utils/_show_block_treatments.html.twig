@@ -1,20 +1,15 @@
-<div class="box box-solid box-warning">
-    <div class="box-header with-border"><h3 class="box-title">{{ 'global.label.linked_treatment'|trans }}</h3></div>
-    <div class="box-body">
-        {% set activeTreatments = object.treatments|filter(treatment => treatment.active) -%}
+{% set activeTreatments = object.treatments|filter(treatment => treatment.active) -%}
 
-        {% if activeTreatments|length > 0 %}
-            <ul>
-                {% for treatment in activeTreatments %}
-                    <li>
-                        <a aria-label="Traitement" href="{{ path('registry_treatment_show', { id: treatment.id }) }}">
-                            {{ treatment.name }} ({{ treatment.legalBasis|dictionary('registry_treatment_legal_basis') }})
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <span><i>{{ 'global.label.no_linked_treatment'|trans }}</i></span>
-        {% endif %}
-    </div>
-</div>
+{% if activeTreatments|length > 0 %}
+    <ul>
+        {% for treatment in activeTreatments %}
+            <li>
+                <a href="{{ path('registry_treatment_show', { id: treatment.id }) }}">
+                    {{ treatment.name }} ({{ treatment.legalBasis|dictionary('registry_treatment_legal_basis') }})
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <span><i>{{ 'global.label.no_linked_treatment'|trans }}</i></span>
+{% endif %}

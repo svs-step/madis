@@ -42,9 +42,9 @@
                     </a>
                     {% endif %}
                     {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a aria-label="{{ 'registry.violation.action.report'|trans }}" href="{{ path('registry_violation_report') }}" class="btn btn-default">
+                    <a href="{{ path('registry_violation_report') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.violation.action.report'|trans }}
+                        {{ 'global.action.report'|trans }}
                     </a>
                     {% endif %}
                     {% if app.request.query.get('archive') == 'true' %}
@@ -137,17 +137,17 @@
                             <th scope="col"></th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'registry.violation.list.date'|trans }}</th>
+                            <th scope="col">{{ 'registry.violation.label.date'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'registry.violation.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {%  endif %}
                             <th scope="col">{{ 'registry.violation.list.violation_nature'|trans }}</th>
                             <th scope="col">{{ 'registry.violation.list.in_progress'|trans }}</th>
                             <th scope="col">{{ 'registry.violation.list.cause'|trans }}</th>
-                            <th scope="col">{{ 'registry.violation.list.gravity'|trans }}</th>
-                            <th scope="col">{{ 'registry.violation.list.notification'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.violation.list.created_at'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.violation.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'registry.violation.label.gravity'|trans }}</th>
+                            <th scope="col">{{ 'registry.violation.label.notification'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.updated_at'|trans }}</th>
                             <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>

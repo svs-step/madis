@@ -70,7 +70,7 @@ class ViolationType extends AbstractType
         $violation = $options['data'];
         $builder
             ->add('date', DateType::class, [
-                'label'    => 'registry.violation.form.date',
+                'label'    => 'registry.violation.label.date',
                 'required' => true,
                 'widget'   => 'single_text',
                 'format'   => 'dd/MM/yyyy',
@@ -83,7 +83,7 @@ class ViolationType extends AbstractType
         if ($violation->getCollectivity()->getIsServicesEnabled()) {
             $builder->add('service', EntityType::class, [
                 'class'         => Service::class,
-                'label'         => 'registry.treatment.form.service',
+                'label'         => 'registry.label.service',
                 'query_builder' => function (EntityRepository $er) use ($violation) {
                     /** @var User $authenticatedUser */
                     $authenticatedUser = $this->security->getUser();
@@ -112,11 +112,11 @@ class ViolationType extends AbstractType
 
         $builder
             ->add('inProgress', CheckboxType::class, [
-                'label'    => 'registry.violation.form.in_progress',
+                'label'    => 'registry.violation.label.in_progress',
                 'required' => false,
             ])
             ->add('violationNatures', DictionaryType::class, [
-                'label'    => 'registry.violation.form.violation_natures',
+                'label'    => 'registry.violation.label.violation_natures',
                 'name'     => 'registry_violation_nature',
                 'expanded' => false,
                 'multiple' => true,
@@ -128,7 +128,7 @@ class ViolationType extends AbstractType
                 ],
             ])
             ->add('origins', DictionaryType::class, [
-                'label'    => 'registry.violation.form.origins',
+                'label'    => 'registry.violation.label.origins',
                 'name'     => 'registry_violation_origin',
                 'expanded' => false,
                 'multiple' => true,
@@ -140,13 +140,13 @@ class ViolationType extends AbstractType
                 ],
             ])
             ->add('cause', DictionaryType::class, [
-                'label'    => 'registry.violation.form.cause',
+                'label'    => 'registry.violation.label.cause',
                 'name'     => 'registry_violation_cause',
                 'expanded' => true,
                 'multiple' => false,
             ])
             ->add('concernedDataNature', DictionaryType::class, [
-                'label'    => 'registry.violation.form.concerned_data_nature',
+                'label'    => 'registry.violation.label.concerned_data_nature',
                 'name'     => 'registry_violation_concerned_data',
                 'expanded' => false,
                 'multiple' => true,
@@ -158,7 +158,7 @@ class ViolationType extends AbstractType
                 ],
             ])
             ->add('concernedPeopleCategories', DictionaryType::class, [
-                'label'    => 'registry.violation.form.concerned_people_categories',
+                'label'    => 'registry.violation.label.concerned_people_categories',
                 'name'     => 'registry_violation_concerned_people',
                 'expanded' => false,
                 'multiple' => true,
@@ -170,19 +170,19 @@ class ViolationType extends AbstractType
                 ],
             ])
             ->add('nbAffectedRows', IntegerType::class, [
-                'label' => 'registry.violation.form.nb_affected_rows',
+                'label' => 'registry.violation.label.nb_affected_rows',
                 'attr'  => [
                     'min' => 0,
                 ],
             ])
             ->add('nbAffectedPersons', IntegerType::class, [
-                'label' => 'registry.violation.form.nb_affected_persons',
+                'label' => 'registry.violation.label.nb_affected_persons',
                 'attr'  => [
                     'min' => 0,
                 ],
             ])
             ->add('potentialImpactsNature', DictionaryType::class, [
-                'label'    => 'registry.violation.form.potential_impacts_nature',
+                'label'    => 'registry.violation.label.potential_impacts_nature',
                 'name'     => 'registry_violation_impact',
                 'expanded' => false,
                 'multiple' => true,
@@ -194,19 +194,19 @@ class ViolationType extends AbstractType
                 ],
             ])
             ->add('gravity', DictionaryType::class, [
-                'label'    => 'registry.violation.form.gravity',
+                'label'    => 'registry.violation.label.gravity',
                 'name'     => 'registry_violation_gravity',
                 'expanded' => true,
                 'multiple' => false,
             ])
             ->add('communication', DictionaryType::class, [
-                'label'    => 'registry.violation.form.communication',
+                'label'    => 'registry.violation.label.communication',
                 'name'     => 'registry_violation_communication',
                 'expanded' => true,
                 'multiple' => false,
             ])
             ->add('communicationPrecision', TextareaType::class, [
-                'label'    => 'registry.violation.form.communication_precision',
+                'label'    => 'registry.violation.label.communication_precision',
                 'required' => false,
                 'attr'     => [
                     'rows' => 5,
@@ -214,21 +214,21 @@ class ViolationType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('appliedMeasuresAfterViolation', TextareaType::class, [
-                'label' => 'registry.violation.form.applied_measures_after_violation',
+                'label' => 'registry.violation.label.applied_measures_after_violation',
                 'attr'  => [
                     'rows' => 5,
                 ],
                 'purify_html' => true,
             ])
             ->add('notification', DictionaryType::class, [
-                'label'    => 'registry.violation.form.notification',
+                'label'    => 'registry.violation.label.notification',
                 'name'     => 'registry_violation_notification',
                 'required' => true,
                 'expanded' => true,
                 'multiple' => false,
             ])
             ->add('notificationDetails', TextType::class, [
-                'label'    => 'registry.violation.form.notification_details',
+                'label'    => 'registry.violation.label.notification_details',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -236,7 +236,7 @@ class ViolationType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('comment', TextareaType::class, [
-                'label'    => 'registry.violation.form.comment',
+                'label'    => 'registry.violation.label.comment',
                 'required' => false,
                 'attr'     => [
                     'rows' => 5,
@@ -245,7 +245,7 @@ class ViolationType extends AbstractType
             ])
             ->add('treatments', EntityType::class, [
                 'class'         => Treatment::class,
-                'label'         => 'registry.violation.form.treatment',
+                'label'         => 'global.label.linked_treatment',
                 'query_builder' => function (EntityRepository $er) use ($violation) {
                     $collectivity = $violation->getCollectivity();
 
@@ -266,7 +266,7 @@ class ViolationType extends AbstractType
             ])
             ->add('contractors', EntityType::class, [
                 'class'         => Contractor::class,
-                'label'         => 'registry.violation.form.contractor',
+                'label'         => 'global.label.linked_contractor',
                 'query_builder' => function (EntityRepository $er) use ($violation) {
                     $collectivity = $violation->getCollectivity();
 

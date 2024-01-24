@@ -73,11 +73,11 @@ class TreatmentType extends AbstractType
         $user = $this->security->getUser();
         $builder
             ->add('public', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.public_registry',
+                'label'    => 'registry.treatment.label.public_registry',
                 'required' => false,
             ])
             ->add('name', TextType::class, [
-                'label'    => 'registry.treatment.form.name',
+                'label'    => 'registry.treatment.label.name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -85,12 +85,12 @@ class TreatmentType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('exempt_AIPD', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.exemptAipd',
+                'label'    => 'registry.treatment.label.exempt_AIPD',
                 'required' => false,
             ])
 
             ->add('goal', TextareaType::class, [
-                'label'    => 'registry.treatment.form.goal',
+                'label'    => 'registry.treatment.label.goal',
                 'required' => false,
                 'attr'     => [
                     'rows' => 4,
@@ -98,7 +98,7 @@ class TreatmentType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('manager', TextType::class, [
-                'label'    => 'registry.treatment.form.manager',
+                'label'    => 'registry.treatment.label.manager',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -107,23 +107,23 @@ class TreatmentType extends AbstractType
             ])
 
             ->add('paperProcessing', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.paper_processing',
+                'label'    => 'registry.treatment.label.paper_processing',
                 'required' => false,
             ])
             ->add('legalBasis', DictionaryType::class, [
-                'label'    => 'registry.treatment.form.legal_basis',
+                'label'    => 'registry.treatment.label.legal_basis',
                 'name'     => 'registry_treatment_legal_basis',
                 'required' => true,
                 'expanded' => true,
                 'multiple' => false,
             ])
             ->add('legalBasisJustification', TextareaType::class, [
-                'label'       => 'registry.treatment.form.legal_basis_justification',
+                'label'       => 'registry.treatment.label.legal_basis_justification',
                 'required'    => false,
                 'purify_html' => true,
             ])
             ->add('observation', TextareaType::class, [
-                'label'    => 'registry.treatment.form.observation',
+                'label'    => 'registry.treatment.label.observation',
                 'required' => false,
                 'attr'     => [
                     'rows' => 2,
@@ -131,39 +131,39 @@ class TreatmentType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('concernedPeopleParticular', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.concerned_people_particular',
+                'label'    => 'registry.treatment.label.concerned_people_particular',
                 'required' => false,
             ])
             ->add('concernedPeopleUser', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.concerned_people_user',
+                'label'    => 'registry.treatment.label.concerned_people_user',
                 'required' => false,
             ])
             ->add('concernedPeopleAgent', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.concerned_people_agent',
+                'label'    => 'registry.treatment.label.concerned_people_agent',
                 'required' => false,
             ])
             ->add('concernedPeopleElected', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.concerned_people_elected',
+                'label'    => 'registry.treatment.label.concerned_people_elected',
                 'required' => false,
             ])
             ->add('concernedPeopleCompany', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.concerned_people_company',
+                'label'    => 'registry.treatment.label.concerned_people_company',
                 'required' => false,
             ])
             ->add('concernedPeoplePartner', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.concerned_people_partner',
+                'label'    => 'registry.treatment.label.concerned_people_partner',
                 'required' => false,
             ])
             ->add('concernedPeopleUsager', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.concerned_people_usager',
+                'label'    => 'registry.treatment.label.concerned_people_usager',
                 'required' => false,
             ])
             ->add('concernedPeopleOther', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.concerned_people_other',
+                'label'    => 'registry.treatment.label.concerned_people_other',
                 'required' => false,
             ])
             ->add('dataCategories', EntityType::class, [
-                'label'         => 'registry.treatment.form.data_category',
+                'label'         => 'registry.treatment.label.data_category',
                 'class'         => TreatmentDataCategory::class,
                 'required'      => false,
                 'expanded'      => false,
@@ -189,7 +189,7 @@ class TreatmentType extends AbstractType
                 ],
             ])
             ->add('dataCategoryOther', TextareaType::class, [
-                'label'    => 'registry.treatment.form.data_category_other',
+                'label'    => 'registry.treatment.label.data_category_other',
                 'required' => false,
                 'attr'     => [
                     'rows' => 3,
@@ -197,7 +197,7 @@ class TreatmentType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('dataOrigin', TextType::class, [
-                'label'    => 'registry.treatment.form.data_origin',
+                'label'    => 'registry.treatment.label.data_origin',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -205,7 +205,7 @@ class TreatmentType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('recipientCategory', TextareaType::class, [
-                'label'    => 'registry.treatment.form.recipient_category',
+                'label'    => 'registry.treatment.label.recipient_category',
                 'required' => false,
                 'attr'     => [
                     'rows' => 2,
@@ -213,7 +213,7 @@ class TreatmentType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('contractors', EntityType::class, [
-                'label'         => 'registry.treatment.form.contractors',
+                'label'         => 'global.label.linked_contractor',
                 'class'         => Contractor::class,
                 'required'      => false,
                 'multiple'      => true,
@@ -242,59 +242,59 @@ class TreatmentType extends AbstractType
                 ],
             ])
             ->add('securityAccessControl', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.security_access_control',
+                'label'    => 'registry.treatment.label.security_access_control',
                 'required' => false,
             ])
             ->add('securityTracability', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.security_tracability',
+                'label'    => 'registry.treatment.label.security_tracability',
                 'required' => false,
             ])
             ->add('securitySaving', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.security_saving',
+                'label'    => 'registry.treatment.label.security_saving',
                 'required' => false,
             ])
             ->add('securityUpdate', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.security_update',
+                'label'    => 'registry.treatment.label.security_update',
                 'required' => false,
             ])
             ->add('securityOther', ComplexChoiceType::class, [
-                'label'    => 'registry.treatment.form.security_other',
+                'label'    => 'registry.treatment.label.security_other',
                 'required' => false,
             ])
             ->add('systematicMonitoring', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.systematic_monitoring',
+                'label'    => 'registry.treatment.label.systematic_monitoring',
                 'required' => false,
             ])
             ->add('largeScaleCollection', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.large_scale_collection',
+                'label'    => 'registry.treatment.label.large_scale_collection',
                 'required' => false,
             ])
             ->add('vulnerablePeople', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.vulnerable_people',
+                'label'    => 'registry.treatment.label.vulnerable_people',
                 'required' => false,
             ])
             ->add('dataCrossing', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.data_crossing',
+                'label'    => 'registry.treatment.label.data_crossing',
                 'required' => false,
             ])
             ->add('evaluationOrRating', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.evaluation_or_rating',
+                'label'    => 'registry.treatment.label.evaluation_or_rating',
                 'required' => false,
             ])
             ->add('automatedDecisionsWithLegalEffect', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.automated_decisions_with_legal_effect',
+                'label'    => 'registry.treatment.label.automated_decisions_with_legal_effect',
                 'required' => false,
             ])
             ->add('automaticExclusionService', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.automatic_exclusion_service',
+                'label'    => 'registry.treatment.label.automatic_exclusion_service',
                 'required' => false,
             ])
             ->add('innovativeUse', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.innovative_use',
+                'label'    => 'registry.treatment.label.innovative_use',
                 'required' => false,
             ])
             ->add('active', ChoiceType::class, [
-                'label'    => 'registry.treatment.form.active',
+                'label'    => 'registry.treatment.label.active',
                 'required' => true,
                 'choices'  => [
                     'global.label.active'   => true,
@@ -304,12 +304,12 @@ class TreatmentType extends AbstractType
                 'expanded' => true,
             ])
             ->add('author', DictionaryType::class, [
-                'label'    => 'registry.treatment.form.author',
+                'label'    => 'registry.treatment.label.author',
                 'name'     => 'registry_treatment_author',
                 'required' => true,
             ])
             ->add('coordonneesResponsableTraitement', TextareaType::class, [
-                'label'    => 'registry.treatment.form.coordonnees_responsable_traitement',
+                'label'    => 'registry.treatment.label.coordonnees_responsable_traitement',
                 'required' => false,
                 'attr'     => [
                     'rows' => 3,
@@ -317,7 +317,7 @@ class TreatmentType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('collectingMethod', DictionaryType::class, [
-                'label'       => 'registry.treatment.form.collecting_method',
+                'label'       => 'registry.treatment.label.collecting_method',
                 'name'        => 'registry_treatment_collecting_method',
                 'required'    => false,
                 'expanded'    => false,
@@ -331,22 +331,22 @@ class TreatmentType extends AbstractType
                 ],
             ])
             ->add('estimatedConcernedPeople', IntegerType::class, [
-                'label'    => 'registry.treatment.form.estimated_concerned_people',
+                'label'    => 'registry.treatment.label.estimated_concerned_people',
                 'required' => false,
                 'attr'     => [
                     'min' => 0,
                 ],
             ])
             ->add('securityEntitledPersons', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.security_entitled_persons',
+                'label'    => 'registry.treatment.label.security_entitled_persons',
                 'required' => false,
             ])
             ->add('securityOpenAccounts', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.security_open_accounts',
+                'label'    => 'registry.treatment.label.security_open_accounts',
                 'required' => false,
             ])
             ->add('securitySpecificitiesDelivered', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.security_specificities_delivered',
+                'label'    => 'registry.treatment.label.security_specificities_delivered',
                 'required' => false,
             ])
             ->add('shelfLifes', CollectionType::class, [
@@ -356,7 +356,7 @@ class TreatmentType extends AbstractType
                 'by_reference' => false,
             ])
             ->add('otherCollectingMethod', TextType::class, [
-                'label'       => 'registry.treatment.form.otherCollectingMethod',
+                'label'       => 'registry.treatment.label.otherCollectingMethod',
                 'required'    => false,
                 'purify_html' => true,
             ])
@@ -365,15 +365,15 @@ class TreatmentType extends AbstractType
                 'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
             ])
             ->add('legalMentions', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.legalMentions',
+                'label'    => 'registry.treatment.label.legalMentions',
                 'required' => false,
             ])
             ->add('consentRequest', CheckboxType::class, [
-                'label'    => 'registry.treatment.form.consentRequest',
+                'label'    => 'registry.treatment.label.consentRequest',
                 'required' => false,
             ])
             ->add('consentRequestFormat', TextType::class, [
-                'label'       => 'registry.treatment.form.consentRequestFormat',
+                'label'       => 'registry.treatment.label.consentRequestFormat',
                 'required'    => false,
                 'purify_html' => true,
             ])
@@ -383,12 +383,12 @@ class TreatmentType extends AbstractType
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
             $builder
                 ->add('dpoMessage', TextAreaType::class, [
-                    'label'       => 'registry.treatment.form.dpoMessage',
+                    'label'       => 'registry.treatment.label.dpoMessage',
                     'required'    => false,
                     'purify_html' => true,
                 ])
                 ->add('statut', DictionaryType::class, [
-                    'label'    => 'registry.treatment.form.statut',
+                    'label'    => 'registry.treatment.label.statut',
                     'name'     => 'treatment_statut',
                     'required' => true,
                 ]);
@@ -401,7 +401,7 @@ class TreatmentType extends AbstractType
 
         if ($options['data']->getCollectivity()->isHasModuleTools()) {
             $builder->add('tools', EntityType::class, [
-                'label'         => 'registry.treatment.form.tools',
+                'label'         => 'global.label.linked_tool',
                 'class'         => Tool::class,
                 'required'      => false,
                 'multiple'      => true,
@@ -431,7 +431,7 @@ class TreatmentType extends AbstractType
             ]);
         } else {
             $builder->add('software', TextType::class, [
-                'label'    => 'registry.treatment.form.software',
+                'label'    => 'registry.treatment.label.tools_if_inactif',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -444,7 +444,7 @@ class TreatmentType extends AbstractType
         if ($options['data']->getCollectivity()->getIsServicesEnabled()) {
             $builder->add('service', EntityType::class, [
                 'class'         => Service::class,
-                'label'         => 'registry.treatment.form.service',
+                'label'         => 'registry.label.service',
                 'query_builder' => function (EntityRepository $er) use ($treatment) {
                     if ($treatment->getCollectivity()) {
                         /** @var User $authenticatedUser */

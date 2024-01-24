@@ -23,15 +23,15 @@ user:
             edit_submit: Modifier la structure
             my_organization_submit: Modifier ma structure
         tab:
-          address: Adresse
-          comite_il: Composition du comité Informatique et Libertés
-          dpo: Délégué à la protection des données
-          it_manager: Responsable informatique
-          legal_manager: Responsable de traitement
-          referent: Référent RGPD
-          modules: Modules complémentaires
-          bilan: Bilan
-          services: Services
+            address: Adresse
+            comite_il: Composition du comité Informatique et Libertés
+            dpo: Délégué à la protection des données
+            it_manager: Responsable informatique
+            legal_manager: Responsable de traitement
+            referent: Référent RGPD
+            modules: Modules complémentaires
+            bilan: Bilan
+            services: Services
         label:
             name: Nom
             short_name: Nom court
@@ -67,6 +67,8 @@ user:
         flashbag:
             success:
                 my_organization_edit: Votre structure vient d'être mise à jour
+            error:
+                delete_related_objects: Une erreur est survenue lors de la suppression des %relateds% de la structure "%object%"
 
     collectivity:
         flashbag:

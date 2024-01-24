@@ -1,19 +1,13 @@
-<div class="box box-solid box-warning">
-    <div class="box-header with-border"><h3 class="box-title">{{ 'global.label.linked_mesurement'|trans }}</h3></div>
-    <div class="box-body">
-
-        {% if mesurements|length > 0 %}
-            <ul>
-                {% for mesurement in mesurements %}
-                    <li>
-                        <a aria-label="Mesure" href="{{ path('registry_mesurement_show', { id: mesurement.id }) }}">
-                            {{ mesurement.name }}
-                        </a>
-                    </li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <span><i>{{ 'global.label.no_linked_mesurement'|trans }}</i></span>
-        {% endif %}
-    </div>
-</div>
+{% if mesurements|length > 0 %}
+    <ul>
+        {% for mesurement in mesurements %}
+            <li>
+                <a href="{{ path('registry_mesurement_show', { id: mesurement.id }) }}">
+                    {{ mesurement.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <span><i>{{ 'global.label.no_linked_mesurement'|trans }}</i></span>
+{% endif %}

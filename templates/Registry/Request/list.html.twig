@@ -42,9 +42,9 @@
                     </a>
                     {% endif %}
                     {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a aria-label="{{ 'registry.request.action.report'|trans }}" href="{{ path('registry_request_report') }}" class="btn btn-default">
+                    <a href="{{ path('registry_request_report') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.request.action.report'|trans }}
+                        {{ 'global.action.report'|trans }}
                     </a>
                     {% endif %}
                     {% if app.request.query.get('archive') == 'true' %}
@@ -145,19 +145,19 @@
                             </th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'registry.request.list.concerned_people'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.concerned_people'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'registry.request.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'registry.request.list.date'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.object'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.complete'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.legitimate_applicant'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.legitimate_request'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.answer_date'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.state'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.request.list.created_at'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.request.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.date'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.object'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.complete'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.legitimate_applicant'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.legitimate_request'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.answer_date'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.state'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.updated_at'|trans }}</th>
                             <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>

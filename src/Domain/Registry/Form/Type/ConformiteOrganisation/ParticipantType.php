@@ -15,7 +15,7 @@ class ParticipantType extends AbstractType
     {
         $builder
             ->add('prenom', TextType::class, [
-                'label'    => 'registry.conformite_organisation.participant.form.prenom',
+                'label'    => 'global.label.contact.first_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -23,7 +23,7 @@ class ParticipantType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('nomDeFamille', TextType::class, [
-                'label'    => 'registry.conformite_organisation.participant.form.nom_famille',
+                'label'    => 'global.label.contact.last_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -36,7 +36,7 @@ class ParticipantType extends AbstractType
                 'name'     => 'user_contact_civility',
             ])
             ->add('fonction', TextType::class, [
-                'label'    => 'registry.conformite_organisation.participant.form.fonction',
+                'label'    => 'global.label.contact.job',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,

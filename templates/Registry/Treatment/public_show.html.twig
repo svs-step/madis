@@ -25,7 +25,7 @@
             <div class="action-bar">
                 <a href="{{ path('registry_public_treatment_list', {id: object.collectivity.id}) }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-arrow-left"></i>
-                    {{ 'registry.treatment.action.back_to_list'|trans }}
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
             </div>
         </div>
@@ -33,9 +33,8 @@
 
 <div class="row">
     {# LEFT #}
-    <div
-        class="col-md-6">
-        {# GENERAL INFORMATIONS #}
+    <div class="col-md-6">
+        {# GENERAL #}
         {% if (
             (object.name and config.name == true)
             or (object.service and config.service == true)
@@ -50,7 +49,7 @@
         ) %}
             <div class="box box-solid box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3>
+                    <h3 class="box-title">{{ 'global.tab.general'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -58,7 +57,7 @@
                             {% if (object.name and config.name == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.name'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.name'|trans }}</strong>
                                     </td>
                                     <td>{{ object.name }}</td>
                                 </tr>
@@ -66,7 +65,7 @@
                             {% if (object.service and config.service == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.service'|trans }}</strong>
+                                        <strong>{{ 'registry.label.service'|trans }}</strong>
                                     </td>
                                     <td>{{ object.service }}</td>
                                 </tr>
@@ -75,7 +74,7 @@
                             {% if (object.goal and config.goal == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.goal'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.goal'|trans }}</strong>
                                     </td>
                                     <td>{{ object.goal|nl2br }}</td>
                                 </tr>
@@ -83,7 +82,7 @@
                             {% if (object.author and config.author == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.author'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.author'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.author is not null %}
@@ -95,7 +94,7 @@
                             {% if (object.author == "processing_manager" and object.coordonneesResponsableTraitement and config.coordonneesResponsableTraitement == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.coordonnees_responsable_traitement'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.coordonnees_responsable_traitement'|trans }}</strong>
                                     </td>
                                     <td>{{ object.coordonneesResponsableTraitement|nl2br }}</td>
                                 </tr>
@@ -103,7 +102,7 @@
                             {% if (object.manager and config.manager == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.manager'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.manager'|trans }}</strong>
                                     </td>
                                     <td>{{ object.manager }}</td>
                                 </tr>
@@ -111,7 +110,7 @@
                             {% if (object.active and config.active == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.active'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.active'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.active %}
@@ -125,7 +124,7 @@
                             {% if (object.legalBasis and config.legalBasis == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.legal_basis'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.legal_basis'|trans }}</strong>
                                     </td>
                                     <td>{{ object.legalBasis|dictionary('registry_treatment_legal_basis') }}</td>
                                 </tr>
@@ -133,7 +132,7 @@
                             {% if (object.legalBasisJustification and config.legalBasisJustification == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.legal_basis_justification'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.legal_basis_justification'|trans }}</strong>
                                     </td>
                                     <td>{{ object.legalBasisJustification|nl2br }}</td>
                                 </tr>
@@ -141,7 +140,7 @@
                             {% if (object.observation and config.observation == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.observation'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.observation'|trans }}</strong>
                                     </td>
                                     <td>{{ object.observation|nl2br }}</td>
                                 </tr>
@@ -167,7 +166,7 @@
                             <tr>
                                 {% if (object.dataCategories and config.dataCategories == true) %}
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.data_category'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.data_category'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -189,7 +188,7 @@
                             {% if (object.dataCategoryOther and config.dataCategoryOther == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.data_category_other'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.data_category_other'|trans }}</strong>
                                     </td>
                                     <td>{{ object.dataCategoryOther|nl2br }}</td>
                                 </tr>
@@ -214,7 +213,7 @@
                             {% if (object.recipientCategory and config.recipientCategory == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.recipient_category'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.recipient_category'|trans }}</strong>
                                     </td>
                                     <td>{{ object.recipientCategory|nl2br }}</td>
                                 </tr>
@@ -222,7 +221,7 @@
                             {% if (object.contractors and config.contractors == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.contractors'|trans }}</strong>
+                                        <strong>{{ 'global.label.linked_contractor'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -262,7 +261,7 @@
                             {% if (config.exempt_AIPD == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.exempt_AIPD'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.exempt_AIPD'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -278,7 +277,7 @@
                             {% if (config.systematicMonitoring == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.systematic_monitoring'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.systematic_monitoring'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -294,7 +293,7 @@
                             {% if (config.largeScaleCollection == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.large_scale_collection'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.large_scale_collection'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -310,7 +309,7 @@
                             {% if (config.vulnerablePeople == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.vulnerable_people'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.vulnerable_people'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -326,7 +325,7 @@
                             {% if (config.dataCrossing == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.data_crossing'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.data_crossing'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -342,7 +341,7 @@
                             {% if (config.evaluationOrRating == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.evaluation_or_rating'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.evaluation_or_rating'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -358,7 +357,7 @@
                             {% if (config.automatedDecisionsWithLegalEffect == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.automated_decisions_with_legal_effect'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.automated_decisions_with_legal_effect'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -374,7 +373,7 @@
                             {% if (config.automaticExclusionService == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.automatic_exclusion_service'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.automatic_exclusion_service'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -390,7 +389,7 @@
                             {% if (config.innovativeUse == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.innovative_use'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.innovative_use'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -416,7 +415,7 @@
             ) %}
             <div class="box box-solid box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3>
+                    <h3 class="box-title">{{ 'global.tab.history'|trans }}</h3>
                 </div>
                 <div class="box-body no-padding">
                     <table class="table">
@@ -424,7 +423,7 @@
                             {% if (object.creator and config.creator == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.creator'|trans }}</strong>
+                                        <strong>{{ 'global.label.created_by'|trans }}</strong>
                                     </td>
                                     <td>
                                         {{ object.creator }}
@@ -434,7 +433,7 @@
                             {% if (object.collectivity and config.collectivity == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong>
+                                        <strong>{{ 'global.label.organization'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if app.user %}
@@ -455,8 +454,7 @@
     </div>
 
     {# RIGHT #}
-    <div
-        class="col-md-6">
+    <div class="col-md-6">
         {# DETAILS #}
         {% if (
             (object.concernedPeopleParticular and config.concernedPeopleParticular == true)
@@ -484,13 +482,13 @@
                         <tbody>
                             <tr>
                                 <td>
-                                    <strong>{{ 'registry.treatment.show.concerned_people'|trans }}</strong>
+                                    <strong>{{ 'registry.treatment.label.concerned_people'|trans }}</strong>
                                 </td>
                             </tr>
                             {% if (object.concernedPeopleParticular and config.concernedPeopleParticular == true) %}
                                 <tr>
                                     <td class="concerned-people-type">
-                                        <strong>{{ 'registry.treatment.show.concerned_people_particular'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.concerned_people_particular'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.concernedPeopleParticular.check %}
@@ -505,7 +503,7 @@
                             {% if (object.concernedPeopleUser and config.concernedPeopleUser == true) %}
                                 <tr>
                                     <td class="concerned-people-type">
-                                        <strong>{{ 'registry.treatment.show.concerned_people_user'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.concerned_people_user'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.concernedPeopleUser.check %}
@@ -520,7 +518,7 @@
                             {% if (object.concernedPeopleAgent and config.concernedPeopleAgent == true) %}
                                 <tr>
                                     <td class="concerned-people-type">
-                                        <strong>{{ 'registry.treatment.show.concerned_people_agent'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.concerned_people_agent'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.concernedPeopleAgent.check %}
@@ -535,7 +533,7 @@
                             {% if (object.concernedPeopleElected and config.concernedPeopleElected == true) %}
                                 <tr>
                                     <td class="concerned-people-type">
-                                        <strong>{{ 'registry.treatment.show.concerned_people_elected'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.concerned_people_elected'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.concernedPeopleElected.check %}
@@ -550,7 +548,7 @@
                             {% if (object.concernedPeopleCompany and config.concernedPeopleCompany == true) %}
                                 <tr>
                                     <td class="concerned-people-type">
-                                        <strong>{{ 'registry.treatment.show.concerned_people_company'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.concerned_people_company'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.concernedPeopleCompany.check %}
@@ -565,7 +563,7 @@
                             {% if (object.concernedPeoplePartner and config.concernedPeoplePartner == true) %}
                                 <tr>
                                     <td class="concerned-people-type">
-                                        <strong>{{ 'registry.treatment.show.concerned_people_partner'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.concerned_people_partner'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.concernedPeoplePartner.check %}
@@ -580,7 +578,7 @@
                             {% if (object.concernedPeopleUsager and config.concernedPeopleUsager == true) %}
                                 <tr>
                                     <td class="concerned-people-type">
-                                        <strong>{{ 'registry.treatment.show.concerned_people_usager'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.concerned_people_usager'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.concernedPeopleUsager.check %}
@@ -595,7 +593,7 @@
                             {% if (object.concernedPeopleOther and config.concernedPeopleOther == true) %}
                                 <tr>
                                     <td class="concerned-people-type">
-                                        <strong>{{ 'registry.treatment.show.concerned_people_other'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.concerned_people_other'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.concernedPeopleOther.check %}
@@ -610,7 +608,7 @@
                             {% if (object.estimatedConcernedPeople and config.estimatedConcernedPeople == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.estimated_concerned_people'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.estimated_concerned_people'|trans }}</strong>
                                     </td>
                                     <td>{{ object.estimatedConcernedPeople }}</td>
                                 </tr>
@@ -619,9 +617,9 @@
                                 <tr>
                                     <td>
                                         <strong>{% if object.collectivity.hasModuleTools %}
-                                            {{ 'registry.treatment.show.software'|trans }}
+                                            {{ 'registry.treatment.label.tools_if_inactif'|trans }}
                                             {% else %}
-                                                {{ 'registry.treatment.show.tools'|trans }}
+                                                {{ 'global.label.linked_tool'|trans }}
                                             {% endif %}</strong>
                                     </td>
                                     <td>
@@ -636,7 +634,7 @@
                             {% if (object.paperProcessing and config.paperProcessing == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.paper_processing'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.paper_processing'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.paperProcessing %}
@@ -651,7 +649,7 @@
                             {% if (object.dataOrigin and config.dataOrigin == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.data_origin'|trans }}</strong>
                                     </td>
                                     <td>{{ object.dataOrigin }}</td>
                                 </tr>
@@ -659,7 +657,7 @@
                             {% if ((object.collectingMethod is not empty) and config.collectingMethod == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.collecting_method'|trans }}</strong>
                                     </td>
                                     <td>
                                         <ul>
@@ -674,7 +672,7 @@
                             {% if (config.legalMentions == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.legal_mentions'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.legalMentions'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.legalMentions == 1 %}
@@ -688,7 +686,7 @@
                             {% if (config.consentRequest == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.consent_request'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.consentRequest'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.consentRequest == 1 %}
@@ -702,7 +700,7 @@
                             {% if (object.consentRequestFormat and config.consentRequestFormat == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.consent_request_format'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.consentRequest_format'|trans }}</strong>
                                     </td>
                                     <td>{{ object.consentRequestFormat }}</td>
                                 </tr>
@@ -725,7 +723,7 @@
                             {% if (config.securityAccessControl == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.security_access_control'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.security_access_control'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.securityAccessControl.check %}
@@ -740,7 +738,7 @@
                             {% if (config.securityTracability == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.security_tracability'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.security_tracability'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.securitytracability.check %}
@@ -755,7 +753,7 @@
                             {% if (config.securitySaving == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.security_saving'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.security_saving'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.securitySaving.check %}
@@ -770,7 +768,7 @@
                             {% if (config.securityUpdate == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.security_update'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.security_update'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.securityUpdate.check %}
@@ -785,7 +783,7 @@
                             {% if (config.securityOther == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.security_other'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.security_other'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.securityOther.check %}
@@ -800,7 +798,7 @@
                             {% if (config.securityEntitledPersons == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.security_entitled_persons'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.security_entitled_persons'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.securityEntitledPersons %}
@@ -814,7 +812,7 @@
                             {% if (config.securityOpenAccounts == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.security_open_accounts'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.securityOpenAccounts %}
@@ -828,7 +826,7 @@
                             {% if (config.securitySpecificitiesDelivered == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.show.security_specificities_delivered'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.security_specificities_delivered'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.securitySpecificitiesDelivered %}
@@ -844,9 +842,16 @@
                 </div>
             </div>
         {% endif %}
-        {# PROOFS #}
+        
+        {# LINKED MODULES #}
         {% if (object.proofs and config.proofs == true) %}
-            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
+                <div class="box-body">
+                    {# PUBLIC PROOFS #}
+                    {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                </div>
+            </div>
         {% endif %}
     </div>
 </div>

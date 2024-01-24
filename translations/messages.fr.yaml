@@ -4,6 +4,7 @@ global:
         unarchive: Désarchiver
         back_to_list: Retourner à la liste
         close: Fermer
+        cancel: Annuler
         confirm: Confirmer
         confirm_archive: Confirmer l'archivage
         confirm_delete: Confirmer la suppression
@@ -13,7 +14,7 @@ global:
         delete: Supprimer
         documentation: Ressources utiles
         download: Télécharger
-        draft: Enregistrer un brouillon
+        draft: Enregistrer en brouillon
         duplicate: Dupliquer
         synthesis: Synthèse
         edit: Modifier
@@ -36,22 +37,23 @@ global:
         not_archived: Non archivés
         organization: Structure
         created_at: Date de création
+        created_by : Créé par
         updated_at : Date de modification
         updated_by : Modifié par
         no_data: Aucun élément à afficher
-        linked_treatment: Traitements associés
+        linked_treatment: Traitements
         no_linked_treatment: Aucun traitement associé
-        linked_contractor: Sous-traitants associés
+        linked_contractor: Sous-traitants
         no_linked_contractor: Aucun sous-traitant associé
-        linked_tool: Logiciels et supports associés
+        linked_tool: Logiciels et supports
         no_linked_tool: Aucun logiciel ou support associé
-        linked_request: Demandes associées
+        linked_request: Demandes
         no_linked_request: Aucune demande associée
-        linked_violation: Violations associées
+        linked_violation: Violations
         no_linked_violation: Aucune violation associée
-        linked_document: Preuves associées
-        no_linked_document: Aucune preuve associée
-        linked_mesurement: Actions de protection associées
+        linked_proof: Preuves
+        no_linked_proof: Aucune preuve associée
+        linked_mesurement: Actions de protection
         no_linked_mesurement: Aucune action de protection associée
         no: Non
         yes: Oui
@@ -61,6 +63,7 @@ global:
             city: Ville
             zip_code: Code postal
             insee: Code INSEE
+            country: Pays
         contact:
             civility: Civilité
             first_name: Prénom

@@ -75,7 +75,7 @@ class ProofType extends AbstractType
 
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'registry.proof.form.name',
+                'label'    => 'registry.proof.label.name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -83,12 +83,12 @@ class ProofType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('type', DictionaryType::class, [
-                'label'    => 'registry.proof.form.type',
+                'label'    => 'registry.proof.label.type',
                 'name'     => 'registry_proof_type',
                 'required' => true,
             ])
             ->add('documentFile', FileType::class, [
-                'label'       => false,
+                'label'       => 'registry.proof.label.file',
                 'required'    => false,
                 'constraints' => [
                     new File([
@@ -124,7 +124,7 @@ class ProofType extends AbstractType
                 ],
             ])
             ->add('comment', TextType::class, [
-                'label'    => 'registry.proof.form.comment',
+                'label'    => 'registry.proof.label.comment',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -132,7 +132,7 @@ class ProofType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('treatments', EntityType::class, [
-                'label'         => 'registry.proof.form.treatments',
+                'label'         => 'global.label.linked_treatment',
                 'class'         => Model\Treatment::class,
                 'query_builder' => function (EntityRepository $er) use ($collectivity) {
                     $qb = $er->createQueryBuilder('t');
@@ -161,7 +161,7 @@ class ProofType extends AbstractType
                 'expanded' => false,
             ])
             ->add('contractors', EntityType::class, [
-                'label'         => 'registry.proof.form.contractors',
+                'label'         => 'global.label.linked_contractor',
                 'class'         => Model\Contractor::class,
                 'query_builder' => function (EntityRepository $er) use ($collectivity) {
                     return $er->createQueryBuilder('c')
@@ -181,7 +181,7 @@ class ProofType extends AbstractType
                 'expanded' => false,
             ])
             ->add('mesurements', EntityType::class, [
-                'label'         => 'registry.proof.form.mesurements',
+                'label'         => 'global.label.linked_mesurement',
                 'class'         => Model\Mesurement::class,
                 'query_builder' => function (EntityRepository $er) use ($collectivity) {
                     return $er->createQueryBuilder('m')
@@ -201,7 +201,7 @@ class ProofType extends AbstractType
                 'expanded' => false,
             ])
             ->add('requests', EntityType::class, [
-                'label'         => 'registry.proof.form.requests',
+                'label'         => 'global.label.linked_request',
                 'class'         => Model\Request::class,
                 'query_builder' => function (EntityRepository $er) use ($collectivity) {
                     $qb = $er->createQueryBuilder('r');
@@ -232,7 +232,7 @@ class ProofType extends AbstractType
                 'expanded' => false,
             ])
             ->add('violations', EntityType::class, [
-                'label'         => 'registry.proof.form.violations',
+                'label'         => 'global.label.linked_violation',
                 'class'         => Model\Violation::class,
                 'query_builder' => function (EntityRepository $er) use ($collectivity) {
                     $qb = $er->createQueryBuilder('v');
@@ -265,7 +265,7 @@ class ProofType extends AbstractType
 
         if ($collectivity->isHasModuleTools()) {
             $builder->add('tools', EntityType::class, [
-                'label'         => 'registry.treatment.form.tools',
+                'label'         => 'global.label.linked_tool',
                 'class'         => Tool::class,
                 'required'      => false,
                 'multiple'      => true,

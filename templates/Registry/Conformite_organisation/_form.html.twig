@@ -53,7 +53,7 @@
         <div class="box box-solid">
             <div class="box-header with-border">
                 <h3 class="box-title">
-                    {{ 'registry.conformite_organisation.form.contexte'|trans }}
+                    {{ 'registry.conformite_organisation.tab.contexte'|trans }}
                 </h3>
             </div>
             <div class="box-body">
@@ -61,7 +61,7 @@
                     {{ form_row(form.date) }}
                 </div>
                 <div class="col-sm-8">
-                    <label class="control-label">Participants</label>
+                    <label class="control-label">{{ 'registry.conformite_organisation.label.participants'|trans }}</label>
                     <div class="js-collection-wrapper"
                          data-prototype="{{ formMacros.printParticipant(form.participants.vars.prototype)|e('html_attr') }}"
                          data-index="{{ form.participants|length }}"
@@ -70,7 +70,7 @@
                             {{ formMacros.printParticipant(participant) }}
                         {% endfor %}
                         <button class="js-collection-add btn btn-default">
-                            <i aria-hidden="true" class="fa fa-plus"></i> {{ 'registry.conformite_organisation.participant.form.add'|trans }}
+                            <i aria-hidden="true" class="fa fa-plus"></i> {{ 'registry.conformite_organisation.action.add_participant'|trans }}
                         </button>
                     </div>
                 </div>

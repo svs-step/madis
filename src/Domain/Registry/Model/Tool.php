@@ -44,9 +44,9 @@ class Tool implements LoggableSubject, CollectivityRelated
     use HistoryTrait;
     use CollectivityTrait;
 
-    public const COUNTRY_FRANCE = 'registry.tool.country.france';
-    public const COUNTRY_EU     = 'registry.tool.country.eu';
-    public const COUNTRY_OTHER  = 'registry.tool.country.other';
+    public const COUNTRY_FRANCE = 'registry.tool.label.country.france';
+    public const COUNTRY_EU     = 'registry.tool.label.country.eu';
+    public const COUNTRY_OTHER  = 'registry.tool.label.country.other';
 
     public const COUNTRY_FRANCE_TEXT = 'France';
     public const COUNTRY_EU_TEXT     = 'Pays de l’Union Européenne ou pays adéquats';

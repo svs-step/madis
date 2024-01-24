@@ -115,7 +115,7 @@ class ContractorGenerator extends AbstractGenerator
 
     private function collectivityHeaders(): array
     {
-        $collectivityTrans = $this->translator->trans('registry.treatment.list.collectivity');
+        $collectivityTrans = $this->translator->trans('global.label.organization');
 
         return [
             $collectivityTrans . ' - ' . $this->translator->trans('user.organization.label.name'),
@@ -136,12 +136,12 @@ class ContractorGenerator extends AbstractGenerator
     private function contractorGeneralInformationsHeaders()
     {
         return [
-            $this->translator->trans('registry.contractor.show.referent'),
-            $this->translator->trans('registry.contractor.show.contractual_clauses_verified'),
-            $this->translator->trans('registry.contractor.show.adopted_security_features'),
-            $this->translator->trans('registry.contractor.show.maintains_treatment_register'),
-            $this->translator->trans('registry.contractor.show.sending_data_outside_eu'),
-            $this->translator->trans('registry.contractor.show.other_informations'),
+            $this->translator->trans('registry.contractor.label.referent'),
+            $this->translator->trans('registry.contractor.label.contractual_clauses_verified'),
+            $this->translator->trans('registry.contractor.label.adopted_security_features'),
+            $this->translator->trans('registry.contractor.label.maintains_treatment_register'),
+            $this->translator->trans('registry.contractor.label.sending_data_outside_eu'),
+            $this->translator->trans('registry.contractor.label.other_informations'),
         ];
     }
 
@@ -162,13 +162,13 @@ class ContractorGenerator extends AbstractGenerator
         $dpo = $this->translator->trans('registry.contractor.tab.dpo');
 
         return [
-            $dpo . ' - ' . $this->translator->trans('registry.contractor.show.has_dpo'),
-            $dpo . ' - ' . $this->translator->trans('registry.contractor.show.contact_civility'),
-            $dpo . ' - ' . $this->translator->trans('registry.contractor.show.contact_first_name'),
-            $dpo . ' - ' . $this->translator->trans('registry.contractor.show.contact_last_name'),
-            $dpo . ' - ' . $this->translator->trans('registry.contractor.show.contact_job'),
-            $dpo . ' - ' . $this->translator->trans('registry.contractor.show.contact_mail'),
-            $dpo . ' - ' . $this->translator->trans('registry.contractor.show.contact_phone_number'),
+            $dpo . ' - ' . $this->translator->trans('registry.contractor.label.has_dpo'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.civility'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.first_name'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.last_name'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.job'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.email'),
+            $dpo . ' - ' . $this->translator->trans('global.label.contact.phone_number'),
         ];
     }
 
@@ -192,8 +192,8 @@ class ContractorGenerator extends AbstractGenerator
         $recipientsTrans = $this->translator->trans('registry.treatment.tab.recipients');
 
         return [
-            $recipientsTrans . ' - ' . $this->translator->trans('registry.treatment.show.recipient_category'),
-            $recipientsTrans . ' - ' . $this->translator->trans('registry.treatment.show.contractors'),
+            $recipientsTrans . ' - ' . $this->translator->trans('registry.treatment.label.recipient_category'),
+            $recipientsTrans . ' - ' . $this->translator->trans('global.label.linked_contractor'),
         ];
     }
 
@@ -207,12 +207,12 @@ class ContractorGenerator extends AbstractGenerator
 
     private function contractorHistoricHeaders()
     {
-        $historicTrans = $this->translator->trans('registry.treatment.tab.historic');
+        $historicTrans = $this->translator->trans('global.tab.history');
 
         return [
-            $historicTrans . ' - ' . $this->translator->trans('registry.treatment.show.creator'),
-            $historicTrans . ' - ' . $this->translator->trans('registry.treatment.show.created_at'),
-            $historicTrans . ' - ' . $this->translator->trans('registry.treatment.show.updated_at'),
+            $historicTrans . ' - ' . $this->translator->trans('global.label.created_by'),
+            $historicTrans . ' - ' . $this->translator->trans('global.label.created_at'),
+            $historicTrans . ' - ' . $this->translator->trans('global.label.updated_at'),
         ];
     }
 
@@ -230,14 +230,14 @@ class ContractorGenerator extends AbstractGenerator
         $coordinates = $this->translator->trans('registry.contractor.tab.coordinates');
 
         return [
-            $coordinates . ' - ' . $this->translator->trans('registry.contractor.show.contact_first_name'),
-            $coordinates . ' - ' . $this->translator->trans('registry.contractor.show.contact_last_name'),
-            $coordinates . ' - ' . $this->translator->trans('registry.address.form.line_one'),
-            $coordinates . ' - ' . $this->translator->trans('registry.address.form.line_two'),
-            $coordinates . ' - ' . $this->translator->trans('registry.address.form.zip_code'),
-            $coordinates . ' - ' . $this->translator->trans('registry.address.form.city'),
-            $coordinates . ' - ' . $this->translator->trans('registry.address.form.mail'),
-            $coordinates . ' - ' . $this->translator->trans('registry.address.form.phone_number'),
+            $coordinates . ' - ' . $this->translator->trans('global.label.contact.first_name'),
+            $coordinates . ' - ' . $this->translator->trans('global.label.contact.last_name'),
+            $coordinates . ' - ' . $this->translator->trans('global.label.address.line_one'),
+            $coordinates . ' - ' . $this->translator->trans('global.label.address.line_two'),
+            $coordinates . ' - ' . $this->translator->trans('global.label.address.zip_code'),
+            $coordinates . ' - ' . $this->translator->trans('global.label.address.city'),
+            $coordinates . ' - ' . $this->translator->trans('global.label.contact.email'),
+            $coordinates . ' - ' . $this->translator->trans('global.label.contact.phone_number'),
         ];
     }
 
@@ -261,7 +261,7 @@ class ContractorGenerator extends AbstractGenerator
     private function contractorProofHeaders()
     {
         return [
-            $this->translator->trans('global.label.linked_document'),
+            $this->translator->trans('global.label.linked_proof'),
         ];
     }
 

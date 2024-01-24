@@ -41,9 +41,9 @@
                     </a>
                     {% endif %}
                     {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a aria-label="{{ 'registry.treatment.action.report'|trans }}" href="{{ path('registry_treatment_report') }}" class="btn btn-default">
+                    <a href="{{ path('registry_treatment_report') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.treatment.action.report'|trans }}
+                        {{ 'global.action.report'|trans }}
                     </a>
                     {% endif %}
                     {% if app.request.query.get('active') == 'false' %}
@@ -97,8 +97,8 @@
                             </th>
                             {% endif %}
                             <th scope="col">
-                                <select class="form-control" id="search_statut" placeholder="{{ 'registry.treatment.list.update'|trans }}" style="width: 100%;">
-                                    <option value="">{{ 'registry.treatment.list.statut'|trans }}</option>
+                                <select class="form-control" id="search_statut" placeholder="{{ 'registry.treatment.label.security_update'|trans }}" style="width: 100%;">
+                                    <option value="">{{ 'registry.treatment.label.statut'|trans }}</option>
                                     <option value="draft">Brouillon</option>
                                     <option value="finished">Terminé</option>
                                     <option value="checked">Contrôlé</option>
@@ -191,15 +191,15 @@
                             </th>
 
                             <th scope="col">
-                                <select class="form-control" id="search_public" placeholder="{{ 'registry.treatment.list.public'|trans }}" style="width: 100%;">
-                                    <option value="">{{ 'registry.treatment.list.public'|trans }}</option>
+                                <select class="form-control" id="search_public" placeholder="{{ 'registry.treatment.label.public_registry'|trans }}" style="width: 100%;">
+                                    <option value="">{{ 'registry.treatment.label.public_registry'|trans }}</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
                             </th>
                             <th scope="col">
-                                <select class="form-control" id="search_update" placeholder="{{ 'registry.treatment.list.update'|trans }}" style="width: 100%;">
-                                    <option value="">{{ 'registry.treatment.list.update'|trans }}</option>
+                                <select class="form-control" id="search_update" placeholder="{{ 'registry.treatment.label.security_update'|trans }}" style="width: 100%;">
+                                    <option value="">{{ 'registry.treatment.label.security_update'|trans }}</option>
                                     <option value="1">Oui</option>
                                     <option value="0">Non</option>
                                 </select>
@@ -222,34 +222,34 @@
                         </tr>
                         <tr>
                             <th scope="col" style="width:20px"><input type="checkbox" name="select_all" value="1" id="select-all-treatments"></th>
-                            <th scope="col">{{ 'registry.treatment.list.name'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.name'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                            <th scope="col">{{ 'registry.treatment.list.collectivity'|trans }}</th>
+                            <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.statut'|trans }}</th>
-                            <th scope="col">{{ 'registry.treatment.list.legal_basis'|trans }}</th>
-                            <th scope="col">{% if app.user.collectivity.hasModuleTools %}{{ 'registry.treatment.show.tools'|trans }}{% else %}{{ 'registry.treatment.list.software'|trans }}{% endif %}</th>
-                            <th scope="col">{{ 'registry.treatment.list.author'|trans }}</th>
-                            <th scope="col">{{ 'registry.treatment.list.manager'|trans }}</th>
-                            <th scope="col">{{ 'registry.treatment.list.contractors'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.label.statut'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.legal_basis'|trans }}</th>
+                            <th scope="col">{% if app.user.collectivity.hasModuleTools %}{{ 'global.label.linked_tool'|trans }}{% else %}{{ 'global.label.software'|trans }}{% endif %}</th>
+                            <th scope="col">{{ 'registry.treatment.label.author'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.manager'|trans }}</th>
+                            <th scope="col">{{ 'global.label.linked_contractor'|trans }}</th>
                             <th scope="col">{{ 'registry.treatment.list.sensitive_data'|trans }}</th>
-                            <th scope="col">{{ 'registry.treatment.list.access_control'|trans }}</th>
-                            <th scope="col">{{ 'registry.treatment.list.tracability'|trans }}</th>
-                            <th scope="col">{{ 'registry.treatment.list.saving'|trans }}</th>
-                            <th scope="col">{{ 'registry.treatment.list.other'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.security_access_control'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.security_tracability'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.security_saving'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.security_other'|trans }}</th>
                             <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.entitled_persons'|trans }}</th>
                             <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.open_accounts'|trans }}</th>
                             <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.specificities_delivered'|trans }}</th>
-                            <th scope="col">{{ 'registry.treatment.list.public'|trans }}</th>
-                            <th scope="col">{{ 'registry.treatment.list.update'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.public_registry'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.security_update'|trans }}</th>
 
                             <th scope="col">{{ 'registry.treatment.list.responsable_traitement'|trans }}</th>
                             <th scope="col">{{ 'registry.treatment.list.specific_traitement'|trans }}</th>
-                            <th scope="col">{{ 'registry.treatment.list.conformite_traitement'|trans }}</th>
-                            <th scope="col">Avis AIPD </th>
-                            <th scope="col">Exempt d'AIPD </th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.created_at'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.treatment.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'registry.conformite_traitement.label.conformite_reponse'|trans }}</th>
+                            <th scope="col">{{ 'aipd.treatment.label.avis_aipd'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.exempt_AIPD'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.updated_at'|trans }}</th>
 
                             <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>

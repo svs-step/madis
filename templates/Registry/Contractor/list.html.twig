@@ -32,9 +32,9 @@
                     </a>
                     {% endif %}
                     {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a aria-label="{{ 'registry.contractor.action.report'|trans }}" href="{{ path('registry_contractor_report') }}" class="btn btn-default">
+                    <a href="{{ path('registry_contractor_report') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.contractor.action.report'|trans }}
+                        {{ 'global.action.report'|trans }}
                     </a>
                     {% endif %}
                     {% if category and category.documents|length > 0%}
@@ -107,16 +107,16 @@
                             </th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'registry.contractor.list.name'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.label.name'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'registry.contractor.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.label.contractual_clauses_verified'|trans }}</th>
                             <th scope="col">{{ 'registry.contractor.list.adopted_security_features'|trans }}</th>
                             <th scope="col">{{ 'registry.contractor.list.maintains_treatment_register'|trans }}</th>
                             <th scope="col">{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.contractor.list.created_at'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.contractor.list.updated_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.updated_at'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
                                 <th scope="col">{{ 'global.label.actions'|trans }}</th>
                             {% endif %}

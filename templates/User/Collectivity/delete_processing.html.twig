@@ -107,7 +107,7 @@
                     deleteMesurements()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $(`#todelete_list`).html('<span>{{ 'registry.treatment.show.delete_related_objects_error'|trans({'%relateds%': 'traitements', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
+                    $(`#todelete_list`).html('<span>{{ 'user.organization.flashbag.error.delete_related_objects'|trans({'%relateds%': 'traitements', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
                 },
             })
         }
@@ -121,7 +121,7 @@
                     deleteContractors()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $(`#todelete_list`).html('<span>{{ 'registry.treatment.show.delete_related_objects_error'|trans({'%relateds%': 'actions de protection', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
+                    $(`#todelete_list`).html('<span>{{ 'user.organization.flashbag.error.delete_related_objects'|trans({'%relateds%': 'actions de protection', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
 
                 },
             })
@@ -136,7 +136,7 @@
                     deleteUsers()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $(`#todelete_list`).html('<span>{{ 'registry.treatment.show.delete_related_objects_error'|trans({'%relateds%': 'sous-traitants', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
+                    $(`#todelete_list`).html('<span>{{ 'user.organization.flashbag.error.delete_related_objects'|trans({'%relateds%': 'sous-traitants', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
                 },
             })
         }
@@ -150,7 +150,7 @@
                     deleteProofs()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $(`#todelete_list`).html('<span>{{ 'registry.treatment.show.delete_related_objects_error'|trans({'%relateds%': 'sous-traitants', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
+                    $(`#todelete_list`).html('<span>{{ 'user.organization.flashbag.error.delete_related_objects'|trans({'%relateds%': 'sous-traitants', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
                 },
             })
         }
@@ -164,7 +164,7 @@
                     showEndingFlashbag()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $(`#todelete_list`).html('<span>{{ 'registry.treatment.show.delete_related_objects_error'|trans({'%relateds%': 'Preuves', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
+                    $(`#todelete_list`).html('<span>{{ 'user.organization.flashbag.error.delete_related_objects'|trans({'%relateds%': 'Preuves', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
                 },
             })
         }

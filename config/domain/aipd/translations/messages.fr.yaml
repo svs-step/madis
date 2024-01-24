@@ -1,4 +1,10 @@
 aipd:
+    treatment:
+        label:
+            avis_aipd: Avis AIPD
+            date_validation: Date de validation
+            validation_in_progress: En cours de validation
+
     modele_analyse:
         action:
             import: Importer un modèle

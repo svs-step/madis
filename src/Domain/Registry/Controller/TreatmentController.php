@@ -468,28 +468,28 @@ class TreatmentController extends CRUDController
         $user   = $this->userProvider->getAuthenticatedUser();
         $values = [];
         if ($treatment->isSystematicMonitoring()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.systematic_monitoring'));
+            array_push($values, $this->translator->trans('registry.treatment.label.systematic_monitoring'));
         }
         if ($treatment->isLargeScaleCollection()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.large_scale_collection'));
+            array_push($values, $this->translator->trans('registry.treatment.label.large_scale_collection'));
         }
         if ($treatment->isVulnerablePeople()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.vulnerable_people'));
+            array_push($values, $this->translator->trans('registry.treatment.label.vulnerable_people'));
         }
         if ($treatment->isDataCrossing()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.data_crossing'));
+            array_push($values, $this->translator->trans('registry.treatment.label.data_crossing'));
         }
         if ($treatment->isEvaluationOrRating()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.evaluation_or_rating'));
+            array_push($values, $this->translator->trans('registry.treatment.label.evaluation_or_rating'));
         }
         if ($treatment->isAutomatedDecisionsWithLegalEffect()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.automated_decisions_with_legal_effect'));
+            array_push($values, $this->translator->trans('registry.treatment.label.automated_decisions_with_legal_effect'));
         }
         if ($treatment->isAutomaticExclusionService()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.automatic_exclusion_service'));
+            array_push($values, $this->translator->trans('registry.treatment.label.automatic_exclusion_service'));
         }
         if ($treatment->isInnovativeUse()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.innovative_use'));
+            array_push($values, $this->translator->trans('registry.treatment.label.innovative_use'));
         }
 
         return $values;

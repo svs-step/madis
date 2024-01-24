@@ -3,24 +3,24 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Fermer"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">{{ 'registry.mesurement.modal.title'|trans }}</h4>
+                <h4 class="modal-title" id="myModalLabel">{{ 'registry.mesurement.action.create'|trans }}</h4>
             </div>
             <div class="modal-body">
                 <form id="mesurement-modal-form" data-target="#mesurement-modal" action="{{ path('api_registry_mesurement_modal_create') }}" method="POST">
                     <div class="form-group">
-                        <label for="mesurement-name" class="control-label required">{{ 'registry.mesurement.form.name'|trans }}</label>
+                        <label for="mesurement-name" class="control-label required">{{ 'registry.mesurement.label.name'|trans }}</label>
                         <input type="text" class="form-control" id="mesurement-name" name="mesurement[name]" maxlength="255" required>
                     </div>
                     <div class="form-group">
-                        <label for="mesurement_planificationDate" class="control-label">{{ 'registry.mesurement.form.planification_date'|trans }}</label>
+                        <label for="mesurement_planificationDate" class="control-label">{{ 'registry.mesurement.label.planification_date'|trans }}</label>
                         <input type="text" id="mesurement_planificationDate" name="mesurement[planificationDate]" class="datepicker form-control">
                     </div>
                     <div class="form-group">
-                        <label for="mesurement_manager" class="control-label">{{ 'registry.mesurement.form.manager'|trans }}</label>
+                        <label for="mesurement_manager" class="control-label">{{ 'registry.mesurement.label.manager'|trans }}</label>
                         <input type="text" id="mesurement_manager" name="mesurement[manager]" class="form-control" maxlength="255">
                     </div>
                     <div class="form-group">
-                        <label for="mesurement_priority" class="control-label">{{ 'registry.mesurement.form.priority'|trans }}</label>
+                        <label for="mesurement_priority" class="control-label">{{ 'registry.mesurement.label.priority'|trans }}</label>
                         <select id="mesurement_priority" name="mesurement[priority]" class="form-control">
                             <option value=""></option>
                             {% for key, priority in dictionary('registry_mesurement_priority') %}
@@ -29,14 +29,14 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="mesurement_description" class="control-label">{{ 'registry.mesurement.form.description'|trans }}</label>
+                        <label for="mesurement_description" class="control-label">{{ 'registry.mesurement.label.description'|trans }}</label>
                         <textarea id="mesurement_description" name="mesurement[description]" rows="3" class="form-control"></textarea>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'registry.mesurement.modal.cancel'|trans }}</button>
-                <button id="mesurement-modal-form-button" form="mesurement-modal-form" type="submit" class="btn btn-primary">{{ 'registry.mesurement.modal.create'|trans }}</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">{{ 'global.action.cancel'|trans }}</button>
+                <button id="mesurement-modal-form-button" form="mesurement-modal-form" type="submit" class="btn btn-primary">{{ 'registry.mesurement.action.new_submit'|trans }}</button>
             </div>
         </div>
     </div>

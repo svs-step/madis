@@ -68,7 +68,7 @@ class ToolType extends AbstractType
         $tool = $options['data'] ?? null;
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'registry.tool.form.name',
+                'label'    => 'registry.tool.label.name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -81,14 +81,14 @@ class ToolType extends AbstractType
             ])
 
             ->add('type', DictionaryType::class, [
-                'label'    => 'registry.tool.form.type',
+                'label'    => 'registry.tool.label.type',
                 'name'     => 'registry_tool_type',
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
             ])
             ->add('description', TextareaType::class, [
-                'label'    => 'registry.tool.form.description',
+                'label'    => 'registry.tool.label.description',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -96,7 +96,7 @@ class ToolType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('other_info', TextareaType::class, [
-                'label'    => 'registry.tool.form.other_info',
+                'label'    => 'registry.tool.label.other_info',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -104,7 +104,7 @@ class ToolType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('editor', TextType::class, [
-                'label'    => 'registry.tool.form.editor',
+                'label'    => 'registry.tool.label.editor',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -112,7 +112,7 @@ class ToolType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('manager', TextType::class, [
-                'label'    => 'registry.tool.form.manager',
+                'label'    => 'registry.tool.label.manager',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -121,7 +121,7 @@ class ToolType extends AbstractType
             ])
 
             ->add('contractors', EntityType::class, [
-                'label'         => 'registry.tool.form.contractors',
+                'label'         => 'global.label.linked_contractor',
                 'class'         => Contractor::class,
                 'required'      => false,
                 'multiple'      => true,
@@ -161,7 +161,7 @@ class ToolType extends AbstractType
             ])
 
             ->add('prod_date', DateType::class, [
-                'label'    => 'registry.tool.form.prod_date',
+                'label'    => 'registry.tool.label.prod_date',
                 'required' => false,
                 'widget'   => 'single_text',
                 'format'   => 'dd/MM/yyyy',
@@ -172,57 +172,57 @@ class ToolType extends AbstractType
             ])
 
             ->add('country_type', ChoiceType::class, [
-                'label'    => 'registry.tool.form.country_type',
+                'label'    => 'registry.tool.label.country_type',
                 'choices'  => Tool::COUNTRY_TYPES,
                 'required' => false,
             ])
 
             ->add('country_name', TextType::class, [
-                'label'       => 'registry.tool.form.country_name',
+                'label'       => 'registry.tool.label.country_name',
                 'required'    => false,
                 'purify_html' => true,
             ])
 
             ->add('country_guarantees', TextType::class, [
-                'label'       => 'registry.tool.form.country_guarantees',
+                'label'       => 'registry.tool.label.country_guarantees',
                 'required'    => true,
                 'purify_html' => true,
             ])
 
             ->add('archival', ComplexChoiceType::class, [
-                'label'    => 'registry.tool.form.archival',
+                'label'    => 'registry.tool.label.archival',
                 'required' => false,
             ])
             ->add('encrypted', ComplexChoiceType::class, [
-                'label'    => 'registry.tool.form.encrypted',
+                'label'    => 'registry.tool.label.encrypted',
                 'required' => false,
             ])
             ->add('access_control', ComplexChoiceType::class, [
-                'label'    => 'registry.tool.form.access_control',
+                'label'    => 'registry.tool.label.access_control',
                 'required' => false,
             ])
             ->add('update', ComplexChoiceType::class, [
-                'label'    => 'registry.tool.form.update',
+                'label'    => 'registry.tool.label.update',
                 'required' => false,
             ])
             ->add('backup', ComplexChoiceType::class, [
-                'label'    => 'registry.tool.form.backup',
+                'label'    => 'registry.tool.label.backup',
                 'required' => false,
             ])
             ->add('deletion', ComplexChoiceType::class, [
-                'label'    => 'registry.tool.form.deletion',
+                'label'    => 'registry.tool.label.deletion',
                 'required' => false,
             ])
             ->add('tracking', ComplexChoiceType::class, [
-                'label'    => 'registry.tool.form.tracking',
+                'label'    => 'registry.tool.label.tracking',
                 'required' => false,
             ])
             ->add('has_comment', ComplexChoiceType::class, [
-                'label'    => 'registry.tool.form.has_comment',
+                'label'    => 'registry.tool.label.has_comment',
                 'required' => false,
             ])
             ->add('other', ComplexChoiceType::class, [
-                'label'    => 'registry.tool.form.other',
+                'label'    => 'registry.tool.label.other',
                 'required' => false,
             ])
             ->add('updatedBy', HiddenType::class, [

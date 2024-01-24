@@ -9,7 +9,8 @@
 
     {# LEFT #}
     <div class="col-md-6">
-        <div class="box box-solid box-primary">
+        {# REQUEST #}
+        <div class="box box-solid box-info">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.request'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.object) }}
@@ -25,7 +26,8 @@
             </div>
         </div>
 
-        <div class="box box-solid box-info">
+        {# ANSWER #}
+        <div class="box box-solid box-primary">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.answer'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.state) }}
@@ -37,11 +39,20 @@
                 {{ form_row(form.answer.type) }}
             </div>
         </div>
+
+        {# LINKED MODULES #}
+        <div class="box box-solid box-warning">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
+            <div class="box-body">
+                {{ form_row(form.treatments) }}
+            </div>
+        </div>
     </div>
 
     {# RIGHT #}
     <div class="col-md-6">
-        <div class="box box-solid box-success">
+        {# APPLICANT #}
+        <div class="box box-solid box-primary">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.applicant'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.applicant.civility, {'attr': {'autocomplete': 'honorific-prefix'}}) }}
@@ -54,11 +65,12 @@
             </div>
         </div>
 
-        <div id="box-concerned-people" class="box box-solid box-warning">
+        {# CONCERNED PEOPLE #}
+        <div id="box-concerned-people" class="box box-solid box-success">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.concerned_people'|trans }}</h3></div>
             <div class="box-body">
                 <blockquote>
-                    <small>{{ 'registry.request.form.help.concerned_people'|trans }}</small>
+                    <small>{{ 'registry.request.label.help.concerned_people'|trans }}</small>
                 </blockquote>
                 {{ form_row(form.concernedPeople.civility, {'attr': {'autocomplete': 'honorific-prefix'}}) }}
                 {{ form_row(form.concernedPeople.firstName, {'attr': {'autocomplete': 'given-name'}}) }}
@@ -71,20 +83,11 @@
         </div>
     </div>
 
-    <div class="col-md-6">
-        <div class="box box-solid box-primary">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.treatment'|trans }}</h3></div>
-            <div class="box-body">
-                {{ form_row(form.treatments) }}
-            </div>
-        </div>
-    </div>
-
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a aria-label="{{ 'registry.request.action.back_to_list'|trans }}" href="{{ path('registry_request_list') }}" class="btn btn-default">
-                    {{ 'registry.request.action.back_to_list'|trans }}
+                <a href="{{ path('registry_request_list') }}" class="btn btn-default">
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>

@@ -112,7 +112,7 @@ class MesurementGenerator extends AbstractGenerator
 
     private function collectivityHeaders(): array
     {
-        $collectivityTrans = $this->translator->trans('registry.treatment.list.collectivity');
+        $collectivityTrans = $this->translator->trans('global.label.organization');
 
         return [
             $collectivityTrans . ' - ' . $this->translator->trans('user.organization.label.name'),
@@ -133,11 +133,11 @@ class MesurementGenerator extends AbstractGenerator
     private function mesurementGeneralInformationsHeaders()
     {
         return [
-            $this->translator->trans('registry.mesurement.show.description'),
-            $this->translator->trans('registry.mesurement.show.manager'),
-            $this->translator->trans('registry.mesurement.show.priority'),
-            $this->translator->trans('registry.mesurement.show.cost'),
-            $this->translator->trans('registry.mesurement.show.charge'),
+            $this->translator->trans('registry.mesurement.label.description'),
+            $this->translator->trans('registry.mesurement.label.manager'),
+            $this->translator->trans('registry.mesurement.label.priority'),
+            $this->translator->trans('registry.mesurement.label.cost'),
+            $this->translator->trans('registry.mesurement.label.charge'),
         ];
     }
 
@@ -157,9 +157,9 @@ class MesurementGenerator extends AbstractGenerator
         $applicationTrans = $this->translator->trans('registry.mesurement.tab.application');
 
         return [
-            $applicationTrans . ' - ' . $this->translator->trans('registry.mesurement.show.status'),
-            $applicationTrans . ' - ' . $this->translator->trans('registry.mesurement.show.planification_date'),
-            $applicationTrans . ' - ' . $this->translator->trans('registry.mesurement.show.comment'),
+            $applicationTrans . ' - ' . $this->translator->trans('registry.mesurement.label.status'),
+            $applicationTrans . ' - ' . $this->translator->trans('registry.mesurement.label.planification_date'),
+            $applicationTrans . ' - ' . $this->translator->trans('registry.mesurement.label.comment'),
         ];
     }
 
@@ -175,7 +175,7 @@ class MesurementGenerator extends AbstractGenerator
     private function mesurementProofHeaders()
     {
         return [
-            $this->translator->trans('global.label.linked_document'),
+            $this->translator->trans('global.label.linked_proof'),
         ];
     }
 
@@ -188,12 +188,12 @@ class MesurementGenerator extends AbstractGenerator
 
     private function mesurementHistoricHeaders()
     {
-        $historicTrans = $this->translator->trans('registry.mesurement.tab.historic');
+        $historicTrans = $this->translator->trans('global.tab.history');
 
         return [
-            $historicTrans . ' - ' . $this->translator->trans('registry.mesurement.show.creator'),
-            $historicTrans . ' - ' . $this->translator->trans('registry.mesurement.show.created_at'),
-            $historicTrans . ' - ' . $this->translator->trans('registry.mesurement.show.updated_at'),
+            $historicTrans . ' - ' . $this->translator->trans('global.label.created_by'),
+            $historicTrans . ' - ' . $this->translator->trans('global.label.created_at'),
+            $historicTrans . ' - ' . $this->translator->trans('global.label.updated_at'),
         ];
     }
 

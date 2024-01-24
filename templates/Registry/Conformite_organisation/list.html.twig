@@ -55,7 +55,7 @@
                                     <th scope="col">{{ 'registry.conformite_organisation.list.pilote'|trans }}</th>
                                     <th scope="col">{{ 'registry.conformite_organisation.list.processus'|trans }}</th>
                                     <th scope="col">{{ 'registry.conformite_organisation.list.conformite'|trans }}</th>
-                                    <th scope="col">{{ 'registry.conformite_organisation.list.action_protection'|trans }}</th>
+                                    <th scope="col">{{ 'global.label.linked_mesurement'|trans }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -125,13 +125,13 @@
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
-                            <th scope="col">{{ 'registry.conformite_organisation.list.date_creation'|trans }}</th>
+                            <th scope="col">{{ 'registry.conformite_organisation.label.date'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'registry.conformite_organisation.list.collectivite'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
                             <th scope="col">{{ 'registry.conformite_organisation.list.nb_participants'|trans }}</th>
                             <th scope="col">{{ 'registry.conformite_organisation.list.draft'|trans }}</th>
-                            <th scope="col">{{ 'registry.conformite_organisation.list.actions'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                         <tbody>

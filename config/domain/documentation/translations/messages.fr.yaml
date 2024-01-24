@@ -22,7 +22,7 @@ documentation:
                 file: "Un seul fichier. Taille maximale autorisée : max_size. Types de fichiers autorisés : Image, Vidéo, Audio, Documents"
                 thumbnail: "Un seul fichier. Taille maximale autorisée : max_size. Types de fichiers autorisés : Image"
         label:
-            file: Fichier du document
+            file: Fichier
             url: URL du document
             name: Nom
             pinned: Épinglé
