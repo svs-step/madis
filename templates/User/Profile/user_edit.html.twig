@@ -100,9 +100,9 @@
                     <h3 class="box-title">{{ 'user.user.tab.optional'|trans }}</h3>
                 </div>
                 <div class="box-body">
-                    <blockquote>
-                        <small>{{ 'user.user.label.help.password'|trans }}</small>
-                    </blockquote>
+                    <div class="callout callout-default text-muted">
+                        {{ 'user.user.label.help.password'|trans }}
+                    </div>
                     {{ form_row(form.plainPassword) }}
                 </div>
             </div>

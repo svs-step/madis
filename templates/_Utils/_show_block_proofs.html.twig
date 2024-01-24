@@ -1,16 +1,21 @@
-{% set activeProofs = object.proofs|filter(proof => proof.deletedAt is null) -%}
+<tr>
+    <td><strong>{{ 'global.label.linked_proof'|trans }}</strong></td>
+    <td>
+        {% set activeProofs = object.proofs|filter(proof => proof.deletedAt is null) -%}
 
-{% if activeProofs|length > 0 %}
-    <ul>
-        {% for proof in activeProofs %}
-            <li>
-                <a href="{{ path('registry_proof_download', { id: proof.id }) }}">
-                    {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
-                </a>
-                {{ proof.comment }}
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <span><i>{{ 'global.label.no_linked_proof'|trans }}</i></span>
-{% endif %}
+        {% if activeProofs|length > 0 %}
+            <ul>
+                {% for proof in activeProofs %}
+                    <li>
+                        <a href="{{ path('registry_proof_download', { id: proof.id }) }}">
+                            {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
+                        </a>
+                        {{ proof.comment }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <span><i>{{ 'global.label.no_linked_proof'|trans }}</i></span>
+        {% endif %}
+    </td>
+</tr>

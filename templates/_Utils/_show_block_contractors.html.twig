@@ -1,15 +1,20 @@
-{% set activeContractors = object.contractors -%}
+<tr>
+    <td><strong>{{ 'global.label.linked_contractor'|trans }}</strong></td>
+    <td>
+        {% set activeContractors = object.contractors -%}
 
-{% if activeContractors|length > 0 %}
-    <ul>
-        {% for contractor in activeContractors %}
-            <li>
-                <a href="{{ path('registry_contractor_show', { id: contractor.id }) }}">
-                    {{ contractor.name }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <span><i>{{ 'global.label.no_linked_contractor'|trans }}</i></span>
-{% endif %}
+        {% if activeContractors|length > 0 %}
+            <ul>
+                {% for contractor in activeContractors %}
+                    <li>
+                        <a href="{{ path('registry_contractor_show', { id: contractor.id }) }}">
+                            {{ contractor.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <span><i>{{ 'global.label.no_linked_contractor'|trans }}</i></span>
+        {% endif %}
+    </td>
+</tr>

@@ -152,7 +152,7 @@ class TreatmentGenerator extends AbstractGenerator
             $this->translator->trans('registry.treatment.label.legal_basis'),
             $this->translator->trans('registry.treatment.label.legal_basis_justification'),
             $this->translator->trans('registry.treatment.label.observation'),
-            $this->translator->trans('registry.treatment.label.public_register_register'),
+            $this->translator->trans('registry.treatment.label.public_registry'),
             $this->translator->trans('registry.treatment.label.exempt_AIPD'),
             $this->translator->trans('registry.treatment.label.dpoMessage'),
         ];
@@ -251,7 +251,7 @@ class TreatmentGenerator extends AbstractGenerator
     {
         $detailsTrans    = $this->translator->trans('registry.treatment.tab.details');
         $concernedPeople = $this->translator->trans('registry.treatment.label.concerned_people');
-        $delayTrans = $this->translator->trans('registry.treatment.label.delay');
+        $delayTrans = $this->translator->trans('registry.treatment.label.shelflife');
 
         return [
             $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_particular'),

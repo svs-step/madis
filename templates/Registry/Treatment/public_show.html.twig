@@ -493,7 +493,9 @@
                                     <td>
                                         {% if object.concernedPeopleParticular.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.concernedPeopleParticular.comment }}</p>
+                                            {% if object.concernedPeopleParticular.comment is not empty %}
+                                                <p class="mt-2">{{ object.concernedPeopleParticular.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -508,7 +510,9 @@
                                     <td>
                                         {% if object.concernedPeopleUser.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.concernedPeopleUser.comment }}</p>
+                                            {% if object.concernedPeopleUser.comment is not empty %}
+                                                <p class="mt-2">{{ object.concernedPeopleUser.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -523,7 +527,9 @@
                                     <td>
                                         {% if object.concernedPeopleAgent.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.concernedPeopleAgent.comment }}</p>
+                                            {% if object.concernedPeopleAgent.comment is not empty %}
+                                                <p class="mt-2">{{ object.concernedPeopleAgent.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -538,7 +544,9 @@
                                     <td>
                                         {% if object.concernedPeopleElected.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.concernedPeopleElected.comment }}</p>
+                                            {% if object.concernedPeopleElected.comment is not empty %}
+                                                <p class="mt-2">{{ object.concernedPeopleElected.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -553,7 +561,9 @@
                                     <td>
                                         {% if object.concernedPeopleCompany.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.concernedPeopleCompany.comment }}</p>
+                                            {% if object.concernedPeopleCompany.comment is not empty %}
+                                                <p class="mt-2">{{ object.concernedPeopleCompany.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -568,7 +578,9 @@
                                     <td>
                                         {% if object.concernedPeoplePartner.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.concernedPeoplePartner.comment }}</p>
+                                            {% if object.concernedPeoplePartner.comment is not empty %}
+                                                <p class="mt-2">{{ object.concernedPeoplePartner.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -583,7 +595,9 @@
                                     <td>
                                         {% if object.concernedPeopleUsager.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.concernedPeopleUsager.comment }}</p>
+                                            {% if object.concernedPeopleUsager.comment is not empty %}
+                                                <p class="mt-2">{{ object.concernedPeopleUsager.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -598,7 +612,9 @@
                                     <td>
                                         {% if object.concernedPeopleOther.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.concernedPeopleOther.comment }}</p>
+                                            {% if object.concernedPeopleOther.comment is not empty %}
+                                                <p class="mt-2">{{ object.concernedPeopleOther.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -672,7 +688,7 @@
                             {% if (config.legalMentions == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.label.legalMentions'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.legal_mentions'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.legalMentions == 1 %}
@@ -686,7 +702,7 @@
                             {% if (config.consentRequest == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.label.consentRequest'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.consent_request'|trans }}</strong>
                                     </td>
                                     <td>
                                         {% if object.consentRequest == 1 %}
@@ -728,7 +744,9 @@
                                     <td>
                                         {% if object.securityAccessControl.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.securityAccessControl.comment }}</p>
+                                            {% if object.securityAccessControl.comment is not empty %}
+                                                <p class="mt-2">{{ object.securityAccessControl.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -743,7 +761,9 @@
                                     <td>
                                         {% if object.securitytracability.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.securitytracability.comment }}</p>
+                                            {% if object.securitytracability.comment is not empty %}
+                                                <p class="mt-2">{{ object.securitytracability.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -758,7 +778,9 @@
                                     <td>
                                         {% if object.securitySaving.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.securitySaving.comment }}</p>
+                                            {% if object.securitySaving.comment is not empty %}
+                                                <p class="mt-2">{{ object.securitySaving.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -773,7 +795,9 @@
                                     <td>
                                         {% if object.securityUpdate.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.securityUpdate.comment }}</p>
+                                            {% if object.securityUpdate.comment is not empty %}
+                                                <p class="mt-2">{{ object.securityUpdate.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -788,7 +812,9 @@
                                     <td>
                                         {% if object.securityOther.check %}
                                             <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            <p>{{ object.securityOther.comment }}</p>
+                                            {% if object.securityOther.comment is not empty %}
+                                                <p class="mt-2">{{ object.securityOther.comment }}</p>
+                                            {% endif %}
                                         {% else %}
                                             <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                         {% endif %}
@@ -842,14 +868,18 @@
                 </div>
             </div>
         {% endif %}
-        
+
         {# LINKED MODULES #}
         {% if (object.proofs and config.proofs == true) %}
             <div class="box box-solid box-warning">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
-                <div class="box-body">
-                    {# PUBLIC PROOFS #}
-                    {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                            {# PUBLIC PROOFS #}
+                            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         {% endif %}

@@ -1,15 +1,20 @@
-{% set activeViolations = object.violations %}
+<tr>
+    <td><strong>{{ 'global.label.linked_violation'|trans }}</strong></td>
+    <td>
+        {% set activeViolations = object.violations %}
 
-{% if activeViolations|length > 0 %}
-    <ul>
-        {% for violation in activeViolations %}
-            <li>
-                <a href="{{ path('registry_treatment_violation_show', { id: violation.id }) }}">
-                    {{ violation.date|date('d/m/Y') }} | {{ violation.violationNatures|map(n => n|dictionary('registry_violation_nature'))|join(', ') }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <span><i>{{ 'global.label.no_linked_violation'|trans }}</i></span>
-{% endif %}
+        {% if activeViolations|length > 0 %}
+            <ul>
+                {% for violation in activeViolations %}
+                    <li>
+                        <a href="{{ path('registry_treatment_violation_show', { id: violation.id }) }}">
+                            {{ violation.date|date('d/m/Y') }} | {{ violation.violationNatures|map(n => n|dictionary('registry_violation_nature'))|join(', ') }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <span><i>{{ 'global.label.no_linked_violation'|trans }}</i></span>
+        {% endif %}
+    </td>
+</tr>

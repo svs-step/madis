@@ -215,15 +215,19 @@
             {# LINKED MODULES #}
             <div class="box box-solid box-warning">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
-                <div class="box-body">
-                    {# TREATMENTS #}
-                    {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
-                    {# CONTRACTORS #}
-                    {% include '_Utils/_show_block_contractors.html.twig' with { contractors: object.contractors } %}
-                    {# PROOFS #}
-                    {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
-                    {# MESUREMENTS #}
-                    {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                            {# TREATMENTS #}
+                            {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
+                            {# CONTRACTORS #}
+                            {% include '_Utils/_show_block_contractors.html.twig' with { contractors: object.contractors } %}
+                            {# PROOFS #}
+                            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                            {# MESUREMENTS #}
+                            {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

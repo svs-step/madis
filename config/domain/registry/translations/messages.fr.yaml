@@ -65,16 +65,16 @@ registry:
             estimated_concerned_people: Nombre de personnes concernées
             tools_if_inactif: Logiciels et supports
             paper_processing: Traitement papier
-            delay: Délai de conservation
+            shelflife: Délai de conservation
             shelflife_name: Nom
             shelflife_duration: Durée
             shelflife_ultimate_fate: Sort final
             data_origin: Origine des données
             collecting_method: Moyens de la collecte
             otherCollectingMethod: Autre moyen de collecte
-            legalMentions: Mentions légales apposées
-            consentRequest: Consentement demandé
-            consentRequestFormat: Format de la demande du consentement
+            legal_mentions: Mentions légales apposées
+            consent_request: Consentement demandé
+            consent_request_format: Format de la demande du consentement
             security_access_control: Contrôle d'accès
             security_tracability: Traçabilité
             security_saving: Sauvegarde
@@ -270,7 +270,7 @@ registry:
             edit: Modifier "%name%"
             list: Liste des violations
             show: Visualiser "%name%"
-        form:
+        label:
             date: Date de la violation
             in_progress: La violation est toujours en cours
             violation_natures: Natures de la violation
@@ -443,3 +443,4 @@ registry:
             new_submit: Créer l'évaluation de la structure
             edit_submit: Modifier l'évaluation de la structure
             add_participant: Ajouter un participant
+            delete_participant: Supprimer le participant

@@ -1,6 +1,6 @@
-<div class="box box-solid box-warning">
-    <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
-    <div class="box-body">
+<tr>
+    <td><strong>{{ 'global.label.linked_proof'|trans }}</strong></td>
+    <td>
         {% set activeProofs = object.proofs|filter(proof => proof.deletedAt is null) -%}
 
         {% if activeProofs|length > 0 %}
@@ -15,5 +15,5 @@
         {% else %}
             <span><i>{{ 'global.label.no_linked_proof'|trans }}</i></span>
         {% endif %}
-    </div>
-</div>
+    </td>
+</tr>

@@ -114,7 +114,7 @@ class EmailNotificationPreferenceType extends AbstractType
 
             ->add('notificationMask', ChoiceType::class, [
                 'mapped'       => true,
-                'label'        => false,
+                'label'        => 'notifications.label.email_modules',
                 'required'     => false,
                 'choices'      => $modules,
                 'expanded'     => true,

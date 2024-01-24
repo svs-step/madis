@@ -9,12 +9,12 @@
 {% import _self as formMacros %}
 
 {% macro printParticipant(participant) %}
-    <div class="js-collection-item col-md-6 nopadding">
+    <div class="js-collection-item col-md-6 ps-0">
         <div class="box">
             <div class="box-header with-border">
                 <div class="box-title"></div>
                 <div class="box-tools pull-right">
-                    <button aria-label="Supprimer le participant" title="Supprimer le participant" class="btn btn-box-tool js-remove-item" data-toggle="tooltip">
+                    <button aria-label="{{ 'registry.conformite_organisation.action.delete_participant'|trans }}" class="btn btn-box-tool js-remove-item" data-toggle="tooltip">
                         <i aria-hidden="true" class="fa fa-times"></i>
                     </button>
                 </div>

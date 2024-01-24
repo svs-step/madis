@@ -41,17 +41,15 @@
                 </div>
                 <div class="box-body">
                     {{ form_row(form.name) }}
+                    {{ form_row(form.service, {'label': 'registry.label.service'}) }}
                     {{ form_row(form.goal) }}
-                    <div id="author_group">
-                        {{ form_row(form.author) }}
-                        {{ form_row(form.coordonneesResponsableTraitement) }}
-                    </div>
+                    {{ form_row(form.author) }}
+                    {{ form_row(form.coordonneesResponsableTraitement) }}
                     {{ form_row(form.manager) }}
                     {{ form_row(form.active) }}
                     {{ form_row(form.legalBasis) }}
                     {{ form_row(form.legalBasisJustification) }}
                     {{ form_row(form.observation) }}
-                    {{ form_row(form.service) }}
                 </div>
             </div>
 
@@ -61,7 +59,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3>
                 </div>
                 <div class="box-body">
-                    {{ form_row(form.dataCategories) }}
+                    {{ form_row(form.dataCategories, {'label': 'registry.treatment.label.data_category'}) }}
                     {{ form_row(form.dataCategoryOther) }}
                 </div>
             </div>
@@ -73,7 +71,7 @@
                 </div>
                 <div class="box-body">
                     {{ form_row(form.recipientCategory) }}
-                    {{ form_row(form.contractors) }}
+                    {{ form_row(form.contractors, {'label': 'global.label.linked_contractor'}) }}
                 </div>
             </div>
 
@@ -83,7 +81,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3>
                 </div>
                 <div class="box-body">
-                    {{ form_row(form.exempt_AIPD) }}
+                    {{ form_row(form.exempt_AIPD, {'label': 'registry.treatment.label.exempt_AIPD'}) }}
                     {{ form_row(form.systematicMonitoring) }}
                     {{ form_row(form.largeScaleCollection) }}
                     {{ form_row(form.vulnerablePeople) }}
@@ -101,8 +99,8 @@
                     <h3 class="box-title">{{ 'global.tab.history'|trans }}</h3>
                 </div>
                 <div class="box-body">
-                    {{ form_row(form.creator) }}
-                    {{ form_row(form.collectivity) }}
+                    {{ form_row(form.creator, {'label': 'global.label.created_by'}) }}
+                    {{ form_row(form.collectivity, {'label': 'global.label.organization'}) }}
                 </div>
             </div>
         </div>
@@ -149,11 +147,9 @@
                         </div>
                     </div>
                     {{ form_row(form.estimatedConcernedPeople) }}
-                    {{ form_row(form.tools) }}
+                    {{ form_row(form.tools, {'label': 'global.label.linked_tool'}) }}
                     {{ form_row(form.paperProcessing) }}
-
                     {{ form_row(form.shelfLifes) }}
-
                     {{ form_row(form.dataOrigin) }}
                     {{ form_row(form.collectingMethod) }}
                     {{ form_row(form.legalMentions) }}
@@ -185,7 +181,7 @@
                     <h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3>
                 </div>
                 <div class="box-body">
-                    {{ form_row(form.proofs) }}
+                    {{ form_row(form.proofs, {'label': 'global.label.linked_proof'}) }}
                 </div>
             </div>
         </div>
@@ -202,8 +198,5 @@
             </div>
         </div>
     </div>
-
-
-
 
 {% endblock %}

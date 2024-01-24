@@ -69,9 +69,9 @@
         <div id="box-concerned-people" class="box box-solid box-success">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.concerned_people'|trans }}</h3></div>
             <div class="box-body">
-                <blockquote>
-                    <small>{{ 'registry.request.label.help.concerned_people'|trans }}</small>
-                </blockquote>
+                <div class="callout callout-default text-muted">
+                    {{ 'registry.request.label.help.concerned_people'|trans }}
+                </div>
                 {{ form_row(form.concernedPeople.civility, {'attr': {'autocomplete': 'honorific-prefix'}}) }}
                 {{ form_row(form.concernedPeople.firstName, {'attr': {'autocomplete': 'given-name'}}) }}
                 {{ form_row(form.concernedPeople.lastName, {'attr': {'autocomplete': 'family-name'}}) }}

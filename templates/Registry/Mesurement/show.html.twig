@@ -155,21 +155,25 @@
             {# LINKED MODULES #}
             <div class="box box-solid box-warning">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
-                <div class="box-body">
-                    {# TREATMENTS #}
-                    {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
-                    {# CONTRACTORS #}
-                    {% include '_Utils/_show_block_contractors.html.twig' with { contractors: object.contractors } %}
-                    {# TOOLS #}
-                    {% if object.collectivity.isHasModuleTools %}
-                        {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
-                    {% endif %}
-                    {# REQUESTS #}
-                    {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
-                    {# VIOLATIONS #}
-                    {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
-                    {# PROOFS #}
-                    {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                            {# TREATMENTS #}
+                            {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
+                            {# CONTRACTORS #}
+                            {% include '_Utils/_show_block_contractors.html.twig' with { contractors: object.contractors } %}
+                            {# TOOLS #}
+                            {% if object.collectivity.isHasModuleTools %}
+                                {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
+                            {% endif %}
+                            {# REQUESTS #}
+                            {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
+                            {# VIOLATIONS #}
+                            {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
+                            {# PROOFS #}
+                            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

@@ -24,8 +24,9 @@ notifications:
         late_action: Rappel automatique
         read: Lu
         unread: Non Lu
-        not_generates_notifications_label: Génération des notifications
+        generates_notifications: Génération des notifications
         not_generates_notifications: Les actions de cet utilisateur ne génèrent pas de notification
+        email_modules: Recevoir des notifications par email
         email_subject: Nouvelles notifications Madis
         email_app_access: Accéder à madis
         frequency:

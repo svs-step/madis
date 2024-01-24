@@ -1,15 +1,20 @@
-{% set activeTreatments = object.treatments|filter(treatment => treatment.active) -%}
+<tr>
+    <td><strong>{{ 'global.label.linked_treatment'|trans }}</strong></td>
+    <td>
+        {% set activeTreatments = object.treatments|filter(treatment => treatment.active) -%}
 
-{% if activeTreatments|length > 0 %}
-    <ul>
-        {% for treatment in activeTreatments %}
-            <li>
-                <a href="{{ path('registry_treatment_show', { id: treatment.id }) }}">
-                    {{ treatment.name }} ({{ treatment.legalBasis|dictionary('registry_treatment_legal_basis') }})
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <span><i>{{ 'global.label.no_linked_treatment'|trans }}</i></span>
-{% endif %}
+        {% if activeTreatments|length > 0 %}
+            <ul>
+                {% for treatment in activeTreatments %}
+                    <li>
+                        <a href="{{ path('registry_treatment_show', { id: treatment.id }) }}">
+                            {{ treatment.name }} ({{ treatment.legalBasis|dictionary('registry_treatment_legal_basis') }})
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <span><i>{{ 'global.label.no_linked_treatment'|trans }}</i></span>
+        {% endif %}
+    </td>
+</tr>

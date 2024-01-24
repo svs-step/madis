@@ -5,7 +5,7 @@
     <div class="box-body">
         {% if form.notGeneratesNotifications is defined %}
         <div class="form-group">
-            <label class="control-label">{{ 'notifications.label.not_generates_notifications_label'|trans }}</label>
+            <label class="control-label">{{ 'notifications.label.generates_notifications'|trans }}</label>
             {{ form_widget(form.notGeneratesNotifications) }}
         </div>
         {% endif %}
@@ -107,10 +107,6 @@
                 {% endfor %}
             </table>
         </div>
-        <!-- Fonctionnalité non testée -->
-        {# <div class="form-group">
-            <label class="control-label">Recevoir des notifications par email</label>
-            {{ form_widget(form.emailNotificationPreference.notificationMask) }}
-        </div> #}
+        {{ form_row(form.emailNotificationPreference.notificationMask) }}
     </div>
 </div>

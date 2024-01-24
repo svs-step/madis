@@ -1,15 +1,20 @@
-{% set activeRequests = object.requests %}
+<tr>
+    <td><strong>{{ 'global.label.linked_request'|trans }}</strong></td>
+    <td>
+        {% set activeRequests = object.requests %}
 
-{% if activeRequests|length > 0 %}
-    <ul>
-        {% for request in activeRequests %}
-            <li>
-                <a href="{{ path('registry_treatment_request_show', { id: request.id }) }}">
-                   {{ request.date|date('d/m/Y') }} | {{ request.applicant.lastName }} {{ request.applicant.firstName }} | {{  ("label.request_" ~ request.object)|trans }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <span><i>{{ 'global.label.no_linked_request'|trans }}</i></span>
-{% endif %}
+        {% if activeRequests|length > 0 %}
+            <ul>
+                {% for request in activeRequests %}
+                    <li>
+                        <a href="{{ path('registry_treatment_request_show', { id: request.id }) }}">
+                           {{ request.date|date('d/m/Y') }} | {{ request.applicant.lastName }} {{ request.applicant.firstName }} | {{  ("label.request_" ~ request.object)|trans }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <span><i>{{ 'global.label.no_linked_request'|trans }}</i></span>
+        {% endif %}
+    </td>
+</tr>

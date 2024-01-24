@@ -2,11 +2,16 @@
 a:focus, button:focus {
   outline: 1px dashed !important;
 }
+.float-left {
+  float: left;
+}
+.mt-2 {
+  margin: 5px 0 0;
+}
+
+/* Bootstrap v5.3 */
 .p-0 {
   padding: 0!important;
-}
-.nopadding {
-  padding-left: 0 !important;
 }
 .p-2 {
   padding: 2rem;
@@ -14,11 +19,9 @@ a:focus, button:focus {
 .m-0 {
   margin : 0!important;
 }
-.float-left {
-  float: left;
+.ps-0 {
+  padding-left: 0 !important;
 }
-
-/* Bootstrap v5.3 */
 .ms-2 {
   margin-left: 2rem;
 }

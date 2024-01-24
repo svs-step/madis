@@ -365,15 +365,15 @@ class TreatmentType extends AbstractType
                 'data'     => $user ? $user->getFirstName() . ' ' . strtoupper($user->getLastName()) : '',
             ])
             ->add('legalMentions', CheckboxType::class, [
-                'label'    => 'registry.treatment.label.legalMentions',
+                'label'    => 'registry.treatment.label.legal_mentions',
                 'required' => false,
             ])
             ->add('consentRequest', CheckboxType::class, [
-                'label'    => 'registry.treatment.label.consentRequest',
+                'label'    => 'registry.treatment.label.consent_request',
                 'required' => false,
             ])
             ->add('consentRequestFormat', TextType::class, [
-                'label'       => 'registry.treatment.label.consentRequestFormat',
+                'label'       => 'registry.treatment.label.consent_request_format',
                 'required'    => false,
                 'purify_html' => true,
             ])

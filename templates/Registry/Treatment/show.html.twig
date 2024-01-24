@@ -80,7 +80,7 @@
                     <table role="presentation" class="table">
                         <tbody>
                         <tr>
-                            <td><strong>{{ 'registry.treatment.label.public_register'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.public_registry'|trans }}</strong></td>
                             <td>
                                 {% if object.public == true %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
@@ -207,109 +207,91 @@
                         <tr>
                             <td><strong>{{ 'registry.treatment.label.exempt_AIPD'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% if object.ExemptAIPD %}
-                                        <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
+                                {% if object.ExemptAIPD %}
+                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.label.systematic_monitoring'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% if object.systematicMonitoring %}
-                                        <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
+                                {% if object.systematicMonitoring %}
+                                    <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.label.large_scale_collection'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% if object.largeScaleCollection %}
-                                        <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
+                                {% if object.largeScaleCollection %}
+                                    <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.label.vulnerable_people'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% if object.vulnerablePeople %}
-                                        <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
+                                {% if object.vulnerablePeople %}
+                                    <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.label.data_crossing'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% if object.dataCrossing %}
-                                        <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
+                                {% if object.dataCrossing %}
+                                    <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.label.evaluation_or_rating'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% if object.evaluationOrRating %}
-                                        <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
+                                {% if object.evaluationOrRating %}
+                                    <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.label.automated_decisions_with_legal_effect'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% if object.automatedDecisionsWithLegalEffect %}
-                                        <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
+                                {% if object.automatedDecisionsWithLegalEffect %}
+                                    <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.label.automatic_exclusion_service'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% if object.automaticExclusionService %}
-                                        <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
+                                {% if object.automaticExclusionService %}
+                                    <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                {% endif %}
                             </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.treatment.label.innovative_use'|trans }}</strong></td>
                             <td>
-                                <ul>
-                                    {% if object.innovativeUse %}
-                                        <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                    {% endif %}
-                                </ul>
+                                {% if object.innovativeUse %}
+                                    <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                {% else %}
+                                    <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                {% endif %}
                             </td>
                         </tr>
                     </table>
@@ -366,7 +348,9 @@
                             <td class="col-md-4">
                                 {% if object.concernedPeopleParticular.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.concernedPeopleParticular.comment }}</p>
+                                    {% if object.concernedPeopleParticular.comment is not empty %}
+                                        <p class="mt-2">{{ object.concernedPeopleParticular.comment }}</p>
+                                    {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -377,7 +361,9 @@
                             <td>
                                 {% if object.concernedPeopleUser.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.concernedPeopleUser.comment }}</p>
+                                    {% if object.concernedPeopleUser.comment is not empty %}
+                                        <p class="mt-2">{{ object.concernedPeopleUser.comment }}</p>
+                                    {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -388,7 +374,9 @@
                             <td>
                                 {% if object.concernedPeopleAgent.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.concernedPeopleAgent.comment }}</p>
+                                    {% if object.concernedPeopleAgent.comment is not empty %}
+                                        <p class="mt-2">{{ object.concernedPeopleAgent.comment }}</p>
+                                    {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -399,7 +387,9 @@
                             <td>
                                 {% if object.concernedPeopleElected.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.concernedPeopleElected.comment }}</p>
+                                    {% if object.concernedPeopleElected.comment is not empty %}
+                                        <p class="mt-2">{{ object.concernedPeopleElected.comment }}</p>
+                                    {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -410,7 +400,9 @@
                             <td>
                                 {% if object.concernedPeopleCompany.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.concernedPeopleCompany.comment }}</p>
+                                    {% if object.concernedPeopleCompany.comment is not empty %}
+                                        <p class="mt-2">{{ object.concernedPeopleCompany.comment }}</p>
+                                    {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -421,7 +413,9 @@
                             <td>
                                 {% if object.concernedPeoplePartner.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.concernedPeoplePartner.comment }}</p>
+                                    {% if object.concernedPeoplePartner.comment is not empty %}
+                                        <p class="mt-2">{{ object.concernedPeoplePartner.comment }}</p>
+                                    {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -432,7 +426,9 @@
                             <td>
                                 {% if object.concernedPeopleUsager.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.concernedPeopleUsager.comment }}</p>
+                                    {% if object.concernedPeopleUsager.comment is not empty %}
+                                        <p class="mt-2">{{ object.concernedPeopleUsager.comment }}</p>
+                                    {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -443,7 +439,9 @@
                             <td>
                                 {% if object.concernedPeopleOther.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.concernedPeopleOther.comment }}</p>
+                                    {% if object.concernedPeopleOther.comment is not empty %}
+                                        <p class="mt-2">{{ object.concernedPeopleOther.comment }}</p>
+                                    {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -488,7 +486,7 @@
                     <table style="border-top: #f4f4f4 1px solid">
                         <tbody>
                         <tr>
-                            <td class="col-sm-2" style="vertical-align: top; padding-left: 10px; padding-top: 10px"><strong>{{ 'registry.treatment.label.delay'|trans }}</strong></td>
+                            <td class="col-sm-2" style="vertical-align: top; padding-left: 10px; padding-top: 10px"><strong>{{ 'registry.treatment.label.shelflife'|trans }}</strong></td>
                             <td class="col-sm-10" style="padding-top: 10px">
                                 {% for method in object.shelfLifes %}
                                     <div class="box box-default">
@@ -540,7 +538,7 @@
                             </tr>
                         {% endif %}
                         <tr>
-                            <td><strong>{{ 'registry.treatment.label.legalMentions'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.legal_mentions'|trans }}</strong></td>
                             <td>
                                 {% if object.legalMentions %}
                                     <span class="badge bg-gray">{{ 'global.label.yes'|trans }}</span>
@@ -551,7 +549,7 @@
                         </tr>
                         {% if object.legalBasis == 'consent' %}
                         <tr>
-                            <td><strong>{{ 'registry.treatment.label.consentRequest'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.consent_request'|trans }}</strong></td>
                             <td>
                                 {% if object.consentRequest %}
                                     <span class="badge bg-gray">{{ 'global.label.yes'|trans }}</span>
@@ -562,7 +560,7 @@
                         </tr>
                             {% if  object.consentRequestFormat is not null %}
                         <tr>
-                            <td><strong>{{ 'registry.treatment.label.consentRequestFormat'|trans }}</strong></td>
+                            <td><strong>{{ 'registry.treatment.label.consent_request_format'|trans }}</strong></td>
                             <td>{{ object.consentRequestFormat }}</td>
                         </tr>
                             {% endif %}
@@ -582,7 +580,9 @@
                             <td>
                                 {% if object.securityAccessControl.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.securityAccessControl.comment }}</p>
+                                    {% if object.securityAccessControl.comment is not empty %}
+                                        <p class="mt-2">{{ object.securityAccessControl.comment }}</p>
+                                    {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -593,7 +593,9 @@
                             <td>
                                 {% if object.securitytracability.check %}
                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.securitytracability.comment }}</p>
+                                   {% if object.securitytracability.comment is not empty %}
+                                       <p class="mt-2">{{ object.securitytracability.comment }}</p>
+                                   {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -604,7 +606,9 @@
                             <td>
                                 {% if object.securitySaving.check %}
                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.securitySaving.comment }}</p>
+                                   {% if object.securitySaving.comment is not empty %}
+                                       <p class="mt-2">{{ object.securitySaving.comment }}</p>
+                                   {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -615,7 +619,9 @@
                             <td>
                                 {% if object.securityUpdate.check %}
                                    <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.securityUpdate.comment }}</p>
+                                   {% if object.securityUpdate.comment is not empty %}
+                                       <p class="mt-2">{{ object.securityUpdate.comment }}</p>
+                                   {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -626,7 +632,9 @@
                             <td>
                                 {% if object.securityOther.check %}
                                     <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                    <p>{{ object.securityOther.comment }}</p>
+                                    {% if object.securityOther.comment is not empty %}
+                                        <p class="mt-2">{{ object.securityOther.comment }}</p>
+                                    {% endif %}
                                 {% else %}
                                     <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                                 {% endif %}
@@ -671,15 +679,19 @@
             {# LINKED MODULES #}
             <div class="box box-solid box-warning">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
-                <div class="box-body">
-                    {# REQUESTS #}
-                    {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
-                    {# VIOLATIONS #}
-                    {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
-                    {# PROOFS #}
-                    {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
-                    {# MESUREMENTS #}
-                    {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tbody>
+                            {# REQUESTS #}
+                            {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
+                            {# VIOLATIONS #}
+                            {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
+                            {# PROOFS #}
+                            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                            {# MESUREMENTS #}
+                            {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+                        </tbody>
+                    </table>
                 </div>
             </div>
 

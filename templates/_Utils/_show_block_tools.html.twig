@@ -1,13 +1,18 @@
-{% if tools|length > 0 %}
-    <ul>
-        {% for tool in tools %}
-            <li>
-                <a href="{{ path('registry_tool_show', { id: tool.id }) }}">
-                    {{ tool.name }}
-                </a>
-            </li>
-        {% endfor %}
-    </ul>
-{% else %}
-    <span><i>{{ 'global.label.no_linked_tool'|trans }}</i></span>
-{% endif %}
+<tr>
+    <td><strong>{{ 'global.label.linked_tool'|trans }}</strong></td>
+    <td>
+        {% if tools|length > 0 %}
+            <ul>
+                {% for tool in tools %}
+                    <li>
+                        <a href="{{ path('registry_tool_show', { id: tool.id }) }}">
+                            {{ tool.name }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <span><i>{{ 'global.label.no_linked_tool'|trans }}</i></span>
+        {% endif %}
+    </td>
+</tr>
