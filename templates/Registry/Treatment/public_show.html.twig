@@ -91,7 +91,7 @@
                                     </td>
                                 </tr>
                             {% endif %}
-                            {% if (object.author == "processing_manager" and object.coordonneesResponsableTraitement and config.coordonneesResponsableTraitement == true) %}
+                            {% if (object.author != "processing_manager" and object.coordonneesResponsableTraitement and config.coordonneesResponsableTraitement == true) %}
                                 <tr>
                                     <td>
                                         <strong>{{ 'registry.treatment.label.coordonnees_responsable_traitement'|trans }}</strong>
@@ -661,7 +661,43 @@
                                     </td>
                                 </tr>
                             {% endif %}
-
+                  {% if (object.shelfLifes and config.shelfLifes == true) %}
+                          </tbody>
+                      </table>
+                      <table style="border-top: #f4f4f4 1px solid">
+                          <tbody>
+                              <tr>
+                                  <td class="col-sm-2" style="vertical-align: top; padding-left: 10px; padding-top: 10px"><strong>{{ 'registry.treatment.label.shelflife'|trans }}</strong></td>
+                                  <td class="col-sm-10" style="padding-top: 10px">
+                                      {% for method in object.shelfLifes %}
+                                          <div class="box box-default">
+                                              <div class="box-body no-padding">
+                                                  <table class="table">
+                                                      <tbody>
+                                                      <tr>
+                                                          <th scope="row" class="text-bold" style="width: 40%">{{ 'registry.treatment.label.shelflife_name'|trans }}</th>
+                                                          <td>{{ method.name }}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <th scope="row" class="text-bold">{{ 'registry.treatment.label.shelflife_duration'|trans }}</th>
+                                                          <td>{{ method.duration }}</td>
+                                                      </tr>
+                                                      <tr>
+                                                          <th scope="row" class="text-bold">{{ 'registry.treatment.label.shelflife_ultimate_fate'|trans }}</th>
+                                                          <td>{% if method.ultimateFate %}{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% else %}Non déterminé{% endif %}</td>
+                                                      </tr>
+                                                      </tbody>
+                                                  </table>
+                                              </div>
+                                          </div>
+                                      {% endfor %}
+                                  </td>
+                              </tr>
+                          </tbody>
+                      </table>
+                      <table class="table">
+                          <tbody>
+                  {% endif %}
                             {% if (object.dataOrigin and config.dataOrigin == true) %}
                                 <tr>
                                     <td>
@@ -716,7 +752,7 @@
                             {% if (object.consentRequestFormat and config.consentRequestFormat == true) %}
                                 <tr>
                                     <td>
-                                        <strong>{{ 'registry.treatment.label.consentRequest_format'|trans }}</strong>
+                                        <strong>{{ 'registry.treatment.label.consent_request_format'|trans }}</strong>
                                     </td>
                                     <td>{{ object.consentRequestFormat }}</td>
                                 </tr>
