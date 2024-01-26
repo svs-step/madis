@@ -79,13 +79,15 @@
                                     <input class="form-control" type="text" id="search_collectivity" placeholder="{{ 'notifications.list.collectivity'|trans }}" style="width: 100%;">
                                 </th>
                                 {% endif %}
-                                <th scope="col"><input class="daterangepicker form-control" type="text" id="search_date" placeholder="{{ 'notifications.list.date'|trans }}" style="position: relative; width: 90%; top: 0; left: 0; padding: 5px; font-size: small; border-radius: 0; border-color: rgb(210, 214, 222);"></th>
+                                <th scope="col" style="min-width:130px;position:relative;">
+                                    <input class="daterangepicker form-control" type="text" id="search_date" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
+                                </th>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <th scope="col">
                                     <input class="form-control" type="text" id="search_user_name" placeholder="{{ 'notifications.list.user'|trans }}" style="width: 100%;">
                                 </th>
-                                <th scope="col">
-                                    <input class="daterangepicker form-control" type="text" id="search_read_at" placeholder="{{ 'notifications.list.date'|trans }}" style="position: relative; width: 90%; top: 0; left: 0; padding: 5px; font-size: small; border-radius: 0; border-color: rgb(210, 214, 222);">
+                                <th scope="col" style="min-width:130px;position:relative;">
+                                    <input class="daterangepicker form-control" type="text" id="search_read_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                                 </th>
                                 <th scope="col">
                                     <input class="form-control" type="text" id="search_read_by" placeholder="{{ 'notifications.list.name'|trans }}" style="width: 100%;">

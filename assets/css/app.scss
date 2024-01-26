@@ -274,7 +274,8 @@ div.action-bar {
 
 /* DatePicker */
 .daterangepicker {
- z-index: initial !important;;
+  z-index: 5 !important;
+  font-family: inherit !important;
 }
 
 /* Show */
