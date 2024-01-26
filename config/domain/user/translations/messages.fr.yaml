@@ -84,6 +84,8 @@ user:
             my_profil_edit: Modifier mon compte
             delete: Archiver un utilisateur
             list: Liste des utilisateurs
+            list_archived: Archivés
+            list_not_archived: Non archivés
             unarchive: Désarchiver un utilisateur
         breadcrumb:
             list: Liste des utilisateurs

@@ -31,17 +31,41 @@
                     <td>{{ object.editor }}</td>
                 </tr>
                 <tr>
+                    <td><strong>{{ 'global.label.linked_contractor'|trans }}</strong></td>
+                    <td>
+                        <ul class="ps-1">
+                            {% for contractor in object.contractors %}
+                                <li>{{ contractor }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
                     <td><strong>{{ 'registry.tool.label.prod_date'|trans }}</strong></td>
                     <td>{{ object.prodDate|date('d/m/Y') }}</td>
                 </tr>
                 <tr>
-                    <td><strong>{{ 'registry.tool.label.country'|trans }}</strong></td>
+                    <td><strong>{{ 'registry.tool.label.country_type'|trans }}</strong></td>
                     <td>
                         {{ object.countryType|trans }}
-                        {{ object.countryName }}
-                        {{ object.countryGuarantees }}
                     </td>
                 </tr>
+                {% if object.countryType != 'registry.tool.label.country.france'  %}
+                <tr>
+                    <td><strong>{{ 'registry.tool.label.country_name'|trans }}</strong></td>
+                    <td>
+                        {{ object.countryName}}
+                    </td>
+                </tr>
+                {% endif %}
+                {% if object.countryType != 'registry.tool.label.country.france' and object.countryType != 'registry.tool.label.country.eu'  %}
+                    <tr>
+                        <td><strong>{{ 'registry.tool.label.country_guarantees'|trans }}</strong></td>
+                        <td>
+                            {{ object.countryGuarantees}}
+                        </td>
+                    </tr>
+                {% endif %}
                 <tr>
                     <td><strong>{{ 'registry.tool.label.manager'|trans }}</strong></td>
                     <td>{{ object.manager }}</td>
@@ -174,8 +198,6 @@
                 <tbody>
                     {# TREATMENTS #}
                     {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
-                    {# CONTRACTORS #}
-                    {% include '_Utils/_show_block_contractors.html.twig' with { contractors: object.contractors } %}
                     {# PROOFS #}
                     {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
                     {# MESUREMENTS #}
@@ -194,11 +216,7 @@
                 {% if is_granted('ROLE_ADMIN') %}
                     <tr>
                         <td><strong>{{ 'global.label.organization'|trans }}</strong></td>
-                        <td>
-                            <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
-                                {{ object.collectivity }}
-                            </a>
-                        </td>
+                        <td>{{ object.collectivity }}</td>
                     </tr>
                 {% endif %}
                 <tr>

@@ -1,14 +1,13 @@
 <tr>
     <td><strong>{{ 'global.label.linked_violation'|trans }}</strong></td>
     <td>
-        {% set activeViolations = object.violations %}
-
-        {% if activeViolations|length > 0 %}
-            <ul>
-                {% for violation in activeViolations %}
+        {% if violations|length > 0 %}
+            <ul class="ps-1">
+                {% for violation in violations %}
                     <li>
                         <a href="{{ path('registry_treatment_violation_show', { id: violation.id }) }}">
-                            {{ violation.date|date('d/m/Y') }} | {{ violation.violationNatures|map(n => n|dictionary('registry_violation_nature'))|join(', ') }}
+                            {% if violation.deletedAt is not null %}({{ 'global.label.archived'|trans }}){% endif %}
+                            {{ violation.date|date('d/m/Y') }} - {{ violation.violationNatures|map(n => n|dictionary('registry_violation_nature'))|join(', ') }}
                         </a>
                     </li>
                 {% endfor %}

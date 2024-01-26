@@ -1,11 +1,9 @@
 <tr>
     <td><strong>{{ 'global.label.linked_contractor'|trans }}</strong></td>
     <td>
-        {% set activeContractors = object.contractors -%}
-
-        {% if activeContractors|length > 0 %}
-            <ul>
-                {% for contractor in activeContractors %}
+        {% if contractors|length > 0 %}
+            <ul class="ps-1">
+                {% for contractor in contractors %}
                     <li>
                         <a href="{{ path('registry_contractor_show', { id: contractor.id }) }}">
                             {{ contractor.name }}

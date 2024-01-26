@@ -69,7 +69,7 @@
                         <tr>
                             <td><strong>{{ 'registry.violation.label.violation_natures'|trans }}</strong></td>
                             <td>
-                                <ul>
+                                <ul class="ps-1">
                                     {% for violationNature in object.violationNatures %}
                                         <li>{{ violationNature|dictionary('registry_violation_nature') }}</li>
                                     {% endfor %}
@@ -79,7 +79,7 @@
                         <tr>
                             <td><strong>{{ 'registry.violation.label.origins'|trans }}</strong></td>
                             <td>
-                                <ul>
+                                <ul class="ps-1">
                                 {% for origin in object.origins %}
                                     <li>{{ origin|dictionary('registry_violation_origin') }}</li>
                                 {% endfor %}
@@ -93,7 +93,7 @@
                         <tr>
                             <td><strong>{{ 'registry.violation.label.concerned_data_nature'|trans }}</strong></td>
                             <td>
-                                <ul>
+                                <ul class="ps-1">
                                     {% for data in object.concernedDataNature %}
                                         <li>{{ data|dictionary('registry_violation_concerned_data') }}</li>
                                     {% endfor %}
@@ -103,7 +103,7 @@
                         <tr>
                             <td><strong>{{ 'registry.violation.label.concerned_people_categories'|trans }}</strong></td>
                             <td>
-                                <ul>
+                                <ul class="ps-1">
                                     {% for category in object.concernedPeopleCategories %}
                                         <li>{{ category|dictionary('registry_violation_concerned_people') }}</li>
                                     {% endfor %}
@@ -168,7 +168,7 @@
                         <tr>
                             <td><strong>{{ 'registry.violation.label.potential_impacts_nature'|trans }}</strong></td>
                             <td>
-                                <ul>
+                                <ul class="ps-1">
                                     {% for impact in object.potentialImpactsNature %}
                                         <li>{{ impact|dictionary('registry_violation_impact') }}</li>
                                     {% endfor %}

@@ -70,11 +70,17 @@
                         </tr>
                         <tr>
                             <td><strong>{{ 'global.label.linked_contractor'|trans }}</strong></td>
-                            <td>{{ object.contractors|map(c => c.name)|join(', ') }}</td>
+                            <td>
+                                <ul class="ps-1">
+                                    {% for contractor in object.contractors %}
+                                        <li><a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}" >{{ contractor }}</a></li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.tool.label.prod_date'|trans }}</strong></td>
-                            <td>{{ object.prodDate|date('d/m/Y H:i') }}</td>
+                            <td>{{ object.prodDate|date('d/m/Y') }}</td>
                         </tr>
                         <tr>
                             <td><strong>{{ 'registry.tool.label.country_type'|trans }}</strong></td>
@@ -84,7 +90,7 @@
                         </tr>
                         {% if object.countryType != 'registry.tool.label.country.france'  %}
                         <tr>
-                            <td><strong>Nom du pays</strong></td>
+                            <td><strong>{{ 'registry.tool.label.country_name'|trans }}</strong></td>
                             <td>
                                 {{ object.countryName}}
                             </td>
@@ -266,8 +272,6 @@
                         <tbody>
                             {# TREATMENTS #}
                             {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
-                            {# CONTRACTORS #}
-                            {% include '_Utils/_show_block_contractors.html.twig' with { contractors: object.contractors } %}
                             {# PROOFS #}
                             {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
                             {# MESUREMENTS #}

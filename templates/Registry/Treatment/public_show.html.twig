@@ -169,7 +169,7 @@
                                         <strong>{{ 'registry.treatment.label.data_category'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
+                                        <ul class="ps-1">
                                             {% for category in object.dataCategories %}
                                                 <li>
                                                     {% if category.sensible %}
@@ -224,11 +224,9 @@
                                         <strong>{{ 'global.label.linked_contractor'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
+                                        <ul class="ps-1">
                                             {% for contractor in object.contractors %}
-                                                <li>
-                                                    <a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}">{{ contractor }}</a>
-                                                </li>
+                                                <li>{{ contractor }}</li>
                                             {% endfor %}
                                         </ul>
                                     </td>
@@ -264,13 +262,11 @@
                                         <strong>{{ 'registry.treatment.label.exempt_AIPD'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
-                                            {% if object.exemptAIPD %}
-                                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
-                                            {% else %}
-                                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
-                                            {% endif %}
-                                        </ul>
+                                        {% if object.exemptAIPD %}
+                                            <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endif %}
@@ -280,13 +276,11 @@
                                         <strong>{{ 'registry.treatment.label.systematic_monitoring'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
-                                            {% if object.systematicMonitoring %}
-                                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                            {% else %}
-                                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                            {% endif %}
-                                        </ul>
+                                        {% if object.systematicMonitoring %}
+                                            <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endif %}
@@ -296,13 +290,11 @@
                                         <strong>{{ 'registry.treatment.label.large_scale_collection'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
-                                            {% if object.largeScaleCollection %}
-                                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                            {% else %}
-                                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                            {% endif %}
-                                        </ul>
+                                        {% if object.largeScaleCollection %}
+                                            <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endif %}
@@ -312,13 +304,11 @@
                                         <strong>{{ 'registry.treatment.label.vulnerable_people'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
-                                            {% if object.vulnerablePeople %}
-                                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                            {% else %}
-                                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                            {% endif %}
-                                        </ul>
+                                        {% if object.vulnerablePeople %}
+                                            <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endif %}
@@ -328,13 +318,11 @@
                                         <strong>{{ 'registry.treatment.label.data_crossing'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
-                                            {% if object.dataCrossing %}
-                                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                            {% else %}
-                                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                            {% endif %}
-                                        </ul>
+                                        {% if object.dataCrossing %}
+                                            <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endif %}
@@ -344,13 +332,11 @@
                                         <strong>{{ 'registry.treatment.label.evaluation_or_rating'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
-                                            {% if object.evaluationOrRating %}
-                                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                            {% else %}
-                                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                            {% endif %}
-                                        </ul>
+                                        {% if object.evaluationOrRating %}
+                                            <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endif %}
@@ -360,13 +346,11 @@
                                         <strong>{{ 'registry.treatment.label.automated_decisions_with_legal_effect'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
-                                            {% if object.automatedDecisionsWithLegalEffect %}
-                                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                            {% else %}
-                                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                            {% endif %}
-                                        </ul>
+                                        {% if object.automatedDecisionsWithLegalEffect %}
+                                            <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endif %}
@@ -376,13 +360,11 @@
                                         <strong>{{ 'registry.treatment.label.automatic_exclusion_service'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
-                                            {% if object.automaticExclusionService %}
-                                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                            {% else %}
-                                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                            {% endif %}
-                                        </ul>
+                                        {% if object.automaticExclusionService %}
+                                            <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endif %}
@@ -392,13 +374,11 @@
                                         <strong>{{ 'registry.treatment.label.innovative_use'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
-                                            {% if object.innovativeUse %}
-                                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
-                                            {% else %}
-                                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
-                                            {% endif %}
-                                        </ul>
+                                        {% if object.innovativeUse %}
+                                            <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                                        {% else %}
+                                            <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                                        {% endif %}
                                     </td>
                                 </tr>
                             {% endif %}
@@ -435,15 +415,7 @@
                                     <td>
                                         <strong>{{ 'global.label.organization'|trans }}</strong>
                                     </td>
-                                    <td>
-                                        {% if app.user %}
-                                        <a href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
-                                            {{ object.collectivity }}
-                                        </a>
-                                        {% else %}
-                                            {{ object.collectivity }}
-                                        {% endif %}
-                                    </td>
+                                    <td>{{ object.collectivity }}</td>
                                 </tr>
                             {% endif %}
                         </tbody>
@@ -629,7 +601,7 @@
                                     <td>{{ object.estimatedConcernedPeople }}</td>
                                 </tr>
                             {% endif %}
-                            {% if ((object.tools or object.software) and config.software == true) %}
+                            {% if ((object.tools or object.software) and (config.tools or config.software) == true) %}
                                 <tr>
                                     <td>
                                         <strong>{% if object.collectivity.hasModuleTools %}
@@ -640,7 +612,11 @@
                                     </td>
                                     <td>
                                         {% if object.collectivity.hasModuleTools %}
-                                            {{ object.tools|map(t => t.name)|join(', ') }}
+                                            <ul class="ps-1">
+                                                {% for tool in object.tools %}
+                                                    <li>{{ tool.name }}</li>
+                                                {% endfor %}
+                                            </ul>
                                         {% else %}
                                             {{ object.software }}
                                         {% endif %}
@@ -712,12 +688,11 @@
                                         <strong>{{ 'registry.treatment.label.collecting_method'|trans }}</strong>
                                     </td>
                                     <td>
-                                        <ul>
+                                        <ul class="ps-1">
                                             {% for method in object.collectingMethod %}
                                                 <li>{{ method|dictionary('registry_treatment_collecting_method') }}</li>
                                             {% endfor %}
                                         </ul>
-                                        {% if object.collectingMethod is not null %}{% endif %}
                                     </td>
                                 </tr>
                             {% endif %}
@@ -913,7 +888,7 @@
                     <table class="table">
                         <tbody>
                             {# PUBLIC PROOFS #}
-                            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                            {% include '_Utils/_show_public_block_proofs.html.twig' with { proofs: object.proofs } %}
                         </tbody>
                     </table>
                 </div>

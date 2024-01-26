@@ -1,14 +1,13 @@
 <tr>
     <td><strong>{{ 'global.label.linked_request'|trans }}</strong></td>
     <td>
-        {% set activeRequests = object.requests %}
-
-        {% if activeRequests|length > 0 %}
-            <ul>
-                {% for request in activeRequests %}
+        {% if requests|length > 0 %}
+            <ul class="ps-1">
+                {% for request in requests %}
                     <li>
                         <a href="{{ path('registry_treatment_request_show', { id: request.id }) }}">
-                           {{ request.date|date('d/m/Y') }} | {{ request.applicant.lastName }} {{ request.applicant.firstName }} | {{  ("label.request_" ~ request.object)|trans }}
+                            {% if request.deletedAt is not null %}({{ 'global.label.archived'|trans }}){% endif %}
+                            {{ request.date|date('d/m/Y') }} - {{ request.applicant.firstName }} {{ request.applicant.lastName }}
                         </a>
                     </li>
                 {% endfor %}

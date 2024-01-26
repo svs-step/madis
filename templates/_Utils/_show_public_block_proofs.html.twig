@@ -1,14 +1,12 @@
 <tr>
     <td><strong>{{ 'global.label.linked_proof'|trans }}</strong></td>
     <td>
-        {% set activeProofs = object.proofs|filter(proof => proof.deletedAt is null) -%}
-
-        {% if activeProofs|length > 0 %}
-            <ul>
-                {% for proof in activeProofs %}
+        {% if proofs|length > 0 %}
+            <ul class="ps-1">
+                {% for proof in proofs %}
                     <li>
+                        {% if proof.deletedAt is not null %}({{ 'global.label.archived'|trans }}){% endif %}
                         {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
-                        {{ proof.comment }}
                     </li>
                 {% endfor %}
             </ul>

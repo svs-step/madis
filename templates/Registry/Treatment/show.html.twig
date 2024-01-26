@@ -153,7 +153,7 @@
                         <tr>
                             <td><strong>{{ 'registry.treatment.label.data_category'|trans }}</strong></td>
                             <td>
-                                <ul>
+                                <ul class="ps-1">
                                 {% for category in object.dataCategories %}
                                     <li>
                                         {% if category.sensible %}<strong>{% endif %}
@@ -186,9 +186,9 @@
                         <tr>
                             <td><strong>{{ 'global.label.linked_contractor'|trans }}</strong></td>
                             <td>
-                                <ul>
+                                <ul class="ps-1">
                                     {% for contractor in object.contractors %}
-                                        <li><a aria-label="{{ contractor }}" href="{{ path('registry_contractor_show', {'id': contractor.id}) }}" >{{ contractor }}</a></li>
+                                        <li><a href="{{ path('registry_contractor_show', {'id': contractor.id}) }}" >{{ contractor }}</a></li>
                                     {% endfor %}
                                 </ul>
                             </td>
@@ -459,13 +459,11 @@
                                     {% endif %}</strong></td>
                             <td>
                                 {% if object.collectivity.hasModuleTools %}
-                                    <ul>
+                                    <ul class="ps-1">
                                         {% for tool in object.tools %}
                                             <li><a href="{{ url('registry_tool_show', {'id': tool.id}) }}">{{ tool.name }}</a></li>
                                         {% endfor %}
                                     </ul>
-
-                                {# {{ object.tools|map(t => t.name)|join(', ') }} #}
                                 {% else %}
                                 {{ object.software }}
                                 {% endif %}
@@ -523,12 +521,11 @@
                         <tr>
                             <td><strong>{{ 'registry.treatment.label.collecting_method'|trans }}</strong></td>
                             <td>
-                                <ul>
+                                <ul class="ps-1">
                                     {% for method in object.collectingMethod %}
                                         <li>{{ method|dictionary('registry_treatment_collecting_method') }}</li>
                                     {% endfor %}
                                 </ul>
-                                {% if object.collectingMethod is not null %}{% endif %}
                             </td>
                         </tr>
                         {% if  object.otherCollectingMethod is not null %}

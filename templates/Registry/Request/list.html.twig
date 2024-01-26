@@ -16,9 +16,9 @@
         {{ 'registry.request.title.list'|trans }}
         <small>
             {% if app.request.query.get('archive') == 'true' %}
-                {{ 'global.label.archived'|trans }}
+                {{ 'registry.request.title.list_archived'|trans }}
             {% else %}
-                {{ 'global.label.not_archived'|trans }}
+                {{ 'registry.request.title.list_not_archived'|trans }}
             {% endif %}
         </small>
     </h1>

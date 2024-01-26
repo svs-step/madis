@@ -14,10 +14,10 @@
     <h1>
         {{ 'registry.treatment.title.list'|trans }}
         <small>
-            {% if app.request.query.get('active') == 'false' %}
-                {{ 'global.label.inactive'|trans }}
+            {% if app.request.query.get('active') == 'true' %}
+                {{ 'registry.treatment.title.list_active'|trans }}
             {% else %}
-                {{ 'global.label.active'|trans }}
+                {{ 'registry.treatment.title.list_inactive'|trans }}
             {% endif %}
         </small>
     </h1>

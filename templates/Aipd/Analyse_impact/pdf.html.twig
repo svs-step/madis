@@ -805,7 +805,7 @@
                     <tr>
                         <td><strong>{{ 'registry.treatment.label.data_category'|trans }}</strong></td>
                         <td>
-                            <ul>
+                            <ul class="ps-1">
                                 {% for category in traitement.dataCategories %}
                                     <li>
                                         {% if category.sensible %}<strong>{% endif %}
@@ -838,7 +838,7 @@
                     <tr>
                         <td><strong>{{ 'global.label.linked_contractor'|trans }}</strong></td>
                         <td>
-                            <ul>
+                            <ul class="ps-1">
                                 {% for contractor in traitement.contractors %}
                                     <li>{{ contractor }}</li>
                                 {% endfor %}
@@ -1094,27 +1094,53 @@
                             {% endif %}
                         </td>
                     </tr>
+                    </tbody>
+                </table>
+                <table class="table" style="border-top: #f4f4f4 1px solid">
+                    <tbody>
                     <tr>
-                        <td><strong>{{ 'registry.treatment.label.shelflife'|trans }}</strong></td>
-                        <td>
-                            <ul>
-                                {% for duration in traitement.shelfLifes %}
-                                    <li>{{ duration.name }} - {{ duration.duration }} - {{ duration.ultimateFate | dictionary('registry_treatment_ultimate_fate') }} </li>
-                                {% endfor %}
-                            </ul>
+                        <td style="vertical-align: top; padding-left: 8px; padding-top: 10px; width: 20%"><strong>{{ 'registry.treatment.label.shelflife'|trans }}</strong></td>
+                        <td style="padding-top: 10px; width: 80%">
+                            {% for method in object.shelfLifes %}
+                                <div class="box box-default">
+                                    <div class="box-body no-padding">
+                                        <table class="table">
+                                            <tbody>
+                                            <tr>
+                                                <th class="text-bold" style="width: 40%">{{ 'registry.treatment.label.shelflife_name'|trans }}</th>
+                                                <td>{{ method.name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-bold">{{ 'registry.treatment.label.shelflife_duration'|trans }}</th>
+                                                <td>{{ method.duration }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-bold">{{ 'registry.treatment.label.shelflife_ultimate_fate'|trans }}</th>
+                                                <td>{% if method.ultimateFate %}{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% else %}Non déterminé{% endif %}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            {% endfor %}
                         </td>
                     </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <tbody>
                     <tr>
                         <td><strong>{{ 'registry.treatment.label.data_origin'|trans }}</strong></td>
                         <td>{{ traitement.dataOrigin }}</td>
                     </tr>
                     <tr>
                         <td><strong>{{ 'registry.treatment.label.collecting_method'|trans }}</strong></td>
-                        {# <td>{% if (traitement.collectingMethod is not null) %} #}
                         <td>
-                            {% if (traitement.collectingMethod|length) %}
-                                {{ traitement.collectingMethod|map(p => "#{p|dictionary('registry_treatment_collecting_method')}")|join(', ') }}
-                            {% endif %}
+                            <ul class="ps-1">
+                                {% for method in object.collectingMethod %}
+                                    <li>{{ method|dictionary('registry_treatment_collecting_method') }}</li>
+                                {% endfor %}
+                            </ul>
                         </td>
                     </tr>
                     {% if  traitement.otherCollectingMethod is not null %}

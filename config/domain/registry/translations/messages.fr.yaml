@@ -17,6 +17,8 @@ registry:
             delete: Supprimer un traitement
             edit: Modifier un traitement
             list: Liste des traitements
+            list_active: Actifs
+            list_inactive: Inactifs
             show: Visualiser un traitement
             configure: Configurer le registre des traitements
             archive: Désactiver un traitement
@@ -187,6 +189,10 @@ registry:
                 france: France
                 eu: Pays de l’Union Européenne ou pays adéquats
                 other: Autre pays d’hébergement de la donnée
+        country:
+            france: France
+            eu: Pays de l’Union Européenne ou pays adéquats
+            other: Autre pays d’hébergement de la donnée
         tab:
             measures: Mesures de sécurité et confidentialité
         action:
@@ -209,6 +215,8 @@ registry:
             edit: Modifier une demande
             delete: Archiver une demande
             list: Liste des demandes
+            list_archived: Archivées
+            list_not_archived: Non archivées
             show: Visualiser une demande
         breadcrumb:
             create: Créer
@@ -263,6 +271,8 @@ registry:
             delete: Archiver une violation
             edit: Modifier une violation
             list: Liste des violations
+            list_archived: Archivées
+            list_not_archived: Non archivées
             show: Visualiser une violation
         breadcrumb:
             create: Créer
@@ -307,6 +317,8 @@ registry:
             create: Créer une preuve
             edit: Modifier une preuve
             list: Liste des preuves
+            list_archived: Archivées
+            list_not_archived: Non archivées
             delete: Supprimer une preuve
         breadcrumb:
             archive: Archiver "%name%"
