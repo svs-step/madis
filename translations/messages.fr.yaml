@@ -80,6 +80,7 @@ global:
     placeholder:
         precision: Précisez
         multiple_select: Sélectionner une ou plusieurs valeurs
+        date: Date
 
     sidebar_menu:
         dashboard: Tableau de bord
