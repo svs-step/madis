@@ -35,7 +35,7 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     {% if is_granted('ROLE_USER') %}
-                    <a aria-label="{{ 'registry.proof.action.new'|trans }}" href="{{ path('registry_proof_create') }}" class="btn btn-default">
+                    <a href="{{ path('registry_proof_create') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-plus"></i>
                         {{ 'registry.proof.action.new'|trans }}
                     </a>
@@ -45,12 +45,12 @@
                         {{ 'registry.proof.action.report'|trans }}
                     </a>#}
                     {% if app.request.query.get('archive') == 'true' %}
-                        <a aria-label="{{ 'registry.proof.action.not_archived'|trans }}" href="{{ path('registry_proof_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                        <a href="{{ path('registry_proof_list', {'archive' : 'false'}) }}" class="btn btn-default">
                             <i aria-hidden="true" class="fa fa-archive"></i>
                             {{ 'registry.proof.action.not_archived'|trans }}
                         </a>
                     {% else %}
-                        <a aria-label="{{ 'registry.proof.action.archived'|trans }}" href="{{ path('registry_proof_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                        <a href="{{ path('registry_proof_list', {'archive' : 'true'}) }}" class="btn btn-default">
                             <i aria-hidden="true" class="fa fa-archive"></i>
                             {{ 'registry.proof.action.archived'|trans }}
                         </a>
@@ -62,7 +62,7 @@
                         </a>
                     {% endif %}
                     {% if app.request.query.get('archive') != 'true' %}
-                        <a aria-label="{{ 'registry.proof.action.download'|trans }}" href="{{ path('registry_proof_download_all') }}" class="btn btn-default">
+                        <a href="{{ path('registry_proof_download_all') }}" class="btn btn-default">
                             <i aria-hidden="true" class="fa fa-download"></i>
                             {{ 'registry.proof.action.download'|trans }}
                         </a>
@@ -84,7 +84,7 @@
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                                 </th>
                             {% endif %}
                             <th scope="col">

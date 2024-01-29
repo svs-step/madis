@@ -253,11 +253,11 @@ class RequestController extends CRUDController
         $user = $this->userProvider->getAuthenticatedUser();
         if ($user->getServices()->isEmpty() || $this->isRequestInUserServices($demande)) {
             return
-                '<a aria-label="' . $this->translator->trans('global.action.edit') . '" href="' . $this->router->generate('registry_request_edit', ['id' => $demande->getId()]) . '">
+                '<a href="' . $this->router->generate('registry_request_edit', ['id' => $demande->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-pencil"></i> ' .
                     $this->translator->trans('global.action.edit') . '
                 </a>
-                <a aria-label="' . $this->translator->trans('global.action.archive') . '" href="' . $this->router->generate('registry_request_delete', ['id' => $demande->getId()]) . '">
+                <a href="' . $this->router->generate('registry_request_delete', ['id' => $demande->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-archive"></i> ' .
                     $this->translator->trans('global.action.archive') .
                 '</a>';
@@ -268,7 +268,7 @@ class RequestController extends CRUDController
 
     private function getLinkForPersonneConcernee(Model\Request $demande)
     {
-        $link = '<a aria-label="Demande" href="' . $this->router->generate('registry_request_show', ['id' => $demande->getId()]) . '">';
+        $link = '<a href="' . $this->router->generate('registry_request_show', ['id' => $demande->getId()]) . '">';
         if ($demande->getApplicant()->isConcernedPeople()
             || ' ' === $demande->getConcernedPeople()->getFullName()) {
             $link .= $demande->getApplicant()->getFullName();

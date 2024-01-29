@@ -12,6 +12,7 @@ registry:
             edit_config_submit: Modifier la configuration
             add_delay: Ajouter un délai de conservation
             delete_delay: Supprimer le délai de conservation
+            deactivate: Désactiver
         title:
             create: Créer un traitement
             delete: Supprimer un traitement
@@ -369,6 +370,7 @@ registry:
             show_mesurement: Voir l'action de protection
             new_submit: Créer l'action de protection
             edit_submit: Modifier l'action de protection
+            add_mesurement: Ajouter une action de protection
         label:
             name: Nom
             description: Description

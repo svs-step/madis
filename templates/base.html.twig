@@ -37,20 +37,20 @@
 
 {% set bodyClass = bodyClass|default('') %}
 <body class="hold-transition skin-blue sidebar-mini {{ bodyClass }}">
-    <nav class="skiplinks" role="navigation" aria-label="Accès rapide">
+    <nav class="skiplinks" role="navigation" aria-label="{{ 'global.navigation.skiplinks'|trans }}">
         <ul class="list-unstyled list-inline">
-            <li><a class="btn" href="#sidebar">Menu</a></li>
-            <li><a class="btn" href="#main-content">Contenu</a></li>
-            <li><a class="btn" href="#main-footer">Pied de page</a></li>
+            <li><a class="btn" href="#sidebar">{{ 'global.navigation.skiplinks_header'|trans }}</a></li>
+            <li><a class="btn" href="#main-content">{{ 'global.navigation.skiplinks_main'|trans }}</a></li>
+            <li><a class="btn" href="#main-footer">{{ 'global.navigation.skiplinks_footer'|trans }}</a></li>
         </ul>
     </nav>
     {# Impersonate banner #}
     {% if is_granted('ROLE_PREVIOUS_ADMIN') %}
     <div class="banner-impersonate bg-danger text-red">
         <div>
-            Vous êtes actuellement connecté en tant que "{{ app.user }}" ({{ app.user.collectivity }} - {{ app.user.roles[0]|dictionary('user_user_role') }})
+            {{ 'global.label.impersonate_banner'|trans({'%user%': app.user, '%organization%': app.user.collectivity, '%roles%': app.user.roles[0]|dictionary('user_user_role')}) }}
             <a href="{{ path('user_user_list', {'_switch_user': '_exit'}) }}" class="text-red">
-                Quitter ce mode
+                {{ 'global.action.impersonate_end'|trans }}
             </a>
         </div>
     </div>

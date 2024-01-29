@@ -63,7 +63,11 @@
             </div>
             <div class="box-body">
                 <div class="callout callout-default text-muted">
-                    {{ 'user.user.label.help.password'|trans }}
+                    {% if form.vars.value.updatedAt.timestamp is defined %}
+                        {{ 'user.security.label.help.new_password'|trans }}
+                    {% else %}
+                        {{ 'user.security.label.help.password'|trans }}
+                    {% endif %}
                 </div>
                 {{ form_row(form.plainPassword) }}
             </div>

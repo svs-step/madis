@@ -26,7 +26,7 @@
         <div class="col-xs-12">
             <div class="action-bar">
                 {% if is_granted('ROLE_USER') %}
-                <a aria-label="{{ 'maturity.survey.action.new'|trans }}" href="{{ path('maturity_survey_start') }}" class="btn btn-default">
+                <a href="{{ path('maturity_survey_start') }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-plus"></i>
                     {{ 'maturity.survey.action.new'|trans }}
                 </a>
@@ -58,7 +58,7 @@
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivity" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                                 </th>
                             {% endif %}
                             <th scope="col">

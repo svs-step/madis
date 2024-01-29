@@ -153,7 +153,7 @@ class AnalyseImpactController extends CRUDController
 
     private function generateActionCell(AnalyseImpact $analyseImpact): string
     {
-        $cell = '<a aria-label="' . $this->translator->trans('global.action.print') . '" href="' . $this->router->generate('aipd_analyse_impact_print', ['id' => $analyseImpact->getId()]) . '">
+        $cell = '<a href="' . $this->router->generate('aipd_analyse_impact_print', ['id' => $analyseImpact->getId()]) . '">
         <i aria-hidden="true" class="fa fa-print"></i> ' .
             $this->translator->trans('global.action.print') . '
         </a>';
@@ -161,18 +161,18 @@ class AnalyseImpactController extends CRUDController
         $user = $this->userProvider->getAuthenticatedUser();
         if ('ROLE_PREVIEW' !== $user->getRoles()[0]) {
             if (!$analyseImpact->isValidated()) {
-                $cell .= '<a aria-label="' . $this->translator->trans('global.action.edit') . '" href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
+                $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_edit', ['id' => $analyseImpact->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-pencil"></i> ' .
                     $this->translator->trans('global.action.edit') . '
                     </a>';
                 if ($analyseImpact->isReadyForValidation()) {
-                    $cell .= '<a aria-label="' . $this->translator->trans('global.action.validate') . '" href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
+                    $cell .= '<a href="' . $this->router->generate('aipd_analyse_impact_validation', ['id' => $analyseImpact->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-check-square"></i> ' .
                         $this->translator->trans('global.action.validate') . '
                     </a>';
                 }
             }
-            $cell .= ' <a aria-label="' . $this->translator->trans('global.action.delete') . '" href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
+            $cell .= ' <a href="' . $this->router->generate('aipd_analyse_impact_delete', ['id' => $analyseImpact->getId()]) . '">
             <i aria-hidden="true" class="fa fa-trash"></i> ' .
                 $this->translator->trans('global.action.delete') . '
             </a>';

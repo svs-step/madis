@@ -47,14 +47,14 @@
                             {% endif %}
                             <div class="dt-button-background" style=""></div>
                             <ul class="dropdown-menu">
-                                <li><a aria-label="{{ 'documentation.document.action.file'|trans }}" href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
-                                <li><a aria-label="{{ 'documentation.document.action.url'|trans }}" href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
+                                <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
+                                <li><a href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
                             </ul>
                         </div>
                     {% endif %}
                     {# Uniquement pour les DPO #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a aria-label="{{ 'documentation.category.action.list'|trans }}" href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
                             <i aria-hidden="true" class="fas fa-tag"></i>
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
@@ -70,7 +70,7 @@
                     <div style="margin-bottom: 10px">
                         {# SWITCH GRID LIST #}
                         {% if is_granted('ROLE_USER') %}
-                            <a aria-label="{{ 'documentation.document.action.grid'|trans }}" href="{{ path('documentation_document_grid') }}" class="btn btn-default">
+                            <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
                                 <i aria-hidden="true" class="fas fa-th"></i>
                                 {{ 'documentation.document.action.grid'|trans }}
                             </a>
@@ -102,10 +102,7 @@
                                     <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
                                 </th>
                                 <th scope="col">
-                                    <select class="form-control selectpicker" id="search_category" style="width: 100%;"
-                                        multiple
-                                        title="Catégories"
-                                        >
+                                    <select class="form-control selectpicker" id="search_category" style="width: 100%;" multiple>
                                         {% for category in categories %}
                                             {% if category.name in activeCategories %}
                                                 <option
@@ -183,7 +180,7 @@
                             <td>
                                 {{ object.size }}
                             </td>
-                            <td><a aria-label="{{ object.name }}" href="{{ object.url }}" target="_blank">{{ object.name }}</a></td>
+                            <td><a href="{{ object.url }}" target="_blank">{{ object.name }}</a></td>
                             <td>
                                 {{ object.categories|map(c => "#{c.name}") | join(', ') }}
                             </td>

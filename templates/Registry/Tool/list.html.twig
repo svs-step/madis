@@ -64,7 +64,7 @@
                                 </th>
                                 {% if is_granted('ROLE_REFERENT') %}
                                     <th scope="col" >
-                                        <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
+                                        <input class="form-control" type="text" id="search_collectivity" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                                     </th>
                                 {% endif %}
                                 <th scope="col" >

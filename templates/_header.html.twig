@@ -11,13 +11,13 @@
     <!-- Logo -->
     <div class="logo">
         <span class="logo-mini"><img src="{{ asset(app_image_sidebar_reduced_path) }}" alt="Madis"/></span>
-        <span class="logo-lg"><img class="fit-picture" src={{ asset(app_image_logo_blanc) }} width="65%" alt=""></span>
+        <span class="logo-lg"><img class="fit-picture" src="{{ asset(app_image_logo_blanc) }}" width="65%" alt=""></span>
     </div>
 
     <!-- Header Navbar -->
-    <nav class="navbar navbar-static-top" role="navigation" aria-label="En-tête principal">
+    <nav class="navbar navbar-static-top" role="navigation" aria-label="{{ 'global.navigation.header'|trans }}">
         <!-- Sidebar toggle button-->
-        <button aria-label="Ouvrir/fermer le menu" aria-expanded="true" class="btn sidebar-toggle" data-toggle="push-menu" >
+        <button aria-label="{{ 'global.navigation.open_menu'|trans }}" aria-expanded="true" class="btn sidebar-toggle" data-toggle="push-menu" >
           <i aria-hidden="true" class="fa fa-bars"></i>
         </button>
 

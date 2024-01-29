@@ -113,10 +113,6 @@ user:
             moreInfos: Informations supplémentaires
             enabled: Actif
             apiAuthorized: Accès aux Web Services (API)
-            password: Mot de passe
-            password_repeat: Répéter le mot de passe
-            help:
-                password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe
             services: Services
             sso_key: Fournisseur d'identité
             sso_linked: Associé
@@ -148,6 +144,8 @@ user:
             back_to_login: Retour à la page de connexion
             forget_password: Mot de passe oublié ?
             sso_login: Se connecter avec %service%
+            reset_submit: Modifier le mot de passe
+            reinitialize: Réinitialiser le mot de passe
         label:
             reset_password_message: Réinitialisation du mot de passe
             reset_password: Réinitialisation de votre mot de passe
@@ -156,6 +154,12 @@ user:
             remember_me: Se souvenir de moi
             welcome_message: Connectez-vous pour accéder à l'application
             locked_message: Votre compte a été bloqué suite à de trop nombreuses tentatives de connexion. Veuillez contacter votre administrateur.
+            password: Mot de passe
+            new_password: Nouveau mot de passe
+            password_repeat: Répéter le mot de passe
+            help:
+                password: À remplir uniquement si vous souhaitez définir un mot de passe. En l’absence de mot de passe défini, l’utilisateur devra le réinitialiser via la procédure de mot de passe oublié.
+                new_password: À remplir uniquement si vous souhaitez définir un nouveau mot de passe.
         placeholder:
             username: Email
             password: Mot de passe

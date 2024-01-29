@@ -331,11 +331,11 @@ class TreatmentController extends CRUDController
                 $treatment = $treatment[0];
             }
             if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
-                $treatmentLink = '<a aria-label="' . \htmlspecialchars($treatment->getName()) . '" href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
+                $treatmentLink = '<a href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
                 ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             } else {
-                $treatmentLink = '<a aria-label="' . \htmlspecialchars($treatment->getName()) . '" href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
+                $treatmentLink = '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
                 ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             }
@@ -515,11 +515,11 @@ class TreatmentController extends CRUDController
             $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
 
             if ($this->authorizationChecker->isGranted('ROLE_USER')) {
-                return '<a aria-label="' . $this->translator->trans('global.action.edit') . '" href="' . $editPath . '">
+                return '<a href="' . $editPath . '">
              <i aria-hidden="true" class="fa fa-pencil"></i>
                  ' . $this->translator->trans('global.action.edit') . '
              </a>
-             <a aria-label="' . $this->translator->trans('global.action.delete') . '" href="' . $deletePath . '">
+             <a href="' . $deletePath . '">
                  <i aria-hidden="true" class="fa fa-trash"></i>
                  ' . $this->translator->trans('global.action.delete') . '
              </a>'

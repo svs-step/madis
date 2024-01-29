@@ -28,11 +28,11 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     {% if is_granted('ROLE_ADMIN') %}
-                    <a aria-label="{{ 'documentation.category.action.new'|trans }}" href="{{ path('documentation_category_create') }}" class="btn btn-default">
+                    <a href="{{ path('documentation_category_create') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-plus"></i>
                         {{ 'documentation.category.action.new'|trans }}
                     </a>
-                    <a aria-label="{{ 'documentation.category.action.files'|trans }}" href="{{ path('documentation_document_index') }}" class="btn btn-default">
+                    <a href="{{ path('documentation_document_index') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-file"></i>
                         {{ 'documentation.category.action.files'|trans }}
                     </a>
@@ -56,10 +56,14 @@
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            <td><a aria-label="{{ object.name }}" href="{{ path('documentation_document_index') }}?category={{ object.id }}">{{ object.name }}</a></td>
                             <td>
-                                <a aria-label="Documents" href="{{ path('documentation_document_index') }}?category={{ object.id }}">{{ object.documents|length }}</a>
+                                {% if object.documents|length > 0 %}
+                                    <a href="{{ path('documentation_document_index') }}?category={{ object.id }}">{{ object.name }}</a>
+                                {% else %}
+                                    {{ object.name }}
+                                {% endif %}
                             </td>
+                            <td>{{ object.documents|length }}</td>
                             <td>
                                 {% if object.systeme == 0 %}
                                     <a href="{{ path('documentation_category_edit', { 'id': object.id }) }}">

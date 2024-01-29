@@ -35,7 +35,7 @@
             <div class="col-xs-12">
                 <div class="action-bar" id="action-top-buttons">
                     {% if is_granted('ROLE_USER') %}
-                    <a aria-label="{{ 'registry.treatment.action.new'|trans }}" href="{{ path('registry_treatment_create') }}" class="btn btn-default">
+                    <a href="{{ path('registry_treatment_create') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-plus"></i>
                         {{ 'registry.treatment.action.new'|trans }}
                     </a>
@@ -47,12 +47,12 @@
                     </a>
                     {% endif %}
                     {% if app.request.query.get('active') == 'false' %}
-                        <a aria-label="{{ 'registry.treatment.action.active'|trans }}" href="{{ path('registry_treatment_list', {'active' : 'true'}) }}" class="btn btn-default">
+                        <a href="{{ path('registry_treatment_list', {'active' : 'true'}) }}" class="btn btn-default">
                             <i aria-hidden="true" class="fa fa-list"></i>
                             {{ 'registry.treatment.action.active'|trans }}
                         </a>
                     {% else %}
-                        <a aria-label="{{ 'registry.treatment.action.inactive'|trans }}" href="{{ path('registry_treatment_list', {'active' : 'false'}) }}" class="btn btn-default">
+                        <a href="{{ path('registry_treatment_list', {'active' : 'false'}) }}" class="btn btn-default">
                             <i aria-hidden="true" class="fa fa-list"></i>
                             {{ 'registry.treatment.action.inactive'|trans }}
                         </a>
@@ -73,15 +73,15 @@
                 <div class="box-body"  style="overflow-x: auto">
                     <div id="custom-buttons" style="float:left">
                         {% if app.request.query.get('active') != 'false' %}
-                        <a aria-label="Imprimer" id="print-all"  href="{{ path('registry_treatment_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Imprimer
+                        <a id="print-all"  href="{{ path('registry_treatment_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            {{ 'global.action.print'|trans }}
                         </a>
-                        <a aria-label="Désactiver" id="archive-all"  href="{{ path('registry_treatment_archive_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Désactiver
+                        <a id="archive-all"  href="{{ path('registry_treatment_archive_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            {{ 'registry.treatment.action.deactivate'|trans }}
                         </a>
                         {% endif %}
-                        <a aria-label="Supprimer" id="delete-all"  href="{{ path('registry_treatment_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Supprimer
+                        <a id="delete-all"  href="{{ path('registry_treatment_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            {{ 'global.action.delete'|trans }}
                         </a>
                     </div>
                     <table id="table" class="table table-bordered table-hover">
@@ -93,7 +93,7 @@
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                             </th>
                             {% endif %}
                             <th scope="col">

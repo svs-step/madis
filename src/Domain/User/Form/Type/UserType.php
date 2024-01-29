@@ -249,13 +249,13 @@ class UserType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type'          => PasswordType::class,
                 'first_options' => [
-                    'label' => 'user.user.label.password',
+                    'label' => 'user.security.label.password',
                     'attr'  => [
                         'maxlength' => 255,
                     ],
                 ],
                 'second_options' => [
-                    'label' => 'user.user.label.password_repeat',
+                    'label' => 'user.security.label.password_repeat',
                     'attr'  => [
                         'maxlength' => 255,
                     ],

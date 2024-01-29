@@ -1,4 +1,4 @@
-<nav role="navigation" aria-label="Fil d'Ariane" class="breadcrumb">
+<nav role="navigation" aria-label="{{ 'global.navigation.breadcrumb'|trans }}" class="breadcrumb">
 
     <li {% if not breadcrumb|length > 0 %}class="active"{% endif %}>
         {% if breadcrumb|length > 0 %}
@@ -13,7 +13,7 @@
     {% for item in breadcrumb %}
         <li {% if loop.last %}class="active"{% endif %}>
             {% if item.link is defined %}
-            <a aria-label="{{ item.name }}" href="{{ item.link }}">
+            <a href="{{ item.link }}">
             {% endif %}
 
                 {{ item.name }}

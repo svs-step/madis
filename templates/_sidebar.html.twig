@@ -1,4 +1,4 @@
-<nav id="sidebar" class="sidebar" role="navigation" aria-label="Menu principal" tabindex="-1">
+<nav id="sidebar" class="sidebar" role="navigation" aria-label="{{ 'global.navigation.main_menu'|trans }}" tabindex="-1">
     <ul class="sidebar-menu" data-widget="tree">
 
         <li {% if menuItem == 'reporting_dashboard' %}class="active"{% endif %}>
@@ -10,7 +10,7 @@
 
         {# REGISTRIES #}
         <li class="header">
-            <span>Registres</span>
+            <span>{{ 'global.sidebar_menu.registry'|trans }}</span>
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'registry_treatment' %}class="active"{% endif %}>
                     <a aria-label="{{ 'global.sidebar_menu.registry_treatments'|trans }}" href="{{ path('registry_treatment_list') }}">
@@ -26,9 +26,9 @@
                 </li>
                 {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleTools == true %}
                     <li {% if menuItem == 'registry_tool' %}class="active"{% endif %}>
-                        <a aria-label="Logiciels et supports" href="/logiciel-et-support/liste" >
+                        <a aria-label="{{ 'global.sidebar_menu.registry_tools'|trans }}" href="/logiciel-et-support/liste" >
                             <i aria-hidden="true" class="fa fa-briefcase"></i>
-                            <span>Logiciels et supports</span>
+                            <span>{{ 'global.sidebar_menu.registry_tools'|trans }}</span>
                         </a>
                     </li>
                 {% endif %}
@@ -48,7 +48,7 @@
         </li>
         {# PROOF #}
         <li class="header">
-            <span>Justificatifs</span>
+            <span>{{ 'global.sidebar_menu.proofs'|trans }}</span>
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'registry_proof' %}class="active"{% endif %}>
                     <a aria-label="{{ 'global.sidebar_menu.registry_proofs'|trans }}" href="{{ path('registry_proof_list') }}">
@@ -60,7 +60,7 @@
         </li>
         {# ACTIONS #}
         <li class="header">
-            <span>Actions</span>
+            <span>{{ 'global.sidebar_menu.actions'|trans }}</span>
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'registry_mesurement' %}class="active"{% endif %}>
                     <a aria-label="{{ 'global.sidebar_menu.registry_mesurements'|trans }}" href="{{ path('registry_mesurement_list') }}">
@@ -79,7 +79,7 @@
         {# AIPD #}
         {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement == true %}
         <li class="header">
-            <span>Analyse d'impact</span>
+            <span>{{ 'global.sidebar_menu.aipd'|trans }}</span>
             <ul class="sidebar-menu">{% endif %}
                 {% if is_granted('ROLE_ADMIN') %}
                     <li {% if menuItem == 'aipd_modele_analyse' %}class="active"{% endif %}>
@@ -107,7 +107,7 @@
         {% endif %}
         {# REPORTING #}
         <li class="header">
-            <span>Rapports</span>
+            <span>{{ 'global.sidebar_menu.reporting'|trans }}</span>
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'maturity_survey' %}class="active"{% endif %}>
                     <a aria-label="{{ 'global.sidebar_menu.maturity_survey'|trans }}" href="{{ path('maturity_survey_list') }}">
@@ -134,7 +134,7 @@
         {# CONFORMITE #}
         {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement == true or app.user.collectivity.hasModuleConformiteOrganisation == true %}
             <li class="header">
-                <span>Conformité</span>
+                <span>{{ 'global.sidebar_menu.conformite'|trans }}</span>
                 <ul class="sidebar-menu">
                     {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteTraitement %}
                         <li {% if menuItem == 'registry_conformite_traitement' %}class="active"{% endif %}>
@@ -146,7 +146,7 @@
                     {% endif %}
                     {% if is_granted('ROLE_ADMIN') or app.user.collectivity.hasModuleConformiteOrganisation %}
                         <li  {% if menuItem == 'registry_conformite_organisation' %}class="active"{% endif %}>
-                            <a aria-label="Conformité de la structure" href="{{ path('registry_conformite_organisation_list') }}">
+                            <a aria-label="{{ 'global.sidebar_menu.conformite_organization'|trans }}" href="{{ path('registry_conformite_organisation_list') }}">
                                 <i aria-hidden="true" class="fa fa-house-circle-check"></i>
                                 <span>{{ 'global.sidebar_menu.conformite_organization'|trans }}</span>
                             </a>
@@ -157,7 +157,7 @@
         {% endif %}
         {# DOCUMENTATION #}
         <li class="header">
-            <span>Centre d'aide</span>
+            <span>{{ 'global.sidebar_menu.document'|trans }}</span>
             <ul class="sidebar-menu">
                 <li {% if menuItem == 'documentation' %}class="active"{% endif %}>
                     <a aria-label="{{ 'global.sidebar_menu.documentation'|trans }}" href="{{ path('documentation_document_index') }}">
@@ -170,7 +170,7 @@
         {# ADMINISTRATION #}
         {% if is_granted('ROLE_REFERENT') %}
             <li class="header">
-                <span>Espace d'administration</span>
+                <span>{{ 'global.sidebar_menu.admin'|trans }}</span>
                 <ul class="sidebar-menu">
                     {# Referent is not allowed to duplicate#}
                     {% if is_granted('ROLE_ADMIN') %}
@@ -208,7 +208,7 @@
         {# CONFIGURATION #}
         {% if is_granted('ROLE_ADMIN') %}
             <li class="header">
-                <span>Configuration</span>
+                <span>{{ 'global.sidebar_menu.configuration'|trans }}</span>
                 <ul class="sidebar-menu">
                     {% if is_granted('ROLE_ADMIN') %}
                         <li {% if menuItem == 'registry_treatment_configuration' %}class="active"{% endif %}>
@@ -222,7 +222,7 @@
             </li>
         {% endif %}
         <li class="sidebar-logo">
-            <a aria-label="Gestionnaire de Madis" href="{{ app_image_sidebar_bottom_target_url }}" target="_blank" rel="nofollow noreferrer noopener">
+            <a aria-label="{{ 'global.navigation.provider'|trans }}" href="{{ app_image_sidebar_bottom_target_url }}" target="_blank" rel="nofollow noreferrer noopener">
                 <img src="{{ asset(app_image_sidebar_bottom_path) }}" alt="" />
             </a>
         </li>

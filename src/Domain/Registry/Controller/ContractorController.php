@@ -201,7 +201,7 @@ class ContractorController extends CRUDController
 
         /** @var Model\Contractor $contractor */
         foreach ($contractors as $contractor) {
-            $contractorLink = '<a aria-label="' . \htmlspecialchars($contractor->getName()) . '" href="' . $this->router->generate('registry_contractor_show', ['id' => $contractor->getId()->toString()]) . '">
+            $contractorLink = '<a href="' . $this->router->generate('registry_contractor_show', ['id' => $contractor->getId()->toString()]) . '">
                 ' . \htmlspecialchars($contractor->getName()) . '
             </a>';
 
@@ -273,13 +273,13 @@ class ContractorController extends CRUDController
     {
         $user = $this->userProvider->getAuthenticatedUser();
         if ($user->getServices()->isEmpty() || $this->isContractorInUserServices($sousTraitant)) {
-            $cellContent = '<a aria-label="' . $this->translator->trans('global.action.edit') . '" href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
+            $cellContent = '<a href="' . $this->router->generate('registry_contractor_edit', ['id' => $sousTraitant->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-pencil"></i> ' .
                     $this->translator->trans('global.action.edit') .
                 '</a>';
 
             $cellContent .=
-                '<a aria-label="' . $this->translator->trans('global.action.delete') . '" href="' . $this->router->generate('registry_contractor_delete', ['id' => $sousTraitant->getId()]) . '">
+                '<a href="' . $this->router->generate('registry_contractor_delete', ['id' => $sousTraitant->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-trash"></i> ' .
                     $this->translator->trans('global.action.delete') .
                 '</a>';

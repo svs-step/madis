@@ -26,7 +26,7 @@
             <div class="col-xs-12">
                 <div class="action-bar">
                     {% if is_granted('ROLE_USER') %}
-                    <a aria-label="{{ 'registry.contractor.action.new'|trans }}" href="{{ path('registry_contractor_create') }}" class="btn btn-default">
+                    <a href="{{ path('registry_contractor_create') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-plus"></i>
                         {{ 'registry.contractor.action.new'|trans }}
                     </a>
@@ -53,11 +53,11 @@
             <div class="box box-solid">
                 <div class="box-body">
                     <div id="custom-buttons" style="float:left">
-                        <a aria-label="Imprimer" id="print-all"  href="{{ path('registry_contractor_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Imprimer
+                        <a id="print-all"  href="{{ path('registry_contractor_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            {{ 'global.action.print'|trans }}
                         </a>
-                        <a aria-label="Supprimer" id="delete-all"  href="{{ path('registry_contractor_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Supprimer
+                        <a id="delete-all"  href="{{ path('registry_contractor_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            {{ 'global.action.delete'|trans }}
                         </a>
                     </div>
                     <table id="table" class="table table-bordered table-hover">
@@ -68,7 +68,7 @@
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                                 </th>
                             {% endif %}
                             <th scope="col">

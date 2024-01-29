@@ -278,7 +278,7 @@ class UserController extends CRUDController
         $cellContent = '';
         if ($this->security->getUser() !== $user && \is_null($user->getDeletedAt()) && !$this->isGranted('ROLE_PREVIOUS_ADMIN')) {
             $cellContent .=
-                '<a aria-label="' . $this->translator->trans('global.action.impersonate') . '" href="' . $this->router->generate('reporting_dashboard_index', ['_switch_user' => $user->getUsername()]) . '">
+                '<a href="' . $this->router->generate('reporting_dashboard_index', ['_switch_user' => $user->getUsername()]) . '">
                     <i aria-hidden="true" class="fa fa-user-lock"></i> ' .
                 $this->translator->trans('global.action.impersonate') .
                 '</a> ';
@@ -287,7 +287,7 @@ class UserController extends CRUDController
         if ($this->security->isGranted('ROLE_ADMIN')) {
             if (\is_null($user->getDeletedAt())) {
                 $cellContent .=
-                    '<a aria-label="' . $this->translator->trans('global.action.edit') . '" href="' . $this->router->generate('user_user_edit', ['id' => $user->getId()]) . '">
+                    '<a href="' . $this->router->generate('user_user_edit', ['id' => $user->getId()]) . '">
                         <i aria-hidden="true" class="fa fa-pencil"></i> ' .
                     $this->translator->trans('global.action.edit') .
                     '</a> ';
@@ -296,20 +296,20 @@ class UserController extends CRUDController
             if ($this->security->getUser() !== $user) {
                 if (\is_null($user->getDeletedAt())) {
                     $cellContent .=
-                        '<a aria-label="' . $this->translator->trans('global.action.archive') . '" href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
+                        '<a href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
                         <i aria-hidden="true" class="fa fa-archive"></i> ' .
                         $this->translator->trans('global.action.archive') .
                         '</a> ';
                 } else {
                     $cellContent .=
-                        '<a aria-label="' . $this->translator->trans('global.action.unarchive') . '" href="' . $this->router->generate('user_user_unarchive', ['id' => $user->getId()]) . '">
+                        '<a href="' . $this->router->generate('user_user_unarchive', ['id' => $user->getId()]) . '">
                         <i aria-hidden="true" class="fa fa-archive"></i> ' .
                         $this->translator->trans('global.action.unarchive') .
                         '</a> ';
                 }
 
                 $cellContent .=
-                '<a aria-label="' . $this->translator->trans('global.action.delete') . '" href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
+                '<a href="' . $this->router->generate('user_user_delete', ['id' => $user->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-trash"></i> ' .
                 $this->translator->trans('global.action.delete') .
                 '</a> ';

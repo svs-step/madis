@@ -171,13 +171,13 @@
                                         </a>
                                         {% if conformiteTraitement is not null %}
                                             {% if analyseImpact is not null %}
-                                                <a aria-label="{{ 'aipd.analyse_impact.action.edit'|trans }}" href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
+                                                <a href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
                                                     <i aria-hidden="true" class="fa fa-chalkboard-teacher"></i>
                                                     {{ 'aipd.analyse_impact.action.edit'|trans }}
                                                 </a>
                                             {% else %}
                                                 {% if not conformiteTraitement.traitement.ExemptAIPD and analyseImpact is null %}
-                                                    <a aria-label="{{ 'aipd.analyse_impact.action.create'|trans }}" href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
+                                                    <a href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
                                                         <i aria-hidden="true" class="fa fa-chalkboard-teacher"></i>
                                                         {{ 'aipd.analyse_impact.action.create'|trans }}
                                                     </a>

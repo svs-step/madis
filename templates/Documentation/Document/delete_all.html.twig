@@ -25,11 +25,11 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer {{ objects_length }} documents{{objects_length > 1 ? 's' : '' }} ?
+                    Souhaitez-vous vraiment supprimer {{ objects_length }} documents{{objects_length > 1 ? 's' : '' }} ?
                 </div>
                 <div class="box-footer">
 
-                    <a aria-label="{{ 'global.action.back_to_list'|trans }}" href="{{ path('documentation_document_list') }}" class="btn btn-default">
+                    <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
                         {{ 'global.action.back_to_list'|trans }}
                     </a>
                     <a href="{{ path('documentation_document_delete_all_confirm', { 'ids': ids }) }}" class="btn btn-primary">

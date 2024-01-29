@@ -51,3 +51,5 @@ reporting:
             action: Action
             action_name: Nom
             link: Lien
+        action:
+            check: Voir

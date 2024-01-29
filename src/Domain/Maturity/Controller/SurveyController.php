@@ -456,7 +456,7 @@ class SurveyController extends CRUDController
         $reponse = $this->getBaseDataTablesResponse($request, $surveys);
 
         foreach ($surveys as $survey) {
-            $referentielLink = '<a aria-label="' . \htmlspecialchars($survey->getReferentiel()->getName()) . '" href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $survey->getId()->toString()]) . '">
+            $referentielLink = '<a href="' . $this->router->generate('maturity_survey_synthesis', ['id' => $survey->getId()->toString()]) . '">
                 ' . \htmlspecialchars($survey->getReferentiel()->getName()) . '
                 </a>';
 

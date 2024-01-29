@@ -29,7 +29,7 @@
                     Souhaitez vous vraiment supprimer la notification {{ object.name }} ?
                 </div>
                 <div class="box-footer">
-                    <a aria-label="{{ 'global.action.back_to_list'|trans }}" href="{{ path('notification_notification_index') }}" class="btn btn-default">
+                    <a href="{{ path('notification_notification_index') }}" class="btn btn-default">
                         {{ 'global.action.back_to_list'|trans }}
                     </a>
                     <a href="{{ path('notification_notification_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">

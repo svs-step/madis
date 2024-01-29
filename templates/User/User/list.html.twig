@@ -63,21 +63,21 @@
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_prenom" placeholder="Prénom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_prenom" placeholder="{{ 'global.label.contact.first_name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'global.label.contact.last_name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_email" placeholder="Email" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_email" placeholder="{{ 'global.label.contact.email'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_role" style="width: 100%;">
 
-                                    <option value="">Rôle</option>
+                                    <option value="">{{ 'user.user.label.roles'|trans }}</option>
                                     {% for key, subject in dictionary('user_user_role') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
@@ -85,7 +85,7 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_moreInfos" style="width: 100%;">
-                                    <option value="">Informations supplémentaires</option>
+                                    <option value="">{{ 'user.user.label.moreInfos'|trans }}</option>
                                     {% for key, subject in dictionary('user_user_moreInfo') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
@@ -96,7 +96,7 @@
                                 <input class="daterangepicker form-control" type="text" id="search_last_login" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_services" placeholder="Service" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_services" placeholder="{{ 'user.user.list.services'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
                                 <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">

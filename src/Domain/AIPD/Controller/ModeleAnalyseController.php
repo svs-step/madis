@@ -300,23 +300,23 @@ class ModeleAnalyseController extends CRUDController
         $htmltoReturnIfAdmin = '';
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $htmltoReturnIfAdmin = '<a aria-label="' . $this->translator->trans('global.action.rights') . '" href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
+            $htmltoReturnIfAdmin = '<a href="' . $this->router->generate('aipd_modele_analyse_rights', ['id' => $id]) . '">
                 <i aria-hidden="true" class="fa fa-user-shield"></i> '
                 . $this->translator->trans('global.action.rights') .
             '</a>';
         }
 
         return
-            '<a aria-label="' . $this->translator->trans('global.action.edit') . '" href="' . $this->router->generate('aipd_modele_analyse_edit', ['id' => $id]) . '">
+            '<a href="' . $this->router->generate('aipd_modele_analyse_edit', ['id' => $id]) . '">
                 <i aria-hidden="true" class="fa fa-pencil"></i> '
                 . $this->translator->trans('global.action.edit') .
             '</a>'
             . $htmltoReturnIfAdmin .
-            '<a aria-label="' . $this->translator->trans('global.action.export') . '" href="' . $this->router->generate('aipd_modele_analyse_export', ['id' => $id]) . '">
+            '<a href="' . $this->router->generate('aipd_modele_analyse_export', ['id' => $id]) . '">
                 <i aria-hidden="true" class="fa fa-file-code"></i> ' .
                 $this->translator->trans('global.action.export') .
             '</a>' .
-            '<a aria-label="' . $this->translator->trans('global.action.delete') . '" href="' . $this->router->generate('aipd_modele_analyse_delete', ['id' => $id]) . '">
+            '<a href="' . $this->router->generate('aipd_modele_analyse_delete', ['id' => $id]) . '">
                 <i aria-hidden="true" class="fa fa-trash"></i> ' .
                 $this->translator->trans('global.action.delete') .
             '</a>';

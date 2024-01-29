@@ -83,7 +83,7 @@ class JournalisationController extends AbstractController
             return $content;
         }
 
-        return '<a aria-label="Voir" href="' . $content . '">Voir</a>';
+        return '<a href="' . $content . '">' . $this->translator->trans('reporting.journalisation.action.check') . '</a>';
     }
 
     protected function getLabelAndKeysArray(): array

@@ -77,14 +77,14 @@
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a aria-label="{{ 'documentation.document.action.file'|trans }}" href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
-                                <li><a aria-label="{{ 'documentation.document.action.url'|trans }}" href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
+                                <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
+                                <li><a href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
                             </ul>
                         </div>
                     {% endif %}
                     {# Uniquement pour les DPO #}
                     {% if is_granted('ROLE_ADMIN') %}
-                        <a aria-label="{{ 'documentation.category.action.list'|trans }}" href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
                             <i aria-hidden="true" class="fas fa-tag"></i>
                             {{ 'documentation.category.action.list'|trans }}
                         </a>
@@ -103,7 +103,7 @@
                     {% if is_granted('ROLE_USER') %}
                         <div class="col-md-12 col-xl-2">
                             <div class="ml2">
-                                <a aria-label="{{ 'documentation.document.action.list'|trans }}" href="{{ path('documentation_document_list') }}" class="btn btn-default">
+                                <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
                                     <i aria-hidden="true" class="fas fa-list"></i>
                                     {{ 'documentation.document.action.list'|trans }}
                                 </a>
@@ -128,7 +128,7 @@
                                 <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
                             </div>
                             <div class="ml2">
-                                <select class="form-control selectpicker" id="search_category" title="Catégories" style="width: 100%;" multiple>
+                                <select class="form-control selectpicker" id="search_category" style="width: 100%;" multiple>
                                     {% for category in categories %}
                                         {% if category.name in activeCategories %}
                                             <option
@@ -171,7 +171,7 @@
                             <tr class="grid-item">
 
                                 <td class="text-center p-0">
-                                    <a aria-label="Media" href="{{ object.url }}" target="_blank" >
+                                    <a aria-label="{{ object.name }}" href="{{ object.url }}" target="_blank" >
                                         {% if (object.thumbUrl) %}
                                             <img src="{{ object.thumbUrl }}" alt="" height="150" style="object-fit : cover;width:100%" />
                                         {% else %}
@@ -207,7 +207,7 @@
                                     </a>
                                 </td>
                                 <td style="line-height: 1.2em;overflow: hidden;height: 25px;">
-                                    <a aria-label="{{ object.name }}" href="{{ object.url }}" target="_blank" style="word-break: break-word;">
+                                    <a href="{{ object.url }}" target="_blank" style="word-break: break-word;">
                                         <strong>{{ object.name }}</strong>
                                     </a>
                                 </td>

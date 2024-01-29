@@ -41,16 +41,10 @@ class ResetPasswordType extends AbstractType
             ->add('plainPassword', RepeatedType::class, [
                 'type'          => PasswordType::class,
                 'first_options' => [
-                    'attr' => [
-                        'placeholder' => 'user.user.label.password',
-                    ],
-                    'label' => false,
+                    'label' => 'user.security.label.new_password',
                 ],
                 'second_options' => [
-                    'attr' => [
-                        'placeholder' => 'user.user.label.password_repeat',
-                    ],
-                    'label' => false,
+                    'label' => 'user.security.label.password_repeat',
                 ],
                 'required' => true,
             ])

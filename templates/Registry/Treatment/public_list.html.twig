@@ -40,7 +40,7 @@
                             <tbody>
                                 {% for object in objects %}
                                     <tr>
-                                        <td><a aria-label="{{ object.name }}" href="{{ path('registry_public_treatment_show', {id: object.id}) }}">
+                                        <td><a href="{{ path('registry_public_treatment_show', {id: object.id}) }}">
                                             {{ object.name }}
                                         </a></td>
                                         <td>
