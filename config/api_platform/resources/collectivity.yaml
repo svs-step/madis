@@ -1,14 +1,13 @@
 App\Domain\User\Model\Collectivity:
-    attributes:
-        denormalization_context:
-            groups: ['collectivity_write']
-        normalization_context:
-            groups: ['collectivity_read']
+    denormalizationContext:
+        groups: ['collectivity_write']
+    normalizationContext:
+        groups: ['collectivity_read']
+
 
     collectionOperations:
         get: ~
     itemOperations:
         get:
             security: 'is_granted("ROLE_ADMIN") or object == user.getCollectivity()'
-            
-       
+
