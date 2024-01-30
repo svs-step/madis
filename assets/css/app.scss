@@ -26,7 +26,10 @@ a:focus, button:focus {
   margin : 0 !important;
 }
 .ms-2 {
-  margin-left: 2rem;
+  margin-left: 2rem !important;
+}
+.mb-1 {
+  margin-left: 1rem !important;
 }
 .d-flex {
   display: flex;
@@ -197,7 +200,8 @@ footer p a {
 }
 
 /* Form */
-.form-group>label.required:after {
+.form-group>label.required:after,
+thead th.required:after {
   content: " (Obligatoire)";
   font-size: 85%;
   font-style: italic;
@@ -267,9 +271,6 @@ textarea {
 /* Pages */
 .content-wrapper.public{
   margin-left: 0;
-}
-div.action-bar {
-  margin-bottom: 1em;
 }
 
 /* DatePicker */

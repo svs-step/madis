@@ -2,16 +2,9 @@ aipd:
     treatment:
         label:
             avis_aipd: Avis AIPD
-            date_validation: Date de validation
             validation_in_progress: En cours de validation
 
     modele_analyse:
-        action:
-            import: Importer un modèle
-            new: Nouveau modèle
-            back_to_list: Retour à la liste
-            new_submit: Créer le modèle
-            edit_submit: Modifier le modèle
         title:
             create: Créer un modèle
             edit: Modifier un modèle
@@ -19,14 +12,57 @@ aipd:
             list: Liste des modèles d'analyse
             rights: Modifier les droits
             import: Importer un modèle
-        delete:
-            subtitle: Modèle d'analyse %name%
-            confirmation: Souhaitez vous vraiment supprimer le modèle d'analyse %name% ?
-        list:
-            description: Description
+        breadcrumb:
+            list: Liste des modèles d'analyse
+            create: Créer un modèle
+            edit: Modifier un modèle
+            delete: Supprimer un modèle
+            import: Importer un modèle
+            rights: Modifier les droits
+        label:
             name: Nom
-            updated_at: Date de modification
-            created_at: Date de création
+            description: Description
+            amelioration_prevue: Label amélioration prévue
+            amelioration_insatisfaisant: Label insatisfaisant
+            amelioration_satisfaisant: Label satisfaisant
+            contexte: Label
+            contexte_livrable: Label pour livrable
+            answer: Réponse
+            show: Visible
+            message_conforme: Texte en cas de conformité
+            message_non_conforme: Texte en cas de non-conformité
+            message_non_applicable: Texte en cas de non-applicabilité
+            justify: Justification
+            file: Joindre un fichier
+            help:
+                file: "Un seul fichier. Taille maximale autorisée : max_size. Types de fichiers autorisés : Image"
+            required_justify: Justification obligatoire:
+            message_conforme: Texte en cas de conformité
+            message_minor_conforme: Texte en cas de non-conformité mineure
+            message_major_conforme: Texte en cas de non-conformité majeure
+            scenario: Scénarios de menace
+            linked_mesure: Mesures de protection
+            vraisemblance: Vraisemblance
+            gravite: Gravité
+            precision: Précision
+            disponibility: D
+            integrity: I
+            confidentiality: C
+            title_disponibility: Disponibilité des données
+            title_integrity: Intégrité des données
+            title_confidentiality: Confidentialité des données
+            delete_confirm: Souhaitez-vous vraiment supprimer le modèle d'analyse %name% ?
+        tab:
+            labels: Personnalisation des labels pour les mesures
+            contexte: Description du contexte
+            conformite: Conformité du traitement
+            risk: Gestion des risques
+        action:
+            import: Importer un modèle
+            new: Nouveau modèle
+            new_submit: Créer le modèle
+            edit_submit: Modifier le modèle
+            add_scenario: Ajouter un scénario de menace
         flashbag:
             success:
                 create: Modele d'analyse "%object%" créé avec succès
@@ -34,93 +70,87 @@ aipd:
                 delete: Modele d'analyse "%object%" supprimé avec succès
                 rights: Droits du modele d'analyse "%object%" modifiés avec succès
                 import: Modèle d'analyse "%object%" importé avec succès
-        form:
-            scenario_menace:
-                add: Ajouter un scénario de menace
+
     mesure_protection:
-        action:
-            new: Nouvelle mesure
-            back_to_list: Retour à la liste
-            new_submit : Créer la mesure
-            edit_submit : Modifier la mesure
-        breadcrumb:
-            create: Créer
-            delete: Supprimer "%name%"
-            edit: Modifier "%name%"
-            list: Liste des mesures de protection
-            show: Visualiser "%name%"
-        form:
-            information_generale: Informations générales
-            information_livrable: Informations pour livrable
-        flashbag:
-            success:
-                create: Mesure de protection "%object%" créée avec succès
-                edit: Mesure de protection "%object%" modifiée avec succès
-                delete: Mesure de protection "%object%" supprimée avec succès
-        list:
-            detail: Détail
-            nom: Nom
-            title: Mesures de protection
-            nom_court: Nom court
-            poids_vraisemblance: Poids de la vraisemblance
-            poids_gravite: Poids de la gravité
-            reponse: Réponses
-            updated_at: Date de modification
-            created_at: Date de création
-        modal:
-            confirm_deletion: Voulez vous vraiment supprimer cette mesure de protection ?
         title:
             create: Créer une mesure
             delete: Supprimer une mesure de protection
             edit: Modifier une mesure de protection
             list: Liste des mesures de protection
             show: Visualiser une mesure de protection
-    scenario_menace:
-        list:
-            gravite: Gravité
-            impact_potentiel: Impact potentiel
-            impact_résiduel: Impact résiduel
-            mesures: Associer des mesures
-            nom: Scénarios de menace
-            precision: Précision
-            visible: Visible
-            vraisemblance: Vraisemblance
-            title_d: Disponibilité des données
-            title_i: Intégrité des données
-            title_c: Confidentialité des données
-    analyse_impact:
+        breadcrumb:
+            list: Liste des mesures de protection
+            create: Créer
+            edit: Modifier "%name%"
+            delete: Supprimer "%name%"
+        label:
+            name: Nom
+            short_name: Nom court
+            detail: Détail
+            vraisemblance: Poids de la vraisemblance
+            gravite: Poids de la gravité
+            label_livrable: Label pour livrable
+            preconisation: Phrase préconisation
         action:
-            create: Réaliser une AIPD
-            edit: Modifier l'AIPD
-            modele: Choisir ce modèle
-            validation: Passer en validation
+            new: Nouvelle mesure
+            new_submit : Créer la mesure
+            edit_submit : Modifier la mesure
+        tab:
+            information_livrable: Informations pour livrable
         flashbag:
             success:
-                create: L'analyse d'impact "%object%" créée avec succès
-                edit: L'analyse d'impact "%object%" modifiée avec succès
-                delete: L'analyse d'impact "%object%" a bien été supprimée
-            info:
-                cant_edit: "Vous ne pouvez plus modifier cette analyse d'impact : celle-ci a déjà été validée."
-        form:
-            justificatif: Justificatif
-            action_protection: Action de protection associées
+                create: Mesure de protection "%object%" créée avec succès
+                edit: Mesure de protection "%object%" modifiée avec succès
+                delete: Mesure de protection "%object%" supprimée avec succès
+
+    analyse_impact:
         title:
-            list: Analyses d'impacts
+            list: Liste des analyses d'impacts
             create: Réaliser une AIPD
             edit: Modifier une AIPD
             delete: Supprimer une AIPD
             evaluation: Évaluer une AIPD
             validation: Valider une AIPD
-        list:
-            avis_dpd: Avis du délégué à la protection des données
+        breadcrumb:
+            list: Liste des analyses d'impacts
+            edit: Modifier une AIPD
+            delete: Supprimer une AIPD
+            evaluation: Évaluer une AIPD
+            validation: Valider une AIPD
+        label:
+            step_start: Une fois le modèle choisi, il n'est plus possible de revenir en arrière.
+            step_1: Cette étape permet d’analyser la conformité des critères relatifs à la description du traitement. Pour chaque description, indiquer le niveau de conformité, et éventuellement une justification et une image.
+            step_2: Cette étape permet de prendre connaissance des informations renseignées par l’évaluation de la conformité du traitement. Pour chaque critère, justifier le contexte lorsque cela est possible.
+            step_3: Cette étape permet d’évaluer l’impact potentiel des différents scénarios de menace. Pour chaque scénario de menace, lorsque cela est possible, indiquer le critère DIC ( %bold%D%/bold%isponibilité ; %bold%I%/bold%ntégrité ; %bold%C%/bold%onfidentialité) ainsi que la vraisemblance et la gravité des menaces. Adapter la précision en fonction du contexte.
+            step_4: Cette étape permet d’évaluer les mesures de protection mises en œuvre. Pour chacune des mesures, indiquer le niveau de mise en œuvre et adapter le détail en fonction.
+            step_final: Cette étape finale permet de valider l’instruction de l’AIPD. Une fois validée, il ne sera plus possible de la modifier.
+            contexte: Description
+            impact_potentiel: Impact potentiel
+            impact_résiduel: Impact résiduel
+            review_user: Avis des acteurs
+            review_date: Date
+            review_answer: Réponse
+            review_detail: Détail
             avis_referent: Avis du référent RGPD
+            avis_dpd: Avis du délégué à la protection des données
             avis_representant: Avis des représentants des personnes concernées
-            avis_responsable: Validation du responsable de traitement
-            collectivite: Structure
+            avis_responsable: Validation formelle du responsable de traitement
+        action:
+            create: Réaliser une AIPD
+            edit: Modifier l'AIPD
+            modele: Choisir ce modèle
+            validation: Passer en validation
+        list:
             traitement: Traitement
-            date_creation: Date de création
             date_validation: Date de validation
             modele: Modèle utilisé
+        tab:
+            grands_domaines: Évaluation des principes fondamentaux
+            mesures_securites: Évaluation des mesures de sécurité
+            risques_residuels: Risques résiduels
+            moyenne_dic_residuel: Cartographie des risques résiduels
+            description_conformite: Description et conformité
+            gestion_risques: Gestion des risques
         values:
             en_cours: En cours
             non_realisee: Non réalisée
@@ -129,17 +159,10 @@ aipd:
             favorable_reserve: Favorable avec réserve(s)
             favorable: Favorable
             non_favorable: Défavorable
-            evaluation:
-                grands_domaines: Évaluation des principes fondamentaux
-                mesures_securites: Évaluation des mesures de sécurité
-                risques_residuels: Risques résiduels
-                moyenne_dic_residuel: Cartographie des risques résiduels
-                description_conformite: Description et conformité
-                gestion_risques: Gestion des risques
-    critere_principe_fondamental:
-        table:
-            label: Description
-            reponse: Réponse
-            justification: Justification
-            fichier: Joindre un fichier
-            conformite: Conformité
+        flashbag:
+            success:
+                create: L'analyse d'impact "%object%" créée avec succès
+                edit: L'analyse d'impact "%object%" modifiée avec succès
+                delete: L'analyse d'impact "%object%" a bien été supprimée
+            info:
+                cant_edit: "Vous ne pouvez plus modifier cette analyse d'impact : celle-ci a déjà été validée."

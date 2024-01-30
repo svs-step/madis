@@ -11,8 +11,8 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'maturity.referentiel.title.list'|trans, 'link': path('maturity_referentiel_list') },
-        { 'name': 'maturity.referentiel.title.import'|trans }
+        { 'name': 'maturity.referentiel.breadcrumb.list'|trans, 'link': path('maturity_referentiel_list') },
+        { 'name': 'maturity.referentiel.breadcrumb.import'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}

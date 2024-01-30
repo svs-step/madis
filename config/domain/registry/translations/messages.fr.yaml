@@ -417,7 +417,7 @@ registry:
             new_submit: Créer l'évaluation du traitement
             edit_submit: Modifier l'évaluation du traitement
         tab:
-            evaluate: Évaluation du traitement
+            evaluate: Conformité du traitement
         flashbag:
             success:
                 edit: Conformité du traitement "%object%" modifiée avec succès

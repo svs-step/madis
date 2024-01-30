@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <p class="no-margin"><strong>Une fois le modèle choisi, il n'est plus possible de revenir en arrière.</strong></p>
+                    <p class="no-margin"><strong>{{ 'aipd.analyse_impact.label.step_start'|trans }}</strong></p>
                 </div>
             </div>
         </div>
@@ -42,12 +42,12 @@
                         <table id="table" class="table table-bordered">
                             <thead>
                             <tr>
-                                <th scope="col"><input class="form-control" type="text" id="search_nom" style="width: 100%;" placeholder="Nom"></th>
-                                <th scope="col"><input class="form-control" type="text" id="search_description" style="width: 100%;" placeholder="Description"></th>
+                                <th scope="col"><input class="form-control" type="text" id="search_nom" style="width: 100%;" placeholder="{{ 'aipd.modele_analyse.label.name'|trans }}"></th>
+                                <th scope="col"><input class="form-control" type="text" id="search_description" style="width: 100%;" placeholder="{{ 'aipd.modele_analyse.label.description'|trans }}"></th>
                             </tr>
                             <tr>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Description</th>
+                                <th scope="col">{{ 'aipd.modele_analyse.label.name'|trans }}</th>
+                                <th scope="col">{{ 'aipd.modele_analyse.label.description'|trans }}</th>s
                             </tr>
                             </thead>
                         </table>

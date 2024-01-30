@@ -16,7 +16,7 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'maturity.referentiel.title.list'|trans }
+        { 'name': 'maturity.referentiel.breadcrumb.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -24,7 +24,7 @@
 {% block body %}
     <div class="row">
             <div class="col-xs-12">
-                <div class="action-bar">
+                <div class="mb-1">
                     {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('maturity_referentiel_create') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-plus"></i>

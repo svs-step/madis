@@ -33,7 +33,7 @@
 {% block body %}
     <div class="row">
             <div class="col-xs-12">
-                <div class="action-bar" id="action-top-buttons">
+                <div class="mb-1" id="action-top-buttons">
                     {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('registry_treatment_create') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-plus"></i>

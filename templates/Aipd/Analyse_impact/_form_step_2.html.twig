@@ -1,19 +1,23 @@
 <table class="table table-bordered">
-    <tr>
-        <th scope="col">{{ 'registry.conformite_traitement.label.question'|trans }}</th>
-        <th scope="col">{{ 'registry.conformite_traitement.label.conformite'|trans }}</th>
-        <th scope="col">{{ 'aipd.analyse_impact.form.action_protection'|trans }}</th>
-        <th scope="col">{{ 'aipd.analyse_impact.form.justificatif'|trans }}</th>
-    </tr>
-    {% for question in form.questionConformites|sort((a, b) => a.vars.value.position > b.vars.value.position) %}
+    <thead>
         <tr>
-            <td>{{ question.vars.value.question }}</td>
-            <td>
-                {{ (getConformiteLabel(question.vars.value))|raw }}
-            </td>
-            <td>{{ getFormattedActionProtectionsFromQuestion(question.vars.value)|raw }}</td>
-            {% set isRequired = question.vars.value.justificationObligatoire %}
-            <td><span {% if(isRequired == 0) %}style="visibility: hidden"{% endif %}>{{ form_widget(question.justificatif, {'required': isRequired}) }}</span></td>
+            <th scope="col">{{ 'registry.conformite_traitement.label.question'|trans }}</th>
+            <th scope="col">{{ 'registry.conformite_traitement.label.conformite'|trans }}</th>
+            <th scope="col">{{ 'global.label.linked_mesurement'|trans }}</th>
+            <th scope="col" class="required">{{ 'aipd.modele_analyse.label.justify'|trans }}</th>
         </tr>
-    {% endfor %}
+    </thead>
+    <tbody>
+        {% for question in form.questionConformites|sort((a, b) => a.vars.value.position > b.vars.value.position) %}
+            <tr>
+                <td>{{ question.vars.value.question }}</td>
+                <td>
+                    {{ (getConformiteLabel(question.vars.value))|raw }}
+                </td>
+                <td>{{ getFormattedActionProtectionsFromQuestion(question.vars.value)|raw }}</td>
+                {% set isRequired = question.vars.value.justificationObligatoire %}
+                <td><span {% if(isRequired == 0) %}style="visibility: hidden"{% endif %}>{{ form_widget(question.justificatif, {'required': isRequired}) }}</span></td>
+            </tr>
+        {% endfor %}
+    </tbody>
 </table>

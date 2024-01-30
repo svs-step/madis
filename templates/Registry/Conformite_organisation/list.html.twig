@@ -30,7 +30,7 @@
         {% endif %}
         <div class="row">
             <div class="col-xs-12">
-                <div class="action-bar">
+                <div class="mb-1">
                     {% if evaluations is not empty and not is_granted('ROLE_ADMIN') %}
                         <a href="{{ path('registry_conformite_organisation_report', {'id': evaluations[0].id, 'all_actions' : false}) }}" class="btn btn-default">
                             <i aria-hidden="true" class="fa fa-clipboard-list"></i>
@@ -101,7 +101,7 @@
     {% if is_granted('ROLE_USER') %}
         <div class="row">
             <div class="col-xs-12">
-                <div class="action-bar">
+                <div class="mb-1">
                     <a href="{{ path('registry_conformite_organisation_create') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-plus"></i>
                         {{ 'registry.conformite_organisation.action.create'|trans }}

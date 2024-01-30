@@ -16,7 +16,7 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'aipd.analyse_impact.title.list'|trans }
+        { 'name': 'aipd.analyse_impact.breadcrumb.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -25,7 +25,7 @@
 {% block body %}
     <div class="row" style="margin-bottom: 1em">
         <div class="col-xs-12">
-            <div class="action-bar" id="action-top-buttons">
+            <div class="mb-1" id="action-top-buttons">
                 {% if category and category.documents|length > 0 %}
                     <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                         <i aria-hidden="true" class="fa fa-circle-info"></i>
@@ -61,16 +61,16 @@
                         </tr>
                         <tr>
                             <th scope="col">{{ 'aipd.analyse_impact.list.traitement'|trans }}</th>
-                            <th scope="col">{{ 'aipd.analyse_impact.list.date_creation'|trans }}</th>
+                            <th scope="col">{{ 'global.label.created_at'|trans }}</th>
                             <th scope="col">{{ 'aipd.analyse_impact.list.date_validation'|trans }}</th>
                             <th scope="col" style="width: 15%">{{ 'aipd.analyse_impact.list.modele'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>{{ 'aipd.analyse_impact.list.collectivite'|trans }}</th>
+                                <th>{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_referent'|trans }}</th>
-                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_dpd'|trans }}</th>
-                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_representant'|trans }}</th>
-                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_responsable'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.label.avis_referent'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.label.avis_dpd'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.label.avis_representant'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.label.avis_responsable'|trans }}</th>
                             <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>

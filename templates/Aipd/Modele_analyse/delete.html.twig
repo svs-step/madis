@@ -9,9 +9,17 @@
     <h1>
         {{ 'aipd.modele_analyse.title.delete'|trans }}
         <small>
-            {{ 'aipd.modele_analyse.delete.subtitle'|trans({'%name%': object.nom}) }}
+            {{ object.nom }}
         </small>
     </h1>
+{% endblock %}
+
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.modele_analyse.breadcrumb.list'|trans, 'link': path('aipd_modele_analyse_list') },
+        { 'name': 'aipd.modele_analyse.breadcrumb.delete'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
 
 
@@ -21,7 +29,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    {{ 'aipd.modele_analyse.delete.confirmation'|trans({'%name%': object.nom}) }}
+                    {{ 'aipd.modele_analyse.label.delete_confirm'|trans({'%name%': object.nom}) }}
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">

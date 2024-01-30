@@ -26,17 +26,30 @@ maturity:
             list: Liste des indices de maturité
             delete: Supprimer un indice de maturité
             show: Synthèse de l'indice de maturité
+        tab:
+            survey: Indice de maturité
+            recommendation: Préconisation
     referentiel:
-        action:
-            new: Nouveau référentiel
+        title:
+            create: Nouveau référentiel
+            edit: Modifier un référentiel
+            list: Liste des référentiels
+            delete: Supprimer un référentiel
+            rights: Modifier les droits
             import: Importer un référentiel
-            new_submit: Créer le référentiel
-            edit_submit: Modifier le référentiel
+            referentiel: Référentiel
         breadcrumb:
             create: Nouveau référentiel
             edit: Modifier le référentiel
             list: Liste des référentiels
             delete: Supprimer un référentiel
+            rights: Modifier les droits
+            import: Importer un référentiel
+        action:
+            new: Nouveau référentiel
+            import: Importer un référentiel
+            new_submit: Créer le référentiel
+            edit_submit: Modifier le référentiel
         flashbag:
             success:
                 create: Référentiel "%object%" créé avec succès
@@ -61,11 +74,3 @@ maturity:
             not_concerned: Non concerné
         list:
             name: Nom
-        title:
-            create: Nouveau référentiel
-            edit: Modifier un référentiel
-            list: Liste des référentiels
-            delete: Supprimer un référentiel
-            rights: Modifier les droits
-            import: Importer un référentiel
-            referentiel: Référentiel

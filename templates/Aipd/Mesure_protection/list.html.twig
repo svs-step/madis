@@ -17,7 +17,7 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'aipd.mesure_protection.title.list'|trans }
+        { 'name': 'aipd.mesure_protection.breadcrumb.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -25,7 +25,7 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
-            <div class="action-bar">
+            <div class="mb-1">
                 {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('aipd_mesure_protection_create') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-plus"></i>
@@ -43,13 +43,13 @@
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'aipd.mesure_protection.list.nom'|trans }}" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'aipd.mesure_protection.label.name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nomCourt" placeholder="Nom court" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nomCourt" placeholder="{{ 'aipd.mesure_protection.label.short_name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_detail" placeholder="{{ 'aipd.mesure_protection.list.detail'|trans }}" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_detail" placeholder="{{ 'aipd.mesure_protection.label.detail'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <input class="form-control" type="text" id="search_poids_vraisemblance" placeholder="Poids de la vraisemblance" style="width: 100%;">
@@ -65,13 +65,13 @@
                             </th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'aipd.mesure_protection.list.nom'|trans }}</th>
-                            <th scope="col">{{ 'aipd.mesure_protection.list.nom_court'|trans }}</th>
-                            <th scope="col">{{ 'aipd.mesure_protection.list.detail'|trans }}</th>
-                            <th scope="col">{{ 'aipd.mesure_protection.list.poids_vraisemblance'|trans }}</th>
-                            <th scope="col">{{ 'aipd.mesure_protection.list.poids_gravite'|trans }}</th>
-                            <th scope="col">{{ 'aipd.mesure_protection.list.created_at'|trans }}</th>
-                            <th scope="col">{{ 'aipd.mesure_protection.list.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.label.name'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.label.short_name'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.label.detail'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.label.vraisemblance'|trans }}</th>
+                            <th scope="col">{{ 'aipd.mesure_protection.label.gravite'|trans }}</th>
+                            <th scope="col">{{ 'global.action.created_at'|trans }}</th>
+                            <th scope="col">{{ 'global.action.updated_at'|trans }}</th>
                             <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>

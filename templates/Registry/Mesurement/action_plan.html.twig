@@ -24,7 +24,7 @@
 {% block body %}
     <div class="row" style="margin-bottom:1em">
         <div class="col-xs-12">
-            <div class="action-bar">
+            <div class="mb-1">
                 {% if category and category.documents|length > 0 %}
                     <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                         <i aria-hidden="true" class="fa fa-circle-info"></i>

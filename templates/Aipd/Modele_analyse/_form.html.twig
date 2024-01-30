@@ -42,45 +42,55 @@
 
 {{ form_start(form) }}
 <div class="row">
-    <div class="col-md-12">
-        {{ form_errors(form) }}
+    {{ form_errors(form) }}
 
-        {% if flow.getCurrentStepNumber() == 1 %}
-            <div class="row">
-                <div class="col-md-6">
-                    <div class="box box-solid box-info">
-                        <div class="box-header with-border"><h3 class="box-title">Informations générales</h3></div>
-                        <div class="box-body">
-                            {{ form_row(form.nom) }}
-                            {{ form_row(form.description) }}
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="box box-solid box-primary">
-                        <div class="box-header with-border"><h3 class="box-title">Personnalisation des labels pour les mesures</h3></div>
-                        <div class="box-body">
-                            {{ form_row(form.labelAmeliorationPrevue) }}
-                            {{ form_row(form.labelInsatisfaisant) }}
-                            {{ form_row(form.labelSatisfaisant) }}
-                        </div>
-                    </div>
+    {# PAGE 1 #}
+    {% if flow.getCurrentStepNumber() == 1 %}
+        {# LEFT #}
+        <div class="col-md-6">
+            {# GENERAL #}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.general'|trans }}</h3></div>
+                <div class="box-body">
+                    {{ form_row(form.nom) }}
+                    {{ form_row(form.description) }}
                 </div>
             </div>
-            <div class=" box box-solid">
+        </div>
+
+        {# RIGHT #}
+        <div class="col-md-6">
+            {# LABELS #}
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.modele_analyse.tab.labels'|trans }}</h3></div>
+                <div class="box-body">
+                    {{ form_row(form.labelAmeliorationPrevue) }}
+                    {{ form_row(form.labelInsatisfaisant) }}
+                    {{ form_row(form.labelSatisfaisant) }}
+                </div>
+            </div>
+        </div>
+
+        {# FULL PAGE #}
+        <div class="col-xs-12">
+            {# CONTEXTE #}
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.modele_analyse.tab.contexte'|trans }}</h3></div>
                 <div class="box-body">
                     <table class="table">
-                        <tr>
-                            <th scope="col">Label</th>
-                            <th scope="col">Label pour livrable</th>
-                            <th scope="col">Réponses</th>
-                            <th scope="col">Visible</th>
-                            <th scope="col">Texte en cas de conformité</th>
-                            <th scope="col">Texte en cas de non-conformité</th>
-                            <th scope="col">Texte en cas de non-applicabilité</th>
-                            <th scope="col">Justificatif</th>
-                            <th scope="col">Joindre un fichier</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th scope="col" class="required">{{ 'aipd.modele_analyse.label.contexte'|trans }}</th>
+                                <th scope="col" class="required">{{ 'aipd.modele_analyse.label.contexte_livrable'|trans }}</th>
+                                <th scope="col" class="required">{{ 'aipd.modele_analyse.label.answer'|trans }}</th>
+                                <th scope="col">{{ 'aipd.modele_analyse.label.show'|trans }}</th>
+                                <th scope="col" class="required">{{ 'aipd.modele_analyse.label.message_conforme'|trans }}</th>
+                                <th scope="col" class="required">{{ 'aipd.modele_analyse.label.message_non_conforme'|trans }}</th>
+                                <th scope="col" class="required">{{ 'aipd.modele_analyse.label.message_non_applicable'|trans }}</th>
+                                <th scope="col">{{ 'aipd.modele_analyse.label.justify'|trans }}</th>
+                                <th scope="col">{{ 'aipd.modele_analyse.label.file'|trans }}<br><small class="text-muted">{{ 'aipd.modele_analyse.label.help.file'|trans }}</small></th>
+                            </tr>
+                        </thead>
                         {% for critere in form.criterePrincipeFondamentaux %}
                             {% include '@templates_path/Aipd/Modele_analyse/_form_criteres.html.twig' with {
                                 form: critere,
@@ -92,62 +102,80 @@
                     </div>
                 </div>
             </div>
-        {% elseif flow.getCurrentStepNumber() == 2 %}
-            <div class="box box-body">
-                {% include'@templates_path/Aipd/Modele_analyse/_form_question_conformite.html.twig' with {
-                    form: form
-                } %}
-            </div>
-        {% elseif flow.getCurrentStepNumber() == 3 %}
-            <div class="box box-body">
-                <div class="js-table-collection-wrapper"
-                    data-prototype="{{ formMacros.printScenariosMenaces(form.scenarioMenaces.vars.prototype)|e('html_attr') }}"
-                    data-index="{{ form.scenarioMenaces|length }}"
-                >
-                    <button class="js-table-collection-add btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i> {{ 'aipd.modele_analyse.form.scenario_menace.add'|trans }}
-                    </button>
-                    <table id="js-table-collection" class="table table-bordered">
-                        <tr>
-                            <th scope="col">{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
-                            <th scope="col">{{ 'aipd.scenario_menace.list.mesures'|trans }}</th>
-                            <th scope="col" style="max-width: 40px">{{ 'aipd.scenario_menace.list.visible'|trans }}</th>
-                            <th scope="col" title="{{'aipd.scenario_menace.list.title_d'|trans}}" style="max-width: 30px">D</th>
-                            <th scope="col" title="{{'aipd.scenario_menace.list.title_i'|trans}}" style="max-width: 30px">I</th>
-                            <th scope="col" title="{{'aipd.scenario_menace.list.title_c'|trans}}" style="max-width: 30px">C</th>
-                            <th scope="col">{{ 'aipd.scenario_menace.list.vraisemblance'|trans }}</th>
-                            <th scope="col">{{ 'aipd.scenario_menace.list.gravite'|trans }}</th>
-                            <th scope="col">{{ 'aipd.scenario_menace.list.precision'|trans }}</th>
-                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
-                        </tr>
-                        {% for scenarioMenace in form.scenarioMenaces %}
-                            {{ formMacros.printScenariosMenaces(scenarioMenace) }}
-                        {% endfor %}
-                        {% if form.scenarioMenaces is empty %}
-                            {% do form.scenarioMenaces.setRendered() %}
-                        {% endif %}
-                    </table>
-                </div>
-            </div>
-        {% endif %}
-    </div>
-</div>
+        </div>
 
-    <div class="row">
+    {# PAGE 2 #}
+    {% elseif flow.getCurrentStepNumber() == 2 %}
+        {# FULL PAGE #}
         <div class="col-xs-12">
-            <div class="box box-solid">
-                <div class="box-body text-center">
-                    <a  href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">{{ 'global.action.back_to_list'|trans }}</a>
-                    {% include '@templates_path/_Utils/_craue_buttons.html.twig' with {
-                        craue_formflow_button_class_last: 'btn btn-primary',
-                        craue_formflow_button_class_back: 'btn btn-default',
-                        craue_formflow_button_render_reset: false,
-                        craue_formflow_button_label_next: 'Suivant',
-                        craue_formflow_button_label_back: 'Précédent',
-                        craue_formflow_button_label_finish: submitValue,
+            {# TREATMENT CONFORMITY #}
+            <div class="box box-solid box-success">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.conformite_traitement.tab.evaluate'|trans }}</h3></div>
+                <div class="box box-body">
+                    {% include'@templates_path/Aipd/Modele_analyse/_form_question_conformite.html.twig' with {
+                        form: form
                     } %}
                 </div>
             </div>
         </div>
+
+    {# PAGE 3 #}
+    {% elseif flow.getCurrentStepNumber() == 3 %}
+        {# FULL PAGE #}
+        <div class="col-xs-12">
+            {# TREATMENT CONFORMITY #}
+            <div class="box box-solid box-info">
+                <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.modele_analyse.tab.risk'|trans }}</h3></div>
+                <div class="box box-body">
+                    <div class="js-table-collection-wrapper"
+                        data-prototype="{{ formMacros.printScenariosMenaces(form.scenarioMenaces.vars.prototype)|e('html_attr') }}"
+                        data-index="{{ form.scenarioMenaces|length }}"
+                    >
+                        <button class="js-table-collection-add btn btn-default mb-1">
+                            <i aria-hidden="true" class="fa fa-plus"></i> {{ 'aipd.modele_analyse.action.add_scenario'|trans }}
+                        </button>
+                        <table id="js-table-collection" class="table table-bordered">
+                          <thead>
+                              <tr>
+                                  <th scope="col" class="required">{{ 'aipd.modele_analyse.label.scenario'|trans }}</th>
+                                  <th scope="col">{{ 'aipd.modele_analyse.label.linked_mesure'|trans }}</th>
+                                  <th scope="col" style="max-width: 40px">{{ 'aipd.modele_analyse.label.show'|trans }}</th>
+                                  <th scope="col" title="{{ 'aipd.modele_analyse.label.title_disponibility'|trans }}" style="max-width: 30px">{{ 'aipd.modele_analyse.label.confidentiality'|trans }}</th>
+                                  <th scope="col" title="{{ 'aipd.modele_analyse.label.title_integrity'|trans }}" style="max-width: 30px">{{ 'aipd.modele_analyse.label.confidentiality'|trans }}</th>
+                                  <th scope="col" title="{{ 'aipd.modele_analyse.label.title_confidentiality'|trans }}" style="max-width: 30px">{{ 'aipd.modele_analyse.label.confidentiality'|trans }}</th>
+                                  <th scope="col">{{ 'aipd.modele_analyse.label.vraisemblance'|trans }}</th>
+                                  <th scope="col">{{ 'aipd.modele_analyse.label.gravite'|trans }}</th>
+                                  <th scope="col">{{ 'aipd.modele_analyse.label.precision'|trans }}</th>
+                                  <th scope="col">{{ 'global.label.actions'|trans }}</th>
+                              </tr>
+                          </thead>
+                            {% for scenarioMenace in form.scenarioMenaces %}
+                                {{ formMacros.printScenariosMenaces(scenarioMenace) }}
+                            {% endfor %}
+                            {% if form.scenarioMenaces is empty %}
+                                {% do form.scenarioMenaces.setRendered() %}
+                            {% endif %}
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="col-xs-12">
+        <div class="box box-solid">
+            <div class="box-body text-center">
+                <a  href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">{{ 'global.action.back_to_list'|trans }}</a>
+                {% include '@templates_path/_Utils/_craue_buttons.html.twig' with {
+                    craue_formflow_button_class_last: 'btn btn-primary',
+                    craue_formflow_button_class_back: 'btn btn-default',
+                    craue_formflow_button_render_reset: false,
+                    craue_formflow_button_label_next: 'global.action.next'|trans,
+                    craue_formflow_button_label_back: 'global.action.back'|trans,
+                    craue_formflow_button_label_finish: submitValue,
+                } %}
+            </div>
+        </div>
     </div>
+</div>
 {{ form_end(form) }}

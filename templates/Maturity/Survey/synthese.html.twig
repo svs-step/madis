@@ -26,7 +26,7 @@
     {{ form_start(form) }}
         <div class="row">
             <div class="col-md-12">
-                <div class="action-bar">
+                <div class="mb-1">
                     <a href="{{ path('maturity_survey_report', {'id': object.id}) }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-print"></i>
                         {{ 'global.action.print'|trans }}
@@ -36,15 +36,15 @@
 
             <div class="col-md-6">
                 <div class="box box-solid">
-                    <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'maturity.survey.tab.survey'|trans }}</h3></div>
                     <div class="box-body">
                         {% if object.maturity is empty %}
-                            Aucun indice à afficher
+                            {{ 'global.label.no_data'|trans }}
                         {% else %}
                             {% if object.maturity|length >= 3 %}
                                 <canvas id="maturity-radar"></canvas>
                             {% else %}
-                                Le référentiel contient moins de trois sections.
+                                {{ 'reporting.dashboard.label.maturity_referentiel_error'|trans }}
                             {% endif %}
                         {% endif %}
                     </div>
@@ -54,7 +54,7 @@
                 <div class="info-box bg-aqua">
                     <span class="info-box-icon bg-aqua"><i aria-hidden="true" class="fa fa-chart-line"></i></span>
                     <div class="info-box-content" style="padding-top: 20px">
-                        <span class="info-box-text">Score</span>
+                        <span class="info-box-text">{{ 'maturity.survey.list.score'|trans }}</span>
                         <span class="info-box-number">{{ object.score/10|round(1) }}</span>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
 
             {% if showPreco %}
                 <div class="col-md-12">
-                    <h2>Préconisations</h2>
+                    <h2>{{ 'maturity.survey.tab.recommendation'|trans }}</h2>
                 </div>
                 <div class="col-md-12">
                     <div class="row" style="display: flex;flex-wrap: wrap;">

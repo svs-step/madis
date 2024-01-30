@@ -23,7 +23,7 @@
     {% if is_granted('ROLE_USER') %}
     <div class="row">
         <div class="col-xs-12">
-            <div class="action-bar">
+            <div class="mb-1">
                 <a href="{{ path('user_profile_collectivity_edit') }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-pencil"></i>
                     {{ 'global.action.edit'|trans }}

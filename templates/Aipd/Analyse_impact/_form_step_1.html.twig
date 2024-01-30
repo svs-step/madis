@@ -1,18 +1,18 @@
 <table class="table table-bordered criteres-table">
     <thead>
-    <tr>
-        <th scope="col">{{ 'aipd.critere_principe_fondamental.table.label'|trans }}</th>
-        <th scope="col">{{ 'aipd.critere_principe_fondamental.table.reponse'|trans }}</th>
-        <th scope="col">{{ 'aipd.critere_principe_fondamental.table.justification'|trans }}</th>
-        <th scope="col">{{ 'aipd.critere_principe_fondamental.table.fichier'|trans }}</th>
-    </tr>
+        <tr>
+            <th scope="col">{{ 'aipd.analyse_impact.label.contexte'|trans }}</th>
+            <th scope="col">{{ 'aipd.modele_analyse.label.answer'|trans }}</th>
+            <th scope="col">{{ 'aipd.modele_analyse.label.justify'|trans }}</th>
+            <th scope="col">{{ 'aipd.modele_analyse.label.file'|trans }}<br><small class="text-muted">{{ 'aipd.modele_analyse.label.help.file'|trans }}</small></th>
+        </tr>
     </thead>
     <tbody>
-    {% for critere in form.criterePrincipeFondamentaux %}
-        {% include '@templates_path/Aipd/Analyse_impact/_form_critere.html.twig' with {
-            form: critere
-        } %}
-    {% endfor %}
+        {% for critere in form.criterePrincipeFondamentaux %}
+            {% include '@templates_path/Aipd/Analyse_impact/_form_critere.html.twig' with {
+                form: critere
+            } %}
+        {% endfor %}
     </tbody>
 </table>
 

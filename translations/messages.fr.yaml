@@ -3,6 +3,8 @@ global:
         archive: Archiver
         unarchive: Désarchiver
         back_to_list: Retourner à la liste
+        back: Précédent
+        next: Suivant
         close: Fermer
         cancel: Annuler
         confirm: Confirmer
@@ -76,6 +78,7 @@ global:
         general: Informations générales
         linked_modules: Éléments associés
         history: Historique
+        rights: Gestion des droits
 
     placeholder:
         precision: Précisez

@@ -12,8 +12,8 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'aipd.analyse_impact.title.list'|trans, 'link': path('aipd_analyse_impact_list') },
-        { 'name': 'aipd.analyse_impact.title.edit'|trans }
+        { 'name': 'aipd.analyse_impact.breadcrumb.list'|trans, 'link': path('aipd_analyse_impact_list') },
+        { 'name': 'aipd.analyse_impact.breadcrumb.edit'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -45,13 +45,13 @@
             <div class="box box-solid">
                 <div class="box-body">
                     {% if flow.getCurrentStepNumber() == 1 %}
-                        <p class="no-margin">Cette étape permet d’analyser la conformité des critères relatifs à la description du traitement. Pour chaque description, indiquer le niveau de conformité, et éventuellement une justification et une image.</p>
+                        <p class="no-margin">{{ 'aipd.analyse_impact.label.step_1'|trans }}</p>
                     {% elseif flow.getCurrentStepNumber() == 2 %}
-                        <p class="no-margin">Cette étape permet de prendre connaissance des informations renseignées par l’évaluation de la conformité du traitement. Pour chaque critère, justifier le contexte lorsque cela est possible.</p>
+                        <p class="no-margin">{{ 'aipd.analyse_impact.label.step_2'|trans }}</p>
                     {% elseif flow.getCurrentStepNumber() == 3 %}
-                        <p class="no-margin">Cette étape permet d’évaluer l’impact potentiel des différents scénarios de menace. Pour chaque scénario de menace, lorsque cela est possible, indiquer le critère DIC (Disponibilité ; Intégrité ; Confidentialité) ainsi que la vraisemblance et la gravité des menaces. Adapter la précision en fonction du contexte.</p>
+                        <p class="no-margin">{{ 'aipd.analyse_impact.label.step_3'|trans({'%bold%': '<b>', '%/bold%': '<b>'})|raw }}</p>
                     {% elseif flow.getCurrentStepNumber() == 4 %}
-                        <p class="no-margin">Cette étape permet d’évaluer les mesures de protection mises en œuvre. Pour chacune des mesures, indiquer le niveau de mise en œuvre et adapter le détail en fonction.</p>
+                        <p class="no-margin">{{ 'aipd.analyse_impact.label.step_4'|trans }}</p>
                     {% endif %}
                 </div>
             </div>
