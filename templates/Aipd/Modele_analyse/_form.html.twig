@@ -88,7 +88,7 @@
                                 <th scope="col" class="required">{{ 'aipd.modele_analyse.label.message_non_conforme'|trans }}</th>
                                 <th scope="col" class="required">{{ 'aipd.modele_analyse.label.message_non_applicable'|trans }}</th>
                                 <th scope="col">{{ 'aipd.modele_analyse.label.justify'|trans }}</th>
-                                <th scope="col">{{ 'aipd.modele_analyse.label.file'|trans }}<br><small class="text-muted">{{ 'aipd.modele_analyse.label.help.file'|trans }}</small></th>
+                                <th scope="col">{{ 'aipd.modele_analyse.label.file'|trans }}<br><small class="text-muted">{{ 'aipd.modele_analyse.label.help.file'|trans({'max_size': app_max_upload_size}) }}</small></th>
                             </tr>
                         </thead>
                         {% for critere in form.criterePrincipeFondamentaux %}
@@ -110,8 +110,8 @@
         <div class="col-xs-12">
             {# TREATMENT CONFORMITY #}
             <div class="box box-solid box-success">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.conformite_traitement.tab.evaluate'|trans }}</h3></div>
-                <div class="box box-body">
+                <div class="box-header"><h3 class="box-title">{{ 'registry.conformite_traitement.tab.evaluate'|trans }}</h3></div>
+                <div class="box-body">
                     {% include'@templates_path/Aipd/Modele_analyse/_form_question_conformite.html.twig' with {
                         form: form
                     } %}

@@ -4,7 +4,7 @@
             <th scope="col">{{ 'aipd.analyse_impact.label.contexte'|trans }}</th>
             <th scope="col">{{ 'aipd.modele_analyse.label.answer'|trans }}</th>
             <th scope="col">{{ 'aipd.modele_analyse.label.justify'|trans }}</th>
-            <th scope="col">{{ 'aipd.modele_analyse.label.file'|trans }}<br><small class="text-muted">{{ 'aipd.modele_analyse.label.help.file'|trans }}</small></th>
+            <th scope="col">{{ 'aipd.modele_analyse.label.file'|trans }}<br><small class="text-muted">{{ 'aipd.modele_analyse.label.help.file'|trans({'max_size': app_max_upload_size}) }}</small></th>
         </tr>
     </thead>
     <tbody>
