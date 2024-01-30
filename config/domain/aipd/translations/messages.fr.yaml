@@ -32,14 +32,13 @@ aipd:
             message_conforme: Texte en cas de conformité
             message_non_conforme: Texte en cas de non-conformité
             message_non_applicable: Texte en cas de non-applicabilité
+            message_minor_conforme: Texte en cas de non-conformité mineure
+            message_major_conforme: Texte en cas de non-conformité majeure
             justify: Justification
             file: Joindre un fichier
             help:
                 file: "Un seul fichier. Taille maximale autorisée : max_size. Types de fichiers autorisés : Image"
             required_justify: Justification obligatoire:
-            message_conforme: Texte en cas de conformité
-            message_minor_conforme: Texte en cas de non-conformité mineure
-            message_major_conforme: Texte en cas de non-conformité majeure
             scenario: Scénarios de menace
             linked_mesure: Mesures de protection
             vraisemblance: Vraisemblance
