@@ -23,35 +23,34 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="mb-1">
-                    {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('registry_contractor_create') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i>
-                        {{ 'registry.contractor.action.new'|trans }}
+        <div class="col-xs-12">
+            <div class="mb-1">
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('registry_contractor_create') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-plus"></i>
+                    {{ 'registry.contractor.action.new'|trans }}
+                </a>
+                {% endif %}
+                {% if app.user.roles[0] != 'ROLE_REFERENT' %}
+                <a href="{{ path('registry_contractor_report') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-clipboard-list"></i>
+                    {{ 'global.action.report'|trans }}
+                </a>
+                {% endif %}
+                {% if category and category.documents|length > 0%}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
+                        {{ 'global.action.documentation'|trans }}
                     </a>
-                    {% endif %}
-                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a href="{{ path('registry_contractor_report') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'global.action.report'|trans }}
-                    </a>
-                    {% endif %}
-                    {% if category and category.documents|length > 0%}
-                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'global.action.documentation'|trans }}
-                        </a>
-                    {% endif %}
-                </div>
+                {% endif %}
             </div>
-
+        </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <div id="custom-buttons" style="float:left">
                         <a id="print-all"  href="{{ path('registry_contractor_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             {{ 'global.action.print'|trans }}

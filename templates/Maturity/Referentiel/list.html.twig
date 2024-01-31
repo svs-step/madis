@@ -42,15 +42,15 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
-                    <table id="table" class="table table-bordered table-hover" style="position: relative">
+                <div class="box-body overflow-x-auto">
+                    <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_nom" placeholder="{{ 'maturity.referentiel.list.name'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_description" placeholder="Description" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_description" placeholder="{{ 'maturity.referentiel.label.description'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col" style="min-width:130px;position:relative;">
                                     <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">

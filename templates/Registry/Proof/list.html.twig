@@ -32,55 +32,54 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="mb-1">
-                    {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('registry_proof_create') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i>
-                        {{ 'registry.proof.action.new'|trans }}
+        <div class="col-xs-12">
+            <div class="mb-1">
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('registry_proof_create') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-plus"></i>
+                    {{ 'registry.proof.action.new'|trans }}
+                </a>
+                {% endif %}
+                {#<a href="{{ path('registry_proof_report') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-clipboard-list"></i>
+                    {{ 'registry.proof.action.report'|trans }}
+                </a>#}
+                {% if app.request.query.get('archive') == 'true' %}
+                    <a href="{{ path('registry_proof_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-archive"></i>
+                        {{ 'registry.proof.action.not_archived'|trans }}
                     </a>
-                    {% endif %}
-                    {#<a href="{{ path('registry_proof_report') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.proof.action.report'|trans }}
-                    </a>#}
-                    {% if app.request.query.get('archive') == 'true' %}
-                        <a href="{{ path('registry_proof_list', {'archive' : 'false'}) }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-archive"></i>
-                            {{ 'registry.proof.action.not_archived'|trans }}
-                        </a>
-                    {% else %}
-                        <a href="{{ path('registry_proof_list', {'archive' : 'true'}) }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-archive"></i>
-                            {{ 'registry.proof.action.archived'|trans }}
-                        </a>
-                    {% endif %}
-                    {% if category and category.documents|length > 0 %}
-                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'global.action.documentation'|trans }}
-                        </a>
-                    {% endif %}
-                    {% if app.request.query.get('archive') != 'true' %}
-                        <a href="{{ path('registry_proof_download_all') }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-download"></i>
-                            {{ 'registry.proof.action.download'|trans }}
-                        </a>
-                    {% endif %}
-                </div>
+                {% else %}
+                    <a href="{{ path('registry_proof_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-archive"></i>
+                        {{ 'registry.proof.action.archived'|trans }}
+                    </a>
+                {% endif %}
+                {% if category and category.documents|length > 0 %}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
+                        {{ 'global.action.documentation'|trans }}
+                    </a>
+                {% endif %}
+                {% if app.request.query.get('archive') != 'true' %}
+                    <a href="{{ path('registry_proof_download_all') }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-download"></i>
+                        {{ 'registry.proof.action.download'|trans }}
+                    </a>
+                {% endif %}
             </div>
-
+        </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'registry.proof.label.name'|trans }}" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
@@ -89,14 +88,14 @@
                             {% endif %}
                             <th scope="col">
                                 <select class="form-control" id="search_type" style="width: 100%;">
-                                    <option value="">Type</option>
+                                    <option value="">{{ 'registry.proof.label.type'|trans }}</option>
                                     {% for key, subject in dictionary('registry_proof_type') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select>
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_commentaire" placeholder="Commentaire" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_commentaire" placeholder="{{ 'registry.proof.label.comment'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
                                 <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">

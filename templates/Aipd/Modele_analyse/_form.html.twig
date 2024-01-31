@@ -126,7 +126,7 @@
             {# TREATMENT CONFORMITY #}
             <div class="box box-solid box-info">
                 <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.modele_analyse.tab.risk'|trans }}</h3></div>
-                <div class="box box-body">
+                <div class="box-body">
                     <div class="js-table-collection-wrapper"
                         data-prototype="{{ formMacros.printScenariosMenaces(form.scenarioMenaces.vars.prototype)|e('html_attr') }}"
                         data-index="{{ form.scenarioMenaces|length }}"
@@ -140,8 +140,8 @@
                                   <th scope="col" class="required">{{ 'aipd.modele_analyse.label.scenario'|trans }}</th>
                                   <th scope="col">{{ 'aipd.modele_analyse.label.linked_mesure'|trans }}</th>
                                   <th scope="col" style="max-width: 40px">{{ 'aipd.modele_analyse.label.show'|trans }}</th>
-                                  <th scope="col" title="{{ 'aipd.modele_analyse.label.title_disponibility'|trans }}" style="max-width: 30px">{{ 'aipd.modele_analyse.label.confidentiality'|trans }}</th>
-                                  <th scope="col" title="{{ 'aipd.modele_analyse.label.title_integrity'|trans }}" style="max-width: 30px">{{ 'aipd.modele_analyse.label.confidentiality'|trans }}</th>
+                                  <th scope="col" title="{{ 'aipd.modele_analyse.label.title_disponibility'|trans }}" style="max-width: 30px">{{ 'aipd.modele_analyse.label.disponibility'|trans }}</th>
+                                  <th scope="col" title="{{ 'aipd.modele_analyse.label.title_integrity'|trans }}" style="max-width: 30px">{{ 'aipd.modele_analyse.label.integrity'|trans }}</th>
                                   <th scope="col" title="{{ 'aipd.modele_analyse.label.title_confidentiality'|trans }}" style="max-width: 30px">{{ 'aipd.modele_analyse.label.confidentiality'|trans }}</th>
                                   <th scope="col">{{ 'aipd.modele_analyse.label.vraisemblance'|trans }}</th>
                                   <th scope="col">{{ 'aipd.modele_analyse.label.gravite'|trans }}</th>

@@ -33,49 +33,48 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="mb-1">
-                    {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('registry_violation_create') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i>
-                        {{ 'registry.violation.action.new'|trans }}
+        <div class="col-xs-12">
+            <div class="mb-1">
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('registry_violation_create') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-plus"></i>
+                    {{ 'registry.violation.action.new'|trans }}
+                </a>
+                {% endif %}
+                {% if app.user.roles[0] != 'ROLE_REFERENT' %}
+                <a href="{{ path('registry_violation_report') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-clipboard-list"></i>
+                    {{ 'global.action.report'|trans }}
+                </a>
+                {% endif %}
+                {% if app.request.query.get('archive') == 'true' %}
+                    <a href="{{ path('registry_violation_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-archive"></i>
+                        {{ 'registry.violation.action.not_archived'|trans }}
                     </a>
-                    {% endif %}
-                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a href="{{ path('registry_violation_report') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'global.action.report'|trans }}
+                {% else %}
+                    <a href="{{ path('registry_violation_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-archive"></i>
+                        {{ 'registry.violation.action.archived'|trans }}
                     </a>
-                    {% endif %}
-                    {% if app.request.query.get('archive') == 'true' %}
-                        <a href="{{ path('registry_violation_list', {'archive' : 'false'}) }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-archive"></i>
-                            {{ 'registry.violation.action.not_archived'|trans }}
-                        </a>
-                    {% else %}
-                        <a href="{{ path('registry_violation_list', {'archive' : 'true'}) }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-archive"></i>
-                            {{ 'registry.violation.action.archived'|trans }}
-                        </a>
-                    {% endif %}
-                    {% if category and category.documents|length > 0 %}
-                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'global.action.documentation'|trans }}
-                        </a>
-                    {% endif %}
-                </div>
+                {% endif %}
+                {% if category and category.documents|length > 0 %}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
+                        {{ 'global.action.documentation'|trans }}
+                    </a>
+                {% endif %}
             </div>
-
+        </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <div id="custom-buttons" style="float:left">
                         <a id="print-all" style="float:left" href="{{ path('registry_violation_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Imprimer
+                            {{ 'global.action.print'|trans }}
                         </a>
                     </div>
                     <table id="table" class="table table-bordered table-hover">
@@ -91,7 +90,7 @@
                             {% endif %}
                             <th scope="col">
                                 <select class="form-control" id="search_nature" style="width: 100%;">
-                                    <option value="">Nature</option>
+                                    <option value="">{{ 'registry.violation.list.violation_nature'|trans }}</option>
                                     {% for key, subject in dictionary('registry_violation_nature') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
@@ -106,7 +105,7 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_cause" style="width: 100%;">
-                                    <option value="">Cause</option>
+                                    <option value="">{{ 'registry.violation.list.cause'|trans }}</option>
                                     {% for key, subject in dictionary('registry_violation_cause') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
@@ -122,7 +121,7 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_notification" style="width: 100%;">
-                                    <option value="">Notification</option>
+                                    <option value="">{{ 'registry.violation.label.notification'|trans }}</option>
                                     {% for key, subject in dictionary('registry_violation_notification_list') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}

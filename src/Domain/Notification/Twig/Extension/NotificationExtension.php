@@ -158,7 +158,7 @@ class NotificationExtension extends AbstractExtension
     private function getRouteForModule($module): string
     {
         switch ($module) {
-            case 'notifications.label.modules.treatment':
+            case 'notification.modules.treatment':
                 return 'registry_treatment_show';
             case 'notification.modules.subcontractor':
             case 'notification.modules.contractor':

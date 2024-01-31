@@ -23,41 +23,41 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="mb-1">
-                    {% if is_granted('ROLE_USER') %}
-                    <a href="{{ path('registry_mesurement_create') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i>
-                        {{ 'registry.mesurement.action.new'|trans }}
+        <div class="col-xs-12">
+            <div class="mb-1">
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('registry_mesurement_create') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-plus"></i>
+                    {{ 'registry.mesurement.action.new'|trans }}
+                </a>
+                {% endif %}
+                {% if app.user.roles[0] != 'ROLE_REFERENT' %}
+                <a href="{{ path('registry_mesurement_report') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-clipboard-list"></i>
+                    {{ 'global.action.report'|trans }}
+                </a>
+                {% endif %}
+                {% if category and category.documents|length > 0 %}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
+                        {{ 'global.action.documentation'|trans }}
                     </a>
-                    {% endif %}
-                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a href="{{ path('registry_mesurement_report') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'global.action.report'|trans }}
-                    </a>
-                    {% endif %}
-                    {% if category and category.documents|length > 0 %}
-                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'global.action.documentation'|trans }}
-                        </a>
-                    {% endif %}
-                </div>
+                {% endif %}
             </div>
+        </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <div id="custom-buttons" style="float:left">
                         <a id="print-all" href="" class="dt-button buttons-collection buttons-colvis">
-                            Imprimer
+                            {{ 'global.action.print'|trans }}
                         </a>
                         {% if app.user.roles[0] != 'ROLE_PREVIEW' %}
                             <a id="delete-all"  href="" class="dt-button buttons-collection buttons-colvis">
-                                Supprimer
+                                {{ 'global.action.delete'|trans }}
                             </a>
                         {% endif %}
                     </div>
@@ -66,24 +66,24 @@
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'registry.mesurement.label.name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_statut" style="width: 100%;">
-                                    <option value="">Statut</option>
+                                    <option value="">{{ 'registry.mesurement.label.status'|trans }}</option>
                                     {% for key, subject in dictionary('registry_mesurement_status') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select>
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_cout" placeholder="Coût" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_cout" placeholder="{{ 'registry.mesurement.label.cost'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_charge" placeholder="Charge" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_charge" placeholder="{{ 'registry.mesurement.label.charge'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_priorite" style="width: 100%;">
@@ -97,10 +97,10 @@
                                 <input class="form-control" type="text" id="search_responsable_action" placeholder="Responsable" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_description" placeholder="Description" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_description" placeholder="{{ 'registry.mesurement.label.description'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_observation" placeholder="Observation" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_observation" placeholder="{{ 'registry.mesurement.label.comment'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
                                 <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">

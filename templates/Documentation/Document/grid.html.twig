@@ -114,7 +114,7 @@
                             </div>
                             <div class="ml2">
                                 <input type="checkbox" class="form-check-input" id="search_favorite">
-                                <label class="form-check-label" for="search_favorite">Favoris</label>
+                                <label class="form-check-label" for="search_favorite">{{ 'documentation.document.label.name'|trans }}</label>
                             </div>
                             <div class="ml2">
                                 <select class="form-control" id="search_type" style="width: 100%;">
@@ -125,7 +125,7 @@
                                 </select>
                             </div>
                             <div class="ml2">
-                                <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_name" placeholder="{{ 'documentation.document.label.name'|trans }}" style="width: 100%;">
                             </div>
                             <div class="ml2">
                                 <select class="form-control selectpicker" id="search_category" style="width: 100%;" multiple>
@@ -154,7 +154,6 @@
                     <table role="presentation" id="documentation-grid" class="table cards">
                         <thead>
                             <tr>
-
                                 <th scope="col"></th>
                                 <th scope="col">{{ 'documentation.document.list.favorite'|trans }}</th>
                                 <th scope="col">{{ 'documentation.document.label.name'|trans }}</th>

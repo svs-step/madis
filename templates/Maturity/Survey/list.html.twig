@@ -44,13 +44,13 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
                                 <select class="form-control" id="search_referentiel" style="width: 100%;">
-                                    <option value="">Référentiel</option>
+                                    <option value="">{{ 'maturity.survey.list.referentiel'|trans }}</option>
                                     {% for referentiel in referentiels %}
                                         <option value="{{ referentiel }}">{{ referentiel }}</option>
                                     {% endfor %}
@@ -62,7 +62,7 @@
                                 </th>
                             {% endif %}
                             <th scope="col">
-                                <input class="form-control" type='number' id="search_score" style="width: 100%;" placeholder="Score">
+                                <input class="form-control" type='number' id="search_score" style="width: 100%;" placeholder="{{ 'maturity.survey.list.score'|trans }}">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
                                 <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">

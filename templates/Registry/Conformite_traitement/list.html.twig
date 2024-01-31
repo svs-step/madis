@@ -23,26 +23,26 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="mb-1">
-                    <a href="{{ path('registry_conformite_traitement_report') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'global.action.report'|trans }}
+        <div class="col-xs-12">
+            <div class="mb-1">
+                <a href="{{ path('registry_conformite_traitement_report') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-clipboard-list"></i>
+                    {{ 'global.action.report'|trans }}
+                </a>
+                {% if category and category.documents|length > 0 %}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
+                        {{ 'global.action.documentation'|trans }}
                     </a>
-                    {% if category and category.documents|length > 0 %}
-                        <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'global.action.documentation'|trans }}
-                        </a>
-                    {% endif %}
-                </div>
+                {% endif %}
             </div>
+        </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>

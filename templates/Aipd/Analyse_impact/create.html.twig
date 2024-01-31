@@ -42,7 +42,7 @@
                     {% elseif flow.getCurrentStepNumber() == 2 %}
                         <p class="no-margin">{{ 'aipd.analyse_impact.label.step_2'|trans }}</p>
                     {% elseif flow.getCurrentStepNumber() == 3 %}
-                        <p class="no-margin">{{ 'aipd.analyse_impact.label.step_3'|trans({'%bold%': '<b>', '%/bold%': '<b>'})|raw }}</p>
+                        <p class="no-margin">{{ 'aipd.analyse_impact.label.step_3'|trans }}</p>
                     {% elseif flow.getCurrentStepNumber() == 4 %}
                         <p class="no-margin">{{ 'aipd.analyse_impact.label.step_4'|trans }}</p>
                     {% endif %}

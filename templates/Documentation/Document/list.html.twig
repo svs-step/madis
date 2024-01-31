@@ -33,54 +33,49 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="mb-1">
-                    {% if is_granted('ROLE_REFERENT') %}
-                        <div class="btn-group">
-{#                            Fix https://gitlab.adullact.net/soluris/madis/-/issues/535#}
-                            {% if is_granted('ROLE_ADMIN') %}
-                            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                                <i aria-hidden="true" class="fa fa-plus"></i>
-                                {{ 'documentation.document.action.new'|trans }}
-                                <span class="caret"></span>
-                            </button>
-                            {% endif %}
-                            <div class="dt-button-background" style=""></div>
-                            <ul class="dropdown-menu">
-                                <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
-                                <li><a href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
-                            </ul>
-                        </div>
-                    {% endif %}
-                    {# Uniquement pour les DPO #}
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fas fa-tag"></i>
-                            {{ 'documentation.category.action.list'|trans }}
-                        </a>
-                    {% endif %}
-                </div>
+        <div class="col-xs-12">
+            <div class="mb-1">
+                {% if is_granted('ROLE_REFERENT') %}
+                    <div class="btn-group">
+                        {# Fix https://gitlab.adullact.net/soluris/madis/-/issues/535 #}
+                        {% if is_granted('ROLE_ADMIN') %}
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                            <i aria-hidden="true" class="fa fa-plus"></i>
+                            {{ 'documentation.document.action.new'|trans }}
+                            <span class="caret"></span>
+                        </button>
+                        {% endif %}
+                        <div class="dt-button-background" style=""></div>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('documentation_document_create') }}">{{ 'documentation.document.action.file'|trans }}</a></li>
+                            <li><a href="{{ path('documentation_document_create', {isLink: '1'}) }}">{{ 'documentation.document.action.url'|trans }}</a></li>
+                        </ul>
+                    </div>
+                {% endif %}
+                {# Uniquement pour les DPO #}
+                {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fas fa-tag"></i>
+                        {{ 'documentation.category.action.list'|trans }}
+                    </a>
+                {% endif %}
             </div>
+        </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
-                    <div style="margin-bottom: 10px">
+                <div class="box-body overflow-x-auto">
+                    <div id="custom-buttons" style="float:left">
                         {# SWITCH GRID LIST #}
                         {% if is_granted('ROLE_USER') %}
-                            <a href="{{ path('documentation_document_grid') }}" class="btn btn-default">
+                            <a href="{{ path('documentation_document_grid') }}" class="btn btn-default" style="margin-right: 0.5rem;">
                                 <i aria-hidden="true" class="fas fa-th"></i>
                                 {{ 'documentation.document.action.grid'|trans }}
                             </a>
                         {% endif %}
                     </div>
-                    {# <div style="float:left">
-                        <a id="delete-all"  href="{{ path('documentation_document_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Supprimer
-                        </a>
-                    </div> #}
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>

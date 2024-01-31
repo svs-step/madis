@@ -25,25 +25,25 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="mb-1">
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('documentation_category_create') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i>
-                        {{ 'documentation.category.action.new'|trans }}
-                    </a>
-                    <a href="{{ path('documentation_document_index') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-file"></i>
-                        {{ 'documentation.category.action.files'|trans }}
-                    </a>
-                    {% endif %}
-                </div>
+        <div class="col-xs-12">
+            <div class="mb-1">
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('documentation_category_create') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-plus"></i>
+                    {{ 'documentation.category.action.new'|trans }}
+                </a>
+                <a href="{{ path('documentation_document_index') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-file"></i>
+                    {{ 'documentation.category.action.files'|trans }}
+                </a>
+                {% endif %}
             </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                 {% if is_granted('ROLE_ADMIN') %}
                     <table id="table" class="table table-bordered table-hover">
                         <thead>

@@ -40,6 +40,9 @@ a:focus, button:focus {
 .justify-content-between {
   justify-content: space-between;
 }
+.overflow-x-auto {
+  overflow-x: auto !important;
+}
 
 /* Impersonate */
 body > div.banner-impersonate {

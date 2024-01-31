@@ -38,33 +38,33 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'user.organization.label.name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom_court" placeholder="Nom court" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom_court" placeholder="{{ 'user.organization.label.short_name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_type" style="width: 100%;">
-                                    <option value="">Type</option>
+                                    <option value="">{{ 'user.organization.label.type'|trans }}</option>
                                     {% for key, subject in dictionary('user_collectivity_type') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select>
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_informations_complementaires" placeholder="Infos complémentaires" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_informations_complementaires" placeholder="Informations" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_siren" placeholder="Siren" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_siren" placeholder="{{ 'user.organization.label.siren'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_actif" style="width: 100%;">
-                                    <option value="">Statut</option>
+                                    <option value="">{{ 'user.organization.label.active'|trans }}</option>
                                     <option value="1">{{ 'global.label.active'|trans }}</option>
                                     <option value="0">{{ 'global.label.inactive'|trans }}</option>
                                 </select>
@@ -76,7 +76,7 @@
                                 <input class="form-control" type="text" id="search_nbr_agents" placeholder="Salariés" style="width: 100%;">
                             </th>
                             <th>
-                                <input class="form-control" type="text" id="search_population" placeholder="Population" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_population" placeholder="{{ 'user.organization.label.population'|trans }}" style="width: 100%;">
                             </th>
 
                             <th scope="col" style="min-width:130px;position:relative;">

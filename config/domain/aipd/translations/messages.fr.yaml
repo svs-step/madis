@@ -38,7 +38,7 @@ aipd:
             file: Joindre un fichier
             help:
                 file: "Un seul fichier. Taille maximale autorisée : max_size. Types de fichiers autorisés : Image"
-            required_justify: Justification obligatoire:
+            required_justify: Justification obligatoire
             scenario: Scénarios de menace
             linked_mesure: Mesures de protection
             vraisemblance: Vraisemblance
@@ -120,12 +120,12 @@ aipd:
             step_start: Une fois le modèle choisi, il n'est plus possible de revenir en arrière.
             step_1: Cette étape permet d’analyser la conformité des critères relatifs à la description du traitement. Pour chaque description, indiquer le niveau de conformité, et éventuellement une justification et une image.
             step_2: Cette étape permet de prendre connaissance des informations renseignées par l’évaluation de la conformité du traitement. Pour chaque critère, justifier le contexte lorsque cela est possible.
-            step_3: Cette étape permet d’évaluer l’impact potentiel des différents scénarios de menace. Pour chaque scénario de menace, lorsque cela est possible, indiquer le critère DIC ( %bold%D%/bold%isponibilité ; %bold%I%/bold%ntégrité ; %bold%C%/bold%onfidentialité) ainsi que la vraisemblance et la gravité des menaces. Adapter la précision en fonction du contexte.
+            step_3: Cette étape permet d’évaluer l’impact potentiel des différents scénarios de menace. Pour chaque scénario de menace, lorsque cela est possible, indiquer le critère DIC ( Disponibilité ; Intégrité ; Confidentialité) ainsi que la vraisemblance et la gravité des menaces. Adapter la précision en fonction du contexte.
             step_4: Cette étape permet d’évaluer les mesures de protection mises en œuvre. Pour chacune des mesures, indiquer le niveau de mise en œuvre et adapter le détail en fonction.
             step_final: Cette étape finale permet de valider l’instruction de l’AIPD. Une fois validée, il ne sera plus possible de la modifier.
             contexte: Description
             impact_potentiel: Impact potentiel
-            impact_résiduel: Impact résiduel
+            impact_residuel: Impact résiduel
             review_user: Avis des acteurs
             review_date: Date
             review_answer: Réponse

@@ -37,12 +37,12 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'registry.mesurement.label.name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
@@ -51,10 +51,10 @@
                                 <input class="daterangepicker form-control" type="text" id="search_date_planification" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_cout" placeholder="Coût" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_cout" placeholder="{{ 'registry.mesurement.label.cost'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_charge" placeholder="Charge" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_charge" placeholder="{{ 'registry.mesurement.label.charge'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_priorite" style="width: 100%;">
