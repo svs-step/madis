@@ -1,9 +1,9 @@
 App\Domain\User\Model\User:
-    attributes:
-        denormalization_context:
-            groups: ['user_write']
-        normalization_context:
-            groups: ['user_read']
+
+    denormalizationContext:
+        groups: ['user_write']
+    normalizationContext:
+        groups: ['user_read']
 
     collectionOperations:
         get:
