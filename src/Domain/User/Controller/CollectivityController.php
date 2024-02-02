@@ -302,7 +302,7 @@ class CollectivityController extends CRUDController
             'object' => $object,
         ]);
 
-        $this->addFlash('success', $this->helper->trans('user.organization.flashbag.success.delete'));
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
 
         return $this->redirectToRoute($this->getRouteName('list'));
     }
@@ -372,7 +372,7 @@ class CollectivityController extends CRUDController
         $this->entityManager->remove($object);
         $this->entityManager->flush();
 
-        $this->addFlash('success', $this->helper->trans('user.organization.flashbag.success.delete'));
+        $this->addFlash('success', $this->getFlashbagMessage('success', 'delete', $object));
 
         return $this->redirectToRoute($this->getRouteName('list'));
     }

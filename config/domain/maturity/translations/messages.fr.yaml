@@ -65,7 +65,7 @@ maturity:
             question: Question
             weight: Pondération
             not_concerned: "Activer l'option : Non concerné"
-            answers: Réponses :
+            answers: "Réponses :"
             answer: Réponse
             recommendation: Préconisation
             delete_confirm: Souhaitez-vous vraiment supprimer le référentiel %object% du %date% ?

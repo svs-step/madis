@@ -22,6 +22,7 @@ user:
             new_submit: Créer la structure
             edit_submit: Modifier la structure
             my_organization_submit: Modifier ma structure
+            delete_submit: Supprimer la structure
         tab:
             address: Adresse
             comite_il: Composition du comité Informatique et Libertés
@@ -62,13 +63,30 @@ user:
             registre_public: Registre public
             management_commitment: Engagement de la direction
             continuous_improvement: Principe d'amélioration continue
+            delete_confirm: Souhaitez-vous vraiment supprimer la structure "%object%" ?
+            delete_confirm_list: "La suppression de la structure entrainera la suppression de toutes les données liées à cette structure :"
+            update_related_objects: "Mise à jour des éléments rattachés :"
+            update_duplicate: Éléments dupliqués
+            delete_related_objects: "Suppression des éléments rattachés :"
+            delete_treatments: Traitements
+            delete_contractors: Sous-traitants
+            delete_proofs: Preuves
+            delete_mesurements: Actions de protection
+            delete_users: Utilisateurs
+            updated: Mis à jour
+            deleted: Supprimés
+            error: Erreur
         placeholder:
             website: https://
         flashbag:
             success:
+                related_objects_deleted: Suppression des éléments liés effectuée. Vous pouvez maintenant supprimer la structure.
                 my_organization_edit: Votre structure vient d'être mise à jour
             error:
-                delete_related_objects: Une erreur est survenue lors de la suppression des %relateds% de la structure "%object%"
+                error_related_objects: Une erreur est survenue
+            warning:
+                delete_in_progress: Suppression des données liées à la structure "%object%" en cours.
+                progress_warning: Toute fermeture avant la finalisation de la suppression causera une suppression partielle des données.
 
     collectivity:
         flashbag:
@@ -116,6 +134,8 @@ user:
             services: Services
             sso_key: Fournisseur d'identité
             sso_linked: Associé
+            archive_confirm: Souhaitez-vous vraiment archiver l'utilisateur "%object%" ?
+            unarchive_confirm: Souhaitez-vous vraiment désarchiver l'utilisateur "%object%" ?
         list:
             user: Utilisateur
             last_login: Dernière connexion

@@ -3,10 +3,11 @@ admin:
         breadcrumb:
             duplicate: Traitement de la duplication
             new: Module de duplication
-        form:
+        label:
             data: Données à dupliquer
             source_collectivity: Structure source
             type: Type de données
+            message_confirm: Attention, vous allez dupliquer des éléments sur un ensemble de structures.
         tab:
             source: Données sources
             target: Données cibles
@@ -14,4 +15,6 @@ admin:
             duplicate: Traitement de la duplication
             new: Module de duplication
         action:
-            revert: Annuler la dernière duplication
+            revert: Annuler la dernière duplication*
+            new_submit: Dupliquer
+            confirm_submit: Confirmer la duplication

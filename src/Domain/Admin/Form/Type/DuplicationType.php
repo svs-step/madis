@@ -68,14 +68,14 @@ class DuplicationType extends AbstractType
         $builder
             ->add('type', DictionaryType::class, [
                 'name'     => 'admin_duplication_type',
-                'label'    => 'admin.duplication.form.type',
+                'label'    => 'admin.duplication.label.type',
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
             ])
             ->add('sourceCollectivity', EntityType::class, [
                 'class'         => UserModel\Collectivity::class,
-                'label'         => 'admin.duplication.form.source_collectivity',
+                'label'         => 'admin.duplication.label.source_collectivity',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.name', 'ASC');
@@ -85,7 +85,7 @@ class DuplicationType extends AbstractType
                 'expanded' => false,
             ])
             ->add('data', ChoiceType::class, [
-                'label'    => 'admin.duplication.form.data',
+                'label'    => 'admin.duplication.label.data',
                 'required' => true,
                 'multiple' => true,
                 'expanded' => false,
@@ -153,7 +153,7 @@ class DuplicationType extends AbstractType
             }, $choices);
 
             $form->add('data', ChoiceType::class, [
-                'label'    => 'admin.duplication.form.data',
+                'label'    => 'admin.duplication.label.data',
                 'required' => true,
                 'multiple' => true,
                 'expanded' => false,

@@ -47,13 +47,13 @@
                         </button>
                         <ul class="dropdown-menu header-menu">
                             <li {% if menuItem == 'user_profile_user' %}class="active"{% endif %}>
-                                <a href="{{ path('user_profile_user_edit') }}">
+                                <a href="{{ path('user_profile_user_edit') }}" {% if menuItem == 'user_profile_user' %}aria-current="page"{% endif %}>
                                     <i aria-hidden="true" class="fa fa-user"></i>
                                     <span>{{ 'global.sidebar_menu.user_profile'|trans }}</span>
                                 </a>
                             </li>
                             <li {% if menuItem == 'user_profile_collectivity' %}class="active"{% endif %}>
-                                <a href="{{ path('user_profile_collectivity_show') }}">
+                                <a href="{{ path('user_profile_collectivity_show') }}" {% if menuItem == 'user_profile_collectivity' %}aria-current="page"{% endif %}>
                                     <i aria-hidden="true" class="fa fa-home"></i>
                                     <span>{{ 'global.sidebar_menu.user_organization'|trans }}</span>
                                 </a>

@@ -6,9 +6,9 @@
 
     {% if app.user %}
         <ul class="list-unstyled list-inline">
-            <li class="no-padding"><a href="{{ path('page_sitemap') }}">{{ 'page.sitemap.title'|trans }}</a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
-            <li class="no-padding"><a href="{{ path('page_declaration') }}">Accessibilité<!-- : {{ 'page.declaration.result'|trans }}--></a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
-            <li class="no-padding"><a href="{{ path('page_credit') }}">{{ 'page.credit.title'|trans }}</a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
+            <li class="no-padding"><a href="{{ path('page_sitemap') }}" {% if menuItem == 'page_sitemap' %}aria-current="page"{% endif %}>{{ 'page.sitemap.title'|trans }}</a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
+            <li class="no-padding"><a href="{{ path('page_declaration') }} {% if menuItem == 'page_declaration' %}aria-current="page"{% endif %}">Accessibilité<!-- : {{ 'page.declaration.result'|trans }}--></a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
+            <li class="no-padding"><a href="{{ path('page_credit') }}" {% if menuItem == 'page_credit' %}aria-current="page"{% endif %}>{{ 'page.credit.title'|trans }}</a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
             <li class="no-padding">v{{ app_version }}</li>
         </ul>
     {% else %}

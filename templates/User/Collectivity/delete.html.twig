@@ -30,18 +30,15 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer la structure "{{ object }}" ?
-                    <p>
-                        <b>La suppression de la structure entrainera la suppression de toutes les données liées à cette structure :
-                            <ul>
-                                {% for deletedObject in deletedObjects %}
-                                    <li>
-                                        {{ deletedObject }}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </b>
-                    </p>
+                    <p>{{ 'user.organization.label.delete_confirm'|trans({'%object%': object }) }}</p>
+                    <p><strong>{{ 'user.organization.label.delete_confirm_list'|trans }}</strong></p>
+                    <ul>
+                        {% for deletedObject in deletedObjects %}
+                            <li>
+                                {{ deletedObject }}
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('user_collectivity_list') }}" class="btn btn-default">
