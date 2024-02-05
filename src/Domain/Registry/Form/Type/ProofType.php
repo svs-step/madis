@@ -93,7 +93,7 @@ class ProofType extends AbstractType
                 'constraints' => [
                     new File([
                         'maxSize' => $this->maxSize,
-                        'mimeTypesMessage' => 'registry_proof.document_file.thumbnail',
+                        'mimeTypesMessage' => 'registry_proof.document_file.file',
                         'mimeTypes' => [
                             // JPG / PNG
                             'image/jpeg',

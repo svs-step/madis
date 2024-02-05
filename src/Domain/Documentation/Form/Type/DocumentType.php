@@ -89,7 +89,8 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'label'       => 'documentation.document.label.thumbnail',
                 'required'    => false,
                 'constraints' => [
-                    new Image(['groups' => ['default']]),
+                    // Élément suivant commenté, car il génère un message d'erreur en plus de l'autre message
+                    // new Image(['groups' => ['default']]),
                     new File([
                         'maxSize'   => $this->maxSize,
                         'groups'    => ['default'],
@@ -98,7 +99,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                             'image/jpg', // .jpg
                             'image/jpeg', // .jpeg
                         ],
-                        'mimeTypesMessage' => 'document_validator.document_file.file',
+                        'mimeTypesMessage' => 'document_validator.document_file.thumbnail',
                     ]),
                 ],
                 'attr' => [
@@ -202,7 +203,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                             'application/vnd.ms-excel.sheet.macroEnabled.12', // .xlsm
                             'application/vnd.oasis.opendocument.spreadsheet', // .ods
                         ],
-                        'mimeTypesMessage' => 'registry_proof.document_file.file',
+                        'mimeTypesMessage' => 'document_validator.document_file.file',
                     ]),
                 ],
             ]);

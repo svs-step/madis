@@ -5,7 +5,7 @@ admin:
             new: Module de duplication
         label:
             type: Type de données
-            source_collectivity: Structure source
+            source_organization: Structure source
             data: Données à dupliquer
             message_confirm: Attention, vous allez dupliquer des éléments sur un ensemble de structures.
             progress: Statut
@@ -25,8 +25,11 @@ admin:
         flashbag:
             success:
                 duplicate_end: Duplication effectuée. Vous pouvez maintenant fermer cette page.
+                cancel: La dernière duplication a été annulée
             error:
                 progress_error: Une erreur est survenue
+                no_data: Il n'y a aucune duplication à annuler
+                cancel: Impossible d'annuler la dernière duplication
             warning:
                 duplicate_in_progress: Duplication des données en cours.
                 progress_warning: Toute fermeture avant la finalisation de la duplication causera une duplication partielle des données.
