@@ -31,7 +31,7 @@ class ImportModeleType extends AbstractType
                             'application/xml',
                             'text/xml',
                         ],
-                        'mimeTypesMessage' => 'Merci d\'importer un fichier XML',
+                        'mimeTypesMessage' => 'referentiel_validator.import.not_xml',
                     ]),
                 ],
             ])

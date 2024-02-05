@@ -26,7 +26,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer le document {{ object.name }} ?
+                    <p>{{ 'documentation.document.label.delete_confirm'|trans({'%object%': object.name }) }}</p>
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('documentation_document_index') }}" class="btn btn-default">

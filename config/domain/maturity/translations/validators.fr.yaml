@@ -1,0 +1,3 @@
+referentiel_validator:
+    import:
+        not_xml: Le type du fichier est invalide. Seul le type de fichier .xml est autorisé.

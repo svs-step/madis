@@ -98,7 +98,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                             'image/jpg', // .jpg
                             'image/jpeg', // .jpeg
                         ],
-                        'mimeTypesMessage' => 'Les formats autorisés sont .png, .jpg, .jpeg.',
+                        'mimeTypesMessage' => 'document_validator.document_file.file',
                     ]),
                 ],
                 'attr' => [
@@ -202,7 +202,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                             'application/vnd.ms-excel.sheet.macroEnabled.12', // .xlsm
                             'application/vnd.oasis.opendocument.spreadsheet', // .ods
                         ],
-                        'mimeTypesMessage' => "Ce format de fichier n'est pas autorisé.",
+                        'mimeTypesMessage' => 'registry_proof.document_file.file',
                     ]),
                 ],
             ]);

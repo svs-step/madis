@@ -1,0 +1,4 @@
+document_validator:
+    document_file:
+        thumbnail: "Le type du fichier est invalide. Les fichiers autorisés sont : .jpg, .jpeg, .png."
+        file: "Le type du fichier est invalide. Les fichiers autorisés sont : .jpg, .jpeg, .png, .mp3, .m4a, .ogg, .wav, .mp4, .mov, .wmv, .avi, .mpg, .ogv, .ogg, .webm, .pdf, .doc, .docx, .odt, .ppt, .pptx, .odp, .xls, .xlsx, .xlsm, ods."

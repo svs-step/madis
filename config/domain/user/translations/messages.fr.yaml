@@ -64,7 +64,7 @@ user:
             management_commitment: Engagement de la direction
             continuous_improvement: Principe d'amélioration continue
             delete_confirm: Souhaitez-vous vraiment supprimer la structure "%object%" ?
-            delete_confirm_list: "La suppression de la structure entrainera la suppression de toutes les données liées à cette structure :"
+            delete_confirm_list: "La suppression de la structure entraînera la suppression de toutes les données liées à cette structure :"
             update_related_objects: "Mise à jour des éléments rattachés :"
             update_duplicate: Éléments dupliqués
             delete_related_objects: "Suppression des éléments rattachés :"

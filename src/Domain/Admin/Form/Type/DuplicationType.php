@@ -75,7 +75,7 @@ class DuplicationType extends AbstractType
             ])
             ->add('sourceCollectivity', EntityType::class, [
                 'class'         => UserModel\Collectivity::class,
-                'label'         => 'admin.duplication.label.source_collectivity',
+                'label'         => 'admin.duplication.label.source_organization',
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('c')
                         ->orderBy('c.name', 'ASC');

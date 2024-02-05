@@ -49,7 +49,7 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
                             'image/jpg', // .jpg
                             'image/jpeg', // .jpeg
                         ],
-                        'mimeTypesMessage' => 'Les formats autorisés sont .png, .jpg, .jpeg.',
+                        'mimeTypesMessage' => 'aipd_validator.fichier.file',
                     ]),
                 ],
             ])

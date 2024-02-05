@@ -437,6 +437,7 @@ registry:
         label:
             date: Date de l'évaluation
             participants: Participants
+            delete_confirm: Souhaitez-vous vraiment supprimer l'évaluation "%object%" ?
         list:
             pilote: Pilote
             processus: Processus

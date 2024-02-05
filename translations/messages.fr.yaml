@@ -41,6 +41,7 @@ global:
         created_by : Créé par
         updated_at : Date de modification
         updated_by : Modifié par
+        import_xml: Sélectionner un fichier XML à importer
         no_data: Aucun élément à afficher
         linked_treatment: Traitements
         no_linked_treatment: Aucun traitement associé

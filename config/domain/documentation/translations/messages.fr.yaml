@@ -29,6 +29,7 @@ documentation:
             categories: Catégories
             islink: Lien direct
             thumbnail: Miniature
+            delete_confirm: Souhaitez-vous vraiment supprimer le document "%object%" ?
         breadcrumb:
             create: Nouveau document
             edit: Modifier un document
@@ -66,6 +67,7 @@ documentation:
             count: Total
         label:
             name: Catégorie
+            delete_confirm: Souhaitez-vous vraiment supprimer la catégorie "%object%" ?
         title:
             edit: Modifier une catégorie
             delete: Supprimer une catégorie
