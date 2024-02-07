@@ -331,11 +331,11 @@ class TreatmentController extends CRUDController
                 $treatment = $treatment[0];
             }
             if (!$this->authorizationChecker->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
-                $treatmentLink = '<a aria-label="' . \htmlspecialchars($treatment->getName()) . '" href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
+                $treatmentLink = '<a href="' . $this->router->generate('registry_public_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
                 ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             } else {
-                $treatmentLink = '<a aria-label="' . \htmlspecialchars($treatment->getName()) . '" href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
+                $treatmentLink = '<a href="' . $this->router->generate('registry_treatment_show', ['id' => $treatment->getId()->toString()]) . '">
                 ' . \htmlspecialchars($treatment->getName()) . '
                 </a>';
             }
@@ -349,8 +349,8 @@ class TreatmentController extends CRUDController
 
             $contractors = join(', ', $ctr);
 
-            $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
-            $no  = '<span class="badge bg-yellow">' . $this->translator->trans('label.no') . '</span>';
+            $yes = '<span class="badge bg-green">' . $this->translator->trans('global.label.yes') . '</span>';
+            $no  = '<span class="badge bg-yellow">' . $this->translator->trans('global.label.no') . '</span>';
 
             $reponse['data'][] = [
                 'id'                     => $treatment->getId(),
@@ -388,8 +388,8 @@ class TreatmentController extends CRUDController
 
     private function countSensitiveData($categories)
     {
-        $sensitive   = '<span class="badge bg-yellow">' . $this->translator->trans('label.yes') . '</span>';
-        $noSensitive = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
+        $sensitive   = '<span class="badge bg-yellow">' . $this->translator->trans('global.label.yes') . '</span>';
+        $noSensitive = '<span class="badge bg-green">' . $this->translator->trans('global.label.no') . '</span>';
 
         $count = 0;
         foreach ($categories as $category) {
@@ -471,28 +471,28 @@ class TreatmentController extends CRUDController
         $user   = $this->userProvider->getAuthenticatedUser();
         $values = [];
         if ($treatment->isSystematicMonitoring()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.systematic_monitoring'));
+            array_push($values, $this->translator->trans('registry.treatment.label.systematic_monitoring'));
         }
         if ($treatment->isLargeScaleCollection()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.large_scale_collection'));
+            array_push($values, $this->translator->trans('registry.treatment.label.large_scale_collection'));
         }
         if ($treatment->isVulnerablePeople()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.vulnerable_people'));
+            array_push($values, $this->translator->trans('registry.treatment.label.vulnerable_people'));
         }
         if ($treatment->isDataCrossing()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.data_crossing'));
+            array_push($values, $this->translator->trans('registry.treatment.label.data_crossing'));
         }
         if ($treatment->isEvaluationOrRating()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.evaluation_or_rating'));
+            array_push($values, $this->translator->trans('registry.treatment.label.evaluation_or_rating'));
         }
         if ($treatment->isAutomatedDecisionsWithLegalEffect()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.automated_decisions_with_legal_effect'));
+            array_push($values, $this->translator->trans('registry.treatment.label.automated_decisions_with_legal_effect'));
         }
         if ($treatment->isAutomaticExclusionService()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.automatic_exclusion_service'));
+            array_push($values, $this->translator->trans('registry.treatment.label.automatic_exclusion_service'));
         }
         if ($treatment->isInnovativeUse()) {
-            array_push($values, $this->translator->trans('registry.treatment.show.innovative_use'));
+            array_push($values, $this->translator->trans('registry.treatment.label.innovative_use'));
         }
 
         return $values;
@@ -518,13 +518,13 @@ class TreatmentController extends CRUDController
             $deletePath = $this->router->generate('registry_treatment_delete', ['id' => $id]);
 
             if ($this->authorizationChecker->isGranted('ROLE_USER')) {
-                return '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $editPath . '">
+                return '<a href="' . $editPath . '">
              <i aria-hidden="true" class="fa fa-pencil"></i>
-                 ' . $this->translator->trans('action.edit') . '
+                 ' . $this->translator->trans('global.action.edit') . '
              </a>
-             <a aria-label="' . $this->translator->trans('action.delete') . '" href="' . $deletePath . '">
+             <a href="' . $deletePath . '">
                  <i aria-hidden="true" class="fa fa-trash"></i>
-                 ' . $this->translator->trans('action.delete') . '
+                 ' . $this->translator->trans('global.action.delete') . '
              </a>'
                 ;
             }

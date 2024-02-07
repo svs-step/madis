@@ -42,7 +42,7 @@ class AddressType extends AbstractType
 
         $builder
             ->add('lineOne', TextType::class, [
-                'label'    => 'registry.address.form.line_one',
+                'label'    => 'global.label.address.line_one',
                 'required' => $required,
                 'attr'     => [
                     'maxlength' => 255,
@@ -50,7 +50,7 @@ class AddressType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('lineTwo', TextType::class, [
-                'label'    => 'registry.address.form.line_two',
+                'label'    => 'global.label.address.line_two',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -58,7 +58,7 @@ class AddressType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('city', TextType::class, [
-                'label'    => 'registry.address.form.city',
+                'label'    => 'global.label.address.city',
                 'required' => $required,
                 'attr'     => [
                     'maxlength' => 255,
@@ -66,7 +66,7 @@ class AddressType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('zipCode', TextType::class, [
-                'label'    => 'registry.address.form.zip_code',
+                'label'    => 'global.label.address.zip_code',
                 'required' => $required,
                 'attr'     => [
                     'maxlength' => 5,
@@ -74,19 +74,19 @@ class AddressType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('mail', EmailType::class, [
-                'label'    => 'registry.address.form.mail',
+                'label'    => 'global.label.contact.email',
                 'required' => $required,
                 'attr'     => [
                     'maxlength' => 255,
                 ],
             ])
             ->add('phoneNumber', TextType::class, [
-                'label'       => 'registry.address.form.phone_number',
+                'label'       => 'global.label.contact.phone_number',
                 'required'    => $required,
                 'purify_html' => true,
             ])
             ->add('country', TextType::class, [
-            'label'    => 'registry.address.form.country',
+            'label'    => 'global.label.address.country',
             'required' => $required,
             'attr'     => [
                 'maxlength' => 255,

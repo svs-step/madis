@@ -14,7 +14,7 @@ user_user_create:
     controller: 'App\Domain\User\Controller\UserController:createAction'
 
 user_user_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\User\Controller\UserController:editAction'
 

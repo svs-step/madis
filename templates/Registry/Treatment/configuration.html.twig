@@ -32,26 +32,24 @@
     {{ form_widget(form._token) }}
 
     <div class="row">
-        <div
-            class="col-md-6">
-            {# GENERAL INFORMATIONS #}
+        {# LEFT #}
+        <div class="col-md-6">
+            {# GENERAL #}
             <div class="box box-solid box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ 'registry.treatment.tab.general'|trans }}</h3>
+                    <h3 class="box-title">{{ 'global.tab.general'|trans }}</h3>
                 </div>
                 <div class="box-body">
                     {{ form_row(form.name) }}
+                    {{ form_row(form.service, {'label': 'registry.label.service'}) }}
                     {{ form_row(form.goal) }}
-                    <div id="author_group">
-                        {{ form_row(form.author) }}
-                        {{ form_row(form.coordonneesResponsableTraitement) }}
-                    </div>
+                    {{ form_row(form.author) }}
+                    {{ form_row(form.coordonneesResponsableTraitement) }}
                     {{ form_row(form.manager) }}
                     {{ form_row(form.active) }}
                     {{ form_row(form.legalBasis) }}
                     {{ form_row(form.legalBasisJustification) }}
                     {{ form_row(form.observation) }}
-                    {{ form_row(form.service) }}
                 </div>
             </div>
 
@@ -61,7 +59,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3>
                 </div>
                 <div class="box-body">
-                    {{ form_row(form.dataCategories) }}
+                    {{ form_row(form.dataCategories, {'label': 'registry.treatment.label.data_category'}) }}
                     {{ form_row(form.dataCategoryOther) }}
                 </div>
             </div>
@@ -73,7 +71,7 @@
                 </div>
                 <div class="box-body">
                     {{ form_row(form.recipientCategory) }}
-                    {{ form_row(form.contractors) }}
+                    {{ form_row(form.contractors, {'label': 'global.label.linked_contractor'}) }}
                 </div>
             </div>
 
@@ -83,7 +81,7 @@
                     <h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3>
                 </div>
                 <div class="box-body">
-                    {{ form_row(form.exempt_AIPD) }}
+                    {{ form_row(form.exempt_AIPD, {'label': 'registry.treatment.label.exempt_AIPD'}) }}
                     {{ form_row(form.systematicMonitoring) }}
                     {{ form_row(form.largeScaleCollection) }}
                     {{ form_row(form.vulnerablePeople) }}
@@ -98,18 +96,17 @@
             {# HISTORIC #}
             <div class="box box-solid box-default">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ 'registry.treatment.tab.historic'|trans }}</h3>
+                    <h3 class="box-title">{{ 'global.tab.history'|trans }}</h3>
                 </div>
                 <div class="box-body">
-                    {{ form_row(form.creator) }}
-                    {{ form_row(form.collectivity) }}
+                    {{ form_row(form.creator, {'label': 'global.label.created_by'}) }}
+                    {{ form_row(form.collectivity, {'label': 'global.label.organization'}) }}
                 </div>
             </div>
-
         </div>
 
-        <div
-            class="col-md-6">
+        {# RIGHT #}
+        <div class="col-md-6">
             {# DETAILS #}
             <div class="box box-solid box-primary">
                 <div class="box-header with-border">
@@ -118,7 +115,7 @@
                 <div class="box-body">
                     <div class="form-group">
                         <label class="control-label">
-                            {{ 'registry.treatment.show.concerned_people'|trans }}
+                            {{ 'registry.treatment.label.concerned_people'|trans }}
                         </label>
 
                         {% set concernedPeopleErrorBlock = null %}
@@ -150,11 +147,9 @@
                         </div>
                     </div>
                     {{ form_row(form.estimatedConcernedPeople) }}
-                    {{ form_row(form.tools) }}
+                    {{ form_row(form.tools, {'label': 'global.label.linked_tool'}) }}
                     {{ form_row(form.paperProcessing) }}
-
-                    {{ form_row(form.shelfLifes) }}
-
+                    {{ form_row(form.shelfLifes, {'label': 'registry.treatment.label.shelflife'}) }}
                     {{ form_row(form.dataOrigin) }}
                     {{ form_row(form.collectingMethod) }}
                     {{ form_row(form.legalMentions) }}
@@ -179,12 +174,14 @@
                     {{ form_row(form.securitySpecificitiesDelivered) }}
                 </div>
             </div>
+
+            {# LINKED MODULES #}
             <div class="box box-solid box-warning">
                 <div class="box-header with-border">
-                    <h3 class="box-title">{{ 'label.linked_documents'|trans }}</h3>
+                    <h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3>
                 </div>
                 <div class="box-body">
-                    {{ form_row(form.proofs) }}
+                    {{ form_row(form.proofs, {'label': 'global.label.linked_proof'}) }}
                 </div>
             </div>
         </div>
@@ -201,8 +198,5 @@
             </div>
         </div>
     </div>
-
-
-
 
 {% endblock %}

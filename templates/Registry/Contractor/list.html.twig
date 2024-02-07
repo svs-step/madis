@@ -23,102 +23,101 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="action-bar">
-                    {% if is_granted('ROLE_USER') %}
-                    <a aria-label="{{ 'registry.contractor.action.new'|trans }}" href="{{ path('registry_contractor_create') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i>
-                        {{ 'registry.contractor.action.new'|trans }}
+        <div class="col-xs-12">
+            <div class="mb-1">
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('registry_contractor_create') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-plus"></i>
+                    {{ 'registry.contractor.action.new'|trans }}
+                </a>
+                {% endif %}
+                {% if app.user.roles[0] != 'ROLE_REFERENT' %}
+                <a href="{{ path('registry_contractor_report') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-clipboard-list"></i>
+                    {{ 'global.action.report'|trans }}
+                </a>
+                {% endif %}
+                {% if category and category.documents|length > 0%}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
+                        {{ 'global.action.documentation'|trans }}
                     </a>
-                    {% endif %}
-                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a aria-label="{{ 'registry.contractor.action.report'|trans }}" href="{{ path('registry_contractor_report') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.contractor.action.report'|trans }}
-                    </a>
-                    {% endif %}
-                    {% if category and category.documents|length > 0%}
-                        <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'documentation.document.link.button'|trans }}
-                        </a>
-                    {% endif %}
-                </div>
+                {% endif %}
             </div>
-
+        </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <div id="custom-buttons" style="float:left">
-                        <a aria-label="Imprimer" id="print-all"  href="{{ path('registry_contractor_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Imprimer
+                        <a id="print-all"  href="{{ path('registry_contractor_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            {{ 'global.action.print'|trans }}
                         </a>
-                        <a aria-label="Supprimer" id="delete-all"  href="{{ path('registry_contractor_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Supprimer
+                        <a id="delete-all"  href="{{ path('registry_contractor_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            {{ 'global.action.delete'|trans }}
                         </a>
                     </div>
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'registry.contractor.label.name'|trans }}" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                                 </th>
                             {% endif %}
                             <th scope="col">
                                 <select class="form-control" id="search_clauses" style="width: 100%;">
-                                    <option value="">Clauses</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.contractor.list.clauses'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_adoption" style="width: 100%;">
-                                    <option value="">Sécurité</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.contractor.list.security'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_registre" style="width: 100%;">
-                                    <option value="">Registre</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.contractor.list.register'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_hors_eu" style="width: 100%;">
-                                    <option value="">Hors UE</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'registry.contractor.list.name'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.label.name'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'registry.contractor.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'registry.contractor.list.contractual_clauses_verified'|trans }}</th>
+                            <th scope="col">{{ 'registry.contractor.label.contractual_clauses_verified'|trans }}</th>
                             <th scope="col">{{ 'registry.contractor.list.adopted_security_features'|trans }}</th>
                             <th scope="col">{{ 'registry.contractor.list.maintains_treatment_register'|trans }}</th>
                             <th scope="col">{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.contractor.list.created_at'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.contractor.list.updated_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.updated_at'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
-                                <th scope="col">{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'global.label.actions'|trans }}</th>
                             {% endif %}
                         </tr>
                         </thead>

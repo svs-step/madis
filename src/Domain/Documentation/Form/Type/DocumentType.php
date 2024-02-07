@@ -69,10 +69,10 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'empty_data' => '0',
             ])
             ->add('name', TextType::class, [
-                'label' => 'documentation.document.form.label.name',
+                'label' => 'documentation.document.label.name',
             ])
             ->add('categories', EntityType::class, [
-                'label'        => 'documentation.document.form.label.categories',
+                'label'        => 'documentation.document.label.categories',
                 'class'        => 'App\Domain\Documentation\Model\Category',
                 'choice_label' => 'name',
                 'multiple'     => true,
@@ -81,15 +81,16 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'attr'         => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Catégories',
                 ],
             ])
             ->add('thumbUploadedFile', FileType::class, [
-                'label'       => 'documentation.document.form.label.thumbnail',
+                'label'       => 'documentation.document.label.thumbnail',
                 'required'    => false,
                 'constraints' => [
-                    new Image(['groups' => ['default']]),
+                    // Élément suivant commenté, car il génère un message d'erreur en plus de l'autre message
+                    // new Image(['groups' => ['default']]),
                     new File([
                         'maxSize'   => $this->maxSize,
                         'groups'    => ['default'],
@@ -98,7 +99,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                             'image/jpg', // .jpg
                             'image/jpeg', // .jpeg
                         ],
-                        'mimeTypesMessage' => 'Les formats autorisés sont .png, .jpg, .jpeg.',
+                        'mimeTypesMessage' => 'document_validator.document_file.thumbnail',
                     ]),
                 ],
                 'attr' => [
@@ -107,7 +108,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
             ])
 
             ->add('pinned', CheckboxType::class, [
-                'label'    => 'documentation.document.form.label.pinned',
+                'label'    => 'documentation.document.label.pinned',
                 'required' => false,
             ])
 
@@ -152,13 +153,13 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
         $form = $event->getForm();
         if ($data->getThumbUrl()) {
             $form->add('removeThumb', HiddenType::class, [
-                'label'    => 'documentation.document.form.label.removeThumb',
+                'label'    => 'documentation.document.action.removeThumb',
                 'required' => false,
             ]);
         }
         if ($isLink || (true === $data->getIsLink())) {
             $form->add('url', UrlType::class, [
-                'label'    => 'documentation.document.form.label.url',
+                'label'    => 'documentation.document.label.url',
                 'required' => true,
             ]);
             $form->add('isLink', HiddenType::class, [
@@ -169,7 +170,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                 'data' => 0,
             ]);
             $form->add('uploadedFile', FileType::class, [
-                'label'       => 'documentation.document.form.label.file',
+                'label'       => 'documentation.document.label.file',
                 'required'    => !$data->getId(),
                 'constraints' => [
                     new File([
@@ -202,7 +203,7 @@ class DocumentType extends AbstractType implements EventSubscriberInterface
                             'application/vnd.ms-excel.sheet.macroEnabled.12', // .xlsm
                             'application/vnd.oasis.opendocument.spreadsheet', // .ods
                         ],
-                        'mimeTypesMessage' => "Ce format de fichier n'est pas autorisé.",
+                        'mimeTypesMessage' => 'document_validator.document_file.file',
                     ]),
                 ],
             ]);

@@ -20,6 +20,7 @@ class ModeleAnalyseType extends AbstractType
             case 1:
                 $builder
                     ->add('nom', TextType::class, [
+                        'label' => 'aipd.modele_analyse.label.name',
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
@@ -27,6 +28,7 @@ class ModeleAnalyseType extends AbstractType
                         'purify_html' => true,
                     ])
                     ->add('description', TextType::class, [
+                        'label' => 'aipd.modele_analyse.label.description',
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
@@ -34,6 +36,7 @@ class ModeleAnalyseType extends AbstractType
                         'purify_html' => true,
                     ])
                     ->add('labelAmeliorationPrevue', TextType::class, [
+                        'label' => 'aipd.modele_analyse.label.amelioration_prevue',
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
@@ -41,6 +44,7 @@ class ModeleAnalyseType extends AbstractType
                         'purify_html' => true,
                     ])
                     ->add('labelInsatisfaisant', TextType::class, [
+                        'label' => 'aipd.modele_analyse.label.amelioration_insatisfaisant',
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,
@@ -48,6 +52,7 @@ class ModeleAnalyseType extends AbstractType
                         'purify_html' => true,
                     ])
                     ->add('labelSatisfaisant', TextType::class, [
+                        'label' => 'aipd.modele_analyse.label.amelioration_satisfaisant',
                         'required' => true,
                         'attr'     => [
                             'maxlength' => 255,

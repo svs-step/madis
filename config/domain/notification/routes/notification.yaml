@@ -16,7 +16,7 @@ notification_notification_list_datatables:
     controller: 'App\Domain\Notification\Controller\NotificationController:listDataTables'
 
 notification_notification_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Notification\Controller\NotificationController:editAction'
 

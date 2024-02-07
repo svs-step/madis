@@ -29,6 +29,13 @@
     </h1>
 {% endblock %}
 
+{% block breadcrumb %}
+    {% set breadcrumb = [
+        { 'name': 'aipd.analyse_impact.breadcrumb.list'|trans, 'link': path('aipd_analyse_impact_list') },
+        { 'name': 'aipd.analyse_impact.breadcrumb.validation'|trans }
+    ] %}
+    {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
+{% endblock %}
 
 {% block body %}
 {{ form_start(form) }}
@@ -36,7 +43,7 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <p style="margin-bottom: 0!important;">Cette étape finale permet de valider l’instruction de l’AIPD. Une fois validée, il ne sera plus possible de la modifier.</p>
+                    <p class="no-margin">{{ 'aipd.analyse_impact.label.step_final'|trans }}</p>
                 </div>
             </div>
         </div>
@@ -46,17 +53,17 @@
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th scope="col">Avis des acteurs</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Réponse</th>
-                                <th scope="col">Détail</th>
+                                <th scope="col">{{ 'aipd.analyse_impact.label.review_user'|trans }}</th>
+                                <th scope="col" class="required">{{ 'aipd.analyse_impact.label.review_date'|trans }}</th>
+                                <th scope="col">{{ 'aipd.analyse_impact.label.review_answer'|trans }}</th>
+                                <th scope="col" class="required">{{ 'aipd.analyse_impact.label.review_detail'|trans }}</th>
                             </tr>
                         </thead>
                         <tbody>
-                            {{ formMacros.printFormAvisLine(form.avisReferent, "Avis du référent RGPD") }}
-                            {{ formMacros.printFormAvisLine(form.avisDpd, "Avis du délégué à la protection des données") }}
-                            {{ formMacros.printFormAvisLine(form.avisRepresentant, "Avis des représentants des personnes concernées") }}
-                            {{ formMacros.printFormAvisLine(form.avisResponsable, "Validation formelle du responsable de traitement") }}
+                            {{ formMacros.printFormAvisLine(form.avisReferent, 'aipd.analyse_impact.label.avis_referent'|trans) }}
+                            {{ formMacros.printFormAvisLine(form.avisDpd, 'aipd.analyse_impact.label.avis_dpd'|trans) }}
+                            {{ formMacros.printFormAvisLine(form.avisRepresentant, 'aipd.analyse_impact.label.avis_representant'|trans) }}
+                            {{ formMacros.printFormAvisLine(form.avisResponsable, 'aipd.analyse_impact.label.avis_responsable'|trans) }}
                         </tbody>
                     </table>
                 </div>
@@ -68,8 +75,8 @@
         <div class="col-xs-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
-                    <a aria-label="{{ 'action.back_to_list'|trans }}" href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
-                    <input type="submit" class="btn btn-primary" value="Valider l'AIPD">
+                    <a href="{{ path('aipd_analyse_impact_list') }}" class="btn btn-default">{{ 'global.action.back_to_list'|trans }}</a>
+                    <input type="submit" class="btn btn-primary" value="{{ 'aipd.analyse_impact.action.validation_submit'|trans }}">
                     {{ form_widget(form.saveDraft) }}
                 </div>
             </div>

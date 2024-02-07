@@ -14,7 +14,7 @@ registry_request_create:
     controller: 'App\Domain\Registry\Controller\RequestController:createAction'
 
 registry_request_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Registry\Controller\RequestController:editAction'
 

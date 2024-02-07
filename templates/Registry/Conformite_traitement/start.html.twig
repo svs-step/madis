@@ -29,7 +29,7 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body">
-                    <p class="no-margin"><strong>Une fois le modèle choisi, il n'est plus possible de revenir en arrière.</strong></p>
+                    <p class="no-margin"><strong>{{ 'aipd.analyse_impact.label.step_start'|trans }}</strong></p>
                 </div>
             </div>
         </div>
@@ -42,12 +42,12 @@
                         <table id="table" class="table table-bordered">
                             <thead>
                             <tr>
-                                <th scope="col"><input class="form-control" type="text" id="search_nom" style="width: 100%;" placeholder="Nom"></th>
-                                <th scope="col"><input class="form-control" type="text" id="search_description" style="width: 100%;" placeholder="Description"></th>
+                                <th scope="col"><input class="form-control" type="text" id="search_nom" style="width: 100%;" placeholder="{{ 'aipd.modele_analyse.label.name'|trans }}"></th>
+                                <th scope="col"><input class="form-control" type="text" id="search_description" style="width: 100%;" placeholder="{{ 'aipd.modele_analyse.label.description'|trans }}"></th>
                             </tr>
                             <tr>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Description</th>
+                                <th scope="col">{{ 'aipd.modele_analyse.label.name'|trans }}</th>
+                                <th scope="col">{{ 'aipd.modele_analyse.label.description'|trans }}</th>
                             </tr>
                             </thead>
                         </table>
@@ -60,7 +60,7 @@
             <div class="col-md-12">
                 <div class="box box-solid">
                     <div class="box-body text-center">
-                        <a aria-label="{{ 'action.back_to_list'|trans }}" href="{{ path('registry_conformite_traitement_list') }}" class="btn btn-default">{{ 'action.back_to_list'|trans }}</a>
+                        <a href="{{ path('registry_conformite_traitement_list') }}" class="btn btn-default">{{ 'global.action.back_to_list'|trans }}</a>
                         <input id="create-aipd-button" type="submit" class="btn btn-primary" value="{{  'aipd.analyse_impact.action.modele'|trans }}">
                     </div>
                 </div>

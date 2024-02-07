@@ -3,15 +3,33 @@ admin:
         breadcrumb:
             duplicate: Traitement de la duplication
             new: Module de duplication
-        form:
-            data: Données à dupliquer
-            source_collectivity: Structure source
+        label:
             type: Type de données
+            source_organization: Structure source
+            data: Données à dupliquer
+            message_confirm: Attention, vous allez dupliquer des éléments sur un ensemble de structures.
+            progress: Statut
+            duplicate: Dupliqué
+            in_progress: En cours
+            error: Erreur
         tab:
             source: Données sources
             target: Données cibles
         title:
             duplicate: Traitement de la duplication
             new: Module de duplication
-        revert: Annuler la dernière duplication
-
+        action:
+            revert: Annuler la dernière duplication
+            new_submit: Dupliquer
+            confirm_submit: Confirmer la duplication
+        flashbag:
+            success:
+                duplicate_end: Duplication effectuée. Vous pouvez maintenant fermer cette page.
+                cancel: La dernière duplication a été annulée
+            error:
+                progress_error: Une erreur est survenue
+                no_data: Il n'y a aucune duplication à annuler
+                cancel: Impossible d'annuler la dernière duplication
+            warning:
+                duplicate_in_progress: Duplication des données en cours.
+                progress_warning: Toute fermeture avant la finalisation de la duplication causera une duplication partielle des données.

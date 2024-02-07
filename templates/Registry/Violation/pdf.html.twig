@@ -8,174 +8,181 @@
 {% block body_head %}{{ object }}{% endblock %}
 
 {% block body %}
-
-    <div class="row">
-        {# LEFT #}
-        <div class="col-md-6">
-            {# INFORMATION #}
-            <div class="box box-solid box-primary">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.information'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.date'|trans }}</strong></td>
-                            <td>{{ object.date|date('d/m/Y') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.in_progress'|trans }}</strong></td>
-                            <td>
-                                {% if object.inProgress %}
-                                    <span class="badge bg-red">{{ 'label.yes'|trans }}</span>
-                                {% else %}
-                                    <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.violation_nature'|trans }}</strong></td>
-                            <td>{{ object.violationNatures|map(n => n|dictionary('registry_violation_nature'))|join(', ') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.origins'|trans }}</strong></td>
-                            <td>
-                                <ul>
-                                    {% for origin in object.origins %}
-                                        <li>{{ origin|dictionary('registry_violation_origin') }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.cause'|trans }}</strong></td>
-                            <td>{{ object.cause|dictionary('registry_violation_cause') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.concerned_data_nature'|trans }}</strong></td>
-                            <td>
-                                <ul>
-                                    {% for data in object.concernedDataNature %}
-                                        <li>{{ data|dictionary('registry_violation_concerned_data') }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.concerned_people_categories'|trans }}</strong></td>
-                            <td>
-                                <ul>
-                                    {% for category in object.concernedPeopleCategories %}
-                                        <li>{{ category|dictionary('registry_violation_concerned_people') }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.nb_affected_rows'|trans }}</strong></td>
-                            <td>{{ object.nbAffectedRows }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.nb_affected_persons'|trans }}</strong></td>
-                            <td>{{ object.nbAffectedPersons }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            {# HISTORIC #}
-            <div class="box box-solid box-default">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.historic'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <tr>
-                                <td><strong>{{ 'registry.violation.show.collectivity'|trans }}</strong></td>
-                                <td>
-                                    <a aria-label="{{ object.collectivity }}" href="{{ path('user_collectivity_show', {'id': object.collectivity.id }) }}">
-                                        {{ object.collectivity }}
-                                    </a>
-                                </td>
-                            </tr>
+    {# GENERAL #}
+    <div class="box box-solid box-primary">
+        <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.information'|trans }}</h3></div>
+        <div class="box-body no-padding">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.date'|trans }}</strong></td>
+                    <td>{{ object.date|date('d/m/Y') }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.in_progress'|trans }}</strong></td>
+                    <td>
+                        {% if object.inProgress %}
+                            <span class="badge bg-red">{{ 'global.label.yes'|trans }}</span>
+                        {% else %}
+                            <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
                         {% endif %}
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.created_at'|trans }}</strong></td>
-                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.updated_at'|trans }}</strong></td>
-                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.updated_by'|trans }}</strong></td>
-                            <td>{{ object.updatedBy }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.violation_natures'|trans }}</strong></td>
+                    <td>
+                        <ul class="ps-1">
+                            {% for violationNature in object.violationNatures %}
+                                <li>{{ violationNature|dictionary('registry_violation_nature') }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.origins'|trans }}</strong></td>
+                    <td>
+                        <ul class="ps-1">
+                        {% for origin in object.origins %}
+                            <li>{{ origin|dictionary('registry_violation_origin') }}</li>
+                        {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.cause'|trans }}</strong></td>
+                    <td>{{ object.cause|dictionary('registry_violation_cause') }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.concerned_data_nature'|trans }}</strong></td>
+                    <td>
+                        <ul class="ps-1">
+                            {% for data in object.concernedDataNature %}
+                                <li>{{ data|dictionary('registry_violation_concerned_data') }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.concerned_people_categories'|trans }}</strong></td>
+                    <td>
+                        <ul class="ps-1">
+                            {% for category in object.concernedPeopleCategories %}
+                                <li>{{ category|dictionary('registry_violation_concerned_people') }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.nb_affected_rows'|trans }}</strong></td>
+                    <td>{{ object.nbAffectedRows }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.nb_affected_persons'|trans }}</strong></td>
+                    <td>{{ object.nbAffectedPersons }}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
+    </div>
 
-
-        {# RIGHT #}
-        <div class="col-md-6">
-            {# CONSEQUENCE #}
-            <div class="box box-solid box-success">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.consequence'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.potential_impacts_nature'|trans }}</strong></td>
-                            <td>
-                                <ul>
-                                    {% for impact in object.potentialImpactsNature %}
-                                        <li>{{ impact|dictionary('registry_violation_impact') }}</li>
-                                    {% endfor %}
-                                </ul>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.gravity'|trans }}</strong></td>
-                            <td>{{ object.gravity|dictionary('registry_violation_gravity') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.communication'|trans }}</strong></td>
-                            <td>{{ object.communication|dictionary('registry_violation_communication') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.communication_precision'|trans }}</strong></td>
-                            <td>{{ object.communicationPrecision|nl2br }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.applied_measures_after_violation'|trans }}</strong></td>
-                            <td>{{ object.appliedMeasuresAfterViolation|nl2br }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.notification'|trans }}</strong></td>
-                            <td>
-                                {% if object.notification %}
-                                    {{ object.notification|dictionary('registry_violation_notification') }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.notification_details'|trans }}</strong></td>
-                            <td>{{ object.notificationDetails|nl2br }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.violation.show.comment'|trans }}</strong></td>
-                            <td>{{ object.comment|nl2br }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            {# PROOFS #}
-            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+    {# CONSEQUENCE #}
+    <div class="box box-solid box-success">
+        <div class="box-header with-border"><h3 class="box-title">{{ 'registry.violation.tab.consequence'|trans }}</h3></div>
+        <div class="box-body no-padding">
+            <table class="table">
+                <tbody>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.potential_impacts_nature'|trans }}</strong></td>
+                    <td>
+                        <ul class="ps-1">
+                            {% for impact in object.potentialImpactsNature %}
+                                <li>{{ impact|dictionary('registry_violation_impact') }}</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.gravity'|trans }}</strong></td>
+                    <td>{{ object.gravity|dictionary('registry_violation_gravity') }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.communication'|trans }}</strong></td>
+                    <td>{{ object.communication|dictionary('registry_violation_communication') }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.communication_precision'|trans }}</strong></td>
+                    <td>{{ object.communicationPrecision|nl2br }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.applied_measures_after_violation'|trans }}</strong></td>
+                    <td>{{ object.appliedMeasuresAfterViolation|nl2br }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.notification'|trans }}</strong></td>
+                    <td>
+                        {% if object.notification %}
+                            {{ object.notification|dictionary('registry_violation_notification') }}
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.notification_details'|trans }}</strong></td>
+                    <td>{{ object.notificationDetails|nl2br }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'registry.violation.label.comment'|trans }}</strong></td>
+                    <td>{{ object.comment|nl2br }}</td>
+                </tr>
+                </tbody>
+            </table>
         </div>
+    </div>
 
+    {# LINKED MODULES #}
+    <div class="box box-solid box-warning">
+        <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
+        <div class="box-body no-padding">
+            <table class="table">
+                <tbody>
+                    {# TREATMENTS #}
+                    {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
+                    {# CONTRACTORS #}
+                    {% include '_Utils/_show_block_contractors.html.twig' with { contractors: object.contractors } %}
+                    {# PROOFS #}
+                    {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                    {# MESUREMENTS #}
+                    {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    {# HISTORIC #}
+    <div class="box box-solid box-default">
+        <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.history'|trans }}</h3></div>
+        <div class="box-body no-padding">
+            <table class="table">
+                <tbody>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <tr>
+                        <td><strong>{{ 'global.label.organization'|trans }}</strong></td>
+                        <td>{{ object.collectivity }}</td>
+                    </tr>
+                {% endif %}
+                <tr>
+                    <td><strong>{{ 'global.label.created_at'|trans }}</strong></td>
+                    <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'global.label.updated_at'|trans }}</strong></td>
+                    <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                </tr>
+                <tr>
+                    <td><strong>{{ 'global.label.updated_by'|trans }}</strong></td>
+                    <td>{{ object.updatedBy }}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 {% endblock %}

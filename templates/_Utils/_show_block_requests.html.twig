@@ -1,20 +1,19 @@
-<div class="box box-solid box-warning">
-    <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_request'|trans }}</h3></div>
-    <div class="box-body">
-        {% set activeRequests = object.requests %}
-
-        {% if activeRequests|length > 0 %}
-            <ul>
-                {% for request in activeRequests %}
+<tr>
+    <td><strong>{{ 'global.label.linked_request'|trans }}</strong></td>
+    <td>
+        {% if requests|length > 0 %}
+            <ul class="ps-1">
+                {% for request in requests %}
                     <li>
-                        <a aria-label="Requête" href="{{ path('registry_treatment_request_show', { id: request.id }) }}">
-                           {{ request.date|date('d/m/Y') }} | {{ request.applicant.lastName }} {{ request.applicant.firstName }} | {{  ("label.request_" ~ request.object)|trans }}
+                        <a href="{{ path('registry_treatment_request_show', { id: request.id }) }}">
+                            {% if request.deletedAt is not null %}({{ 'global.label.archived'|trans }}){% endif %}
+                            {{ request.date|date('d/m/Y') }} - {{ request.applicant.firstName }} {{ request.applicant.lastName }}
                         </a>
                     </li>
                 {% endfor %}
             </ul>
         {% else %}
-            <span><i>{{ 'label.no_linked_requests'|trans }}</i></span>
+            <span><i>{{ 'global.label.no_linked_request'|trans }}</i></span>
         {% endif %}
-    </div>
-</div>
+    </td>
+</tr>

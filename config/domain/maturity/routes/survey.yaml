@@ -9,7 +9,7 @@ maturity_survey_create:
     controller: 'App\Domain\Maturity\Controller\SurveyController:createMaturitySurveyAction'
 
 maturity_survey_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Maturity\Controller\SurveyController:editAction'
 

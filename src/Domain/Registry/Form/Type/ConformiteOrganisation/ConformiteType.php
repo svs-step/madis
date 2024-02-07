@@ -48,7 +48,7 @@ class ConformiteType extends AbstractType
                 'multiple'     => true,
                 'attr'         => [
                     'class'            => 'selectpicker',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'data-live-search' => true,
                     'aria-label'       => 'Actions de protection',
                     'data-width'       => 'calc(100% - 40px)',

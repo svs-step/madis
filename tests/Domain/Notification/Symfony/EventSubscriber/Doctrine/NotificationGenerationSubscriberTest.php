@@ -159,7 +159,7 @@ class NotificationGenerationSubscriberTest extends TestCase
         $notification->setModule('notification.modules.treatment');
         $notification->setCollectivity($object->getCollectivity());
         $notification->setName($object->getName());
-        $notification->setAction('notification.actions.update');
+        $notification->setAction('notifications.label.update');
         $notification->setCreatedBy(null);
         $notification->setObject((object) []);
 
@@ -197,7 +197,7 @@ class NotificationGenerationSubscriberTest extends TestCase
         $notification->setModule('notification.modules.treatment');
         $notification->setCollectivity($object->getCollectivity());
         $notification->setName($object->getName());
-        $notification->setAction('notification.actions.delete');
+        $notification->setAction('notifications.label.delete');
         $notification->setCreatedBy(null);
         $notification->setObject((object) []);
 
@@ -284,7 +284,7 @@ class NotificationGenerationSubscriberTest extends TestCase
         $notification->setModule('notification.modules.proof');
         $notification->setCollectivity($object->getCollectivity());
         $notification->setName($object->getName());
-        $notification->setAction('notification.actions.update');
+        $notification->setAction('notifications.label.update');
         $notification->setCreatedBy(null);
         $notification->setObject((object) ['type' => ProofTypeDictionary::TYPE_POLICY_MANAGEMENT]);
 
@@ -330,7 +330,7 @@ class NotificationGenerationSubscriberTest extends TestCase
         $notification->setModule('notification.modules.proof');
         $notification->setCollectivity($object->getCollectivity());
         $notification->setName($object->getName());
-        $notification->setAction('notification.actions.delete');
+        $notification->setAction('notifications.label.delete');
         $notification->setCreatedBy(null);
         $notification->setObject((object) ['type' => ProofTypeDictionary::TYPE_POLICY_MANAGEMENT]);
 

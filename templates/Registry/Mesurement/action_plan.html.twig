@@ -24,11 +24,11 @@
 {% block body %}
     <div class="row" style="margin-bottom:1em">
         <div class="col-xs-12">
-            <div class="action-bar">
+            <div class="mb-1">
                 {% if category and category.documents|length > 0 %}
-                    <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                         <i aria-hidden="true" class="fa fa-circle-info"></i>
-                        {{ 'documentation.document.link.button'|trans }}
+                        {{ 'global.action.documentation'|trans }}
                     </a>
                 {% endif %}
             </div>
@@ -37,58 +37,58 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'registry.mesurement.label.name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_date_planification" placeholder="Date" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_date_planification" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_cout" placeholder="Coût" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_cout" placeholder="{{ 'registry.mesurement.label.cost'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_charge" placeholder="Charge" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_charge" placeholder="{{ 'registry.mesurement.label.charge'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_priorite" style="width: 100%;">
-                                    <option value="">Priorité</option>
+                                    <option value="">{{ 'registry.mesurement.label.priority'|trans }}</option>
                                     {% for key, subject in dictionary('registry_mesurement_priority') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select>
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_responsable_action" placeholder="Responsable" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_responsable_action" placeholder="{{ 'registry.mesurement.label.manager'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'registry.mesurement.list.name'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.collectivity'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.planification_date'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.cost'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.charge'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.priority'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.manager'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.description'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.observation'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.created_at'|trans }}</th>
-                            <th scope="col">{{ 'registry.mesurement.list.updated_at'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.name'|trans }}</th>
+                            <th scope="col">{{ 'global.label.organization'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.planification_date'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.cost'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.charge'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.priority'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.manager'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.description'|trans }}</th>
+                            <th scope="col">{{ 'registry.mesurement.label.comment'|trans }}</th>
+                            <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

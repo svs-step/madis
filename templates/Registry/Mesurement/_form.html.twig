@@ -19,7 +19,7 @@
     <div class="col-md-6">
         {# GENERAL INFORMATIONS #}
         <div class="box box-solid box-info">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.general'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.general'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.name) }}
                 {{ form_row(form.description) }}
@@ -33,7 +33,7 @@
     </div>
 
     <div class="col-md-6">
-        {# DETAILS #}
+        {# APPLICATION #}
         <div class="box box-solid box-success">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.application'|trans }}</h3></div>
             <div class="box-body">
@@ -42,17 +42,18 @@
                 {{ form_row(form.comment) }}
             </div>
         </div>
-        {# RELATIONS #}
+
+        {# LINKED MODULES #}
         <div class="box box-solid box-warning">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.relations'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
             <div class="box-body">
-                {{ form_row(form.contractors) }}
                 {{ form_row(form.treatments) }}
-                {{ form_row(form.requests) }}
-                {{ form_row(form.violations) }}
+                {{ form_row(form.contractors) }}
                 {% if form.tools is defined %}
                     {{ form_row(form.tools) }}
                 {% endif %}
+                {{ form_row(form.requests) }}
+                {{ form_row(form.violations) }}
             </div>
         </div>
     </div>
@@ -62,8 +63,8 @@
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a aria-label="{{ 'registry.mesurement.action.back_to_list'|trans }}" href="{{ path('registry_mesurement_list') }}" class="btn btn-default">
-                    {{ 'registry.mesurement.action.back_to_list'|trans }}
+                <a href="{{ path('registry_mesurement_list') }}" class="btn btn-default">
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>

@@ -1,0 +1,5 @@
+aipd_validator:
+    fichier:
+        file: "Le type du fichier est invalide. Les fichiers autorisés sont : .jpg, .jpeg, .png"
+    import:
+        not_xml: Le type du fichier est invalide. Seul le type de fichier .xml est autorisé.

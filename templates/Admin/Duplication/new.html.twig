@@ -24,10 +24,10 @@
                     {{ message }}
                 </div>
             {% endfor %}
-            <div class="action-bar">
+            <div class="mb-1">
                 <a href="{{ path('admin_duplication_revert') }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-times-circle"></i>
-                    {{ 'admin.duplication.revert'|trans }}
+                    {{ 'admin.duplication.action.revert'|trans }}
                 </a>
             </div>
         </div>
@@ -65,7 +65,7 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
-                    <a class="btn btn-primary" data-toggle="modal" data-target="#validate_modal"> Dupliquer</a>
+                    <a class="btn btn-primary" data-toggle="modal" data-target="#validate_modal">{{ 'admin.duplication.action.new_submit'|trans }}</a>
                 </div>
             </div>
         </div>
@@ -74,11 +74,11 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-body">
-                        Attention, vous allez dupliquer des éléments sur un ensemble de structures
+                        <p>{{ 'admin.duplication.label.message_confirm'|trans }}</p>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                        <input type="submit" class="btn btn-primary" value="{{ 'action.duplicate'|trans }}">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">{{ 'global.action.cancel'|trans }}</button>
+                        <input type="submit" class="btn btn-primary" value="{{ 'admin.duplication.action.confirm_submit'|trans }}">
                     </div>
                 </div>
             </div>

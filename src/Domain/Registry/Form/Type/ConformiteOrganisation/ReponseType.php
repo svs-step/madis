@@ -31,7 +31,7 @@ class ReponseType extends AbstractType
                 'label'    => false,
                 'required' => false,
                 'attr'     => [
-                    'placeholder' => 'placeholder.precision',
+                    'placeholder' => 'global.placeholder.precision',
                     'maxlength'   => 255,
                 ],
                 'purify_html' => true,

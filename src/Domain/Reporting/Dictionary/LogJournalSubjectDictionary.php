@@ -86,23 +86,23 @@ class LogJournalSubjectDictionary extends SimpleDictionary
     public static function getSubjects()
     {
         return [
-            self::ADMIN_DUPLICATION                           => 'Duplication',
-            self::REGISTRY_MESUREMENT                         => 'Action de protection',
-            self::USER_COLLECTIVITY                           => 'Structure',
-            self::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION => 'Conformité organisation',
-            self::REGISTRY_CONFORMITE_TRAITEMENT              => 'Conformité traitement',
-            self::REGISTRY_REQUEST                            => 'Demande',
-            self::USER_EMAIL                                  => 'Email utilisateur',
-            self::MATURITY_SURVEY                             => 'Indice de maturité',
-            self::USER_PASSWORD                               => 'Mdp utilisateur',
-            self::USER_LASTNAME                               => 'Nom utilisateur',
-            self::USER_FIRSTNAME                              => 'Prénom utilisateur',
-            self::REGISTRY_PROOF                              => 'Preuve',
-            self::REGISTRY_CONTRACTOR                         => 'Sous-traitant',
             self::REGISTRY_TREATMENT                          => 'Traitement',
-            self::USER_USER                                   => 'Utilisateur',
+            self::REGISTRY_CONTRACTOR                         => 'Sous-traitant',
+            self::REGISTRY_REQUEST                            => 'Demande',
             self::REGISTRY_VIOLATION                          => 'Violation',
+            self::REGISTRY_PROOF                              => 'Preuve',
+            self::REGISTRY_MESUREMENT                         => 'Action de protection',
+            self::MATURITY_SURVEY                             => 'Indice de maturité',
+            self::REGISTRY_CONFORMITE_TRAITEMENT              => 'Conformité traitement',
+            self::REGISTRY_CONFORMITE_ORGANISATION_EVALUATION => 'Conformité de la structure',
+            self::USER_USER                                   => 'Utilisateur',
+            self::USER_FIRSTNAME                              => 'Prénom utilisateur',
+            self::USER_LASTNAME                               => 'Nom utilisateur',
+            self::USER_EMAIL                                  => 'Email utilisateur',
+            self::USER_PASSWORD                               => 'Mot de passe utilisateur',
             self::USER_SERVICE                                => 'Service',
+            self::USER_COLLECTIVITY                           => 'Structure',
+            self::ADMIN_DUPLICATION                           => 'Duplication',
         ];
     }
 

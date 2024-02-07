@@ -11,8 +11,8 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'aipd.modele_analyse.title.list'|trans, 'link': path('aipd_modele_analyse_list') },
-        { 'name': 'aipd.modele_analyse.title.import'|trans }
+        { 'name': 'aipd.modele_analyse.breadcrumb.list'|trans, 'link': path('aipd_modele_analyse_list') },
+        { 'name': 'aipd.modele_analyse.breadcrumb.import'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -32,10 +32,10 @@
         <div class="col-md-12">
             <div class="box box-solid">
                   <div class="box-body text-center">
-                      <a aria-label="{{ 'aipd.modele_analyse.action.back_to_list'|trans }}" href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">
-                          {{ 'aipd.modele_analyse.action.back_to_list'|trans }}
+                      <a href="{{ path('aipd_modele_analyse_list') }}" class="btn btn-default">
+                          {{ 'global.action.back_to_list'|trans }}
                       </a>
-                      <input type="submit" class="btn btn-primary" value="Importer le modèle">
+                      <input type="submit" class="btn btn-primary" value="{{ 'aipd.modele_analyse.action.import_submit'|trans }}">
                   </div>
             </div>
         </div>

@@ -21,7 +21,7 @@ documentation_document_create:
     controller: 'App\Domain\Documentation\Controller\DocumentController:createAction'
 
 documentation_document_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Documentation\Controller\DocumentController:editAction'
 
@@ -61,7 +61,7 @@ documentation_category_create:
     controller: 'App\Domain\Documentation\Controller\CategoryController:createAction'
 
 documentation_category_edit:
-    path: '/categorie/editer/{id}'
+    path: '/categorie/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Documentation\Controller\CategoryController:editAction'
 

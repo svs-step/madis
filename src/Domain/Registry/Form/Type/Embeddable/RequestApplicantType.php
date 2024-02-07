@@ -42,12 +42,12 @@ class RequestApplicantType extends AbstractType
     {
         $builder
             ->add('civility', DictionaryType::class, [
-                'label'    => 'registry.request_applicant.form.civility',
+                'label'    => 'global.label.contact.civility',
                 'required' => true,
                 'name'     => 'registry_request_civility',
             ])
             ->add('firstName', TextType::class, [
-                'label'    => 'registry.request_applicant.form.first_name',
+                'label'    => 'global.label.contact.first_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -55,7 +55,7 @@ class RequestApplicantType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('lastName', TextType::class, [
-                'label'    => 'registry.request_applicant.form.last_name',
+                'label'    => 'global.label.contact.last_name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -63,7 +63,7 @@ class RequestApplicantType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('address', TextType::class, [
-                'label'    => 'registry.request_applicant.form.address',
+                'label'    => 'global.label.address.line_one',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -71,16 +71,16 @@ class RequestApplicantType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('mail', EmailType::class, [
-                'label'    => 'registry.request_applicant.form.mail',
+                'label'    => 'global.label.contact.email',
                 'required' => false,
             ])
             ->add('phoneNumber', TextType::class, [
-                'label'       => 'registry.request_applicant.form.phone_number',
+                'label'       => 'global.label.contact.phone_number',
                 'required'    => false,
                 'purify_html' => true,
             ])
             ->add('concernedPeople', CheckboxType::class, [
-                'label'    => 'registry.request_applicant.form.concerned_people',
+                'label'    => 'registry.request.label.is_concerned_people',
                 'required' => false,
             ])
         ;

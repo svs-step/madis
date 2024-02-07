@@ -27,15 +27,15 @@
                 {{ form_row(section.color) }}
                 <span style="flex-grow: 1;">
                     <i aria-hidden="true" class="fas fa-grip-vertical" style="padding-right: 2px"></i>
-                    {{ index }}. {{ section.vars['value'] ? section.vars['value'].name : 'Nouvelle section' }}
+                    {{ index }}. {{ section.vars['value'] ? section.vars['value'].name : 'maturity.referentiel.title.new_section'|trans }}
                 </span>
                 <div class="btn-group">
                     <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: none">
                         <i aria-hidden="true" class="fa fa-cog"></i> <span class="caret"></span>
                     </button>
                     <ul class="dropdown-menu" style="left: -100px;">
-                        <li><a href="#" style="color: #777" class="delete-section"><i aria-hidden="true" class="fa fa-trash"></i> Supprimer</a></li>
-                        {#<li><a href="#" style="color: #777" class="duplicate-section"><i aria-hidden="true" class="fa fa-clone"></i> Dupliquer</a></li>#}
+                        <li><a href="#" style="color: #777" class="delete-section"><i aria-hidden="true" class="fa fa-trash"></i> {{ 'global.action.delete'|trans }}</a></li>
+                        {#<li><a href="#" style="color: #777" class="duplicate-section"><i aria-hidden="true" class="fa fa-clone"></i> {{ 'global.action.duplicate'|trans }}</a></li>#}
                     </ul>
                 </div>
                 <a href="#section_{{ index }}" class="box-link btn btn-default " data-toggle="collapse" style="border:none;"><i aria-hidden="true" class="fa fa-plus"></i></a>
@@ -52,7 +52,7 @@
             <div class="box box-solid" >
                 <div class="box-header with-border">
                     <h3 class="box-title">
-                        {{ 'maturity.referentiel.form.informations_generales'|trans }}
+                        {{ 'global.tab.general'|trans }}
                     </h3>
                 </div>
                 <div class="box-body">
@@ -65,7 +65,7 @@
         </div>
 
         <div class="col-md-12">
-            <h3 style="margin-top: 0;">Référentiel</h3>
+            <h3 style="margin-top: 0;">{{ 'maturity.referentiel.title.referentiel'|trans }}</h3>
 
             {% set colors = ['box-info','box-success','box-primary','box-warning'] %}
             <div id="prototypes"
@@ -82,14 +82,14 @@
                     {% endfor %}
                 {% endif %}
             </ul>
-            <button type="button" class="add_section btn btn-primary" style="margin-bottom: 15px;" data-collection-holder-class="referentielSections"><i aria-hidden="true" class="fa fa-plus"></i> Ajouter une section</button>
+            <button type="button" class="add_section btn btn-primary" style="margin-bottom: 15px;" data-collection-holder-class="referentielSections"><i aria-hidden="true" class="fa fa-plus"></i> {{ 'maturity.referentiel.action.add_section'|trans }}</button>
         </div>
 
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
                     <a href="{{ path('maturity_referentiel_list') }}" class="btn btn-default">
-                        {{ 'maturity.referentiel.action.back_to_list'|trans }}
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
                     <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
                 </div>

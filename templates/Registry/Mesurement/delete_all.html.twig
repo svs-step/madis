@@ -25,14 +25,14 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer {{ objects_length }} action{{objects_length > 1 ? 's' : '' }} ?
+                    <p>{{ 'registry.mesurement.label.delete_all_confirm'|trans({ '%object%': objects_length, '%s%': objects_length > 1 ? 's' : '' }) }}</p>
                 </div>
                 <div class="box-footer">
-                    <a aria-label="{{ 'registry.mesurement.action.back_to_list'|trans }}" href="{{ path('registry_mesurement_list') }}" class="btn btn-default">
-                        {{ 'registry.mesurement.action.back_to_list'|trans }}
+                    <a href="{{ path('registry_mesurement_list') }}" class="btn btn-default">
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
-                    <a aria-label="{{ 'action.confirm_delete'|trans }}" href="{{ path('registry_mesurement_delete_all_confirm', { 'ids': ids }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_delete'|trans }}
+                    <a href="{{ path('registry_mesurement_delete_all_confirm', { 'ids': ids }) }}" class="btn btn-primary">
+                        {{ 'global.action.confirm_delete'|trans }}
                     </a>
                 </div>
             </div>

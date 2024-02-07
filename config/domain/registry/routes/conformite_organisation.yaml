@@ -9,7 +9,7 @@ registry_conformite_organisation_create:
   controller: 'App\Domain\Registry\Controller\ConformiteOrganisationController:createAction'
 
 registry_conformite_organisation_edit:
-  path: '/editer/{id}'
+  path: '/modifier/{id}'
   methods: ['GET', 'POST']
   controller: 'App\Domain\Registry\Controller\ConformiteOrganisationController:editAction'
 

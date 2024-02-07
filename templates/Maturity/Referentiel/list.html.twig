@@ -16,7 +16,7 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'maturity.referentiel.title.list'|trans }
+        { 'name': 'maturity.referentiel.breadcrumb.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -24,7 +24,7 @@
 {% block body %}
     <div class="row">
             <div class="col-xs-12">
-                <div class="action-bar">
+                <div class="mb-1">
                     {% if is_granted('ROLE_USER') %}
                     <a href="{{ path('maturity_referentiel_create') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-plus"></i>
@@ -42,29 +42,29 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
-                    <table id="table" class="table table-bordered table-hover" style="position: relative">
+                <div class="box-body overflow-x-auto">
+                    <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_nom" placeholder="{{ 'maturity.referentiel.list.name'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_description" placeholder="Description" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_description" placeholder="{{ 'maturity.referentiel.label.description'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col" style="min-width:130px;position:relative;">
-                                    <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                    <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                                 </th>
                                 <th scope="col" style="min-width:130px;position:relative;">
-                                    <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                    <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                                 </th>
                             </tr>
                             <tr>
                                 <th scope="col">{{ 'maturity.referentiel.list.name'|trans }}</th>
-                                <th scope="col">{{ 'maturity.referentiel.list.description'|trans }}</th>
-                                <th scope="col">{{ 'maturity.referentiel.list.created_at'|trans }}</th>
-                                <th scope="col">{{ 'maturity.referentiel.list.updated_at'|trans }}</th>
-                                <th scope="col">{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'maturity.referentiel.label.description'|trans }}</th>
+                                <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                                <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
+                                <th scope="col">{{ 'global.label.actions'|trans }}</th>
                             </tr>
                         </thead>
                     </table>

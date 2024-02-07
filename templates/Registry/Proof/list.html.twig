@@ -15,9 +15,9 @@
         {{ 'registry.proof.title.list'|trans }}
         <small>
             {% if app.request.query.get('archive') == 'true' %}
-                {{ 'label.archived'|trans }}
+                {{ 'registry.proof.title.list_archived'|trans }}
             {% else %}
-                {{ 'label.not_archived'|trans }}
+                {{ 'registry.proof.title.list_not_archived'|trans }}
             {% endif %}
         </small>
     </h1>
@@ -32,90 +32,89 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="action-bar">
-                    {% if is_granted('ROLE_USER') %}
-                    <a aria-label="{{ 'registry.proof.action.new'|trans }}" href="{{ path('registry_proof_create') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i>
-                        {{ 'registry.proof.action.new'|trans }}
+        <div class="col-xs-12">
+            <div class="mb-1">
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('registry_proof_create') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-plus"></i>
+                    {{ 'registry.proof.action.new'|trans }}
+                </a>
+                {% endif %}
+                {#<a href="{{ path('registry_proof_report') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-clipboard-list"></i>
+                    {{ 'registry.proof.action.report'|trans }}
+                </a>#}
+                {% if app.request.query.get('archive') == 'true' %}
+                    <a href="{{ path('registry_proof_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-archive"></i>
+                        {{ 'registry.proof.action.not_archived'|trans }}
                     </a>
-                    {% endif %}
-                    {#<a href="{{ path('registry_proof_report') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.proof.action.report'|trans }}
-                    </a>#}
-                    {% if app.request.query.get('archive') == 'true' %}
-                        <a aria-label="{{ 'registry.proof.action.not_archived'|trans }}" href="{{ path('registry_proof_list', {'archive' : 'false'}) }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-archive"></i>
-                            {{ 'registry.proof.action.not_archived'|trans }}
-                        </a>
-                    {% else %}
-                        <a aria-label="{{ 'registry.proof.action.archived'|trans }}" href="{{ path('registry_proof_list', {'archive' : 'true'}) }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-archive"></i>
-                            {{ 'registry.proof.action.archived'|trans }}
-                        </a>
-                    {% endif %}
-                    {% if category and category.documents|length > 0 %}
-                        <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'documentation.document.link.button'|trans }}
-                        </a>
-                    {% endif %}
-                    {% if app.request.query.get('archive') != 'true' %}
-                        <a aria-label="{{ 'registry.proof.action.download'|trans }}" href="{{ path('registry_proof_download_all') }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-download"></i>
-                            {{ 'registry.proof.action.download'|trans }}
-                        </a>
-                    {% endif %}
-                </div>
+                {% else %}
+                    <a href="{{ path('registry_proof_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-archive"></i>
+                        {{ 'registry.proof.action.archived'|trans }}
+                    </a>
+                {% endif %}
+                {% if category and category.documents|length > 0 %}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
+                        {{ 'global.action.documentation'|trans }}
+                    </a>
+                {% endif %}
+                {% if app.request.query.get('archive') != 'true' %}
+                    <a href="{{ path('registry_proof_download_all') }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-download"></i>
+                        {{ 'registry.proof.action.download'|trans }}
+                    </a>
+                {% endif %}
             </div>
-
+        </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'registry.proof.label.name'|trans }}" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                                 </th>
                             {% endif %}
                             <th scope="col">
                                 <select class="form-control" id="search_type" style="width: 100%;">
-                                    <option value="">Type</option>
+                                    <option value="">{{ 'registry.proof.label.type'|trans }}</option>
                                     {% for key, subject in dictionary('registry_proof_type') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select>
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_commentaire" placeholder="Commentaire" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_commentaire" placeholder="{{ 'registry.proof.label.comment'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col"></th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'registry.proof.list.name'|trans }}</th>
+                            <th scope="col">{{ 'registry.proof.label.name'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'registry.proof.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'registry.proof.list.type'|trans }}</th>
-                            <th scope="col">{{ 'registry.proof.list.comment'|trans }}</th>
-                            <th scope="col">{{ 'registry.proof.list.created_at'|trans }}</th>
-                            <th scope="col">{{ 'registry.proof.list.updated_at'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'registry.proof.label.type'|trans }}</th>
+                            <th scope="col">{{ 'registry.proof.label.comment'|trans }}</th>
+                            <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

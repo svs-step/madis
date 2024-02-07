@@ -16,7 +16,7 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'aipd.analyse_impact.title.list'|trans }
+        { 'name': 'aipd.analyse_impact.breadcrumb.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -25,11 +25,11 @@
 {% block body %}
     <div class="row" style="margin-bottom: 1em">
         <div class="col-xs-12">
-            <div class="action-bar" id="action-top-buttons">
+            <div class="mb-1" id="action-top-buttons">
                 {% if category and category.documents|length > 0 %}
                     <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                         <i aria-hidden="true" class="fa fa-circle-info"></i>
-                        {{ 'documentation.document.link.button'|trans }}
+                        {{ 'global.action.documentation'|trans }}
                     </a>
                 {% endif %}
             </div>
@@ -38,21 +38,21 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_traitement" placeholder="Traitement" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_traitement" placeholder="{{ 'aipd.analyse_impact.list.traitement'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_date_de_creation" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
+                                <input class="daterangepicker form-control" type="text" id="search_date_de_creation" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_date_de_validation" placeholder="Date de validation" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
+                                <input class="daterangepicker form-control" type="text" id="search_date_de_validation" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_modele" placeholder="Modèle utilisé" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_modele" placeholder="{{ 'aipd.analyse_impact.list.modele'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -61,17 +61,17 @@
                         </tr>
                         <tr>
                             <th scope="col">{{ 'aipd.analyse_impact.list.traitement'|trans }}</th>
-                            <th scope="col">{{ 'aipd.analyse_impact.list.date_creation'|trans }}</th>
+                            <th scope="col">{{ 'global.label.created_at'|trans }}</th>
                             <th scope="col">{{ 'aipd.analyse_impact.list.date_validation'|trans }}</th>
                             <th scope="col" style="width: 15%">{{ 'aipd.analyse_impact.list.modele'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th>{{ 'aipd.analyse_impact.list.collectivite'|trans }}</th>
+                                <th>{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_referent'|trans }}</th>
-                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_dpd'|trans }}</th>
-                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_representant'|trans }}</th>
-                            <th scope="col">{{ 'aipd.analyse_impact.list.avis_responsable'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.label.avis_referent'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.label.avis_dpd'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.label.avis_representant'|trans }}</th>
+                            <th scope="col">{{ 'aipd.analyse_impact.label.avis_responsable'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

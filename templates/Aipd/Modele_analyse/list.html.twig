@@ -16,7 +16,7 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'aipd.modele_analyse.title.list'|trans }
+        { 'name': 'aipd.modele_analyse.breadcrumb.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -24,13 +24,13 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
-            <div class="action-bar">
+            <div class="mb-1">
                 {% if is_granted('ROLE_USER') %}
-                    <a aria-label="{{ 'aipd.modele_analyse.action.new'|trans }}" href="{{ path('aipd_modele_analyse_create') }}" class="btn btn-default">
+                    <a href="{{ path('aipd_modele_analyse_create') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-plus"></i>
                         {{ 'aipd.modele_analyse.action.new'|trans }}
                     </a>
-                    <a aria-label="{{ 'aipd.modele_analyse.action.import'|trans }}" href="{{ path('aipd_modele_analyse_import') }}" class="btn btn-default">
+                    <a href="{{ path('aipd_modele_analyse_import') }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-file-import"></i>
                         {{ 'aipd.modele_analyse.action.import'|trans }}
                     </a>
@@ -42,30 +42,30 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_nom" placeholder="{{ 'aipd.modele_analyse.label.name'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_description" placeholder="Description" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_description" placeholder="{{ 'aipd.modele_analyse.label.description'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col" style="min-width:130px;position:relative;">
-                                    <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                    <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                                 </th>
                                 <th scope="col" style="min-width:130px;position:relative;">
-                                    <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                    <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                                 </th>
                                 <th scope="col"></th>
                             </tr>
                             <tr>
-                                <th scope="col">{{ 'aipd.modele_analyse.list.name'|trans }}</th>
-                                <th scope="col">{{ 'aipd.modele_analyse.list.description'|trans }}</th>
-                                <th scope="col">{{ 'aipd.modele_analyse.list.created_at'|trans }}</th>
-                                <th scope="col">{{ 'aipd.modele_analyse.list.updated_at'|trans }}</th>
-                                <th scope="col">{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'aipd.modele_analyse.label.name'|trans }}</th>
+                                <th scope="col">{{ 'aipd.modele_analyse.label.description'|trans }}</th>
+                                <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                                <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
+                                <th scope="col">{{ 'global.label.actions'|trans }}</th>
                             </tr>
                         </thead>
                     </table>

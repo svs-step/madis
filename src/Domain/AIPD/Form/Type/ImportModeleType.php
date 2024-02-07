@@ -23,7 +23,7 @@ class ImportModeleType extends AbstractType
         $builder
             ->add('file', FileType::class, [
                 'required'    => true,
-                'label'       => 'Sélectionner un fichier XML à importer',
+                'label'       => 'global.label.import_xml',
                 'constraints' => [
                     new File([
                         'maxSize'   => $this->maxSize,
@@ -31,7 +31,7 @@ class ImportModeleType extends AbstractType
                             'application/xml',
                             'text/xml',
                         ],
-                        'mimeTypesMessage' => 'Merci d\'importer un fichier XML',
+                        'mimeTypesMessage' => 'aipd_validator.import.not_xml',
                     ]),
                 ],
             ])

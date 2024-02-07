@@ -76,7 +76,7 @@ class SyntheseAnswerType extends AbstractType
                     'multiple'     => true,
                     'attr'         => [
                         'class'            => 'selectpicker',
-                        'title'            => 'placeholder.multiple_select',
+                        'title'            => 'global.placeholder.multiple_select',
                         'aria-label'       => $a,
                         'data-live-search' => true,
                     ],

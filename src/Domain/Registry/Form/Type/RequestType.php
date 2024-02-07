@@ -71,7 +71,7 @@ class RequestType extends AbstractType
         $request = $options['data'];
         $builder
             ->add('object', DictionaryType::class, [
-                'label'    => 'registry.request.form.object',
+                'label'    => 'registry.request.label.object',
                 'name'     => 'registry_request_object',
                 'required' => true,
                 'expanded' => true,
@@ -81,7 +81,7 @@ class RequestType extends AbstractType
             $builder
                 ->add('service', EntityType::class, [
                     'class'         => Service::class,
-                    'label'         => 'registry.treatment.form.service',
+                    'label'         => 'registry.label.service',
                     'query_builder' => function (EntityRepository $er) use ($request) {
                         /** @var User $authenticatedUser */
                         $authenticatedUser = $this->security->getUser();
@@ -110,7 +110,7 @@ class RequestType extends AbstractType
         $user = $this->security->getUser();
         $builder
             ->add('otherObject', TextType::class, [
-                'label'    => 'registry.request.form.other_object',
+                'label'    => 'registry.request.label.other_object',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -118,7 +118,7 @@ class RequestType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('date', DateType::class, [
-                'label'    => 'registry.request.form.date',
+                'label'    => 'registry.request.label.date',
                 'required' => true,
                 'widget'   => 'single_text',
                 'format'   => 'dd/MM/yyyy',
@@ -128,7 +128,7 @@ class RequestType extends AbstractType
                 ],
             ])
             ->add('reason', TextType::class, [
-                'label'    => 'registry.request.form.reason',
+                'label'    => 'registry.request.label.reason',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -144,15 +144,15 @@ class RequestType extends AbstractType
                 'required' => false,
             ])
             ->add('complete', CheckboxType::class, [
-                'label'    => 'registry.request.form.complete',
+                'label'    => 'registry.request.label.complete',
                 'required' => false,
             ])
             ->add('legitimateApplicant', CheckboxType::class, [
-                'label'    => 'registry.request.form.legitimate_applicant',
+                'label'    => 'registry.request.label.legitimate_applicant',
                 'required' => false,
             ])
             ->add('legitimateRequest', CheckboxType::class, [
-                'label'    => 'registry.request.form.legitimate_request',
+                'label'    => 'registry.request.label.legitimate_request',
                 'required' => false,
             ])
             ->add('answer', RequestAnswerType::class, [
@@ -160,12 +160,12 @@ class RequestType extends AbstractType
                 'required' => false,
             ])
             ->add('state', DictionaryType::class, [
-                'label'    => 'registry.request.form.state',
+                'label'    => 'registry.request.label.state',
                 'name'     => 'registry_request_state',
                 'required' => true,
             ])
             ->add('stateRejectionReason', TextareaType::class, [
-                'label'    => 'registry.request.form.state_rejection_reason',
+                'label'    => 'registry.request.label.state_rejection_reason',
                 'required' => true,
                 'attr'     => [
                     'rows' => 4,
@@ -174,7 +174,7 @@ class RequestType extends AbstractType
             ])
             ->add('treatments', EntityType::class, [
                 'class'         => Treatment::class,
-                'label'         => 'registry.request.form.treatment',
+                'label'         => 'global.label.linked_treatment',
                 'query_builder' => function (EntityRepository $er) use ($request) {
                     $collectivity = $request->getCollectivity();
 
@@ -186,7 +186,7 @@ class RequestType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Traitements',
                 ],
                 'required' => false,

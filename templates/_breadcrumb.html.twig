@@ -1,19 +1,19 @@
-<nav role="navigation" aria-label="Fil d'Ariane" class="breadcrumb">
+<nav role="navigation" aria-label="{{ 'global.navigation.breadcrumb'|trans }}" class="breadcrumb">
 
     <li {% if not breadcrumb|length > 0 %}class="active"{% endif %}>
         {% if breadcrumb|length > 0 %}
-        <a aria-label="{{ 'reporting.dashboard.breadcrumb.index'|trans }}" href="{{ path('reporting_dashboard_index') }}">
+        <a href="{{ path('reporting_dashboard_index') }}">
         {% endif %}
             <i aria-hidden="true" class="fa fa-tachometer-alt"></i>
-            {{ 'reporting.dashboard.breadcrumb.index'|trans }}
+            {{ 'reporting.dashboard.breadcrumb'|trans }}
         {% if breadcrumb|length > 0 %}
         </a>
         {% endif %}
     </li>
     {% for item in breadcrumb %}
-        <li {% if loop.last %}class="active"{% endif %}>
+        <li {% if loop.last %}class="active" aria-current="true"{% endif %}>
             {% if item.link is defined %}
-            <a aria-label="{{ item.name }}" href="{{ item.link }}">
+            <a href="{{ item.link }}">
             {% endif %}
 
                 {{ item.name }}

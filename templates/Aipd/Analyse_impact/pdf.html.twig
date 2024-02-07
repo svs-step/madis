@@ -576,13 +576,13 @@
         <div class="reportGraph"><canvas id="risquesResiduels-chart"></canvas></div>
         <br/>
         <div class="box box-solid box-primary">
-            <div class="box-header with-border">{{ 'aipd.analyse_impact.values.evaluation.gestion_risques'|trans }}</div>
+            <div class="box-header with-border">{{ 'aipd.analyse_impact.tab.gestion_risques'|trans }}</div>
             <div class="box-body">
                 <table class="table table-bordered" style="page-break-inside: avoid">
                     <tr>
-                        <th>{{ 'aipd.scenario_menace.list.nom'|trans }}</th>
-                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_potentiel'|trans }}</th>
-                        <th style="width: 20%;">{{ 'aipd.scenario_menace.list.impact_résiduel'|trans }}</th>
+                        <th>{{ 'aipd.modele_analyse.label.scenario'|trans }}</th>
+                        <th style="width: 20%;">{{ 'aipd.analyse_impact.label.impact_potentiel'|trans }}</th>
+                        <th style="width: 20%;">{{ 'aipd.analyse_impact.label.impact_residuel'|trans }}</th>
                     </tr>
                     {% set mesureProtectionNotNegligeable = [] %}
                     {% for scenario in object.scenarioMenaces|sort((a, b) => a.nom >= b.nom) %}
@@ -713,709 +713,685 @@
         <div style="page-break-before: always;"></div>
         <h3>6.3 Fiche de traitement</h3>
         {% set traitement = object.conformiteTraitement.traitement %}
-        <div class="row">
-            {#         LEFT#}
-            <div class="col-md-6">
-                {#             GENERAL INFORMATIONS#}
-                <div class="box box-solid box-info">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.general'|trans }}</h3></div>
-                    <div class="box-body no-padding">
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.public'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.public == true %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.name'|trans }}</strong></td>
-                                <td>{{ traitement.name }}</td>
-                            </tr>
-                            {% if traitement.service %}
-                                <tr>
-                                    <td><strong>{{ 'registry.treatment.show.service'|trans }}</strong></td>
-                                    <td>{{ traitement.service }}</td>
-                                </tr>
+        {# GENERAL #}
+        <div class="box box-solid box-info">
+            <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'global.tab.general'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.public_registry'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.public == true %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                             {% endif %}
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.goal'|trans }}</strong></td>
-                                <td>{{ traitement.goal|nl2br }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.author'|trans }}</strong></td>
-                                <td>{% if traitement.author is not null %}{{ traitement.author|dictionary('registry_treatment_author') }}{% endif %}</td>
-                            </tr>
-                            {% if traitement.author != "processing_manager" %}
-                                <tr>
-                                    <td><strong>{{ 'registry.treatment.show.coordonnees_responsable_traitement'|trans }}</strong></td>
-                                    <td>{{ traitement.coordonneesResponsableTraitement|nl2br }}</td>
-                                </tr>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.name'|trans }}</strong></td>
+                        <td>{{ traitement.name }}</td>
+                    </tr>
+                    {% if traitement.service %}
+                        <tr>
+                            <td><strong>{{ 'registry.label.service'|trans }}</strong></td>
+                            <td>{{ traitement.service }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.goal'|trans }}</strong></td>
+                        <td>{{ traitement.goal|nl2br }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.author'|trans }}</strong></td>
+                        <td>{% if traitement.author is not null %}{{ traitement.author|dictionary('registry_treatment_author') }}{% endif %}</td>
+                    </tr>
+                    {% if traitement.author != "processing_manager" %}
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.label.coordonnees_responsable_traitement'|trans }}</strong></td>
+                            <td>{{ traitement.coordonneesResponsableTraitement|nl2br }}</td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.manager'|trans }}</strong></td>
+                        <td>{{ traitement.manager }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.active'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.active %}
+                                <span class="badge bg-green">{{ 'global.label.active'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-red">{{ 'global.label.inactive'|trans }}</span>
                             {% endif %}
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.manager'|trans }}</strong></td>
-                                <td>{{ traitement.manager }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.active'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.active %}
-                                        <span class="badge bg-green">{{ 'label.active'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-red">{{ 'label.inactive'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.legal_basis'|trans }}</strong></td>
-                                <td>{{ traitement.legalBasis|dictionary('registry_treatment_legal_basis') }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.legal_basis_justification'|trans }}</strong></td>
-                                <td>{{ traitement.legalBasisJustification|nl2br }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.observation'|trans }}</strong></td>
-                                <td>{{ traitement.observation|nl2br }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.legal_basis'|trans }}</strong></td>
+                        <td>{{ traitement.legalBasis|dictionary('registry_treatment_legal_basis') }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.legal_basis_justification'|trans }}</strong></td>
+                        <td>{{ traitement.legalBasisJustification|nl2br }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.observation'|trans }}</strong></td>
+                        <td>{{ traitement.observation|nl2br }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {# DPO Statut #}
+        {% if traitement.dpoMessage is not null %}
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">
+                    <h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.statut_dpo'|trans }}</h3>
                 </div>
-
-                {# DPO Message  #}
-                {% if traitement.dpoMessage is not null %}
-                    <div class="box box-solid box-primary">
-                        <div class="box-header with-border">
-                            <h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.dpo_message'|trans }}</h3>
-                        </div>
-                        <div class="box-body">
-                            {{  traitement.dpoMessage }}
-                        </div>
-                    </div>
-                {% endif %}
-
-                {#             DATA CATEGORY#}
-                <div class="box box-solid box-warning">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
-                    <div class="box-body no-padding">
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.data_category'|trans }}</strong></td>
-                                <td>
-                                    <ul>
-                                        {% for category in traitement.dataCategories %}
-                                            <li>
-                                                {% if category.sensible %}<strong>{% endif %}
-                                                    {{ category.name }}
-                                                    {% if category.sensible %}</strong>{% endif %}
-                                            </li>
-                                        {% endfor %}
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.data_category_other'|trans }}</strong></td>
-                                <td>{{ traitement.dataCategoryOther|nl2br }}</td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                {#             RECIPIENTS#}
-                <div class="box box-solid box-primary">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
-                    <div class="box-body no-padding">
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.recipient_category'|trans }}</strong></td>
-                                <td>{{ traitement.recipientCategory|nl2br }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.contractors'|trans }}</strong></td>
-                                <td>
-                                    <ul>
-                                        {% for contractor in traitement.contractors %}
-                                            <li>{{ contractor }}</li>
-                                        {% endfor %}
-                                    </ul>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-
-                {#             SPECIFIC#}
-                <div class="box box-solid box-info">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
-                    <div class="box-body no-padding">
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.systematic_monitoring'|trans }}</strong></td>
-                                <td>
-                                    <ul>
-                                        {% if traitement.systematicMonitoring %}
-                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
-                                        {% else %}
-                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                        {% endif %}
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.large_scale_collection'|trans }}</strong></td>
-                                <td>
-                                    <ul>
-                                        {% if traitement.largeScaleCollection %}
-                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
-                                        {% else %}
-                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                        {% endif %}
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.vulnerable_people'|trans }}</strong></td>
-                                <td>
-                                    <ul>
-                                        {% if traitement.vulnerablePeople %}
-                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
-                                        {% else %}
-                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                        {% endif %}
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.data_crossing'|trans }}</strong></td>
-                                <td>
-                                    <ul>
-                                        {% if traitement.dataCrossing %}
-                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
-                                        {% else %}
-                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                        {% endif %}
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.evaluation_or_rating'|trans }}</strong></td>
-                                <td>
-                                    <ul>
-                                        {% if traitement.evaluationOrRating %}
-                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
-                                        {% else %}
-                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                        {% endif %}
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.automated_decisions_with_legal_effect'|trans }}</strong></td>
-                                <td>
-                                    <ul>
-                                        {% if traitement.automatedDecisionsWithLegalEffect %}
-                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
-                                        {% else %}
-                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                        {% endif %}
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.automatic_exclusion_service'|trans }}</strong></td>
-                                <td>
-                                    <ul>
-                                        {% if traitement.automaticExclusionService %}
-                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
-                                        {% else %}
-                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                        {% endif %}
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.innovative_use'|trans }}</strong></td>
-                                <td>
-                                    <ul>
-                                        {% if traitement.innovativeUse %}
-                                            <span class="badge bg-yellow">{{ 'label.yes'|trans }}</span>
-                                        {% else %}
-                                            <span class="badge bg-green">{{ 'label.no'|trans }}</span>
-                                        {% endif %}
-                                    </ul>
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
+                <div class="box-body">
+                    {{ traitement.dpoMessage }}
                 </div>
             </div>
+        {% endif %}
 
-            {#         RIGHT#}
-            <div class="col-md-6">
-                {#             DETAILS#}
-                <div class="box box-solid box-primary">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
-                    <div class="box-body no-padding">
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.concerned_people'|trans }}</strong></td>
-                            </tr>
-                            <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_particular'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.concernedPeopleParticular.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.concernedPeopleParticular.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_user'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.concernedPeopleUser.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.concernedPeopleUser.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_agent'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.concernedPeopleAgent.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.concernedPeopleAgent.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_elected'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.concernedPeopleElected.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.concernedPeopleElected.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_company'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.concernedPeopleCompany.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.concernedPeopleCompany.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_partner'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.concernedPeoplePartner.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.concernedPeoplePartner.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="concerned-people-type"><strong>{{ 'registry.treatment.show.concerned_people_other'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.concernedPeopleOther.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.concernedPeopleOther.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.estimated_concerned_people'|trans }}</strong></td>
-                                <td>{{ traitement.estimatedConcernedPeople }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>
+        {# DATA CATEGORY #}
+        <div class="box box-solid box-warning">
+            <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.data_category'|trans }}</strong></td>
+                        <td>
+                            <ul class="ps-1">
+                                {% for category in traitement.dataCategories %}
+                                    <li>
+                                        {% if category.sensible %}<strong>{% endif %}
+                                            {{ category.name }}
+                                            {% if category.sensible %}</strong>{% endif %}
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.data_category_other'|trans }}</strong></td>
+                        <td>{{ traitement.dataCategoryOther|nl2br }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-                                        {% if traitement.collectivity.hasModuleTools %}
-                                            {{ 'registry.treatment.show.tools'|trans }}
-                                        {% else %}
-                                            {{ 'registry.treatment.show.software'|trans }}
-                                        {% endif %}
-                                    </strong></td>
-                                <td>
-                                    {% if traitement.collectivity.hasModuleTools %}
-                                        {{ traitement.tools|map(t => t.name)|join(', ') }}
-                                    {% else %}
-                                        {{ traitement.software }}
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.paper_processing'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.paperProcessing %}
-                                        <span class="badge bg-gray">{{ 'label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-gray">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.delay'|trans }}</strong></td>
-                                <td>
-                                    <ul>
-                                        {% for duration in traitement.shelfLifes %}
-                                            <li>{{ duration.name }} - {{ duration.duration }} - {{ duration.ultimateFate | dictionary('registry_treatment_ultimate_fate') }} </li>
-                                        {% endfor %}
-                                    </ul>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.data_origin'|trans }}</strong></td>
-                                <td>{{ traitement.dataOrigin }}</td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.collecting_method'|trans }}</strong></td>
-                                {# <td>{% if (traitement.collectingMethod is not null) %} #}
-                                <td>
-                                    {% if (traitement.collectingMethod|length) %}
-                                        {{ traitement.collectingMethod|map(p => "#{p|dictionary('registry_treatment_collecting_method')}")|join(', ') }}
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            {% if  traitement.otherCollectingMethod is not null %}
-                                <tr>
-                                    <td><strong>{{ 'registry.treatment.show.otherCollectingMethod'|trans }}</strong></td>
-                                    <td>{{ traitement.otherCollectingMethod }}</td>
-                                </tr>
+        {# RECIPIENTS #}
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.recipient_category'|trans }}</strong></td>
+                        <td>{{ traitement.recipientCategory|nl2br }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'global.label.linked_contractor'|trans }}</strong></td>
+                        <td>
+                            <ul class="ps-1">
+                                {% for contractor in traitement.contractors %}
+                                    <li>{{ contractor }}</li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {# SPECIFIC #}
+        <div class="box box-solid box-info">
+            <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.exempt_AIPD'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.ExemptAIPD %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
                             {% endif %}
-                        </table>
-                    </div>
-                </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.systematic_monitoring'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.systematicMonitoring %}
+                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.large_scale_collection'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.largeScaleCollection %}
+                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.vulnerable_people'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.vulnerablePeople %}
+                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.data_crossing'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.dataCrossing %}
+                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.evaluation_or_rating'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.evaluationOrRating %}
+                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.automated_decisions_with_legal_effect'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.automatedDecisionsWithLegalEffect %}
+                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.automatic_exclusion_service'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.automaticExclusionService %}
+                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.innovative_use'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.innovativeUse %}
+                                <span class="badge bg-yellow">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-green">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
 
-                {#             SECURITY#}
-                <div class="box box-solid box-success">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
-                    <div class="box-body no-padding">
-                        <table class="table">
-                            <tbody>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_access_control'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.securityAccessControl.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.securityAccessControl.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_tracability'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.securitytracability.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.securitytracability.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_saving'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.securitySaving.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.securitySaving.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_update'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.securityUpdate.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.securityUpdate.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_other'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.securityOther.check %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                        <p>{{ traitement.securityOther.comment }}</p>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_entitled_persons'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.securityEntitledPersons %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_open_accounts'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.securityOpenAccounts %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.security_specificities_delivered'|trans }}</strong></td>
-                                <td>
-                                    {% if traitement.securitySpecificitiesDelivered %}
-                                        <span class="badge bg-green">{{ 'label.yes'|trans }}</span>
-                                    {% else %}
-                                        <span class="badge bg-yellow">{{ 'label.no'|trans }}</span>
-                                    {% endif %}
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+        {# DETAILS #}
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.concerned_people'|trans }}</strong></td>
+                    </tr>
+                    <tr>
+                        <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_particular'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.concernedPeopleParticular.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.concernedPeopleParticular.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.concernedPeopleParticular.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_user'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.concernedPeopleUser.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.concernedPeopleUser.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.concernedPeopleUser.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_agent'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.concernedPeopleAgent.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.concernedPeopleAgent.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.concernedPeopleAgent.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_elected'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.concernedPeopleElected.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.concernedPeopleElected.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.concernedPeopleElected.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_company'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.concernedPeopleCompany.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.concernedPeopleCompany.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.concernedPeopleCompany.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_partner'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.concernedPeoplePartner.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.concernedPeoplePartner.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.concernedPeoplePartner.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_usager'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.concernedPeopleUsager.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.concernedPeopleUsager.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.concernedPeopleUsager.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="concerned-people-type"><strong>{{ 'registry.treatment.label.concerned_people_other'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.concernedPeopleOther.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.concernedPeopleOther.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.concernedPeopleOther.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.estimated_concerned_people'|trans }}</strong></td>
+                        <td>{{ traitement.estimatedConcernedPeople }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>
 
-                {#             PROOFS#}
-                <div class="box box-solid box-warning">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_documents'|trans }}</h3></div>
-                    <div class="box-body">
-                        {% set activeProofs = traitement.proofs|filter(proof => proof.deletedAt is null) -%}
-
-                        {% if activeProofs|length > 0 %}
-                            <ul>
-                                {% for proof in activeProofs %}
-                                    <li>
-                                        {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
-                                        {{ proof.comment }}
-                                    </li>
+                                {% if traitement.collectivity.hasModuleTools %}
+                                    {{ 'global.label.linked_tool'|trans }}
+                                {% else %}
+                                    {{ 'registry.treatment.label.tools_if_inactif'|trans }}
+                                {% endif %}
+                            </strong></td>
+                        <td>
+                            {% if traitement.collectivity.hasModuleTools %}
+                                {{ traitement.tools|map(t => t.name)|join(', ') }}
+                            {% else %}
+                                {{ traitement.software }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.paper_processing'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.paperProcessing %}
+                                <span class="badge bg-gray">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-gray">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table" style="border-top: #f4f4f4 1px solid">
+                    <tbody>
+                    <tr>
+                        <td style="vertical-align: top; padding-left: 8px; padding-top: 10px; width: 20%"><strong>{{ 'registry.treatment.label.shelflife'|trans }}</strong></td>
+                        <td style="padding-top: 10px; width: 80%">
+                            {% for method in object.shelfLifes %}
+                                <div class="box box-default">
+                                    <div class="box-body no-padding">
+                                        <table class="table">
+                                            <tbody>
+                                            <tr>
+                                                <th class="text-bold" style="width: 40%">{{ 'registry.treatment.label.shelflife_name'|trans }}</th>
+                                                <td>{{ method.name }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-bold">{{ 'registry.treatment.label.shelflife_duration'|trans }}</th>
+                                                <td>{{ method.duration }}</td>
+                                            </tr>
+                                            <tr>
+                                                <th class="text-bold">{{ 'registry.treatment.label.shelflife_ultimate_fate'|trans }}</th>
+                                                <td>{% if method.ultimateFate %}{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% else %}Non déterminé{% endif %}</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.data_origin'|trans }}</strong></td>
+                        <td>{{ traitement.dataOrigin }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.collecting_method'|trans }}</strong></td>
+                        <td>
+                            <ul class="ps-1">
+                                {% for method in object.collectingMethod %}
+                                    <li>{{ method|dictionary('registry_treatment_collecting_method') }}</li>
                                 {% endfor %}
                             </ul>
-                        {% else %}
-                            <span><i>{{ 'label.no_linked_document'|trans }}</i></span>
-                        {% endif %}
-                    </div>
-                </div>
-
-
-                {# REQUESTS #}
-                <div class="box box-solid box-warning">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_request'|trans }}</h3></div>
-                    <div class="box-body">
-                        {% set activeRequests = traitement.requests %}
-
-                        {% if activeRequests|length > 0 %}
-                            <ul>
-                                {% for request in activeRequests %}
-                                    <li>
-                                        {{ request.date|date('d/m/Y') }} | {{ request.applicant.lastName }} {{ request.applicant.firstName }} | {{  ("label.request_" ~ request.object)|trans }}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            <span><i>{{ 'label.no_linked_requests'|trans }}</i></span>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {# VIOLATIONS #}
-                <div class="box box-solid box-warning">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_violations'|trans }}</h3></div>
-                    <div class="box-body">
-                        {% set activeViolations = traitement.violations %}
-
-                        {% if activeViolations|length > 0 %}
-                            <ul>
-                                {% for violation in activeViolations %}
-                                    <li>
-                                        {{ violation.date|date('d/m/Y') }} | {{ violation.violationNatures|map(n => ("label.violation_" ~ n)|trans)|join(', ') }}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            <span><i>{{ 'label.no_linked_violations'|trans }}</i></span>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {# Mesurements #}
-                <div class="box box-solid box-warning">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'label.linked_mesurement'|trans }}</h3></div>
-                    <div class="box-body">
-                        {% if traitement.mesurements|length > 0 %}
-                            <ul>
-                                {% for mesurement in traitement.mesurements %}
-                                    <li>
-                                        {{ mesurement.name }}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        {% else %}
-                            <span><i>{{ 'label.no_linked_mesurement'|trans }}</i></span>
-                        {% endif %}
-                    </div>
-                </div>
-
-                {% if traitement.collectivity.hasModuleConformiteTraitement %}
-                    <div class="box box-solid box-success">
-                        <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
-                        <div class="box-body no-padding">
-                            <table class="table">
-                                <tr>
-                                    <td style="width: 35%">
-                                        <strong>Conformité</strong>
-                                    </td>
-                                    <td>
-                                        {% if traitement.conformiteTraitement is not null %}
-                                            {{ getConformiteTraitementLabel(traitement.conformiteTraitement)|raw }}
-                                        {% else %}
-                                            <span class="label label-default" style="display: inline-block;">Non-réalisée</span>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Conformité des questions</strong>
-                                    </td>
-                                    <td>
-                                        {% if traitement.conformiteTraitement is not null %}
-                                            {% set nbTotal = traitement.conformiteTraitement.nbConformes + traitement.conformiteTraitement.nbNonConformesMineures + traitement.conformiteTraitement.nbNonConformesMajeures %}
-                                            {% set widthNbConforme = ((traitement.conformiteTraitement.nbConformes * 100) / nbTotal)|round %}
-                                            {% set widthnbNonConformesMineures = ((traitement.conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
-                                            {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
-                                            <div class="stacked-bar-graph">
-                                                {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">Conforme : {{ traitement.conformiteTraitement.nbConformes }}</span></span>{% endif %}
-                                                {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">Non-conforme mineure : {{ traitement.conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
-                                                {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">Non-conforme majeure : {{ traitement.conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
-                                            </div>
-                                        {% endif %}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>
-                                        <strong>Actions</strong>
-                                    </td>
-                                    <td>
-                                    </td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                    {% if traitement.conformiteTraitement is not null and traitement.conformiteTraitement.lastAnalyseImpact is not null %}
-                        <div class="box box-solid box-primary">
-                            <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
-                            <div class="box-body no-padding">
-                                <table class="table">
-                                    <tr>
-                                        <td style="width: 35%">
-                                            <strong>Avis</strong>
-                                        </td>
-                                        <td>
-                                            {% set analyseImpact = traitement.conformiteTraitement.lastAnalyseImpact %}
-
-                                            {% set labelAipdColor = "label-default" %}
-                                            {% if analyseImpact.statut == "defavorable" %}
-                                                {% set labelAipdColor = "label-danger" %}
-                                            {% elseif analyseImpact.statut == "favorable_avec_reserves" %}
-                                                {% set labelAipdColor = "label-warning" %}
-                                            {% elseif analyseImpact.statut == "favorable" %}
-                                                {% set labelAipdColor = "label-success" %}
-                                            {% endif %}
-                                            {% set statut = analyseImpact.statut %}
-                                            {% set labelStatut = "aipd.analyse_impact.values." ~ traitement.conformiteTraitement.lastAnalyseImpact.statut %}
-                                            <span class="label {{ labelAipdColor }}" style="display: inline-block;">
-                                        {{ labelStatut|trans}}
-                                    </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Date de validation</strong>
-                                        </td>
-                                        <td>
-                                            {% if analyseImpact.isValidated %}
-                                                {{ analyseImpact.dateValidation|date('d/m/Y') }}
-                                            {% else %}
-                                                En cours de validation
-                                            {% endif %}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td>
-                                            <strong>Actions</strong>
-                                        </td>
-                                        <td>
-                                        </td>
-                                    </tr>
-                                </table>
-                            </div>
-                        </div>
+                        </td>
+                    </tr>
+                    {% if  traitement.otherCollectingMethod is not null %}
+                        <tr>
+                            <td><strong>{{ 'registry.treatment.label.otherCollectingMethod'|trans }}</strong></td>
+                            <td>{{ traitement.otherCollectingMethod }}</td>
+                        </tr>
                     {% endif %}
-                {% endif %}
+                </table>
+            </div>
+        </div>
 
-                {#             HISTORIC#}
-                <div class="box box-solid box-default">
-                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.historic'|trans }}</h3></div>
+        {# SECURITY #}
+        <div class="box box-solid box-success">
+            <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.security_access_control'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.securityAccessControl.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.securityAccessControl.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.securityAccessControl.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.security_tracability'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.securitytracability.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.securitytracability.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.securitytracability.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.security_saving'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.securitySaving.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.securitySaving.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.securitySaving.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.security_update'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.securityUpdate.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.securityUpdate.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.securityUpdate.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.security_other'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.securityOther.check %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                                {% if traitement.securityOther.comment is not empty %}
+                                    <p class="mt-2">{{ traitement.securityOther.comment }}</p>
+                                {% endif %}
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.security_entitled_persons'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.securityEntitledPersons %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.security_open_accounts'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.securityOpenAccounts %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.treatment.label.security_specificities_delivered'|trans }}</strong></td>
+                        <td>
+                            {% if traitement.securitySpecificitiesDelivered %}
+                                <span class="badge bg-green">{{ 'global.label.yes'|trans }}</span>
+                            {% else %}
+                                <span class="badge bg-yellow">{{ 'global.label.no'|trans }}</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {# LINKED MODULES #}
+        <div class="box box-solid box-warning">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                        {# REQUESTS #}
+                        {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
+                        {# VIOLATIONS #}
+                        {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
+                        {# PROOFS #}
+                        {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                        {# MESUREMENTS #}
+                        {% include '_Utils/_show_block_mesurements.html.twig' with { mesurements: object.mesurements } %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {# TREATMENT CONFORMITY & AIPD #}
+        {% if traitement.collectivity.hasModuleConformiteTraitement %}
+            {# TREATMENT CONFORMITY #}
+            <div class="box box-solid box-success">
+                <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.conformite'|trans }}</h3></div>
+                <div class="box-body no-padding">
+                    <table class="table">
+                        <tr>
+                            <td style="width: 35%">
+                                <strong>{{ 'registry.conformite_traitement.label.conformite_traitement'|trans }}</strong>
+                            </td>
+                            <td>
+                                {% if traitement.conformiteTraitement is not null %}
+                                    {{ getConformiteTraitementLabel(traitement.conformiteTraitement)|raw }}
+                                {% else %}
+                                    <span class="label label-default" style="display: inline-block;">Non-réalisée</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong>{{ 'registry.conformite_traitement.label.conformite_reponse'|trans }}</strong>
+                            </td>
+                            <td>
+                                {% if traitement.conformiteTraitement is not null %}
+                                    {% set nbTotal = traitement.conformiteTraitement.nbConformes + traitement.conformiteTraitement.nbNonConformesMineures + traitement.conformiteTraitement.nbNonConformesMajeures %}
+                                    {% set widthNbConforme = ((traitement.conformiteTraitement.nbConformes * 100) / nbTotal)|round %}
+                                    {% set widthnbNonConformesMineures = ((traitement.conformiteTraitement.nbNonConformesMineures * 100) / nbTotal)|round %}
+                                    {% set widthnbNonConformesMajeures = 100 - (widthNbConforme + widthnbNonConformesMineures) %}
+                                    <div class="stacked-bar-graph">
+                                        {% if widthNbConforme %}<span style="width:{{ widthNbConforme }}%" class="bar-conforme tooltipchart"><span class="tooltipcharttext">{{ 'registry.conformite_traitement.label.tooltip.conforme'|trans }} {{ traitement.conformiteTraitement.nbConformes }}</span></span>{% endif %}
+                                        {% if widthnbNonConformesMineures %}<span style="width:{{ widthnbNonConformesMineures }}%" class="bar-non-conforme-mineure tooltipchart"><span class="tooltipcharttext">{{ 'registry.conformite_traitement.label.tooltip.minor_conforme'|trans }} {{ traitement.conformiteTraitement.nbNonConformesMineures }}</span></span>{% endif %}
+                                        {% if widthnbNonConformesMajeures %}<span style="width:{{ widthnbNonConformesMajeures }}%" class="bar-non-conforme-majeure tooltipchart"><span class="tooltipcharttext">{{ 'registry.conformite_traitement.label.tooltip.major_conforme'|trans }} {{ traitement.conformiteTraitement.nbNonConformesMajeures }}</span></span>{% endif %}
+                                    </div>
+                                {% endif %}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            {# AIPD #}
+            {% if traitement.conformiteTraitement is not null and traitement.conformiteTraitement.lastAnalyseImpact is not null %}
+                <div class="box box-solid box-primary">
+                    <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'registry.treatment.tab.last_aipd'|trans }}</h3></div>
                     <div class="box-body no-padding">
                         <table class="table">
-                            <tbody>
-                            {% if is_granted('ROLE_ADMIN') %}
-                                <tr>
-                                    <td><strong>{{ 'registry.treatment.show.collectivity'|trans }}</strong></td>
-                                    <td>
-                                        {{ traitement.collectivity }}
-                                    </td>
-                                </tr>
-                            {% endif %}
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.created_at'|trans }}</strong></td>
-                                <td>{{ traitement.createdAt|date('d/m/Y H:i') }}</td>
+                                <td style="width: 35%">
+                                    <strong>{{ 'aipd.treatment.label.avis_aipd'|trans }}</strong>
+                                </td>
+                                <td>
+                                    {% set analyseImpact = traitement.conformiteTraitement.lastAnalyseImpact %}
+
+                                    {% set labelAipdColor = "label-default" %}
+                                    {% if analyseImpact.statut == "defavorable" %}
+                                        {% set labelAipdColor = "label-danger" %}
+                                    {% elseif analyseImpact.statut == "favorable_avec_reserves" %}
+                                        {% set labelAipdColor = "label-warning" %}
+                                    {% elseif analyseImpact.statut == "favorable" %}
+                                        {% set labelAipdColor = "label-success" %}
+                                    {% endif %}
+                                    {% set statut = analyseImpact.statut %}
+                                    {% set labelStatut = "aipd.analyse_impact.values." ~ traitement.conformiteTraitement.lastAnalyseImpact.statut %}
+                                    <span class="label {{ labelAipdColor }}" style="display: inline-block;">
+                                {{ labelStatut|trans}}
+                            </span>
+                                </td>
                             </tr>
                             <tr>
-                                <td><strong>{{ 'registry.treatment.show.updated_at'|trans }}</strong></td>
-                                <td>{{ traitement.updatedAt|date('d/m/Y H:i') }}</td>
+                                <td>
+                                    <strong>{{ 'aipd.analyse_impact.list.date_validation'|trans }}</strong>
+                                </td>
+                                <td>
+                                    {% if analyseImpact.isValidated %}
+                                        {{ analyseImpact.dateValidation|date('d/m/Y') }}
+                                    {% else %}
+                                        {{ 'aipd.treatment.label.validation_in_progress'|trans }}
+                                    {% endif %}
+                                </td>
                             </tr>
-                            <tr>
-                                <td><strong>{{ 'registry.treatment.show.updated_by'|trans }}</strong></td>
-                                <td>{{ traitement.updatedBy }}</td>
-                            </tr>
-                            </tbody>
                         </table>
                     </div>
                 </div>
+            {% endif %}
+        {% endif %}
 
+        {# HISTORIC #}
+        <div class="box box-solid box-default">
+            <div class="box-header with-border"><h3 class="box-title" style="color: white">{{ 'global.tab.history'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <tr>
+                            <td><strong>{{ 'global.label.organization'|trans }}</strong></td>
+                            <td>
+                                {{ traitement.collectivity }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td><strong>{{ 'global.label.created_at'|trans }}</strong></td>
+                        <td>{{ traitement.createdAt|date('d/m/Y H:i') }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'global.label.updated_at'|trans }}</strong></td>
+                        <td>{{ traitement.updatedAt|date('d/m/Y H:i') }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'global.label.updated_by'|trans }}</strong></td>
+                        <td>{{ traitement.updatedBy }}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>

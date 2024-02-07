@@ -15,10 +15,10 @@
         <div class="box box-solid">
             <div class="box-body text-center">
                 <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">
-                    {{ 'registry.treatment.action.back_to_list'|trans }}
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
                 {% if not is_granted('ROLE_ADMIN') and not is_granted('ROLE_REFERENT') %}
-                    <input type="submit" class="btn btn-info draft" value="{{ ('registry.treatment.action.draft'|trans) }}">
+                    <input type="submit" class="btn btn-info draft" value="{{ ('global.action.draft'|trans) }}">
                 {% endif %}
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>
@@ -59,4 +59,3 @@
         })
     });
 </script>
-

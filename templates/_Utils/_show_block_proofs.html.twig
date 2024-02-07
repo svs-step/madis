@@ -1,13 +1,12 @@
-<div class="box box-solid box-warning">
-    <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_documents'|trans }}</h3></div>
-    <div class="box-body">
-        {% set activeProofs = object.proofs|filter(proof => proof.deletedAt is null) -%}
-
-        {% if activeProofs|length > 0 %}
-            <ul>
-                {% for proof in activeProofs %}
+<tr>
+    <td><strong>{{ 'global.label.linked_proof'|trans }}</strong></td>
+    <td>
+        {% if proofs|length > 0 %}
+            <ul class="ps-1">
+                {% for proof in proofs %}
                     <li>
-                        <a aria-label="Preuve" href="{{ path('registry_proof_download', { id: proof.id }) }}">
+                        <a href="{{ path('registry_proof_download', { id: proof.id }) }}">
+                            {% if proof.deletedAt is not null %}({{ 'global.label.archived'|trans }}){% endif %}
                             {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
                         </a>
                         {{ proof.comment }}
@@ -15,7 +14,7 @@
                 {% endfor %}
             </ul>
         {% else %}
-            <span><i>{{ 'label.no_linked_document'|trans }}</i></span>
+            <span><i>{{ 'global.label.no_linked_proof'|trans }}</i></span>
         {% endif %}
-    </div>
-</div>
+    </td>
+</tr>

@@ -16,9 +16,9 @@
         {{ 'registry.request.title.list'|trans }}
         <small>
             {% if app.request.query.get('archive') == 'true' %}
-                {{ 'label.archived'|trans }}
+                {{ 'registry.request.title.list_archived'|trans }}
             {% else %}
-                {{ 'label.not_archived'|trans }}
+                {{ 'registry.request.title.list_not_archived'|trans }}
             {% endif %}
         </small>
     </h1>
@@ -33,72 +33,70 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="action-bar">
-                    {% if is_granted('ROLE_USER') %}
-                    <a aria-label="{{ 'registry.request.action.new'|trans }}" href="{{ path('registry_request_create') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i>
-                        {{ 'registry.request.action.new'|trans }}
+        <div class="col-xs-12">
+            <div class="mb-1">
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('registry_request_create') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-plus"></i>
+                    {{ 'registry.request.action.new'|trans }}
+                </a>
+                {% endif %}
+                {% if app.user.roles[0] != 'ROLE_REFERENT' %}
+                <a href="{{ path('registry_request_report') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-clipboard-list"></i>
+                    {{ 'global.action.report'|trans }}
+                </a>
+                {% endif %}
+                {% if app.request.query.get('archive') == 'true' %}
+                    <a href="{{ path('registry_request_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-archive"></i>
+                        {{ 'registry.request.action.not_archived'|trans }}
                     </a>
-                    {% endif %}
-                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a aria-label="{{ 'registry.request.action.report'|trans }}" href="{{ path('registry_request_report') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.request.action.report'|trans }}
+                {% else %}
+                    <a href="{{ path('registry_request_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-archive"></i>
+                        {{ 'registry.request.action.archived'|trans }}
                     </a>
-                    {% endif %}
-                    {% if app.request.query.get('archive') == 'true' %}
-                        <a aria-label="{{ 'registry.request.action.not_archived'|trans }}" href="{{ path('registry_request_list', {'archive' : 'false'}) }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-archive"></i>
-                            {{ 'registry.request.action.not_archived'|trans }}
-                        </a>
-                    {% else %}
-                        <a aria-label="{{ 'registry.request.action.archived'|trans }}" href="{{ path('registry_request_list', {'archive' : 'true'}) }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-archive"></i>
-                            {{ 'registry.request.action.archived'|trans }}
-                        </a>
-                    {% endif %}
-                    {% if category and category.documents|length > 0 %}
-                        <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'documentation.document.link.button'|trans }}
-                        </a>
-                    {% endif %}
-                </div>
+                {% endif %}
+                {% if category and category.documents|length > 0 %}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
+                        {{ 'global.action.documentation'|trans }}
+                    </a>
+                {% endif %}
             </div>
-
+        </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <div id="custom-buttons" style="float:left">
                         {# <a id="delete-all"  href="{{ path('registry_request_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Archiver
+                            {{ 'global.action.archive'|trans }}
                         </a> #}
-                        <a aria-label="Imprimer" id="print-all"  href="{{ path('registry_request_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Imprimer
+                        <a id="print-all" href="{{ path('registry_request_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
+                            {{ 'global.action.print'|trans }}
                         </a>
                     </div>
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_personne_concernee" placeholder="Personne" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_personne_concernee" placeholder="{{ 'registry.request.label.concerned_people'|trans }}" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                                 </th>
                             {% endif %}
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_date_demande" placeholder="Date demande" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
-
+                                <input class="daterangepicker form-control" type="text" id="search_date_demande" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_objet" style="width: 100%;">
-                                    <option value="">Objet</option>
+                                    <option value="">{{ 'registry.request.label.object'|trans }}</option>
                                     {% for key, subject in dictionary('registry_request_object') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
@@ -106,59 +104,59 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_complete" style="width: 100%;">
-                                    <option value="">Complète</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.request.label.complete'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_demandeur" style="width: 100%;">
-                                    <option value="">Demandeur</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.request.label.legitimate_applicant'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_legitime" style="width: 100%;">
-                                    <option value="">Légitime</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.request.label.legitimate_request'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_date_traitement" placeholder="Date traitement" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_date_traitement" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
 
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_etat" style="width: 100%;">
-                                    <option value="">État</option>
+                                    <option value="">{{ 'registry.request.label.state'|trans }}</option>
                                     {% for key, subject in dictionary('registry_request_state') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select>
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'registry.request.list.concerned_people'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.concerned_people'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'registry.request.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'registry.request.list.date'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.object'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.complete'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.legitimate_applicant'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.legitimate_request'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.answer_date'|trans }}</th>
-                            <th scope="col">{{ 'registry.request.list.state'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.request.list.created_at'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.request.list.updated_at'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.date'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.object'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.complete'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.legitimate_applicant'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.legitimate_request'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.answer_date'|trans }}</th>
+                            <th scope="col">{{ 'registry.request.label.state'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

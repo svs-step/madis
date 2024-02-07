@@ -1,7 +1,6 @@
 maturity:
     survey:
         action:
-            back_to_list: Retour à la liste
             new: Nouvel indice de maturité
             new_submit: Créer l'indice de maturité
             edit_submit: Modifier l'indice de maturité
@@ -13,36 +12,52 @@ maturity:
             list: Liste des indices de maturité
             delete: Supprimer un indice de maturité
             show: Synthèse de l'indice de maturité
+        label:
+            delete_confirm: Souhaitez-vous vraiment supprimer l'indice de maturité %object% du %date% ?
         flashbag:
             success:
                 create: Indice de maturité "%object%" créé avec succès
                 edit: Indice de maturité "%object%" modifié avec succès
                 delete: Indice de maturité "%object%" supprimé avec succès
         list:
-            collectivity: Structure
-            created_at: Date de création
-            score: Score
-            updated_at: Date de modification
             referentiel: Référentiel
+            score: Score
         title:
             create: Nouvel indice de maturité
             edit: Modifier un indice de maturité
             list: Liste des indices de maturité
             delete: Supprimer un indice de maturité
-            name: test
             show: Synthèse de l'indice de maturité
+        tab:
+            survey: Indice de maturité
+            recommendation: Préconisation
     referentiel:
-        action:
-            back_to_list: Retour à la liste
-            new: Nouveau référentiel
+        title:
+            create: Nouveau référentiel
+            edit: Modifier un référentiel
+            list: Liste des référentiels
+            delete: Supprimer un référentiel
+            rights: Modifier les droits
             import: Importer un référentiel
-            new_submit: Créer le référentiel
-            edit_submit: Modifier le référentiel
+            referentiel: Référentiel
+            new_section: Nouvelle section
         breadcrumb:
             create: Nouveau référentiel
             edit: Modifier le référentiel
             list: Liste des référentiels
             delete: Supprimer un référentiel
+            rights: Modifier les droits
+            import: Importer un référentiel
+        action:
+            new: Nouveau référentiel
+            import: Importer un référentiel
+            new_submit: Créer le référentiel
+            edit_submit: Modifier le référentiel
+            rights_submit: Modifier les droits
+            import_submit: Importer le référentiel
+            add_section: Ajouter une section
+            add_question: '<i aria-hidden="true" class="fa fa-plus"></i> Ajouter une question'
+            add_answer: '<i aria-hidden="true" class="fa fa-plus"></i> Ajouter une réponse'
         flashbag:
             success:
                 create: Référentiel "%object%" créé avec succès
@@ -51,31 +66,19 @@ maturity:
                 import: Référentiel "%object%" importé avec succès
                 duplicate: Référentiel "%object%" dupliqué avec succès
                 rights: Droits sauvegardés avec succès
-        list:
-            name: Nom
-            created_at: Date de création
-            updated_at: Date de modification
-            description: Description
-        title:
-            create: Nouveau référentiel
-            edit: Modifier un référentiel
-            list: Liste des référentiels
-            delete: Supprimer un référentiel
-            rights: Modifier les droits
-            import: Importer un référentiel
-        form:
-            referentiel_name: Référentiel
-            name: Section
-            description: Description
-            informations_generales: Informations générales
+        label:
             referentiel: Référentiel
             section: Section
+            description: Description
+            question: Question
             weight: Pondération
-            answers: Réponses
-            question_name: Question
+            not_concerned: "Activer l'option : Non concerné"
+            answers: "Réponses :"
+            answer: Réponse
             recommendation: Préconisation
-            answer:
-                name: Réponse
-        table:
-            label: Référentiel
-            description: description
+            delete_confirm: Souhaitez-vous vraiment supprimer le référentiel %object% du %date% ?
+            delete_info: "La suppression de ce référentiel entraînera la suppression des indices de maturité liés pour les structures suivantes :"
+        placeholder:
+            not_concerned: Non concerné
+        list:
+            name: Nom

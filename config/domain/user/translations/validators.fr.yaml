@@ -48,5 +48,5 @@ user_user:
         email: L'adresse email doit être valide
         not_blank: Vous devez renseigner un email
     roles:
-        max_count: Vous devez sélectionner au maximum {{ limit }} role
-        min_count: Vous devez sélectionner au minimum {{ limit }} role
+        max_count: Vous devez sélectionner au maximum {{ limit }} rôle
+        min_count: Vous devez sélectionner au minimum {{ limit }} rôle

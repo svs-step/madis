@@ -3,7 +3,7 @@
 {% set bodyClass = 'user_collectivity list' %}
 {% set menuItem = 'user_collectivity' %}
 
-{% block title %}{{ 'user.collectivity.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'user.organization.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
@@ -11,12 +11,12 @@
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'user.collectivity.title.list'|trans }}</h1>
+    <h1>{{ 'user.organization.title.list'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'user.collectivity.title.list'|trans }
+        { 'name': 'user.organization.title.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -25,10 +25,10 @@
     {% if is_granted('ROLE_ADMIN') %}
     <div class="row">
         <div class="col-xs-12">
-            <div class="action-bar">
+            <div class="mb-1">
                 <a href="{{ path('user_collectivity_create') }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-plus"></i>
-                    {{ 'user.collectivity.action.new'|trans }}
+                    {{ 'user.organization.action.new'|trans }}
                 </a>
             </div>
         </div>
@@ -38,67 +38,67 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'user.organization.label.name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom_court" placeholder="Nom court" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom_court" placeholder="{{ 'user.organization.label.short_name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_type" style="width: 100%;">
-                                    <option value="">Type</option>
+                                    <option value="">{{ 'user.organization.label.type'|trans }}</option>
                                     {% for key, subject in dictionary('user_collectivity_type') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select>
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_informations_complementaires" placeholder="Infos complémentaires" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_informations_complementaires" placeholder="{{ 'user.organization.label.other_information'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_siren" placeholder="Siren" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_siren" placeholder="{{ 'user.organization.label.siren'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_actif" style="width: 100%;">
-                                    <option value="">Statut</option>
-                                    <option value="1">{{ 'label.active'|trans }}</option>
-                                    <option value="0">{{ 'label.inactive'|trans }}</option>
+                                    <option value="">{{ 'user.organization.label.active'|trans }}</option>
+                                    <option value="1">{{ 'global.label.active'|trans }}</option>
+                                    <option value="0">{{ 'global.label.inactive'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nbr_cnil" placeholder="Numéro CNIL" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nbr_cnil" placeholder="{{ 'user.organization.list.nbr_cnil'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nbr_agents" placeholder="Salariés" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nbr_agents" placeholder="{{ 'user.organization.label.nbr_agents'|trans }}" style="width: 100%;">
                             </th>
                             <th>
-                                <input class="form-control" type="text" id="search_population" placeholder="Population" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_population" placeholder="{{ 'user.organization.label.population'|trans }}" style="width: 100%;">
                             </th>
 
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'user.collectivity.list.name'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.short_name'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.type'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.informations_complementaires'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.siren'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.active'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.nbr_cnil'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.nbr_agents'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.population'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.created_at'|trans }}</th>
-                            <th scope="col">{{ 'user.collectivity.list.updated_at'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.name'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.short_name'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.type'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.other_information'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.siren'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.active'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.nbr_cnil'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.nbr_agents'|trans }}</th>
+                            <th scope="col">{{ 'user.organization.label.population'|trans }}</th>
+                            <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

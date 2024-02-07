@@ -74,7 +74,7 @@ class MesurementType extends AbstractType
         }
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'registry.mesurement.form.name',
+                'label'    => 'registry.mesurement.label.name',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 255,
@@ -91,7 +91,7 @@ class MesurementType extends AbstractType
             ])
             */
             ->add('description', TextareaType::class, [
-                'label'    => 'registry.mesurement.form.description',
+                'label'    => 'registry.mesurement.label.description',
                 'required' => false,
                 'attr'     => [
                     'rows' => 3,
@@ -99,7 +99,7 @@ class MesurementType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('cost', TextType::class, [
-                'label'    => 'registry.mesurement.form.cost',
+                'label'    => 'registry.mesurement.label.cost',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -107,7 +107,7 @@ class MesurementType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('charge', TextType::class, [
-                'label'    => 'registry.mesurement.form.charge',
+                'label'    => 'registry.mesurement.label.charge',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -115,14 +115,14 @@ class MesurementType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('status', DictionaryType::class, [
-                'label'    => 'registry.mesurement.form.status',
+                'label'    => 'registry.mesurement.label.status',
                 'name'     => 'registry_mesurement_status',
                 'required' => true,
                 'multiple' => false,
                 'expanded' => true,
             ])
             ->add('planificationDate', DateType::class, [
-                'label'    => 'registry.mesurement.form.planification_date',
+                'label'    => 'registry.mesurement.label.planification_date',
                 'required' => false,
                 'widget'   => 'single_text',
                 'format'   => 'dd/MM/yyyy',
@@ -132,7 +132,7 @@ class MesurementType extends AbstractType
                 ],
             ])
             ->add('comment', TextType::class, [
-                'label'    => 'registry.mesurement.form.comment',
+                'label'    => 'registry.mesurement.label.comment',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -140,13 +140,13 @@ class MesurementType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('priority', DictionaryType::class, [
-                'label'    => 'registry.mesurement.form.priority',
+                'label'    => 'registry.mesurement.label.priority',
                 'name'     => 'registry_mesurement_priority',
                 'required' => false,
                 'multiple' => false,
             ])
             ->add('manager', TextType::class, [
-                'label'    => 'registry.mesurement.form.manager',
+                'label'    => 'registry.mesurement.label.manager',
                 'required' => false,
                 'attr'     => [
                     'maxlength' => 255,
@@ -154,7 +154,7 @@ class MesurementType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('contractors', EntityType::class, [
-                'label'         => 'registry.mesurement.form.contractor',
+                'label'         => 'global.label.linked_contractor',
                 'class'         => Contractor::class,
                 'required'      => false,
                 'multiple'      => true,
@@ -178,12 +178,12 @@ class MesurementType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Sous-traitants',
                 ],
             ])
             ->add('treatments', EntityType::class, [
-                'label'         => 'registry.mesurement.form.treatment',
+                'label'         => 'global.label.linked_treatment',
                 'class'         => Treatment::class,
                 'required'      => false,
                 'multiple'      => true,
@@ -207,12 +207,12 @@ class MesurementType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Traitements',
                 ],
             ])
             ->add('violations', EntityType::class, [
-                'label'         => 'registry.mesurement.form.violation',
+                'label'         => 'global.label.linked_violation',
                 'class'         => Violation::class,
                 'required'      => false,
                 'multiple'      => true,
@@ -235,12 +235,12 @@ class MesurementType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Violations',
                 ],
             ])
             ->add('requests', EntityType::class, [
-                'label'         => 'registry.mesurement.form.request',
+                'label'         => 'global.label.linked_request',
                 'class'         => Request::class,
                 'required'      => false,
                 'multiple'      => true,
@@ -263,7 +263,7 @@ class MesurementType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Demandes',
                 ],
             ])
@@ -275,7 +275,7 @@ class MesurementType extends AbstractType
 
         if ($collectivity && $collectivity->isHasModuleTools()) {
             $builder->add('tools', EntityType::class, [
-                'label'         => 'registry.treatment.form.tools',
+                'label'         => 'global.label.linked_tool',
                 'class'         => Tool::class,
                 'required'      => false,
                 'multiple'      => true,
@@ -299,7 +299,7 @@ class MesurementType extends AbstractType
                 'attr' => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                     'aria-label'       => 'Logiciels et supports',
                 ],
             ]);

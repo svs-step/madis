@@ -34,6 +34,7 @@ use App\Domain\Admin\Model\Duplication;
 use App\Domain\Admin\Repository as AdminRepository;
 use App\Domain\Admin\Transformer\DuplicationFormDTOTransformer;
 use App\Domain\User\Repository as UserRepository;
+use Symfony\Contracts\Translation\TranslatorInterface;
 // utilisés dynamiquements pour revert duplication, ne pas supprimer
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -76,12 +77,14 @@ class DuplicationController extends AbstractController
 
     public function __construct(
         RequestStack $requestStack,
+        TranslatorInterface $translator,
         AdminRepository\Duplication $duplicationRepository,
         UserRepository\Collectivity $collectivityRepository,
         DuplicationHydrator $duplicationHydrator,
         DuplicationFormDTOTransformer $dtoTransformer,
         ClonerProvider $clonerProvider
     ) {
+        $this->translator             = $translator;
         $this->requestStack           = $requestStack;
         $this->duplicationRepository  = $duplicationRepository;
         $this->collectivityRepository = $collectivityRepository;
@@ -176,7 +179,7 @@ class DuplicationController extends AbstractController
 
         $d = $entityManager->getRepository(Duplication::class)->findBy([], ['createdAt' => 'DESC'], 1);
         if (0 === count($d)) {
-            $this->addFlash('error', 'Il n\'y a aucune duplication à annuler');
+            $this->addFlash('error', $this->translator->trans('admin.duplication.flashbag.error.no_data'));
 
             return $this->redirectToRoute('admin_duplication_new');
         }
@@ -190,7 +193,7 @@ class DuplicationController extends AbstractController
             try {
                 $typeToDelete = DuplicationTypeDictionary::getClassName($duplication->getType());
             } catch (\Exception $e) {
-                $this->addFlash('error', 'Impossible d\'annuler la dernière duplication');
+                $this->addFlash('error', $this->translator->trans('admin.duplication.flashbag.error.cancel'));
 
                 return $this->redirectToRoute('admin_duplication_new');
             }
@@ -212,12 +215,12 @@ class DuplicationController extends AbstractController
 
                 $entityManager->flush();
 
-                $this->addFlash('success', 'La dernière duplication a été annulée.');
+                $this->addFlash('success', $this->translator->trans('admin.duplication.flashbag.success.cancel'));
             } else {
-                $this->addFlash('error', 'Il n\'y a aucune duplication à annuler');
+                $this->addFlash('error', $this->translator->trans('admin.duplication.flashbag.error.no_data'));
             }
         } else {
-            $this->addFlash('error', 'Il n\'y a aucune duplication à annuler');
+            $this->addFlash('error', $this->translator->trans('admin.duplication.flashbag.error.no_data'));
         }
 
         return $this->redirectToRoute('admin_duplication_new');

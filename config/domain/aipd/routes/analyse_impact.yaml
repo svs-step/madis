@@ -19,7 +19,7 @@ aipd_analyse_impact_create:
     controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:createAnalyseAction'
 
 aipd_analyse_impact_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\AIPD\Controller\AnalyseImpactController:editAction'
 

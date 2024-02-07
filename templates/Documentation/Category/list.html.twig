@@ -3,7 +3,7 @@
 {% set bodyClass = 'documentation_category list' %}
 {% set menuItem = 'documentation' %}
 
-{% block title %}{{ 'documentation.category.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'documentation.document.title.title'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
@@ -11,64 +11,68 @@
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'documentation.category.title.list'|trans }}
-        <small>{{ 'label.category'|trans }}</small>
+    <h1>{{ 'documentation.document.title.title'|trans }}
+        <small>{{ 'documentation.category.title.subtitle'|trans }}</small>
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'documentation.category.title.list'|trans }
+        { 'name': 'documentation.document.title.title'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="action-bar">
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <a aria-label="{{ 'documentation.category.action.new'|trans }}" href="{{ path('documentation_category_create') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i>
-                        {{ 'documentation.category.action.new'|trans }}
-                    </a>
-                    <a aria-label="{{ 'documentation.category.action.files'|trans }}" href="{{ path('documentation_document_index') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-file"></i>
-                        {{ 'documentation.category.action.files'|trans }}
-                    </a>
-                    {% endif %}
-                </div>
+        <div class="col-xs-12">
+            <div class="mb-1">
+                {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ path('documentation_category_create') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-plus"></i>
+                    {{ 'documentation.category.action.new'|trans }}
+                </a>
+                <a href="{{ path('documentation_document_index') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-file"></i>
+                    {{ 'documentation.category.action.files'|trans }}
+                </a>
+                {% endif %}
             </div>
+        </div>
     </div>
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                 {% if is_granted('ROLE_ADMIN') %}
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                <th scope="col">{{ 'documentation.category.list.name'|trans }}</th>
+                                <th scope="col">{{ 'documentation.category.label.name'|trans }}</th>
                                 <th scope="col">{{ 'documentation.category.list.count'|trans }}</th>
-                                <th scope="col">{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'global.label.actions'|trans }}</th>
                             </tr>
                         </thead>
                         <tbody>
                         {% for object in objects %}
                         <tr>
-                            <td><a aria-label="{{ object.name }}" href="{{ path('documentation_document_index') }}?category={{ object.id }}">{{ object.name }}</a></td>
                             <td>
-                                <a aria-label="Documents" href="{{ path('documentation_document_index') }}?category={{ object.id }}">{{ object.documents|length }}</a>
+                                {% if object.documents|length > 0 %}
+                                    <a href="{{ path('documentation_document_index') }}?category={{ object.id }}">{{ object.name }}</a>
+                                {% else %}
+                                    {{ object.name }}
+                                {% endif %}
                             </td>
+                            <td>{{ object.documents|length }}</td>
                             <td>
                                 {% if object.systeme == 0 %}
-                                    <a aria-label="{{ 'action.edit'|trans }}" href="{{ path('documentation_category_edit', { 'id': object.id }) }}">
+                                    <a href="{{ path('documentation_category_edit', { 'id': object.id }) }}">
                                         <i aria-hidden="true" class="fa fa-pencil"></i>
-                                        {{ 'action.edit'|trans }}
+                                        {{ 'global.action.edit'|trans }}
                                     </a>
-                                    <a aria-label="{{ 'action.delete'|trans }}" href="{{ path('documentation_category_delete', { 'id': object.id }) }}">
+                                    <a href="{{ path('documentation_category_delete', { 'id': object.id }) }}">
                                         <i aria-hidden="true" class="fa fa-trash"></i>
-                                        {{ 'action.delete'|trans }}
+                                        {{ 'global.action.delete'|trans }}
                                     </a>
                                 {% endif %}
                             </td>

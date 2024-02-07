@@ -51,7 +51,7 @@ class ComplexChoiceType extends AbstractType
                 'label'    => false,
                 'required' => false,
                 'attr'     => [
-                    'placeholder' => 'placeholder.precision',
+                    'placeholder' => 'global.placeholder.precision',
                     'maxlength'   => 255,
                 ],
             ])

@@ -1,105 +1,137 @@
-action:
-    archive: Archiver
-    back_to_list: Retourner à la liste
-    close: Fermer
-    confirm: Confirmer
-    confirm_archive: Confirmer l'archivage
-    confirm_delete: Confirmer la suppression
-    confirm_unarchive: Confirmer le rétablissement
-    connexion: Connexion
-    create: Créer
-    delete: Supprimer
-    deletion: Suppression
-    download: Télécharger
-    draft: Enregistrer un brouillon
-    duplicate: Dupliquer
-    synthesis: Synthèse
-    edit: Modifier
-    share: Partager
-    export: Exporter
-    impersonate: Se connecter
-    print: Imprimer
-    reinitialize: Réinitialisation
-    rights: Droits
-    save: Enregistrer
-    submit: Enregistrer
-    new_submit: Créer
-    edit_submit: Modifier
-    unarchive: Rétablir
-    validate: Valider
+global:
+    action:
+        archive: Archiver
+        unarchive: Désarchiver
+        back_to_list: Retourner à la liste
+        back: Précédent
+        next: Suivant
+        close: Fermer
+        cancel: Annuler
+        confirm: Confirmer
+        confirm_archive: Confirmer l'archivage
+        confirm_delete: Confirmer la suppression
+        confirm_unarchive: Confirmer le désarchivement
+        connexion: Connexion
+        create: Créer
+        delete: Supprimer
+        documentation: Ressources utiles
+        download: Télécharger
+        draft: Enregistrer en brouillon
+        duplicate: Dupliquer
+        synthesis: Synthèse
+        edit: Modifier
+        share: Partager
+        export: Exporter
+        impersonate: Se connecter
+        impersonate_end: Quitter ce mode
+        print: Imprimer
+        rights: Droits
+        report: Générer une impression
+        validate: Valider
+        read_more: Plus d'informations
 
-label:
-    de: de
-    par: par
-    du: du
-    actions: Actions
-    action_link: Lien
-    active: Actif
-    archived: Archivés
-    danger_zone: Zone de danger
-    for_your_information: Pour votre information
-    inactive: Inactif
-    linked_documents: Preuves associées
-    linked_treatment: Traitements associés
-    linked_mesurement: Actions de protection associées
-    linked_mesurements: Actions de protection associées
-    linked_violations: Violations associées
-    linked_request: Demandes associées
-    linked_contractor: Sous-traitants associés
-    linked_contractors: Sous-traitants associés
-    linked_tools: Logiciels et supports associés
-    no: Non
-    yes: Oui
-    no_linked_document: Aucune preuve associée
-    no_linked_contractor: Aucun sous-traitant associé
-    no_linked_treatment: Aucun traitement associé
-    no_linked_mesurement: Aucune action de protection associée
-    no_linked_mesurements: Aucune action de protection associée
-    no_linked_violations: Aucune violation associée
-    no_linked_requests: Aucune demande associée
-    no_linked_tools: Aucun logiciel ou support associé
-    no_linked_contractors: Aucun sous-traitants associé
-    not_archived: Non archivés
-    category: Catégories documentaires
-    request_correct: Rectifier des données
-    request_delete: Supprimer des données
-    request_withdraw_consent: Retirer le consentement
-    request_access: Accéder à des données
-    request_data_portability: Portabilité des données
-    request_limit_treatment: Limiter le traitement
-    request_other: Autre
-    violation_confidentiality: Perte de la confidentialité
-    violation_integrity: Perte de l'intégrité
-    violation_availability: Perte de la disponibilité
+    label:
+        actions: Actions
+        active: Actif
+        inactive: Inactif
+        archived: Archivé
+        not_archived: Non archivé
+        organization: Structure
+        created_at: Date de création
+        created_by : Créé par
+        updated_at : Date de modification
+        updated_by : Modifié par
+        import_xml: Sélectionner un fichier XML à importer
+        no_data: Aucun élément à afficher
+        linked_treatment: Traitements
+        no_linked_treatment: Aucun traitement associé
+        linked_contractor: Sous-traitants
+        no_linked_contractor: Aucun sous-traitant associé
+        linked_tool: Logiciels et supports
+        no_linked_tool: Aucun logiciel ou support associé
+        linked_request: Demandes
+        no_linked_request: Aucune demande associée
+        linked_violation: Violations
+        no_linked_violation: Aucune violation associée
+        linked_proof: Preuves
+        no_linked_proof: Aucune preuve associée
+        linked_mesurement: Actions de protection
+        no_linked_mesurement: Aucune action de protection associée
+        no: Non
+        yes: Oui
+        in_progress: En cours
+        impersonate_banner: Vous êtes actuellement connecté en tant que "%user%" (%organization% - %roles%)
+        address:
+            line_one: Adresse
+            line_two: Complément d'adresse
+            city: Ville
+            zip_code: Code postal
+            insee: Code INSEE
+            country: Pays
+        contact:
+            civility: Civilité
+            first_name: Prénom
+            last_name: Nom
+            job: Fonction
+            email: Email
+            phone_number: Téléphone
 
-placeholder:
-    precision: Précisez
-    multiple_select: Sélectionner une ou plusieurs valeurs
+    tab:
+        general: Informations générales
+        linked_modules: Éléments associés
+        history: Historique
+        rights: Gestion des droits
 
-sidebar_menu:
-  admin_duplication: Module de Duplication
-  aipd_modele: Modèle d'analyse
-  aipd_mesure_protection: Mesure de protection
-  aipd_analyse_impact: Analyse d'impacts
-  configuration_treatments: Registre public
-  conformite_traitements: Conformité des traitements
-  conformite_structure: Conformité de la structure
-  dashboard: Tableau de bord
-  documentation: Espace documentaire
-  maturity_survey: Indice de maturité
-  maturity_referentiel: Gérer les référentiels
-  registry_action_plan: Plan d'actions
-  registry_contractors: Sous-traitants
-  registry_mesurements: Actions de protection
-  registry_proofs: Preuves
-  registry_requests: Demandes
-  registry_tools: Logiciels et supports
-  registry_treatments: Traitements
-  registry_violations: Violations
-  reporting_review: Générer un bilan
-  user_collectivities: Structures
-  user_profile_collectivity: Ma structure
-  user_profile_user: Mon compte
-  user_users: Utilisateurs
-  reporting_journalisation: Journalisation
-  notifications: Notifications
+    placeholder:
+        precision: Précisez
+        multiple_select: Sélectionner une ou plusieurs valeurs
+        date: Date
+
+    navigation:
+        breadcrumb: Fil d'Ariane
+        copyright: Copyright
+        header: En-tête principal
+        open_menu: Ouvrir/fermer le menu
+        main_menu: Menu principal
+        provider : Gestionnaire de Madis
+        skiplinks: Accès rapide
+        skiplinks_header: Menu
+        skiplinks_main: Contenu
+        skiplinks_footer: Pied de page
+
+    sidebar_menu:
+        dashboard: Tableau de bord
+        registry: Registres
+        registry_treatments: Traitements
+        registry_contractors: Sous-traitants
+        registry_tools: Logiciels et supports
+        registry_requests: Demandes
+        registry_violations: Violations
+        proofs: Justificatifs
+        registry_proofs: Preuves
+        actions: Actions
+        registry_mesurements: Actions de protection
+        registry_action_plan: Plan d'actions
+        aipd: Analyse d'impact
+        aipd_modele: Modèle d'analyse
+        aipd_mesure_protection: Mesure de protection
+        aipd_analyse_impact: Analyse d'impacts
+        reporting: Rapports
+        maturity_survey: Indice de maturité
+        maturity_referentiel: Gérer les référentiels
+        reporting_review: Générer un bilan
+        conformite: Conformité
+        conformite_treatments: Conformité des traitements
+        conformite_organization: Conformité de la structure
+        document: Centre d'aide
+        documentation: Espace documentaire
+        admin: Espace d'administration
+        admin_duplication: Duplication
+        organizations: Structures
+        users: Utilisateurs
+        reporting_journalisation: Journalisation
+        configuration: Configuration
+        configuration_treatments: Registre public
+        user_profile: Mon compte
+        user_organization: Ma structure
+        logout: Déconnexion

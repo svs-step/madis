@@ -54,7 +54,7 @@ class DelayType extends AbstractType
                 'required' => true,
             ])
             ->add('otherDelay', CheckboxType::class, [
-                'label'    => 'registry.delay.form.other_delay',
+                'label'    => 'Autre délai',
                 'required' => false,
             ])
             ->add('comment', TextareaType::class, [

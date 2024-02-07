@@ -7,11 +7,11 @@
 {{ form_start(form) }}
 
 <div class="row">
-
+    {# LEFT #}
     <div class="col-md-6">
-        {# GENERAL INFORMATIONS #}
+        {# GENERAL #}
         <div class="box box-solid box-info">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.tool.tab.general'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.general'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.name) }}
                 {{ form_row(form.type) }}
@@ -28,8 +28,9 @@
         </div>
     </div>
 
+    {# RIGHT #}
     <div class="col-md-6">
-        {# RELATIONS #}
+        {# SECURITY #}
         <div class="box box-solid box-primary">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.tool.tab.measures'|trans }}</h3></div>
             <div class="box-body">
@@ -38,14 +39,11 @@
         </div>
     </div>
 
-</div>
-
-<div class="row">
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
                 <a href="{{ path('registry_tool_list') }}" class="btn btn-default">
-                    {{ 'registry.tool.action.back_to_list'|trans }}
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>
@@ -53,6 +51,5 @@
     </div>
 </div>
 
+
 {{ form_end(form) }}
-
-

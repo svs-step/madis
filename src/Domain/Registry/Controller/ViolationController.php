@@ -161,12 +161,12 @@ class ViolationController extends CRUDController
         $users    = $this->getResults($request, $criteria);
         $reponse  = $this->getBaseDataTablesResponse($request, $users, $criteria);
 
-        $yes = '<span class="badge bg-red">' . $this->translator->trans('label.yes') . '</span>';
-        $no  = '<span class="badge bg-green">' . $this->translator->trans('label.no') . '</span>';
+        $yes = '<span class="badge bg-red">' . $this->translator->trans('global.label.yes') . '</span>';
+        $no  = '<span class="badge bg-green">' . $this->translator->trans('global.label.no') . '</span>';
 
         /** @var Model\Violation $violation */
         foreach ($users as $violation) {
-            $violationLink = '<a aria-label="' . \date_format($violation->getDate(), 'd/m/Y') . '" href="' . $this->router->generate('registry_violation_show', ['id' => $violation->getId()->toString()]) . '">
+            $violationLink = '<a href="' . $this->router->generate('registry_violation_show', ['id' => $violation->getId()->toString()]) . '">
                 ' . \date_format($violation->getDate(), 'd/m/Y') . '
             </a>';
 
@@ -251,13 +251,13 @@ class ViolationController extends CRUDController
         if ($this->authorizationChecker->isGranted('ROLE_USER')
         && \is_null($violation->getDeletedAt())
         && ($user->getServices()->isEmpty() || $this->isRequestInUserServices($violation))) {
-            $cellContent .= '<a aria-label="' . $this->translator->trans('action.edit') . '" href="' . $this->router->generate('registry_violation_edit', ['id' => $violation->getId()]) . '">
+            $cellContent .= '<a href="' . $this->router->generate('registry_violation_edit', ['id' => $violation->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-pencil"></i> ' .
-                    $this->translator->trans('action.edit') . '
+                    $this->translator->trans('global.action.edit') . '
                 </a>
-                <a aria-label="' . $this->translator->trans('action.archive') . '" href="' . $this->router->generate('registry_violation_delete', ['id' => $violation->getId()]) . '">
+                <a href="' . $this->router->generate('registry_violation_delete', ['id' => $violation->getId()]) . '">
                     <i aria-hidden="true" class="fa fa-archive"></i> ' .
-                    $this->translator->trans('action.archive') . '
+                    $this->translator->trans('global.action.archive') . '
                 </a>';
         }
 

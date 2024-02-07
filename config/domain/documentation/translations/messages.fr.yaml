@@ -1,9 +1,6 @@
 documentation:
     document:
-        link:
-            button: Ressources utiles
         action:
-            back_to_list: Retour à la liste
             new: Nouveau document
             file: Nouveau fichier
             url: Nouveau lien
@@ -11,29 +8,28 @@ documentation:
             grid: Afficher en grille
             new_submit: Créer le document
             edit_submit: Modifier le document
+            removeThumb: Supprimer la vignette
+            copy: Copier
+        tab:
+            file: Fichier
+            link: Lien
+            categories: Catégories
         form:
-            title:
-                file: Fichier
-                link: Lien
-                categories: Catégories
             error:
                 fileorurl: Vous devez choisir un fichier ou une URL pour le document
                 missingurl: Vous devez entrer une URL si votre document est un lien
             help:
                 file: "Un seul fichier. Taille maximale autorisée : max_size. Types de fichiers autorisés : Image, Vidéo, Audio, Documents"
                 thumbnail: "Un seul fichier. Taille maximale autorisée : max_size. Types de fichiers autorisés : Image"
-            label:
-                file: Fichier du document
-                url: URL du document
-                name: Nom du document
-                pinned: Épinglé
-                categories: Catégories
-                islink: Lien direct
-                thumbnail: Vignette
-                creator: Créateur
-                created_at: Date de création
-                updated_at: Date de modification
-                removeThumb: Supprimer la vignette
+        label:
+            file: Fichier
+            url: URL du document
+            name: Nom
+            pinned: Épinglé
+            categories: Catégories
+            islink: Lien direct
+            thumbnail: Miniature
+            delete_confirm: Souhaitez-vous vraiment supprimer le document "%object%" ?
         breadcrumb:
             create: Nouveau document
             edit: Modifier un document
@@ -48,38 +44,35 @@ documentation:
             favorite: Favoris
             type: Format
             weight: Poids
-            name: Nom
-            category: Catégorie
-            created_at: Date de création
-            updated_at: Date de modification
-            score: Score
-            pinned: Épinglé
-            favorited: Favori
             thumbnail: Télécharger
+            help: Seuls les utilisateurs ayant un compte Madis pourront accéder au document.
+            copied_link: Lien copié
         title:
             create: Nouveau document
             edit: Modifier un document
-            list: Espace documentaire
+            title: Espace documentaire
             subtitle: Tous les fichiers
             favorite: Favoris
             delete: Supprimer un document
+            share_link: Partager le lien du document
 
     category:
         action:
-            back_to_list: Retour à la liste
             new: Ajouter une catégorie
             list: Catégories documentaires
             files: Tous les fichiers
             new_submit: Créer la catégorie
             edit_submit: Modifier la catégorie
         list:
-            name: Nom
             count: Total
+        label:
+            name: Catégorie
+            delete_confirm: Souhaitez-vous vraiment supprimer la catégorie "%object%" ?
         title:
-            list: Espace documentaire
             edit: Modifier une catégorie
             delete: Supprimer une catégorie
             create: Nouvelle catégorie
+            subtitle: Catégories documentaires
         breadcrumb:
             create: Nouvelle catégorie
             edit: Modifier une catégorie
@@ -92,9 +85,3 @@ documentation:
                 delete: Catégorie "%object%" supprimée avec succès
             error:
                 delete: Vous ne pouvez pas supprimer la catégorie "%object%"
-        form:
-            error:
-                fileorurl: Vous devez choisir un fichier ou une URL pour le document
-                missingurl: Vous devez entrer une URL si votre document est un lien
-            label:
-                name: Catégorie

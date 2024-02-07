@@ -56,7 +56,7 @@ class TreatmentConfigurationType extends AbstractType
 
         foreach ($tabProperties as $property => $value) {
             $builder->add($property, CheckboxType::class, [
-                'label'    => 'registry.treatment.show.' . $this->fromCamelCase($property),
+                'label'    => 'registry.treatment.label.' . $this->fromCamelCase($property),
                 'required' => false,
                 'data'     => $value,
             ]);
