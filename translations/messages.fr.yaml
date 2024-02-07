@@ -59,6 +59,7 @@ global:
         no_linked_mesurement: Aucune action de protection associée
         no: Non
         yes: Oui
+        in_progress: En cours
         impersonate_banner: Vous êtes actuellement connecté en tant que "%user%" (%organization% - %roles%)
         address:
             line_one: Adresse

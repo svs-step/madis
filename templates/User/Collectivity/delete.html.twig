@@ -19,7 +19,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'user.organization.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
-        { 'name': 'user.organization.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'user.organization.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -30,7 +30,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    <p>{{ 'user.organization.label.delete_confirm'|trans({'%object%': object }) }}</p>
+                    <p>{{ 'user.organization.label.delete_confirm'|trans({ '%object%': object }) }}</p>
                     <p><strong>{{ 'user.organization.label.delete_confirm_list'|trans }}</strong></p>
                     <ul>
                         {% for deletedObject in deletedObjects %}

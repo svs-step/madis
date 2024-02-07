@@ -96,7 +96,7 @@ class QuestionType extends AbstractType
             $form = $event->getForm();
             if (null !== $data = $event->getData()) {
                 $form->add('addAnswer', ButtonType::class, [
-                    'label'      => '<i aria-hidden="true" class="fa fa-plus"></i> Ajouter une réponse',
+                    'label'      => 'maturity.referentiel.action.add_answer',
                     'label_html' => true,
                     'attr'       => [
                         'class'                        => 'add_answer btn btn-primary',
@@ -106,7 +106,7 @@ class QuestionType extends AbstractType
                 ]);
             } else {
                 $form->add('addAnswer', ButtonType::class, [
-                    'label'      => '<i aria-hidden="true" class="fa fa-plus"></i> Ajouter une réponse',
+                    'label'      => 'maturity.referentiel.action.add_answer',
                     'label_html' => true,
                     'attr'       => [
                         'class'                        => 'add_answer btn btn-primary',

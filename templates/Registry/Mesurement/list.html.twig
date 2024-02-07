@@ -87,14 +87,14 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_priorite" style="width: 100%;">
-                                    <option value="">Priorité</option>
+                                    <option value="">{{ 'registry.mesurement.label.priority'|trans }}</option>
                                     {% for key, subject in dictionary('registry_mesurement_priority') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select>
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_responsable_action" placeholder="Responsable" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_responsable_action" placeholder="{{ 'registry.mesurement.label.manager'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <input class="form-control" type="text" id="search_description" placeholder="{{ 'registry.mesurement.label.description'|trans }}" style="width: 100%;">

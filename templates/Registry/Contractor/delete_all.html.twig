@@ -25,7 +25,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer {{ objects_length }} sous-traitant{{objects_length > 1 ? 's' : '' }} ?
+                    <p>{{ 'registry.contractor.label.delete_all_confirm'|trans({ '%object%': objects_length, '%s%': objects_length > 1 ? 's' : '' }) }}</p>
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('registry_contractor_list') }}" class="btn btn-default">

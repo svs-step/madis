@@ -74,7 +74,7 @@
                 <div class="box-body overflow-x-auto">
                     <div id="custom-buttons" style="float:left">
                         {# <a id="delete-all"  href="{{ path('registry_request_delete_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Archiver
+                            {{ 'global.action.archive'|trans }}
                         </a> #}
                         <a id="print-all" href="{{ path('registry_request_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
                             {{ 'global.action.print'|trans }}
@@ -84,7 +84,7 @@
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_personne_concernee" placeholder="Personne" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_personne_concernee" placeholder="{{ 'registry.request.label.concerned_people'|trans }}" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
@@ -93,11 +93,10 @@
                             {% endif %}
                             <th scope="col" style="min-width:130px;position:relative;">
                                 <input class="daterangepicker form-control" type="text" id="search_date_demande" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
-
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_objet" style="width: 100%;">
-                                    <option value="">Objet</option>
+                                    <option value="">{{ 'registry.request.label.object'|trans }}</option>
                                     {% for key, subject in dictionary('registry_request_object') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
@@ -105,23 +104,23 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_complete" style="width: 100%;">
-                                    <option value="">Complète</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.request.label.complete'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_demandeur" style="width: 100%;">
-                                    <option value="">Demandeur</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.request.label.legitimate_applicant'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_legitime" style="width: 100%;">
-                                    <option value="">Légitime</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.request.label.legitimate_request'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
@@ -130,7 +129,7 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_etat" style="width: 100%;">
-                                    <option value="">État</option>
+                                    <option value="">{{ 'registry.request.label.state'|trans }}</option>
                                     {% for key, subject in dictionary('registry_request_state') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}

@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'registry.mesurement.breadcrumb.list'|trans, 'link': path('registry_mesurement_list') },
-        { 'name': 'registry.mesurement.breadcrumb.edit'|trans({'%name%': form.vars.value}) }
+        { 'name': 'registry.mesurement.breadcrumb.edit'|trans({ '%name%': form.vars.value }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -23,5 +23,3 @@
 {% block body %}
     {{ include('Registry/Mesurement/_form.html.twig') }}
 {% endblock %}
-
-

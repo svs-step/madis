@@ -25,7 +25,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer {{ ids|length }} traitement{{ ids|length > 1 ? 's' : '' }} ?
+                    <p>{{ 'registry.treatment.label.delete_all_confirm'|trans({ '%object%': ids|length, '%s%': ids|length > 1 ? 's' : '' }) }}</p>
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">

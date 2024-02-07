@@ -88,7 +88,7 @@
                                 <th scope="col" class="required">{{ 'aipd.modele_analyse.label.message_non_conforme'|trans }}</th>
                                 <th scope="col" class="required">{{ 'aipd.modele_analyse.label.message_non_applicable'|trans }}</th>
                                 <th scope="col">{{ 'aipd.modele_analyse.label.justify'|trans }}</th>
-                                <th scope="col" style="width: 10%">{{ 'aipd.modele_analyse.label.file'|trans }}<br><small class="text-muted">{{ 'aipd.modele_analyse.label.help.file'|trans({'max_size': app_max_upload_size}) }}</small></th>
+                                <th scope="col" style="width: 10%">{{ 'aipd.modele_analyse.label.file'|trans }}<br><small class="text-muted">{{ 'aipd.modele_analyse.label.help.file'|trans({ 'max_size': app_max_upload_size }) }}</small></th>
                             </tr>
                         </thead>
                         {% for critere in form.criterePrincipeFondamentaux %}

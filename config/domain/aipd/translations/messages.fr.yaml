@@ -62,6 +62,9 @@ aipd:
             new_submit: Créer le modèle
             edit_submit: Modifier le modèle
             add_scenario: Ajouter un scénario de menace
+            rights_submit: Modifier les droits
+            import_submit: Importer le modèle
+            open_file: Voir l'image
         flashbag:
             success:
                 create: Modele d'analyse "%object%" créé avec succès
@@ -90,6 +93,7 @@ aipd:
             gravite: Poids de la gravité
             label_livrable: Label pour livrable
             preconisation: Phrase préconisation
+            delete_confirm: Souhaitez-vous vraiment supprimer la mesure de protection %object% ?
         action:
             new: Nouvelle mesure
             new_submit : Créer la mesure
@@ -108,6 +112,7 @@ aipd:
             create: Réaliser une AIPD
             edit: Modifier une AIPD
             delete: Supprimer une AIPD
+            subtitle_delete: %object% du %date%
             evaluation: Évaluer une AIPD
             validation: Valider une AIPD
         breadcrumb:
@@ -134,11 +139,15 @@ aipd:
             avis_dpd: Avis du délégué à la protection des données
             avis_representant: Avis des représentants des personnes concernées
             avis_responsable: Validation formelle du responsable de traitement
+            delete_confirm: Souhaitez-vous vraiment supprimer l'analyse d'impact du traitement %object% réalisée le %date% ?
         action:
             create: Réaliser une AIPD
             edit: Modifier l'AIPD
             modele: Choisir ce modèle
+            new_submit : Créer l'AIPD
+            edit_submit : Modifier l'AIPD
             validation: Passer en validation
+            validation_submit: Valider l'AIPD
         list:
             traitement: Traitement
             date_validation: Date de validation

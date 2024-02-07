@@ -12,6 +12,8 @@ maturity:
             list: Liste des indices de maturité
             delete: Supprimer un indice de maturité
             show: Synthèse de l'indice de maturité
+        label:
+            delete_confirm: Souhaitez-vous vraiment supprimer l'indice de maturité %object% du %date% ?
         flashbag:
             success:
                 create: Indice de maturité "%object%" créé avec succès
@@ -38,6 +40,7 @@ maturity:
             rights: Modifier les droits
             import: Importer un référentiel
             referentiel: Référentiel
+            new_section: Nouvelle section
         breadcrumb:
             create: Nouveau référentiel
             edit: Modifier le référentiel
@@ -50,6 +53,11 @@ maturity:
             import: Importer un référentiel
             new_submit: Créer le référentiel
             edit_submit: Modifier le référentiel
+            rights_submit: Modifier les droits
+            import_submit: Importer le référentiel
+            add_section: Ajouter une section
+            add_question: '<i aria-hidden="true" class="fa fa-plus"></i> Ajouter une question'
+            add_answer: '<i aria-hidden="true" class="fa fa-plus"></i> Ajouter une réponse'
         flashbag:
             success:
                 create: Référentiel "%object%" créé avec succès

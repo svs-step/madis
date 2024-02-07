@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'registry.treatment.breadcrumb.list'|trans, 'link': path('registry_treatment_list') },
-        { 'name': 'registry.treatment.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'registry.treatment.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,7 +26,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer le traitement "{{ object }}" ?
+                    <p>{{ 'registry.treatment.label.delete_confirm'|trans({ '%object%': object }) }}</p>
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('registry_treatment_list') }}" class="btn btn-default">

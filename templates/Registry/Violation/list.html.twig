@@ -98,9 +98,9 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_inProgress" style="width: 100%;">
-                                    <option value="">En cours</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'global.label.in_progress'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
@@ -113,7 +113,7 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_gravity" style="width: 100%;">
-                                    <option value="">Gravité</option>
+                                    <option value="">{{ 'registry.violation.list.gravity'|trans }}</option>
                                     {% for key, subject in dictionary('registry_violation_gravity') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}

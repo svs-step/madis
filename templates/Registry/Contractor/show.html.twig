@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'registry.contractor.breadcrumb.list'|trans, 'link': path('registry_contractor_list') },
-        { 'name': 'registry.contractor.breadcrumb.show'|trans({'%name%': object}) }
+        { 'name': 'registry.contractor.breadcrumb.show'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}

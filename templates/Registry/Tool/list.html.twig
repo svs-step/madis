@@ -56,7 +56,7 @@
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'registry.tool.label.name'|trans }}" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col" >
@@ -65,89 +65,89 @@
                             {% endif %}
                             <th scope="col" >
                                 <select class="form-control" id="search_type" style="width: 100%;">
-                                    <option value="">Type</option>
+                                    <option value="">{{ 'registry.tool.label.type'|trans }}</option>
                                     {% for key, subject in dictionary('registry_tool_type') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select>
                             </th>
                             <th scope="col" >
-                                <input class="form-control" type="text" id="search_editor" placeholder="Éditeur" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_editor" placeholder="{{ 'registry.tool.label.editor'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" >
                                 <select class="form-control" id="search_archival" style="width: 100%;">
-                                    <option value="">Archivage</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.tool.label.archival'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" >
                                 <select class="form-control" id="search_encrypted" style="width: 100%;">
-                                    <option value="">Chiffrement</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.tool.label.encrypted'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" >
                                 <select class="form-control" id="search_access_control" style="width: 100%;">
-                                    <option value="">Contrôle d'accès</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.tool.label.access_control'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" >
                                 <select class="form-control" id="search_update" style="width: 100%;">
-                                    <option value="">Mise à jour</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.tool.label.update'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" >
                                 <select class="form-control" id="search_backup" style="width: 100%;">
-                                    <option value="">Sauvegarde</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.tool.label.backup'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" >
                                 <select class="form-control" id="search_deletion" style="width: 100%;">
-                                    <option value="">Suppression</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.tool.label.deletion'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" >
                                 <select class="form-control" id="search_tracking" style="width: 100%;">
-                                    <option value="">Traçabilité</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.tool.label.tracking'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" >
                                 <select class="form-control" id="search_has_comment" style="width: 100%;">
-                                    <option value="">A un commentaire</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.tool.label.has_comment'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" >
                                 <select class="form-control" id="search_other" style="width: 100%;">
-                                    <option value="">Autres</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.tool.label.other'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" >
-                                <input class="form-control" type="text" id="search_treatment" placeholder="Traitement" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_treatment" placeholder="{{ 'global.label.linked_treatment'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" >
-                                <input class="form-control" type="text" id="search_contractor" placeholder="Sous-traitant" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_contractor" placeholder="{{ 'global.label.linked_contractor'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" >
-                                <input class="form-control" type="text" id="search_document" placeholder="Document" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_document" placeholder="{{ 'global.label.linked_proof'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" >
-                                <input class="form-control" type="text" id="search_action" placeholder="Action de protection" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_action" placeholder="{{ 'global.label.linked_mesurement'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
                                 <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">

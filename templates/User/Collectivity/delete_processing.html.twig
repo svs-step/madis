@@ -19,7 +19,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'user.organization.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
-        { 'name': 'user.organization.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'user.organization.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div role="status" id="deletion-status-flashbag" class="alert alert-warning">
-                <p><i aria-hidden="true" class="icon fa fa-spinner"></i><strong>{{ 'user.organization.flashbag.warning.delete_in_progress'|trans({'%object%': object}) }}</strong></p>
+                <p><i aria-hidden="true" class="icon fa fa-spinner"></i><strong>{{ 'user.organization.flashbag.warning.delete_in_progress'|trans({ '%object%': object }) }}</strong></p>
                 <p>{{ 'user.organization.flashbag.warning.progress_warning'|trans }}</p>
             </div>
         </div>

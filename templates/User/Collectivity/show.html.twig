@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'user.organization.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
-        { 'name': 'user.organization.breadcrumb.show'|trans({'%name%': object}) }
+        { 'name': 'user.organization.breadcrumb.show'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}

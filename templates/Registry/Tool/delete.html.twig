@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'registry.tool.breadcrumb.list'|trans, 'link': path('registry_tool_list') },
-        { 'name': 'registry.tool.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'registry.tool.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,7 +26,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer le logiciel ou support "{{ object }}" ?
+                    <p>{{ 'registry.tool.label.delete_confirm'|trans({ '%object%': object }) }}</p>
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('registry_tool_list') }}" class="btn btn-default">

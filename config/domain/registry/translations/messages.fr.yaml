@@ -89,13 +89,22 @@ registry:
             conformite_traitement: Conformité du traitement
             conformite_traitement_created_at: Conformité du traitement - Date création
             conformite_traitement_updated_at: Conformité du traitement - Date modification
+            delete_confirm: Souhaitez-vous vraiment supprimer le traitement "%object%" ?
+            delete_all_confirm: Souhaitez-vous vraiment supprimer %object% traitement%s% ?
+            deactivate_all_confirm: Souhaitez-vous vraiment désactiver %object% traitement%s% ?
         list:
             sensitive_data: Données sensibles
             entitled_persons: Ressortir les personnes habilitées
             open_accounts: Procédure d’ouverture des comptes clairement identifiée
+            procedure: Procédure
             specificities_delivered: Sensibilisation délivrée
             responsable_traitement: Responsable traitement
             specific_traitement: Traitements spécifiques
+        values:
+            statut:
+                draft: Brouillon
+                done: Terminé
+                checked: Contrôlé
         tab:
             conformite: Conformité du traitement
             data_category: Catégorie des données
@@ -140,9 +149,14 @@ registry:
             sending_data_outside_eu: Envoi des données hors UE
             other_informations: Autres informations
             has_dpo: Le sous-traitant a désigné un DPD
+            delete_confirm: Souhaitez-vous vraiment supprimer le sous-traitant "%object%" ?
+            delete_all_confirm: Souhaitez-vous vraiment supprimer %object% sous-traitant%s% ?
         list:
+            clauses: Clauses
             adopted_security_features: Adopte les éléments de sécurité
+            security: Sécurité
             maintains_treatment_register: Registre des traitements
+            register: Registre
             sending_data_outside_eu: Données hors UE
         tab:
             coordinates: Coordonnées
@@ -190,6 +204,7 @@ registry:
                 france: France
                 eu: Pays de l’Union Européenne ou pays adéquats
                 other: Autre pays d’hébergement de la donnée
+            delete_confirm: Souhaitez-vous vraiment supprimer le logiciel ou support "%object%" ?
         country:
             france: France
             eu: Pays de l’Union Européenne ou pays adéquats
@@ -249,6 +264,7 @@ registry:
             link_with_applicant: Lien avec le demandeur
             help:
                 concerned_people: Si différente du demandeur
+            archive_confirm: Souhaitez-vous vraiment archiver la demande de "%object%" ?
         tab:
             request: Demande
             answer: Réponse
@@ -299,10 +315,12 @@ registry:
             notification: Notification
             notification_details: Précisions sur les notifications
             comment: Commentaire
+            archive_confirm: Souhaitez-vous vraiment archiver la violation du "%date%" ?
         list:
             violation_nature: Nature
             in_progress: Violation en cours
             cause: Cause
+            gravity: Gravité
         tab:
             consequence: Conséquences de la violation
             information: Informations sur la violation
@@ -341,6 +359,8 @@ registry:
             file: Fichier
             help:
                 file: "Un seul fichier. Taille maximale autorisée : max_size. Types de fichiers autorisés : Image, Documents"
+            delete_confirm: Souhaitez-vous vraiment supprimer la preuve "%object%" ?
+            archive_confirm: Souhaitez-vous vraiment archiver la preuve "%object%" ?
         flashbag:
             success:
                 archive: Preuve "%object%" archivée avec succès
@@ -381,6 +401,8 @@ registry:
             status: Statut
             planification_date: Échéance
             comment: Observations
+            delete_confirm: Souhaitez-vous vraiment supprimer l'action de protection "%object%" ?
+            delete_all_confirm: Souhaitez-vous vraiment supprimer %object% action%s% ?
         tab:
             application: Application
         flashbag:

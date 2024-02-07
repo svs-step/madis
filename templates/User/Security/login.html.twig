@@ -48,7 +48,7 @@
                 <span>OU</span>
                 <a class="btn  btn-default btn-block btn-flat" href="{{ path('oauth_connect', {'service':sso_type}) }}">
                     <img src="{{ asset(sso_icon) }}" alt="">
-                    {{  'user.security.action.sso_login'|trans({'%service%': sso_title}) }}
+                    {{  'user.security.action.sso_login'|trans({ '%service%': sso_title }) }}
                 </a>
             </div>
         {% endif %}

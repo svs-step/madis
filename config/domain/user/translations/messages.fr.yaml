@@ -78,6 +78,8 @@ user:
             error: Erreur
         placeholder:
             website: https://
+        list:
+            nbr_cnil: Numéro CNIL
         flashbag:
             success:
                 related_objects_deleted: Suppression des éléments liés effectuée. Vous pouvez maintenant supprimer la structure.

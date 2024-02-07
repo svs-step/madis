@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'notification.notification.breadcrumb.list'|trans, 'link': path('notification_notification_list') },
-        { 'name': 'notification.notification.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'notification.notification.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,7 +26,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer la notification {{ object.name }} ?
+                    <p>{{ 'notifications.label.delete_confirm'|trans({ '%object%': object.name }) }}</p>
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('notification_notification_index') }}" class="btn btn-default">

@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'registry.violation.breadcrumb.list'|trans, 'link': path('registry_violation_list') },
-        { 'name': 'registry.violation.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'registry.violation.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,7 +26,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment archiver la demande de "{{ object }}" ?
+                    <p>{{ 'registry.violation.label.archive_confirm'|trans({ '%date%': object.createdAt|date('d/m/Y') }) }}</p>
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('registry_violation_list') }}" class="btn btn-default">

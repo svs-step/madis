@@ -20,7 +20,7 @@ class AnalyseAvisType extends AbstractType
             ->add('avisRepresentant', AnalyseSingleAvisType::class)
             ->add('avisResponsable', AnalyseSingleAvisType::class)
             ->add('saveDraft', SubmitType::class, [
-                'label' => 'Enregistrer un brouillon',
+                'label' => 'global.action.draft',
                 'attr'  => [
                     'class' => 'btn btn-info',
                 ],

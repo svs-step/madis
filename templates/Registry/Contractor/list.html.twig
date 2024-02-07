@@ -63,7 +63,7 @@
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'registry.contractor.label.name'|trans }}" style="width: 100%;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
@@ -72,30 +72,30 @@
                             {% endif %}
                             <th scope="col">
                                 <select class="form-control" id="search_clauses" style="width: 100%;">
-                                    <option value="">Clauses</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.contractor.list.clauses'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_adoption" style="width: 100%;">
-                                    <option value="">Sécurité</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.contractor.list.security'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_registre" style="width: 100%;">
-                                    <option value="">Registre</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.contractor.list.register'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_hors_eu" style="width: 100%;">
-                                    <option value="">Hors UE</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'registry.contractor.list.sending_data_outside_eu'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">

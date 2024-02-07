@@ -16,7 +16,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'aipd.mesure_protection.breadcrumb.list'|trans, 'link': path('aipd_mesure_protection_list') },
-        { 'name': 'aipd.mesure_protection.breadcrumb.edit'|trans({'%name%': form.vars.value}) }
+        { 'name': 'aipd.mesure_protection.breadcrumb.edit'|trans({ '%name%': form.vars.value }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}

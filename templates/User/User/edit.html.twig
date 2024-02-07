@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'user.user.breadcrumb.list'|trans, 'link': path('user_user_list') },
-        { 'name': 'user.user.breadcrumb.edit'|trans({'%name%': form.vars.value}) }
+        { 'name': 'user.user.breadcrumb.edit'|trans({ '%name%': form.vars.value }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}

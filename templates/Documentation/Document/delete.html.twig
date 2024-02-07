@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'documentation.document.breadcrumb.list'|trans, 'link': path('documentation_document_list') },
-        { 'name': 'documentation.document.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'documentation.document.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,7 +26,7 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    <p>{{ 'documentation.document.label.delete_confirm'|trans({'%object%': object.name }) }}</p>
+                    <p>{{ 'documentation.document.label.delete_confirm'|trans({ '%object%': object.name }) }}</p>
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('documentation_document_index') }}" class="btn btn-default">

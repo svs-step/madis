@@ -66,6 +66,7 @@ notifications:
             late_request: La demande de %name% n'a pas été traitée depuis au moins %days% jours depuis la date de la dernière modification
             late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
             new_documentation: Nouveau document déposé par le DPD
+        delete_confirm: Souhaitez-vous vraiment supprimer la notification %object% ?
     flashbag:
         success:
             markall: Toutes les notifications sont marquées comme lu
