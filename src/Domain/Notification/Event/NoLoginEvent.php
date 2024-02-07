@@ -7,10 +7,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class NoLoginEvent extends Event
 {
-    /**
-     * @var User
-     *           The object that generated the notification
-     */
     protected User $user;
 
     public function __construct(User $user)

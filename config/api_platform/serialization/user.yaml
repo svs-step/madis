@@ -1,0 +1,4 @@
+App\Domain\User\Model\User:
+    attributes:
+        collectivity:
+            max_depth: 1

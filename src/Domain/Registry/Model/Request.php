@@ -39,7 +39,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
-use Symfony\Component\Serializer\Annotation\MaxDepth;
 
 class Request implements LoggableSubject, CollectivityRelated
 {
@@ -79,14 +78,12 @@ class Request implements LoggableSubject, CollectivityRelated
     private $updatedBy;
 
     /**
-     * @MaxDepth(1)
      *
      * @var RequestApplicant|null
      */
     private $applicant;
 
     /**
-     * @MaxDepth(1)
      *
      * @var RequestConcernedPeople|null
      */
@@ -110,14 +107,12 @@ class Request implements LoggableSubject, CollectivityRelated
     /**
      * @var RequestAnswer|null
      *
-     * @MaxDepth(1)
      */
     private $answer;
 
     /**
      * @var iterable
      *
-     * @MaxDepth(1)
      */
     private $proofs;
 
@@ -134,12 +129,10 @@ class Request implements LoggableSubject, CollectivityRelated
     /**
      * @var Service|null
      *
-     * @MaxDepth(1)
      */
     private $service;
 
     /**
-     * @MaxDepth(1)
      */
     private Collection $mesurements;
 

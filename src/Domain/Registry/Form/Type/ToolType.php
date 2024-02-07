@@ -139,8 +139,8 @@ class ToolType extends AbstractType
                         if (count($authenticatedUser->getServices()) > 0) {
                             /** @var Service $service */
                             foreach ($authenticatedUser->getServices() as $i => $service) {
-                                $ors->add($qb->expr()->eq('c.service', ':service'.$i));
-                                $qb->setParameter(':service'.$i, $service);
+                                $ors->add($qb->expr()->eq('c.service', ':service' . $i));
+                                $qb->setParameter(':service' . $i, $service);
                             }
                             $qb->andWhere($ors);
                         }

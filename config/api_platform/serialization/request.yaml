@@ -1,13 +1,13 @@
 App\Domain\Registry\Model\Request:
     attributes:
         object:
-            groups: ['request_read']
+            groups: ['request_read', 'request_write']
         otherObject:
-            groups: ['request_read']
+            groups: ['request_read', 'request_write']
         date:
-            groups: ['request_read']
+            groups: ['request_read', 'request_write']
         reason:
-            groups: ['request_read']
+            groups: ['request_read', 'request_write']
         applicant:
             groups: ['request_read']
             max_depth: 1
@@ -30,7 +30,7 @@ App\Domain\Registry\Model\Request:
             groups: ['request_read']
         service:
             groups: [ 'request_read' ]
-            max_depth: 1
+            max_depth: 2
         stateRejectionReason:
             groups: ['request_read']
         mesurements:

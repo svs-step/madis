@@ -340,11 +340,14 @@ class TreatmentController extends CRUDController
                 </a>';
             }
 
-            $contractors = '<ul>';
+            // Separate contractors by comma in XLS export.
+            // https://gitlab.adullact.net/soluris/madis/-/issues/890
+            $ctr = [];
             foreach ($treatment->getContractors() as $contractor) {
-                $contractors .= '<li>' . $contractor->getName() . '</li>';
+                $ctr[] = $contractor->getName();
             }
-            $contractors .= '</ul>';
+
+            $contractors = join(', ', $ctr);
 
             $yes = '<span class="badge bg-green">' . $this->translator->trans('global.label.yes') . '</span>';
             $no  = '<span class="badge bg-yellow">' . $this->translator->trans('global.label.no') . '</span>';
@@ -370,7 +373,7 @@ class TreatmentController extends CRUDController
                 'createdAt'              => date_format($treatment->getCreatedAt(), 'd-m-Y H:i'),
                 'public'                 => $treatment->getPublic() ? $yes : $no,
                 'responsableTraitement'  => $treatment->getCoordonneesResponsableTraitement(),
-                'specific_traitement'    => $this->getSpecificTraitement($treatment),
+                'specific_traitement'    => join(', ', $this->getSpecificTraitement($treatment)),
                 'conformite_traitement'  => $this->getTreatmentConformity($treatment),
                 'avis_aipd'              => $this->getAvisAipd($treatment),
                 'exempt_AIPD'            => $treatment->getExemptAIPD() ? $yes : $no,

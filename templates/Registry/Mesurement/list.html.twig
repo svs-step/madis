@@ -152,8 +152,22 @@
         {% set actionIsVisible = true %}
     {% endif %}
 
-    {% set dataTableOptions = {
-        columns: [
+    {% set cols = [
+        {"data": "nom", "className": "noVis"},
+        {"data": "statut"},
+        {"data": "cout"},
+        {"data": "charge"},
+        {"data": "priorite"},
+        {"data": "responsable_action"},
+        {"data": "description", "visible": false, "orderable": true},
+        {"data": "observation", "visible": false, "orderable": true},
+        {"data": "createdAt", "visible": false},
+        {"data": "updatedAt", "visible": false},
+        {"data": "actions", "orderable": false, "className": "noVis", "visible": actionIsVisible},
+    ] %}
+
+    {% if is_granted('ROLE_REFERENT') %}
+        {% set cols = [
             {"data": "nom", "className": "noVis"},
             {"data": "collectivite", "className": collectivityClassname, "visible": collectivityIsVisible},
             {"data": "statut"},
@@ -166,7 +180,11 @@
             {"data": "createdAt", "visible": false},
             {"data": "updatedAt", "visible": false},
             {"data": "actions", "orderable": false, "className": "noVis", "visible": actionIsVisible},
-        ],
+        ] %}
+    {% endif %}
+
+    {% set dataTableOptions = {
+        columns: cols,
         order:  [
             [5, 'desc' ]
         ],
@@ -216,6 +234,10 @@
                 let exportButton = $("button.dt-button > span:contains('Exporter')").parent();
                 $("#delete-all").before(exportButton.css("bottom", "17px"));
 
+                var col = 0;
+                {% if is_granted('ROLE_REFERENT') %}
+                col = 1;
+                {% endif %}
 
                 $('#search_created_at').show('slide', function () {
                     $('input#search_created_at').val('');
@@ -228,38 +250,40 @@
                 $('#search_nom').keyup($.debounce(250, function () {
                     oTable.column('0').search($(this).val()).draw();
                 }));
+                {% if is_granted('ROLE_REFERENT') %}
                 $('#search_collectivite').keyup($.debounce(250, function () {
                     oTable.column('1').search($(this).val()).draw();
                 }));
+                {% endif %}
                 $('#search_statut').change(function () {
-                    oTable.column('2').search($(this).val()).draw();
+                    oTable.column(col+1).search($(this).val()).draw();
                 });
                 $('#search_cout').keyup($.debounce(250, function () {
-                    oTable.column('3').search($(this).val()).draw();
+                    oTable.column(col+2).search($(this).val()).draw();
                 }));
                 $('#search_charge').keyup($.debounce(250, function () {
-                    oTable.column('4').search($(this).val()).draw();
+                    oTable.column(col+3).search($(this).val()).draw();
                 }));
                 $('#search_priorite').change(function () {
-                    oTable.column('5').search($(this).val()).draw();
+                    oTable.column(col+4).search($(this).val()).draw();
                 });
                 $('#search_responsable_action').keyup($.debounce(250, function () {
-                    oTable.column('6').search($(this).val()).draw();
+                    oTable.column(col+5).search($(this).val()).draw();
                 }));
                 $('#search_description').keyup($.debounce(250, function () {
-                    oTable.column('7').search($(this).val()).draw();
+                    oTable.column(col+6).search($(this).val()).draw();
                 }));
                 $('#search_observation').keyup($.debounce(250, function () {
-                    oTable.column('8').search($(this).val()).draw();
+                    oTable.column(col+7).search($(this).val()).draw();
                 }));
                 $('#search_created_at').off('change');
                 $('#search_created_at').change(function () {
-                    oTable.column('9').search($(this).val()).draw();
+                    oTable.column(col+8).search($(this).val()).draw();
                 });
 
                 $('#search_updated_at').off('change');
                 $('#search_updated_at').change(function () {
-                    oTable.column('10').search($(this).val()).draw();
+                    oTable.column(col+9).search($(this).val()).draw();
                 });
             }
 

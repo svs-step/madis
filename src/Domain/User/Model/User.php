@@ -138,10 +138,6 @@ class User implements LoggableSubject, UserInterface, CollectivityRelated, Passw
      */
     private $ssoKey;
 
-    /**
-     * @var bool|null
-     *                Whther this user's actions do not generate notifications
-     */
     private ?bool $notGeneratesNotifications;
 
     /**

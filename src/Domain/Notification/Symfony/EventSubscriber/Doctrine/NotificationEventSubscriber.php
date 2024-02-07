@@ -168,7 +168,7 @@ class NotificationEventSubscriber implements EventSubscriber
         $notifications = [];
         $recipients    = $this->recipients[get_class($object)];
 
-        if (AnalyseImpact::class === get_class($object) && 'state_change' === $action) {
+        if (AnalyseImpact::class === get_class($object) && 'validation' === $action) {
             // DO not send status change of AIPD to collectivity
             $recipients = Notification::NOTIFICATION_DPO;
         }

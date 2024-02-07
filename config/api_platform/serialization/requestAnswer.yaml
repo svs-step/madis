@@ -1,0 +1,8 @@
+App\Domain\Registry\Model\Embeddable\RequestAnswer:
+    attributes:
+        response:
+            groups: ['request_read']
+        date:
+            groups: ['request_read']
+        type:
+            groups: ['request_read']

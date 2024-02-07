@@ -78,7 +78,7 @@ class Request implements Repository\Request
      *
      * @throws \Exception
      *
-     * @return \Doctrine\ORM\QueryBuilder
+     * @return QueryBuilder
      */
     protected function createQueryBuilder()
     {

@@ -1,8 +1,11 @@
 App\Domain\Registry\Model\Request:
-    attributes:
-        normalization_context:
-            groups: [ 'request_read' ]
-    collectionOperations: ~
+    denormalizationContext:
+        groups: ['request_write']
+    normalizationContext:
+        groups: ['request_read']
+
+    collectionOperations:
+        get: ~
     itemOperations:
-        get: ~ 
-        put: ~ 
+        get:
+            security: 'is_granted("ROLE_ADMIN") or object.getCollectivity() == user.getCollectivity()'

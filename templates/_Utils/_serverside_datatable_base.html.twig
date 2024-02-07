@@ -139,7 +139,7 @@
                 async: false
             });
             var exportBody = jsonResult.responseJSON.data;
-            var colNames = params.columns.map(function(c) { return c. data }).filter(i => i !== 'actions')
+            var colNames = params.columns.map(function(c) { return c.data }).filter(i => i !== 'actions')
             console.log('colNames', colNames)
             return exportBody.map(function (el) {
                 return colNames.map(function (key) {
@@ -153,17 +153,18 @@
                 var api = $('#table').DataTable();
 
                 var visible = api.columns().visible();
-                console.log('api.ajax', api.ajax.params())
-                var params = api.ajax.params();
 
-                params.columns = params.columns.filter(function(c, i) { return visible[i] })
+                var params = api.ajax.params();
+                params.columns = params.columns.filter(function(c, i) {
+                    return visible[i] && c.data !== 'actions'
+                })
                 if (options.excludeId) {
                     params.columns = params.columns.filter( (c) => c.data !== "id")
                 }
 
                 var exportBody = getFullData(params);
 
-                console.log('full data', exportBody)
+                d.body = [];
                 d.body.length = 0;
                 d.body.push.apply(d.body, exportBody);
             })

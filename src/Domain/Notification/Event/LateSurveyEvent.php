@@ -7,10 +7,6 @@ use Symfony\Contracts\EventDispatcher\Event;
 
 class LateSurveyEvent extends Event
 {
-    /**
-     * @var Survey
-     *             The object that generated the notification
-     */
     protected Survey $survey;
 
     public function __construct(Survey $survey)

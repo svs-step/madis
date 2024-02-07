@@ -1,7 +1,6 @@
 App\Domain\Registry\Model\Treatment:
-    attributes:
-        normalization_context:
-            groups: ['treatment_read']
+    normalizationContext:
+        groups: ['treatment_read']
 
     collectionOperations:
         get: ~

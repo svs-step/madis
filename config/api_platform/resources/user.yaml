@@ -1,0 +1,14 @@
+App\Domain\User\Model\User:
+
+    denormalizationContext:
+        groups: ['user_write']
+    normalizationContext:
+        groups: ['user_read']
+
+    collectionOperations:
+        get:
+            security: 'is_granted("ROLE_ADMIN") or object == user'
+    itemOperations:
+        get:
+            security: 'is_granted("ROLE_ADMIN") or object == user'
+
