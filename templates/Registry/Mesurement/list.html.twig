@@ -68,9 +68,11 @@
                             <th scope="col">
                                 <input class="form-control" type="text" id="search_nom" placeholder="{{ 'registry.mesurement.label.name'|trans }}" style="width: 100%;">
                             </th>
-                            <th scope="col">
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
-                            </th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th scope="col">
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
+                                </th>
+                            {% endif %}
                             <th scope="col">
                                 <select class="form-control" id="search_statut" style="width: 100%;">
                                     <option value="">{{ 'registry.mesurement.label.status'|trans }}</option>
@@ -111,7 +113,9 @@
                         </tr>
                         <tr>
                             <th scope="col">{{ 'registry.mesurement.label.name'|trans }}</th>
-                            <th scope="col">{{ 'global.label.organization'|trans }}</th>
+                            {% if is_granted('ROLE_REFERENT') %}
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
+                            {% endif %}
                             <th scope="col">{{ 'registry.mesurement.label.status'|trans }}</th>
                             <th scope="col">{{ 'registry.mesurement.label.cost'|trans }}</th>
                             <th scope="col">{{ 'registry.mesurement.label.charge'|trans }}</th>
