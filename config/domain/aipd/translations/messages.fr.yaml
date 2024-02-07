@@ -112,7 +112,7 @@ aipd:
             create: Réaliser une AIPD
             edit: Modifier une AIPD
             delete: Supprimer une AIPD
-            subtitle_delete: %object% du %date%
+            subtitle_delete: "%object% du %date%"
             evaluation: Évaluer une AIPD
             validation: Valider une AIPD
         breadcrumb:
