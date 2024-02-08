@@ -8,6 +8,7 @@ global:
         close: Fermer
         cancel: Annuler
         confirm: Confirmer
+        confirm_deactivate: Confirmer la désactivation
         confirm_archive: Confirmer l'archivage
         confirm_delete: Confirmer la suppression
         confirm_unarchive: Confirmer le désarchivement

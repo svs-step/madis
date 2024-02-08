@@ -7,7 +7,7 @@
 
 {% block body %}
     {# GENERAL #}
-    <div class="box box-solid box-info" style="page-break-inside: avoid">
+    <div class="box box-solid box-info">
         <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.general'|trans }}</h3></div>
         <div class="box-body no-padding">
             <table class="table">
@@ -79,7 +79,7 @@
 
     {# DPO Statut #}
     {% if object.dpoMessage is not null %}
-        <div class="box box-solid box-primary" style="page-break-inside: avoid">
+        <div class="box box-solid box-primary">
             <div class="box-header with-border">
                 <h3 class="box-title">{{ 'registry.treatment.tab.statut_dpo'|trans }}</h3>
             </div>
@@ -90,7 +90,7 @@
     {% endif %}
 
     {# DATA CATEGORY #}
-    <div class="box box-solid box-warning" style="page-break-inside: avoid">
+    <div class="box box-solid box-warning">
         <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.data_category'|trans }}</h3></div>
         <div class="box-body no-padding">
             <table class="table">
@@ -119,7 +119,7 @@
     </div>
 
     {# RECIPIENTS #}
-    <div class="box box-solid box-primary" style="page-break-inside: avoid">
+    <div class="box box-solid box-primary">
         <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.recipients'|trans }}</h3></div>
         <div class="box-body no-padding">
             <table class="table">
@@ -144,7 +144,7 @@
     </div>
 
     {# SPECIFIC #}
-    <div class="box box-solid box-info" style="page-break-inside: avoid">
+    <div class="box box-solid box-info">
         <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.specific'|trans }}</h3></div>
         <div class="box-body no-padding">
             <table role="presentation" class="table">
@@ -244,7 +244,7 @@
     </div>
 
     {# DETAILS #}
-    <div class="box box-solid box-primary" style="page-break-inside: avoid">
+    <div class="box box-solid box-primary">
         <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.details'|trans }}</h3></div>
         <div class="box-body no-padding">
             <table class="table">
@@ -412,7 +412,7 @@
                                         </tr>
                                         <tr>
                                             <th class="text-bold">{{ 'registry.treatment.label.shelflife_ultimate_fate'|trans }}</th>
-                                            <td>{% if method.ultimateFate %}{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% else %}Non déterminé{% endif %}</td>
+                                            <td>{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}</td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -476,7 +476,7 @@
     </div>
 
     {# SECURITY #}
-    <div class="box box-solid box-success" style="page-break-inside: avoid">
+    <div class="box box-solid box-success">
         <div class="box-header with-border"><h3 class="box-title">{{ 'registry.treatment.tab.security'|trans }}</h3></div>
         <div class="box-body no-padding">
             <table class="table">
@@ -687,7 +687,7 @@
     {% endif %}
 
     {# HISTORIC #}
-    <div class="box box-solid box-default" style="page-break-inside: avoid">
+    <div class="box box-solid box-default">
         <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.history'|trans }}</h3></div>
         <div class="box-body no-padding">
             <table class="table">

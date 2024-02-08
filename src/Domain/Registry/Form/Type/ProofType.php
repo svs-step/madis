@@ -89,7 +89,7 @@ class ProofType extends AbstractType
             ])
             ->add('documentFile', FileType::class, [
                 'label'       => 'registry.proof.label.file',
-                'required'    => false,
+                'required'    => true,
                 'constraints' => [
                     new File([
                         'maxSize' => $this->maxSize,

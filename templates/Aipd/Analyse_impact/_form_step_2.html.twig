@@ -11,10 +11,14 @@
         {% for question in form.questionConformites|sort((a, b) => a.vars.value.position > b.vars.value.position) %}
             <tr>
                 <td>{{ question.vars.value.question }}</td>
+                <td>{{ (getConformiteLabel(question.vars.value))|raw }}</td>
                 <td>
-                    {{ (getConformiteLabel(question.vars.value))|raw }}
+                    {% if getFormattedActionProtectionsFromQuestion(question.vars.value)|length > 0 %}
+                        <ul class="ps-1">
+                            {{ getFormattedActionProtectionsFromQuestion(question.vars.value)|raw }}
+                        </ul>
+                    {% endif %}
                 </td>
-                <td>{{ getFormattedActionProtectionsFromQuestion(question.vars.value)|raw }}</td>
                 {% set isRequired = question.vars.value.justificationObligatoire %}
                 <td><span {% if(isRequired == 0) %}style="visibility: hidden"{% endif %}>{{ form_widget(question.justificatif, {'required': isRequired}) }}</span></td>
             </tr>

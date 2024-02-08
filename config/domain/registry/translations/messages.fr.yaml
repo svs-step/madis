@@ -434,6 +434,8 @@ registry:
             traitement: Traitement
             date_conformite: Date de l'évaluation
             date_aipd: Date de l'AIPD
+            mesurements_done: "Actions de protection appliquées :"
+            aipd_to_do: Une AIPD doit être réalisée sur ce traitement
         action:
             show_conformite_traitement: Évaluer
             new_submit: Créer l'évaluation du traitement

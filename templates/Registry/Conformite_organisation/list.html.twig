@@ -76,11 +76,17 @@
                                                     <span style="width: 50px;" class="badge {{ type }}">{{ conformite.vars.value.conformite }} / 5</span>
                                                 </td>
                                                 <td style="vertical-align: middle">
-                                                    <ul>
-                                                        {% for action in conformite.vars.value.NonAppliedActionProtections %}
-                                                            <li>{{ action.name }}</li>
-                                                        {% endfor %}
-                                                    </ul>
+                                                    {% if conformite.vars.value.NonAppliedActionProtections|length > 0 %}
+                                                        <ul class="ps-1">
+                                                            {% for action in conformite.vars.value.NonAppliedActionProtections %}
+                                                                <li>
+                                                                    <a href="{{ path('registry_mesurement_show', { id: action.id }) }}">
+                                                                        {{ action.name }} ({{ action.status|dictionary('registry_mesurement_status') }})
+                                                                    </a>
+                                                                </li>
+                                                            {% endfor %}
+                                                        </ul>
+                                                    {% endif %}
                                                 </td>
                                             </tr>
                                         {% endfor %}

@@ -9,7 +9,6 @@
                             {% if proof.deletedAt is not null %}({{ 'global.label.archived'|trans }}){% endif %}
                             {{ proof.name }} ({{ proof.type|dictionary('registry_proof_type') }})
                         </a>
-                        {{ proof.comment }}
                     </li>
                 {% endfor %}
             </ul>

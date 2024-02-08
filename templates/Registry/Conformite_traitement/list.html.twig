@@ -84,7 +84,7 @@
                                         <div class="mesurement-hide">
                                             <i aria-hidden="true" class="primary-i fas fa-exclamation-circle"></i>
                                             <div class="primary">
-                                                <span>Action de protections appliquées : </span>
+                                                <span>{{ 'registry.conformite_traitement.list.mesurements_done'|trans }}</span>
                                                 <ul>
                                                     {% for mesurement in planifiedMesurementToBeNotified %}
                                                         <li>{{ mesurement.name }}</li>
@@ -96,7 +96,7 @@
 
                                     {% if conformiteTraitement and conformiteTraitement.needsAipd and analyseImpact is null %}
                                         <div>
-                                            <i aria-hidden="true" class="fa fa-exclamation-triangle" title="Une AIPD doit être réalisée sur ce traitement." style="color:#f39c12;"></i>
+                                            <i aria-hidden="true" class="fa fa-exclamation-triangle" title="{{ 'registry.conformite_traitement.list.mesurements_done'|trans }}" style="color:#f39c12;"></i>
                                         </div>
                                     {% endif %}
                                 </td>

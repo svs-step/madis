@@ -101,7 +101,7 @@
                     <div class="row">
                         {# SWITCH GRID LIST #}
                     {% if is_granted('ROLE_USER') %}
-                        <div class="col-md-12 col-xl-2">
+                        <div class="col-xs-12">
                             <div class="ml2">
                                 <a href="{{ path('documentation_document_list') }}" class="btn btn-default">
                                     <i aria-hidden="true" class="fas fa-list"></i>
@@ -114,7 +114,7 @@
                             </div>
                             <div class="ml2">
                                 <input type="checkbox" class="form-check-input" id="search_favorite">
-                                <label class="form-check-label" for="search_favorite">{{ 'documentation.document.label.name'|trans }}</label>
+                                <label class="form-check-label" for="search_favorite">{{ 'documentation.document.list.favorite'|trans }}</label>
                             </div>
                             <div class="ml2">
                                 <select class="form-control" id="search_type" style="width: 100%;">
@@ -127,7 +127,7 @@
                             <div class="ml2">
                                 <input class="form-control" type="text" id="search_name" placeholder="{{ 'documentation.document.label.name'|trans }}" style="width: 100%;">
                             </div>
-                            <div class="ml2">
+                            <div class="ml2" style="min-width: 180px;">
                                 <select class="form-control selectpicker" id="search_category" style="width: 100%;" multiple>
                                     {% for category in categories %}
                                         {% if category.name in activeCategories %}

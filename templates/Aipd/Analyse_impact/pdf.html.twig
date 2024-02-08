@@ -534,7 +534,7 @@
         <div class="reportGraph"><canvas id="mesuresSecurite-chart"></canvas></div>
         <div class="box box-solid box-primary">
             <div class="box-header with-border">Mesures de protection</div>
-            <table class="table table-bordered" style="page-break-inside: avoid">
+            <table class="table table-bordered">
                 <tr>
                     <th>Mesure</th>
                     <th>Avis sur les mesures existantes</th>
@@ -578,7 +578,7 @@
         <div class="box box-solid box-primary">
             <div class="box-header with-border">{{ 'aipd.analyse_impact.tab.gestion_risques'|trans }}</div>
             <div class="box-body">
-                <table class="table table-bordered" style="page-break-inside: avoid">
+                <table class="table table-bordered">
                     <tr>
                         <th>{{ 'aipd.modele_analyse.label.scenario'|trans }}</th>
                         <th style="width: 20%;">{{ 'aipd.analyse_impact.label.impact_potentiel'|trans }}</th>
@@ -608,7 +608,7 @@
         <div class="box box-solid box-primary">
             <div class="box-header with-border">Actions conseillées par le DPD à mettre en place</div>
             <div class="box-body">
-                <table class="table table-bordered" style="page-break-inside: avoid">
+                <table class="table table-bordered">
                     <tr>
                         <th>Mesure</th>
                         <th>Préconisations</th>
@@ -627,7 +627,7 @@
         <div>Ce chapitre a pour objectifs de permettre la prise de décision visant à accepter ou non l'AIPD au regard des résultats de l'étude.</div>
 
         <h3>Avis des personnes consultées</h3>
-        <table class="table table-bordered" style="page-break-inside: avoid">
+        <table class="table table-bordered">
             <tr>
                 <td class="table-bluecell">Avis du référent RGPD</td>
                 <td>{{ object.avisReferent.reponse|dictionary('reponse_avis') }}</td>
@@ -1101,7 +1101,7 @@
                     <tr>
                         <td style="vertical-align: top; padding-left: 8px; padding-top: 10px; width: 20%"><strong>{{ 'registry.treatment.label.shelflife'|trans }}</strong></td>
                         <td style="padding-top: 10px; width: 80%">
-                            {% for method in object.shelfLifes %}
+                            {% for method in traitement.shelfLifes %}
                                 <div class="box box-default">
                                     <div class="box-body no-padding">
                                         <table class="table">
@@ -1116,7 +1116,7 @@
                                             </tr>
                                             <tr>
                                                 <th class="text-bold">{{ 'registry.treatment.label.shelflife_ultimate_fate'|trans }}</th>
-                                                <td>{% if method.ultimateFate %}{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}{% else %}Non déterminé{% endif %}</td>
+                                                <td>{{ method.ultimateFate|dictionary('registry_treatment_ultimate_fate') }}</td>
                                             </tr>
                                             </tbody>
                                         </table>
