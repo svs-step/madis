@@ -7,7 +7,7 @@ namespace App\Domain\AIPD\Form\Type;
 use App\Domain\AIPD\Model\ModeleQuestionConformite;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -20,24 +20,30 @@ class ModeleQuestionConformiteType extends AbstractType
                 'required' => false,
                 'label'    => false,
             ])
-            ->add('texteConformite', TextType::class, [
+            ->add('texteConformite', TextareaType::class, [
                 'required' => false,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])
-            ->add('texteNonConformiteMineure', TextType::class, [
+            ->add('texteNonConformiteMineure', TextareaType::class, [
                 'required' => false,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])
-            ->add('texteNonConformiteMajeure', TextType::class, [
+            ->add('texteNonConformiteMajeure', TextareaType::class, [
                 'required' => false,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])

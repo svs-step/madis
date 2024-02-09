@@ -6,7 +6,7 @@ use App\Domain\AIPD\Model\AnalyseScenarioMenace;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -54,10 +54,12 @@ class AnalyseScenarioMenaceType extends AbstractType
                     'class' => 'gravite-dropdown',
                 ],
             ])
-            ->add('precisions', TextType::class, [
+            ->add('precisions', TextareaType::class, [
                 'required' => false,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])

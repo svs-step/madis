@@ -269,6 +269,10 @@ td div.bootstrap-select {
 textarea {
   max-width: 100%;
   min-width: 100%;
+  min-height: 34px;
+}
+textarea.textareaheight {
+  height: 34px;
 }
 .js-collection-wrapper i.fa-times {
   color: #ff746d;

@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -27,7 +28,9 @@ class CriterePrincipeFondamentalType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('label', TextType::class, ['purify_html' => true])
+            ->add('label', TextType::class, [
+                'purify_html' => true,
+            ])
             ->add('labelLivrable', TextType::class, [
                 'attr' => [
                     'maxlength' => 255,
@@ -41,28 +44,36 @@ class CriterePrincipeFondamentalType extends AbstractType
                 'label'    => false,
                 'required' => false,
             ])
-            ->add('texteConformite', TextType::class, [
+            ->add('texteConformite', TextareaType::class, [
                 'attr' => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])
-            ->add('texteNonConformite', TextType::class, [
+            ->add('texteNonConformite', TextareaType::class, [
                 'attr' => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])
-            ->add('texteNonApplicable', TextType::class, [
+            ->add('texteNonApplicable', TextareaType::class, [
                 'attr' => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])
-            ->add('justification', TextType::class, [
+            ->add('justification', TextareaType::class, [
                 'required' => false,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])

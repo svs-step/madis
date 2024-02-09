@@ -28,7 +28,7 @@ class ShelfLifeType extends AbstractType
                 'required'   => true,
                 'empty_data' => '',
                 'attr'       => [
-                    'maxlength' => 255,
+                    'maxlength' => 500,
                 ],
                 'purify_html' => true,
             ])
