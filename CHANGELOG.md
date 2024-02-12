@@ -4,28 +4,54 @@ CHANGELOG
 Détails des modifications #894
 ### Ajout
 - [Formulaire] Largeur fixe sur les textarea.
-- [Accessibilité] Ajout de pages obligatoires (déclaration, schéma, plans annuels) depuis le pied de page et le plan du site
-- [Traductions] Ajout d'un fichier de traduction pour les nouvelles pages
+- [Accessibilité] Ajout de pages obligatoires (déclaration, schéma, plans annuels) depuis le pied de page et le plan du site.
+- [Accessibilité] Ajout d'attribut ARIA pour signaler la page actuelle.
+- [Traductions] Ajout d'un fichier de traduction pour les nouvelles pages.
+- [Configuration] Ajout d'une phrase d'introduction dans la configuration du registre public.
+- [Structure] Ajout du bloc « Adresse » pour les gestionnaires en modification de sa structure.
+- [Structure] Ajout du champ « Numéro de désignation CNIL » pour les gestionnaires en modification de sa structure.
 ### Changement
-- [Global] Divers renommages et traductions
-- [Global] Migration de la font Awesome v5.0.13 en v6.4.2
-- [Global] Modification de nombreuses icônes
+- [Global] Divers renommages et traductions.
+- [Global] Migration de la font Awesome v5.0.13 en v6.4.2.
+- [Global] Modification de nombreuses icônes.
+- [Éléments associés] Déplacement et harmonisation des éléments liés dans un bloc commun « Éléments associés ».
 - [Configuration] Le menu « Configuration des traitements » est déplacé et renommé en « Registre public ».
 - [Preuves] Renommage de la partie menu « Preuves » en « Justificatifs », et du menu « Documents » en « Preuves ».
 - [Mon compte & Ma structure] Déplacement des menus « Mon compte » et « Ma structure » dans un dropdown de l'en-tête.
-- [Formulaire] Modification de tous les champs de formulaire en vertical et refonte de certains formulaires comme les référentiels
+- [Structures & Ma structure] Déplacement ét réorgnisation des blocs et de certains champs dans la visualisation et la gestion.
+- [Utilisateurs & Mon compte] Déplacement ét réorgnisation des blocs et de certains champs dans la gestion.
+- [Formulaire] Modification de tous les champs de formulaire en vertical et refonte de certains formulaires comme les référentiels.
 - [Formulaire] Modification de l'astérisque « * » d'obligation d'un champ en indication explicite « (Obligatoire) ».
-- [Ergonomie] Modification de l'apparence de pastilles de couleur
-- [CSS] Amélioration générale du fichier de CSS
-- [Accessibilité] Refonte de l'en-tête et du pied de page
+- [Ergonomie] Modification de l'apparence de pastilles de couleur.
+- [CSS] Amélioration générale du fichier de CSS.
+- [Accessibilité] Refonte de l'en-tête et du pied de page.
+- [Traduction] L'ensemble des traductions de l'application ont été refaites et réorganisées.
+- [Traitements] Augmentation du nombre de caractères maximums à 500 pour la durée de conservation.
+- [AIPD] Augmentation du nombre de caractères maximums à 1000 pour divers champs dans un modèle et dans l'instruction d'une AIPD et transformation de ceux-ci en textarea.
+- [Plan d'actions] Modification de l'action de visualisation en modification.
+- [Duplication] Amélioration visuelle de l'interface d'avancement d'une duplication et ajout de l'information de la structure source.
+- [Conformité de la structure] Les actions de protections associées sont cliquables vers leur visualisation.
+- [AIPD] Les actions de protections associées sont cliquables vers leur visualisation.
+- [URL] MAJ des URL de son compte et sa structure.
+- [URL] MAJ des URL « editer » en « modifier ».
 ### Fix
 - [Plan du site] Le fil d'Ariane est désormais présent pour l'ensemble des rôles.
+- [AIPD] Le fil d'Ariane est désormais présent pour l'instruction d'une nouvelle AIPD.
 - [Global] Corrections diverses d'accents et majuscules.
 - [Accessibilité] Focus visible des liens et boutons.
 - [Formulaire] Fix du bloc dans le formulaire de gestion des droits (modèles AIPD et référentiels) qui s'affichait mal dans certaines résolutions.
 - [Conformité de la structure] Fix des blocs dans le formulaire de conformité qui s'affichaient mal dans certaines résolutions.
+- [Preuve] Fix du message d'erreur du mauvais format d'un fichier.
+- [Listes] Fix du z-index des datepicker.
+- [Listes] Fix du responsive du tableau des listes.
+- [Registre public] Fix affichage des coordonnées du responsable de traitement.
+- [Registre public] Fix affichage des délais de conservation.
+- [Registre public] Fix affichage des logiciels et supports.
 ### Suppression
 - [Tableau de bord] Suppression de la colonne « Lien » dans le plan d’actions du tableau de bord gestionnaire et transfère du lien vers le nom de l'action.
+- [Registre public] Suppression des liens (Sous-traitants, Structure, Preuves) dans la visualisation d'un traitement public.
+### Migration
+- [Migration] Ajout d'un fichier de migration pour gérer l'augmentation du nombre de caractères maximums des différents champs.
 
 ## [2.3.0] - 2023-09-14
 ### Changement

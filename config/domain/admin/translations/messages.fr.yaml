@@ -20,7 +20,7 @@ admin:
             new: Module de duplication
         action:
             revert: Annuler la dernière duplication
-            new_submit: Dupliquer
+            new_submit: Dupliquer les données
             confirm_submit: Confirmer la duplication
         flashbag:
             success:

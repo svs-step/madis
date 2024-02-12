@@ -92,6 +92,7 @@ registry:
             delete_confirm: Souhaitez-vous vraiment supprimer le traitement "%object%" ?
             delete_all_confirm: Souhaitez-vous vraiment supprimer %object% traitement%s% ?
             deactivate_all_confirm: Souhaitez-vous vraiment désactiver %object% traitement%s% ?
+            public_registry_message: La configuration du registre public permet de choisir les champs du registre des traitements qui seront accessibles en lecture dans le registre public.
         list:
             sensitive_data: Données sensibles
             entitled_persons: Ressortir les personnes habilitées

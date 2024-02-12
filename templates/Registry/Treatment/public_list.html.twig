@@ -13,13 +13,6 @@
  {% block body_head %}
     <h1>
         {{ 'registry.treatment.title.list'|trans }} - {{ collectivity }}
-        <small>
-            {% if app.request.query.get('active') == 'true' %}
-                {{ 'registry.treatment.title.list_active'|trans }}
-            {% else %}
-                {{ 'registry.treatment.title.list_inactive'|trans }}
-            {% endif %}
-        </small>
     </h1>
 {% endblock %}
 
