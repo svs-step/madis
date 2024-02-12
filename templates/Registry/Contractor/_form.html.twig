@@ -7,9 +7,11 @@
 <div class="row">
     {{ form_start(form) }}
 
+    {# LEFT #}
     <div class="col-md-6">
+        {# GENERAL #}
         <div class="box box-solid box-info">
-            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.general'|trans }}</h3></div>
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.general'|trans }}</h3></div>
             <div class="box-body">
                 {{ form_row(form.name) }}
                 {% if serviceEnabled is defined and serviceEnabled %}
@@ -24,6 +26,7 @@
             </div>
         </div>
 
+        {# DPO #}
         <div id="box-dpo" class="box box-solid box-success">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.dpo'|trans }}</h3></div>
             <div class="box-body">
@@ -33,12 +36,13 @@
         </div>
     </div>
 
-
+    {# RIGHT #}
     <div class="col-md-6">
+        {# COORDINATES #}
         <div class="box box-solid box-primary">
             <div class="box-header with-border"><h3 class="box-title">{{ 'registry.contractor.tab.coordinates'|trans }}</h3></div>
             <div class="box-body">
-                {# Hide unused field for legal manager   #}
+                {# Hide unused field for legal manager #}
                 {% do form.legalManager.civility.setRendered() %}
                 {% do form.legalManager.job.setRendered() %}
                 {% do form.legalManager.mail.setRendered() %}
@@ -57,12 +61,11 @@
         </div>
     </div>
 
-
     <div class="col-md-12">
         <div class="box box-solid">
             <div class="box-body text-center">
-                <a aria-label="{{ 'registry.contractor.action.back_to_list'|trans }}" href="{{ path('registry_contractor_list') }}" class="btn btn-default">
-                    {{ 'registry.contractor.action.back_to_list'|trans }}
+                <a href="{{ path('registry_contractor_list') }}" class="btn btn-default">
+                    {{ 'global.action.back_to_list'|trans }}
                 </a>
                 <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
             </div>

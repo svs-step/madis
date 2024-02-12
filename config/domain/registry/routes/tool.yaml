@@ -31,7 +31,7 @@ registry_tool_create:
     controller: 'App\Domain\Registry\Controller\ToolController:createAction'
 
 registry_tool_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Registry\Controller\ToolController:editAction'
 

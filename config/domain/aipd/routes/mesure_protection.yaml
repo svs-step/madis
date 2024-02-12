@@ -9,7 +9,7 @@ aipd_mesure_protection_create:
     controller: 'App\Domain\AIPD\Controller\MesureProtectionController:createAction'
 
 aipd_mesure_protection_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\AIPD\Controller\MesureProtectionController:editAction'
 

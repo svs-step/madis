@@ -39,7 +39,7 @@ class CategoryType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label' => 'documentation.category.form.label.name',
+                'label' => 'documentation.category.label.name',
             ])
         ;
     }

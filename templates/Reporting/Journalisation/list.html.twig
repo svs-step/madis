@@ -3,7 +3,7 @@
 {% set bodyClass = 'reporting_journalisation show' %}
 {% set menuItem = 'reporting_journalisation' %}
 
-{% block title %}{{ 'reporting.journalisation.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'reporting.journalisation.title'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
@@ -12,13 +12,13 @@
 
 {% block body_head %}
     <h1>
-        {{ 'reporting.journalisation.title.list'|trans }}
+        {{ 'reporting.journalisation.title'|trans }}
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'reporting.journalisation.title.list'|trans }
+        { 'name': 'reporting.journalisation.breadcrumb'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -27,28 +27,28 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_subject_id" placeholder="Id" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_subject_id" placeholder="{{ 'reporting.journalisation.list.id'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_user_fullname" placeholder="Nom utilisateur" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_user_fullname" placeholder="{{ 'reporting.journalisation.list.user_name'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_user_email" placeholder="Email utilisateur" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_user_email" placeholder="{{ 'reporting.journalisation.list.email'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col" style="min-width:130px;position:relative;">
-                                    <input class="daterangepicker form-control" type="text" id="search_date" placeholder="Date" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
+                                    <input class="daterangepicker form-control" type="text" id="search_date" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                                 </th>
                                 <th scope="col">
                                     <select class="form-control" id="search_sujet" style="width: 100%;">
-                                        <option value="">Sujet</option>
+                                        <option value="">{{ 'reporting.journalisation.list.subject'|trans }}</option>
                                         {% for key, subject in dictionary('reporting_log_journal_subject') %}
                                             <option value="{{ key }}">{{ subject }}</option>
                                         {% endfor %}
@@ -56,27 +56,27 @@
                                 </th>
                                 <th scope="col">
                                     <select class="form-control" id="search_action" style="width: 100%;">
-                                        <option value="">Action</option>
+                                        <option value="">{{ 'reporting.journalisation.list.action'|trans }}</option>
                                         {% for key, action in dictionary('reporting_log_journal_action') %}
                                             <option value="{{ key }}">{{ action }}</option>
                                         {% endfor %}
                                     </select>
                                 </th>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_subject_name" placeholder="Nom" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_subject_name" placeholder="{{ 'reporting.journalisation.list.action_name'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col"></th>
                             </tr>
                             <tr>
-                                <th scope="col">Id</th>
-                                <th scope="col">Nom utilisateur</th>
-                                <th scope="col">Email utilisateur</th>
-                                <th scope="col">Structure</th>
-                                <th scope="col">Date</th>
-                                <th scope="col">Sujet</th>
-                                <th scope="col">Action</th>
-                                <th scope="col">Nom</th>
-                                <th scope="col">Lien</th>
+                                <th scope="col">{{ 'reporting.journalisation.list.id'|trans }}</th>
+                                <th scope="col">{{ 'reporting.journalisation.list.user_name'|trans }}</th>
+                                <th scope="col">{{ 'reporting.journalisation.list.email'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
+                                <th scope="col">{{ 'reporting.journalisation.list.date'|trans }}</th>
+                                <th scope="col">{{ 'reporting.journalisation.list.subject'|trans }}</th>
+                                <th scope="col">{{ 'reporting.journalisation.list.action'|trans }}</th>
+                                <th scope="col">{{ 'reporting.journalisation.list.action_name'|trans }}</th>
+                                <th scope="col">{{ 'reporting.journalisation.list.link'|trans }}</th>
                             </tr>
                         </thead>
                     </table>

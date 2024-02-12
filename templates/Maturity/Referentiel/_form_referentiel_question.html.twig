@@ -17,13 +17,13 @@
             </div>
             {{ form_row(form.weight) }}
         </div>
-        <a href="#" class="delete-question btn"><i aria-hidden="true" class="fa fa-trash"></i></a>
+        <a href="#" class="delete-question btn" aria-label="{{ 'global.action.delete'|trans }}"><i aria-hidden="true" class="fa fa-trash"></i></a>
         <a href="#question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}" class="box-link btn" data-toggle="collapse"><i aria-hidden="true" class="fa fa-plus"></i></a>
     </div>
 
     <div class="collapse box-body" id="question_{{ form.parent.parent.position.vars['value'] }}_{{ question.position.vars['value'] }}">
 
-        <p>Réponses :</p>
+        <p>{{ 'maturity.referentiel.label.answers'|trans }}</p>
 
         <div style="display: flex;align-items: center;gap: 10px;">
             {{ form_row(form.optional) }}

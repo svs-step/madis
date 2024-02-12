@@ -15,9 +15,9 @@
         {{ 'user.user.title.list'|trans }}
         <small>
             {% if app.request.query.get('archive') == 'true' %}
-                {{ 'label.archived'|trans }}
+                {{ 'user.user.title.list_archived'|trans }}
             {% else %}
-                {{ 'label.not_archived'|trans }}
+                {{ 'user.user.title.list_not_archived'|trans }}
             {% endif %}
         </small>
     </h1>
@@ -33,20 +33,20 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
-            <div class="action-bar">
+            <div class="mb-1">
                 {% if is_granted('ROLE_ADMIN') %}
-                <a aria-label="{{ 'user.user.action.new'|trans }}" href="{{ path('user_user_create') }}" class="btn btn-default">
+                <a href="{{ path('user_user_create') }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-plus"></i>
                     {{ 'user.user.action.new'|trans }}
                 </a>
                 {% endif %}
                 {% if app.request.query.get('archive') == 'true' %}
-                    <a aria-label="{{ 'user.user.action.not_archived'|trans }}" href="{{ path('user_user_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                    <a href="{{ path('user_user_list', {'archive' : 'false'}) }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-archive"></i>
                         {{ 'user.user.action.not_archived'|trans }}
                     </a>
                 {% else %}
-                    <a aria-label="{{ 'user.user.action.archived'|trans }}" href="{{ path('user_user_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                    <a href="{{ path('user_user_list', {'archive' : 'true'}) }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-archive"></i>
                         {{ 'user.user.action.archived'|trans }}
                     </a>
@@ -58,26 +58,26 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_prenom" placeholder="Prénom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_prenom" placeholder="{{ 'global.label.contact.first_name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_nom" placeholder="Nom" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_nom" placeholder="{{ 'global.label.contact.last_name'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_email" placeholder="Email" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_email" placeholder="{{ 'global.label.contact.email'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_role" style="width: 100%;">
 
-                                    <option value="">Rôle</option>
+                                    <option value="">{{ 'user.user.label.roles'|trans }}</option>
                                     {% for key, subject in dictionary('user_user_role') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
@@ -85,7 +85,7 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_moreInfos" style="width: 100%;">
-                                    <option value="">Informations supplémentaires</option>
+                                    <option value="">{{ 'user.user.label.moreInfos'|trans }}</option>
                                     {% for key, subject in dictionary('user_user_moreInfo') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
@@ -93,32 +93,32 @@
                             </th>
                             <th scope="col"></th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_last_login" placeholder="Date" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
+                                <input class="daterangepicker form-control" type="text" id="search_last_login" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col">
-                                <input class="form-control" type="text" id="search_services" placeholder="Service" style="width: 100%;">
+                                <input class="form-control" type="text" id="search_services" placeholder="{{ 'user.user.list.services'|trans }}" style="width: 100%;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;font-family: inherit;z-index:10">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col"></th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'user.user.list.first_name'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.last_name'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.email'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.collectivity'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.roles'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.moreInfos'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.enabled'|trans }}</th>
+                            <th scope="col">{{ 'global.label.contact.first_name'|trans }}</th>
+                            <th scope="col">{{ 'global.label.contact.last_name'|trans }}</th>
+                            <th scope="col">{{ 'global.label.contact.email'|trans }}</th>
+                            <th scope="col">{{ 'global.label.organization'|trans }}</th>
+                            <th scope="col">{{ 'user.user.label.roles'|trans }}</th>
+                            <th scope="col">{{ 'user.user.label.moreInfos'|trans }}</th>
+                            <th scope="col">{{ 'global.label.active'|trans }}</th>
                             <th scope="col">{{ 'user.user.list.last_login'|trans }}</th>
                             <th scope="col">{{ 'user.user.list.services'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.created_at'|trans }}</th>
-                            <th scope="col">{{ 'user.user.list.updated_at'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

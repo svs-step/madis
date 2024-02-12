@@ -9,7 +9,7 @@ registry_treatment_create:
     controller: 'App\Domain\Registry\Controller\TreatmentController:createAction'
 
 registry_treatment_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\Registry\Controller\TreatmentController:editAction'
 

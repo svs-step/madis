@@ -41,7 +41,7 @@ class RequestAnswerType extends AbstractType
     {
         $builder
             ->add('response', TextareaType::class, [
-                'label'    => 'registry.request_answer.form.response',
+                'label'    => 'registry.request.label.answer_response',
                 'required' => false,
                 'attr'     => [
                     'rows' => 4,
@@ -49,7 +49,7 @@ class RequestAnswerType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('date', DateType::class, [
-                'label'    => 'registry.request_answer.form.date',
+                'label'    => 'registry.request.label.answer_date',
                 'required' => false,
                 'widget'   => 'single_text',
                 'format'   => 'dd/MM/yyyy',
@@ -59,7 +59,7 @@ class RequestAnswerType extends AbstractType
                 ],
             ])
             ->add('type', DictionaryType::class, [
-                'label'    => 'registry.request_answer.form.type',
+                'label'    => 'registry.request.label.answer_type',
                 'name'     => 'registry_request_answer_type',
                 'required' => false,
             ])

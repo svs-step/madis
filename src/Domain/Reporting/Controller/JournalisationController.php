@@ -13,6 +13,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class JournalisationController extends AbstractController
 {
@@ -28,8 +29,9 @@ class JournalisationController extends AbstractController
      */
     private $logJournalLinkGenerator;
 
-    public function __construct(LogJournal $logRepository, RouterInterface $router, LogJournalLinkGenerator $logJournalLinkGenerator)
+    public function __construct(LogJournal $logRepository, TranslatorInterface $translator, RouterInterface $router, LogJournalLinkGenerator $logJournalLinkGenerator)
     {
+        $this->translator              = $translator;
         $this->repository              = $logRepository;
         $this->router                  = $router;
         $this->logJournalLinkGenerator = $logJournalLinkGenerator;
@@ -83,7 +85,7 @@ class JournalisationController extends AbstractController
             return $content;
         }
 
-        return '<a aria-label="Voir" href="' . $content . '">Voir</a>';
+        return '<a href="' . $content . '">' . $this->translator->trans('reporting.journalisation.action.check') . '</a>';
     }
 
     protected function getLabelAndKeysArray(): array

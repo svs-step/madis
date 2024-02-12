@@ -19,7 +19,7 @@ class EvaluationType extends AbstractType
     {
         $builder
             ->add('date', DateType::class, [
-                'label'    => 'registry.conformite_organisation.form.date',
+                'label'    => 'registry.conformite_organisation.label.date',
                 'required' => true,
                 'widget'   => 'single_text',
                 'format'   => 'dd/MM/yyyy',

@@ -16,10 +16,10 @@
                         </div>
                     {% endfor %}
                     <div class="form-group">
-                        <label class="control-label">{{ 'registry.conformite_organisation.form.actions_protection'|trans }}</label>
+                        <label class="control-label">{{ 'global.label.linked_mesurement'|trans }}</label>
                         <div style="display: flex;">
                             {{ form_widget(conformite.actionProtections) }}
-                            <button id="{{ conformite.actionProtections.vars.id }}_add_button" aria-label="Ajouter une action de protection" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ conformite.actionProtections.vars.id }}">
+                            <button id="{{ conformite.actionProtections.vars.id }}_add_button" aria-label="{{ 'registry.mesurement.action.add_mesurement'|trans }}" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ conformite.actionProtections.vars.id }}">
                                 <span class="fa fa-plus-circle"></span>
                             </button>
                         </div>

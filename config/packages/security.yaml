@@ -75,17 +75,17 @@ security:
         - { path: ^/modele-analyse, roles: ROLE_ADMIN }
         - { path: ^/mesure-protection, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/creer$, roles: ROLE_ADMIN }
-        - { path: ^/espace-documentaire/editer/.+$, roles: ROLE_ADMIN }
+        - { path: ^/espace-documentaire/modifier/.+$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/supprimer/.+$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/categorie, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/categorie/creer$, roles: ROLE_ADMIN }
-        - { path: ^/espace-documentaire/categorie/editer/.+$, roles: ROLE_ADMIN }
+        - { path: ^/espace-documentaire/categorie/modifier/.+$, roles: ROLE_ADMIN }
         - { path: ^/espace-documentaire/categorie/supprimer/.+$, roles: ROLE_ADMIN }
         - { path: ^/referentiel/.+$, roles: ROLE_ADMIN }
         # Manager routes
         - { path: ^/.+/creer$, roles: ROLE_USER }
         - { path: ^/.+/creer/.+$, roles: ROLE_USER }
-        - { path: ^/.+/editer/.+$, roles: ROLE_USER }
+        - { path: ^/.+/modifier/.+$, roles: ROLE_USER }
         - { path: ^/.+/supprimer/.+$, roles: ROLE_USER }
         - { path: ^/.+/supprimer/.+/confirmation$, roles: ROLE_USER }
         - { path: ^espace-documentaire/telecharger/.+$, roles: ROLE_USER}

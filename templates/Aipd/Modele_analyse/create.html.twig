@@ -16,8 +16,8 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'aipd.modele_analyse.title.list'|trans, 'link': path('aipd_modele_analyse_list') },
-        { 'name': 'aipd.modele_analyse.title.create'|trans }
+        { 'name': 'aipd.modele_analyse.breadcrumb.list'|trans, 'link': path('aipd_modele_analyse_list') },
+        { 'name': 'aipd.modele_analyse.breadcrumb.create'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}

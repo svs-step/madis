@@ -10,7 +10,7 @@ use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -19,10 +19,12 @@ class ModeleScenarioMenaceType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', TextType::class, [
+            ->add('nom', TextareaType::class, [
                 'label' => false,
                 'attr'  => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])
@@ -35,7 +37,7 @@ class ModeleScenarioMenaceType extends AbstractType
                 'attr'     => [
                     'class'            => 'selectpicker',
                     'data-live-search' => 'true',
-                    'title'            => 'placeholder.multiple_select',
+                    'title'            => 'global.placeholder.multiple_select',
                 ],
             ])
             ->add('isVisible', CheckboxType::class, [
@@ -64,11 +66,13 @@ class ModeleScenarioMenaceType extends AbstractType
                 'name'     => 'modele_vraisemblance_gravite',
                 'label'    => false,
             ])
-            ->add('precisions', TextType::class, [
+            ->add('precisions', TextareaType::class, [
                 'required' => false,
                 'label'    => false,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])

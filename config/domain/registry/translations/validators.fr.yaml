@@ -28,7 +28,7 @@ registry_contractor:
 registry_proof:
     document_file:
         not_null: Vous devez ajouter un document
-        file: Vous ne pouvez associer qu'un document de type png, jpg, pdf, doc, docx, odt, xls, xlsx ou ods
+        file: "Le type du fichier est invalide. Les fichiers autorisés sont : .jpg, .jpeg, .png, .pdf, .doc, .docx, .odt, .ppt, .pptx, .xls, .xlsx, .xlsm, .ods."
     name:
         not_blank: Vous devez saisir un nom
 

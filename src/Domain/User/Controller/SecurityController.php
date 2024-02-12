@@ -244,7 +244,7 @@ class SecurityController extends AbstractController
             $user->setForgetPasswordToken(null);
             $this->userRepository->update($user);
 
-            $this->helper->addFlash('success', $this->helper->trans('user.security.reset_password.flashbag.success'));
+            $this->helper->addFlash('success', $this->helper->trans('user.security.flashbag.success.reset_password'));
 
             return $this->helper->redirectToRoute('login');
         }
@@ -257,7 +257,7 @@ class SecurityController extends AbstractController
     private function _handleUserLoggedAlreadyAssociated(): RedirectResponse
     {
         $this->helper->addFlash('warning',
-            $this->helper->trans('user.profile.flashbag.error.sso_already_associated')
+            $this->helper->trans('user.user.flashbag.error.sso_already_associated')
         );
 
         return $this->helper->redirectToRoute('user_profile_user_edit');
@@ -266,7 +266,7 @@ class SecurityController extends AbstractController
     private function _handleSsoClientError(): RedirectResponse
     {
         $this->helper->addFlash('danger',
-            $this->helper->trans('user.security.sso_login.flashbag.sso_client_error')
+            $this->helper->trans('user.security.flashbag.error.sso_client_error')
         );
 
         return $this->helper->redirectToRoute('login');
@@ -276,7 +276,7 @@ class SecurityController extends AbstractController
     {
         $this->helper->addFlash(
             'danger',
-            $this->helper->trans('user.security.reset_password.flashbag.error')
+            $this->helper->trans('user.security.flashbag.error.sso_linked_auth')
         );
 
         if ($logoutUrl) {
@@ -289,7 +289,7 @@ class SecurityController extends AbstractController
     private function _handleDuplicateUserWithSsoKey(User $alreadyExists): RedirectResponse
     {
         $this->helper->addFlash('danger',
-            $this->helper->trans('user.profile.flashbag.error.sso_key_duplicate', ['email' => $alreadyExists->getEmail()])
+            $this->helper->trans('user.user.flashbag.error.sso_key_duplicate', ['email' => $alreadyExists->getEmail()])
         );
 
         return $this->helper->redirectToRoute('user_profile_user_edit');
@@ -307,7 +307,7 @@ class SecurityController extends AbstractController
         $this->entityManager->persist($currentUser);
         $this->entityManager->flush();
         $this->helper->addFlash('success',
-            $this->helper->trans('user.profile.flashbag.success.sso_associated')
+            $this->helper->trans('user.user.flashbag.success.sso_associated')
         );
 
         return $this->helper->redirectToRoute('user_profile_user_edit');

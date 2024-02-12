@@ -3,7 +3,7 @@
 {% set bodyClass = 'notification_notification list' %}
 {% set menuItem = 'notification_notification' %}
 
-{% block title %}{{ 'notification.notification.title.list'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'notifications.title.list'|trans }} - {{ parent() }}{% endblock %}
 
 {% block stylesheets %}
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.21/css/dataTables.bootstrap.min.css">
@@ -11,12 +11,12 @@
 {% endblock %}
 
 {% block body_head %}
-    <h1>{{ 'notification.notification.title.list'|trans }}</h1>
+    <h1>{{ 'notifications.title.list'|trans }}</h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'notification.notification.title.list'|trans }
+        { 'name': 'notifications.breadcrumb.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -25,16 +25,16 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <div style="float:right">
-                        <a style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notification.notification.action.mark_as_read_all'|trans }}</a>
+                        <a style="float:right;" href="{{ path('notification_notification_mark_as_read_all') }}">{{ 'notifications.action.mark_as_read_all'|trans }}</a>
                     </div>
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">
                                     <select class="form-control" id="search_state" style="width: 100%;">
-                                        <option value="" selected>{{ 'notification.notification.list.state'|trans }}</option>
+                                        <option value="" selected>{{ 'notifications.list.state'|trans }}</option>
                                         {% for key, subject in dictionary('notifications_notification_state') %}
                                             <option value="{{ key }}">{{ subject }}</option>
                                         {% endfor %}
@@ -42,7 +42,7 @@
                                 </th>
                                 <th scope="col">
                                     <select class="form-control" id="search_module" style="width: 100%;">
-                                        <option value="" selected>{{ 'notification.notification.list.module'|trans }}</option>
+                                        <option value="" selected>{{ 'notifications.list.module'|trans }}</option>
                                         {% if is_granted('ROLE_REFERENT') or 'MOREINFO_DPD' in app.user.moreInfos %}
                                             {% for key, subject in dictionary('notificationModule') %}
                                                 <option value="{{ key }}">{{ subject }}</option>
@@ -56,7 +56,7 @@
                                 </th>
                                 <th scope="col">
                                     <select class="form-control" id="search_action" style="width: 100%;">
-                                        <option value="" selected>{{ 'notification.notification.list.action'|trans }}</option>
+                                        <option value="" selected>{{ 'notifications.list.action'|trans }}</option>
                                         {% if is_granted('ROLE_REFERENT') or 'MOREINFO_DPD' in app.user.moreInfos %}
                                             {% for key, subject in dictionary('notificationAction') %}
                                                 <option value="{{ key }}">{{ subject }}</option>
@@ -69,46 +69,48 @@
                                     </select>
                                 </th>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_name" placeholder="Nom" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_name" placeholder="{{ 'notifications.list.name'|trans }}" style="width: 100%;">
                                 </th>
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_object" placeholder="Objet" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_object" placeholder="{{ 'notifications.list.object'|trans }}" style="width: 100%;">
                                 </th>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivity" placeholder="{{ 'notifications.list.collectivity'|trans }}" style="width: 100%;">
                                 </th>
                                 {% endif %}
-                                <th scope="col"><input class="daterangepicker form-control" type="text" id="search_date" placeholder="Date" style="position: relative; width: 90%; top: 0; left: 0; padding: 5px; font-size: small; border-radius: 0; border-color: rgb(210, 214, 222);"></th>
+                                <th scope="col" style="min-width:130px;position:relative;">
+                                    <input class="daterangepicker form-control" type="text" id="search_date" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
+                                </th>
                                 {% if is_granted('ROLE_ADMIN') %}
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_user_name" placeholder="Nom" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_user_name" placeholder="{{ 'notifications.list.user'|trans }}" style="width: 100%;">
+                                </th>
+                                <th scope="col" style="min-width:130px;position:relative;">
+                                    <input class="daterangepicker form-control" type="text" id="search_read_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                                 </th>
                                 <th scope="col">
-                                    <input class="daterangepicker form-control" type="text" id="search_read_at" placeholder="Date" style="position: relative; width: 90%; top: 0; left: 0; padding: 5px; font-size: small; border-radius: 0; border-color: rgb(210, 214, 222);">
-                                </th>
-                                <th scope="col">
-                                    <input class="form-control" type="text" id="search_read_by" placeholder="Nom" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_read_by" placeholder="{{ 'notifications.list.name'|trans }}" style="width: 100%;">
                                 </th>
                                 {% endif %}
                             </tr>
                             <tr>
-                                <th scope="col">{{ 'notification.notification.list.state'|trans }}</th>
-                                <th scope="col">{{ 'notification.notification.list.module'|trans }}</th>
-                                <th scope="col">{{ 'notification.notification.list.action'|trans }}</th>
-                                <th scope="col">{{ 'notification.notification.list.name'|trans }}</th>
-                                <th scope="col">{{ 'notification.notification.list.object'|trans }}</th>
+                                <th scope="col">{{ 'notifications.list.state'|trans }}</th>
+                                <th scope="col">{{ 'notifications.list.module'|trans }}</th>
+                                <th scope="col">{{ 'notifications.list.action'|trans }}</th>
+                                <th scope="col">{{ 'notifications.list.name'|trans }}</th>
+                                <th scope="col">{{ 'notifications.list.object'|trans }}</th>
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <th scope="col">{{ 'notification.notification.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                                 {% endif %}
-                                <th scope="col">{{ 'notification.notification.list.date'|trans }}</th>
+                                <th scope="col">{{ 'notifications.list.date'|trans }}</th>
 
                                 {% if is_granted('ROLE_ADMIN') %}
-                                <th scope="col">{{ 'notification.notification.list.user'|trans }}</th>
-                                <th scope="col">{{ 'notification.notification.list.read_date'|trans }}</th>
-                                <th scope="col">{{ 'notification.notification.list.read_by'|trans }}</th>
+                                <th scope="col">{{ 'notifications.list.user'|trans }}</th>
+                                <th scope="col">{{ 'notifications.list.read_date'|trans }}</th>
+                                <th scope="col">{{ 'notifications.list.read_by'|trans }}</th>
                                 {% endif %}
-                                <th scope="col">{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'global.label.actions'|trans }}</th>
                             </tr>
                         </thead>
 

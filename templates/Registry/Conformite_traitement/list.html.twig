@@ -16,49 +16,49 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'registry.conformite_traitement.title.list'|trans }
+        { 'name': 'registry.conformite_traitement.breadcrumb.list'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="action-bar">
-                    <a aria-label="{{ 'registry.conformite_traitement.action.report'|trans }}" href="{{ path('registry_conformite_traitement_report') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.conformite_traitement.action.report'|trans }}
+        <div class="col-xs-12">
+            <div class="mb-1">
+                <a href="{{ path('registry_conformite_traitement_report') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-clipboard-list"></i>
+                    {{ 'global.action.report'|trans }}
+                </a>
+                {% if category and category.documents|length > 0 %}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
+                        {{ 'global.action.documentation'|trans }}
                     </a>
-                    {% if category and category.documents|length > 0 %}
-                        <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'documentation.document.link.button'|trans }}
-                        </a>
-                    {% endif %}
-                </div>
+                {% endif %}
             </div>
+        </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col"></th>
                             <th scope="col">{{ 'registry.conformite_traitement.list.traitement'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'registry.conformite_traitement.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
-                            <th scope="col">{{ 'registry.conformite_traitement.list.gestionnaire'|trans }}</th>
-                            <th scope="col">{{ 'registry.conformite_traitement.list.conformite'|trans }}</th>
-                            <th scope="col">{{ 'registry.conformite_traitement.list.conformite_reponse'|trans }}</th>
+                            <th scope="col">{{ 'registry.treatment.label.manager'|trans }}</th>
+                            <th scope="col">{{ 'registry.conformite_traitement.label.conformite_reponse'|trans }}</th>
+                            <th scope="col">{{ 'registry.conformite_traitement.label.conformite_reponse'|trans }}</th>
                             <th scope="col">{{ 'registry.conformite_traitement.list.date_conformite'|trans }}</th>
-                            <th scope="col">{{ 'registry.conformite_traitement.list.avis_aipd'|trans }}</th>
+                            <th scope="col">{{ 'aipd.treatment.label.avis_aipd'|trans }}</th>
                             <th scope="col">{{ 'registry.conformite_traitement.list.date_aipd'|trans }}</th>
                             {% if is_granted('ROLE_USER') %}
-                                <th scope="col">{{ 'label.actions'|trans }}</th>
+                                <th scope="col">{{ 'global.label.actions'|trans }}</th>
                             {% endif %}
                         </tr>
                         </thead>
@@ -84,7 +84,7 @@
                                         <div class="mesurement-hide">
                                             <i aria-hidden="true" class="primary-i fas fa-exclamation-circle"></i>
                                             <div class="primary">
-                                                <span>Action de protections appliquées : </span>
+                                                <span>{{ 'registry.conformite_traitement.list.mesurements_done'|trans }}</span>
                                                 <ul>
                                                     {% for mesurement in planifiedMesurementToBeNotified %}
                                                         <li>{{ mesurement.name }}</li>
@@ -96,7 +96,7 @@
 
                                     {% if conformiteTraitement and conformiteTraitement.needsAipd and analyseImpact is null %}
                                         <div>
-                                            <i aria-hidden="true" class="fa fa-exclamation-triangle" title="Une AIPD doit être réalisée sur ce traitement." style="color:#f39c12;"></i>
+                                            <i aria-hidden="true" class="fa fa-exclamation-triangle" title="{{ 'registry.conformite_traitement.list.mesurements_done'|trans }}" style="color:#f39c12;"></i>
                                         </div>
                                     {% endif %}
                                 </td>
@@ -165,19 +165,19 @@
                                 </td>
                                 {% if is_granted('ROLE_USER') and ((services_user is empty) or ((object.service is defined) and (object.service in services_user)))%}
                                     <td>
-                                        <a aria-label="{{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}" href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
+                                        <a href="{% if conformiteTraitement is null %}{{ path('registry_conformite_traitement_create', {'idTraitement': object.id}) }}{% else %}{{ path('registry_conformite_traitement_edit', {'id': conformiteTraitement.id}) }}{% endif %}">
                                             <i aria-hidden="true" class="fa fa-pencil"></i>
                                             {{ 'registry.conformite_traitement.action.show_conformite_traitement'|trans }}
                                         </a>
                                         {% if conformiteTraitement is not null %}
                                             {% if analyseImpact is not null %}
-                                                <a aria-label="{{ 'aipd.analyse_impact.action.edit'|trans }}" href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
+                                                <a href="{{ path('aipd_analyse_impact_edit', {'id': analyseImpact.id}) }}">
                                                     <i aria-hidden="true" class="fa fa-chalkboard-teacher"></i>
                                                     {{ 'aipd.analyse_impact.action.edit'|trans }}
                                                 </a>
                                             {% else %}
                                                 {% if not conformiteTraitement.traitement.ExemptAIPD and analyseImpact is null %}
-                                                    <a aria-label="{{ 'aipd.analyse_impact.action.create'|trans }}" href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
+                                                    <a href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
                                                         <i aria-hidden="true" class="fa fa-chalkboard-teacher"></i>
                                                         {{ 'aipd.analyse_impact.action.create'|trans }}
                                                     </a>
@@ -225,44 +225,4 @@
     {% endif %}
 
     {{ include('_Utils/_datatable.html.twig') }}
-{% endblock %}
-
-{% block style %}
-    <style>
-        .stacked-bar-graph .tooltipchart {
-            position: relative;
-        }
-
-        .tooltipchart .tooltipcharttext {
-            visibility: hidden;
-            background-color: black;
-            color: #fff;
-            text-align: center;
-            padding: 5px;
-            border-radius: 6px;
-            height: 30px;
-            display: block;
-            position: absolute;
-            z-index: 2;
-            top: 120%;
-            left: 50%;
-            transform: translateX(-50%);
-            white-space: nowrap;
-        }
-
-        .tooltipchart:hover .tooltipcharttext {
-            visibility: visible;
-        }
-
-        .tooltipchart .tooltipcharttext::after {
-            content: " ";
-            position: absolute;
-            bottom: 100%;  /* At the top of the tooltip */
-            left: 50%;
-            margin-left: -5px;
-            border-width: 5px;
-            border-style: solid;
-            border-color: transparent transparent black transparent;
-        }
-    </style>
 {% endblock %}

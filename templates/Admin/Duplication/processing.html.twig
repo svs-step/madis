@@ -22,54 +22,68 @@
     <div class="col-xs-12">
         {# Warning message #}
         <div role="status" id="duplication-status-flashbag" class="alert alert-warning">
-            <strong>ATTENTION</strong><br/>
-            Cette page réalise et vous informe de l'avancée du traitement de la duplication.<br/>
-            Toute fermeture avant la finalisation de la duplication causera une <strong>duplication partielle</strong> des données.
+            <p><i aria-hidden="true" class="icon fa fa-spinner"></i><strong>{{ 'admin.duplication.flashbag.warning.duplicate_in_progress'|trans }}</strong></p>
+            <p>{{ 'admin.duplication.flashbag.warning.progress_warning'|trans }}</p>
         </div>
     </div>
 </div>
 
 <div class="row">
-    <div class="col-xs-12">
-        <div class="box box-solid">
-            <div class="box-body">
 
-                <div class="col-md-6">
-                    <div>
-                        <p>
-                            <strong>Type des données dupliquées : </strong>
-                            {{ duplication.type|dictionary('admin_duplication_type') }}
-                        </p>
-                        <p>
-                            <strong>Données à dupliquer : </strong>
-                        <ul>
-                            {% for item in duplication.data %}
-                                <li>{{ item }}</li>
-                            {% endfor %}
-                        </ul>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <table class="table table-striped ">
-                        <thead>
+    {# LEFT #}
+    <div class="col-md-6">
+        {# SOURCE DATA #}
+        <div class="box box-solid box-default">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'admin.duplication.tab.source'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table role="presentation" class="table">
+                    <tbody>
                         <tr>
-                            <th scope="col">Structure(s) cible</th>
-                            <th scope="col">Avancement</th>
+                            <td><strong>{{ 'admin.duplication.label.type'|trans }}</strong></td>
+                            <td>{{ duplication.type|dictionary('admin_duplication_type') }}</td>
                         </tr>
-                        </thead>
-                        <tbody>
+                        <tr>
+                            <td><strong>{{ 'admin.duplication.label.source_organization'|trans }}</strong></td>
+                            <td>{{ duplication.sourceCollectivity }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>{{ 'admin.duplication.label.data'|trans }}</strong></td>
+                            <td>
+                                <ul>
+                                    {% for item in duplication.data %}
+                                        <li>{{ item }}</li>
+                                    {% endfor %}
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    {# RIGHT #}
+    <div class="col-md-6">
+        {# TARGET DATA #}
+        <div class="box box-solid box-default">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'admin.duplication.tab.target'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">{{ 'global.label.organization'|trans }}</th>
+                            <th scope="col">{{ 'admin.duplication.label.progress'|trans }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
                         {% for collectivity in duplication.targetCollectivities %}
                             <tr id="collectivity-{{ collectivity.id }}">
                                 <td>{{ collectivity }}</td>
                                 <td class="duplication-status">{# Content will be added dynamically thanks to JS #}</td>
                             </tr>
                         {% endfor %}
-                        </tbody>
-                    </table>
-                </div>
-
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -108,9 +122,9 @@
         };
 
         // ROW STATUS UPDATES
-        const showRowProcess = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>');
-        const showRowSuccess = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<i aria-hidden="true" class="fa fa-check text-green"></i>');
-        const showRowError = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<i aria-hidden="true" class="fa fa-times text-red"></i>');
+        const showRowProcess = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<span class="badge bg-yellow">{{ 'admin.duplication.label.in_progress'|trans }}</span>');
+        const showRowSuccess = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<span class="badge bg-green">{{ 'admin.duplication.label.duplicate'|trans }}</span>');
+        const showRowError = (collectivityId) => $(`#collectivity-${collectivityId} .duplication-status`).html('<span class="badge bg-red">{{ 'admin.duplication.label.error'|trans }}</span>');
 
         // Pipe actions to handle when every duplication queries are done
         const handleCompleteDuplication = () => {
@@ -123,7 +137,7 @@
             let flashbag = $('#duplication-status-flashbag');
             flashbag.hasClass('alert-warning') && flashbag.removeClass('alert-warning');
             flashbag.addClass('alert-success');
-            flashbag.html('<strong>Duplication effectuée</strong><br/>Vous pouvez dorénavant fermer cette page. Le résultat de la duplication est disponible dans le tableau ci-dessous.');
+            flashbag.html('<i aria-hidden="true" class="icon fa fa-check"></i>{{ 'admin.duplication.flashbag.success.duplicate_end'|trans }}');
         };
 
         $(document).ready(function() {

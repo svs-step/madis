@@ -1,23 +1,27 @@
 <table class="table table-bordered">
-    <tr>
-        <th scope="col" style="width: 40%">{{ 'aipd.mesure_protection.list.nom'|trans }}</th>
-        <th scope="col">{{ 'aipd.mesure_protection.list.reponse'|trans }}</th>
-        <th scope="col" style="width:  40%">{{ 'aipd.mesure_protection.list.detail'|trans }}</th>
-    </tr>
-    {% for mesureProtection in form.mesureProtections|sort((a, b) => a.vars.value.nom > b.vars.value.nom) %}
+    <thead>
         <tr>
-            <td>
-                {{ mesureProtection.vars.value.nom }}
-            </td>
-            <td>
-                {{ form_widget(mesureProtection.reponse) }}
-            </td>
-            <td>
-                {{ form_widget(mesureProtection.detail) }}
-            </td>
+            <th scope="col" style="width: 40%">{{ 'aipd.mesure_protection.label.name'|trans }}</th>
+            <th scope="col" class="required">{{ 'aipd.modele_analyse.label.answer'|trans }}</th>
+            <th scope="col" class="required" style="width: 40%">{{ 'aipd.mesure_protection.label.detail'|trans }}</th>
         </tr>
-    {% endfor %}
-    {% if form.mesureProtections is empty %}
-        {% do form.mesureProtections.setRendered() %}
-    {% endif %}
+    </thead>
+    <tbody>
+        {% for mesureProtection in form.mesureProtections|sort((a, b) => a.vars.value.nom > b.vars.value.nom) %}
+            <tr>
+                <td>
+                    {{ mesureProtection.vars.value.nom }}
+                </td>
+                <td>
+                    {{ form_widget(mesureProtection.reponse) }}
+                </td>
+                <td>
+                    {{ form_widget(mesureProtection.detail) }}
+                </td>
+            </tr>
+        {% endfor %}
+        {% if form.mesureProtections is empty %}
+            {% do form.mesureProtections.setRendered() %}
+        {% endif %}
+    </tbody>
 </table>

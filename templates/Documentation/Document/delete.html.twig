@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'documentation.document.breadcrumb.list'|trans, 'link': path('documentation_document_list') },
-        { 'name': 'documentation.document.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'documentation.document.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,14 +26,14 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer le document {{ object.name }} ?
+                    <p>{{ 'documentation.document.label.delete_confirm'|trans({ '%object%': object.name }) }}</p>
                 </div>
                 <div class="box-footer">
-                    <a aria-label="{{ 'documentation.document.action.back_to_list'|trans }}" href="{{ path('documentation_document_index') }}" class="btn btn-default">
-                        {{ 'documentation.document.action.back_to_list'|trans }}
+                    <a href="{{ path('documentation_document_index') }}" class="btn btn-default">
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
-                    <a aria-label="{{ 'action.confirm_delete'|trans }}" href="{{ path('documentation_document_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_delete'|trans }}
+                    <a href="{{ path('documentation_document_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'global.action.confirm_delete'|trans }}
                     </a>
                 </div>
             </div>

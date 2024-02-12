@@ -17,41 +17,48 @@ class MesureProtectionAIPDType extends AbstractType
     {
         $builder
             ->add('nom', TextType::class, [
+                'label' => 'aipd.mesure_protection.label.name',
                 'attr' => [
                     'maxlength' => 255,
                 ],
                 'purify_html' => true,
             ])
             ->add('nomCourt', TextType::class, [
+                'label' => 'aipd.mesure_protection.label.short_name',
                 'attr' => [
                     'maxlength' => 255,
                 ],
                 'purify_html' => true,
             ])
             ->add('labelLivrable', TextType::class, [
+                'label' => 'aipd.mesure_protection.label.label_livrable',
                 'attr' => [
                     'maxlength' => 255,
                 ],
                 'purify_html' => true,
             ])
             ->add('phrasePreconisation', TextType::class, [
+                'label' => 'aipd.mesure_protection.label.preconisation',
                 'attr' => [
                     'maxlength' => 255,
                 ],
                 'purify_html' => true,
             ])
             ->add('detail', TextType::class, [
+                'label' => 'aipd.mesure_protection.label.detail',
                 'attr' => [
                     'maxlength' => 255,
                 ],
                 'purify_html' => true,
             ])
             ->add('poidsVraisemblance', IntegerType::class, [
+                'label' => 'aipd.mesure_protection.label.vraisemblance',
                 'attr' => [
                     'min' => 1,
                 ],
             ])
             ->add('poidsGravite', IntegerType::class, [
+                'label' => 'aipd.mesure_protection.label.gravite',
                 'attr' => [
                     'min' => 1,
                 ],

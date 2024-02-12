@@ -16,9 +16,9 @@
         {{ 'registry.violation.title.list'|trans }}
         <small>
             {% if app.request.query.get('archive') == 'true' %}
-                {{ 'label.archived'|trans }}
+                {{ 'registry.violation.title.list_archived'|trans }}
             {% else %}
-                {{ 'label.not_archived'|trans }}
+                {{ 'registry.violation.title.list_not_archived'|trans }}
             {% endif %}
         </small>
     </h1>
@@ -33,65 +33,64 @@
 
 {% block body %}
     <div class="row">
-            <div class="col-xs-12">
-                <div class="action-bar">
-                    {% if is_granted('ROLE_USER') %}
-                    <a aria-label="{{ 'registry.violation.action.new'|trans }}" href="{{ path('registry_violation_create') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-plus"></i>
-                        {{ 'registry.violation.action.new'|trans }}
+        <div class="col-xs-12">
+            <div class="mb-1">
+                {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('registry_violation_create') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-plus"></i>
+                    {{ 'registry.violation.action.new'|trans }}
+                </a>
+                {% endif %}
+                {% if app.user.roles[0] != 'ROLE_REFERENT' %}
+                <a href="{{ path('registry_violation_report') }}" class="btn btn-default">
+                    <i aria-hidden="true" class="fa fa-clipboard-list"></i>
+                    {{ 'global.action.report'|trans }}
+                </a>
+                {% endif %}
+                {% if app.request.query.get('archive') == 'true' %}
+                    <a href="{{ path('registry_violation_list', {'archive' : 'false'}) }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-archive"></i>
+                        {{ 'registry.violation.action.not_archived'|trans }}
                     </a>
-                    {% endif %}
-                    {% if app.user.roles[0] != 'ROLE_REFERENT' %}
-                    <a aria-label="{{ 'registry.violation.action.report'|trans }}" href="{{ path('registry_violation_report') }}" class="btn btn-default">
-                        <i aria-hidden="true" class="fa fa-clipboard-list"></i>
-                        {{ 'registry.violation.action.report'|trans }}
+                {% else %}
+                    <a href="{{ path('registry_violation_list', {'archive' : 'true'}) }}" class="btn btn-default">
+                        <i aria-hidden="true" class="fa fa-archive"></i>
+                        {{ 'registry.violation.action.archived'|trans }}
                     </a>
-                    {% endif %}
-                    {% if app.request.query.get('archive') == 'true' %}
-                        <a aria-label="{{ 'registry.violation.action.not_archived'|trans }}" href="{{ path('registry_violation_list', {'archive' : 'false'}) }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-archive"></i>
-                            {{ 'registry.violation.action.not_archived'|trans }}
-                        </a>
-                    {% else %}
-                        <a aria-label="{{ 'registry.violation.action.archived'|trans }}" href="{{ path('registry_violation_list', {'archive' : 'true'}) }}" class="btn btn-default">
-                            <i aria-hidden="true" class="fa fa-archive"></i>
-                            {{ 'registry.violation.action.archived'|trans }}
-                        </a>
-                    {% endif %}
-                    {% if category and category.documents|length > 0 %}
-                        <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
-                            <i aria-hidden="true" class="fa fa-circle-info"></i>
-                            {{ 'documentation.document.link.button'|trans }}
-                        </a>
-                    {% endif %}
-                </div>
+                {% endif %}
+                {% if category and category.documents|length > 0 %}
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                        <i aria-hidden="true" class="fa fa-circle-info"></i>
+                        {{ 'global.action.documentation'|trans }}
+                    </a>
+                {% endif %}
             </div>
-
+        </div>
     </div>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <div id="custom-buttons" style="float:left">
                         <a id="print-all" style="float:left" href="{{ path('registry_violation_print_all', { }) }}" class="dt-button buttons-collection buttons-colvis">
-                            Imprimer
+                            {{ 'global.action.print'|trans }}
                         </a>
                     </div>
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col" style="position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_date" placeholder="Date de violation" style="z-index:10;left: inherit!important;top: 0;font-size: 14px;max-width:90%;border-radius: 0;font-family: inherit;padding: 0 5px;">
+                                <input class="daterangepicker form-control" type="text" id="search_date" placeholder="{{ 'global.placeholder.date'|trans }}" style="z-index:10;left: inherit!important;top: 0;font-size: 14px;max-width:90%;border-radius: 0;padding: 0 5px;">
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivite" placeholder="Structure" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivite" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                                 </th>
                             {% endif %}
                             <th scope="col">
                                 <select class="form-control" id="search_nature" style="width: 100%;">
-                                    <option value="">Nature</option>
+                                    <option value="">{{ 'registry.violation.list.violation_nature'|trans }}</option>
                                     {% for key, subject in dictionary('registry_violation_nature') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
@@ -99,14 +98,14 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_inProgress" style="width: 100%;">
-                                    <option value="">En cours</option>
-                                    <option value="1">Oui</option>
-                                    <option value="0">Non</option>
+                                    <option value="">{{ 'global.label.in_progress'|trans }}</option>
+                                    <option value="1">{{ 'global.label.yes'|trans }}</option>
+                                    <option value="0">{{ 'global.label.no'|trans }}</option>
                                 </select>
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_cause" style="width: 100%;">
-                                    <option value="">Cause</option>
+                                    <option value="">{{ 'registry.violation.list.cause'|trans }}</option>
                                     {% for key, subject in dictionary('registry_violation_cause') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
@@ -114,7 +113,7 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_gravity" style="width: 100%;">
-                                    <option value="">Gravité</option>
+                                    <option value="">{{ 'registry.violation.list.gravity'|trans }}</option>
                                     {% for key, subject in dictionary('registry_violation_gravity') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
@@ -122,33 +121,33 @@
                             </th>
                             <th scope="col">
                                 <select class="form-control" id="search_notification" style="width: 100%;">
-                                    <option value="">Notification</option>
+                                    <option value="">{{ 'registry.violation.label.notification'|trans }}</option>
                                     {% for key, subject in dictionary('registry_violation_notification_list') %}
                                         <option value="{{ key }}">{{ subject }}</option>
                                     {% endfor %}
                                 </select>
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 100%;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 100%;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 100%;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 100%;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col"></th>
                         </tr>
                         <tr>
-                            <th scope="col">{{ 'registry.violation.list.date'|trans }}</th>
+                            <th scope="col">{{ 'registry.violation.label.date'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'registry.violation.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {%  endif %}
                             <th scope="col">{{ 'registry.violation.list.violation_nature'|trans }}</th>
                             <th scope="col">{{ 'registry.violation.list.in_progress'|trans }}</th>
                             <th scope="col">{{ 'registry.violation.list.cause'|trans }}</th>
-                            <th scope="col">{{ 'registry.violation.list.gravity'|trans }}</th>
-                            <th scope="col">{{ 'registry.violation.list.notification'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.violation.list.created_at'|trans }}</th>
-                            <th scope="col" style="max-width: 60px;">{{ 'registry.violation.list.updated_at'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'registry.violation.label.gravity'|trans }}</th>
+                            <th scope="col">{{ 'registry.violation.label.notification'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col" style="max-width: 60px;">{{ 'global.label.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

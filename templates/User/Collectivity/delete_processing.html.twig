@@ -4,22 +4,22 @@
 {% set menuItem = 'user_collectivity' %}
 
 {% block title %}
-    {{ 'user.collectivity.title.delete'|trans }}
+    {{ 'user.organization.title.delete'|trans }}
     -
     {{ parent() }}
 {% endblock %}
 
 {% block body_head %}
     <h1>
-        {{ 'user.collectivity.title.delete'|trans }}
+        {{ 'user.organization.title.delete'|trans }}
         <small>{{ object }}</small>
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'user.collectivity.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
-        { 'name': 'user.collectivity.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'user.organization.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
+        { 'name': 'user.organization.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -28,9 +28,8 @@
     <div class="row">
         <div class="col-xs-12">
             <div role="status" id="deletion-status-flashbag" class="alert alert-warning">
-                <strong>ATTENTION</strong><br/>
-                Cette page réalise et vous informe de l'avancée de la suppression de la structure.<br/>
-                Toute fermeture avant la finalisation de la suppression causera une <strong>suppression partielle</strong> des données.
+                <p><i aria-hidden="true" class="icon fa fa-spinner"></i><strong>{{ 'user.organization.flashbag.warning.delete_in_progress'|trans({ '%object%': object }) }}</strong></p>
+                <p>{{ 'user.organization.flashbag.warning.progress_warning'|trans }}</p>
             </div>
         </div>
     </div>
@@ -38,30 +37,26 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-header"></div>
                 <div class="box-body">
-                    Suppression de la structure "{{ object }}" en cours.
-                    <p>Mise à jour des éléments dupliqués <span id="maj_duplicate"></span></p>
-                    <p></p>
-                    <p id="todelete_list">
-                        <b>Suppression des éléments rattachés en cours</b>
-                        <ul>
-                            <li>Suppression des traitements <span id="check_treatments"></span></li>
-                            <li>Suppression des actions de protection <span id="check_mesurements"></span></li>
-                            <li>Suppression des sous-traitants <span id="check_contractors"></span></li>
-                            <li>Suppression des utilisateurs <span id="check_users"></span></li>
-                            <li>Suppression des preuves <span id="check_proofs"></span></li>
-                        </ul>
-                    </p>
+                    <p>{{ 'user.organization.label.update_related_objects'|trans }}</p>
+                    <ul>
+                        <li>{{ 'user.organization.label.update_duplicate'|trans }} <span id="check_duplicate"></span></li>
+                    </ul>
+                    <p>{{ 'user.organization.label.delete_related_objects'|trans }}</p>
+                    <ul>
+                        <li>{{ 'user.organization.label.delete_treatments'|trans }} <span id="check_treatments"></span></li>
+                        <li>{{ 'user.organization.label.delete_contractors'|trans }} <span id="check_contractors"></span></li>
+                        <li>{{ 'user.organization.label.delete_proofs'|trans }} <span id="check_proofs"></span></li>
+                        <li>{{ 'user.organization.label.delete_mesurements'|trans }} <span id="check_mesurements"></span></li>
+                        <li>{{ 'user.organization.label.delete_users'|trans }} <span id="check_users"></span></li>
+                    </ul>
+                </div>
+                <div class="box-footer" id="delete_button" style="display:none">
+                    <form method="POST" action="{{ path('user_collectivity_delete_process', { 'id': object.id }) }}">
+                        <button type="submit" class="btn btn-primary">{{ 'user.organization.action.delete_submit'|trans }}</button>
+                    </form>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row" id="delete_button" style="display:none">
-        <div class="col-xs-12">
-            <form method="POST" action="{{ path('user_collectivity_delete_process', { 'id': object.id }) }}">
-                <button type="submit" class="btn btn-primary">Supprimer la structure</button>
-            </form>
         </div>
     </div>
 {% endblock %}
@@ -78,93 +73,91 @@
             let flashbag = $('#deletion-status-flashbag');
             flashbag.hasClass('alert-warning') && flashbag.removeClass('alert-warning');
             flashbag.addClass('alert-success');
-            flashbag.html('<strong>Suppression des éléments liés effectuée</strong><br/> Vous pouvez maintenant supprimer la structure avec le bouton en bas de page.');
+            flashbag.html('<i aria-hidden="true" class="icon fa fa-check"></i>{{ 'user.organization.flashbag.success.related_objects_deleted'|trans }}');
             $('#delete_button').show()
         };
 
         const majCloned = () => {
-            console.log("Maj cloned");
+            // console.log("Maj cloned");
             return $.ajax({
                 url: '{{ path('user_collectivity_delete_update_cloned_from', { 'id': object.id }) }}',
                 method: 'POST',
                 success: function(data, textStatuts, jqXHR) {
-                    $(`#maj_duplicate`).html('<i aria-hidden="true" class="fa fa-check text-green"></i>');
+                    $(`#check_duplicate`).html('<span class="badge bg-green">{{ 'user.organization.label.updated'|trans }}</span>');
                     deleteTreatments()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $(`#todelete_list`).html('<span>Une erreur est survenue lors de la mise à jour des éléments dupliqués depuis les éléments rattachés à la structure {{ object }}<i aria-hidden="true" class="fa fa-times text-red">');
-
+                    $(`#check_duplicate`).html('<span class="badge bg-red">{{ 'user.organization.label.error'|trans }}</span>');
                 },
             })
         }
         const deleteTreatments = () => {
-            console.log("Delete treatments");
+            // console.log("Delete treatments");
             return $.ajax({
                 url: '{{ path('user_collectivity_delete_related', { 'id': object.id, 'objectType': 'treatments' }) }}',
                 method: 'POST',
                 success: function(data, textStatuts, jqXHR) {
-                    $(`#check_treatments`).html('<i aria-hidden="true" class="fa fa-check text-green"></i>');
+                    $(`#check_treatments`).html('<span class="badge bg-green">{{ 'user.organization.label.deleted'|trans }}</span>');
                     deleteMesurements()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $(`#todelete_list`).html('<span>{{ 'registry.treatment.show.delete_related_objects_error'|trans({'%relateds%': 'traitements', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
-                },
-            })
-        }
-        const deleteMesurements = () => {
-            console.log("Delete mesurements");
-            return $.ajax({
-                url: '{{ path('user_collectivity_delete_related', { 'id': object.id, 'objectType': 'mesurements' }) }}',
-                method: 'POST',
-                success: function(data, textStatuts, jqXHR) {
-                    $(`#check_mesurements`).html('<i aria-hidden="true" class="fa fa-check text-green"></i>');
-                    deleteContractors()
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    $(`#todelete_list`).html('<span>{{ 'registry.treatment.show.delete_related_objects_error'|trans({'%relateds%': 'actions de protection', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
-
+                    $(`#check_treatments`).html('<span class="badge bg-red">{{ 'user.organization.label.error'|trans }}</span>');
                 },
             })
         }
         const deleteContractors = () => {
-            console.log("Delete contractors");
+            // console.log("Delete contractors");
             return $.ajax({
                 url: '{{ path('user_collectivity_delete_related', { 'id': object.id, 'objectType': 'contractors' }) }}',
                 method: 'POST',
                 success: function(data, textStatuts, jqXHR) {
-                    $(`#check_contractors`).html('<i aria-hidden="true" class="fa fa-check text-green"></i>');
+                    $(`#check_contractors`).html('<span class="badge bg-green">{{ 'user.organization.label.deleted'|trans }}</span>');
                     deleteUsers()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $(`#todelete_list`).html('<span>{{ 'registry.treatment.show.delete_related_objects_error'|trans({'%relateds%': 'sous-traitants', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
-                },
-            })
-        }
-        const deleteUsers = () => {
-            console.log("Delete users");
-            return $.ajax({
-                url: '{{ path('user_collectivity_delete_related', { 'id': object.id, 'objectType': 'users' }) }}',
-                method: 'POST',
-                success: function(data, textStatuts, jqXHR) {
-                    $(`#check_users`).html('<i aria-hidden="true" class="fa fa-check text-green"></i>');
-                    deleteProofs()
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    $(`#todelete_list`).html('<span>{{ 'registry.treatment.show.delete_related_objects_error'|trans({'%relateds%': 'sous-traitants', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
+                    $(`#check_contractors`).html('<span class="badge bg-red">{{ 'user.organization.label.error'|trans }}</span>');
                 },
             })
         }
         const deleteProofs = () => {
-            console.log("Delete proofs");
+            // console.log("Delete proofs");
             return $.ajax({
                 url: '{{ path('user_collectivity_delete_related', { 'id': object.id, 'objectType': 'proofs' }) }}',
                 method: 'POST',
                 success: function(data, textStatuts, jqXHR) {
-                    $(`#check_proofs`).html('<i aria-hidden="true" class="fa fa-check text-green"></i>');
+                    $(`#check_proofs`).html('<span class="badge bg-green">{{ 'user.organization.label.deleted'|trans }}</span>');
                     showEndingFlashbag()
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
-                    $(`#todelete_list`).html('<span>{{ 'registry.treatment.show.delete_related_objects_error'|trans({'%relateds%': 'Preuves', '%object%': object}) }}<i aria-hidden="true" class="fa fa-times text-red">');
+                    $(`#check_proofs`).html('<span class="badge bg-red">{{ 'user.organization.label.error'|trans }}</span>');
+                },
+            })
+        }
+        const deleteMesurements = () => {
+            // console.log("Delete mesurements");
+            return $.ajax({
+                url: '{{ path('user_collectivity_delete_related', { 'id': object.id, 'objectType': 'mesurements' }) }}',
+                method: 'POST',
+                success: function(data, textStatuts, jqXHR) {
+                    $(`#check_mesurements`).html('<span class="badge bg-green">{{ 'user.organization.label.deleted'|trans }}</span>');
+                    deleteContractors()
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $(`#check_mesurements`).html('<span class="badge bg-red">{{ 'user.organization.label.error'|trans }}</span>');
+                },
+            })
+        }
+        const deleteUsers = () => {
+            // console.log("Delete users");
+            return $.ajax({
+                url: '{{ path('user_collectivity_delete_related', { 'id': object.id, 'objectType': 'users' }) }}',
+                method: 'POST',
+                success: function(data, textStatuts, jqXHR) {
+                    $(`#check_users`).html('<span class="badge bg-green">{{ 'user.organization.label.deleted'|trans }}</span>');
+                    deleteProofs()
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    $(`#check_users`).html('<span class="badge bg-red">{{ 'user.organization.label.error'|trans }}</span>');
                 },
             })
         }

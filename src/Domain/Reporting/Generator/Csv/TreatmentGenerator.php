@@ -123,12 +123,12 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function collectivityHeaders(): array
     {
-        $collectivityTrans = $this->translator->trans('registry.treatment.list.collectivity');
+        $collectivityTrans = $this->translator->trans('global.label.organization');
 
         return [
-            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.name'),
-            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.siren'),
-            $collectivityTrans . ' - ' . $this->translator->trans('user.collectivity.show.address_insee'),
+            $collectivityTrans . ' - ' . $this->translator->trans('user.organization.label.name'),
+            $collectivityTrans . ' - ' . $this->translator->trans('user.organization.label.siren'),
+            $collectivityTrans . ' - ' . $this->translator->trans('global.label.address.insee'),
         ];
     }
 
@@ -144,24 +144,24 @@ class TreatmentGenerator extends AbstractGenerator
     private function treatmentGeneralInformationsHeaders()
     {
         return [
-            $this->translator->trans('registry.treatment.show.author'),
-            $this->translator->trans('registry.treatment.show.coordonnees_responsable_traitement'),
-            $this->translator->trans('registry.treatment.show.goal'),
-            $this->translator->trans('registry.treatment.show.manager'),
-            $this->translator->trans('registry.treatment.show.active'),
-            $this->translator->trans('registry.treatment.show.legal_basis'),
-            $this->translator->trans('registry.treatment.show.legal_basis_justification'),
-            $this->translator->trans('registry.treatment.show.observation'),
-            $this->translator->trans('registry.treatment.show.public_register'),
-            $this->translator->trans('registry.treatment.show.exempt_AIPD'),
-            $this->translator->trans('registry.treatment.show.dpo_message'),
+            $this->translator->trans('registry.treatment.label.author'),
+            $this->translator->trans('registry.treatment.label.coordonnees_responsable_traitement'),
+            $this->translator->trans('registry.treatment.label.goal'),
+            $this->translator->trans('registry.treatment.label.manager'),
+            $this->translator->trans('registry.treatment.label.active'),
+            $this->translator->trans('registry.treatment.label.legal_basis'),
+            $this->translator->trans('registry.treatment.label.legal_basis_justification'),
+            $this->translator->trans('registry.treatment.label.observation'),
+            $this->translator->trans('registry.treatment.label.public_registry'),
+            $this->translator->trans('registry.treatment.label.exempt_AIPD'),
+            $this->translator->trans('registry.treatment.label.dpoMessage'),
         ];
     }
 
     private function initializeTreatmentGeneralInformations(\App\Domain\Registry\Model\Treatment $treatment): array
     {
-        $yes = $this->translator->trans('label.yes');
-        $no  = $this->translator->trans('label.no');
+        $yes = $this->translator->trans('global.label.yes');
+        $no  = $this->translator->trans('global.label.no');
 
         $goal                    = $treatment->getGoal();
         $legalBasisJustification = $treatment->getLegalBasisJustification();
@@ -181,7 +181,7 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getCoordonneesResponsableTraitement(),
             $goal,
             $treatment->getManager(),
-            $treatment->isActive() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
+            $treatment->isActive() ? $this->translator->trans('global.label.active') : $this->translator->trans('global.label.inactive'),
             !\is_null($treatment->getLegalBasis()) && array_key_exists($treatment->getLegalBasis(), TreatmentLegalBasisDictionary::getBasis()) ? TreatmentLegalBasisDictionary::getBasis()[$treatment->getLegalBasis()] : $treatment->getLegalBasis(),
             $legalBasisJustification,
             $observation,
@@ -196,8 +196,8 @@ class TreatmentGenerator extends AbstractGenerator
         $dataCategoryTrans = $this->translator->trans('registry.treatment.tab.data_category');
 
         return [
-            $this->translator->trans('registry.treatment.show.data_category'),
-            $dataCategoryTrans . ' - ' . $this->translator->trans('registry.treatment.show.data_category_other'),
+            $this->translator->trans('registry.treatment.label.data_category'),
+            $dataCategoryTrans . ' - ' . $this->translator->trans('registry.treatment.label.data_category_other'),
         ];
     }
 
@@ -214,8 +214,8 @@ class TreatmentGenerator extends AbstractGenerator
         $recipientsTrans = $this->translator->trans('registry.treatment.tab.recipients');
 
         return [
-            $recipientsTrans . ' - ' . $this->translator->trans('registry.treatment.show.recipient_category'),
-            $recipientsTrans . ' - ' . $this->translator->trans('registry.treatment.show.contractors'),
+            $recipientsTrans . ' - ' . $this->translator->trans('registry.treatment.label.recipient_category'),
+            $recipientsTrans . ' - ' . $this->translator->trans('global.label.linked_contractor'),
         ];
     }
 
@@ -229,12 +229,12 @@ class TreatmentGenerator extends AbstractGenerator
 
     private function treatmentHistoricHeaders()
     {
-        $historicTrans = $this->translator->trans('registry.treatment.tab.historic');
+        $historicTrans = $this->translator->trans('global.tab.history');
 
         return [
-            $historicTrans . ' - ' . $this->translator->trans('registry.treatment.show.creator'),
-            $historicTrans . ' - ' . $this->translator->trans('registry.treatment.show.created_at'),
-            $historicTrans . ' - ' . $this->translator->trans('registry.treatment.show.updated_at'),
+            $historicTrans . ' - ' . $this->translator->trans('global.label.created_by'),
+            $historicTrans . ' - ' . $this->translator->trans('global.label.created_at'),
+            $historicTrans . ' - ' . $this->translator->trans('global.label.updated_at'),
         ];
     }
 
@@ -250,40 +250,41 @@ class TreatmentGenerator extends AbstractGenerator
     private function treatmentDetailsHeaders()
     {
         $detailsTrans    = $this->translator->trans('registry.treatment.tab.details');
-        $concernedPeople = $this->translator->trans('registry.treatment.show.concerned_people');
+        $concernedPeople = $this->translator->trans('registry.treatment.label.concerned_people');
+        $delayTrans = $this->translator->trans('registry.treatment.label.shelflife');
 
         return [
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_particular'),
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_particular') . ' - Commentaire',
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_user'),
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_user') . ' - Commentaire',
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_agent'),
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_agent') . ' - Commentaire',
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_elected'),
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_elected') . ' - Commentaire',
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_company'),
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_company') . ' - Commentaire',
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_partner'),
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_partner') . ' - Commentaire',
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_usager'),
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_usager') . ' - Commentaire',
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_other'),
-            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.show.concerned_people_other') . ' - Commentaire',
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.estimated_concerned_people'),
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.software'),
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.paper_processing'),
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Durée',
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Nom',
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.delay') . ' - Sort final',
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.data_origin'),
-            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.show.collecting_method'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_particular'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_particular') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_user'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_user') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_agent'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_agent') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_elected'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_elected') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_company'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_company') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_partner'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_partner') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_usager'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_usager') . ' - Commentaire',
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_other'),
+            $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_other') . ' - Commentaire',
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.label.estimated_concerned_people'),
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.label.tools_if_inactif'),
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.label.paper_processing'),
+            $detailsTrans . ' - ' . $delayTrans . ' - ' . $this->translator->trans('registry.treatment.label.shelflife_duration'),
+            $detailsTrans . ' - ' . $delayTrans . ' - ' . $this->translator->trans('registry.treatment.label.shelflife_name'),
+            $detailsTrans . ' - ' . $delayTrans . ' - ' . $this->translator->trans('registry.treatment.label.shelflife_ultimate_fate'),
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.label.data_origin'),
+            $detailsTrans . ' - ' . $this->translator->trans('registry.treatment.label.collecting_method'),
         ];
     }
 
     private function initializeTreatmentDetails(\App\Domain\Registry\Model\Treatment $treatment): array
     {
-        $yes = $this->translator->trans('label.yes');
-        $no  = $this->translator->trans('label.no');
+        $yes = $this->translator->trans('global.label.yes');
+        $no  = $this->translator->trans('global.label.no');
 
         $shelfLifes = $treatment->getShelfLifes();
 
@@ -318,7 +319,7 @@ class TreatmentGenerator extends AbstractGenerator
             $treatment->getConcernedPeopleOther()->getComment(),
             $treatment->getEstimatedConcernedPeople(),
             $treatment->getCollectivity() && $treatment->getCollectivity()->isHasModuleTools() ? $treatment->getToolsString() : $treatment->getSoftware(),
-            $treatment->isPaperProcessing() ? $this->translator->trans('label.active') : $this->translator->trans('label.inactive'),
+            $treatment->isPaperProcessing() ? $this->translator->trans('global.label.active') : $this->translator->trans('global.label.inactive'),
             $duration,
             $name,
             $ultimateFate,
@@ -334,26 +335,26 @@ class TreatmentGenerator extends AbstractGenerator
         $securityTrans = $this->translator->trans('registry.treatment.tab.security');
 
         return [
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_access_control'),
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_access_control') . ' - Commentaire',
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_tracability'),
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_tracability') . ' - Commentaire',
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_saving'),
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_saving') . ' - Commentaire',
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_update'),
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_update') . ' - Commentaire',
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_other'),
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_other') . ' - Commentaire',
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_entitled_persons'),
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_open_accounts'),
-            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.show.security_specificities_delivered'),
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_access_control'),
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_access_control') . ' - Commentaire',
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_tracability'),
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_tracability') . ' - Commentaire',
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_saving'),
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_saving') . ' - Commentaire',
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_update'),
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_update') . ' - Commentaire',
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_other'),
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_other') . ' - Commentaire',
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_entitled_persons'),
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_open_accounts'),
+            $securityTrans . ' - ' . $this->translator->trans('registry.treatment.label.security_specificities_delivered'),
         ];
     }
 
     private function initializeTreatmentSecurity(\App\Domain\Registry\Model\Treatment $treatment): array
     {
-        $yes = $this->translator->trans('label.yes');
-        $no  = $this->translator->trans('label.no');
+        $yes = $this->translator->trans('global.label.yes');
+        $no  = $this->translator->trans('global.label.no');
 
         return [
             $treatment->getSecurityAccessControl()->isCheck() ? $yes : $no,
@@ -377,21 +378,21 @@ class TreatmentGenerator extends AbstractGenerator
         $specificTrans = $this->translator->trans('registry.treatment.tab.specific');
 
         return [
-            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.systematic_monitoring'),
-            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.large_scale_collection'),
-            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.vulnerable_people'),
-            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.data_crossing'),
-            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.evaluation_or_rating'),
-            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.automated_decisions_with_legal_effect'),
-            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.automatic_exclusion_service'),
-            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.show.innovative_use'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.label.systematic_monitoring'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.label.large_scale_collection'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.label.vulnerable_people'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.label.data_crossing'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.label.evaluation_or_rating'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.label.automated_decisions_with_legal_effect'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.label.automatic_exclusion_service'),
+            $specificTrans . ' - ' . $this->translator->trans('registry.treatment.label.innovative_use'),
         ];
     }
 
     private function initializeTreatmentSpecific(\App\Domain\Registry\Model\Treatment $treatment): array
     {
-        $yes = $this->translator->trans('label.yes');
-        $no  = $this->translator->trans('label.no');
+        $yes = $this->translator->trans('global.label.yes');
+        $no  = $this->translator->trans('global.label.no');
 
         return [
             $treatment->isSystematicMonitoring() ? $yes : $no,
@@ -408,7 +409,7 @@ class TreatmentGenerator extends AbstractGenerator
     private function treatmentProofHeaders()
     {
         return [
-            'Nb ' . $this->translator->trans('label.linked_documents'),
+            'Nb ' . $this->translator->trans('global.label.linked_proof'),
         ];
     }
 
@@ -422,13 +423,13 @@ class TreatmentGenerator extends AbstractGenerator
     private function treatmentConformiteHeaders()
     {
         $conformiteTraitementHeaders = [
-            $this->translator->trans('registry.treatment.show.conformite_traitement'),
-            $this->translator->trans('registry.treatment.show.conformite_traitement_created_at'),
-            $this->translator->trans('registry.treatment.show.conformite_traitement_updated_at'),
+            $this->translator->trans('registry.treatment.label.conformite_traitement'),
+            $this->translator->trans('registry.treatment.label.conformite_traitement_created_at'),
+            $this->translator->trans('registry.treatment.label.conformite_traitement_updated_at'),
         ];
 
         foreach ($this->questionRepository->findAll(['position' => 'asc']) as $question) {
-            $conformiteTraitementHeaders[] = $this->translator->trans('registry.treatment.show.conformite_traitement') . ' - Question : ' . $question->getQuestion();
+            $conformiteTraitementHeaders[] = $this->translator->trans('registry.treatment.label.conformite_traitement') . ' - Question : ' . $question->getQuestion();
         }
 
         return $conformiteTraitementHeaders;

@@ -159,7 +159,7 @@ class NotificationsSendCommand extends Command
             }
 
             $email = new TemplatedEmail();
-            $email->subject($this->translator->trans('notification.email.subject'));
+            $email->subject($this->translator->trans('notifications.label.email_subject'));
             $email->to(new Address($mail));
             $email->htmlTemplate('Notification/Mail/notifications.html.twig');
             $email->context([

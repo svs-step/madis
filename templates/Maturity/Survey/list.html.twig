@@ -24,17 +24,17 @@
 {% block body %}
     <div class="row">
         <div class="col-xs-12">
-            <div class="action-bar">
+            <div class="mb-1">
                 {% if is_granted('ROLE_USER') %}
-                <a aria-label="{{ 'maturity.survey.action.new'|trans }}" href="{{ path('maturity_survey_start') }}" class="btn btn-default">
+                <a href="{{ path('maturity_survey_start') }}" class="btn btn-default">
                     <i aria-hidden="true" class="fa fa-plus"></i>
                     {{ 'maturity.survey.action.new'|trans }}
                 </a>
                 {% endif %}
                 {% if category and category.documents|length > 0 %}
-                    <a aria-label="{{ 'documentation.document.link.button'|trans }}" href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
+                    <a href="{{ path('documentation_document_index') }}?category={{ category.id }}" class="btn btn-default pull-right">
                         <i aria-hidden="true" class="fa fa-circle-info"></i>
-                        {{ 'documentation.document.link.button'|trans }}
+                        {{ 'global.action.documentation'|trans }}
                     </a>
                 {% endif %}
             </div>
@@ -44,13 +44,13 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-solid">
-                <div class="box-body">
+                <div class="box-body overflow-x-auto">
                     <table id="table" class="table table-bordered table-hover">
                         <thead>
                         <tr>
                             <th scope="col">
                                 <select class="form-control" id="search_referentiel" style="width: 100%;">
-                                    <option value="">Référentiel</option>
+                                    <option value="">{{ 'maturity.survey.list.referentiel'|trans }}</option>
                                     {% for referentiel in referentiels %}
                                         <option value="{{ referentiel }}">{{ referentiel }}</option>
                                     {% endfor %}
@@ -58,28 +58,28 @@
                             </th>
                             {% if is_granted('ROLE_REFERENT') %}
                                 <th scope="col">
-                                    <input class="form-control" type="text" id="search_collectivity" placeholder="Structure" style="width: 100%;">
+                                    <input class="form-control" type="text" id="search_collectivity" placeholder="{{ 'global.label.organization'|trans }}" style="width: 100%;">
                                 </th>
                             {% endif %}
                             <th scope="col">
-                                <input class="form-control" type='number' id="search_score" style="width: 100%;" placeholder="Score">
+                                <input class="form-control" type='number' id="search_score" style="width: 100%;" placeholder="{{ 'maturity.survey.list.score'|trans }}">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="Date de création" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_created_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                             <th scope="col" style="min-width:130px;position:relative;">
-                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="Date de modification" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;font-family: inherit;padding: 0 5px;z-index:10;">
+                                <input class="daterangepicker form-control" type="text" id="search_updated_at" placeholder="{{ 'global.placeholder.date'|trans }}" style="max-width: 130px;left: inherit!important;top: 0;font-size: 14px;border-radius: 0;padding: 0 5px;">
                             </th>
                         </tr>
                         <tr>
                             <th scope="col">{{ 'maturity.survey.list.referentiel'|trans }}</th>
                             {% if is_granted('ROLE_REFERENT') %}
-                                <th scope="col">{{ 'maturity.survey.list.collectivity'|trans }}</th>
+                                <th scope="col">{{ 'global.label.organization'|trans }}</th>
                             {% endif %}
                             <th scope="col">{{ 'maturity.survey.list.score'|trans }}</th>
-                            <th scope="col">{{ 'maturity.survey.list.created_at'|trans }}</th>
-                            <th scope="col">{{ 'maturity.survey.list.updated_at'|trans }}</th>
-                            <th scope="col">{{ 'label.actions'|trans }}</th>
+                            <th scope="col">{{ 'global.label.created_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.updated_at'|trans }}</th>
+                            <th scope="col">{{ 'global.label.actions'|trans }}</th>
                         </tr>
                         </thead>
                     </table>

@@ -15,7 +15,7 @@ class ShelfLifeType extends AbstractType
     {
         $builder
             ->add('name', TextType::class, [
-                'label'      => 'registry.treatment.form.shelflife_name',
+                'label'      => 'registry.treatment.label.shelflife_name',
                 'required'   => true,
                 'empty_data' => '',
                 'attr'       => [
@@ -24,16 +24,16 @@ class ShelfLifeType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('duration', TextType::class, [
-                'label'      => 'registry.treatment.form.shelflife_duration',
+                'label'      => 'registry.treatment.label.shelflife_duration',
                 'required'   => true,
                 'empty_data' => '',
                 'attr'       => [
-                    'maxlength' => 255,
+                    'maxlength' => 500,
                 ],
                 'purify_html' => true,
             ])
             ->add('ultimate_fate', DictionaryType::class, [
-                'label'    => 'registry.treatment.form.shelflife_ultimate_fate',
+                'label'    => 'registry.treatment.label.shelflife_ultimate_fate',
                 'required' => true,
                 'name'     => 'registry_treatment_ultimate_fate',
             ])

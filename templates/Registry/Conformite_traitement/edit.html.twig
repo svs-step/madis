@@ -14,8 +14,8 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'registry.conformite_traitement.title.list'|trans, 'link': path('registry_conformite_traitement_list') },
-        { 'name': 'registry.conformite_traitement.title.edit'|trans }
+        { 'name': 'registry.conformite_traitement.breadcrumb.list'|trans, 'link': path('registry_conformite_traitement_list') },
+        { 'name': 'registry.conformite_traitement.breadcrumb.edit'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}

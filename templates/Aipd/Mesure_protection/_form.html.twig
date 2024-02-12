@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="box box-solid box-info">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.mesure_protection.form.information_generale'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.general'|trans }}</h3></div>
                     <div class="box-body">
                         {{ form_row(form.nom) }}
                         {{ form_row(form.nomCourt) }}
@@ -24,7 +24,7 @@
             </div>
             <div class="col-md-6">
                 <div class="box box-solid box-primary">
-                    <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.mesure_protection.form.information_livrable'|trans }}</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'aipd.mesure_protection.tab.information_livrable'|trans }}</h3></div>
                     <div class="box-body">
                         {{ form_row(form.labelLivrable) }}
                         {{ form_row(form.phrasePreconisation) }}
@@ -37,8 +37,8 @@
         <div class="col-md-12">
             <div class="box box-solid">
                 <div class="box-body text-center">
-                    <a aria-label="{{ 'action.back_to_list'|trans }}" href="{{ path('aipd_mesure_protection_list') }}" class="btn btn-default">
-                        {{ 'action.back_to_list'|trans }}
+                    <a href="{{ path('aipd_mesure_protection_list') }}" class="btn btn-default">
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
                     <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
                 </div>

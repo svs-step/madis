@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'registry.violation.breadcrumb.list'|trans, 'link': path('registry_violation_list') },
-        { 'name': 'registry.violation.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'registry.violation.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,14 +26,14 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment archiver la demande de "{{ object }}" ?
+                    <p>{{ 'registry.violation.label.archive_confirm'|trans({ '%date%': object.createdAt|date('d/m/Y') }) }}</p>
                 </div>
                 <div class="box-footer">
-                    <a aria-label="{{ 'registry.violation.action.back_to_list'|trans }}" href="{{ path('registry_violation_list') }}" class="btn btn-default">
-                        {{ 'registry.violation.action.back_to_list'|trans }}
+                    <a href="{{ path('registry_violation_list') }}" class="btn btn-default">
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
-                    <a aria-label="{{ 'action.confirm_archive'|trans }}" href="{{ path('registry_violation_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_archive'|trans }}
+                    <a href="{{ path('registry_violation_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'global.action.confirm_archive'|trans }}
                     </a>
                 </div>
             </div>

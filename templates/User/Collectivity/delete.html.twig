@@ -4,22 +4,22 @@
 {% set menuItem = 'user_collectivity' %}
 
 {% block title %}
-    {{ 'user.collectivity.title.delete'|trans }}
+    {{ 'user.organization.title.delete'|trans }}
     -
     {{ parent() }}
 {% endblock %}
 
 {% block body_head %}
     <h1>
-        {{ 'user.collectivity.title.delete'|trans }}
+        {{ 'user.organization.title.delete'|trans }}
         <small>{{ object }}</small>
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'user.collectivity.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
-        { 'name': 'user.collectivity.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'user.organization.breadcrumb.list'|trans, 'link': path('user_collectivity_list') },
+        { 'name': 'user.organization.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -30,25 +30,22 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer la structure "{{ object }}" ?
-                    <p>
-                        <b>La suppression de la structure entrainera la suppression de toutes les données liées à cette structure :
-                            <ul>
-                                {% for deletedObject in deletedObjects %}
-                                    <li>
-                                        {{ deletedObject }}
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </b>
-                    </p>
+                    <p>{{ 'user.organization.label.delete_confirm'|trans({ '%object%': object }) }}</p>
+                    <p><strong>{{ 'user.organization.label.delete_confirm_list'|trans }}</strong></p>
+                    <ul>
+                        {% for deletedObject in deletedObjects %}
+                            <li>
+                                {{ deletedObject }}
+                            </li>
+                        {% endfor %}
+                    </ul>
                 </div>
                 <div class="box-footer">
-                    <a aria-label="{{ 'user.collectivity.action.back_to_list'|trans }}" href="{{ path('user_collectivity_list') }}" class="btn btn-default">
-                        {{ 'user.collectivity.action.back_to_list'|trans }}
+                    <a href="{{ path('user_collectivity_list') }}" class="btn btn-default">
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
-                    <a aria-label="{{ 'action.confirm_delete'|trans }}" href="{{ path('user_collectivity_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_delete'|trans }}
+                    <a href="{{ path('user_collectivity_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'global.action.confirm_delete'|trans }}
                     </a>
                 </div>
             </div>

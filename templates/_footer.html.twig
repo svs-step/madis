@@ -1,15 +1,17 @@
 <footer id="main-footer" class="main-footer d-flex flex-wrap justify-content-between" role="contentinfo" tabindex="-1">
     <p class="no-margin">
-        <strong><i aria-label="Copyright" class="fa-regular fa-copyright small"></i> {{ 'now' | date('Y') }} <a href="{{ app_footer_provider_url }}" target="_blank" rel="nofollow noreferrer noopener">{{ app_footer_provider_name }}</a></strong>
+        <strong><i aria-label="{{ 'global.navigation.copyright'|trans }}" class="fa-regular fa-copyright small"></i> {{ 'now' | date('Y') }} <a href="{{ app_footer_provider_url }}" target="_blank" rel="nofollow noreferrer noopener">{{ app_footer_provider_name }}</a></strong>
         {% if app.user %}: {{ app.user.collectivity }}{% endif %}
     </p>
 
-    <ul class="list-unstyled list-inline">
-        {% if app.user %}
-            <li class="no-padding"><a href="{{ path('page_sitemap') }}">{{ 'page.sitemap.title'|trans }}</a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
-            <li class="no-padding"><a href="{{ path('page_declaration') }}">Accessibilité<!-- : {{ 'page.declaration.result'|trans }}--></a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
-            <li class="no-padding"><a href="{{ path('page_credit') }}">{{ 'page.credit.title'|trans }}</a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
-        {% endif %}
-        <li class="no-padding">v{{ app_version }}</li>
-    </ul>
+    {% if app.user %}
+        <ul class="list-unstyled list-inline">
+            <li class="no-padding"><a href="{{ path('page_sitemap') }}" {% if menuItem == 'page_sitemap' %}aria-current="page"{% endif %}>{{ 'page.sitemap.title'|trans }}</a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
+            <li class="no-padding"><a href="{{ path('page_declaration') }} {% if menuItem == 'page_declaration' %}aria-current="page"{% endif %}">Accessibilité<!-- : {{ 'page.declaration.result'|trans }}--></a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
+            <li class="no-padding"><a href="{{ path('page_credit') }}" {% if menuItem == 'page_credit' %}aria-current="page"{% endif %}>{{ 'page.credit.title'|trans }}</a><span aria-hidden="true" style="padding: 0 5px;">|</span></li>
+            <li class="no-padding">v{{ app_version }}</li>
+        </ul>
+    {% else %}
+        <p class="no-margin"><!-- Accessibilité : {{ 'page.declaration.result'|trans }}--></p>
+    {% endif %}
 </footer>

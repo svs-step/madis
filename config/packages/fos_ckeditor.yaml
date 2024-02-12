@@ -6,6 +6,7 @@ fos_ck_editor:
     configs:
         my_config:
             toolbar: "custom_toolbar"
+            versionCheck: false
             language: fr
     toolbars:
         configs:

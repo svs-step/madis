@@ -9,7 +9,7 @@ aipd_modele_analyse_create:
     controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:createAction'
 
 aipd_modele_analyse_edit:
-    path: '/editer/{id}'
+    path: '/modifier/{id}'
     methods: ['GET', 'POST']
     controller: 'App\Domain\AIPD\Controller\ModeleAnalyseController:editAction'
 

@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'registry.proof.breadcrumb.list'|trans, 'link': path('registry_proof_list') },
-        { 'name': 'registry.proof.breadcrumb.edit'|trans({'%name%': form.vars.value}) }
+        { 'name': 'registry.proof.breadcrumb.edit'|trans({ '%name%': form.vars.value }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -23,5 +23,3 @@
 {% block body %}
     {{ include('Registry/Proof/_form.html.twig') }}
 {% endblock %}
-
-

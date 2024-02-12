@@ -7,7 +7,7 @@
         <img class="fit-picture" src="{{ asset(app_image_logo_couleur) }}" width="80%" alt="Madis">
     </div>
     <div class="login-box-body">
-        <p class="login-box-msg">{{ 'user.security.login.verbatim'|trans }}</p>
+        <p class="login-box-msg">{{ 'user.security.label.welcome_message'|trans }}</p>
         <form action="{{ path('login') }}" method="POST">
 
             {% if error %}
@@ -19,10 +19,10 @@
             {{ include('_flashbag.html.twig') }}
 
             <div class="form-group">
-                <input type="email" autocomplete="username" id="username" name="_username" class="form-control" placeholder="{{ 'user.security.login.username'|trans }}" value="{{ last_username }}" />
+                <input type="email" autocomplete="username" id="username" name="_username" class="form-control" placeholder="{{ 'user.security.placeholder.username'|trans }}" value="{{ last_username }}" />
             </div>
             <div class="form-group has-feedback">
-                <input type="password" autocomplete="current-password" id="password" name="_password" class="form-control" placeholder="{{ 'user.security.login.password'|trans }}" />
+                <input type="password" autocomplete="current-password" id="password" name="_password" class="form-control" placeholder="{{ 'user.security.placeholder.password'|trans }}" />
                 <span class="fa fa-eye form-control-feedback"></span>
             </div>
 
@@ -30,17 +30,17 @@
                 <div class="form-group has-feedback text-center">
                     <label for="remember_me">
                         <input id="remember_me" name="_remember_me" type="checkbox">
-                        {{ 'user.security.login.remember_me'|trans() }}
+                        {{ 'user.security.label.remember_me'|trans() }}
                     </label>
                 </div>
             {% endif %}
             <div class="form-group has-feedback">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">{{ 'action.connexion'|trans }}</button>
+                <button type="submit" class="btn btn-primary btn-block btn-flat">{{ 'global.action.connexion'|trans }}</button>
             </div>
         </form>
 
         <div class="text-center">
-            <a aria-label="{{ 'user.security.login.forget_password'|trans }}" href="{{ path('forget_password') }}">{{ 'user.security.login.forget_password'|trans }}</a><br>
+            <a href="{{ path('forget_password') }}">{{ 'user.security.action.forget_password'|trans }}</a><br>
         </div>
 
         {% if sso_type %}
@@ -48,7 +48,7 @@
                 <span>OU</span>
                 <a class="btn  btn-default btn-block btn-flat" href="{{ path('oauth_connect', {'service':sso_type}) }}">
                     <img src="{{ asset(sso_icon) }}" alt="">
-                    {{  'user.security.sso_login.link'|trans({'%service%': sso_title}) }}
+                    {{  'user.security.action.sso_login'|trans({ '%service%': sso_title }) }}
                 </a>
             </div>
         {% endif %}

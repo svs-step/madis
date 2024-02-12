@@ -2,20 +2,20 @@
 
 {% set bodyClass = 'user_profile_user form edit' %}
 {% set menuItem = 'user_profile_user' %}
-{% set submitValue = submitValue|default('user.profile.form_user.action.submit'|trans) %}
+{% set submitValue = submitValue|default('user.user.action.my_profil_submit'|trans) %}
 
-{% block title %}{{ 'user.user.title.edit'|trans }} - {{ parent() }}{% endblock %}
+{% block title %}{{ 'user.user.title.my_profil_edit'|trans }} - {{ parent() }}{% endblock %}
 
 {% block body_head %}
     <h1>
-        {{ 'user.user.title.edit'|trans }}
+        {{ 'user.user.title.my_profil_edit'|trans }}
         <small>{{ form.vars.value }}</small>
     </h1>
 {% endblock %}
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'user.profile.breadcrumb.user_edit'|trans }
+        { 'name': 'user.user.breadcrumb.my_profil_edit'|trans }
 
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
@@ -27,96 +27,52 @@
 
         {# LEFT #}
         <div class="col-md-6">
-
-            {# General #}
-            <div class="box box-solid box-primary">
+            {# GENERAL #}
+            <div class="box box-solid box-info">
                 <div class="box-header">
-                    <h3 class="box-title">{{ 'user.profile.form_user.tab.general'|trans }}</h3>
+                    <h3 class="box-title">{{ 'global.tab.general'|trans }}</h3>
                 </div>
                 {{ form_start(form) }}
                 <div class="box-body">
                     {{ form_row(form.firstName) }}
                     {{ form_row(form.lastName) }}
                     {{ form_row(form.email) }}
-                </div>
-            </div>
-
-            {# More Info #}
-            <div class="box box-solid box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">{{ 'user.profile.form_user.tab.moreInfo'|trans }}</h3>
-                </div>
-                <div class="box-body">
+                    {% if is_granted('ROLE_ADMIN') %}
+                        {{ form_row(form.collectivity) }}
+                        {{ form_row(form.roles) }}
+                        <div id="user_collectivitesReferees_div">
+                            {{ form_row(form.collectivitesReferees) }}
+                        </div>
+                    {% endif %}
                     {{ form_row(form.moreInfos) }}
-                </div>
-            </div>
-
-            {# Reset password #}
-            <div class="box box-solid box-danger">
-                <div class="box-header">
-                    <h3 class="box-title">{{ 'user.profile.form_user.tab.optional'|trans }}</h3>
-                </div>
-                <div class="box-body">
-                    <blockquote>
-                        <small>{{ 'user.user.form.help.password'|trans }}</small>
-                    </blockquote>
-                    {{ form_row(form.plainPassword) }}
-                </div>
-            </div>
-        </div>
-
-        {# RIGHT #}
-        <div class="col-md-6">
-
-            {# Information #}
-            <div class="box box-solid box-primary">
-                <div class="box-header">
-                    <h3 class="box-title">{{ 'label.for_your_information'|trans }}</h3>
-                </div>
-                <div class="box-body">
-                    <ul>
-                        <li>Vous disposez d'un compte associé à la structure <strong>{{ form.vars.value.collectivity }}.</strong></li>
-                        <li>Vous disposez des droits de <strong>lecture</strong> sur votre structure{% if app.user.roles[0] == 'ROLE_REFERENT' %} et sur vos structures rattacheés{% endif %}.</li>
-                        {% if is_granted('ROLE_USER') %}
-                            <li>Vous disposez des droits d'<strong>écriture</strong> sur votre structure{% if app.user.roles[0] == 'ROLE_REFERENT' %} et  sur vos structures rattacheés via la fonctionnalité "se connecter en tant que"{% endif %}.</li>
-                        {% endif %}
-                        {% if app.user.roles[0] == 'ROLE_REFERENT' %}
-                            <li>Liste des structures rattachées :</li>
-                            <ul>
-                                {% for collectivity in app.user.collectivitesReferees %}
-                                    <li>{{ collectivity.name }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                        {% if app.user.moreInfos %}
-                            {% for mi in app.user.moreInfos %}
-                                <li>Vous êtes <strong>{{ mi|dictionary('user_user_moreInfo') }}</strong> sur votre structure</li>
-                            {% endfor %}
-                        {% endif %}
-                    </ul>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <!-- L'option du statut ne derait pas être présente dans son compte, car ça bloquerait l'utilisateur, cependant, l'option se décoche toute seule si le champ n'est pas présent, ce qui bloque l'utilisateur. -->
+                        {{ form_row(form.enabled) }}
+                        {{ form_row(form.apiAuthorized) }}
+                    {% endif %}
                 </div>
             </div>
 
             {# SSO #}
             {% if sso_title and sso_type %}
-                <div class="box box-solid box-primary">
+                <div class="box box-solid box-warning">
                     <div class="box-header">
-                        <h3 class="box-title">{{ 'user.profile.form_user.tab.login_delegation'|trans }}</h3>
+                        <h3 class="box-title">{{ 'user.user.tab.sso'|trans }}</h3>
                     </div>
 
                     <div class="box-body">
                         <div class="form-group">
-                            <label>{{ 'user.user.form.sso_key'|trans }}</label>
+                            <label>{{ 'user.user.label.sso_key'|trans }}</label>
 
                             {% if sso_associated %}
                                 <div style="display: flex; align-items: center;">
                                     <img  src="{{ asset(sso_icon) }}" alt="">
                                     <p class="no-margin" style="padding: 0 0.5rem; flex-grow: 1;">
                                         {{ sso_title }}
-                                        <small><em>({{ 'user.profile.form_user.sso.linked'|trans }} <i aria-hidden="true" class="fa fa-check text-success"></i>)</em></small>
+                                        <small><em>({{ 'user.user.label.sso_linked'|trans }} <i aria-hidden="true" class="fa fa-check text-success"></i>)</em></small>
                                     </p>
                                     <a href="{{ path('user_profile_user_sso_unlink') }}" class="btn btn-default">
-                                        <i aria-hidden="true" class="fa fa-unlink"></i> {{ 'user.profile.form_user.sso.unlink'|trans }}
+                                        <i aria-hidden="true" class="fa fa-unlink"></i> {{ 'user.user.action.sso_unlink'|trans }}
                                     </a>
                                 </div>
                             {% else %}
@@ -126,7 +82,7 @@
                                         {{ sso_title }}
                                     </p>
                                     <a href="{{ path('oauth_connect', {'service':sso_type}) }}" class="btn btn-primary">
-                                        <i aria-hidden="true" class="fa fa-link"></i> {{ 'user.profile.form_user.sso.link'|trans }}
+                                        <i aria-hidden="true" class="fa fa-link"></i> {{ 'user.user.action.sso_link'|trans }}
                                     </a>
                                 </div>
                             {% endif %}
@@ -134,21 +90,29 @@
                     </div>
                 </div>
             {% endif %}
+        </div>
 
-            {% for role in roles %}
-                {% if role == "ROLE_USER" and form.vars.value.collectivity.isServicesEnabled %}
-                    <div class="box box-solid box-success">
-                        <div class="box-header with-border">
-                            <h3 class="box-title">{{ 'user.user.tab.services'|trans }}</h3>
-                        </div>
-                        <div class="box-body">
-                            {{form_row(form.services)}}
-                        </div>
+        {# RIGHT #}
+        <div class="col-md-6">
+            {# PASSWORD #}
+            <div class="box box-solid box-danger">
+                <div class="box-header">
+                    <h3 class="box-title">{{ 'user.user.tab.optional'|trans }}</h3>
+                </div>
+                <div class="box-body">
+                    <div class="callout callout-default text-muted">
+                        {{ 'user.security.label.help.new_password'|trans }}
                     </div>
-                {% endif %}
-            {% endfor %}
+                    {{ form_row(form.plainPassword) }}
+                </div>
+            </div>
+
+            {# SERVICES #}
+            <!-- Pas de service, car seul un administrateur peut le modifier. Or, un administrateur n'est pas soumis aux restrictions des services. -->
+
+            {# NOTIFICATIONS #}
             {% if app_activate_notifications %}
-            {% include('@templates_path/User/Profile/notifications.html.twig') %}
+                {% include('@templates_path/User/Profile/notifications.html.twig') %}
             {% endif %}
         </div>
     </div>

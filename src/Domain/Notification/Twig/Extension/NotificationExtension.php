@@ -55,21 +55,21 @@ class NotificationExtension extends AbstractExtension
         $sentence = '<strong>[' . $this->translator->trans($notification->getModule()) . ']</strong> ';
 
         if ($notification->getModule() === 'notification.modules.' . NotificationModel::MODULES[Document::class]) {
-            $sentence .= ' Nouveau document déposé par le DPD ';
+            $sentence .= $this->translator->trans('notifications.label.sentence.new_documentation');
         }
 
         switch ($notification->getAction()) {
             case 'notifications.actions.late_request':
             case 'notification.actions.late_request':
                 $link = $this->getObjectLink($notification);
-                $sentence .= $this->translator->trans('notifications.sentence.late_request', [
+                $sentence .= $this->translator->trans('notifications.label.sentence.late_request', [
                     '%name%' => '<a href="' . $link . '">' . $notification->getName() . '</a> ',
                     '%days%' => $this->requestDays,
                 ]) . ' ';
                 break;
             case 'notifications.actions.late_survey':
             case 'notification.actions.late_survey':
-                $sentence .= ' ' . $this->translator->trans('notifications.sentence.late_survey', [
+                $sentence .= ' ' . $this->translator->trans('notifications.label.sentence.late_survey', [
                     '%days%' => $this->surveyDays,
                 ]) . ' ';
                 break;
@@ -121,7 +121,7 @@ class NotificationExtension extends AbstractExtension
         }
 
         if ($notification->getCollectivity() && $this->security->getToken() && $this->security->isGranted('ROLE_REFERENT')) {
-            $sentence .= $this->translator->trans('label.par') . ' <strong>' . $notification->getCollectivity()->getName() . '</strong>';
+            $sentence .= $this->translator->trans('notifications.label.par') . ' <strong>' . $notification->getCollectivity()->getName() . '</strong>';
         }
 
         return $sentence;

@@ -26,25 +26,25 @@
     {{ form_start(form) }}
         <div class="row">
             <div class="col-md-12">
-                <div class="action-bar">
-                    <a aria-label="{{ 'action.print'|trans }}" href="{{ path('maturity_survey_report', {'id': object.id}) }}" class="btn btn-default">
+                <div class="mb-1">
+                    <a href="{{ path('maturity_survey_report', {'id': object.id}) }}" class="btn btn-default">
                         <i aria-hidden="true" class="fa fa-print"></i>
-                        {{ 'action.print'|trans }}
+                        {{ 'global.action.print'|trans }}
                     </a>
                 </div>
             </div>
 
             <div class="col-md-6">
                 <div class="box box-solid">
-                    <div class="box-header with-border"><h3 class="box-title">Indice de maturité</h3></div>
+                    <div class="box-header with-border"><h3 class="box-title">{{ 'maturity.survey.tab.survey'|trans }}</h3></div>
                     <div class="box-body">
                         {% if object.maturity is empty %}
-                            Aucun indice à afficher
+                            {{ 'global.label.no_data'|trans }}
                         {% else %}
                             {% if object.maturity|length >= 3 %}
                                 <canvas id="maturity-radar"></canvas>
                             {% else %}
-                                Le référentiel contient moins de trois sections.
+                                {{ 'reporting.dashboard.label.maturity_referentiel_error'|trans }}
                             {% endif %}
                         {% endif %}
                     </div>
@@ -54,7 +54,7 @@
                 <div class="info-box bg-aqua">
                     <span class="info-box-icon bg-aqua"><i aria-hidden="true" class="fa fa-chart-line"></i></span>
                     <div class="info-box-content" style="padding-top: 20px">
-                        <span class="info-box-text">Score</span>
+                        <span class="info-box-text">{{ 'maturity.survey.list.score'|trans }}</span>
                         <span class="info-box-number">{{ object.score/10|round(1) }}</span>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
 
             {% if showPreco %}
                 <div class="col-md-12">
-                    <h2>Préconisations</h2>
+                    <h2>{{ 'maturity.survey.tab.recommendation'|trans }}</h2>
                 </div>
                 <div class="col-md-12">
                     <div class="row" style="display: flex;flex-wrap: wrap;">
@@ -96,7 +96,7 @@
                                                 </label>
                                                 <div style="display: flex;">
                                                     {{  form_widget(answerSurvey.mesurements) }}
-                                                    <button id="{{ answerSurvey.mesurements.vars.id }}_add_button" aria-label="Ajouter une action de protection" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ answerSurvey.mesurements.vars.id }}">
+                                                    <button id="{{ answerSurvey.mesurements.vars.id }}_add_button" aria-label="{{ 'registry.mesurement.action.add_mesurement'|trans }}" type="button" class="btn reponse-modal-button" data-toggle="modal" data-target="#mesurement-modal" data-select-id="{{ answerSurvey.mesurements.vars.id }}">
                                                         <span class="fa fa-plus-circle"></span>
                                                     </button>
                                                 </div>
@@ -115,7 +115,7 @@
                 <div class="box box-solid">
                     <div class="box-body text-center">
                         <a href="{{ path('maturity_survey_list') }}" class="btn btn-default">
-                            {{ 'maturity.survey.action.back_to_list'|trans }}
+                            {{ 'global.action.back_to_list'|trans }}
                         </a>
                         <input type="submit" class="btn btn-primary" value="{{ submitValue }}">
                     </div>

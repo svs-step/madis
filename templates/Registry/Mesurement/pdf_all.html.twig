@@ -6,192 +6,129 @@
 {% block body %}
     {% for object in objects %}
         <h1 class="text-center">{{ object.name }}</h1>
-        <div class="row">
-        {# LEFT #}
-        <div class="col-md-6">
-            {# GENERAL INFORMATIONS #}
-            <div class="box box-solid box-info">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.general'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.name'|trans }}</strong></td>
-                            <td>{{ object.name }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.description'|trans }}</strong></td>
-                            <td>{{ object.description|nl2br }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.manager'|trans }}</strong></td>
-                            <td>{{ object.manager }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.priority'|trans }}</strong></td>
-                            {% if object.priority is not null %}
-                                <td>{{ object.priority|dictionary('registry_mesurement_priority') }}</td>
-                            {% endif %}
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.cost'|trans }}</strong></td>
-                            <td>{{ object.cost }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.charge'|trans }}</strong></td>
-                            <td>{{ object.charge }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
 
-        {# RIGHT #}
-        <div class="col-md-6">
-            {# APPLICATION #}
-            <div class="box box-solid box-success">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.application'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.status'|trans }}</strong></td>
-                            <td>{{ object.status|dictionary('registry_mesurement_status') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.planification_date'|trans }}</strong></td>
-                            <td>
-                                {% if object.planificationDate is not null %}
-                                    {{ object.planificationDate|date('d/m/Y') }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.comment'|trans }}</strong></td>
-                            <td>
-                                {% if object.comment is not null %}
-                                    {{ object.comment }}
-                                {% endif %}
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
-
-            {# PROOFS #}
-            {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
-
-            {% if object.collectivity.isHasModuleTools %}
-                {# Tools#}
-                {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
-            {% endif %}
-
-            {# CONTRACTORS #}
-            <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_contractors'|trans }}</h3></div>
-                <div class="box-body">
-                    {% if object.contractors and object.contractors |length %}
-                        <ul>
-                            {% for contractor in object.contractors %}
-                                <li><a aria-label="{{ contractor|default('registry.mesurement.show.none'|trans) }}" href="{{ path('registry_contractor_show', {id: contractor.id}) }}">
-                                        {{ contractor|default('registry.mesurement.show.none'|trans) }}
-                                    </a></li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        {{ 'label.no_linked_contractors'|trans }}
-                    {% endif %}
-                </div>
-            </div>
-
-            {# TREATMENTS #}
-            <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_treatment'|trans }}</h3></div>
-                <div class="box-body">
-                    {% if object.treatments and object.treatments |length %}
-                        <ul>
-                            {% for treatment in object.treatments %}
-                                <li><a aria-label="{{ treatment|default('registry.mesurement.show.none'|trans) }}" href="{{ path('registry_treatment_show', {id: treatment.id}) }}">
-                                        {{ treatment|default('registry.mesurement.show.none'|trans) }}
-                                    </a></li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        {{ 'label.no_linked_treatment'|trans }}
-                    {% endif %}
-                </div>
-            </div>
-
-            {# DEMANDS #}
-            <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_request'|trans }}</h3></div>
-                <div class="box-body">
-                    {% if object.requests and object.requests |length %}
-                        <ul>
-                            {% for request in object.requests %}
-                                <li><a aria-label="{{ request|default('registry.mesurement.show.none'|trans) }}" href="{{ path('registry_request_show', {id: request.id}) }}">
-                                        {{ request|default('registry.mesurement.show.none'|trans) }}
-                                    </a></li>
-                            {% endfor %}
-                        </ul>
-
-                    {% else %}
-                        {{ 'label.no_linked_requests'|trans }}
-                    {% endif %}
-                </div>
-            </div>
-
-            {# VIOLATIONS #}
-            <div class="box box-solid box-warning">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'label.linked_violations'|trans }}</h3></div>
-                <div class="box-body">
-                    {% if object.violations and object.violations |length %}
-                        <ul>
-                            {% for violation in object.violations %}
-                                <li><a aria-label="{{ violation|default('registry.mesurement.show.none'|trans) }}" href="{{ path('registry_violation_show', {id: violation.id}) }}">
-                                        {{ violation|default('registry.mesurement.show.none'|trans) }}
-                                    </a></li>
-                            {% endfor %}
-                        </ul>
-                    {% else %}
-                        {{ 'label.no_linked_violations'|trans }}
-                    {% endif %}
-                </div>
-            </div>
-
-            {# HISTORIC #}
-            <div class="box box-solid box-default">
-                <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.historic'|trans }}</h3></div>
-                <div class="box-body no-padding">
-                    <table class="table">
-                        <tbody>
-                        {% if is_granted('ROLE_ADMIN') %}
-                            <tr>
-                                <td><strong>{{ 'registry.mesurement.show.collectivity'|trans }}</strong></td>
-                                <td>
-                                    {{ object.collectivity }}
-                                </td>
-                            </tr>
+        {# GENERAL INFORMATIONS #}
+        <div class="box box-solid box-info">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.general'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><strong>{{ 'registry.mesurement.label.name'|trans }}</strong></td>
+                        <td>{{ object.name }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.mesurement.label.description'|trans }}</strong></td>
+                        <td>{{ object.description|nl2br }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.mesurement.label.manager'|trans }}</strong></td>
+                        <td>{{ object.manager }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.mesurement.label.priority'|trans }}</strong></td>
+                        {% if object.priority is not null %}
+                            <td>{{ object.priority|dictionary('registry_mesurement_priority') }}</td>
                         {% endif %}
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.created_at'|trans }}</strong></td>
-                            <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.updated_at'|trans }}</strong></td>
-                            <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
-                        </tr>
-                        <tr>
-                            <td><strong>{{ 'registry.mesurement.show.updated_by'|trans }}</strong></td>
-                            <td>{{ object.updatedBy }}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.mesurement.label.cost'|trans }}</strong></td>
+                        <td>{{ object.cost }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.mesurement.label.charge'|trans }}</strong></td>
+                        <td>{{ object.charge }}</td>
+                    </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
-    </div>
+
+        {# APPLICATION #}
+        <div class="box box-solid box-success">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'registry.mesurement.tab.application'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                    <tr>
+                        <td><strong>{{ 'registry.mesurement.label.status'|trans }}</strong></td>
+                        <td>{{ object.status|dictionary('registry_mesurement_status') }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.mesurement.label.planification_date'|trans }}</strong></td>
+                        <td>
+                            {% if object.planificationDate is not null %}
+                                {{ object.planificationDate|date('d/m/Y') }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'registry.mesurement.label.comment'|trans }}</strong></td>
+                        <td>
+                            {% if object.comment is not null %}
+                                {{ object.comment }}
+                            {% endif %}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        {# LINKED MODULES #}
+        <div class="box box-solid box-warning">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.linked_modules'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                        {# TREATMENTS #}
+                        {% include '_Utils/_show_block_treatments.html.twig' with { treatments: object.treatments } %}
+                        {# CONTRACTORS #}
+                        {% include '_Utils/_show_block_contractors.html.twig' with { contractors: object.contractors } %}
+
+                        {% if object.collectivity.isHasModuleTools %}
+                            {# TOOLS #}
+                            {% include '_Utils/_show_block_tools.html.twig' with { tools: object.tools } %}
+                        {% endif %}
+                        {# REQUESTS #}
+                        {% include '_Utils/_show_block_requests.html.twig' with { requests: object.requests } %}
+                        {# VIOLATIONS #}
+                        {% include '_Utils/_show_block_violations.html.twig' with { violations: object.violations } %}
+                        {# PROOFS #}
+                        {% include '_Utils/_show_block_proofs.html.twig' with { proofs: object.proofs } %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        {# HISTORIC #}
+        <div class="box box-solid box-default">
+            <div class="box-header with-border"><h3 class="box-title">{{ 'global.tab.history'|trans }}</h3></div>
+            <div class="box-body no-padding">
+                <table class="table">
+                    <tbody>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <tr>
+                            <td><strong>{{ 'global.label.organization'|trans }}</strong></td>
+                            <td>
+                                {{ object.collectivity }}
+                            </td>
+                        </tr>
+                    {% endif %}
+                    <tr>
+                        <td><strong>{{ 'global.label.created_at'|trans }}</strong></td>
+                        <td>{{ object.createdAt|date('d/m/Y H:i') }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'global.label.updated_at'|trans }}</strong></td>
+                        <td>{{ object.updatedAt|date('d/m/Y H:i') }}</td>
+                    </tr>
+                    <tr>
+                        <td><strong>{{ 'global.label.updated_by'|trans }}</strong></td>
+                        <td>{{ object.updatedBy }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     {% endfor %}
 {% endblock %}
-

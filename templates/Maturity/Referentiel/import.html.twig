@@ -11,8 +11,8 @@
 
 {% block breadcrumb %}
     {% set breadcrumb = [
-        { 'name': 'maturity.referentiel.title.list'|trans, 'link': path('maturity_referentiel_list') },
-        { 'name': 'maturity.referentiel.title.import'|trans }
+        { 'name': 'maturity.referentiel.breadcrumb.list'|trans, 'link': path('maturity_referentiel_list') },
+        { 'name': 'maturity.referentiel.breadcrumb.import'|trans }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -33,9 +33,9 @@
             <div class="box box-solid">
                 <div class="box-body text-center">
                     <a href="{{ path('maturity_referentiel_list') }}" class="btn btn-default">
-                        {{ 'maturity.referentiel.action.back_to_list'|trans }}
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
-                    <input type="submit" class="btn btn-primary" value="Importer le référentiel">
+                    <input type="submit" class="btn btn-primary" value="{{ 'maturity.referentiel.action.import_submit'|trans }}">
                 </div>
             </div>
         </div>

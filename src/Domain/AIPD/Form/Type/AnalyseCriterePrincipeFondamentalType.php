@@ -8,7 +8,7 @@ use App\Domain\AIPD\Model\CriterePrincipeFondamental;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\File;
@@ -27,10 +27,12 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
         $builder->add('reponse', DictionaryType::class, [
             'name' => 'reponse_critere_fondamental',
         ])
-            ->add('justification', TextType::class, [
+            ->add('justification', TextareaType::class, [
                 'required' => false,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength' => 1000,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])
@@ -49,7 +51,7 @@ class AnalyseCriterePrincipeFondamentalType extends AbstractType
                             'image/jpg', // .jpg
                             'image/jpeg', // .jpeg
                         ],
-                        'mimeTypesMessage' => 'Les formats autorisés sont .png, .jpg, .jpeg.',
+                        'mimeTypesMessage' => 'aipd_validator.fichier.file',
                     ]),
                 ],
             ])

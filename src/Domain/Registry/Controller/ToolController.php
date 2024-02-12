@@ -238,8 +238,8 @@ class ToolController extends CRUDController
         $tools    = $this->getResults($request, $criteria);
         $reponse  = $this->getBaseDataTablesResponse($request, $tools, $criteria);
 
-        $yes = '<span class="badge bg-green">' . $this->translator->trans('label.yes') . '</span>';
-        $no  = '<span class="badge bg-yellow">' . $this->translator->trans('label.no') . '</span>';
+        $yes = '<span class="badge bg-green">' . $this->translator->trans('global.label.yes') . '</span>';
+        $no  = '<span class="badge bg-yellow">' . $this->translator->trans('global.label.no') . '</span>';
 
         /** @var Model\Tool $tool */
         foreach ($tools as $tool) {
@@ -287,13 +287,13 @@ class ToolController extends CRUDController
         return '<a href="' .
             $this->router->generate('registry_tool_edit', ['id' => $tool->getId()]) . '">
             <i aria-hidden="true" class="fa fa-pencil"></i> ' .
-            $this->translator->trans('registry.tool.action.edit')
+            $this->translator->trans('global.action.edit')
             . '</a>
             
             <a href="' .
             $this->router->generate('registry_tool_delete', ['id' => $tool->getId()]) .
             '"><i aria-hidden="true" class="fa fa-trash"></i> ' .
-            $this->translator->trans('registry.tool.action.delete')
+            $this->translator->trans('global.action.delete')
             . '</a>'
         ;
     }

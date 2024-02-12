@@ -47,7 +47,7 @@ class QuestionType extends AbstractType
         /* @var Question $question */
         $builder
             ->add('name', TextType::class, [
-                'label'    => 'maturity.referentiel.form.question_name',
+                'label'    => 'maturity.referentiel.label.question',
                 'required' => true,
                 'attr'     => [
                     'maxlength' => 1000,
@@ -55,7 +55,7 @@ class QuestionType extends AbstractType
                 'purify_html' => true,
             ])
             ->add('weight', ChoiceType::class, [
-                'label'    => 'maturity.referentiel.form.weight',
+                'label'    => 'maturity.referentiel.label.weight',
                 'required' => true,
                 'multiple' => false,
                 'expanded' => false,
@@ -68,20 +68,20 @@ class QuestionType extends AbstractType
                 ],
             ])
             ->add('optional', CheckboxType::class, [
-                'label'    => "Activer l'option : Non concerné",
+                'label'    => 'maturity.referentiel.label.not_concerned',
                 'required' => false,
             ])
             ->add('optionReason', TextType::class, [
                 'label'    => false,
                 'required' => false,
                 'attr'     => [
-                    'placeholder' => 'Précisez',
+                    'placeholder' => 'maturity.referentiel.placeholder.not_concerned',
                     'maxlength'   => 1000,
                 ],
                 'purify_html' => true,
             ])
             ->add('answers', CollectionType::class, [
-                    'label'          => 'maturity.referentiel.form.answer',
+                    'label'          => false,
                     'entry_type'     => AnswerType::class,
                     'required'       => true,
                     'allow_add'      => true,
@@ -96,7 +96,7 @@ class QuestionType extends AbstractType
             $form = $event->getForm();
             if (null !== $data = $event->getData()) {
                 $form->add('addAnswer', ButtonType::class, [
-                    'label'      => '<i aria-hidden="true" class="fa fa-plus"></i> Ajouter une réponse',
+                    'label'      => 'maturity.referentiel.action.add_answer',
                     'label_html' => true,
                     'attr'       => [
                         'class'                        => 'add_answer btn btn-primary',
@@ -106,7 +106,7 @@ class QuestionType extends AbstractType
                 ]);
             } else {
                 $form->add('addAnswer', ButtonType::class, [
-                    'label'      => '<i aria-hidden="true" class="fa fa-plus"></i> Ajouter une réponse',
+                    'label'      => 'maturity.referentiel.action.add_answer',
                     'label_html' => true,
                     'attr'       => [
                         'class'                        => 'add_answer btn btn-primary',

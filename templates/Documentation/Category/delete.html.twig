@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'documentation.category.breadcrumb.list'|trans, 'link': path('documentation_category_list') },
-        { 'name': 'documentation.category.breadcrumb.delete'|trans({'%name%': object.name}) }
+        { 'name': 'documentation.category.breadcrumb.delete'|trans({ '%name%': object.name }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,14 +26,14 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer la catégorie {{ object.name }} ?
+                  <p>{{ 'documentation.category.label.delete_confirm'|trans({ '%object%': object.name }) }}</p>
                 </div>
                 <div class="box-footer">
                     <a href="{{ path('documentation_category_list') }}" class="btn btn-default">
-                        {{ 'documentation.category.action.back_to_list'|trans }}
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
                     <a href="{{ path('documentation_category_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_delete'|trans }}
+                        {{ 'global.action.confirm_delete'|trans }}
                     </a>
                 </div>
             </div>

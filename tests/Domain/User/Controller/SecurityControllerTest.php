@@ -199,7 +199,7 @@ class SecurityControllerTest extends TestCase
         $this->helperProphecy->addFlash('danger', Argument::type('string'))->shouldNotBeCalled();
         $this->helperProphecy
             ->trans(
-                'user.security.forget_password_confirm.flashbag.error',
+                'user.security.flashbag.error.account_email',
                 [
                     '%email%' => $email,
                 ]
@@ -250,7 +250,7 @@ class SecurityControllerTest extends TestCase
         $this->helperProphecy->addFlash('danger', Argument::type('string'))->shouldNotBeCalled();
         $this->helperProphecy
             ->trans(
-                'user.security.forget_password_confirm.flashbag.error',
+                'user.security.flashbag.error.account_email',
                 [
                     '%email%' => $email,
                 ]
@@ -291,8 +291,8 @@ class SecurityControllerTest extends TestCase
         // FlashBag & Translation (only display, no flashbag)
         $this->helperProphecy->addFlash('danger', Argument::any())->shouldNotBeCalled();
         $this->helperProphecy->addFlash('success', Argument::any())->shouldNotBeCalled();
-        $this->helperProphecy->trans('user.security.reset_password.flashbag.error')->shouldNotBeCalled();
-        $this->helperProphecy->trans('user.security.reset_password.flashbag.success')->shouldNotBeCalled();
+        $this->helperProphecy->trans('user.security.flashbag.error.sso_linked_auth')->shouldNotBeCalled();
+        $this->helperProphecy->trans('user.security.flashbag.success.reset_password')->shouldNotBeCalled();
 
         // Form
         $formView     = $this->prophesize(FormView::class)->reveal();
@@ -349,8 +349,8 @@ class SecurityControllerTest extends TestCase
         // FlashBag & Translation (only display, no flashbag)
         $this->helperProphecy->addFlash('danger', Argument::any())->shouldNotBeCalled();
         $this->helperProphecy->addFlash('success', Argument::any())->shouldBeCalled();
-        $this->helperProphecy->trans('user.security.reset_password.flashbag.error')->shouldNotBeCalled();
-        $this->helperProphecy->trans('user.security.reset_password.flashbag.success')->shouldBeCalled()->willReturn('Foo');
+        $this->helperProphecy->trans('user.security.flashbag.error.sso_linked_auth')->shouldNotBeCalled();
+        $this->helperProphecy->trans('user.security.flashbag.success.reset_password')->shouldBeCalled()->willReturn('Foo');
 
         // Form
         $formProphecy = $this->prophesize(FormInterface::class);
@@ -399,8 +399,8 @@ class SecurityControllerTest extends TestCase
         // FlashBag & Translation (only display, no flashbag)
         $this->helperProphecy->addFlash('danger', Argument::any())->shouldBeCalled();
         $this->helperProphecy->addFlash('success', Argument::any())->shouldNotBeCalled();
-        $this->helperProphecy->trans('user.security.reset_password.flashbag.error')->shouldBeCalled()->willReturn('Foo');
-        $this->helperProphecy->trans('user.security.reset_password.flashbag.success')->shouldNotBeCalled();
+        $this->helperProphecy->trans('user.security.flashbag.error.sso_linked_auth')->shouldBeCalled()->willReturn('Foo');
+        $this->helperProphecy->trans('user.security.flashbag.success.reset_password')->shouldNotBeCalled();
 
         // Form
         $formProphecy = $this->prophesize(FormInterface::class);
@@ -459,7 +459,7 @@ class SecurityControllerTest extends TestCase
 
         // FlashBag & Translation (only display, no flashbag)
         $this->helperProphecy->addFlash('warning', Argument::any())->shouldBeCalled();
-        $this->helperProphecy->trans('user.profile.flashbag.error.sso_already_associated')->shouldBeCalled()->willReturn('Foo');
+        $this->helperProphecy->trans('user.user.flashbag.error.sso_already_associated')->shouldBeCalled()->willReturn('Foo');
         $this->helperProphecy->redirectToRoute('user_profile_user_edit')->shouldBeCalled()->willReturn($response);
 
         $this->assertEquals(
@@ -534,7 +534,7 @@ class SecurityControllerTest extends TestCase
         $user->setSsoKey('Foo')->shouldBeCalled();
 
         $this->helperProphecy->addFlash('success', Argument::any())->shouldBeCalled();
-        $this->helperProphecy->trans('user.profile.flashbag.success.sso_associated')->shouldBeCalled()->willReturn('Foo');
+        $this->helperProphecy->trans('user.user.flashbag.success.sso_associated')->shouldBeCalled()->willReturn('Foo');
         $this->helperProphecy->redirectToRoute('user_profile_user_edit')->shouldBeCalled()->willReturn($response);
 
         $tokenStorageProphecy = $this->prophesize(TokenStorageInterface::class);
@@ -575,7 +575,7 @@ class SecurityControllerTest extends TestCase
         $user2->getEmail()->shouldBeCalled()->willReturn('user2email');
 
         $this->helperProphecy->addFlash('danger', Argument::any())->shouldBeCalled();
-        $this->helperProphecy->trans('user.profile.flashbag.error.sso_key_duplicate', ['email' => 'user2email'])->shouldBeCalled()->willReturn('Foo');
+        $this->helperProphecy->trans('user.user.flashbag.error.sso_key_duplicate', ['email' => 'user2email'])->shouldBeCalled()->willReturn('Foo');
         $this->helperProphecy->redirectToRoute('user_profile_user_edit')->shouldBeCalled()->willReturn($response);
 
         $tokenStorageProphecy = $this->prophesize(TokenStorageInterface::class);

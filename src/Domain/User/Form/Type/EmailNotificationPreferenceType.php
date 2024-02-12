@@ -40,23 +40,23 @@ class EmailNotificationPreferenceType extends AbstractType
     {
         $builder
         ->add('frequency', ChoiceType::class, [
-            'label'    => 'user.notifications.form.frequency.label',
+            'label'    => false,
             'required' => true,
             'choices'  => [
-                'user.notifications.form.frequency.none'    => EmailNotificationPreference::FREQUENCY_NONE,
-                'user.notifications.form.frequency.each'    => EmailNotificationPreference::FREQUENCY_EACH,
-                'user.notifications.form.frequency.hourly'  => EmailNotificationPreference::FREQUENCY_HOUR,
-                'user.notifications.form.frequency.dayly'   => EmailNotificationPreference::FREQUENCY_DAY,
-                'user.notifications.form.frequency.weekly'  => EmailNotificationPreference::FREQUENCY_WEEK,
-                'user.notifications.form.frequency.monthly' => EmailNotificationPreference::FREQUENCY_MONTH,
+                'notifications.label.frequency.none'    => EmailNotificationPreference::FREQUENCY_NONE,
+                'notifications.label.frequency.each'    => EmailNotificationPreference::FREQUENCY_EACH,
+                'notifications.label.frequency.hourly'  => EmailNotificationPreference::FREQUENCY_HOUR,
+                'notifications.label.frequency.dayly'   => EmailNotificationPreference::FREQUENCY_DAY,
+                'notifications.label.frequency.weekly'  => EmailNotificationPreference::FREQUENCY_WEEK,
+                'notifications.label.frequency.monthly' => EmailNotificationPreference::FREQUENCY_MONTH,
             ],
             'choice_attr' => [
-                'user.notifications.form.frequency.none'    => ['class' => 'select-frequency'],
-                'user.notifications.form.frequency.each'    => ['class' => 'select-frequency'],
-                'user.notifications.form.frequency.hourly'  => ['class' => 'select-frequency'],
-                'user.notifications.form.frequency.dayly'   => ['class' => 'select-frequency'],
-                'user.notifications.form.frequency.weekly'  => ['class' => 'select-frequency'],
-                'user.notifications.form.frequency.monthly' => ['class' => 'select-frequency'],
+                'notifications.label.frequency.none'    => ['class' => 'select-frequency'],
+                'notifications.label.frequency.each'    => ['class' => 'select-frequency'],
+                'notifications.label.frequency.hourly'  => ['class' => 'select-frequency'],
+                'notifications.label.frequency.dayly'   => ['class' => 'select-frequency'],
+                'notifications.label.frequency.weekly'  => ['class' => 'select-frequency'],
+                'notifications.label.frequency.monthly' => ['class' => 'select-frequency'],
             ],
             'expanded' => true,
             'multiple' => false,
@@ -70,7 +70,7 @@ class EmailNotificationPreferenceType extends AbstractType
 
         $modules = [];
         foreach (EmailNotificationPreference::MODULES as $k => $module) {
-            $modules['user.notifications.form.modules.' . $k] = $module;
+            $modules['notifications.label.modules.' . $k] = $module;
         }
 
         $builder
@@ -114,7 +114,7 @@ class EmailNotificationPreferenceType extends AbstractType
 
             ->add('notificationMask', ChoiceType::class, [
                 'mapped'       => true,
-                'label'        => false,
+                'label'        => 'notifications.label.email_modules',
                 'required'     => false,
                 'choices'      => $modules,
                 'expanded'     => true,

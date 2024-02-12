@@ -15,7 +15,7 @@
 {% block breadcrumb %}
     {% set breadcrumb = [
         { 'name': 'registry.contractor.breadcrumb.list'|trans, 'link': path('registry_contractor_list') },
-        { 'name': 'registry.contractor.breadcrumb.delete'|trans({'%name%': object}) }
+        { 'name': 'registry.contractor.breadcrumb.delete'|trans({ '%name%': object }) }
     ] %}
     {% include '_breadcrumb.html.twig' with {'breadcrumb': breadcrumb} %}
 {% endblock %}
@@ -26,14 +26,14 @@
             <div class="box box-solid">
                 <div class="box-header"></div>
                 <div class="box-body">
-                    Souhaitez vous vraiment supprimer le sous-traitant "{{ object }}" ?
+                    <p>{{ 'registry.contractor.label.delete_confirm'|trans({ '%object%': object }) }}</p>
                 </div>
                 <div class="box-footer">
-                    <a aria-label="{{ 'registry.contractor.action.back_to_list'|trans }}" href="{{ path('registry_contractor_list') }}" class="btn btn-default">
-                        {{ 'registry.contractor.action.back_to_list'|trans }}
+                    <a href="{{ path('registry_contractor_list') }}" class="btn btn-default">
+                        {{ 'global.action.back_to_list'|trans }}
                     </a>
-                    <a aria-label="{{ 'action.confirm_delete'|trans }}" href="{{ path('registry_contractor_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
-                        {{ 'action.confirm_delete'|trans }}
+                    <a href="{{ path('registry_contractor_delete_confirm', { 'id': object.id }) }}" class="btn btn-primary">
+                        {{ 'global.action.confirm_delete'|trans }}
                     </a>
                 </div>
             </div>
