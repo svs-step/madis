@@ -18,7 +18,7 @@ class LogJournalEvent extends Event
      */
     protected $subject;
 
-    public function __construct(LogJournal $logJournal, LoggableSubject $subject = null)
+    public function __construct(LogJournal $logJournal, ?LoggableSubject $subject = null)
     {
         $this->logJournal = $logJournal;
         $this->subject    = $subject;

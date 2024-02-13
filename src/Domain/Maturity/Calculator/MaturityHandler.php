@@ -30,11 +30,11 @@ use App\Domain\Maturity\Model;
 class MaturityHandler
 {
     /**
-     * @var Calculator\Maturity
+     * @var Maturity
      */
     private $calculator;
 
-    public function __construct(Calculator\Maturity $calculator)
+    public function __construct(Maturity $calculator)
     {
         $this->calculator = $calculator;
     }

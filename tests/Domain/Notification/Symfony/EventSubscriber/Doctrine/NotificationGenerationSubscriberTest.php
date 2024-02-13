@@ -201,7 +201,7 @@ class NotificationGenerationSubscriberTest extends TestCase
         $notification->setCreatedBy(null);
         $notification->setObject((object) []);
 
-        $om->persist(new NotificationToken($notification))->shouldHaveBeenCalled();
+        $om->persist(new NotificationToken($notification))->shouldBeCalled();
 
         $om->persist(Argument::type(\App\Domain\Notification\Model\NotificationUser::class))->shouldNotHaveBeenCalled();
         $uow->computeChangeSet($this->notificationMetadata, Argument::type(\App\Domain\Notification\Model\Notification::class))->shouldHaveBeenCalled();

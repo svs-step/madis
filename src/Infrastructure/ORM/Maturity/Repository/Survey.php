@@ -76,7 +76,7 @@ class Survey extends CRUDRepository implements Repository\Survey
         ;
     }
 
-    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null, array $where = []): array
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], ?int $limit = null, array $where = []): array
     {
         $qb = $this->createQueryBuilder();
 
@@ -155,7 +155,7 @@ class Survey extends CRUDRepository implements Repository\Survey
         return $stmt->fetchColumn();
     }
 
-    public function findAllByCollectivities(array $collectivities, array $order = [], int $limit = null): iterable
+    public function findAllByCollectivities(array $collectivities, array $order = [], ?int $limit = null): iterable
     {
         $qb = $this->createQueryBuilder();
 

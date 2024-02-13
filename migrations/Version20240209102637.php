@@ -12,12 +12,12 @@ use Doctrine\Migrations\AbstractMigration;
  */
 final class Version20240209102637 extends AbstractMigration
 {
-    public function getDescription() : string
+    public function getDescription(): string
     {
         return 'Increase length of several fields to 1000 characters';
     }
 
-    public function up(Schema $schema) : void
+    public function up(Schema $schema): void
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
@@ -39,10 +39,9 @@ final class Version20240209102637 extends AbstractMigration
         $this->addSql('ALTER TABLE aipd_analyse_question_conformite MODIFY texte_non_conformite_mineure VARCHAR(1000) DEFAULT NULL');
         $this->addSql('ALTER TABLE aipd_analyse_question_conformite MODIFY justificatif VARCHAR(1000) DEFAULT NULL');
         $this->addSql('ALTER TABLE registry_treatment_shelf_life MODIFY duration VARCHAR(500) DEFAULT NULL');
-
     }
 
-    public function down(Schema $schema) : void
+    public function down(Schema $schema): void
     {
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');

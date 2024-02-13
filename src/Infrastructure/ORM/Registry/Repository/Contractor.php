@@ -183,7 +183,7 @@ class Contractor extends CRUDRepository implements Repository\Contractor
         }
     }
 
-    public function findAllByActiveCollectivity(bool $active = true, User $user = null)
+    public function findAllByActiveCollectivity(bool $active = true, ?User $user = null)
     {
         $qb = $this->createQueryBuilder();
 

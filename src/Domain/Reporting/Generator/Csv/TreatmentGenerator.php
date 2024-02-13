@@ -251,7 +251,7 @@ class TreatmentGenerator extends AbstractGenerator
     {
         $detailsTrans    = $this->translator->trans('registry.treatment.tab.details');
         $concernedPeople = $this->translator->trans('registry.treatment.label.concerned_people');
-        $delayTrans = $this->translator->trans('registry.treatment.label.shelflife');
+        $delayTrans      = $this->translator->trans('registry.treatment.label.shelflife');
 
         return [
             $detailsTrans . ' - ' . $concernedPeople . ' - ' . $this->translator->trans('registry.treatment.label.concerned_people_particular'),

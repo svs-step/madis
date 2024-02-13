@@ -39,6 +39,7 @@ class NotificationUser extends CRUDRepository implements Repository\Notification
     public function saveUsers(Model\Notification $notification, $users): array
     {
         $nus = [];
+
         foreach ($users as $user) {
             $nu = $this->create();
             $nu->setUser($user);

@@ -216,7 +216,7 @@ class UserType extends AbstractType
                 'label'    => 'global.label.contact.first_name',
                 'required' => true,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength'    => 255,
                     'autocomplete' => 'given-name',
                 ],
                 'purify_html' => true,
@@ -225,7 +225,7 @@ class UserType extends AbstractType
                 'label'    => 'global.label.contact.last_name',
                 'required' => true,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength'    => 255,
                     'autocomplete' => 'family-name',
                 ],
                 'purify_html' => true,
@@ -234,7 +234,7 @@ class UserType extends AbstractType
                 'label'    => 'global.label.contact.email',
                 'required' => true,
                 'attr'     => [
-                    'maxlength' => 255,
+                    'maxlength'    => 255,
                     'autocomplete' => 'email',
                 ],
             ])

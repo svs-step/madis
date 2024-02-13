@@ -383,7 +383,7 @@ class Notification extends CRUDRepository implements Repository\Notification
         }
     }
 
-    public function objectExists(\App\Domain\Notification\Model\Notification $notification): bool
+    public function objectExists(Model\Notification $notification): bool
     {
         if (!$notification->getObject()) {
             return false;
@@ -397,7 +397,7 @@ class Notification extends CRUDRepository implements Repository\Notification
         } elseif ('aipd' === $moduleName && 'notifications.actions.treatment_needs_aipd' === $notification->getAction()) {
             $objectClass = ConformiteTraitement::class;
         } else {
-            $objectClass = array_flip(\App\Domain\Notification\Model\Notification::MODULES)[$moduleName];
+            $objectClass = array_flip(Model\Notification::MODULES)[$moduleName];
         }
 
         return (bool) $this->registry->getRepository($objectClass)->find($object->id);

@@ -38,7 +38,7 @@ interface Survey extends CRUDRepositoryInterface, DataTablesRepository
      *
      * @return array The array of survey given by the collectivity
      */
-    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], int $limit = null, array $where = []): iterable;
+    public function findAllByCollectivity(Collectivity $collectivity, array $order = [], ?int $limit = null, array $where = []): iterable;
 
     /**
      * Find previous survey by created_at date.
@@ -60,7 +60,7 @@ interface Survey extends CRUDRepositoryInterface, DataTablesRepository
      *
      * @return array The array of survey given by the collectivity
      */
-    public function findAllByCollectivities(array $collectivities, array $order = [], int $limit = null): iterable;
+    public function findAllByCollectivities(array $collectivities, array $order = [], ?int $limit = null): iterable;
 
     /**
      * Find all surveys that have not been updated for more than 18 months.

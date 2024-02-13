@@ -29,7 +29,6 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\Documentation\Model\Category;
 use App\Domain\Registry\Form\Type\ContractorType;
-use App\Domain\Registry\Model;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
@@ -111,7 +110,7 @@ class ContractorController extends CRUDController
 
     protected function getModelClass(): string
     {
-        return Model\Contractor::class;
+        return Contractor::class;
     }
 
     protected function getFormType(): string
@@ -179,7 +178,7 @@ class ContractorController extends CRUDController
         );
         $responseData = [];
 
-        /** @var Model\Contractor $contractor */
+        /** @var Contractor $contractor */
         foreach ($contractors as $contractor) {
             $responseData[] = [
                 'value' => $contractor->getId()->toString(),
@@ -199,7 +198,7 @@ class ContractorController extends CRUDController
         $yes = '<span class="badge bg-green">' . $this->translator->trans('global.label.yes') . '</span>';
         $no  = '<span class="badge bg-red">' . $this->translator->trans('global.label.no') . '</span>';
 
-        /** @var Model\Contractor $contractor */
+        /** @var Contractor $contractor */
         foreach ($contractors as $contractor) {
             $contractorLink = '<a href="' . $this->router->generate('registry_contractor_show', ['id' => $contractor->getId()->toString()]) . '">
                 ' . \htmlspecialchars($contractor->getName()) . '
@@ -227,7 +226,7 @@ class ContractorController extends CRUDController
         return $jsonResponse;
     }
 
-    private function isContractorInUserServices(Model\Contractor $contractor): bool
+    private function isContractorInUserServices(Contractor $contractor): bool
     {
         $user = $this->userProvider->getAuthenticatedUser();
 

@@ -18,48 +18,48 @@ class MesureProtectionAIPDType extends AbstractType
         $builder
             ->add('nom', TextType::class, [
                 'label' => 'aipd.mesure_protection.label.name',
-                'attr' => [
+                'attr'  => [
                     'maxlength' => 255,
                 ],
                 'purify_html' => true,
             ])
             ->add('nomCourt', TextType::class, [
                 'label' => 'aipd.mesure_protection.label.short_name',
-                'attr' => [
+                'attr'  => [
                     'maxlength' => 255,
                 ],
                 'purify_html' => true,
             ])
             ->add('labelLivrable', TextType::class, [
                 'label' => 'aipd.mesure_protection.label.label_livrable',
-                'attr' => [
+                'attr'  => [
                     'maxlength' => 255,
                 ],
                 'purify_html' => true,
             ])
             ->add('phrasePreconisation', TextType::class, [
                 'label' => 'aipd.mesure_protection.label.preconisation',
-                'attr' => [
+                'attr'  => [
                     'maxlength' => 255,
                 ],
                 'purify_html' => true,
             ])
             ->add('detail', TextType::class, [
                 'label' => 'aipd.mesure_protection.label.detail',
-                'attr' => [
+                'attr'  => [
                     'maxlength' => 255,
                 ],
                 'purify_html' => true,
             ])
             ->add('poidsVraisemblance', IntegerType::class, [
                 'label' => 'aipd.mesure_protection.label.vraisemblance',
-                'attr' => [
+                'attr'  => [
                     'min' => 1,
                 ],
             ])
             ->add('poidsGravite', IntegerType::class, [
                 'label' => 'aipd.mesure_protection.label.gravite',
-                'attr' => [
+                'attr'  => [
                     'min' => 1,
                 ],
             ])

@@ -16,7 +16,7 @@ class ModeleQuestionConformite extends AbstractQuestionConformite
      */
     private ModeleAnalyse $modeleAnalyse;
 
-    public function __construct(string $question, int $position, ModeleAnalyse $modeleAnalyse = null)
+    public function __construct(string $question, int $position, ?ModeleAnalyse $modeleAnalyse = null)
     {
         parent::__construct($question, $position);
 

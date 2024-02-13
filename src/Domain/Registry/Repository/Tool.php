@@ -30,5 +30,5 @@ use App\Domain\User\Model\Collectivity;
 
 interface Tool extends CRUDRepositoryInterface, DataTablesRepository
 {
-    public function findAllByCollectivity(Collectivity $collectivity = null, array $order = []);
+    public function findAllByCollectivity(?Collectivity $collectivity = null, array $order = []);
 }

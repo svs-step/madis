@@ -35,7 +35,6 @@ use App\Domain\Registry\Dictionary\TreatmentLegalBasisDictionary;
 use App\Domain\Registry\Dictionary\TreatmentStatutDictionary;
 use App\Domain\Registry\Form\Type\TreatmentConfigurationType;
 use App\Domain\Registry\Form\Type\TreatmentType;
-use App\Domain\Registry\Model;
 use App\Domain\Registry\Model\PublicConfiguration;
 use App\Domain\Registry\Model\Treatment;
 use App\Domain\Registry\Repository;
@@ -115,7 +114,7 @@ class TreatmentController extends CRUDController
 
     protected function getModelClass(): string
     {
-        return Model\Treatment::class;
+        return Treatment::class;
     }
 
     protected function getFormType(): string
@@ -293,7 +292,7 @@ class TreatmentController extends CRUDController
         );
         $responseData = [];
 
-        /** @var Model\Treatment $treatment */
+        /** @var Treatment $treatment */
         foreach ($treatments as $treatment) {
             $responseData[] = [
                 'value' => $treatment->getId()->toString(),
@@ -325,7 +324,7 @@ class TreatmentController extends CRUDController
 
         $reponse = $this->getBaseDataTablesResponse($request, $treatments, $criteria);
 
-        /** @var Model\Treatment $treatment */
+        /** @var Treatment $treatment */
         foreach ($treatments as $treatment) {
             if (is_array($treatment)) {
                 $treatment = $treatment[0];
@@ -498,7 +497,7 @@ class TreatmentController extends CRUDController
         return $values;
     }
 
-    private function isTreatmentInUserServices(Model\Treatment $treatment): bool
+    private function isTreatmentInUserServices(Treatment $treatment): bool
     {
         $user = $this->userProvider->getAuthenticatedUser();
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN')) {
@@ -508,7 +507,7 @@ class TreatmentController extends CRUDController
         return $treatment->isInUserServices($user);
     }
 
-    private function generateActionCellContent(Model\Treatment $treatment)
+    private function generateActionCellContent(Treatment $treatment)
     {
         $id = $treatment->getId();
 

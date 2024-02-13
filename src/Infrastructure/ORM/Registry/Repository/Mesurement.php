@@ -344,7 +344,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         }
     }
 
-    public function findAllByActiveCollectivity(bool $active = true, User $user = null)
+    public function findAllByActiveCollectivity(bool $active = true, ?User $user = null)
     {
         $qb = $this->createQueryBuilder();
 
@@ -381,7 +381,7 @@ class Mesurement extends CRUDRepository implements Repository\Mesurement
         ;
     }
 
-    public function getPlanifiedActionsDashBoard($limit = 1000, Collectivity $collectivity = null)
+    public function getPlanifiedActionsDashBoard($limit = 1000, ?Collectivity $collectivity = null)
     {
         // Add old actions again.
         // Fixes https://gitlab.adullact.net/soluris/madis/-/issues/529

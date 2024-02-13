@@ -41,12 +41,8 @@ class DuplicationHydrator
 
     /**
      * Hydrate a Duplication Model thanks to it related fields.
-     *
-     * @param Duplication $duplication
-     *
-     * @return Duplication
      */
-    public function hydrate(Model\Duplication $duplication): Model\Duplication
+    public function hydrate(Duplication $duplication): Duplication
     {
         $this->hydrateDataField($duplication);
 

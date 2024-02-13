@@ -78,13 +78,11 @@ class Request implements LoggableSubject, CollectivityRelated
     private $updatedBy;
 
     /**
-     *
      * @var RequestApplicant|null
      */
     private $applicant;
 
     /**
-     *
      * @var RequestConcernedPeople|null
      */
     private $concernedPeople;
@@ -106,13 +104,11 @@ class Request implements LoggableSubject, CollectivityRelated
 
     /**
      * @var RequestAnswer|null
-     *
      */
     private $answer;
 
     /**
      * @var iterable
-     *
      */
     private $proofs;
 
@@ -128,12 +124,9 @@ class Request implements LoggableSubject, CollectivityRelated
 
     /**
      * @var Service|null
-     *
      */
     private $service;
 
-    /**
-     */
     private Collection $mesurements;
 
     private Collection $treatments;
@@ -315,7 +308,7 @@ class Request implements LoggableSubject, CollectivityRelated
         return $this->service;
     }
 
-    public function setService(Service $service = null): void
+    public function setService(?Service $service = null): void
     {
         $this->service = $service;
     }

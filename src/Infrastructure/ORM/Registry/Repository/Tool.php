@@ -221,7 +221,7 @@ class Tool extends CRUDRepository implements Repository\Tool
         }
     }
 
-    public function findAllByCollectivity(Collectivity $collectivity = null, array $order = [])
+    public function findAllByCollectivity(?Collectivity $collectivity = null, array $order = [])
     {
         $qb = $this->createQueryBuilder();
 

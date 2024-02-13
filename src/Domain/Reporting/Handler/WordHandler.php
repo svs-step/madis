@@ -143,7 +143,7 @@ class WordHandler
         array $maturity = [],
         array $requests = [],
         array $violations = [],
-        Evaluation $evaluation = null
+        ?Evaluation $evaluation = null
     ): BinaryFileResponse {
         $title = 'Bilan de gestion des données à caractère personnel';
 
