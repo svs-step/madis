@@ -434,11 +434,11 @@ abstract class CRUDController extends AbstractController
         $ids = $request->query->get('ids');
         $ids = explode(',', $ids);
 
-        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
-            $this->addFlash('success', $this->getFlashbagMessage('success', 'delete'));
-
-            return $this->redirectToRoute($this->getRouteName('list'));
-        }
+        //        if (!$this->authorizationChecker->isGranted('ROLE_ADMIN')) {
+        //            $this->addFlash('success', $this->getFlashbagMessage('success', 'delete-all'));
+        //
+        //            return $this->redirectToRoute($this->getRouteName('list'));
+        //        }
 
         return $this->render($this->getTemplatingBasePath('delete_all'), [ // delete_all
             'ids'            => $ids,
