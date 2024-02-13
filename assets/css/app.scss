@@ -523,6 +523,10 @@ td.action > a {
   white-space: nowrap;
 }
 
+div.dt-buttons {
+  position: initial;
+}
+
 div.dt-button-background {
   position: fixed;
   top: 0;
@@ -541,8 +545,8 @@ div.dt-button-background {
 
 div.dt-button-collection {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 43px !important;
+  left: 10px !important;
   width: 150px;
   margin-top: 3px;
   padding: 8px 8px 4px 8px;
