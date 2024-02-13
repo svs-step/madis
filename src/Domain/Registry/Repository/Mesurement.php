@@ -85,7 +85,7 @@ interface Mesurement extends CRUDRepositoryInterface, DataTablesRepository
      *
      * @return array
      */
-    public function findAllByActiveCollectivity(bool $active = true, User $user = null);
+    public function findAllByActiveCollectivity(bool $active = true, ?User $user = null);
 
     /**
      * Find all by collectivity of their clonedFrom.

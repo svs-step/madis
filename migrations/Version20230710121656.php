@@ -23,7 +23,7 @@ final class Version20230710121656 extends AbstractMigration
         $this->abortIf('mysql' !== $this->connection->getDatabasePlatform()->getName(), 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE maturity_referentiel CHANGE description description LONGTEXT DEFAULT NULL');
-        //$this->addSql('UPDATE registry_treatment_shelf_life SET ultimate_fate = "destruction" where ultimate_fate IS NULL');
+        // $this->addSql('UPDATE registry_treatment_shelf_life SET ultimate_fate = "destruction" where ultimate_fate IS NULL');
         $this->addSql('ALTER TABLE maturity_domain ADD description LONGTEXT DEFAULT NULL');
     }
 

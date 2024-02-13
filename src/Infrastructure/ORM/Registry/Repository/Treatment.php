@@ -104,7 +104,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         ;
     }
 
-    public function findAllActiveByCollectivity(Collectivity $collectivity = null, bool $active = true, array $order = [])
+    public function findAllActiveByCollectivity(?Collectivity $collectivity = null, bool $active = true, array $order = [])
     {
         $qb = $this->createQueryBuilder();
 
@@ -152,7 +152,7 @@ class Treatment extends CRUDRepository implements Repository\Treatment
         return $qb->getQuery()->getSingleScalarResult();
     }
 
-    public function findAllByActiveCollectivity(bool $active = true, User $user = null)
+    public function findAllByActiveCollectivity(bool $active = true, ?User $user = null)
     {
         $qb = $this->createQueryBuilder();
 

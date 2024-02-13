@@ -34,14 +34,14 @@ use App\Domain\Admin\Model\Duplication;
 use App\Domain\Admin\Repository as AdminRepository;
 use App\Domain\Admin\Transformer\DuplicationFormDTOTransformer;
 use App\Domain\User\Repository as UserRepository;
-use Symfony\Contracts\Translation\TranslatorInterface;
-// utilisés dynamiquements pour revert duplication, ne pas supprimer
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+// utilisés dynamiquements pour revert duplication, ne pas supprimer
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Contracts\Translation\TranslatorInterface;
 
 class DuplicationController extends AbstractController
 {

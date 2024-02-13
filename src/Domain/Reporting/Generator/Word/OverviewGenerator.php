@@ -196,7 +196,7 @@ class OverviewGenerator extends AbstractGenerator
         array $maturity = [],
         array $treatments = [],
         array $mesurements = [],
-        Evaluation $evaluation = null
+        ?Evaluation $evaluation = null
     ): void {
         $section->addTitle('Système de management des données à caractère personnel et conformité', 1);
 

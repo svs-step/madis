@@ -193,6 +193,7 @@ class NotificationEventSubscriberTest extends TestCase
         $collectivity = new Collectivity();
         $collectivity->setName('coll');
         $action = new Mesurement();
+        $action->setName('Action');
         $action->setCollectivity($collectivity);
         $action->setCreatedAt(new \DateTimeImmutable());
         // $action->setPlanificationDate((new \DateTime())->sub(new \DateInterval('P3M')));
@@ -200,7 +201,7 @@ class NotificationEventSubscriberTest extends TestCase
         $this->notificationRepository->findBy([
             'module'       => 'notification.modules.' . NotificationModuleDictionary::ACTION_PLAN,
             'collectivity' => $action->getCollectivity(),
-            'action'       => 'notifications.label.late_action',
+            'action'       => 'notifications.actions.late_action',
             'name'         => $action->__toString(),
         ])->shouldBeCalled()->willReturn([]);
 
@@ -211,7 +212,7 @@ class NotificationEventSubscriberTest extends TestCase
 
         $notification->setModule('notification.modules.' . NotificationModuleDictionary::ACTION_PLAN);
         $notification->setCollectivity($action->getCollectivity());
-        $notification->setAction('notifications.label.late_action');
+        $notification->setAction('notifications.actions.late_action');
         $notification->setName($action->__toString());
         $notification->setDpo(true);
         $notification->setObject((object) [

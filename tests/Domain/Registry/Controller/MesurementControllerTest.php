@@ -29,7 +29,6 @@ use App\Application\Symfony\Security\UserProvider;
 use App\Domain\Registry\Controller\MesurementController;
 use App\Domain\Registry\Dictionary\MesurementStatusDictionary;
 use App\Domain\Registry\Form\Type\MesurementType;
-use App\Domain\Registry\Model;
 use App\Domain\Registry\Model\Mesurement;
 use App\Domain\Registry\Repository;
 use App\Domain\Reporting\Handler\WordHandler;
@@ -172,7 +171,7 @@ class MesurementControllerTest extends TestCase
     public function testGetModelClass()
     {
         $this->assertEquals(
-            Model\Mesurement::class,
+            Mesurement::class,
             $this->invokeMethod($this->controller, 'getModelClass', [])
         );
     }

@@ -272,7 +272,7 @@ class SecurityController extends AbstractController
         return $this->helper->redirectToRoute('login');
     }
 
-    private function _handleUserNotFound(string $logoutUrl = null): RedirectResponse
+    private function _handleUserNotFound(?string $logoutUrl = null): RedirectResponse
     {
         $this->helper->addFlash(
             'danger',

@@ -337,7 +337,7 @@ class Contractor implements LoggableSubject, CollectivityRelated
         return $this->service;
     }
 
-    public function setService(Service $service = null): void
+    public function setService(?Service $service = null): void
     {
         $this->service = $service;
     }

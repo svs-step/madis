@@ -120,7 +120,7 @@ class DocumentController extends CRUDController
         return DocumentType::class;
     }
 
-    protected function getRouteName(string $template = null): string
+    protected function getRouteName(?string $template = null): string
     {
         if ('list' === $template) {
             return "{$this->getDomain()}_{$this->getModel()}_index";

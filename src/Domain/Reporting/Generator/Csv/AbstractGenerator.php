@@ -62,7 +62,7 @@ abstract class AbstractGenerator implements GeneratorInterface
      *
      * @return string The parsed date with the good timezone
      */
-    protected function getDate(?\DateTimeInterface $dateTime, string $format = null): string
+    protected function getDate(?\DateTimeInterface $dateTime, ?string $format = null): string
     {
         if (\is_null($dateTime)) {
             return '';

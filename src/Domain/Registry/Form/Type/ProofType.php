@@ -26,7 +26,6 @@ namespace App\Domain\Registry\Form\Type;
 
 use App\Domain\Registry\Model;
 use App\Domain\Registry\Model\Tool;
-use App\Domain\User\Model as UserModel;
 use App\Domain\User\Model\User;
 use Doctrine\Common\Collections\Criteria;
 use Doctrine\ORM\EntityRepository;
@@ -68,7 +67,7 @@ class ProofType extends AbstractType
         if (!\is_null($proof->getCollectivity())) {
             $collectivity = $proof->getCollectivity();
         } else {
-            /** @var UserModel\User $authenticatedUser */
+            /** @var User $authenticatedUser */
             $authenticatedUser = $this->security->getUser();
             $collectivity      = $authenticatedUser->getCollectivity();
         }
@@ -92,9 +91,9 @@ class ProofType extends AbstractType
                 'required'    => true,
                 'constraints' => [
                     new File([
-                        'maxSize' => $this->maxSize,
+                        'maxSize'          => $this->maxSize,
                         'mimeTypesMessage' => 'registry_proof.document_file.file',
-                        'mimeTypes' => [
+                        'mimeTypes'        => [
                             // JPG / PNG
                             'image/jpeg',
                             'image/png',

@@ -30,7 +30,6 @@ use App\Application\Traits\ServersideDatatablesTrait;
 use App\Domain\User\Dictionary\UserMoreInfoDictionary;
 use App\Domain\User\Dictionary\UserRoleDictionary;
 use App\Domain\User\Form\Type\UserType;
-use App\Domain\User\Model;
 use App\Domain\User\Model\Collectivity;
 use App\Domain\User\Model\Service;
 use App\Domain\User\Model\User;
@@ -113,7 +112,7 @@ class UserController extends CRUDController
 
     protected function getModelClass(): string
     {
-        return Model\User::class;
+        return User::class;
     }
 
     protected function getFormType(): string
@@ -182,7 +181,7 @@ class UserController extends CRUDController
         $users    = $this->getResults($request, $criteria);
         $reponse  = $this->getBaseDataTablesResponse($request, $users, $criteria);
 
-        /** @var Model\User $user */
+        /** @var User $user */
         foreach ($users as $user) {
             $roles = '';
             foreach ($user->getRoles() as $role) {
@@ -265,7 +264,7 @@ class UserController extends CRUDController
         $criteria['archive'] = $request->query->getBoolean('archive');
 
         if (!$this->security->isGranted('ROLE_ADMIN')) {
-            /** @var Model\User $user */
+            /** @var User $user */
             $user                              = $this->security->getUser();
             $criteria['collectivitesReferees'] = $user->getCollectivitesReferees();
         }
@@ -273,7 +272,7 @@ class UserController extends CRUDController
         return $criteria;
     }
 
-    private function getActionCellsContent(Model\User $user)
+    private function getActionCellsContent(User $user)
     {
         $cellContent = '';
         if ($this->security->getUser() !== $user && \is_null($user->getDeletedAt()) && !$this->isGranted('ROLE_PREVIOUS_ADMIN')) {

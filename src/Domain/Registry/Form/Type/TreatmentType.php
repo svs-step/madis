@@ -382,7 +382,7 @@ class TreatmentType extends AbstractType
 
         if ($this->authorizationChecker->isGranted('ROLE_ADMIN') || $this->authorizationChecker->isGranted('ROLE_REFERENT')) {
             $builder
-                ->add('dpoMessage', TextAreaType::class, [
+                ->add('dpoMessage', TextareaType::class, [
                     'label'       => 'registry.treatment.label.dpoMessage',
                     'required'    => false,
                     'purify_html' => true,

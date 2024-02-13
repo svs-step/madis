@@ -90,7 +90,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         }
     }
 
-    public function addGlobalOverview(Section $section, Evaluation $evaluation = null)
+    public function addGlobalOverview(Section $section, ?Evaluation $evaluation = null)
     {
         if (null === $evaluation) {
             return;

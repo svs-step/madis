@@ -152,14 +152,14 @@ class NotificationNormalizer extends ObjectNormalizer
 
     public function supportsNormalization($data, $format = null, array $context = []): bool
     {
-        return $format == null && ($data instanceof Treatment
+        return null == $format && ($data instanceof Treatment
             || $data instanceof Contractor
             || $data instanceof Mesurement
             || $data instanceof Proof
             || $data instanceof Request
             || $data instanceof Document
             || $data instanceof Violation
-            )
+        )
         ;
     }
 

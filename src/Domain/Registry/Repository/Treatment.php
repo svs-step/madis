@@ -60,7 +60,7 @@ interface Treatment extends CRUDRepositoryInterface, DataTablesRepository
      *
      * @return array The array of treatments given by the collectivity
      */
-    public function findAllActiveByCollectivity(Collectivity $collectivity = null, bool $active = true, array $order = []);
+    public function findAllActiveByCollectivity(?Collectivity $collectivity = null, bool $active = true, array $order = []);
 
     /**
      * Find all active treatments by associated collectivity and hasModuleConformiteTraitement active.
@@ -93,7 +93,7 @@ interface Treatment extends CRUDRepositoryInterface, DataTablesRepository
      *
      * @return array
      */
-    public function findAllByActiveCollectivity(bool $active = true, User $user = null);
+    public function findAllByActiveCollectivity(bool $active = true, ?User $user = null);
 
     /**
      * Count all with no conformite traitement by collectivity.

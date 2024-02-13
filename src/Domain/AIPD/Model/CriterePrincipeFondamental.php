@@ -47,7 +47,7 @@ class CriterePrincipeFondamental
 
     protected bool $deleteFile = false;
 
-    public function __construct(string $label = null, string $code = null)
+    public function __construct(?string $label = null, ?string $code = null)
     {
         $this->id = Uuid::uuid4();
         if (!\is_null($label)) {

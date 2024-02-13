@@ -124,7 +124,7 @@ abstract class CRUDController extends AbstractController
      *
      * @return string The generated templating base path
      */
-    protected function getTemplatingBasePath(string $template = null): string
+    protected function getTemplatingBasePath(?string $template = null): string
     {
         // TODO: Check template existence
         $domain = \ucfirst($this->getDomain());
@@ -143,7 +143,7 @@ abstract class CRUDController extends AbstractController
      *
      * @return string The generated flashbag
      */
-    protected function getFlashbagMessage(string $type, string $template = null, $object = null): string
+    protected function getFlashbagMessage(string $type, ?string $template = null, $object = null): string
     {
         $params = [];
         if (!\is_null($object)) {
@@ -163,7 +163,7 @@ abstract class CRUDController extends AbstractController
      *
      * @return string The generated route name
      */
-    protected function getRouteName(string $template = null): string
+    protected function getRouteName(?string $template = null): string
     {
         return "{$this->getDomain()}_{$this->getModel()}_{$template}";
     }

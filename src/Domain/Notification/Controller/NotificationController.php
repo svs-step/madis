@@ -99,7 +99,7 @@ class NotificationController extends CRUDController
 
     protected function getModelClass(): string
     {
-        return Model\Notification::class;
+        return Notification::class;
     }
 
     protected function getFormType(): string
@@ -153,7 +153,7 @@ class NotificationController extends CRUDController
 
         $reponse = $this->getBaseDataTablesResponse($request, $notifications, $criteria);
 
-        /** @var Model\Notification $notification */
+        /** @var Notification $notification */
         foreach ($notifications as $notification) {
             $read   = '<span class="badge bg-green">' . $this->translator->trans('notifications.label.read') . '</span>';
             $unread = '<span class="badge bg-yellow">' . $this->translator->trans('notifications.label.unread') . '</span>';
@@ -202,7 +202,7 @@ class NotificationController extends CRUDController
         return new JsonResponse($reponse);
     }
 
-    private function generateActionCellContent(Model\Notification $notification)
+    private function generateActionCellContent(Notification $notification)
     {
         $id = $notification->getId();
 
@@ -253,7 +253,7 @@ class NotificationController extends CRUDController
      * {@inheritdoc}
      * Here, we wanna compute maturity score.
      *
-     * @param Model\Notification $object
+     * @param Notification $object
      */
     public function formPrePersistData($object)
     {

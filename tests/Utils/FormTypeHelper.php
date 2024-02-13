@@ -44,7 +44,7 @@ class FormTypeHelper extends TestCase
      *
      * @return FormBuilderInterface|ObjectProphecy The prophesized FormBuilderInterface, revealled or not
      */
-    protected function prophesizeBuilder(array $data, bool $reveal = true, EventSubscriberInterface $subscriber = null)
+    protected function prophesizeBuilder(array $data, bool $reveal = true, ?EventSubscriberInterface $subscriber = null)
     {
         $builderProphecy = $this->prophesize(FormBuilderInterface::class);
 

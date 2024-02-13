@@ -53,7 +53,7 @@ class Collectivity extends CRUDRepository implements Repository\Collectivity
         return $qb->getQuery()->getResult();
     }
 
-    public function findByTypes(array $types, Model\Collectivity $excludedCollectivity = null): array
+    public function findByTypes(array $types, ?Model\Collectivity $excludedCollectivity = null): array
     {
         $qb = $this->createQueryBuilder();
 
