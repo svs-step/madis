@@ -1,6 +1,6 @@
 CHANGELOG
 =========
-## [2.3.6] - 2023-12-22
+## [2.4.0] - 2024-02-13
 Détails des modifications #894
 ### Ajout
 - [Formulaire] Largeur fixe sur les textarea.

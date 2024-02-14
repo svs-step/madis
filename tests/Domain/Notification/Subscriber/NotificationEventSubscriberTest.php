@@ -86,7 +86,7 @@ class NotificationEventSubscriberTest extends TestCase
         $this->notificationRepository->findBy([
             'module'       => 'notification.modules.maturity',
             'collectivity' => $survey->getCollectivity(),
-            'action'       => 'notifications.label.late_survey',
+            'action'       => 'notifications.actions.late_survey',
             'name'         => $survey->__toString(),
         ])->shouldBeCalled()->willReturn([]);
 
@@ -96,7 +96,7 @@ class NotificationEventSubscriberTest extends TestCase
 
         $notification->setModule('notification.modules.maturity');
         $notification->setCollectivity($survey->getCollectivity());
-        $notification->setAction('notifications.label.late_survey');
+        $notification->setAction('notifications.actions.late_survey');
         $notification->setName($survey->__toString());
         $notification->setDpo(true);
         $notification->setObject((object) [
@@ -141,7 +141,7 @@ class NotificationEventSubscriberTest extends TestCase
         $this->notificationRepository->findBy([
             'module'       => 'notification.modules.request',
             'collectivity' => $request->getCollectivity(),
-            'action'       => 'notifications.label.late_request',
+            'action'       => 'notifications.actions.late_request',
             'name'         => $request->__toString(),
         ])->shouldBeCalled()->willReturn([]);
 
@@ -151,7 +151,7 @@ class NotificationEventSubscriberTest extends TestCase
 
         $notification->setModule('notification.modules.request');
         $notification->setCollectivity($request->getCollectivity());
-        $notification->setAction('notifications.label.late_request');
+        $notification->setAction('notifications.actions.late_request');
         $notification->setName($request->__toString());
         $notification->setDpo(true);
         $notification->setObject((object) [

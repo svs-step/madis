@@ -478,7 +478,7 @@ class NotificationEventSubscriber implements EventSubscriber
         }
 
         if ('notifications.actions.validation' === $notification->getAction() || 'notification.actions.validation' === $notification->getAction()) {
-            return $this->translator->trans('notifications.label.subject.validation');
+            return $this->translator->trans('notifications.subject.validation');
         }
 
         return '';

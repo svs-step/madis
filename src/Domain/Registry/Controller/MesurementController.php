@@ -386,7 +386,7 @@ class MesurementController extends CRUDController
         foreach ($actions as $action) {
             $reponse['data'][] = [
                 'id'                 => $action->getId(),
-                'nom'                => !$isActionPlan ? $this->generateShowLink($action) : $action->getName(),
+                'nom'                => $this->generateShowLink($action),
                 'collectivite'       => $action->getCollectivity()->getName(),
                 'statut'             => MesurementStatusDictionary::getStatus()[$action->getStatus()],
                 'cout'               => $action->getCost(),

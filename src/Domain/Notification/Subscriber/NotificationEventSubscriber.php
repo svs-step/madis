@@ -129,7 +129,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setName($survey->__toString());
         $notification->setObject((object) $norm);
         $notification->setDpo(true);
-        $notification->setSubject($this->translator->trans('notifications.label.subject.late_survey', ['%days%' => $this->surveyDays]));
+        $notification->setSubject($this->translator->trans('notifications.subject.late_survey', ['%days%' => $this->surveyDays]));
         $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
         $notification->setNotificationUsers($nus);
@@ -167,7 +167,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $ob   = $notification->getObject();
         $date = \DateTime::createFromFormat(DATE_ATOM, $ob->planificationDate)->format('d/m/Y');
 
-        $notification->setSubject($this->translator->trans('notifications.label.subject.late_action', ['%date%' => $date]));
+        $notification->setSubject($this->translator->trans('notifications.subject.late_action', ['%date%' => $date]));
         $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
         $notification->setNotificationUsers($nus);
@@ -201,7 +201,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         $notification->setName($request->__toString());
         $notification->setObject((object) $norm);
         $notification->setDpo(true);
-        $notification->setSubject($this->translator->trans('notifications.label.subject.late_request', ['%days%' => $this->requestDays]));
+        $notification->setSubject($this->translator->trans('notifications.subject.late_request', ['%days%' => $this->requestDays]));
         $nus = $this->notificationUserRepository->saveUsers($notification, $users);
 
         $notification->setNotificationUsers($nus);
@@ -234,7 +234,7 @@ class NotificationEventSubscriber implements EventSubscriberInterface
         // $notification->setCreatedBy($user);
         $notification->setObject((object) $this->normalizer->normalize($user, null, self::normalizerOptions()));
         $notification->setDpo(true);
-        $notification->setSubject($this->translator->trans('notifications.label.subject.no_login'));
+        $notification->setSubject($this->translator->trans('notifications.subject.no_login'));
         $this->notificationRepository->insert($notification);
 
         $this->saveEmailNotificationForRefOp($notification, $user);

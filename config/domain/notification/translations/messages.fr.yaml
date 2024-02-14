@@ -13,22 +13,15 @@ notifications:
         de: de
         par: par
         du: du
-        update: Modification
-        delete: Suppression
-        no_login: Inactif
-        validation: Validation nécéssaire
-        treatment_needs_aipd: Nécéssité de faire une AIPD
-        state_change: Changement d'étape
-        validated: Validation
         activate_notification_email: Notification par email
-        late_action: Rappel automatique
         read: Lu
-        unread: Non Lu
+        unread: Non lu
         generates_notifications: Génération des notifications
         not_generates_notifications: Les actions de cet utilisateur ne génèrent pas de notification
         email_modules: Recevoir des notifications par email
         email_subject: Nouvelles notifications Madis
         email_app_access: Accéder à madis
+        delete_confirm: Souhaitez-vous vraiment supprimer la notification %object% ?
         frequency:
             label: Fréquence des notifications par email
             month: Mensuelle
@@ -56,17 +49,16 @@ notifications:
             aipd: AIPD
             documentation: Espace documentaire
             user: Utilisateurs
-        subject:
-            no_login: Aucune connexion depuis la création du compte
-            late_request: Demande non traitée depuis au moins %days% jours depuis la date de la dernière modification
-            late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
-            validation: Validation nécéssaire
-            late_action: Retard %date%
-        sentence:
-            late_request: La demande de %name% n'a pas été traitée depuis au moins %days% jours depuis la date de la dernière modification
-            late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
-            new_documentation: Nouveau document déposé par le DPD
-        delete_confirm: Souhaitez-vous vraiment supprimer la notification %object% ?
+    subject:
+        no_login: Aucune connexion depuis la création du compte
+        late_request: Demande non traitée depuis au moins %days% jours depuis la date de la dernière modification
+        late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
+        validation: Validation nécéssaire
+        late_action: Retard %date%
+    sentence:
+        late_request: La demande de %name% n'a pas été traitée depuis au moins %days% jours depuis la date de la dernière modification
+        late_survey: Aucun indice de maturité n'a été réalisé depuis plus de %days% jours
+        new_documentation: Nouveau document déposé par le DPD
     flashbag:
         success:
             markall: Toutes les notifications sont marquées comme lu
@@ -84,8 +76,6 @@ notifications:
         read_by: Lu par
     tab:
         notification: Notifications
-
-# Old to transfert
     actions:
         delete: Suppression
         create: Ajout
