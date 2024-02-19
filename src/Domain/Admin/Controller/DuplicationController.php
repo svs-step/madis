@@ -74,6 +74,7 @@ class DuplicationController extends AbstractController
      * @var ClonerProvider
      */
     private $clonerProvider;
+    private TranslatorInterface $translator;
 
     public function __construct(
         RequestStack $requestStack,

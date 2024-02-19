@@ -28,6 +28,7 @@ class JournalisationController extends AbstractController
      * @var LogJournalLinkGenerator
      */
     private $logJournalLinkGenerator;
+    private TranslatorInterface $translator;
 
     public function __construct(LogJournal $logRepository, TranslatorInterface $translator, RouterInterface $router, LogJournalLinkGenerator $logJournalLinkGenerator)
     {
