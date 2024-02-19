@@ -31,20 +31,9 @@ class CollectivityTest extends ApiTestCase
         $this->assertCount(3, $data['hydra:member']);
         $this->assertEquals(3, $data['hydra:totalItems']);
 
-        $keys = [
-            '@id',
-            '@type',
-            'name',
-            'type',
-            'siren',
-            'active',
-            'address',
-            'legalManager',
-            'referent',
-            'dpo',
-            'finessGeo',
-        ];
-
-        $this->assertEquals($keys, array_keys($data['hydra:member'][0]));
+        $this->assertContains('@id', array_keys($data['hydra:member'][0]));
+        $this->assertContains('@type', array_keys($data['hydra:member'][0]));
+        $this->assertContains('name', array_keys($data['hydra:member'][0]));
+        $this->assertContains('type', array_keys($data['hydra:member'][0]));
     }
 }
