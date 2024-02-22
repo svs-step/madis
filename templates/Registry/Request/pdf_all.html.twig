@@ -5,9 +5,8 @@
 
 {% block body %}
 {% for object in objects %}
-    <h1>Demande
-        <small>{{ object.applicant.firstName ~ ' ' ~ object.applicant.lastName }}</small>
-    </h1>
+<div style="page-break-after: always">
+    <h1 class="text-center">Demande de {{ object.applicant.firstName ~ ' ' ~ object.applicant.lastName }}</small></h1>
     {# REQUEST #}
     <div class="box box-solid box-info">
         <div class="box-header with-border"><h3 class="box-title">{{ 'registry.request.tab.request'|trans }}</h3></div>
@@ -237,5 +236,6 @@
             </table>
         </div>
     </div>
+</div>
 {% endfor %}
 {% endblock %}

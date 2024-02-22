@@ -5,6 +5,7 @@
 
 {% block body %}
     {% for object in objects %}
+    <div style="page-break-after: always">
         <h1>Violation du {{ object.date|date('d/m/Y') }}</h1>
         {# GENERAL #}
         <div class="box box-solid box-primary">
@@ -183,5 +184,6 @@
                 </table>
             </div>
         </div>
+    </div>
     {% endfor %}
 {% endblock %}

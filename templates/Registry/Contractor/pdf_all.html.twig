@@ -5,6 +5,7 @@
 
 {% block body %}
     {% for object in objects %}
+    <div style="page-break-after: always">
         <h1 class="text-center">{{ object.name }}</h1>
         {# GENERAL #}
         <div class="box box-solid box-info">
@@ -218,5 +219,6 @@
                 </table>
             </div>
         </div>
+    </div>
     {% endfor %}
 {% endblock %}
