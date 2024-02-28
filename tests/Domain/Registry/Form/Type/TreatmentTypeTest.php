@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
+use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceAreaType;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Form\Type\TreatmentType;
 use App\Domain\Registry\Model\Treatment;
@@ -112,11 +113,11 @@ class TreatmentTypeTest extends FormTypeHelper
             'recipientCategory'                 => TextareaType::class,
             'contractors'                       => EntityType::class,
             'shelfLifes'                        => CollectionType::class,
-            'securityAccessControl'             => ComplexChoiceType::class,
-            'securityTracability'               => ComplexChoiceType::class,
-            'securitySaving'                    => ComplexChoiceType::class,
-            'securityUpdate'                    => ComplexChoiceType::class,
-            'securityOther'                     => ComplexChoiceType::class,
+            'securityAccessControl'             => ComplexChoiceAreaType::class,
+            'securityTracability'               => ComplexChoiceAreaType::class,
+            'securitySaving'                    => ComplexChoiceAreaType::class,
+            'securityUpdate'                    => ComplexChoiceAreaType::class,
+            'securityOther'                     => ComplexChoiceAreaType::class,
             'systematicMonitoring'              => CheckboxType::class,
             'largeScaleCollection'              => CheckboxType::class,
             'vulnerablePeople'                  => CheckboxType::class,
@@ -178,11 +179,11 @@ class TreatmentTypeTest extends FormTypeHelper
             'recipientCategory'                 => TextareaType::class,
             'contractors'                       => EntityType::class,
             'shelfLifes'                        => CollectionType::class,
-            'securityAccessControl'             => ComplexChoiceType::class,
-            'securityTracability'               => ComplexChoiceType::class,
-            'securitySaving'                    => ComplexChoiceType::class,
-            'securityUpdate'                    => ComplexChoiceType::class,
-            'securityOther'                     => ComplexChoiceType::class,
+            'securityAccessControl'             => ComplexChoiceAreaType::class,
+            'securityTracability'               => ComplexChoiceAreaType::class,
+            'securitySaving'                    => ComplexChoiceAreaType::class,
+            'securityUpdate'                    => ComplexChoiceAreaType::class,
+            'securityOther'                     => ComplexChoiceAreaType::class,
             'systematicMonitoring'              => CheckboxType::class,
             'largeScaleCollection'              => CheckboxType::class,
             'vulnerablePeople'                  => CheckboxType::class,

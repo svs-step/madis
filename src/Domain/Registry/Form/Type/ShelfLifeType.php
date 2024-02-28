@@ -5,6 +5,7 @@ namespace App\Domain\Registry\Form\Type;
 use App\Domain\Registry\Model\ShelfLife;
 use Knp\DictionaryBundle\Form\Type\DictionaryType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -23,12 +24,14 @@ class ShelfLifeType extends AbstractType
                 ],
                 'purify_html' => true,
             ])
-            ->add('duration', TextType::class, [
+            ->add('duration', TextareaType::class, [
                 'label'      => 'registry.treatment.label.shelflife_duration',
                 'required'   => true,
                 'empty_data' => '',
                 'attr'       => [
                     'maxlength' => 500,
+                    'rows'      => 1,
+                    'class'     => 'textareaheight',
                 ],
                 'purify_html' => true,
             ])

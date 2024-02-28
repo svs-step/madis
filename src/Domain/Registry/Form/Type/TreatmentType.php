@@ -24,6 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
+use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceAreaType;
 use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Tool;
@@ -241,23 +242,23 @@ class TreatmentType extends AbstractType
                     'aria-label'       => 'Sous-traitants',
                 ],
             ])
-            ->add('securityAccessControl', ComplexChoiceType::class, [
+            ->add('securityAccessControl', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.treatment.label.security_access_control',
                 'required' => false,
             ])
-            ->add('securityTracability', ComplexChoiceType::class, [
+            ->add('securityTracability', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.treatment.label.security_tracability',
                 'required' => false,
             ])
-            ->add('securitySaving', ComplexChoiceType::class, [
+            ->add('securitySaving', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.treatment.label.security_saving',
                 'required' => false,
             ])
-            ->add('securityUpdate', ComplexChoiceType::class, [
+            ->add('securityUpdate', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.treatment.label.security_update',
                 'required' => false,
             ])
-            ->add('securityOther', ComplexChoiceType::class, [
+            ->add('securityOther', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.treatment.label.security_other',
                 'required' => false,
             ])

@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
-use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
+use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceAreaType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Tool;
 use App\Domain\User\Model\Service;
@@ -189,39 +189,39 @@ class ToolType extends AbstractType
                 'purify_html' => true,
             ])
 
-            ->add('archival', ComplexChoiceType::class, [
+            ->add('archival', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.tool.label.archival',
                 'required' => false,
             ])
-            ->add('encrypted', ComplexChoiceType::class, [
+            ->add('encrypted', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.tool.label.encrypted',
                 'required' => false,
             ])
-            ->add('access_control', ComplexChoiceType::class, [
+            ->add('access_control', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.tool.label.access_control',
                 'required' => false,
             ])
-            ->add('update', ComplexChoiceType::class, [
+            ->add('update', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.tool.label.update',
                 'required' => false,
             ])
-            ->add('backup', ComplexChoiceType::class, [
+            ->add('backup', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.tool.label.backup',
                 'required' => false,
             ])
-            ->add('deletion', ComplexChoiceType::class, [
+            ->add('deletion', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.tool.label.deletion',
                 'required' => false,
             ])
-            ->add('tracking', ComplexChoiceType::class, [
+            ->add('tracking', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.tool.label.tracking',
                 'required' => false,
             ])
-            ->add('has_comment', ComplexChoiceType::class, [
+            ->add('has_comment', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.tool.label.has_comment',
                 'required' => false,
             ])
-            ->add('other', ComplexChoiceType::class, [
+            ->add('other', ComplexChoiceAreaType::class, [
                 'label'    => 'registry.tool.label.other',
                 'required' => false,
             ])

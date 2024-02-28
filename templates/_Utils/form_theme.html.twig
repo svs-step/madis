@@ -36,6 +36,7 @@
     </div>
 {%- endblock password_row %}
 
+{# Complex choice type with input type text #}
 {% block complex_choice_row -%}
     {%- set widget_attr = {} -%}
     {%- if help is not empty -%}
@@ -43,15 +44,33 @@
     {%- endif -%}
     <div class="complex-choice-group form-group{% if not valid %} has-error{% endif %}{% if form.vars.attr.class is defined %} {{form.vars.attr.class}}{% endif %}">
         <div class="check">{{ form_row(form.check) }}</div>
-        <div style="flex-grow: 1;">
+        <div style="flex-grow: 1;max-width: calc(100% - 20px);">
             {{ form_label(form, null, {'label_attr': {'for': form.check.vars.id, 'style': 'cursor: pointer;'}}) }}
             <div class="comment">
                 {{ form_widget(form.comment, widget_attr) }}
-                {{ form_errors(form.comment) }} {# -#}
+                {{ form_errors(form.comment) }}
             </div>
         </div>
-    </div> {# -#}
+    </div>
 {%- endblock complex_choice_row %}
+
+{# Complex choice type with textarea type #}
+{% block complex_choice_area_row -%}
+    {%- set widget_attr = {} -%}
+    {%- if help is not empty -%}
+        {%- set widget_attr = {attr: {'aria-describedby': id ~"_help"}} -%}
+    {%- endif -%}
+    <div class="complex-choice-group form-group{% if not valid %} has-error{% endif %}{% if form.vars.attr.class is defined %} {{form.vars.attr.class}}{% endif %}">
+        <div class="check">{{ form_row(form.check) }}</div>
+        <div style="flex-grow: 1;max-width: calc(100% - 20px);">
+            {{ form_label(form, null, {'label_attr': {'for': form.check.vars.id, 'style': 'cursor: pointer;'}}) }}
+            <div class="comment">
+                {{ form_widget(form.comment, widget_attr) }}
+                {{ form_errors(form.comment) }}
+            </div>
+        </div>
+    </div>
+{%- endblock complex_choice_area_row %}
 
 {% block answer_row -%}
     {%- set widget_attr = {} -%}
