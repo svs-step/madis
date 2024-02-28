@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Domain\Registry\Form\Type;
 
-use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
+use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceAreaType;
 use App\Domain\Registry\Form\Type\ToolType;
 use App\Domain\Registry\Model\Tool;
 use App\Domain\User\Model\Collectivity;
@@ -82,15 +82,15 @@ class ToolTypeTest extends FormTypeHelper
             'country_type'       => ChoiceType::class,
             'country_name'       => TextType::class,
             'country_guarantees' => TextType::class,
-            'archival'           => ComplexChoiceType::class,
-            'tracking'           => ComplexChoiceType::class,
-            'encrypted'          => ComplexChoiceType::class,
-            'access_control'     => ComplexChoiceType::class,
-            'update'             => ComplexChoiceType::class,
-            'backup'             => ComplexChoiceType::class,
-            'deletion'           => ComplexChoiceType::class,
-            'has_comment'        => ComplexChoiceType::class,
-            'other'              => ComplexChoiceType::class,
+            'archival'           => ComplexChoiceAreaType::class,
+            'tracking'           => ComplexChoiceAreaType::class,
+            'encrypted'          => ComplexChoiceAreaType::class,
+            'access_control'     => ComplexChoiceAreaType::class,
+            'update'             => ComplexChoiceAreaType::class,
+            'backup'             => ComplexChoiceAreaType::class,
+            'deletion'           => ComplexChoiceAreaType::class,
+            'has_comment'        => ComplexChoiceAreaType::class,
+            'other'              => ComplexChoiceAreaType::class,
             'updatedBy'          => HiddenType::class,
         ];
 

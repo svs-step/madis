@@ -277,7 +277,7 @@ class TreatmentController extends CRUDController
             throw new AccessDeniedHttpException('You can\'t access to a collectivity treatment data');
         }
 
-        /** @var UserModel\Collectivity|null $collectivity */
+        /** @var Collectivity|null $collectivity */
         $collectivity = $this->collectivityRepository->findOneById($collectivityId);
         if (null === $collectivity) {
             throw new NotFoundHttpException('Can\'t find collectivity for id ' . $collectivityId);
