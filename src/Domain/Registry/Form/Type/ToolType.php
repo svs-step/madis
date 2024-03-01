@@ -145,7 +145,7 @@ class ToolType extends AbstractType
                             $qb->andWhere($ors);
                         }
                     }
-                    //only show contractors from collectivity
+                    // only show contractors from collectivity
                     $qb->andWhere('c.collectivity = :collectivity')
                         ->setParameter(':collectivity', $collectivity)
                     ;
