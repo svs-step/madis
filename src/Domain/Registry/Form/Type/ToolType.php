@@ -24,7 +24,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Registry\Form\Type;
 
-use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceAreaType;
+use App\Domain\Registry\Form\Type\Embeddable\ComplexChoiceType;
 use App\Domain\Registry\Model\Contractor;
 use App\Domain\Registry\Model\Tool;
 use App\Domain\User\Model\Service;
@@ -144,11 +144,11 @@ class ToolType extends AbstractType
                             }
                             $qb->andWhere($ors);
                         }
-                    } else {
-                        $qb->andWhere('c.collectivity = :collectivity')
-                            ->setParameter(':collectivity', $collectivity)
-                        ;
                     }
+                    //only show contractors from collectivity
+                    $qb->andWhere('c.collectivity = :collectivity')
+                        ->setParameter(':collectivity', $collectivity)
+                    ;
 
                     return $qb;
                 },
@@ -189,39 +189,39 @@ class ToolType extends AbstractType
                 'purify_html' => true,
             ])
 
-            ->add('archival', ComplexChoiceAreaType::class, [
+            ->add('archival', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.label.archival',
                 'required' => false,
             ])
-            ->add('encrypted', ComplexChoiceAreaType::class, [
+            ->add('encrypted', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.label.encrypted',
                 'required' => false,
             ])
-            ->add('access_control', ComplexChoiceAreaType::class, [
+            ->add('access_control', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.label.access_control',
                 'required' => false,
             ])
-            ->add('update', ComplexChoiceAreaType::class, [
+            ->add('update', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.label.update',
                 'required' => false,
             ])
-            ->add('backup', ComplexChoiceAreaType::class, [
+            ->add('backup', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.label.backup',
                 'required' => false,
             ])
-            ->add('deletion', ComplexChoiceAreaType::class, [
+            ->add('deletion', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.label.deletion',
                 'required' => false,
             ])
-            ->add('tracking', ComplexChoiceAreaType::class, [
+            ->add('tracking', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.label.tracking',
                 'required' => false,
             ])
-            ->add('has_comment', ComplexChoiceAreaType::class, [
+            ->add('has_comment', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.label.has_comment',
                 'required' => false,
             ])
-            ->add('other', ComplexChoiceAreaType::class, [
+            ->add('other', ComplexChoiceType::class, [
                 'label'    => 'registry.tool.label.other',
                 'required' => false,
             ])
