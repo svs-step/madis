@@ -438,7 +438,7 @@
                 $(this).val('');
             });
             $('#search_favorite').prop('checked', false);
-            var table = $('#documentation-grid').DataTable(options);
+            var table = $('#documentation-grid').DataTable();
             table.columns().search('');
         }
         function setEvents() {
@@ -514,7 +514,7 @@
         } );
         $('#button-reset').on('click', function() {
             resetFilters();
-            var table = $('#documentation-grid').DataTable(options);
+            var table = $('#documentation-grid').DataTable();
             table.columns().search('').draw();
             $('button[data-id="search_category"] .filter-option-inner-inner').html("Catégories")
         })
