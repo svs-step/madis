@@ -136,6 +136,7 @@ class NotificationExtension extends AbstractExtension
                 if ($aipd) {
                     return $this->router->generate('registry_treatment_show', ['id' => $aipd->getConformiteTraitement()->getTraitement()->getId()->toString()], UrlGeneratorInterface::ABSOLUTE_URL);
                 }
+
                 return '';
             }
             if ('notification.modules.aipd' === $notification->getModule() && 'notifications.actions.treatment_needs_aipd' === $notification->getAction()) {
