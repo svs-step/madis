@@ -82,7 +82,7 @@ App\Domain\AIPD\Model\ModeleQuestionConformite:
         texteNonConformiteMajeure: "Non-conformite majeure"
     modele_question_conformite_10:
         __construct:
-            - "Exercice du droit de limitation du traitement"
+            - "Exercice du droit de limitation"
             - 10
             - '@modele_analyse_1'
         isJustificationObligatoire: false
