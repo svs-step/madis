@@ -42,7 +42,8 @@ class TreatmentCloner extends AbstractCloner
         $treatment->setGoal($referent->getGoal());
         $treatment->setManager($referent->getManager());
         $treatment->setSoftware($referent->getSoftware());
-        $treatment->setTools($referent->getTools());
+        // Do not duplicate tools. Fixes https://gitlab.adullact.net/soluris/madis/-/issues/888
+        // $treatment->setTools($referent->getTools());
         $treatment->setPaperProcessing($referent->isPaperProcessing());
         $treatment->setLegalBasis($referent->getLegalBasis());
         $treatment->setLegalBasisJustification($referent->getLegalBasisJustification());
