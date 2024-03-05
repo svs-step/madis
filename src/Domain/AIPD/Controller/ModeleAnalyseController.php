@@ -371,7 +371,7 @@ class ModeleAnalyseController extends CRUDController
                 $content = str_replace('<created_at><![CDATA[-0001', '<created_at><![CDATA[' . date('Y'), $content);
                 $content = str_replace('<updated_at><![CDATA[-0001', '<updated_at><![CDATA[' . date('Y'), $content);
                 /** @var ModeleAnalyse $object */
-                $object  = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
+                $object = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
                 $object->deserialize();
             } catch (\Exception $e) {
                 $this->addFlash('danger', "Impossible d'importer ce fichier : " . $e->getMessage());
