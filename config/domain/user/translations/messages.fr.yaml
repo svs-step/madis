@@ -45,7 +45,7 @@ user:
             population: Population
             other_information: Informations complémentaires
             nbr_cnil: Numéro de désignation CNIL
-            different_dpo: Différent du DPD moral
+            different_dpo: Différent du DPD mutualisé
             different_it_manager: Différent du Référent RGPD
             comite_il_short: Comité IL
             comite_il_add: Ajouter un membre
