@@ -96,7 +96,7 @@
 
                                     {% if conformiteTraitement and conformiteTraitement.needsAipd and analyseImpact is null %}
                                         <div>
-                                            <i aria-hidden="true" class="fa fa-exclamation-triangle" title="{{ 'registry.conformite_traitement.list.mesurements_done'|trans }}" style="color:#f39c12;"></i>
+                                            <i class="fa fa-exclamation-triangle" aria-label="{{ 'registry.conformite_traitement.list.aipd_to_do'|trans }}" title="{{ 'registry.conformite_traitement.list.aipd_to_do'|trans }}" style="color:#f39c12;"></i>
                                         </div>
                                     {% endif %}
                                 </td>
