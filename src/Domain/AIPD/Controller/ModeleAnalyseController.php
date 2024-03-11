@@ -365,6 +365,11 @@ class ModeleAnalyseController extends CRUDController
             $content = file_get_contents($form->getData()['file']->getPathname());
             try {
                 $serializer = SerializerBuilder::create()->build();
+
+                // Replace all invalid dates with actual date
+                // Fixes https://gitlab.adullact.net/soluris/madis/-/issues/882
+                $content = str_replace('<created_at><![CDATA[-0001', '<created_at><![CDATA[' . date('Y'), $content);
+                $content = str_replace('<updated_at><![CDATA[-0001', '<updated_at><![CDATA[' . date('Y'), $content);
                 /** @var ModeleAnalyse $object */
                 $object = $serializer->deserialize($content, ModeleAnalyse::class, 'xml');
                 $object->deserialize();

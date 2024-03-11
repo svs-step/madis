@@ -439,42 +439,42 @@ class Tool implements LoggableSubject, CollectivityRelated
         $this->other_info = $other_info;
     }
 
-    public function getTreatments(): iterable|null
+    public function getTreatments(): ?iterable
     {
         return $this->treatments;
     }
 
-    public function setTreatments(iterable|null $treatments): void
+    public function setTreatments(?iterable $treatments): void
     {
         $this->treatments = $treatments;
     }
 
-    public function getContractors(): iterable|null
+    public function getContractors(): ?iterable
     {
         return $this->contractors;
     }
 
-    public function setContractors(iterable|null $contractors): void
+    public function setContractors(?iterable $contractors): void
     {
         $this->contractors = $contractors;
     }
 
-    public function getProofs(): iterable|null
+    public function getProofs(): ?iterable
     {
         return $this->proofs;
     }
 
-    public function setProofs(iterable|null $proofs): void
+    public function setProofs(?iterable $proofs): void
     {
         $this->proofs = $proofs;
     }
 
-    public function getMesurements(): iterable|null
+    public function getMesurements(): ?iterable
     {
         return $this->mesurements;
     }
 
-    public function setMesurements(iterable|null $mesurements): void
+    public function setMesurements(?iterable $mesurements): void
     {
         $this->mesurements = $mesurements;
     }

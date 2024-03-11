@@ -133,8 +133,11 @@ class NotificationExtension extends AbstractExtension
             if ('notification.modules.aipd' === $notification->getModule() && 'notification.actions.validated' === $notification->getAction()) {
                 /** @var \App\Domain\AIPD\Model\AnalyseImpact $aipd */
                 $aipd = $this->aipdRepository->findOneById($notification->getObject()->id);
+                if ($aipd) {
+                    return $this->router->generate('registry_treatment_show', ['id' => $aipd->getConformiteTraitement()->getTraitement()->getId()->toString()], UrlGeneratorInterface::ABSOLUTE_URL);
+                }
 
-                return $this->router->generate('registry_treatment_show', ['id' => $aipd->getConformiteTraitement()->getTraitement()->getId()->toString()], UrlGeneratorInterface::ABSOLUTE_URL);
+                return '';
             }
             if ('notification.modules.aipd' === $notification->getModule() && 'notifications.actions.treatment_needs_aipd' === $notification->getAction()) {
                 return $this->router->generate('registry_conformite_traitement_start_aipd', ['id' => $notification->getObject()->id], UrlGeneratorInterface::ABSOLUTE_URL);

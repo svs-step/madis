@@ -32,6 +32,7 @@ services:
     container_name: php
     volumes:
       - .:/var/www/gestion-rgpd/:delegated
+      - ./docker/php/php.ini:/usr/local/etc/php/php.ini:ro
     working_dir: /var/www/gestion-rgpd/
     depends_on:
       - db

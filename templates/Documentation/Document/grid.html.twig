@@ -16,6 +16,9 @@
 {% block stylesheets %}
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/dataTables.bootstrap.min.css">
     <style>
+        .dt-buttons {
+            display: none;
+        }
         div.ml2{
             margin-right: 2em;
             display:inline-block;
@@ -435,7 +438,7 @@
                 $(this).val('');
             });
             $('#search_favorite').prop('checked', false);
-            var table = $('#documentation-grid').DataTable(options);
+            var table = $('#documentation-grid').DataTable();
             table.columns().search('');
         }
         function setEvents() {
@@ -511,7 +514,7 @@
         } );
         $('#button-reset').on('click', function() {
             resetFilters();
-            var table = $('#documentation-grid').DataTable(options);
+            var table = $('#documentation-grid').DataTable();
             table.columns().search('').draw();
             $('button[data-id="search_category"] .filter-option-inner-inner').html("Catégories")
         })
