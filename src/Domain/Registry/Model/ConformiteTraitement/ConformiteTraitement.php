@@ -240,22 +240,42 @@ class ConformiteTraitement implements LoggableSubject
             || $treatment->isInnovativeUse()
         ) {
             $sensitiveCount = 0;
-            $categoryCount  = 0;
+            $specificCount  = 0;
+            if ($treatment->isSystematicMonitoring()) {
+                ++$specificCount;
+            }
+            if ($treatment->isLargeScaleCollection()) {
+                ++$specificCount;
+            }
+            if ($treatment->isVulnerablePeople()) {
+                ++$specificCount;
+            }
+            if ($treatment->isDataCrossing()) {
+                ++$specificCount;
+            }
+            if ($treatment->isEvaluationOrRating()) {
+                ++$specificCount;
+            }
+            if ($treatment->isAutomatedDecisionsWithLegalEffect()) {
+                ++$specificCount;
+            }
+            if ($treatment->isAutomaticExclusionService()) {
+                ++$specificCount;
+            }
+            if ($treatment->isInnovativeUse()) {
+                ++$specificCount;
+            }
+            if ($specificCount > 1) {
+                return true;
+            }
             // If one of these items is true, check if there are sensitive data categories
             /** @var TreatmentDataCategory $cat */
             foreach ($treatment->getDataCategories() as $cat) {
-                ++$categoryCount;
-                if ($categoryCount > 2) {
-                    return true;
-                }
                 if ($cat->isSensible()) {
                     ++$sensitiveCount;
-                    if ($sensitiveCount > 1) {
+                    if ($sensitiveCount > 0) {
                         return true;
                     }
-                }
-                if ($categoryCount > 0 && $sensitiveCount > 0) {
-                    return true;
                 }
             }
         }

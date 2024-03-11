@@ -84,7 +84,7 @@
                                         <div class="mesurement-hide">
                                             <i aria-hidden="true" class="primary-i fas fa-exclamation-circle"></i>
                                             <div class="primary">
-                                                <span>{{ 'registry.conformite_traitement.list.mesurements_done'|trans }}</span>
+                                                <span>{{ 'registry.conformite_traitement.label.tooltip.mesurements_done'|trans }}</span>
                                                 <ul>
                                                     {% for mesurement in planifiedMesurementToBeNotified %}
                                                         <li>{{ mesurement.name }}</li>
@@ -93,11 +93,16 @@
                                             </div>
                                         </div>
                                     {% endif %}
-
-                                    {% if conformiteTraitement and conformiteTraitement.needsAipd and analyseImpact is null %}
-                                        <div>
-                                            <i class="fa fa-exclamation-triangle" aria-label="{{ 'registry.conformite_traitement.list.aipd_to_do'|trans }}" title="{{ 'registry.conformite_traitement.list.aipd_to_do'|trans }}" style="color:#f39c12;"></i>
-                                        </div>
+                                    {% if conformiteTraitement and conformiteTraitement.needsAipd %}
+                                        {% if analyseImpact is null %}
+                                            <div>
+                                                <i class="fa fa-exclamation-triangle" aria-label="{{ 'registry.conformite_traitement.label.tooltip.aipd_to_do'|trans }}" title="{{ 'registry.conformite_traitement.label.tooltip.aipd_to_do'|trans }}" style="color:#dd4b39;"></i>
+                                            </div>
+                                        {% else %}
+                                            <div>
+                                                <i class="fa fa-exclamation-triangle" aria-label="{{ 'registry.conformite_traitement.label.tooltip.aipd_in_progress'|trans }}" title="{{ 'registry.conformite_traitement.label.tooltip.aipd_in_progress'|trans }}" style="color:#f39c12;"></i>
+                                            </div>
+                                        {% endif %}
                                     {% endif %}
                                 </td>
                                 <td>{{ object.name }}</td>
@@ -176,7 +181,7 @@
                                                     {{ 'aipd.analyse_impact.action.edit'|trans }}
                                                 </a>
                                             {% else %}
-                                                {% if not conformiteTraitement.traitement.ExemptAIPD and analyseImpact is null %}
+                                                {% if analyseImpact is null %}
                                                     <a href="{{ path('registry_conformite_traitement_start_aipd', {'id': conformiteTraitement.id}) }}">
                                                         <i aria-hidden="true" class="fa fa-chalkboard-teacher"></i>
                                                         {{ 'aipd.analyse_impact.action.create'|trans }}
