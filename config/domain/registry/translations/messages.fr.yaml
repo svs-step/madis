@@ -431,12 +431,14 @@ registry:
                 conforme: 'Conforme :'
                 minor_conforme: 'Non-conforme mineure :'
                 major_conforme: 'Non-conforme majeure :'
+                mesurements_done: "Actions de protection appliquées :"
+                mesurements_not_planified: "Action de protections non planifiées :"
+                aipd_to_do: Une AIPD doit être réalisée sur ce traitement.
+                aipd_in_progress: L'AIPD doit être terminée sur ce traitement.
         list:
             traitement: Traitement
             date_conformite: Date de l'évaluation
             date_aipd: Date de l'AIPD
-            mesurements_done: "Actions de protection appliquées :"
-            aipd_to_do: Une AIPD doit être réalisée sur ce traitement
         action:
             show_conformite_traitement: Évaluer
             new_submit: Créer l'évaluation du traitement

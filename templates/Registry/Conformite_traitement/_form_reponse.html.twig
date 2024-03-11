@@ -35,7 +35,7 @@
                                     <div class="mesurement-hide">
                                         <i aria-hidden="true" class="primary-i fas fa-exclamation-circle"></i>
                                         <div class="primary">
-                                            <span>Action de protections appliquées : </span>
+                                            <span>{{ 'registry.conformite_traitement.label.tooltip.mesurements_done'|trans }}</span>
                                             <ul>
                                                 {% for mesurement in reponse.vars.value.actionProtectionsPlanifiedNotSeens %}
                                                     <li>{{ mesurement.name }}</li>
@@ -48,7 +48,7 @@
                                     <div class="mesurement-hide">
                                         <i aria-hidden="true" class="warning-i fas fa-exclamation-circle"></i>
                                         <div class="warning">
-                                            <span>Action de protections non planifiées : </span>
+                                            <span>{{ 'registry.conformite_traitement.label.tooltip.mesurements_not_planified'|trans }}</span>
                                             <ul>
                                                 {% for mesurement in actionProtectionsNonPlanifiees %}
                                                     <li>{{ mesurement.name }}</li>
