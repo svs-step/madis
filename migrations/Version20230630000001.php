@@ -24,9 +24,9 @@ final class Version20230630000001 extends AbstractMigration
 
         $this->addSql('UPDATE registry_conformite_organisation_processus SET description = "Définir et communiquer aux personnes concernées la politique générale de protection des données de la structure. Définir, mettre en œuvre et réexaminer la politique de gestion des données (processus, ressources, mesures). S\'assurer que la politique de gestion des données est communiquée, comprise et appliquée au sein de la structure."
             where position = 1');
-        $this->addSql('UPDATE registry_conformite_organisation_processus SET description = "S\'assurer que le personnel à qui ont été affectées les responsabilités définies dans le SMDCP (Système de management de la protection des données), a les compétences nécessaires pour exécuter les tâches requises. S\'assurer que tout le personnel approprié a conscience de la pertinence et de l\'importance de ses activités liées aux traitements des DCP."
+        $this->addSql('UPDATE registry_conformite_organisation_processus SET description = "S\'assurer que le personnel à qui ont été affectées les responsabilités définies dans le système de management de la protection des données, a les compétences nécessaires pour exécuter les tâches requises. S\'assurer que tout le personnel approprié a conscience de la pertinence et de l\'importance de ses activités liées aux traitements des DCP."
             where position = 8');
-        $this->addSql('UPDATE registry_conformite_organisation_processus SET description = "À intervalles réguliers, vérifier que le Système de management de la protection des données est conforme à la politique définie. Apporter la preuve que les traitements effectués par le responsable du traitement et les sous-traitants sont conformes au règlement."
+        $this->addSql('UPDATE registry_conformite_organisation_processus SET description = "À intervalles réguliers, vérifier que le système de management de la protection des données est conforme à la politique définie. Apporter la preuve que les traitements effectués par le responsable du traitement et les sous-traitants sont conformes au règlement."
             where position = 10');
         $this->addSql('UPDATE registry_conformite_organisation_question SET nom = "En relation avec le service sécurité de l\'information de l\'entreprise, mettre en œuvre les mesures de protection sélectionnées afin de répondre aux objectifs de disponibilité, d’intégrité et de confidentialité des données à caractère personnel. Détecter les incidents de sécurité pouvant avoir pour conséquence une violation de données."
             where position = 6');
@@ -117,7 +117,7 @@ final class Version20230630000001 extends AbstractMigration
                         where processus_id = "' . $processus['id'] . '" and position = 3');
                     break;
                 case 12:
-                    // 12. Piloter le SMDCP
+                    // 12. Piloter le système de management de la protection des données
                     $this->addSql('UPDATE registry_conformite_organisation_question SET nom = "S\'il existe déjà une organisation interne basée sur les processus, elle communiquée au DPD pour qu\'il adapte l\'accompagnement. La cartographie des processus de gestion des données détaille les éléments d\'entrées et de sorties et mentionne les objectifs, les rôles et responsabilités, les activités."
                         where processus_id = "' . $processus['id'] . '" and position = 1');
                     $this->addSql('UPDATE registry_conformite_organisation_question SET nom = "L\'ensemble des actions sont consolidées dans un seul et même tableau afin de s\'assurer de leure réalisation."

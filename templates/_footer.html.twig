@@ -1,7 +1,7 @@
 <footer id="main-footer" class="main-footer d-flex flex-wrap justify-content-between" role="contentinfo" tabindex="-1">
     <p class="no-margin">
         <strong><i aria-label="{{ 'global.navigation.copyright'|trans }}" class="fa-regular fa-copyright small"></i> {{ 'now' | date('Y') }} <a href="{{ app_footer_provider_url }}" target="_blank" rel="nofollow noreferrer noopener">{{ app_footer_provider_name }}</a></strong>
-        {% if app.user %}: {{ app.user.collectivity }}{% endif %}
+        {% if app.user %}<span aria-hidden="true" style="padding: 0 5px;">|</span> {{ app.user.collectivity }}{% endif %}
     </p>
 
     {% if app.user %}

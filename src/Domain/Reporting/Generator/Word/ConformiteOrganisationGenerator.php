@@ -131,7 +131,7 @@ class ConformiteOrganisationGenerator extends AbstractGenerator implements Impre
         $section->addListItem('Gérer les violations de DCP', 0, null, $listStyle);
         $section->addListItem('Gérer la protection des DCP', 0, null, $listStyle);
         $section->addListItem('Gérer la documentation et les preuves', 0, null, $listStyle);
-        $section->addListItem('Gérer les opérations du SMDCP', 0, null, $listStyle);
+        $section->addListItem('Gérer les opérations du système de management de la protection des données', 0, null, $listStyle);
 
         $this->average = 0;
         $tableData     = $this->getConformitesTable($conformites);

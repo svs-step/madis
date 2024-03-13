@@ -24,7 +24,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         nom: "Sous-traitants"
         couleur: info #TODO Temp, need more info
         position: 4
-        description: "En tant que responsable du traitement, s'assurer de la conformité  des contrats de sous-traitance
+        description: "En tant que responsable du traitement, s'assurer de la conformité  des contrats de sous-traitance.
                       Si l'entreprise agit en tant que sous-traitant, s'assurer que le responsable du traitement a pris en compte ses obligations."
     processus_5:
         nom: "Protection des données dès la conception"
@@ -51,7 +51,7 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         nom: "Sensibiliser, former et communiquer"
         couleur: info #TODO Temp, need more info
         position: 8
-        description: "S'assurer que le personnel à qui ont été affectées les responsabilités définies dans le SMDCP (Système de management de la protection des données),
+        description: "S'assurer que le personnel à qui ont été affectées les responsabilités définies dans le système de management de la protection des données,
                      a les compétences nécessaires pour exécuter les tâches requises. S'assurer que tout le personnel approprié a conscience de la pertinence et de l'importance
                      de ses activités liées aux traitements des DCP."
 
@@ -60,15 +60,15 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
         couleur: info #TODO Temp, need more info
         position: 9
         description: "Connaître la réglementation applicable et ses évolutions.
-                      Etre en capacité de répondre à des sollicitations ou à des poursuites.
+                      Être en capacité de répondre à des sollicitations ou à des poursuites.
                       Réagir en cas de violations de données."
 
     processus_10:
         nom: "Évaluer et auditer"
         couleur: info #TODO Temp, need more info
         position: 10
-        description: "À intervalles réguliers, vérifier que le Système de management de la protection des données est conforme à la politique définie.
-                      Apporter la preuve que les traitements effectués par le responsable du traitement et les sous-traitants sont conformes au règlement"
+        description: "À intervalles réguliers, vérifier que le système de management de la protection des données est conforme à la politique définie.
+                      Apporter la preuve que les traitements effectués par le responsable du traitement et les sous-traitants sont conformes au règlement."
 
     processus_11:
         nom: "Gestion de la documentation et des preuves"
@@ -78,8 +78,8 @@ App\Domain\Registry\Model\ConformiteOrganisation\Processus:
                       Établir et conserver des enregistrements pour apporter la preuve des mesures techniques et organisationnelles."
 
     processus_12:
-        nom: "Piloter le SMDCP"
+        nom: "Piloter le système de management de la protection des données"
         couleur: info #TODO Temp, need more info
         position: 12
-        description: "Disposer d'indicateurs pour piloter l'efficacité des processus du SMDCP.
+        description: "Disposer d'indicateurs pour piloter l'efficacité des processus du système de management de la protection des données.
                       Produire le bilan (rapport) annuel."
